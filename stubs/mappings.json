@@ -1,0 +1,406 @@
+{"mappings":[{
+  "id" : "75821ec1-cfed-41f0-bdef-cf3524a0ec4a",
+  "name" : "orders_example",
+  "request" : {
+    "url" : "/orders/example",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 404,
+    "body" : "{\"error\":\"not_found\",\"reason\":\"deleted\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "403d112b46",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "75821ec1-cfed-41f0-bdef-cf3524a0ec4a",
+  "persistent" : true,
+  "scenarioName" : "scenario-2-orders-example",
+  "requiredScenarioState" : "scenario-2-orders-example-6",
+  "insertionIndex" : 16
+},{
+  "id" : "9fa984ad-62e6-4e74-a0ee-a531711f5dba",
+  "name" : "orders_example",
+  "request" : {
+    "url" : "/orders/example?rev=4-bf3f53fe029a70e6451e375ccd36599c",
+    "method" : "DELETE"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"ok\":true,\"id\":\"example\",\"rev\":\"5-c746d7e6f5cd15d63968b5aafbfa854a\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "ETag" : "\"5-c746d7e6f5cd15d63968b5aafbfa854a\"",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "1b41b9bfa1",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "9fa984ad-62e6-4e74-a0ee-a531711f5dba",
+  "persistent" : true,
+  "insertionIndex" : 15
+},{
+  "id" : "777d45f4-fdb3-43c4-835f-1fcafcbfd26b",
+  "name" : "orders_example",
+  "request" : {
+    "url" : "/orders/example",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"_id\":\"example\",\"_rev\":\"4-bf3f53fe029a70e6451e375ccd36599c\",\"name\":\"Bob Smith\",\"address\":\"19 Front Street, Darlington, DL5 1TY\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "ETag" : "\"4-bf3f53fe029a70e6451e375ccd36599c\"",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "175d24412f",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "777d45f4-fdb3-43c4-835f-1fcafcbfd26b",
+  "persistent" : true,
+  "scenarioName" : "scenario-2-orders-example",
+  "requiredScenarioState" : "scenario-2-orders-example-5",
+  "newScenarioState" : "scenario-2-orders-example-6",
+  "insertionIndex" : 14
+},{
+  "id" : "9d0f096d-1d43-414f-8831-5e6e6abe7659",
+  "name" : "orders",
+  "request" : {
+    "url" : "/orders",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"_id\":\"example\",\"_rev\":\"3-4f1787d7a0520f825bd36822d7be627a\",\"name\":\"Bob Smith\",\"address\":\"19 Front Street, Darlington, DL5 1TY\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"ok\":true,\"id\":\"example\",\"rev\":\"4-bf3f53fe029a70e6451e375ccd36599c\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "Location" : "http://localhost:5984/orders/example",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "32c3176598",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "9d0f096d-1d43-414f-8831-5e6e6abe7659",
+  "persistent" : true,
+  "insertionIndex" : 13
+},{
+  "id" : "232b9d9d-1506-44a9-a11a-66639eb9250e",
+  "name" : "orders_example",
+  "request" : {
+    "url" : "/orders/example",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"_id\":\"example\",\"_rev\":\"3-4f1787d7a0520f825bd36822d7be627a\",\"name\":\"Bob Smith\",\"address\":\"19 Front Street, Darlington, DL5 1TY\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "ETag" : "\"3-4f1787d7a0520f825bd36822d7be627a\"",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "4b23a37b39",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "232b9d9d-1506-44a9-a11a-66639eb9250e",
+  "persistent" : true,
+  "scenarioName" : "scenario-2-orders-example",
+  "requiredScenarioState" : "scenario-2-orders-example-4",
+  "newScenarioState" : "scenario-2-orders-example-5",
+  "insertionIndex" : 12
+},{
+  "id" : "d2d672a9-90d5-4959-b7c6-cef7538fd233",
+  "name" : "orders",
+  "request" : {
+    "url" : "/orders",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"_id\":\"example\",\"_rev\":\"2-4e2178e85cffb32d38ba4e451f6ca376\",\"name\":\"Bob Smith\",\"address\":\"19 Front Street, Darlington, DL5 1TY\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"ok\":true,\"id\":\"example\",\"rev\":\"3-4f1787d7a0520f825bd36822d7be627a\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "Location" : "http://localhost:5984/orders/example",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "260d229417",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "d2d672a9-90d5-4959-b7c6-cef7538fd233",
+  "persistent" : true,
+  "insertionIndex" : 11
+},{
+  "id" : "b19304eb-3f50-4af2-b692-23847652a661",
+  "name" : "orders_example",
+  "request" : {
+    "url" : "/orders/example",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"_id\":\"example\",\"_rev\":\"2-4e2178e85cffb32d38ba4e451f6ca376\",\"name\":\"Bob Smith\",\"joined\":\"2019-01-24T10:42:99.000Z\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "ETag" : "\"2-4e2178e85cffb32d38ba4e451f6ca376\"",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "fd177b95bf",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "b19304eb-3f50-4af2-b692-23847652a661",
+  "persistent" : true,
+  "scenarioName" : "scenario-2-orders-example",
+  "requiredScenarioState" : "scenario-2-orders-example-3",
+  "newScenarioState" : "scenario-2-orders-example-4",
+  "insertionIndex" : 10
+},{
+  "id" : "61d277cc-c7e5-4390-8845-4276000c224e",
+  "name" : "orders",
+  "request" : {
+    "url" : "/orders",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"_id\":\"example\",\"name\":\"Bob Smith\",\"joined\":\"2019-01-24T10:42:99.000Z\",\"_rev\":\"1-1b403633540686aa32d013fda9041a5d\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"ok\":true,\"id\":\"example\",\"rev\":\"2-4e2178e85cffb32d38ba4e451f6ca376\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "Location" : "http://localhost:5984/orders/example",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "ef31b7a04b",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "61d277cc-c7e5-4390-8845-4276000c224e",
+  "persistent" : true,
+  "insertionIndex" : 9
+},{
+  "id" : "c8ad5e93-3d1c-4fd4-a6ed-92f28a683a23",
+  "name" : "orders_example",
+  "request" : {
+    "url" : "/orders/example",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"_id\":\"example\",\"_rev\":\"1-1b403633540686aa32d013fda9041a5d\",\"name\":\"Bob Smith\",\"joined\":\"2019-01-24T10:42:99.000Z\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "ETag" : "\"1-1b403633540686aa32d013fda9041a5d\"",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "f9bef554c3",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "c8ad5e93-3d1c-4fd4-a6ed-92f28a683a23",
+  "persistent" : true,
+  "scenarioName" : "scenario-2-orders-example",
+  "requiredScenarioState" : "scenario-2-orders-example-2",
+  "newScenarioState" : "scenario-2-orders-example-3",
+  "insertionIndex" : 8
+},{
+  "id" : "b6d3f5e3-8689-4740-8a5a-273c9ed9f5a7",
+  "name" : "orders",
+  "request" : {
+    "url" : "/orders",
+    "method" : "PUT"
+  },
+  "response" : {
+    "status" : 412,
+    "body" : "{\"error\":\"file_exists\",\"reason\":\"The database could not be created, the file already exists.\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "474375177b",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "b6d3f5e3-8689-4740-8a5a-273c9ed9f5a7",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-orders",
+  "requiredScenarioState" : "scenario-1-orders-2",
+  "insertionIndex" : 7
+},{
+  "id" : "666242fb-0be6-4e5d-8e68-fbfa863f3f3a",
+  "name" : "orders",
+  "request" : {
+    "url" : "/orders",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"_id\":\"example\",\"name\":\"Bob Smith\",\"joined\":\"2019-01-24T10:42:99.000Z\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"ok\":true,\"id\":\"example\",\"rev\":\"1-1b403633540686aa32d013fda9041a5d\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "Location" : "http://localhost:5984/orders/example",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "1528aeb812",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "666242fb-0be6-4e5d-8e68-fbfa863f3f3a",
+  "persistent" : true,
+  "insertionIndex" : 6
+},{
+  "id" : "cd8ee6e5-232a-4ee7-8053-a39d79bd307a",
+  "name" : "orders_example",
+  "request" : {
+    "url" : "/orders/example",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 404,
+    "body" : "{\"error\":\"not_found\",\"reason\":\"missing\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "9aeec03544",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "cd8ee6e5-232a-4ee7-8053-a39d79bd307a",
+  "persistent" : true,
+  "scenarioName" : "scenario-2-orders-example",
+  "requiredScenarioState" : "Started",
+  "newScenarioState" : "scenario-2-orders-example-2",
+  "insertionIndex" : 5
+},{
+  "id" : "05def288-5864-48e7-87ff-f7552a9dd1c2",
+  "name" : "orders",
+  "request" : {
+    "url" : "/orders",
+    "method" : "PUT"
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"ok\":true}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "Location" : "http://localhost:5984/orders",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "141b3ba868",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "05def288-5864-48e7-87ff-f7552a9dd1c2",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-orders",
+  "requiredScenarioState" : "Started",
+  "newScenarioState" : "scenario-1-orders-2",
+  "insertionIndex" : 4
+},{
+  "id" : "af927fc5-341a-4f9d-9c48-83a57aa7b505",
+  "name" : "animaldb_zebra",
+  "request" : {
+    "url" : "/animaldb/zebra",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"_id\":\"zebra\",\"_rev\":\"3-750dac460a6cc41e6999f8943b8e603e\",\"wiki_page\":\"http://en.wikipedia.org/wiki/Plains_zebra\",\"min_length\":2,\"max_length\":2.5,\"min_weight\":175,\"max_weight\":387,\"class\":\"mammal\",\"diet\":\"herbivore\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "ETag" : "\"3-750dac460a6cc41e6999f8943b8e603e\"",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "59a32f4530",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "af927fc5-341a-4f9d-9c48-83a57aa7b505",
+  "persistent" : true,
+  "insertionIndex" : 3
+},{
+  "id" : "e8a4edcf-8d9d-431b-8a99-76f5d9ad8a7b",
+  "name" : "animaldb",
+  "request" : {
+    "url" : "/animaldb",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"db_name\":\"animaldb\",\"purge_seq\":\"0-g1AAAABPeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCeexAEmGBiD1HwiyEhlwqEtkSKqHKMgCAIT2GV4\",\"update_seq\":\"15-g1AAAABPeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCeexAEmGBiD1HwiyEjlxqEtkSKoHK2DLAgCGPRlt\",\"sizes\":{\"file\":57751,\"external\":3450,\"active\":7355},\"props\":{},\"doc_del_count\":3,\"doc_count\":11,\"disk_format_version\":8,\"compact_running\":false,\"cluster\":{\"q\":2,\"n\":1,\"w\":1,\"r\":1},\"instance_start_time\":\"0\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "832fcf2ea2",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "e8a4edcf-8d9d-431b-8a99-76f5d9ad8a7b",
+  "persistent" : true,
+  "insertionIndex" : 2
+},{
+  "id" : "50eb71a6-e709-4d04-aba8-861a4135cdb8",
+  "name" : "",
+  "request" : {
+    "url" : "/",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"couchdb\":\"Welcome\",\"version\":\"2.1.1\",\"git_sha\":\"03a77db6c\",\"uuid\":\"cffa3c2cc703d6caed7ec9a9f6d110e9\",\"features\":[\"access-ready\",\"partitioned\",\"pluggable-storage-engines\",\"reshard\",\"scheduler\"],\"vendor\":{\"name\":\"The Apache Software Foundation\"}}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "b6cf47349d",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "50eb71a6-e709-4d04-aba8-861a4135cdb8",
+  "persistent" : true,
+  "insertionIndex" : 1
+}]}
