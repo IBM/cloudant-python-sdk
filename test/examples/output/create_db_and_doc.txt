@@ -1,0 +1,8 @@
+"orders" database created.
+You have created the document:
+{
+  "_id": "example",
+  "_rev": "1-1b403633540686aa32d013fda9041a5d",
+  "name": "Bob Smith",
+  "joined": "2019-01-24T10:42:99.000Z"
+}
