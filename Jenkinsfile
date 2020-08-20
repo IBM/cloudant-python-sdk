@@ -8,7 +8,7 @@ pipeline {
     skipDefaultCheckout()
   }
   environment {
-    GH_CREDS = credentials('ibm-ghe')
+    GH_CREDS = credentials('github-token')
   }
   stages {
     stage('Checkout') {
@@ -19,7 +19,7 @@ pipeline {
           checkoutResult = checkout scm
           commitHash = "${checkoutResult.GIT_COMMIT[0..6]}"
           sh """
-            git config user.email 'nomail@hursley.ibm.com'
+            git config user.email 'ricellis@users.noreply.github.com'
             git config user.name 'cloudant-sdks-automation'
             git config credential.username '${env.GH_CREDS_USR}'
             git config credential.helper '!f() { echo password=\$GH_CREDS_PSW; echo; }; f'
@@ -83,12 +83,19 @@ def customizeVersion
 void defaultInit() {
   // Default to using bump2version
   bumpVersion = { isDevRelease ->
+    newVersion = getNextVersion(isDevRelease)
+    doVersionBump(isDevRelease, newVersion)
+  }
+
+  doVersionBump = { isDevRelease, newVersion, allowDirty ->
+    sh "bump2version --new-version ${newVersion} ${allowDirty ? '--allow-dirty': ''} ${isDevRelease ? '--no-commit' : '--tag --tag-message "Release {new_version}"'} patch"
+  }
+
+  getNextVersion = { isDevRelease ->
     // Identify what the next patch version is
     patchBumpedVersion = sh returnStdout: true, script: 'bump2version --list --dry-run patch | grep new_version=.* | cut -f2 -d='
-    // Now bump to the new version
-    newVersion = getNewVersion(isDevRelease, patchBumpedVersion)
-    sh "bump2version --new-version ${newVersion} ${isDevRelease ? '--no-commit' : '--tag --tag-message "Release {new_version}"'} patch"
-    return newVersion
+    // Now the customized new version
+    return getNewVersion(isDevRelease, patchBumpedVersion)
   }
 
   // Default no-op implementation to use semverFormatVersion
