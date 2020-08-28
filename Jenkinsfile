@@ -42,6 +42,15 @@ pipeline {
           runTests()
         }
       }
+
+      post {
+        always {
+          junit (
+            allowEmptyResults: true,
+            testResults: '**/junitreports/*.xml'
+          )
+        }
+      }
     }
     stage('Publish[staging]') {
       environment {
