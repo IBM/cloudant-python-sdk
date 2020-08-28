@@ -13,6 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+Unit Tests for CloudantV1
+"""
+
 from datetime import datetime, timezone
 from ibm_cloud_sdk_core.authenticators.no_auth_authenticator import NoAuthAuthenticator
 import base64
@@ -41,24 +45,26 @@ service.set_service_url(base_url)
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for get_server_information
-#-----------------------------------------------------------------------------
 class TestGetServerInformation():
+    """
+    Test Class for get_server_information
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_server_information()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_server_information_all_params(self):
+        """
+        get_server_information()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/')
         mock_response = '{"couchdb": "couchdb", "features": ["features"], "vendor": {"name": "name", "variant": "variant", "version": "version"}, "version": "version"}'
@@ -77,24 +83,26 @@ class TestGetServerInformation():
         assert response.status_code == 200
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_membership_information
-#-----------------------------------------------------------------------------
 class TestGetMembershipInformation():
+    """
+    Test Class for get_membership_information
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_membership_information()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_membership_information_all_params(self):
+        """
+        get_membership_information()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_membership')
         mock_response = '{"all_nodes": ["all_nodes"], "cluster_nodes": ["cluster_nodes"]}'
@@ -113,24 +121,26 @@ class TestGetMembershipInformation():
         assert response.status_code == 200
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_uuids
-#-----------------------------------------------------------------------------
 class TestGetUuids():
+    """
+    Test Class for get_uuids
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_uuids()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_uuids_all_params(self):
+        """
+        get_uuids()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_uuids')
         mock_response = '{"uuids": ["uuids"]}'
@@ -154,15 +164,15 @@ class TestGetUuids():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'count={}'.format(count) in query_string
 
 
-    #--------------------------------------------------------
-    # test_get_uuids_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_uuids_required_params(self):
+        """
+        test_get_uuids_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_uuids')
         mock_response = '{"uuids": ["uuids"]}'
@@ -191,24 +201,26 @@ class TestGetUuids():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for head_database
-#-----------------------------------------------------------------------------
 class TestHeadDatabase():
+    """
+    Test Class for head_database
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # head_database()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_database_all_params(self):
+        """
+        head_database()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString')
         responses.add(responses.HEAD,
@@ -229,11 +241,11 @@ class TestHeadDatabase():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_head_database_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_database_value_error(self):
+        """
+        test_head_database_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString')
         responses.add(responses.HEAD,
@@ -254,24 +266,26 @@ class TestHeadDatabase():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_all_dbs
-#-----------------------------------------------------------------------------
 class TestGetAllDbs():
+    """
+    Test Class for get_all_dbs
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_all_dbs()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_all_dbs_all_params(self):
+        """
+        get_all_dbs()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_all_dbs')
         mock_response = '["operation_response"]'
@@ -303,7 +317,7 @@ class TestGetAllDbs():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'descending={}'.format('true' if descending else 'false') in query_string
         assert 'endkey={}'.format(endkey) in query_string
         assert 'limit={}'.format(limit) in query_string
@@ -311,11 +325,11 @@ class TestGetAllDbs():
         assert 'startkey={}'.format(startkey) in query_string
 
 
-    #--------------------------------------------------------
-    # test_get_all_dbs_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_all_dbs_required_params(self):
+        """
+        test_get_all_dbs_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_all_dbs')
         mock_response = '["operation_response"]'
@@ -334,24 +348,26 @@ class TestGetAllDbs():
         assert response.status_code == 200
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_dbs_info
-#-----------------------------------------------------------------------------
 class TestPostDbsInfo():
+    """
+    Test Class for post_dbs_info
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_dbs_info()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_dbs_info_all_params(self):
+        """
+        post_dbs_info()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_dbs_info')
         mock_response = '[{"info": {"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
@@ -378,11 +394,11 @@ class TestPostDbsInfo():
         assert req_body['keys'] == ['testString']
 
 
-    #--------------------------------------------------------
-    # test_post_dbs_info_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_dbs_info_required_params(self):
+        """
+        test_post_dbs_info_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_dbs_info')
         mock_response = '[{"info": {"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
@@ -401,24 +417,26 @@ class TestPostDbsInfo():
         assert response.status_code == 200
 
 
-#-----------------------------------------------------------------------------
-# Test Class for delete_database
-#-----------------------------------------------------------------------------
 class TestDeleteDatabase():
+    """
+    Test Class for delete_database
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # delete_database()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_database_all_params(self):
+        """
+        delete_database()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString')
         mock_response = '{"ok": true}'
@@ -442,11 +460,11 @@ class TestDeleteDatabase():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_delete_database_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_database_value_error(self):
+        """
+        test_delete_database_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString')
         mock_response = '{"ok": true}'
@@ -470,24 +488,26 @@ class TestDeleteDatabase():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_database_information
-#-----------------------------------------------------------------------------
 class TestGetDatabaseInformation():
+    """
+    Test Class for get_database_information
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_database_information()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_database_information_all_params(self):
+        """
+        get_database_information()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString')
         mock_response = '{"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}'
@@ -511,11 +531,11 @@ class TestGetDatabaseInformation():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_database_information_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_database_information_value_error(self):
+        """
+        test_get_database_information_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString')
         mock_response = '{"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}'
@@ -539,24 +559,26 @@ class TestGetDatabaseInformation():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for put_database
-#-----------------------------------------------------------------------------
 class TestPutDatabase():
+    """
+    Test Class for put_database
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # put_database()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_database_all_params(self):
+        """
+        put_database()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString')
         mock_response = '{"ok": true}'
@@ -584,16 +606,16 @@ class TestPutDatabase():
         assert response.status_code == 201
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'partitioned={}'.format('true' if partitioned else 'false') in query_string
         assert 'q={}'.format(q) in query_string
 
 
-    #--------------------------------------------------------
-    # test_put_database_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_database_required_params(self):
+        """
+        test_put_database_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString')
         mock_response = '{"ok": true}'
@@ -617,11 +639,11 @@ class TestPutDatabase():
         assert response.status_code == 201
 
 
-    #--------------------------------------------------------
-    # test_put_database_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_database_value_error(self):
+        """
+        test_put_database_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString')
         mock_response = '{"ok": true}'
@@ -645,24 +667,26 @@ class TestPutDatabase():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_changes
-#-----------------------------------------------------------------------------
 class TestPostChanges():
+    """
+    Test Class for post_changes
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_changes()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_changes_all_params(self):
+        """
+        post_changes()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_changes')
         mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "id": "id", "seq": "seq"}]}'
@@ -675,6 +699,7 @@ class TestPostChanges():
         # Set up parameter values
         db = 'testString'
         doc_ids = ['testString']
+        fields = ['testString']
         selector = {}
         last_event_id = 'testString'
         att_encoding_info = True
@@ -696,6 +721,7 @@ class TestPostChanges():
         response = service.post_changes(
             db,
             doc_ids=doc_ids,
+            fields=fields,
             selector=selector,
             last_event_id=last_event_id,
             att_encoding_info=att_encoding_info,
@@ -720,7 +746,7 @@ class TestPostChanges():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'conflicts={}'.format('true' if conflicts else 'false') in query_string
@@ -738,14 +764,15 @@ class TestPostChanges():
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['doc_ids'] == ['testString']
+        assert req_body['fields'] == ['testString']
         assert req_body['selector'] == {}
 
 
-    #--------------------------------------------------------
-    # test_post_changes_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_changes_required_params(self):
+        """
+        test_post_changes_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_changes')
         mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "id": "id", "seq": "seq"}]}'
@@ -769,11 +796,11 @@ class TestPostChanges():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_changes_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_changes_value_error(self):
+        """
+        test_post_changes_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_changes')
         mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "id": "id", "seq": "seq"}]}'
@@ -797,24 +824,26 @@ class TestPostChanges():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_changes_as_stream
-#-----------------------------------------------------------------------------
 class TestPostChangesAsStream():
+    """
+    Test Class for post_changes_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_changes_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_changes_as_stream_all_params(self):
+        """
+        post_changes_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_changes')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -827,6 +856,7 @@ class TestPostChangesAsStream():
         # Set up parameter values
         db = 'testString'
         doc_ids = ['testString']
+        fields = ['testString']
         selector = {}
         last_event_id = 'testString'
         att_encoding_info = True
@@ -848,6 +878,7 @@ class TestPostChangesAsStream():
         response = service.post_changes_as_stream(
             db,
             doc_ids=doc_ids,
+            fields=fields,
             selector=selector,
             last_event_id=last_event_id,
             att_encoding_info=att_encoding_info,
@@ -872,7 +903,7 @@ class TestPostChangesAsStream():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'conflicts={}'.format('true' if conflicts else 'false') in query_string
@@ -890,6 +921,7 @@ class TestPostChangesAsStream():
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['doc_ids'] == ['testString']
+        assert req_body['fields'] == ['testString']
         assert req_body['selector'] == {}
 
         # Verify streamed JSON response
@@ -899,11 +931,11 @@ class TestPostChangesAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_changes_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_changes_as_stream_required_params(self):
+        """
+        test_post_changes_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_changes')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -933,11 +965,11 @@ class TestPostChangesAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_changes_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_changes_as_stream_value_error(self):
+        """
+        test_post_changes_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_changes')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -971,24 +1003,26 @@ class TestPostChangesAsStream():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for head_document
-#-----------------------------------------------------------------------------
 class TestHeadDocument():
+    """
+    Test Class for head_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # head_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_document_all_params(self):
+        """
+        head_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         responses.add(responses.HEAD,
@@ -1017,16 +1051,16 @@ class TestHeadDocument():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'latest={}'.format('true' if latest else 'false') in query_string
         assert 'rev={}'.format(rev) in query_string
 
 
-    #--------------------------------------------------------
-    # test_head_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_document_required_params(self):
+        """
+        test_head_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         responses.add(responses.HEAD,
@@ -1049,11 +1083,11 @@ class TestHeadDocument():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_head_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_document_value_error(self):
+        """
+        test_head_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         responses.add(responses.HEAD,
@@ -1076,24 +1110,26 @@ class TestHeadDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_document
-#-----------------------------------------------------------------------------
 class TestPostDocument():
+    """
+    Test Class for post_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_document_all_params(self):
+        """
+        post_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -1115,15 +1151,15 @@ class TestPostDocument():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        # Construct a dict representation of a DocumentRevisionStatus model
-        document_revision_status_model = {}
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         # Construct a dict representation of a Revisions model
         revisions_model = {}
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         # Construct a dict representation of a Document model
         document_model = {}
@@ -1158,16 +1194,16 @@ class TestPostDocument():
         assert response.status_code == 201
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'batch={}'.format(batch) in query_string
         # Validate body params
 
 
-    #--------------------------------------------------------
-    # test_post_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_document_required_params(self):
+        """
+        test_post_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -1191,11 +1227,11 @@ class TestPostDocument():
         assert response.status_code == 201
 
 
-    #--------------------------------------------------------
-    # test_post_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_document_value_error(self):
+        """
+        test_post_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -1219,24 +1255,26 @@ class TestPostDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_all_docs
-#-----------------------------------------------------------------------------
 class TestPostAllDocs():
+    """
+    Test Class for post_all_docs
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_all_docs()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_all_docs_all_params(self):
+        """
+        post_all_docs()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
@@ -1301,11 +1339,11 @@ class TestPostAllDocs():
         assert req_body['startkey'] == 'testString'
 
 
-    #--------------------------------------------------------
-    # test_post_all_docs_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_all_docs_required_params(self):
+        """
+        test_post_all_docs_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
@@ -1329,11 +1367,11 @@ class TestPostAllDocs():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_all_docs_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_all_docs_value_error(self):
+        """
+        test_post_all_docs_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
@@ -1357,24 +1395,26 @@ class TestPostAllDocs():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_all_docs_as_stream
-#-----------------------------------------------------------------------------
 class TestPostAllDocsAsStream():
+    """
+    Test Class for post_all_docs_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_all_docs_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_all_docs_as_stream_all_params(self):
+        """
+        post_all_docs_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -1445,11 +1485,11 @@ class TestPostAllDocsAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_all_docs_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_all_docs_as_stream_required_params(self):
+        """
+        test_post_all_docs_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -1479,11 +1519,11 @@ class TestPostAllDocsAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_all_docs_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_all_docs_as_stream_value_error(self):
+        """
+        test_post_all_docs_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -1507,24 +1547,26 @@ class TestPostAllDocsAsStream():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_all_docs_queries
-#-----------------------------------------------------------------------------
 class TestPostAllDocsQueries():
+    """
+    Test Class for post_all_docs_queries
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_all_docs_queries()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_all_docs_queries_all_params(self):
+        """
+        post_all_docs_queries()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_all_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
@@ -1532,7 +1574,7 @@ class TestPostAllDocsQueries():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {}
@@ -1563,17 +1605,17 @@ class TestPostAllDocsQueries():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['queries'] == [all_docs_query_model]
 
 
-    #--------------------------------------------------------
-    # test_post_all_docs_queries_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_all_docs_queries_required_params(self):
+        """
+        test_post_all_docs_queries_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_all_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
@@ -1581,7 +1623,7 @@ class TestPostAllDocsQueries():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -1594,14 +1636,14 @@ class TestPostAllDocsQueries():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_all_docs_queries_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_all_docs_queries_value_error(self):
+        """
+        test_post_all_docs_queries_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_all_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
@@ -1609,7 +1651,7 @@ class TestPostAllDocsQueries():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -1625,24 +1667,26 @@ class TestPostAllDocsQueries():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_all_docs_queries_as_stream
-#-----------------------------------------------------------------------------
 class TestPostAllDocsQueriesAsStream():
+    """
+    Test Class for post_all_docs_queries_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_all_docs_queries_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_all_docs_queries_as_stream_all_params(self):
+        """
+        post_all_docs_queries_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_all_docs/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -1650,7 +1694,7 @@ class TestPostAllDocsQueriesAsStream():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {}
@@ -1681,7 +1725,7 @@ class TestPostAllDocsQueriesAsStream():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['queries'] == [all_docs_query_model]
@@ -1693,11 +1737,11 @@ class TestPostAllDocsQueriesAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_all_docs_queries_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_all_docs_queries_as_stream_required_params(self):
+        """
+        test_post_all_docs_queries_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_all_docs/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -1705,7 +1749,7 @@ class TestPostAllDocsQueriesAsStream():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -1718,7 +1762,7 @@ class TestPostAllDocsQueriesAsStream():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -1727,11 +1771,11 @@ class TestPostAllDocsQueriesAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_all_docs_queries_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_all_docs_queries_as_stream_value_error(self):
+        """
+        test_post_all_docs_queries_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_all_docs/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -1739,7 +1783,7 @@ class TestPostAllDocsQueriesAsStream():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -1755,24 +1799,26 @@ class TestPostAllDocsQueriesAsStream():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_bulk_docs
-#-----------------------------------------------------------------------------
 class TestPostBulkDocs():
+    """
+    Test Class for post_bulk_docs
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_bulk_docs()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_docs_all_params(self):
+        """
+        post_bulk_docs()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_docs')
         mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}]'
@@ -1794,15 +1840,15 @@ class TestPostBulkDocs():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        # Construct a dict representation of a DocumentRevisionStatus model
-        document_revision_status_model = {}
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         # Construct a dict representation of a Revisions model
         revisions_model = {}
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         # Construct a dict representation of a Document model
         document_model = {}
@@ -1841,11 +1887,11 @@ class TestPostBulkDocs():
         assert req_body == bulk_docs
 
 
-    #--------------------------------------------------------
-    # test_post_bulk_docs_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_docs_required_params(self):
+        """
+        test_post_bulk_docs_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_docs')
         mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}]'
@@ -1869,11 +1915,11 @@ class TestPostBulkDocs():
         assert response.status_code == 201
 
 
-    #--------------------------------------------------------
-    # test_post_bulk_docs_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_docs_value_error(self):
+        """
+        test_post_bulk_docs_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_docs')
         mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}]'
@@ -1897,24 +1943,26 @@ class TestPostBulkDocs():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_bulk_get
-#-----------------------------------------------------------------------------
 class TestPostBulkGet():
+    """
+    Test Class for post_bulk_get
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_bulk_get()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_get_all_params(self):
+        """
+        post_bulk_get()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_get')
         mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
@@ -1955,7 +2003,7 @@ class TestPostBulkGet():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
@@ -1965,11 +2013,11 @@ class TestPostBulkGet():
         assert req_body['docs'] == [bulk_get_query_document_model]
 
 
-    #--------------------------------------------------------
-    # test_post_bulk_get_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_get_required_params(self):
+        """
+        test_post_bulk_get_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_get')
         mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
@@ -1993,11 +2041,11 @@ class TestPostBulkGet():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_bulk_get_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_get_value_error(self):
+        """
+        test_post_bulk_get_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_get')
         mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
@@ -2021,24 +2069,26 @@ class TestPostBulkGet():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_bulk_get_as_mixed
-#-----------------------------------------------------------------------------
 class TestPostBulkGetAsMixed():
+    """
+    Test Class for post_bulk_get_as_mixed
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_bulk_get_as_mixed()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_get_as_mixed_all_params(self):
+        """
+        post_bulk_get_as_mixed()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
@@ -2079,7 +2129,7 @@ class TestPostBulkGetAsMixed():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
@@ -2089,11 +2139,11 @@ class TestPostBulkGetAsMixed():
         assert req_body['docs'] == [bulk_get_query_document_model]
 
 
-    #--------------------------------------------------------
-    # test_post_bulk_get_as_mixed_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_get_as_mixed_required_params(self):
+        """
+        test_post_bulk_get_as_mixed_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
@@ -2117,11 +2167,11 @@ class TestPostBulkGetAsMixed():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_bulk_get_as_mixed_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_get_as_mixed_value_error(self):
+        """
+        test_post_bulk_get_as_mixed_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
@@ -2145,24 +2195,26 @@ class TestPostBulkGetAsMixed():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_bulk_get_as_related
-#-----------------------------------------------------------------------------
 class TestPostBulkGetAsRelated():
+    """
+    Test Class for post_bulk_get_as_related
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_bulk_get_as_related()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_get_as_related_all_params(self):
+        """
+        post_bulk_get_as_related()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
@@ -2203,7 +2255,7 @@ class TestPostBulkGetAsRelated():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
@@ -2213,11 +2265,11 @@ class TestPostBulkGetAsRelated():
         assert req_body['docs'] == [bulk_get_query_document_model]
 
 
-    #--------------------------------------------------------
-    # test_post_bulk_get_as_related_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_get_as_related_required_params(self):
+        """
+        test_post_bulk_get_as_related_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
@@ -2241,11 +2293,11 @@ class TestPostBulkGetAsRelated():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_bulk_get_as_related_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_get_as_related_value_error(self):
+        """
+        test_post_bulk_get_as_related_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
@@ -2269,24 +2321,26 @@ class TestPostBulkGetAsRelated():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_bulk_get_as_stream
-#-----------------------------------------------------------------------------
 class TestPostBulkGetAsStream():
+    """
+    Test Class for post_bulk_get_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_bulk_get_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_get_as_stream_all_params(self):
+        """
+        post_bulk_get_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_get')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -2327,7 +2381,7 @@ class TestPostBulkGetAsStream():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
@@ -2343,11 +2397,11 @@ class TestPostBulkGetAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_bulk_get_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_get_as_stream_required_params(self):
+        """
+        test_post_bulk_get_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_get')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -2377,11 +2431,11 @@ class TestPostBulkGetAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_bulk_get_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_bulk_get_as_stream_value_error(self):
+        """
+        test_post_bulk_get_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_bulk_get')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -2405,24 +2459,26 @@ class TestPostBulkGetAsStream():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for delete_document
-#-----------------------------------------------------------------------------
 class TestDeleteDocument():
+    """
+    Test Class for delete_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # delete_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_document_all_params(self):
+        """
+        delete_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -2430,7 +2486,7 @@ class TestDeleteDocument():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -2451,19 +2507,19 @@ class TestDeleteDocument():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'batch={}'.format(batch) in query_string
         assert 'rev={}'.format(rev) in query_string
 
 
-    #--------------------------------------------------------
-    # test_delete_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_document_required_params(self):
+        """
+        test_delete_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -2471,7 +2527,7 @@ class TestDeleteDocument():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -2486,14 +2542,14 @@ class TestDeleteDocument():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_delete_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_document_value_error(self):
+        """
+        test_delete_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -2501,7 +2557,7 @@ class TestDeleteDocument():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -2519,24 +2575,26 @@ class TestDeleteDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_document
-#-----------------------------------------------------------------------------
 class TestGetDocument():
+    """
+    Test Class for get_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_all_params(self):
+        """
+        get_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
@@ -2588,7 +2646,7 @@ class TestGetDocument():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'atts_since={}'.format(','.join(atts_since)) in query_string
@@ -2603,11 +2661,11 @@ class TestGetDocument():
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
 
 
-    #--------------------------------------------------------
-    # test_get_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_required_params(self):
+        """
+        test_get_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
@@ -2633,11 +2691,11 @@ class TestGetDocument():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_value_error(self):
+        """
+        test_get_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
@@ -2663,24 +2721,26 @@ class TestGetDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_document_as_mixed
-#-----------------------------------------------------------------------------
 class TestGetDocumentAsMixed():
+    """
+    Test Class for get_document_as_mixed
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_document_as_mixed()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_as_mixed_all_params(self):
+        """
+        get_document_as_mixed()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = 'This is a mock binary response.'
@@ -2732,7 +2792,7 @@ class TestGetDocumentAsMixed():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'atts_since={}'.format(','.join(atts_since)) in query_string
@@ -2747,11 +2807,11 @@ class TestGetDocumentAsMixed():
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
 
 
-    #--------------------------------------------------------
-    # test_get_document_as_mixed_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_as_mixed_required_params(self):
+        """
+        test_get_document_as_mixed_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = 'This is a mock binary response.'
@@ -2777,11 +2837,11 @@ class TestGetDocumentAsMixed():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_document_as_mixed_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_as_mixed_value_error(self):
+        """
+        test_get_document_as_mixed_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = 'This is a mock binary response.'
@@ -2807,24 +2867,26 @@ class TestGetDocumentAsMixed():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_document_as_related
-#-----------------------------------------------------------------------------
 class TestGetDocumentAsRelated():
+    """
+    Test Class for get_document_as_related
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_document_as_related()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_as_related_all_params(self):
+        """
+        get_document_as_related()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = 'This is a mock binary response.'
@@ -2876,7 +2938,7 @@ class TestGetDocumentAsRelated():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'atts_since={}'.format(','.join(atts_since)) in query_string
@@ -2891,11 +2953,11 @@ class TestGetDocumentAsRelated():
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
 
 
-    #--------------------------------------------------------
-    # test_get_document_as_related_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_as_related_required_params(self):
+        """
+        test_get_document_as_related_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = 'This is a mock binary response.'
@@ -2921,11 +2983,11 @@ class TestGetDocumentAsRelated():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_document_as_related_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_as_related_value_error(self):
+        """
+        test_get_document_as_related_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = 'This is a mock binary response.'
@@ -2951,24 +3013,26 @@ class TestGetDocumentAsRelated():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_document_as_stream
-#-----------------------------------------------------------------------------
 class TestGetDocumentAsStream():
+    """
+    Test Class for get_document_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_document_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_as_stream_all_params(self):
+        """
+        get_document_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -3020,7 +3084,7 @@ class TestGetDocumentAsStream():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'atts_since={}'.format(','.join(atts_since)) in query_string
@@ -3041,11 +3105,11 @@ class TestGetDocumentAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_get_document_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_as_stream_required_params(self):
+        """
+        test_get_document_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -3077,11 +3141,11 @@ class TestGetDocumentAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_get_document_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_as_stream_value_error(self):
+        """
+        test_get_document_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -3107,24 +3171,26 @@ class TestGetDocumentAsStream():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for put_document
-#-----------------------------------------------------------------------------
 class TestPutDocument():
+    """
+    Test Class for put_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # put_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_document_all_params(self):
+        """
+        put_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -3146,15 +3212,15 @@ class TestPutDocument():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        # Construct a dict representation of a DocumentRevisionStatus model
-        document_revision_status_model = {}
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         # Construct a dict representation of a Revisions model
         revisions_model = {}
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         # Construct a dict representation of a Document model
         document_model = {}
@@ -3197,18 +3263,18 @@ class TestPutDocument():
         assert response.status_code == 201
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'batch={}'.format(batch) in query_string
         assert 'new_edits={}'.format('true' if new_edits else 'false') in query_string
         assert 'rev={}'.format(rev) in query_string
         # Validate body params
 
 
-    #--------------------------------------------------------
-    # test_put_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_document_required_params(self):
+        """
+        test_put_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -3234,11 +3300,11 @@ class TestPutDocument():
         assert response.status_code == 201
 
 
-    #--------------------------------------------------------
-    # test_put_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_document_value_error(self):
+        """
+        test_put_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -3274,24 +3340,26 @@ class TestPutDocument():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for head_design_document
-#-----------------------------------------------------------------------------
 class TestHeadDesignDocument():
+    """
+    Test Class for head_design_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # head_design_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_design_document_all_params(self):
+        """
+        head_design_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
         responses.add(responses.HEAD,
@@ -3316,11 +3384,11 @@ class TestHeadDesignDocument():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_head_design_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_design_document_required_params(self):
+        """
+        test_head_design_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
         responses.add(responses.HEAD,
@@ -3343,11 +3411,11 @@ class TestHeadDesignDocument():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_head_design_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_design_document_value_error(self):
+        """
+        test_head_design_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
         responses.add(responses.HEAD,
@@ -3370,24 +3438,26 @@ class TestHeadDesignDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for delete_design_document
-#-----------------------------------------------------------------------------
 class TestDeleteDesignDocument():
+    """
+    Test Class for delete_design_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # delete_design_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_design_document_all_params(self):
+        """
+        delete_design_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -3395,7 +3465,7 @@ class TestDeleteDesignDocument():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -3416,19 +3486,19 @@ class TestDeleteDesignDocument():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'batch={}'.format(batch) in query_string
         assert 'rev={}'.format(rev) in query_string
 
 
-    #--------------------------------------------------------
-    # test_delete_design_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_design_document_required_params(self):
+        """
+        test_delete_design_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -3436,7 +3506,7 @@ class TestDeleteDesignDocument():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -3451,14 +3521,14 @@ class TestDeleteDesignDocument():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_delete_design_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_design_document_value_error(self):
+        """
+        test_delete_design_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -3466,7 +3536,7 @@ class TestDeleteDesignDocument():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -3484,24 +3554,26 @@ class TestDeleteDesignDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_design_document
-#-----------------------------------------------------------------------------
 class TestGetDesignDocument():
+    """
+    Test Class for get_design_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_design_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_design_document_all_params(self):
+        """
+        get_design_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "language", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": {"mapKey": "inner"}, "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
@@ -3553,7 +3625,7 @@ class TestGetDesignDocument():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'atts_since={}'.format(','.join(atts_since)) in query_string
@@ -3568,11 +3640,11 @@ class TestGetDesignDocument():
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
 
 
-    #--------------------------------------------------------
-    # test_get_design_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_design_document_required_params(self):
+        """
+        test_get_design_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "language", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": {"mapKey": "inner"}, "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
@@ -3598,11 +3670,11 @@ class TestGetDesignDocument():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_design_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_design_document_value_error(self):
+        """
+        test_get_design_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "language", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": {"mapKey": "inner"}, "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
@@ -3628,24 +3700,26 @@ class TestGetDesignDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for put_design_document
-#-----------------------------------------------------------------------------
 class TestPutDesignDocument():
+    """
+    Test Class for put_design_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # put_design_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_design_document_all_params(self):
+        """
+        put_design_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -3654,17 +3728,6 @@ class TestPutDesignDocument():
                       body=mock_response,
                       content_type='application/json',
                       status=201)
-
-        # Construct a dict representation of a Analyzer model
-        analyzer_model = {}
-        analyzer_model['name'] = 'classic'
-        analyzer_model['stopwords'] = ['testString']
-
-        # Construct a dict representation of a AnalyzerConfiguration model
-        analyzer_configuration_model = {}
-        analyzer_configuration_model['name'] = 'classic'
-        analyzer_configuration_model['stopwords'] = ['testString']
-        analyzer_configuration_model['fields'] = {}
 
         # Construct a dict representation of a Attachment model
         attachment_model = {}
@@ -3678,6 +3741,32 @@ class TestPutDesignDocument():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a Analyzer model
+        analyzer_model = {}
+        analyzer_model['name'] = 'classic'
+        analyzer_model['stopwords'] = ['testString']
+
+        # Construct a dict representation of a AnalyzerConfiguration model
+        analyzer_configuration_model = {}
+        analyzer_configuration_model['name'] = 'classic'
+        analyzer_configuration_model['stopwords'] = ['testString']
+        analyzer_configuration_model['fields'] = {}
+
+        # Construct a dict representation of a SearchIndexDefinition model
+        search_index_definition_model = {}
+        search_index_definition_model['analyzer'] = analyzer_configuration_model
+        search_index_definition_model['index'] = 'testString'
+
         # Construct a dict representation of a DesignDocumentOptions model
         design_document_options_model = {}
         design_document_options_model['partitioned'] = True
@@ -3687,24 +3776,9 @@ class TestPutDesignDocument():
         design_document_views_map_reduce_model['map'] = 'testString'
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
-        # Construct a dict representation of a DocumentRevisionStatus model
-        document_revision_status_model = {}
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         # Construct a dict representation of a GeoIndexDefinition model
         geo_index_definition_model = {}
         geo_index_definition_model['index'] = 'testString'
-
-        # Construct a dict representation of a Revisions model
-        revisions_model = {}
-        revisions_model['ids'] = ['testString']
-        revisions_model['start'] = 1
-
-        # Construct a dict representation of a SearchIndexDefinition model
-        search_index_definition_model = {}
-        search_index_definition_model['analyzer'] = analyzer_configuration_model
-        search_index_definition_model['index'] = 'testString'
 
         # Construct a dict representation of a DesignDocument model
         design_document_model = {}
@@ -3754,7 +3828,7 @@ class TestPutDesignDocument():
         assert response.status_code == 201
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'batch={}'.format(batch) in query_string
         assert 'new_edits={}'.format('true' if new_edits else 'false') in query_string
         assert 'rev={}'.format(rev) in query_string
@@ -3763,11 +3837,11 @@ class TestPutDesignDocument():
         assert req_body == design_document
 
 
-    #--------------------------------------------------------
-    # test_put_design_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_design_document_required_params(self):
+        """
+        test_put_design_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -3793,11 +3867,11 @@ class TestPutDesignDocument():
         assert response.status_code == 201
 
 
-    #--------------------------------------------------------
-    # test_put_design_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_design_document_value_error(self):
+        """
+        test_put_design_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -3823,24 +3897,26 @@ class TestPutDesignDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_design_document_information
-#-----------------------------------------------------------------------------
 class TestGetDesignDocumentInformation():
+    """
+    Test Class for get_design_document_information
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_design_document_information()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_design_document_information_all_params(self):
+        """
+        get_design_document_information()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_info')
         mock_response = '{"name": "name", "view_index": {"compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
@@ -3866,11 +3942,11 @@ class TestGetDesignDocumentInformation():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_design_document_information_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_design_document_information_value_error(self):
+        """
+        test_get_design_document_information_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_info')
         mock_response = '{"name": "name", "view_index": {"compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
@@ -3896,24 +3972,26 @@ class TestGetDesignDocumentInformation():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_design_docs
-#-----------------------------------------------------------------------------
 class TestPostDesignDocs():
+    """
+    Test Class for post_design_docs
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_design_docs()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_design_docs_all_params(self):
+        """
+        post_design_docs()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
@@ -3980,11 +4058,11 @@ class TestPostDesignDocs():
         assert req_body['startkey'] == 'testString'
 
 
-    #--------------------------------------------------------
-    # test_post_design_docs_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_design_docs_required_params(self):
+        """
+        test_post_design_docs_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
@@ -4008,11 +4086,11 @@ class TestPostDesignDocs():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_design_docs_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_design_docs_value_error(self):
+        """
+        test_post_design_docs_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
@@ -4036,24 +4114,26 @@ class TestPostDesignDocs():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_design_docs_queries
-#-----------------------------------------------------------------------------
 class TestPostDesignDocsQueries():
+    """
+    Test Class for post_design_docs_queries
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_design_docs_queries()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_design_docs_queries_all_params(self):
+        """
+        post_design_docs_queries()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
@@ -4061,7 +4141,7 @@ class TestPostDesignDocsQueries():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {}
@@ -4094,17 +4174,17 @@ class TestPostDesignDocsQueries():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['queries'] == [all_docs_query_model]
 
 
-    #--------------------------------------------------------
-    # test_post_design_docs_queries_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_design_docs_queries_required_params(self):
+        """
+        test_post_design_docs_queries_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
@@ -4112,7 +4192,7 @@ class TestPostDesignDocsQueries():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -4125,14 +4205,14 @@ class TestPostDesignDocsQueries():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_design_docs_queries_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_design_docs_queries_value_error(self):
+        """
+        test_post_design_docs_queries_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
@@ -4140,7 +4220,7 @@ class TestPostDesignDocsQueries():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -4166,27 +4246,29 @@ class TestPostDesignDocsQueries():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for post_view
-#-----------------------------------------------------------------------------
 class TestPostView():
+    """
+    Test Class for post_view
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_view()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_view_all_params(self):
+        """
+        post_view()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -4273,14 +4355,14 @@ class TestPostView():
         assert req_body['update'] == 'true'
 
 
-    #--------------------------------------------------------
-    # test_post_view_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_view_required_params(self):
+        """
+        test_post_view_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -4305,14 +4387,14 @@ class TestPostView():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_view_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_view_value_error(self):
+        """
+        test_post_view_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -4337,24 +4419,26 @@ class TestPostView():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_view_as_stream
-#-----------------------------------------------------------------------------
 class TestPostViewAsStream():
+    """
+    Test Class for post_view_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_view_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_view_as_stream_all_params(self):
+        """
+        post_view_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -4450,11 +4534,11 @@ class TestPostViewAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_view_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_view_as_stream_required_params(self):
+        """
+        test_post_view_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -4488,11 +4572,11 @@ class TestPostViewAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_view_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_view_as_stream_value_error(self):
+        """
+        test_post_view_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -4520,32 +4604,34 @@ class TestPostViewAsStream():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_view_queries
-#-----------------------------------------------------------------------------
 class TestPostViewQueries():
+    """
+    Test Class for post_view_queries
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_view_queries()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_view_queries_all_params(self):
+        """
+        post_view_queries()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString/queries')
-        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}]}'
+        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Construct a dict representation of a ViewQuery model
         view_query_model = {}
@@ -4587,25 +4673,25 @@ class TestPostViewQueries():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['queries'] == [view_query_model]
 
 
-    #--------------------------------------------------------
-    # test_post_view_queries_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_view_queries_required_params(self):
+        """
+        test_post_view_queries_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString/queries')
-        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}]}'
+        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -4622,22 +4708,22 @@ class TestPostViewQueries():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_view_queries_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_view_queries_value_error(self):
+        """
+        test_post_view_queries_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString/queries')
-        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}]}'
+        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -4657,24 +4743,26 @@ class TestPostViewQueries():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_view_queries_as_stream
-#-----------------------------------------------------------------------------
 class TestPostViewQueriesAsStream():
+    """
+    Test Class for post_view_queries_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_view_queries_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_view_queries_as_stream_all_params(self):
+        """
+        post_view_queries_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -4682,7 +4770,7 @@ class TestPostViewQueriesAsStream():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Construct a dict representation of a ViewQuery model
         view_query_model = {}
@@ -4724,7 +4812,7 @@ class TestPostViewQueriesAsStream():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['queries'] == [view_query_model]
@@ -4736,11 +4824,11 @@ class TestPostViewQueriesAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_view_queries_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_view_queries_as_stream_required_params(self):
+        """
+        test_post_view_queries_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -4748,7 +4836,7 @@ class TestPostViewQueriesAsStream():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -4765,7 +4853,7 @@ class TestPostViewQueriesAsStream():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -4774,11 +4862,11 @@ class TestPostViewQueriesAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_view_queries_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_view_queries_as_stream_value_error(self):
+        """
+        test_post_view_queries_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -4786,7 +4874,7 @@ class TestPostViewQueriesAsStream():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -4816,24 +4904,26 @@ class TestPostViewQueriesAsStream():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for get_partition_information
-#-----------------------------------------------------------------------------
 class TestGetPartitionInformation():
+    """
+    Test Class for get_partition_information
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_partition_information()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_partition_information_all_params(self):
+        """
+        get_partition_information()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString')
         mock_response = '{"db_name": "db_name", "doc_count": 0, "doc_del_count": 0, "partition": "partition", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 0}, "sizes": {"active": 0, "external": 0}}'
@@ -4859,11 +4949,11 @@ class TestGetPartitionInformation():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_partition_information_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_partition_information_value_error(self):
+        """
+        test_get_partition_information_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString')
         mock_response = '{"db_name": "db_name", "doc_count": 0, "doc_del_count": 0, "partition": "partition", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 0}, "sizes": {"active": 0, "external": 0}}'
@@ -4889,24 +4979,26 @@ class TestGetPartitionInformation():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_partition_all_docs
-#-----------------------------------------------------------------------------
 class TestPostPartitionAllDocs():
+    """
+    Test Class for post_partition_all_docs
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_partition_all_docs()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_all_docs_all_params(self):
+        """
+        post_partition_all_docs()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
@@ -4973,11 +5065,11 @@ class TestPostPartitionAllDocs():
         assert req_body['startkey'] == 'testString'
 
 
-    #--------------------------------------------------------
-    # test_post_partition_all_docs_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_all_docs_required_params(self):
+        """
+        test_post_partition_all_docs_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
@@ -5003,11 +5095,11 @@ class TestPostPartitionAllDocs():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_partition_all_docs_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_all_docs_value_error(self):
+        """
+        test_post_partition_all_docs_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
@@ -5033,24 +5125,26 @@ class TestPostPartitionAllDocs():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_partition_all_docs_as_stream
-#-----------------------------------------------------------------------------
 class TestPostPartitionAllDocsAsStream():
+    """
+    Test Class for post_partition_all_docs_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_partition_all_docs_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_all_docs_as_stream_all_params(self):
+        """
+        post_partition_all_docs_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -5123,11 +5217,11 @@ class TestPostPartitionAllDocsAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_partition_all_docs_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_all_docs_as_stream_required_params(self):
+        """
+        test_post_partition_all_docs_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -5159,11 +5253,11 @@ class TestPostPartitionAllDocsAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_partition_all_docs_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_all_docs_as_stream_value_error(self):
+        """
+        test_post_partition_all_docs_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -5189,24 +5283,26 @@ class TestPostPartitionAllDocsAsStream():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_partition_search
-#-----------------------------------------------------------------------------
 class TestPostPartitionSearch():
+    """
+    Test Class for post_partition_search
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_partition_search()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_search_all_params(self):
+        """
+        post_partition_search()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_search/testString')
         mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
@@ -5274,11 +5370,11 @@ class TestPostPartitionSearch():
         assert req_body['stale'] == 'ok'
 
 
-    #--------------------------------------------------------
-    # test_post_partition_search_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_search_required_params(self):
+        """
+        test_post_partition_search_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_search/testString')
         mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
@@ -5308,11 +5404,11 @@ class TestPostPartitionSearch():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_partition_search_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_search_value_error(self):
+        """
+        test_post_partition_search_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_search/testString')
         mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
@@ -5342,24 +5438,26 @@ class TestPostPartitionSearch():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_partition_search_as_stream
-#-----------------------------------------------------------------------------
 class TestPostPartitionSearchAsStream():
+    """
+    Test Class for post_partition_search_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_partition_search_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_search_as_stream_all_params(self):
+        """
+        post_partition_search_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -5433,11 +5531,11 @@ class TestPostPartitionSearchAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_partition_search_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_search_as_stream_required_params(self):
+        """
+        test_post_partition_search_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -5473,11 +5571,11 @@ class TestPostPartitionSearchAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_partition_search_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_search_as_stream_value_error(self):
+        """
+        test_post_partition_search_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -5507,27 +5605,29 @@ class TestPostPartitionSearchAsStream():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_partition_view
-#-----------------------------------------------------------------------------
 class TestPostPartitionView():
+    """
+    Test Class for post_partition_view
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_partition_view()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_view_all_params(self):
+        """
+        post_partition_view()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -5616,14 +5716,14 @@ class TestPostPartitionView():
         assert req_body['update'] == 'true'
 
 
-    #--------------------------------------------------------
-    # test_post_partition_view_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_view_required_params(self):
+        """
+        test_post_partition_view_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -5650,14 +5750,14 @@ class TestPostPartitionView():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_partition_view_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_view_value_error(self):
+        """
+        test_post_partition_view_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -5684,24 +5784,26 @@ class TestPostPartitionView():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_partition_view_as_stream
-#-----------------------------------------------------------------------------
 class TestPostPartitionViewAsStream():
+    """
+    Test Class for post_partition_view_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_partition_view_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_view_as_stream_all_params(self):
+        """
+        post_partition_view_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -5799,11 +5901,11 @@ class TestPostPartitionViewAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_partition_view_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_view_as_stream_required_params(self):
+        """
+        test_post_partition_view_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -5839,11 +5941,11 @@ class TestPostPartitionViewAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_partition_view_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_view_as_stream_value_error(self):
+        """
+        test_post_partition_view_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -5873,24 +5975,26 @@ class TestPostPartitionViewAsStream():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_partition_find
-#-----------------------------------------------------------------------------
 class TestPostPartitionFind():
+    """
+    Test Class for post_partition_find
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_partition_find()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_find_all_params(self):
+        """
+        post_partition_find()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
@@ -5951,11 +6055,11 @@ class TestPostPartitionFind():
         assert req_body['use_index'] == ['testString']
 
 
-    #--------------------------------------------------------
-    # test_post_partition_find_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_find_required_params(self):
+        """
+        test_post_partition_find_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
@@ -5981,11 +6085,11 @@ class TestPostPartitionFind():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_partition_find_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_find_value_error(self):
+        """
+        test_post_partition_find_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
@@ -6011,24 +6115,26 @@ class TestPostPartitionFind():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_partition_find_as_stream
-#-----------------------------------------------------------------------------
 class TestPostPartitionFindAsStream():
+    """
+    Test Class for post_partition_find_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_partition_find_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_find_as_stream_all_params(self):
+        """
+        post_partition_find_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -6095,11 +6201,11 @@ class TestPostPartitionFindAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_partition_find_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_find_as_stream_required_params(self):
+        """
+        test_post_partition_find_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -6131,11 +6237,11 @@ class TestPostPartitionFindAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_partition_find_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_partition_find_as_stream_value_error(self):
+        """
+        test_post_partition_find_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_partition/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -6171,24 +6277,26 @@ class TestPostPartitionFindAsStream():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for post_explain
-#-----------------------------------------------------------------------------
 class TestPostExplain():
+    """
+    Test Class for post_explain
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_explain()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_explain_all_params(self):
+        """
+        post_explain()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_explain')
         mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": {"anyKey": "anyValue"}}, "range": {"end_key": [{"anyKey": "anyValue"}], "start_key": [{"anyKey": "anyValue"}]}, "selector": {"mapKey": {"anyKey": "anyValue"}}, "skip": 0}'
@@ -6250,11 +6358,11 @@ class TestPostExplain():
         assert req_body['r'] == 1
 
 
-    #--------------------------------------------------------
-    # test_post_explain_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_explain_required_params(self):
+        """
+        test_post_explain_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_explain')
         mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": {"anyKey": "anyValue"}}, "range": {"end_key": [{"anyKey": "anyValue"}], "start_key": [{"anyKey": "anyValue"}]}, "selector": {"mapKey": {"anyKey": "anyValue"}}, "skip": 0}'
@@ -6278,11 +6386,11 @@ class TestPostExplain():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_explain_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_explain_value_error(self):
+        """
+        test_post_explain_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_explain')
         mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": {"anyKey": "anyValue"}}, "range": {"end_key": [{"anyKey": "anyValue"}], "start_key": [{"anyKey": "anyValue"}]}, "selector": {"mapKey": {"anyKey": "anyValue"}}, "skip": 0}'
@@ -6306,24 +6414,26 @@ class TestPostExplain():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_find
-#-----------------------------------------------------------------------------
 class TestPostFind():
+    """
+    Test Class for post_find
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_find()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_find_all_params(self):
+        """
+        post_find()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
@@ -6385,11 +6495,11 @@ class TestPostFind():
         assert req_body['r'] == 1
 
 
-    #--------------------------------------------------------
-    # test_post_find_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_find_required_params(self):
+        """
+        test_post_find_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
@@ -6413,11 +6523,11 @@ class TestPostFind():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_find_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_find_value_error(self):
+        """
+        test_post_find_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
@@ -6441,24 +6551,26 @@ class TestPostFind():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_find_as_stream
-#-----------------------------------------------------------------------------
 class TestPostFindAsStream():
+    """
+    Test Class for post_find_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_find_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_find_as_stream_all_params(self):
+        """
+        post_find_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -6526,11 +6638,11 @@ class TestPostFindAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_find_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_find_as_stream_required_params(self):
+        """
+        test_post_find_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -6560,11 +6672,11 @@ class TestPostFindAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_find_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_find_as_stream_value_error(self):
+        """
+        test_post_find_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -6588,24 +6700,26 @@ class TestPostFindAsStream():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_indexes_information
-#-----------------------------------------------------------------------------
 class TestGetIndexesInformation():
+    """
+    Test Class for get_indexes_information
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_indexes_information()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_indexes_information_all_params(self):
+        """
+        get_indexes_information()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_index')
         mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false}, "name": "name", "type": "json"}]}'
@@ -6629,11 +6743,11 @@ class TestGetIndexesInformation():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_indexes_information_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_indexes_information_value_error(self):
+        """
+        test_get_indexes_information_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_index')
         mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false}, "name": "name", "type": "json"}]}'
@@ -6657,24 +6771,26 @@ class TestGetIndexesInformation():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_index
-#-----------------------------------------------------------------------------
 class TestPostIndex():
+    """
+    Test Class for post_index
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_index()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_index_all_params(self):
+        """
+        post_index()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_index')
         mock_response = '{"id": "id", "name": "name", "result": "created"}'
@@ -6689,16 +6805,16 @@ class TestPostIndex():
         analyzer_model['name'] = 'classic'
         analyzer_model['stopwords'] = ['testString']
 
+        # Construct a dict representation of a IndexTextOperatorDefaultField model
+        index_text_operator_default_field_model = {}
+        index_text_operator_default_field_model['analyzer'] = analyzer_model
+        index_text_operator_default_field_model['enabled'] = True
+
         # Construct a dict representation of a IndexField model
         index_field_model = {}
         index_field_model['name'] = 'testString'
         index_field_model['type'] = 'boolean'
         index_field_model['foo'] = 'asc'
-
-        # Construct a dict representation of a IndexTextOperatorDefaultField model
-        index_text_operator_default_field_model = {}
-        index_text_operator_default_field_model['analyzer'] = analyzer_model
-        index_text_operator_default_field_model['enabled'] = True
 
         # Construct a dict representation of a IndexDefinition model
         index_definition_model = {}
@@ -6744,11 +6860,11 @@ class TestPostIndex():
         assert req_body['type'] == 'json'
 
 
-    #--------------------------------------------------------
-    # test_post_index_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_index_required_params(self):
+        """
+        test_post_index_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_index')
         mock_response = '{"id": "id", "name": "name", "result": "created"}'
@@ -6772,11 +6888,11 @@ class TestPostIndex():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_index_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_index_value_error(self):
+        """
+        test_post_index_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_index')
         mock_response = '{"id": "id", "name": "name", "result": "created"}'
@@ -6800,24 +6916,26 @@ class TestPostIndex():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for delete_index
-#-----------------------------------------------------------------------------
 class TestDeleteIndex():
+    """
+    Test Class for delete_index
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # delete_index()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_index_all_params(self):
+        """
+        delete_index()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_index/_design/testString/json/testString')
         mock_response = '{"ok": true}'
@@ -6847,11 +6965,11 @@ class TestDeleteIndex():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_delete_index_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_index_value_error(self):
+        """
+        test_delete_index_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_index/_design/testString/json/testString')
         mock_response = '{"ok": true}'
@@ -6891,24 +7009,26 @@ class TestDeleteIndex():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for post_search_analyze
-#-----------------------------------------------------------------------------
 class TestPostSearchAnalyze():
+    """
+    Test Class for post_search_analyze
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_search_analyze()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_search_analyze_all_params(self):
+        """
+        post_search_analyze()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_search_analyze')
         mock_response = '{"tokens": ["tokens"]}'
@@ -6938,11 +7058,11 @@ class TestPostSearchAnalyze():
         assert req_body['text'] == 'testString'
 
 
-    #--------------------------------------------------------
-    # test_post_search_analyze_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_search_analyze_required_params(self):
+        """
+        test_post_search_analyze_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_search_analyze')
         mock_response = '{"tokens": ["tokens"]}'
@@ -6961,24 +7081,26 @@ class TestPostSearchAnalyze():
         assert response.status_code == 200
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_search
-#-----------------------------------------------------------------------------
 class TestPostSearch():
+    """
+    Test Class for post_search
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_search()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_search_all_params(self):
+        """
+        post_search()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_search/testString')
         mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
@@ -7062,11 +7184,11 @@ class TestPostSearch():
         assert req_body['ranges'] == {}
 
 
-    #--------------------------------------------------------
-    # test_post_search_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_search_required_params(self):
+        """
+        test_post_search_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_search/testString')
         mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
@@ -7094,11 +7216,11 @@ class TestPostSearch():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_search_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_search_value_error(self):
+        """
+        test_post_search_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_search/testString')
         mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
@@ -7126,24 +7248,26 @@ class TestPostSearch():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_search_as_stream
-#-----------------------------------------------------------------------------
 class TestPostSearchAsStream():
+    """
+    Test Class for post_search_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_search_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_search_as_stream_all_params(self):
+        """
+        post_search_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -7233,11 +7357,11 @@ class TestPostSearchAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_search_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_search_as_stream_required_params(self):
+        """
+        test_post_search_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -7271,11 +7395,11 @@ class TestPostSearchAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_post_search_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_search_as_stream_value_error(self):
+        """
+        test_post_search_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -7303,24 +7427,26 @@ class TestPostSearchAsStream():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_search_info
-#-----------------------------------------------------------------------------
 class TestGetSearchInfo():
+    """
+    Test Class for get_search_info
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_search_info()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_search_info_all_params(self):
+        """
+        get_search_info()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_search_info/testString')
         mock_response = '{"name": "name", "search_index": {"committed_seq": 13, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 11}}'
@@ -7348,11 +7474,11 @@ class TestGetSearchInfo():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_search_info_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_search_info_value_error(self):
+        """
+        test_get_search_info_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_search_info/testString')
         mock_response = '{"name": "name", "search_index": {"committed_seq": 13, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 11}}'
@@ -7390,24 +7516,26 @@ class TestGetSearchInfo():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for get_geo
-#-----------------------------------------------------------------------------
 class TestGetGeo():
+    """
+    Test Class for get_geo
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_geo()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_geo_all_params(self):
+        """
+        get_geo()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_geo/testString')
         mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": [{"anyKey": "anyValue"}]}, "properties": {"mapKey": {"anyKey": "anyValue"}}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": [{"anyKey": "anyValue"}]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
@@ -7465,7 +7593,7 @@ class TestGetGeo():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'bbox={}'.format(bbox) in query_string
         assert 'bookmark={}'.format(bookmark) in query_string
         assert 'format={}'.format(format) in query_string
@@ -7483,11 +7611,11 @@ class TestGetGeo():
         assert 'stale={}'.format(stale) in query_string
 
 
-    #--------------------------------------------------------
-    # test_get_geo_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_geo_required_params(self):
+        """
+        test_get_geo_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_geo/testString')
         mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": [{"anyKey": "anyValue"}]}, "properties": {"mapKey": {"anyKey": "anyValue"}}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": [{"anyKey": "anyValue"}]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
@@ -7515,11 +7643,11 @@ class TestGetGeo():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_geo_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_geo_value_error(self):
+        """
+        test_get_geo_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_geo/testString')
         mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": [{"anyKey": "anyValue"}]}, "properties": {"mapKey": {"anyKey": "anyValue"}}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": [{"anyKey": "anyValue"}]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
@@ -7547,24 +7675,26 @@ class TestGetGeo():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_geo_as_stream
-#-----------------------------------------------------------------------------
 class TestGetGeoAsStream():
+    """
+    Test Class for get_geo_as_stream
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_geo_as_stream()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_geo_as_stream_all_params(self):
+        """
+        get_geo_as_stream()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_geo/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -7622,7 +7752,7 @@ class TestGetGeoAsStream():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'bbox={}'.format(bbox) in query_string
         assert 'bookmark={}'.format(bookmark) in query_string
         assert 'format={}'.format(format) in query_string
@@ -7646,11 +7776,11 @@ class TestGetGeoAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_get_geo_as_stream_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_geo_as_stream_required_params(self):
+        """
+        test_get_geo_as_stream_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_geo/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -7684,11 +7814,11 @@ class TestGetGeoAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
 
-    #--------------------------------------------------------
-    # test_get_geo_as_stream_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_geo_as_stream_value_error(self):
+        """
+        test_get_geo_as_stream_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_geo/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
@@ -7716,24 +7846,26 @@ class TestGetGeoAsStream():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_geo_cleanup
-#-----------------------------------------------------------------------------
 class TestPostGeoCleanup():
+    """
+    Test Class for post_geo_cleanup
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_geo_cleanup()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_geo_cleanup_all_params(self):
+        """
+        post_geo_cleanup()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_geo_cleanup')
         mock_response = '{"ok": true}'
@@ -7741,7 +7873,7 @@ class TestPostGeoCleanup():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=200)
+                      status=202)
 
         # Set up parameter values
         db = 'testString'
@@ -7754,14 +7886,14 @@ class TestPostGeoCleanup():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 200
+        assert response.status_code == 202
 
 
-    #--------------------------------------------------------
-    # test_post_geo_cleanup_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_geo_cleanup_value_error(self):
+        """
+        test_post_geo_cleanup_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_geo_cleanup')
         mock_response = '{"ok": true}'
@@ -7769,7 +7901,7 @@ class TestPostGeoCleanup():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=200)
+                      status=202)
 
         # Set up parameter values
         db = 'testString'
@@ -7785,24 +7917,26 @@ class TestPostGeoCleanup():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_geo_index_information
-#-----------------------------------------------------------------------------
 class TestGetGeoIndexInformation():
+    """
+    Test Class for get_geo_index_information
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_geo_index_information()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_geo_index_information_all_params(self):
+        """
+        get_geo_index_information()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_geo_info/testString')
         mock_response = '{"geo_index": {"data_size": 0, "disk_size": 0, "doc_count": 0}}'
@@ -7830,11 +7964,11 @@ class TestGetGeoIndexInformation():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_geo_index_information_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_geo_index_information_value_error(self):
+        """
+        test_get_geo_index_information_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_geo_info/testString')
         mock_response = '{"geo_index": {"data_size": 0, "disk_size": 0, "doc_count": 0}}'
@@ -7872,24 +8006,26 @@ class TestGetGeoIndexInformation():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for get_db_updates
-#-----------------------------------------------------------------------------
 class TestGetDbUpdates():
+    """
+    Test Class for get_db_updates
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_db_updates()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_db_updates_all_params(self):
+        """
+        get_db_updates()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_db_updates')
         mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "dbname": "dbname", "seq": "seq", "type": "created"}]}'
@@ -7919,18 +8055,18 @@ class TestGetDbUpdates():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'feed={}'.format(feed) in query_string
         assert 'heartbeat={}'.format(heartbeat) in query_string
         assert 'timeout={}'.format(timeout) in query_string
         assert 'since={}'.format(since) in query_string
 
 
-    #--------------------------------------------------------
-    # test_get_db_updates_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_db_updates_required_params(self):
+        """
+        test_get_db_updates_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_db_updates')
         mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "dbname": "dbname", "seq": "seq", "type": "created"}]}'
@@ -7959,24 +8095,26 @@ class TestGetDbUpdates():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for head_replication_document
-#-----------------------------------------------------------------------------
 class TestHeadReplicationDocument():
+    """
+    Test Class for head_replication_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # head_replication_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_replication_document_all_params(self):
+        """
+        head_replication_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicator/testString')
         responses.add(responses.HEAD,
@@ -7999,11 +8137,11 @@ class TestHeadReplicationDocument():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_head_replication_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_replication_document_required_params(self):
+        """
+        test_head_replication_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicator/testString')
         responses.add(responses.HEAD,
@@ -8024,11 +8162,11 @@ class TestHeadReplicationDocument():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_head_replication_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_replication_document_value_error(self):
+        """
+        test_head_replication_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicator/testString')
         responses.add(responses.HEAD,
@@ -8049,24 +8187,26 @@ class TestHeadReplicationDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for head_scheduler_job
-#-----------------------------------------------------------------------------
 class TestHeadSchedulerJob():
+    """
+    Test Class for head_scheduler_job
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # head_scheduler_job()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_scheduler_job_all_params(self):
+        """
+        head_scheduler_job()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/jobs/testString')
         responses.add(responses.HEAD,
@@ -8087,11 +8227,11 @@ class TestHeadSchedulerJob():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_head_scheduler_job_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_scheduler_job_value_error(self):
+        """
+        test_head_scheduler_job_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/jobs/testString')
         responses.add(responses.HEAD,
@@ -8112,24 +8252,26 @@ class TestHeadSchedulerJob():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_replicate
-#-----------------------------------------------------------------------------
 class TestPostReplicate():
+    """
+    Test Class for post_replicate
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_replicate()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_replicate_all_params(self):
+        """
+        post_replicate()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicate')
         mock_response = '{"history": [{"doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "end_last_seq": "end_last_seq", "end_time": "end_time", "missing_checked": 0, "missing_found": 0, "recorded_seq": "recorded_seq", "session_id": "session_id", "start_last_seq": "start_last_seq", "start_time": "start_time"}], "ok": true, "replication_id_version": 0, "session_id": "session_id", "source_last_seq": "source_last_seq"}'
@@ -8138,14 +8280,6 @@ class TestPostReplicate():
                       body=mock_response,
                       content_type='application/json',
                       status=200)
-
-        # Construct a dict representation of a ReplicationDatabaseAuthIam model
-        replication_database_auth_iam_model = {}
-        replication_database_auth_iam_model['api_key'] = 'testString'
-
-        # Construct a dict representation of a ReplicationDatabaseAuth model
-        replication_database_auth_model = {}
-        replication_database_auth_model['iam'] = replication_database_auth_iam_model
 
         # Construct a dict representation of a Attachment model
         attachment_model = {}
@@ -8159,6 +8293,11 @@ class TestPostReplicate():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
         # Construct a dict representation of a DocumentRevisionStatus model
         document_revision_status_model = {}
         document_revision_status_model['rev'] = 'testString'
@@ -8170,16 +8309,19 @@ class TestPostReplicate():
         replication_create_target_parameters_model['partitioned'] = True
         replication_create_target_parameters_model['q'] = 1
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIam model
+        replication_database_auth_iam_model = {}
+        replication_database_auth_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuth model
+        replication_database_auth_model = {}
+        replication_database_auth_model['iam'] = replication_database_auth_iam_model
+
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
         replication_database_model['auth'] = replication_database_auth_model
         replication_database_model['headers'] = {}
         replication_database_model['url'] = 'testString'
-
-        # Construct a dict representation of a Revisions model
-        revisions_model = {}
-        revisions_model['ids'] = ['testString']
-        revisions_model['start'] = 1
 
         # Construct a dict representation of a UserContext model
         user_context_model = {}
@@ -8239,11 +8381,11 @@ class TestPostReplicate():
         assert req_body == replication_document
 
 
-    #--------------------------------------------------------
-    # test_post_replicate_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_replicate_required_params(self):
+        """
+        test_post_replicate_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicate')
         mock_response = '{"history": [{"doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "end_last_seq": "end_last_seq", "end_time": "end_time", "missing_checked": 0, "missing_found": 0, "recorded_seq": "recorded_seq", "session_id": "session_id", "start_last_seq": "start_last_seq", "start_time": "start_time"}], "ok": true, "replication_id_version": 0, "session_id": "session_id", "source_last_seq": "source_last_seq"}'
@@ -8262,24 +8404,26 @@ class TestPostReplicate():
         assert response.status_code == 200
 
 
-#-----------------------------------------------------------------------------
-# Test Class for delete_replication_document
-#-----------------------------------------------------------------------------
 class TestDeleteReplicationDocument():
+    """
+    Test Class for delete_replication_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # delete_replication_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_replication_document_all_params(self):
+        """
+        delete_replication_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -8309,16 +8453,16 @@ class TestDeleteReplicationDocument():
         assert response.status_code == 201
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'batch={}'.format(batch) in query_string
         assert 'rev={}'.format(rev) in query_string
 
 
-    #--------------------------------------------------------
-    # test_delete_replication_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_replication_document_required_params(self):
+        """
+        test_delete_replication_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -8342,11 +8486,11 @@ class TestDeleteReplicationDocument():
         assert response.status_code == 201
 
 
-    #--------------------------------------------------------
-    # test_delete_replication_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_replication_document_value_error(self):
+        """
+        test_delete_replication_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -8370,24 +8514,26 @@ class TestDeleteReplicationDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_replication_document
-#-----------------------------------------------------------------------------
 class TestGetReplicationDocument():
+    """
+    Test Class for get_replication_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_replication_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_replication_document_all_params(self):
+        """
+        get_replication_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicator/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": true, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": {"anyKey": "anyValue"}}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": false, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
@@ -8437,7 +8583,7 @@ class TestGetReplicationDocument():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'atts_since={}'.format(','.join(atts_since)) in query_string
@@ -8452,11 +8598,11 @@ class TestGetReplicationDocument():
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
 
 
-    #--------------------------------------------------------
-    # test_get_replication_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_replication_document_required_params(self):
+        """
+        test_get_replication_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicator/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": true, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": {"anyKey": "anyValue"}}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": false, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
@@ -8480,11 +8626,11 @@ class TestGetReplicationDocument():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_replication_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_replication_document_value_error(self):
+        """
+        test_get_replication_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicator/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": true, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": {"anyKey": "anyValue"}}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": false, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
@@ -8508,24 +8654,26 @@ class TestGetReplicationDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for put_replication_document
-#-----------------------------------------------------------------------------
 class TestPutReplicationDocument():
+    """
+    Test Class for put_replication_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # put_replication_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_replication_document_all_params(self):
+        """
+        put_replication_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -8534,14 +8682,6 @@ class TestPutReplicationDocument():
                       body=mock_response,
                       content_type='application/json',
                       status=201)
-
-        # Construct a dict representation of a ReplicationDatabaseAuthIam model
-        replication_database_auth_iam_model = {}
-        replication_database_auth_iam_model['api_key'] = 'testString'
-
-        # Construct a dict representation of a ReplicationDatabaseAuth model
-        replication_database_auth_model = {}
-        replication_database_auth_model['iam'] = replication_database_auth_iam_model
 
         # Construct a dict representation of a Attachment model
         attachment_model = {}
@@ -8555,6 +8695,11 @@ class TestPutReplicationDocument():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
         # Construct a dict representation of a DocumentRevisionStatus model
         document_revision_status_model = {}
         document_revision_status_model['rev'] = 'testString'
@@ -8566,16 +8711,19 @@ class TestPutReplicationDocument():
         replication_create_target_parameters_model['partitioned'] = True
         replication_create_target_parameters_model['q'] = 1
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIam model
+        replication_database_auth_iam_model = {}
+        replication_database_auth_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuth model
+        replication_database_auth_model = {}
+        replication_database_auth_model['iam'] = replication_database_auth_iam_model
+
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
         replication_database_model['auth'] = replication_database_auth_model
         replication_database_model['headers'] = {}
         replication_database_model['url'] = 'testString'
-
-        # Construct a dict representation of a Revisions model
-        revisions_model = {}
-        revisions_model['ids'] = ['testString']
-        revisions_model['start'] = 1
 
         # Construct a dict representation of a UserContext model
         user_context_model = {}
@@ -8642,7 +8790,7 @@ class TestPutReplicationDocument():
         assert response.status_code == 201
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'batch={}'.format(batch) in query_string
         assert 'new_edits={}'.format('true' if new_edits else 'false') in query_string
         assert 'rev={}'.format(rev) in query_string
@@ -8651,11 +8799,11 @@ class TestPutReplicationDocument():
         assert req_body == replication_document
 
 
-    #--------------------------------------------------------
-    # test_put_replication_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_replication_document_required_params(self):
+        """
+        test_put_replication_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -8679,11 +8827,11 @@ class TestPutReplicationDocument():
         assert response.status_code == 201
 
 
-    #--------------------------------------------------------
-    # test_put_replication_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_replication_document_value_error(self):
+        """
+        test_put_replication_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -8707,24 +8855,26 @@ class TestPutReplicationDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_scheduler_docs
-#-----------------------------------------------------------------------------
 class TestGetSchedulerDocs():
+    """
+    Test Class for get_scheduler_docs
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_scheduler_docs()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_scheduler_docs_all_params(self):
+        """
+        get_scheduler_docs()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/docs')
         mock_response = '{"total_rows": 0, "docs": [{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}]}'
@@ -8752,17 +8902,17 @@ class TestGetSchedulerDocs():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'limit={}'.format(limit) in query_string
         assert 'skip={}'.format(skip) in query_string
         assert 'states={}'.format(','.join(states)) in query_string
 
 
-    #--------------------------------------------------------
-    # test_get_scheduler_docs_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_scheduler_docs_required_params(self):
+        """
+        test_get_scheduler_docs_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/docs')
         mock_response = '{"total_rows": 0, "docs": [{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}]}'
@@ -8781,24 +8931,26 @@ class TestGetSchedulerDocs():
         assert response.status_code == 200
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_scheduler_document
-#-----------------------------------------------------------------------------
 class TestGetSchedulerDocument():
+    """
+    Test Class for get_scheduler_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_scheduler_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_scheduler_document_all_params(self):
+        """
+        get_scheduler_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/docs/_replicator/testString')
         mock_response = '{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}'
@@ -8822,11 +8974,11 @@ class TestGetSchedulerDocument():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_scheduler_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_scheduler_document_value_error(self):
+        """
+        test_get_scheduler_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/docs/_replicator/testString')
         mock_response = '{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}'
@@ -8850,24 +9002,26 @@ class TestGetSchedulerDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_scheduler_jobs
-#-----------------------------------------------------------------------------
 class TestGetSchedulerJobs():
+    """
+    Test Class for get_scheduler_jobs
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_scheduler_jobs()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_scheduler_jobs_all_params(self):
+        """
+        get_scheduler_jobs()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/jobs')
         mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00", "target": "target", "user": "user"}]}'
@@ -8893,16 +9047,16 @@ class TestGetSchedulerJobs():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'limit={}'.format(limit) in query_string
         assert 'skip={}'.format(skip) in query_string
 
 
-    #--------------------------------------------------------
-    # test_get_scheduler_jobs_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_scheduler_jobs_required_params(self):
+        """
+        test_get_scheduler_jobs_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/jobs')
         mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00", "target": "target", "user": "user"}]}'
@@ -8921,24 +9075,26 @@ class TestGetSchedulerJobs():
         assert response.status_code == 200
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_scheduler_job
-#-----------------------------------------------------------------------------
 class TestGetSchedulerJob():
+    """
+    Test Class for get_scheduler_job
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_scheduler_job()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_scheduler_job_all_params(self):
+        """
+        get_scheduler_job()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/jobs/testString')
         mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00", "target": "target", "user": "user"}'
@@ -8962,11 +9118,11 @@ class TestGetSchedulerJob():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_scheduler_job_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_scheduler_job_value_error(self):
+        """
+        test_get_scheduler_job_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/jobs/testString')
         mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00", "target": "target", "user": "user"}'
@@ -9000,24 +9156,26 @@ class TestGetSchedulerJob():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for get_session_information
-#-----------------------------------------------------------------------------
 class TestGetSessionInformation():
+    """
+    Test Class for get_session_information
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_session_information()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_session_information_all_params(self):
+        """
+        get_session_information()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_session')
         mock_response = '{"ok": true, "info": {"authenticated": "authenticated", "authentication_db": "authentication_db", "authentication_handlers": ["authentication_handlers"]}, "userCtx": {"db": "db", "name": "name", "roles": ["_reader"]}}'
@@ -9036,24 +9194,26 @@ class TestGetSessionInformation():
         assert response.status_code == 200
 
 
-#-----------------------------------------------------------------------------
-# Test Class for delete_iam_session
-#-----------------------------------------------------------------------------
 class TestDeleteIamSession():
+    """
+    Test Class for delete_iam_session
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # delete_iam_session()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_iam_session_all_params(self):
+        """
+        delete_iam_session()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_iam_session')
         mock_response = '{"ok": true}'
@@ -9072,24 +9232,26 @@ class TestDeleteIamSession():
         assert response.status_code == 200
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_iam_session_information
-#-----------------------------------------------------------------------------
 class TestGetIamSessionInformation():
+    """
+    Test Class for get_iam_session_information
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_iam_session_information()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_iam_session_information_all_params(self):
+        """
+        get_iam_session_information()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_iam_session')
         mock_response = '{"id": "id", "ok": true, "scope": "scope", "type": "type"}'
@@ -9108,24 +9270,26 @@ class TestGetIamSessionInformation():
         assert response.status_code == 200
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_iam_session
-#-----------------------------------------------------------------------------
 class TestPostIamSession():
+    """
+    Test Class for post_iam_session
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_iam_session()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_iam_session_all_params(self):
+        """
+        post_iam_session()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_iam_session')
         mock_response = '{"ok": true}'
@@ -9152,11 +9316,11 @@ class TestPostIamSession():
         assert req_body['access_token'] == 'testString'
 
 
-    #--------------------------------------------------------
-    # test_post_iam_session_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_iam_session_required_params(self):
+        """
+        test_post_iam_session_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_iam_session')
         mock_response = '{"ok": true}'
@@ -9185,24 +9349,26 @@ class TestPostIamSession():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for get_security
-#-----------------------------------------------------------------------------
 class TestGetSecurity():
+    """
+    Test Class for get_security
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_security()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_security_all_params(self):
+        """
+        get_security()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_security')
         mock_response = '{"admins": {"names": ["names"], "roles": ["roles"]}, "members": {"names": ["names"], "roles": ["roles"]}, "cloudant": {"mapKey": ["_reader"]}, "couchdb_auth_only": false}'
@@ -9226,11 +9392,11 @@ class TestGetSecurity():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_security_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_security_value_error(self):
+        """
+        test_get_security_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_security')
         mock_response = '{"admins": {"names": ["names"], "roles": ["roles"]}, "members": {"names": ["names"], "roles": ["roles"]}, "cloudant": {"mapKey": ["_reader"]}, "couchdb_auth_only": false}'
@@ -9254,24 +9420,26 @@ class TestGetSecurity():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for put_security
-#-----------------------------------------------------------------------------
 class TestPutSecurity():
+    """
+    Test Class for put_security
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # put_security()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_security_all_params(self):
+        """
+        put_security()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_security')
         mock_response = '{"ok": true}'
@@ -9314,11 +9482,11 @@ class TestPutSecurity():
         assert req_body['couchdb_auth_only'] == True
 
 
-    #--------------------------------------------------------
-    # test_put_security_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_security_required_params(self):
+        """
+        test_put_security_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_security')
         mock_response = '{"ok": true}'
@@ -9342,11 +9510,11 @@ class TestPutSecurity():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_put_security_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_security_value_error(self):
+        """
+        test_put_security_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_security')
         mock_response = '{"ok": true}'
@@ -9370,27 +9538,29 @@ class TestPutSecurity():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_api_keys
-#-----------------------------------------------------------------------------
 class TestPostApiKeys():
+    """
+    Test Class for post_api_keys
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_api_keys()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_api_keys_all_params(self):
+        """
+        post_api_keys()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_api/v2/api_keys')
-        mock_response = '{"key": "key", "ok": {"ok": true}, "password": "password"}'
+        mock_response = '{"ok": true, "key": "key", "password": "password"}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -9406,24 +9576,26 @@ class TestPostApiKeys():
         assert response.status_code == 201
 
 
-#-----------------------------------------------------------------------------
-# Test Class for put_cloudant_security
-#-----------------------------------------------------------------------------
-class TestPutCloudantSecurity():
+class TestPutCloudantSecurityConfiguration():
+    """
+    Test Class for put_cloudant_security_configuration
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # put_cloudant_security()
-    #--------------------------------------------------------
     @responses.activate
-    def test_put_cloudant_security_all_params(self):
+    def test_put_cloudant_security_configuration_all_params(self):
+        """
+        put_cloudant_security_configuration()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_api/v2/db/testString/_security')
         mock_response = '{"ok": true}'
@@ -9433,14 +9605,25 @@ class TestPutCloudantSecurity():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a SecurityObject model
+        security_object_model = {}
+        security_object_model['names'] = ['testString']
+        security_object_model['roles'] = ['testString']
+
         # Set up parameter values
         db = 'testString'
         cloudant = {}
+        admins = security_object_model
+        members = security_object_model
+        couchdb_auth_only = True
 
         # Invoke method
-        response = service.put_cloudant_security(
+        response = service.put_cloudant_security_configuration(
             db,
             cloudant=cloudant,
+            admins=admins,
+            members=members,
+            couchdb_auth_only=couchdb_auth_only,
             headers={}
         )
 
@@ -9450,13 +9633,16 @@ class TestPutCloudantSecurity():
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['cloudant'] == {}
+        assert req_body['admins'] == security_object_model
+        assert req_body['members'] == security_object_model
+        assert req_body['couchdb_auth_only'] == True
 
 
-    #--------------------------------------------------------
-    # test_put_cloudant_security_required_params()
-    #--------------------------------------------------------
     @responses.activate
-    def test_put_cloudant_security_required_params(self):
+    def test_put_cloudant_security_configuration_required_params(self):
+        """
+        test_put_cloudant_security_configuration_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_api/v2/db/testString/_security')
         mock_response = '{"ok": true}'
@@ -9470,7 +9656,7 @@ class TestPutCloudantSecurity():
         db = 'testString'
 
         # Invoke method
-        response = service.put_cloudant_security(
+        response = service.put_cloudant_security_configuration(
             db,
             headers={}
         )
@@ -9480,11 +9666,11 @@ class TestPutCloudantSecurity():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_put_cloudant_security_value_error()
-    #--------------------------------------------------------
     @responses.activate
-    def test_put_cloudant_security_value_error(self):
+    def test_put_cloudant_security_configuration_value_error(self):
+        """
+        test_put_cloudant_security_configuration_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_api/v2/db/testString/_security')
         mock_response = '{"ok": true}'
@@ -9504,7 +9690,7 @@ class TestPutCloudantSecurity():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.put_cloudant_security(**req_copy)
+                service.put_cloudant_security_configuration(**req_copy)
 
 
 
@@ -9518,24 +9704,26 @@ class TestPutCloudantSecurity():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for get_cors_information
-#-----------------------------------------------------------------------------
 class TestGetCorsInformation():
+    """
+    Test Class for get_cors_information
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_cors_information()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_cors_information_all_params(self):
+        """
+        get_cors_information()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_api/v2/user/config/cors')
         mock_response = '{"allow_credentials": false, "enable_cors": false, "origins": ["origins"]}'
@@ -9554,24 +9742,26 @@ class TestGetCorsInformation():
         assert response.status_code == 200
 
 
-#-----------------------------------------------------------------------------
-# Test Class for put_cors_configuration
-#-----------------------------------------------------------------------------
 class TestPutCorsConfiguration():
+    """
+    Test Class for put_cors_configuration
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # put_cors_configuration()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_cors_configuration_all_params(self):
+        """
+        put_cors_configuration()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_api/v2/user/config/cors')
         mock_response = '{"ok": true}'
@@ -9604,11 +9794,11 @@ class TestPutCorsConfiguration():
         assert req_body['enable_cors'] == True
 
 
-    #--------------------------------------------------------
-    # test_put_cors_configuration_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_cors_configuration_required_params(self):
+        """
+        test_put_cors_configuration_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_api/v2/user/config/cors')
         mock_response = '{"ok": true}'
@@ -9637,24 +9827,26 @@ class TestPutCorsConfiguration():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for head_attachment
-#-----------------------------------------------------------------------------
 class TestHeadAttachment():
+    """
+    Test Class for head_attachment
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # head_attachment()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_attachment_all_params(self):
+        """
+        head_attachment()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString/testString')
         responses.add(responses.HEAD,
@@ -9685,15 +9877,15 @@ class TestHeadAttachment():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'rev={}'.format(rev) in query_string
 
 
-    #--------------------------------------------------------
-    # test_head_attachment_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_attachment_required_params(self):
+        """
+        test_head_attachment_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString/testString')
         responses.add(responses.HEAD,
@@ -9718,11 +9910,11 @@ class TestHeadAttachment():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_head_attachment_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_head_attachment_value_error(self):
+        """
+        test_head_attachment_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString/testString')
         responses.add(responses.HEAD,
@@ -9747,24 +9939,26 @@ class TestHeadAttachment():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for delete_attachment
-#-----------------------------------------------------------------------------
 class TestDeleteAttachment():
+    """
+    Test Class for delete_attachment
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # delete_attachment()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_attachment_all_params(self):
+        """
+        delete_attachment()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -9798,16 +9992,16 @@ class TestDeleteAttachment():
         assert response.status_code == 201
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'rev={}'.format(rev) in query_string
         assert 'batch={}'.format(batch) in query_string
 
 
-    #--------------------------------------------------------
-    # test_delete_attachment_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_attachment_required_params(self):
+        """
+        test_delete_attachment_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -9835,11 +10029,11 @@ class TestDeleteAttachment():
         assert response.status_code == 201
 
 
-    #--------------------------------------------------------
-    # test_delete_attachment_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_attachment_value_error(self):
+        """
+        test_delete_attachment_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -9867,24 +10061,26 @@ class TestDeleteAttachment():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_attachment
-#-----------------------------------------------------------------------------
 class TestGetAttachment():
+    """
+    Test Class for get_attachment
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_attachment()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_attachment_all_params(self):
+        """
+        get_attachment()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString/testString')
         mock_response = 'This is a mock binary response.'
@@ -9920,15 +10116,15 @@ class TestGetAttachment():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'rev={}'.format(rev) in query_string
 
 
-    #--------------------------------------------------------
-    # test_get_attachment_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_attachment_required_params(self):
+        """
+        test_get_attachment_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString/testString')
         mock_response = 'This is a mock binary response.'
@@ -9956,11 +10152,11 @@ class TestGetAttachment():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_attachment_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_attachment_value_error(self):
+        """
+        test_get_attachment_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString/testString')
         mock_response = 'This is a mock binary response.'
@@ -9988,24 +10184,26 @@ class TestGetAttachment():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for put_attachment
-#-----------------------------------------------------------------------------
 class TestPutAttachment():
+    """
+    Test Class for put_attachment
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # put_attachment()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_attachment_all_params(self):
+        """
+        put_attachment()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -10041,16 +10239,16 @@ class TestPutAttachment():
         assert response.status_code == 201
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'rev={}'.format(rev) in query_string
         # Validate body params
 
 
-    #--------------------------------------------------------
-    # test_put_attachment_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_attachment_required_params(self):
+        """
+        test_put_attachment_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -10083,11 +10281,11 @@ class TestPutAttachment():
         # Validate body params
 
 
-    #--------------------------------------------------------
-    # test_put_attachment_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_attachment_value_error(self):
+        """
+        test_put_attachment_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -10129,24 +10327,26 @@ class TestPutAttachment():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for delete_local_document
-#-----------------------------------------------------------------------------
 class TestDeleteLocalDocument():
+    """
+    Test Class for delete_local_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # delete_local_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_local_document_all_params(self):
+        """
+        delete_local_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -10154,7 +10354,7 @@ class TestDeleteLocalDocument():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -10171,18 +10371,18 @@ class TestDeleteLocalDocument():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'batch={}'.format(batch) in query_string
 
 
-    #--------------------------------------------------------
-    # test_delete_local_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_local_document_required_params(self):
+        """
+        test_delete_local_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -10190,7 +10390,7 @@ class TestDeleteLocalDocument():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -10205,14 +10405,14 @@ class TestDeleteLocalDocument():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_delete_local_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_delete_local_document_value_error(self):
+        """
+        test_delete_local_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -10220,7 +10420,7 @@ class TestDeleteLocalDocument():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -10238,24 +10438,26 @@ class TestDeleteLocalDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_local_document
-#-----------------------------------------------------------------------------
 class TestGetLocalDocument():
+    """
+    Test Class for get_local_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_local_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_local_document_all_params(self):
+        """
+        get_local_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
@@ -10293,18 +10495,18 @@ class TestGetLocalDocument():
         assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'atts_since={}'.format(','.join(atts_since)) in query_string
         assert 'local_seq={}'.format('true' if local_seq else 'false') in query_string
 
 
-    #--------------------------------------------------------
-    # test_get_local_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_local_document_required_params(self):
+        """
+        test_get_local_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
@@ -10330,11 +10532,11 @@ class TestGetLocalDocument():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_local_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_local_document_value_error(self):
+        """
+        test_get_local_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
@@ -10360,24 +10562,26 @@ class TestGetLocalDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for put_local_document
-#-----------------------------------------------------------------------------
 class TestPutLocalDocument():
+    """
+    Test Class for put_local_document
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # put_local_document()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_local_document_all_params(self):
+        """
+        put_local_document()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -10399,15 +10603,15 @@ class TestPutLocalDocument():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        # Construct a dict representation of a DocumentRevisionStatus model
-        document_revision_status_model = {}
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         # Construct a dict representation of a Revisions model
         revisions_model = {}
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         # Construct a dict representation of a Document model
         document_model = {}
@@ -10444,16 +10648,16 @@ class TestPutLocalDocument():
         assert response.status_code == 201
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = requests.utils.unquote(query_string)
+        query_string = urllib.parse.unquote_plus(query_string)
         assert 'batch={}'.format(batch) in query_string
         # Validate body params
 
 
-    #--------------------------------------------------------
-    # test_put_local_document_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_local_document_required_params(self):
+        """
+        test_put_local_document_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -10479,11 +10683,11 @@ class TestPutLocalDocument():
         assert response.status_code == 201
 
 
-    #--------------------------------------------------------
-    # test_put_local_document_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_put_local_document_value_error(self):
+        """
+        test_put_local_document_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
@@ -10509,24 +10713,26 @@ class TestPutLocalDocument():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_local_docs
-#-----------------------------------------------------------------------------
 class TestPostLocalDocs():
+    """
+    Test Class for post_local_docs
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_local_docs()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_local_docs_all_params(self):
+        """
+        post_local_docs()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
@@ -10593,11 +10799,11 @@ class TestPostLocalDocs():
         assert req_body['startkey'] == 'testString'
 
 
-    #--------------------------------------------------------
-    # test_post_local_docs_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_local_docs_required_params(self):
+        """
+        test_post_local_docs_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
@@ -10621,11 +10827,11 @@ class TestPostLocalDocs():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_local_docs_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_local_docs_value_error(self):
+        """
+        test_post_local_docs_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
@@ -10649,24 +10855,26 @@ class TestPostLocalDocs():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_local_docs_queries
-#-----------------------------------------------------------------------------
 class TestPostLocalDocsQueries():
+    """
+    Test Class for post_local_docs_queries
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_local_docs_queries()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_local_docs_queries_all_params(self):
+        """
+        post_local_docs_queries()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
@@ -10674,7 +10882,7 @@ class TestPostLocalDocsQueries():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {}
@@ -10707,17 +10915,17 @@ class TestPostLocalDocsQueries():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['queries'] == [all_docs_query_model]
 
 
-    #--------------------------------------------------------
-    # test_post_local_docs_queries_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_local_docs_queries_required_params(self):
+        """
+        test_post_local_docs_queries_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
@@ -10725,7 +10933,7 @@ class TestPostLocalDocsQueries():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -10738,14 +10946,14 @@ class TestPostLocalDocsQueries():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_local_docs_queries_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_local_docs_queries_value_error(self):
+        """
+        test_post_local_docs_queries_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_local_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
@@ -10753,7 +10961,7 @@ class TestPostLocalDocsQueries():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -10779,24 +10987,26 @@ class TestPostLocalDocsQueries():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for post_ensure_full_commit
-#-----------------------------------------------------------------------------
 class TestPostEnsureFullCommit():
+    """
+    Test Class for post_ensure_full_commit
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_ensure_full_commit()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_ensure_full_commit_all_params(self):
+        """
+        post_ensure_full_commit()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_ensure_full_commit')
         mock_response = '{"instance_start_time": "instance_start_time", "ok": true}'
@@ -10820,11 +11030,11 @@ class TestPostEnsureFullCommit():
         assert response.status_code == 201
 
 
-    #--------------------------------------------------------
-    # test_post_ensure_full_commit_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_ensure_full_commit_value_error(self):
+        """
+        test_post_ensure_full_commit_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_ensure_full_commit')
         mock_response = '{"instance_start_time": "instance_start_time", "ok": true}'
@@ -10848,27 +11058,29 @@ class TestPostEnsureFullCommit():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_missing_revs
-#-----------------------------------------------------------------------------
 class TestPostMissingRevs():
+    """
+    Test Class for post_missing_revs
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_missing_revs()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_missing_revs_all_params(self):
+        """
+        post_missing_revs()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_missing_revs')
-        mock_response = '{"missed_revs": {"mapKey": ["inner"]}}'
+        mock_response = '{"missing_revs": {"mapKey": ["inner"]}}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -10877,12 +11089,12 @@ class TestPostMissingRevs():
 
         # Set up parameter values
         db = 'testString'
-        missing_revs = {}
+        document_revisions = {}
 
         # Invoke method
         response = service.post_missing_revs(
             db,
-            missing_revs=missing_revs,
+            document_revisions=document_revisions,
             headers={}
         )
 
@@ -10891,17 +11103,17 @@ class TestPostMissingRevs():
         assert response.status_code == 200
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body == missing_revs
+        assert req_body == document_revisions
 
 
-    #--------------------------------------------------------
-    # test_post_missing_revs_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_missing_revs_required_params(self):
+        """
+        test_post_missing_revs_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_missing_revs')
-        mock_response = '{"missed_revs": {"mapKey": ["inner"]}}'
+        mock_response = '{"missing_revs": {"mapKey": ["inner"]}}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -10922,14 +11134,14 @@ class TestPostMissingRevs():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_missing_revs_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_missing_revs_value_error(self):
+        """
+        test_post_missing_revs_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_missing_revs')
-        mock_response = '{"missed_revs": {"mapKey": ["inner"]}}'
+        mock_response = '{"missing_revs": {"mapKey": ["inner"]}}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -10950,24 +11162,26 @@ class TestPostMissingRevs():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for post_revs_diff
-#-----------------------------------------------------------------------------
 class TestPostRevsDiff():
+    """
+    Test Class for post_revs_diff
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # post_revs_diff()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_revs_diff_all_params(self):
+        """
+        post_revs_diff()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_revs_diff')
         mock_response = '{"mapKey": {"missing": ["missing"], "possible_ancestors": ["possible_ancestors"]}}'
@@ -10979,12 +11193,12 @@ class TestPostRevsDiff():
 
         # Set up parameter values
         db = 'testString'
-        revs_diff_request = {}
+        document_revisions = {}
 
         # Invoke method
         response = service.post_revs_diff(
             db,
-            revs_diff_request=revs_diff_request,
+            document_revisions=document_revisions,
             headers={}
         )
 
@@ -10993,14 +11207,14 @@ class TestPostRevsDiff():
         assert response.status_code == 200
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body == revs_diff_request
+        assert req_body == document_revisions
 
 
-    #--------------------------------------------------------
-    # test_post_revs_diff_required_params()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_revs_diff_required_params(self):
+        """
+        test_post_revs_diff_required_params()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_revs_diff')
         mock_response = '{"mapKey": {"missing": ["missing"], "possible_ancestors": ["possible_ancestors"]}}'
@@ -11024,11 +11238,11 @@ class TestPostRevsDiff():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_post_revs_diff_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_post_revs_diff_value_error(self):
+        """
+        test_post_revs_diff_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_revs_diff')
         mock_response = '{"mapKey": {"missing": ["missing"], "possible_ancestors": ["possible_ancestors"]}}'
@@ -11052,24 +11266,26 @@ class TestPostRevsDiff():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_shards_information
-#-----------------------------------------------------------------------------
 class TestGetShardsInformation():
+    """
+    Test Class for get_shards_information
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_shards_information()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_shards_information_all_params(self):
+        """
+        get_shards_information()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_shards')
         mock_response = '{"shards": {"mapKey": ["inner"]}}'
@@ -11093,11 +11309,11 @@ class TestGetShardsInformation():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_shards_information_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_shards_information_value_error(self):
+        """
+        test_get_shards_information_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_shards')
         mock_response = '{"shards": {"mapKey": ["inner"]}}'
@@ -11121,24 +11337,26 @@ class TestGetShardsInformation():
 
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_document_shards_info
-#-----------------------------------------------------------------------------
 class TestGetDocumentShardsInfo():
+    """
+    Test Class for get_document_shards_info
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_document_shards_info()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_shards_info_all_params(self):
+        """
+        get_document_shards_info()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_shards/testString')
         mock_response = '{"nodes": ["nodes"], "range": "range"}'
@@ -11164,11 +11382,11 @@ class TestGetDocumentShardsInfo():
         assert response.status_code == 200
 
 
-    #--------------------------------------------------------
-    # test_get_document_shards_info_value_error()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_document_shards_info_value_error(self):
+        """
+        test_get_document_shards_info_value_error()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_shards/testString')
         mock_response = '{"nodes": ["nodes"], "range": "range"}'
@@ -11204,24 +11422,26 @@ class TestGetDocumentShardsInfo():
 ##############################################################################
 # region
 
-#-----------------------------------------------------------------------------
-# Test Class for get_active_tasks
-#-----------------------------------------------------------------------------
 class TestGetActiveTasks():
+    """
+    Test Class for get_active_tasks
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_active_tasks()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_active_tasks_all_params(self):
+        """
+        get_active_tasks()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_active_tasks')
         mock_response = '[{"changes_done": 0, "database": "database", "pid": "pid", "progress": 0, "started_on": 0, "status": "status", "task": "task", "total_changes": 0, "type": "type", "updated_on": 0}]'
@@ -11240,24 +11460,26 @@ class TestGetActiveTasks():
         assert response.status_code == 200
 
 
-#-----------------------------------------------------------------------------
-# Test Class for get_up_information
-#-----------------------------------------------------------------------------
 class TestGetUpInformation():
+    """
+    Test Class for get_up_information
+    """
 
-    # Preprocess the request URL to ensure the mock response will be found.
     def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
         request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
             return re.compile(request_url.rstrip('/') + '/+')
 
-    #--------------------------------------------------------
-    # get_up_information()
-    #--------------------------------------------------------
     @responses.activate
     def test_get_up_information_all_params(self):
+        """
+        get_up_information()
+        """
         # Set up mock
         url = self.preprocess_url(base_url + '/_up')
         mock_response = '{"status": "maintenance_mode"}'
@@ -11286,15 +11508,15 @@ class TestGetUpInformation():
 # Start of Model Tests
 ##############################################################################
 # region
-#-----------------------------------------------------------------------------
-# Test Class for ActiveTask
-#-----------------------------------------------------------------------------
 class TestActiveTask():
+    """
+    Test Class for ActiveTask
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ActiveTask
-    #--------------------------------------------------------
     def test_active_task_serialization(self):
+        """
+        Test serialization/deserialization for ActiveTask
+        """
 
         # Construct a json representation of a ActiveTask model
         active_task_model_json = {}
@@ -11324,15 +11546,15 @@ class TestActiveTask():
         active_task_model_json2 = active_task_model.to_dict()
         assert active_task_model_json2 == active_task_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for AllDocsQueriesResult
-#-----------------------------------------------------------------------------
 class TestAllDocsQueriesResult():
+    """
+    Test Class for AllDocsQueriesResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for AllDocsQueriesResult
-    #--------------------------------------------------------
     def test_all_docs_queries_result_serialization(self):
+        """
+        Test serialization/deserialization for AllDocsQueriesResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -11347,16 +11569,13 @@ class TestAllDocsQueriesResult():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
 
-        docs_result_row_value_model = {} # DocsResultRowValue
-        docs_result_row_value_model['rev'] = 'testString'
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
         document_model['_attachments'] = {}
@@ -11369,6 +11588,9 @@ class TestAllDocsQueriesResult():
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
         document_model['foo'] = { 'foo': 'bar' }
+
+        docs_result_row_value_model = {} # DocsResultRowValue
+        docs_result_row_value_model['rev'] = 'testString'
 
         docs_result_row_model = {} # DocsResultRow
         docs_result_row_model['caused_by'] = 'testString'
@@ -11403,15 +11625,15 @@ class TestAllDocsQueriesResult():
         all_docs_queries_result_model_json2 = all_docs_queries_result_model.to_dict()
         assert all_docs_queries_result_model_json2 == all_docs_queries_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for AllDocsQuery
-#-----------------------------------------------------------------------------
 class TestAllDocsQuery():
+    """
+    Test Class for AllDocsQuery
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for AllDocsQuery
-    #--------------------------------------------------------
     def test_all_docs_query_serialization(self):
+        """
+        Test serialization/deserialization for AllDocsQuery
+        """
 
         # Construct a json representation of a AllDocsQuery model
         all_docs_query_model_json = {}
@@ -11444,15 +11666,15 @@ class TestAllDocsQuery():
         all_docs_query_model_json2 = all_docs_query_model.to_dict()
         assert all_docs_query_model_json2 == all_docs_query_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for AllDocsResult
-#-----------------------------------------------------------------------------
 class TestAllDocsResult():
+    """
+    Test Class for AllDocsResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for AllDocsResult
-    #--------------------------------------------------------
     def test_all_docs_result_serialization(self):
+        """
+        Test serialization/deserialization for AllDocsResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -11467,16 +11689,13 @@ class TestAllDocsResult():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
 
-        docs_result_row_value_model = {} # DocsResultRowValue
-        docs_result_row_value_model['rev'] = 'testString'
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
         document_model['_attachments'] = {}
@@ -11489,6 +11708,9 @@ class TestAllDocsResult():
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
         document_model['foo'] = { 'foo': 'bar' }
+
+        docs_result_row_value_model = {} # DocsResultRowValue
+        docs_result_row_value_model['rev'] = 'testString'
 
         docs_result_row_model = {} # DocsResultRow
         docs_result_row_model['caused_by'] = 'testString'
@@ -11520,15 +11742,15 @@ class TestAllDocsResult():
         all_docs_result_model_json2 = all_docs_result_model.to_dict()
         assert all_docs_result_model_json2 == all_docs_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for Analyzer
-#-----------------------------------------------------------------------------
 class TestAnalyzer():
+    """
+    Test Class for Analyzer
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for Analyzer
-    #--------------------------------------------------------
     def test_analyzer_serialization(self):
+        """
+        Test serialization/deserialization for Analyzer
+        """
 
         # Construct a json representation of a Analyzer model
         analyzer_model_json = {}
@@ -11550,15 +11772,15 @@ class TestAnalyzer():
         analyzer_model_json2 = analyzer_model.to_dict()
         assert analyzer_model_json2 == analyzer_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for AnalyzerConfiguration
-#-----------------------------------------------------------------------------
 class TestAnalyzerConfiguration():
+    """
+    Test Class for AnalyzerConfiguration
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for AnalyzerConfiguration
-    #--------------------------------------------------------
     def test_analyzer_configuration_serialization(self):
+        """
+        Test serialization/deserialization for AnalyzerConfiguration
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -11587,25 +11809,20 @@ class TestAnalyzerConfiguration():
         analyzer_configuration_model_json2 = analyzer_configuration_model.to_dict()
         assert analyzer_configuration_model_json2 == analyzer_configuration_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ApiKeysResult
-#-----------------------------------------------------------------------------
 class TestApiKeysResult():
+    """
+    Test Class for ApiKeysResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ApiKeysResult
-    #--------------------------------------------------------
     def test_api_keys_result_serialization(self):
-
-        # Construct dict forms of any model objects needed in order to build this model.
-
-        ok_model = {} # Ok
-        ok_model['ok'] = True
+        """
+        Test serialization/deserialization for ApiKeysResult
+        """
 
         # Construct a json representation of a ApiKeysResult model
         api_keys_result_model_json = {}
+        api_keys_result_model_json['ok'] = True
         api_keys_result_model_json['key'] = 'testString'
-        api_keys_result_model_json['ok'] = ok_model
         api_keys_result_model_json['password'] = 'testString'
 
         # Construct a model instance of ApiKeysResult by calling from_dict on the json representation
@@ -11623,15 +11840,15 @@ class TestApiKeysResult():
         api_keys_result_model_json2 = api_keys_result_model.to_dict()
         assert api_keys_result_model_json2 == api_keys_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for Attachment
-#-----------------------------------------------------------------------------
 class TestAttachment():
+    """
+    Test Class for Attachment
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for Attachment
-    #--------------------------------------------------------
     def test_attachment_serialization(self):
+        """
+        Test serialization/deserialization for Attachment
+        """
 
         # Construct a json representation of a Attachment model
         attachment_model_json = {}
@@ -11660,15 +11877,15 @@ class TestAttachment():
         attachment_model_json2 = attachment_model.to_dict()
         assert attachment_model_json2 == attachment_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for BulkDocs
-#-----------------------------------------------------------------------------
 class TestBulkDocs():
+    """
+    Test Class for BulkDocs
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for BulkDocs
-    #--------------------------------------------------------
     def test_bulk_docs_serialization(self):
+        """
+        Test serialization/deserialization for BulkDocs
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -11683,13 +11900,13 @@ class TestBulkDocs():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
         document_model['_attachments'] = {}
@@ -11723,15 +11940,15 @@ class TestBulkDocs():
         bulk_docs_model_json2 = bulk_docs_model.to_dict()
         assert bulk_docs_model_json2 == bulk_docs_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for BulkGetQueryDocument
-#-----------------------------------------------------------------------------
 class TestBulkGetQueryDocument():
+    """
+    Test Class for BulkGetQueryDocument
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for BulkGetQueryDocument
-    #--------------------------------------------------------
     def test_bulk_get_query_document_serialization(self):
+        """
+        Test serialization/deserialization for BulkGetQueryDocument
+        """
 
         # Construct a json representation of a BulkGetQueryDocument model
         bulk_get_query_document_model_json = {}
@@ -11755,17 +11972,25 @@ class TestBulkGetQueryDocument():
         bulk_get_query_document_model_json2 = bulk_get_query_document_model.to_dict()
         assert bulk_get_query_document_model_json2 == bulk_get_query_document_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for BulkGetResult
-#-----------------------------------------------------------------------------
 class TestBulkGetResult():
+    """
+    Test Class for BulkGetResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for BulkGetResult
-    #--------------------------------------------------------
     def test_bulk_get_result_serialization(self):
+        """
+        Test serialization/deserialization for BulkGetResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
+
+        document_result_model = {} # DocumentResult
+        document_result_model['id'] = 'testString'
+        document_result_model['rev'] = 'testString'
+        document_result_model['ok'] = True
+        document_result_model['caused_by'] = 'testString'
+        document_result_model['error'] = 'testString'
+        document_result_model['reason'] = 'testString'
 
         attachment_model = {} # Attachment
         attachment_model['content_type'] = 'testString'
@@ -11778,13 +12003,13 @@ class TestBulkGetResult():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
         document_model['_attachments'] = {}
@@ -11797,14 +12022,6 @@ class TestBulkGetResult():
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
         document_model['foo'] = { 'foo': 'bar' }
-
-        document_result_model = {} # DocumentResult
-        document_result_model['id'] = 'testString'
-        document_result_model['rev'] = 'testString'
-        document_result_model['ok'] = True
-        document_result_model['caused_by'] = 'testString'
-        document_result_model['error'] = 'testString'
-        document_result_model['reason'] = 'testString'
 
         bulk_get_result_document_model = {} # BulkGetResultDocument
         bulk_get_result_document_model['error'] = document_result_model
@@ -11833,17 +12050,25 @@ class TestBulkGetResult():
         bulk_get_result_model_json2 = bulk_get_result_model.to_dict()
         assert bulk_get_result_model_json2 == bulk_get_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for BulkGetResultDocument
-#-----------------------------------------------------------------------------
 class TestBulkGetResultDocument():
+    """
+    Test Class for BulkGetResultDocument
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for BulkGetResultDocument
-    #--------------------------------------------------------
     def test_bulk_get_result_document_serialization(self):
+        """
+        Test serialization/deserialization for BulkGetResultDocument
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
+
+        document_result_model = {} # DocumentResult
+        document_result_model['id'] = 'testString'
+        document_result_model['rev'] = 'testString'
+        document_result_model['ok'] = True
+        document_result_model['caused_by'] = 'testString'
+        document_result_model['error'] = 'testString'
+        document_result_model['reason'] = 'testString'
 
         attachment_model = {} # Attachment
         attachment_model['content_type'] = 'testString'
@@ -11856,13 +12081,13 @@ class TestBulkGetResultDocument():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
         document_model['_attachments'] = {}
@@ -11875,14 +12100,6 @@ class TestBulkGetResultDocument():
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
         document_model['foo'] = { 'foo': 'bar' }
-
-        document_result_model = {} # DocumentResult
-        document_result_model['id'] = 'testString'
-        document_result_model['rev'] = 'testString'
-        document_result_model['ok'] = True
-        document_result_model['caused_by'] = 'testString'
-        document_result_model['error'] = 'testString'
-        document_result_model['reason'] = 'testString'
 
         # Construct a json representation of a BulkGetResultDocument model
         bulk_get_result_document_model_json = {}
@@ -11904,17 +12121,25 @@ class TestBulkGetResultDocument():
         bulk_get_result_document_model_json2 = bulk_get_result_document_model.to_dict()
         assert bulk_get_result_document_model_json2 == bulk_get_result_document_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for BulkGetResultItem
-#-----------------------------------------------------------------------------
 class TestBulkGetResultItem():
+    """
+    Test Class for BulkGetResultItem
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for BulkGetResultItem
-    #--------------------------------------------------------
     def test_bulk_get_result_item_serialization(self):
+        """
+        Test serialization/deserialization for BulkGetResultItem
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
+
+        document_result_model = {} # DocumentResult
+        document_result_model['id'] = 'testString'
+        document_result_model['rev'] = 'testString'
+        document_result_model['ok'] = True
+        document_result_model['caused_by'] = 'testString'
+        document_result_model['error'] = 'testString'
+        document_result_model['reason'] = 'testString'
 
         attachment_model = {} # Attachment
         attachment_model['content_type'] = 'testString'
@@ -11927,13 +12152,13 @@ class TestBulkGetResultItem():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
         document_model['_attachments'] = {}
@@ -11946,14 +12171,6 @@ class TestBulkGetResultItem():
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
         document_model['foo'] = { 'foo': 'bar' }
-
-        document_result_model = {} # DocumentResult
-        document_result_model['id'] = 'testString'
-        document_result_model['rev'] = 'testString'
-        document_result_model['ok'] = True
-        document_result_model['caused_by'] = 'testString'
-        document_result_model['error'] = 'testString'
-        document_result_model['reason'] = 'testString'
 
         bulk_get_result_document_model = {} # BulkGetResultDocument
         bulk_get_result_document_model['error'] = document_result_model
@@ -11979,15 +12196,15 @@ class TestBulkGetResultItem():
         bulk_get_result_item_model_json2 = bulk_get_result_item_model.to_dict()
         assert bulk_get_result_item_model_json2 == bulk_get_result_item_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for Change
-#-----------------------------------------------------------------------------
 class TestChange():
+    """
+    Test Class for Change
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for Change
-    #--------------------------------------------------------
     def test_change_serialization(self):
+        """
+        Test serialization/deserialization for Change
+        """
 
         # Construct a json representation of a Change model
         change_model_json = {}
@@ -12008,15 +12225,15 @@ class TestChange():
         change_model_json2 = change_model.to_dict()
         assert change_model_json2 == change_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ChangesResult
-#-----------------------------------------------------------------------------
 class TestChangesResult():
+    """
+    Test Class for ChangesResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ChangesResult
-    #--------------------------------------------------------
     def test_changes_result_serialization(self):
+        """
+        Test serialization/deserialization for ChangesResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -12050,15 +12267,15 @@ class TestChangesResult():
         changes_result_model_json2 = changes_result_model.to_dict()
         assert changes_result_model_json2 == changes_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ChangesResultItem
-#-----------------------------------------------------------------------------
 class TestChangesResultItem():
+    """
+    Test Class for ChangesResultItem
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ChangesResultItem
-    #--------------------------------------------------------
     def test_changes_result_item_serialization(self):
+        """
+        Test serialization/deserialization for ChangesResultItem
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -12087,15 +12304,15 @@ class TestChangesResultItem():
         changes_result_item_model_json2 = changes_result_item_model.to_dict()
         assert changes_result_item_model_json2 == changes_result_item_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ContentInformationSizes
-#-----------------------------------------------------------------------------
 class TestContentInformationSizes():
+    """
+    Test Class for ContentInformationSizes
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ContentInformationSizes
-    #--------------------------------------------------------
     def test_content_information_sizes_serialization(self):
+        """
+        Test serialization/deserialization for ContentInformationSizes
+        """
 
         # Construct a json representation of a ContentInformationSizes model
         content_information_sizes_model_json = {}
@@ -12118,15 +12335,15 @@ class TestContentInformationSizes():
         content_information_sizes_model_json2 = content_information_sizes_model.to_dict()
         assert content_information_sizes_model_json2 == content_information_sizes_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for CorsConfiguration
-#-----------------------------------------------------------------------------
 class TestCorsConfiguration():
+    """
+    Test Class for CorsConfiguration
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for CorsConfiguration
-    #--------------------------------------------------------
     def test_cors_configuration_serialization(self):
+        """
+        Test serialization/deserialization for CorsConfiguration
+        """
 
         # Construct a json representation of a CorsConfiguration model
         cors_configuration_model_json = {}
@@ -12149,22 +12366,17 @@ class TestCorsConfiguration():
         cors_configuration_model_json2 = cors_configuration_model.to_dict()
         assert cors_configuration_model_json2 == cors_configuration_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DatabaseInformation
-#-----------------------------------------------------------------------------
 class TestDatabaseInformation():
+    """
+    Test Class for DatabaseInformation
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DatabaseInformation
-    #--------------------------------------------------------
     def test_database_information_serialization(self):
+        """
+        Test serialization/deserialization for DatabaseInformation
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
-
-        content_information_sizes_model = {} # ContentInformationSizes
-        content_information_sizes_model['active'] = 26
-        content_information_sizes_model['external'] = 26
-        content_information_sizes_model['file'] = 26
 
         database_information_cluster_model = {} # DatabaseInformationCluster
         database_information_cluster_model['n'] = 1
@@ -12174,6 +12386,11 @@ class TestDatabaseInformation():
 
         database_information_props_model = {} # DatabaseInformationProps
         database_information_props_model['partitioned'] = True
+
+        content_information_sizes_model = {} # ContentInformationSizes
+        content_information_sizes_model['active'] = 26
+        content_information_sizes_model['external'] = 26
+        content_information_sizes_model['file'] = 26
 
         # Construct a json representation of a DatabaseInformation model
         database_information_model_json = {}
@@ -12206,15 +12423,15 @@ class TestDatabaseInformation():
         database_information_model_json2 = database_information_model.to_dict()
         assert database_information_model_json2 == database_information_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DatabaseInformationCluster
-#-----------------------------------------------------------------------------
 class TestDatabaseInformationCluster():
+    """
+    Test Class for DatabaseInformationCluster
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DatabaseInformationCluster
-    #--------------------------------------------------------
     def test_database_information_cluster_serialization(self):
+        """
+        Test serialization/deserialization for DatabaseInformationCluster
+        """
 
         # Construct a json representation of a DatabaseInformationCluster model
         database_information_cluster_model_json = {}
@@ -12238,15 +12455,15 @@ class TestDatabaseInformationCluster():
         database_information_cluster_model_json2 = database_information_cluster_model.to_dict()
         assert database_information_cluster_model_json2 == database_information_cluster_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DatabaseInformationProps
-#-----------------------------------------------------------------------------
 class TestDatabaseInformationProps():
+    """
+    Test Class for DatabaseInformationProps
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DatabaseInformationProps
-    #--------------------------------------------------------
     def test_database_information_props_serialization(self):
+        """
+        Test serialization/deserialization for DatabaseInformationProps
+        """
 
         # Construct a json representation of a DatabaseInformationProps model
         database_information_props_model_json = {}
@@ -12267,15 +12484,15 @@ class TestDatabaseInformationProps():
         database_information_props_model_json2 = database_information_props_model.to_dict()
         assert database_information_props_model_json2 == database_information_props_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DbEvent
-#-----------------------------------------------------------------------------
 class TestDbEvent():
+    """
+    Test Class for DbEvent
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DbEvent
-    #--------------------------------------------------------
     def test_db_event_serialization(self):
+        """
+        Test serialization/deserialization for DbEvent
+        """
 
         # Construct a json representation of a DbEvent model
         db_event_model_json = {}
@@ -12299,15 +12516,15 @@ class TestDbEvent():
         db_event_model_json2 = db_event_model.to_dict()
         assert db_event_model_json2 == db_event_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DbUpdates
-#-----------------------------------------------------------------------------
 class TestDbUpdates():
+    """
+    Test Class for DbUpdates
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DbUpdates
-    #--------------------------------------------------------
     def test_db_updates_serialization(self):
+        """
+        Test serialization/deserialization for DbUpdates
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -12337,22 +12554,17 @@ class TestDbUpdates():
         db_updates_model_json2 = db_updates_model.to_dict()
         assert db_updates_model_json2 == db_updates_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DbsInfoResult
-#-----------------------------------------------------------------------------
 class TestDbsInfoResult():
+    """
+    Test Class for DbsInfoResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DbsInfoResult
-    #--------------------------------------------------------
     def test_dbs_info_result_serialization(self):
+        """
+        Test serialization/deserialization for DbsInfoResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
-
-        content_information_sizes_model = {} # ContentInformationSizes
-        content_information_sizes_model['active'] = 26
-        content_information_sizes_model['external'] = 26
-        content_information_sizes_model['file'] = 26
 
         database_information_cluster_model = {} # DatabaseInformationCluster
         database_information_cluster_model['n'] = 1
@@ -12362,6 +12574,11 @@ class TestDbsInfoResult():
 
         database_information_props_model = {} # DatabaseInformationProps
         database_information_props_model['partitioned'] = True
+
+        content_information_sizes_model = {} # ContentInformationSizes
+        content_information_sizes_model['active'] = 26
+        content_information_sizes_model['external'] = 26
+        content_information_sizes_model['file'] = 26
 
         database_information_model = {} # DatabaseInformation
         database_information_model['cluster'] = database_information_cluster_model
@@ -12398,26 +12615,17 @@ class TestDbsInfoResult():
         dbs_info_result_model_json2 = dbs_info_result_model.to_dict()
         assert dbs_info_result_model_json2 == dbs_info_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DesignDocument
-#-----------------------------------------------------------------------------
 class TestDesignDocument():
+    """
+    Test Class for DesignDocument
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DesignDocument
-    #--------------------------------------------------------
     def test_design_document_serialization(self):
+        """
+        Test serialization/deserialization for DesignDocument
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
-
-        analyzer_model = {} # Analyzer
-        analyzer_model['name'] = 'classic'
-        analyzer_model['stopwords'] = ['testString']
-
-        analyzer_configuration_model = {} # AnalyzerConfiguration
-        analyzer_configuration_model['name'] = 'classic'
-        analyzer_configuration_model['stopwords'] = ['testString']
-        analyzer_configuration_model['fields'] = {}
 
         attachment_model = {} # Attachment
         attachment_model['content_type'] = 'testString'
@@ -12430,6 +12638,27 @@ class TestDesignDocument():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
+        revisions_model = {} # Revisions
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        analyzer_model = {} # Analyzer
+        analyzer_model['name'] = 'classic'
+        analyzer_model['stopwords'] = ['testString']
+
+        analyzer_configuration_model = {} # AnalyzerConfiguration
+        analyzer_configuration_model['name'] = 'classic'
+        analyzer_configuration_model['stopwords'] = ['testString']
+        analyzer_configuration_model['fields'] = {}
+
+        search_index_definition_model = {} # SearchIndexDefinition
+        search_index_definition_model['analyzer'] = analyzer_configuration_model
+        search_index_definition_model['index'] = 'testString'
+
         design_document_options_model = {} # DesignDocumentOptions
         design_document_options_model['partitioned'] = True
 
@@ -12437,20 +12666,8 @@ class TestDesignDocument():
         design_document_views_map_reduce_model['map'] = 'testString'
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         geo_index_definition_model = {} # GeoIndexDefinition
         geo_index_definition_model['index'] = 'testString'
-
-        revisions_model = {} # Revisions
-        revisions_model['ids'] = ['testString']
-        revisions_model['start'] = 1
-
-        search_index_definition_model = {} # SearchIndexDefinition
-        search_index_definition_model['analyzer'] = analyzer_configuration_model
-        search_index_definition_model['index'] = 'testString'
 
         # Construct a json representation of a DesignDocument model
         design_document_model_json = {}
@@ -12489,15 +12706,15 @@ class TestDesignDocument():
         design_document_model_json2 = design_document_model.to_dict()
         assert design_document_model_json2 == design_document_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DesignDocumentInformation
-#-----------------------------------------------------------------------------
 class TestDesignDocumentInformation():
+    """
+    Test Class for DesignDocumentInformation
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DesignDocumentInformation
-    #--------------------------------------------------------
     def test_design_document_information_serialization(self):
+        """
+        Test serialization/deserialization for DesignDocumentInformation
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -12506,20 +12723,20 @@ class TestDesignDocumentInformation():
         content_information_sizes_model['external'] = 26
         content_information_sizes_model['file'] = 26
 
-        design_document_information_view_index_model = {} # DesignDocumentInformationViewIndex
-        design_document_information_view_index_model['compact_running'] = True
-        design_document_information_view_index_model['language'] = 'testString'
-        design_document_information_view_index_model['signature'] = 'testString'
-        design_document_information_view_index_model['sizes'] = content_information_sizes_model
-        design_document_information_view_index_model['update_seq'] = 'testString'
-        design_document_information_view_index_model['updater_running'] = True
-        design_document_information_view_index_model['waiting_clients'] = 0
-        design_document_information_view_index_model['waiting_commit'] = True
+        design_document_view_index_model = {} # DesignDocumentViewIndex
+        design_document_view_index_model['compact_running'] = True
+        design_document_view_index_model['language'] = 'testString'
+        design_document_view_index_model['signature'] = 'testString'
+        design_document_view_index_model['sizes'] = content_information_sizes_model
+        design_document_view_index_model['update_seq'] = 'testString'
+        design_document_view_index_model['updater_running'] = True
+        design_document_view_index_model['waiting_clients'] = 0
+        design_document_view_index_model['waiting_commit'] = True
 
         # Construct a json representation of a DesignDocumentInformation model
         design_document_information_model_json = {}
         design_document_information_model_json['name'] = 'testString'
-        design_document_information_model_json['view_index'] = design_document_information_view_index_model
+        design_document_information_model_json['view_index'] = design_document_view_index_model
 
         # Construct a model instance of DesignDocumentInformation by calling from_dict on the json representation
         design_document_information_model = DesignDocumentInformation.from_dict(design_document_information_model_json)
@@ -12536,58 +12753,15 @@ class TestDesignDocumentInformation():
         design_document_information_model_json2 = design_document_information_model.to_dict()
         assert design_document_information_model_json2 == design_document_information_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DesignDocumentInformationViewIndex
-#-----------------------------------------------------------------------------
-class TestDesignDocumentInformationViewIndex():
-
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DesignDocumentInformationViewIndex
-    #--------------------------------------------------------
-    def test_design_document_information_view_index_serialization(self):
-
-        # Construct dict forms of any model objects needed in order to build this model.
-
-        content_information_sizes_model = {} # ContentInformationSizes
-        content_information_sizes_model['active'] = 26
-        content_information_sizes_model['external'] = 26
-        content_information_sizes_model['file'] = 26
-
-        # Construct a json representation of a DesignDocumentInformationViewIndex model
-        design_document_information_view_index_model_json = {}
-        design_document_information_view_index_model_json['compact_running'] = True
-        design_document_information_view_index_model_json['language'] = 'testString'
-        design_document_information_view_index_model_json['signature'] = 'testString'
-        design_document_information_view_index_model_json['sizes'] = content_information_sizes_model
-        design_document_information_view_index_model_json['update_seq'] = 'testString'
-        design_document_information_view_index_model_json['updater_running'] = True
-        design_document_information_view_index_model_json['waiting_clients'] = 0
-        design_document_information_view_index_model_json['waiting_commit'] = True
-
-        # Construct a model instance of DesignDocumentInformationViewIndex by calling from_dict on the json representation
-        design_document_information_view_index_model = DesignDocumentInformationViewIndex.from_dict(design_document_information_view_index_model_json)
-        assert design_document_information_view_index_model != False
-
-        # Construct a model instance of DesignDocumentInformationViewIndex by calling from_dict on the json representation
-        design_document_information_view_index_model_dict = DesignDocumentInformationViewIndex.from_dict(design_document_information_view_index_model_json).__dict__
-        design_document_information_view_index_model2 = DesignDocumentInformationViewIndex(**design_document_information_view_index_model_dict)
-
-        # Verify the model instances are equivalent
-        assert design_document_information_view_index_model == design_document_information_view_index_model2
-
-        # Convert model instance back to dict and verify no loss of data
-        design_document_information_view_index_model_json2 = design_document_information_view_index_model.to_dict()
-        assert design_document_information_view_index_model_json2 == design_document_information_view_index_model_json
-
-#-----------------------------------------------------------------------------
-# Test Class for DesignDocumentOptions
-#-----------------------------------------------------------------------------
 class TestDesignDocumentOptions():
+    """
+    Test Class for DesignDocumentOptions
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DesignDocumentOptions
-    #--------------------------------------------------------
     def test_design_document_options_serialization(self):
+        """
+        Test serialization/deserialization for DesignDocumentOptions
+        """
 
         # Construct a json representation of a DesignDocumentOptions model
         design_document_options_model_json = {}
@@ -12608,15 +12782,58 @@ class TestDesignDocumentOptions():
         design_document_options_model_json2 = design_document_options_model.to_dict()
         assert design_document_options_model_json2 == design_document_options_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DesignDocumentViewsMapReduce
-#-----------------------------------------------------------------------------
-class TestDesignDocumentViewsMapReduce():
+class TestDesignDocumentViewIndex():
+    """
+    Test Class for DesignDocumentViewIndex
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DesignDocumentViewsMapReduce
-    #--------------------------------------------------------
+    def test_design_document_view_index_serialization(self):
+        """
+        Test serialization/deserialization for DesignDocumentViewIndex
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        content_information_sizes_model = {} # ContentInformationSizes
+        content_information_sizes_model['active'] = 26
+        content_information_sizes_model['external'] = 26
+        content_information_sizes_model['file'] = 26
+
+        # Construct a json representation of a DesignDocumentViewIndex model
+        design_document_view_index_model_json = {}
+        design_document_view_index_model_json['compact_running'] = True
+        design_document_view_index_model_json['language'] = 'testString'
+        design_document_view_index_model_json['signature'] = 'testString'
+        design_document_view_index_model_json['sizes'] = content_information_sizes_model
+        design_document_view_index_model_json['update_seq'] = 'testString'
+        design_document_view_index_model_json['updater_running'] = True
+        design_document_view_index_model_json['waiting_clients'] = 0
+        design_document_view_index_model_json['waiting_commit'] = True
+
+        # Construct a model instance of DesignDocumentViewIndex by calling from_dict on the json representation
+        design_document_view_index_model = DesignDocumentViewIndex.from_dict(design_document_view_index_model_json)
+        assert design_document_view_index_model != False
+
+        # Construct a model instance of DesignDocumentViewIndex by calling from_dict on the json representation
+        design_document_view_index_model_dict = DesignDocumentViewIndex.from_dict(design_document_view_index_model_json).__dict__
+        design_document_view_index_model2 = DesignDocumentViewIndex(**design_document_view_index_model_dict)
+
+        # Verify the model instances are equivalent
+        assert design_document_view_index_model == design_document_view_index_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        design_document_view_index_model_json2 = design_document_view_index_model.to_dict()
+        assert design_document_view_index_model_json2 == design_document_view_index_model_json
+
+class TestDesignDocumentViewsMapReduce():
+    """
+    Test Class for DesignDocumentViewsMapReduce
+    """
+
     def test_design_document_views_map_reduce_serialization(self):
+        """
+        Test serialization/deserialization for DesignDocumentViewsMapReduce
+        """
 
         # Construct a json representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model_json = {}
@@ -12638,15 +12855,15 @@ class TestDesignDocumentViewsMapReduce():
         design_document_views_map_reduce_model_json2 = design_document_views_map_reduce_model.to_dict()
         assert design_document_views_map_reduce_model_json2 == design_document_views_map_reduce_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DocsResultRow
-#-----------------------------------------------------------------------------
 class TestDocsResultRow():
+    """
+    Test Class for DocsResultRow
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DocsResultRow
-    #--------------------------------------------------------
     def test_docs_result_row_serialization(self):
+        """
+        Test serialization/deserialization for DocsResultRow
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -12661,16 +12878,13 @@ class TestDocsResultRow():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
 
-        docs_result_row_value_model = {} # DocsResultRowValue
-        docs_result_row_value_model['rev'] = 'testString'
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
         document_model['_attachments'] = {}
@@ -12683,6 +12897,9 @@ class TestDocsResultRow():
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
         document_model['foo'] = { 'foo': 'bar' }
+
+        docs_result_row_value_model = {} # DocsResultRowValue
+        docs_result_row_value_model['rev'] = 'testString'
 
         # Construct a json representation of a DocsResultRow model
         docs_result_row_model_json = {}
@@ -12709,15 +12926,15 @@ class TestDocsResultRow():
         docs_result_row_model_json2 = docs_result_row_model.to_dict()
         assert docs_result_row_model_json2 == docs_result_row_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DocsResultRowValue
-#-----------------------------------------------------------------------------
 class TestDocsResultRowValue():
+    """
+    Test Class for DocsResultRowValue
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DocsResultRowValue
-    #--------------------------------------------------------
     def test_docs_result_row_value_serialization(self):
+        """
+        Test serialization/deserialization for DocsResultRowValue
+        """
 
         # Construct a json representation of a DocsResultRowValue model
         docs_result_row_value_model_json = {}
@@ -12738,15 +12955,15 @@ class TestDocsResultRowValue():
         docs_result_row_value_model_json2 = docs_result_row_value_model.to_dict()
         assert docs_result_row_value_model_json2 == docs_result_row_value_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for Document
-#-----------------------------------------------------------------------------
 class TestDocument():
+    """
+    Test Class for Document
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for Document
-    #--------------------------------------------------------
     def test_document_serialization(self):
+        """
+        Test serialization/deserialization for Document
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -12761,13 +12978,13 @@ class TestDocument():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         # Construct a json representation of a Document model
         document_model_json = {}
@@ -12797,15 +13014,15 @@ class TestDocument():
         document_model_json2 = document_model.to_dict()
         assert document_model_json2 == document_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DocumentResult
-#-----------------------------------------------------------------------------
 class TestDocumentResult():
+    """
+    Test Class for DocumentResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DocumentResult
-    #--------------------------------------------------------
     def test_document_result_serialization(self):
+        """
+        Test serialization/deserialization for DocumentResult
+        """
 
         # Construct a json representation of a DocumentResult model
         document_result_model_json = {}
@@ -12831,15 +13048,15 @@ class TestDocumentResult():
         document_result_model_json2 = document_result_model.to_dict()
         assert document_result_model_json2 == document_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DocumentRevisionStatus
-#-----------------------------------------------------------------------------
 class TestDocumentRevisionStatus():
+    """
+    Test Class for DocumentRevisionStatus
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DocumentRevisionStatus
-    #--------------------------------------------------------
     def test_document_revision_status_serialization(self):
+        """
+        Test serialization/deserialization for DocumentRevisionStatus
+        """
 
         # Construct a json representation of a DocumentRevisionStatus model
         document_revision_status_model_json = {}
@@ -12861,15 +13078,15 @@ class TestDocumentRevisionStatus():
         document_revision_status_model_json2 = document_revision_status_model.to_dict()
         assert document_revision_status_model_json2 == document_revision_status_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for DocumentShardInfo
-#-----------------------------------------------------------------------------
 class TestDocumentShardInfo():
+    """
+    Test Class for DocumentShardInfo
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for DocumentShardInfo
-    #--------------------------------------------------------
     def test_document_shard_info_serialization(self):
+        """
+        Test serialization/deserialization for DocumentShardInfo
+        """
 
         # Construct a json representation of a DocumentShardInfo model
         document_shard_info_model_json = {}
@@ -12891,15 +13108,15 @@ class TestDocumentShardInfo():
         document_shard_info_model_json2 = document_shard_info_model.to_dict()
         assert document_shard_info_model_json2 == document_shard_info_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for EnsureFullCommitInformation
-#-----------------------------------------------------------------------------
 class TestEnsureFullCommitInformation():
+    """
+    Test Class for EnsureFullCommitInformation
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for EnsureFullCommitInformation
-    #--------------------------------------------------------
     def test_ensure_full_commit_information_serialization(self):
+        """
+        Test serialization/deserialization for EnsureFullCommitInformation
+        """
 
         # Construct a json representation of a EnsureFullCommitInformation model
         ensure_full_commit_information_model_json = {}
@@ -12921,15 +13138,15 @@ class TestEnsureFullCommitInformation():
         ensure_full_commit_information_model_json2 = ensure_full_commit_information_model.to_dict()
         assert ensure_full_commit_information_model_json2 == ensure_full_commit_information_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ExecutionStats
-#-----------------------------------------------------------------------------
 class TestExecutionStats():
+    """
+    Test Class for ExecutionStats
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ExecutionStats
-    #--------------------------------------------------------
     def test_execution_stats_serialization(self):
+        """
+        Test serialization/deserialization for ExecutionStats
+        """
 
         # Construct a json representation of a ExecutionStats model
         execution_stats_model_json = {}
@@ -12954,15 +13171,15 @@ class TestExecutionStats():
         execution_stats_model_json2 = execution_stats_model.to_dict()
         assert execution_stats_model_json2 == execution_stats_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ExplainResult
-#-----------------------------------------------------------------------------
 class TestExplainResult():
+    """
+    Test Class for ExplainResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ExplainResult
-    #--------------------------------------------------------
     def test_explain_result_serialization(self):
+        """
+        Test serialization/deserialization for ExplainResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -12970,14 +13187,14 @@ class TestExplainResult():
         analyzer_model['name'] = 'classic'
         analyzer_model['stopwords'] = ['testString']
 
+        index_text_operator_default_field_model = {} # IndexTextOperatorDefaultField
+        index_text_operator_default_field_model['analyzer'] = analyzer_model
+        index_text_operator_default_field_model['enabled'] = True
+
         index_field_model = {} # IndexField
         index_field_model['name'] = 'testString'
         index_field_model['type'] = 'boolean'
         index_field_model['foo'] = 'asc'
-
-        index_text_operator_default_field_model = {} # IndexTextOperatorDefaultField
-        index_text_operator_default_field_model['analyzer'] = analyzer_model
-        index_text_operator_default_field_model['enabled'] = True
 
         index_definition_model = {} # IndexDefinition
         index_definition_model['default_analyzer'] = analyzer_model
@@ -12985,15 +13202,15 @@ class TestExplainResult():
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
 
-        explain_result_range_model = {} # ExplainResultRange
-        explain_result_range_model['end_key'] = [{ 'foo': 'bar' }]
-        explain_result_range_model['start_key'] = [{ 'foo': 'bar' }]
-
         index_information_model = {} # IndexInformation
         index_information_model['ddoc'] = 'testString'
         index_information_model['def'] = index_definition_model
         index_information_model['name'] = 'testString'
         index_information_model['type'] = 'json'
+
+        explain_result_range_model = {} # ExplainResultRange
+        explain_result_range_model['end_key'] = [{ 'foo': 'bar' }]
+        explain_result_range_model['start_key'] = [{ 'foo': 'bar' }]
 
         # Construct a json representation of a ExplainResult model
         explain_result_model_json = {}
@@ -13021,15 +13238,15 @@ class TestExplainResult():
         explain_result_model_json2 = explain_result_model.to_dict()
         assert explain_result_model_json2 == explain_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ExplainResultRange
-#-----------------------------------------------------------------------------
 class TestExplainResultRange():
+    """
+    Test Class for ExplainResultRange
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ExplainResultRange
-    #--------------------------------------------------------
     def test_explain_result_range_serialization(self):
+        """
+        Test serialization/deserialization for ExplainResultRange
+        """
 
         # Construct a json representation of a ExplainResultRange model
         explain_result_range_model_json = {}
@@ -13051,15 +13268,15 @@ class TestExplainResultRange():
         explain_result_range_model_json2 = explain_result_range_model.to_dict()
         assert explain_result_range_model_json2 == explain_result_range_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for FindResult
-#-----------------------------------------------------------------------------
 class TestFindResult():
+    """
+    Test Class for FindResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for FindResult
-    #--------------------------------------------------------
     def test_find_result_serialization(self):
+        """
+        Test serialization/deserialization for FindResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -13074,13 +13291,13 @@ class TestFindResult():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
         document_model['_attachments'] = {}
@@ -13123,15 +13340,15 @@ class TestFindResult():
         find_result_model_json2 = find_result_model.to_dict()
         assert find_result_model_json2 == find_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for GeoIndexDefinition
-#-----------------------------------------------------------------------------
 class TestGeoIndexDefinition():
+    """
+    Test Class for GeoIndexDefinition
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for GeoIndexDefinition
-    #--------------------------------------------------------
     def test_geo_index_definition_serialization(self):
+        """
+        Test serialization/deserialization for GeoIndexDefinition
+        """
 
         # Construct a json representation of a GeoIndexDefinition model
         geo_index_definition_model_json = {}
@@ -13152,15 +13369,15 @@ class TestGeoIndexDefinition():
         geo_index_definition_model_json2 = geo_index_definition_model.to_dict()
         assert geo_index_definition_model_json2 == geo_index_definition_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for GeoIndexInformation
-#-----------------------------------------------------------------------------
 class TestGeoIndexInformation():
+    """
+    Test Class for GeoIndexInformation
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for GeoIndexInformation
-    #--------------------------------------------------------
     def test_geo_index_information_serialization(self):
+        """
+        Test serialization/deserialization for GeoIndexInformation
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -13188,15 +13405,15 @@ class TestGeoIndexInformation():
         geo_index_information_model_json2 = geo_index_information_model.to_dict()
         assert geo_index_information_model_json2 == geo_index_information_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for GeoIndexStats
-#-----------------------------------------------------------------------------
 class TestGeoIndexStats():
+    """
+    Test Class for GeoIndexStats
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for GeoIndexStats
-    #--------------------------------------------------------
     def test_geo_index_stats_serialization(self):
+        """
+        Test serialization/deserialization for GeoIndexStats
+        """
 
         # Construct a json representation of a GeoIndexStats model
         geo_index_stats_model_json = {}
@@ -13219,19 +13436,19 @@ class TestGeoIndexStats():
         geo_index_stats_model_json2 = geo_index_stats_model.to_dict()
         assert geo_index_stats_model_json2 == geo_index_stats_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for GeoJsonFeature
-#-----------------------------------------------------------------------------
 class TestGeoJsonFeature():
+    """
+    Test Class for GeoJsonFeature
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for GeoJsonFeature
-    #--------------------------------------------------------
     def test_geo_json_feature_serialization(self):
+        """
+        Test serialization/deserialization for GeoJsonFeature
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
-        geo_json_geometry_object_model = {} # GeoJsonGeometryObject
+        geo_json_geometry_object_model = {} # GeoJsonGeometry
         geo_json_geometry_object_model['type'] = 'Point'
         geo_json_geometry_object_model['coordinates'] = [{ 'foo': 'bar' }]
 
@@ -13260,17 +13477,30 @@ class TestGeoJsonFeature():
         geo_json_feature_model_json2 = geo_json_feature_model.to_dict()
         assert geo_json_feature_model_json2 == geo_json_feature_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for GeoResult
-#-----------------------------------------------------------------------------
 class TestGeoResult():
+    """
+    Test Class for GeoResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for GeoResult
-    #--------------------------------------------------------
     def test_geo_result_serialization(self):
+        """
+        Test serialization/deserialization for GeoResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
+
+        geo_json_geometry_object_model = {} # GeoJsonGeometry
+        geo_json_geometry_object_model['type'] = 'Point'
+        geo_json_geometry_object_model['coordinates'] = [{ 'foo': 'bar' }]
+
+        geo_json_feature_model = {} # GeoJsonFeature
+        geo_json_feature_model['_id'] = 'testString'
+        geo_json_feature_model['_rev'] = 'testString'
+        geo_json_feature_model['bbox'] = [36.0]
+        geo_json_feature_model['geometry'] = geo_json_geometry_object_model
+        geo_json_feature_model['properties'] = {}
+        geo_json_feature_model['type'] = 'Feature'
+        geo_json_feature_model['foo'] = { 'foo': 'bar' }
 
         attachment_model = {} # Attachment
         attachment_model['content_type'] = 'testString'
@@ -13283,13 +13513,13 @@ class TestGeoResult():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
         document_model['_attachments'] = {}
@@ -13306,19 +13536,6 @@ class TestGeoResult():
         geo_json_geometry_model = {} # GeoJsonGeometry
         geo_json_geometry_model['type'] = 'Point'
         geo_json_geometry_model['coordinates'] = [{ 'foo': 'bar' }]
-
-        geo_json_geometry_object_model = {} # GeoJsonGeometryObject
-        geo_json_geometry_object_model['type'] = 'Point'
-        geo_json_geometry_object_model['coordinates'] = [{ 'foo': 'bar' }]
-
-        geo_json_feature_model = {} # GeoJsonFeature
-        geo_json_feature_model['_id'] = 'testString'
-        geo_json_feature_model['_rev'] = 'testString'
-        geo_json_feature_model['bbox'] = [36.0]
-        geo_json_feature_model['geometry'] = geo_json_geometry_object_model
-        geo_json_feature_model['properties'] = {}
-        geo_json_feature_model['type'] = 'Feature'
-        geo_json_feature_model['foo'] = { 'foo': 'bar' }
 
         geo_result_row_model = {} # GeoResultRow
         geo_result_row_model['doc'] = document_model
@@ -13348,15 +13565,15 @@ class TestGeoResult():
         geo_result_model_json2 = geo_result_model.to_dict()
         assert geo_result_model_json2 == geo_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for GeoResultRow
-#-----------------------------------------------------------------------------
 class TestGeoResultRow():
+    """
+    Test Class for GeoResultRow
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for GeoResultRow
-    #--------------------------------------------------------
     def test_geo_result_row_serialization(self):
+        """
+        Test serialization/deserialization for GeoResultRow
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -13371,13 +13588,13 @@ class TestGeoResultRow():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
         document_model['_attachments'] = {}
@@ -13417,15 +13634,15 @@ class TestGeoResultRow():
         geo_result_row_model_json2 = geo_result_row_model.to_dict()
         assert geo_result_row_model_json2 == geo_result_row_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for IamSessionInformation
-#-----------------------------------------------------------------------------
 class TestIamSessionInformation():
+    """
+    Test Class for IamSessionInformation
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for IamSessionInformation
-    #--------------------------------------------------------
     def test_iam_session_information_serialization(self):
+        """
+        Test serialization/deserialization for IamSessionInformation
+        """
 
         # Construct a json representation of a IamSessionInformation model
         iam_session_information_model_json = {}
@@ -13449,15 +13666,15 @@ class TestIamSessionInformation():
         iam_session_information_model_json2 = iam_session_information_model.to_dict()
         assert iam_session_information_model_json2 == iam_session_information_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for IndexDefinition
-#-----------------------------------------------------------------------------
 class TestIndexDefinition():
+    """
+    Test Class for IndexDefinition
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for IndexDefinition
-    #--------------------------------------------------------
     def test_index_definition_serialization(self):
+        """
+        Test serialization/deserialization for IndexDefinition
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -13465,14 +13682,14 @@ class TestIndexDefinition():
         analyzer_model['name'] = 'classic'
         analyzer_model['stopwords'] = ['testString']
 
+        index_text_operator_default_field_model = {} # IndexTextOperatorDefaultField
+        index_text_operator_default_field_model['analyzer'] = analyzer_model
+        index_text_operator_default_field_model['enabled'] = True
+
         index_field_model = {} # IndexField
         index_field_model['name'] = 'testString'
         index_field_model['type'] = 'boolean'
         index_field_model['foo'] = 'asc'
-
-        index_text_operator_default_field_model = {} # IndexTextOperatorDefaultField
-        index_text_operator_default_field_model['analyzer'] = analyzer_model
-        index_text_operator_default_field_model['enabled'] = True
 
         # Construct a json representation of a IndexDefinition model
         index_definition_model_json = {}
@@ -13496,15 +13713,15 @@ class TestIndexDefinition():
         index_definition_model_json2 = index_definition_model.to_dict()
         assert index_definition_model_json2 == index_definition_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for IndexField
-#-----------------------------------------------------------------------------
 class TestIndexField():
+    """
+    Test Class for IndexField
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for IndexField
-    #--------------------------------------------------------
     def test_index_field_serialization(self):
+        """
+        Test serialization/deserialization for IndexField
+        """
 
         # Construct a json representation of a IndexField model
         index_field_model_json = {}
@@ -13527,15 +13744,15 @@ class TestIndexField():
         index_field_model_json2 = index_field_model.to_dict()
         assert index_field_model_json2 == index_field_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for IndexInformation
-#-----------------------------------------------------------------------------
 class TestIndexInformation():
+    """
+    Test Class for IndexInformation
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for IndexInformation
-    #--------------------------------------------------------
     def test_index_information_serialization(self):
+        """
+        Test serialization/deserialization for IndexInformation
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -13543,14 +13760,14 @@ class TestIndexInformation():
         analyzer_model['name'] = 'classic'
         analyzer_model['stopwords'] = ['testString']
 
+        index_text_operator_default_field_model = {} # IndexTextOperatorDefaultField
+        index_text_operator_default_field_model['analyzer'] = analyzer_model
+        index_text_operator_default_field_model['enabled'] = True
+
         index_field_model = {} # IndexField
         index_field_model['name'] = 'testString'
         index_field_model['type'] = 'boolean'
         index_field_model['foo'] = 'asc'
-
-        index_text_operator_default_field_model = {} # IndexTextOperatorDefaultField
-        index_text_operator_default_field_model['analyzer'] = analyzer_model
-        index_text_operator_default_field_model['enabled'] = True
 
         index_definition_model = {} # IndexDefinition
         index_definition_model['default_analyzer'] = analyzer_model
@@ -13580,15 +13797,15 @@ class TestIndexInformation():
         index_information_model_json2 = index_information_model.to_dict()
         assert index_information_model_json2 == index_information_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for IndexResult
-#-----------------------------------------------------------------------------
 class TestIndexResult():
+    """
+    Test Class for IndexResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for IndexResult
-    #--------------------------------------------------------
     def test_index_result_serialization(self):
+        """
+        Test serialization/deserialization for IndexResult
+        """
 
         # Construct a json representation of a IndexResult model
         index_result_model_json = {}
@@ -13611,15 +13828,15 @@ class TestIndexResult():
         index_result_model_json2 = index_result_model.to_dict()
         assert index_result_model_json2 == index_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for IndexTextOperatorDefaultField
-#-----------------------------------------------------------------------------
 class TestIndexTextOperatorDefaultField():
+    """
+    Test Class for IndexTextOperatorDefaultField
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for IndexTextOperatorDefaultField
-    #--------------------------------------------------------
     def test_index_text_operator_default_field_serialization(self):
+        """
+        Test serialization/deserialization for IndexTextOperatorDefaultField
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -13647,15 +13864,15 @@ class TestIndexTextOperatorDefaultField():
         index_text_operator_default_field_model_json2 = index_text_operator_default_field_model.to_dict()
         assert index_text_operator_default_field_model_json2 == index_text_operator_default_field_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for IndexesInformation
-#-----------------------------------------------------------------------------
 class TestIndexesInformation():
+    """
+    Test Class for IndexesInformation
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for IndexesInformation
-    #--------------------------------------------------------
     def test_indexes_information_serialization(self):
+        """
+        Test serialization/deserialization for IndexesInformation
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -13663,14 +13880,14 @@ class TestIndexesInformation():
         analyzer_model['name'] = 'classic'
         analyzer_model['stopwords'] = ['testString']
 
+        index_text_operator_default_field_model = {} # IndexTextOperatorDefaultField
+        index_text_operator_default_field_model['analyzer'] = analyzer_model
+        index_text_operator_default_field_model['enabled'] = True
+
         index_field_model = {} # IndexField
         index_field_model['name'] = 'testString'
         index_field_model['type'] = 'boolean'
         index_field_model['foo'] = 'asc'
-
-        index_text_operator_default_field_model = {} # IndexTextOperatorDefaultField
-        index_text_operator_default_field_model['analyzer'] = analyzer_model
-        index_text_operator_default_field_model['enabled'] = True
 
         index_definition_model = {} # IndexDefinition
         index_definition_model['default_analyzer'] = analyzer_model
@@ -13704,15 +13921,15 @@ class TestIndexesInformation():
         indexes_information_model_json2 = indexes_information_model.to_dict()
         assert indexes_information_model_json2 == indexes_information_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for MembershipInformation
-#-----------------------------------------------------------------------------
 class TestMembershipInformation():
+    """
+    Test Class for MembershipInformation
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for MembershipInformation
-    #--------------------------------------------------------
     def test_membership_information_serialization(self):
+        """
+        Test serialization/deserialization for MembershipInformation
+        """
 
         # Construct a json representation of a MembershipInformation model
         membership_information_model_json = {}
@@ -13734,19 +13951,19 @@ class TestMembershipInformation():
         membership_information_model_json2 = membership_information_model.to_dict()
         assert membership_information_model_json2 == membership_information_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for MissingRevsResult
-#-----------------------------------------------------------------------------
 class TestMissingRevsResult():
+    """
+    Test Class for MissingRevsResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for MissingRevsResult
-    #--------------------------------------------------------
     def test_missing_revs_result_serialization(self):
+        """
+        Test serialization/deserialization for MissingRevsResult
+        """
 
         # Construct a json representation of a MissingRevsResult model
         missing_revs_result_model_json = {}
-        missing_revs_result_model_json['missed_revs'] = {}
+        missing_revs_result_model_json['missing_revs'] = {}
 
         # Construct a model instance of MissingRevsResult by calling from_dict on the json representation
         missing_revs_result_model = MissingRevsResult.from_dict(missing_revs_result_model_json)
@@ -13763,15 +13980,15 @@ class TestMissingRevsResult():
         missing_revs_result_model_json2 = missing_revs_result_model.to_dict()
         assert missing_revs_result_model_json2 == missing_revs_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for Ok
-#-----------------------------------------------------------------------------
 class TestOk():
+    """
+    Test Class for Ok
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for Ok
-    #--------------------------------------------------------
     def test_ok_serialization(self):
+        """
+        Test serialization/deserialization for Ok
+        """
 
         # Construct a json representation of a Ok model
         ok_model_json = {}
@@ -13792,15 +14009,15 @@ class TestOk():
         ok_model_json2 = ok_model.to_dict()
         assert ok_model_json2 == ok_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for PartitionInformation
-#-----------------------------------------------------------------------------
 class TestPartitionInformation():
+    """
+    Test Class for PartitionInformation
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for PartitionInformation
-    #--------------------------------------------------------
     def test_partition_information_serialization(self):
+        """
+        Test serialization/deserialization for PartitionInformation
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -13841,15 +14058,15 @@ class TestPartitionInformation():
         partition_information_model_json2 = partition_information_model.to_dict()
         assert partition_information_model_json2 == partition_information_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for PartitionInformationIndexes
-#-----------------------------------------------------------------------------
 class TestPartitionInformationIndexes():
+    """
+    Test Class for PartitionInformationIndexes
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for PartitionInformationIndexes
-    #--------------------------------------------------------
     def test_partition_information_indexes_serialization(self):
+        """
+        Test serialization/deserialization for PartitionInformationIndexes
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -13878,15 +14095,15 @@ class TestPartitionInformationIndexes():
         partition_information_indexes_model_json2 = partition_information_indexes_model.to_dict()
         assert partition_information_indexes_model_json2 == partition_information_indexes_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for PartitionInformationIndexesIndexes
-#-----------------------------------------------------------------------------
 class TestPartitionInformationIndexesIndexes():
+    """
+    Test Class for PartitionInformationIndexesIndexes
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for PartitionInformationIndexesIndexes
-    #--------------------------------------------------------
     def test_partition_information_indexes_indexes_serialization(self):
+        """
+        Test serialization/deserialization for PartitionInformationIndexesIndexes
+        """
 
         # Construct a json representation of a PartitionInformationIndexesIndexes model
         partition_information_indexes_indexes_model_json = {}
@@ -13908,15 +14125,15 @@ class TestPartitionInformationIndexesIndexes():
         partition_information_indexes_indexes_model_json2 = partition_information_indexes_indexes_model.to_dict()
         assert partition_information_indexes_indexes_model_json2 == partition_information_indexes_indexes_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for PartitionInformationSizes
-#-----------------------------------------------------------------------------
 class TestPartitionInformationSizes():
+    """
+    Test Class for PartitionInformationSizes
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for PartitionInformationSizes
-    #--------------------------------------------------------
     def test_partition_information_sizes_serialization(self):
+        """
+        Test serialization/deserialization for PartitionInformationSizes
+        """
 
         # Construct a json representation of a PartitionInformationSizes model
         partition_information_sizes_model_json = {}
@@ -13938,15 +14155,15 @@ class TestPartitionInformationSizes():
         partition_information_sizes_model_json2 = partition_information_sizes_model.to_dict()
         assert partition_information_sizes_model_json2 == partition_information_sizes_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ReplicationCreateTargetParameters
-#-----------------------------------------------------------------------------
 class TestReplicationCreateTargetParameters():
+    """
+    Test Class for ReplicationCreateTargetParameters
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ReplicationCreateTargetParameters
-    #--------------------------------------------------------
     def test_replication_create_target_parameters_serialization(self):
+        """
+        Test serialization/deserialization for ReplicationCreateTargetParameters
+        """
 
         # Construct a json representation of a ReplicationCreateTargetParameters model
         replication_create_target_parameters_model_json = {}
@@ -13969,15 +14186,15 @@ class TestReplicationCreateTargetParameters():
         replication_create_target_parameters_model_json2 = replication_create_target_parameters_model.to_dict()
         assert replication_create_target_parameters_model_json2 == replication_create_target_parameters_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ReplicationDatabase
-#-----------------------------------------------------------------------------
 class TestReplicationDatabase():
+    """
+    Test Class for ReplicationDatabase
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ReplicationDatabase
-    #--------------------------------------------------------
     def test_replication_database_serialization(self):
+        """
+        Test serialization/deserialization for ReplicationDatabase
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -14008,15 +14225,15 @@ class TestReplicationDatabase():
         replication_database_model_json2 = replication_database_model.to_dict()
         assert replication_database_model_json2 == replication_database_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ReplicationDatabaseAuth
-#-----------------------------------------------------------------------------
 class TestReplicationDatabaseAuth():
+    """
+    Test Class for ReplicationDatabaseAuth
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ReplicationDatabaseAuth
-    #--------------------------------------------------------
     def test_replication_database_auth_serialization(self):
+        """
+        Test serialization/deserialization for ReplicationDatabaseAuth
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -14042,15 +14259,15 @@ class TestReplicationDatabaseAuth():
         replication_database_auth_model_json2 = replication_database_auth_model.to_dict()
         assert replication_database_auth_model_json2 == replication_database_auth_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ReplicationDatabaseAuthIam
-#-----------------------------------------------------------------------------
 class TestReplicationDatabaseAuthIam():
+    """
+    Test Class for ReplicationDatabaseAuthIam
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ReplicationDatabaseAuthIam
-    #--------------------------------------------------------
     def test_replication_database_auth_iam_serialization(self):
+        """
+        Test serialization/deserialization for ReplicationDatabaseAuthIam
+        """
 
         # Construct a json representation of a ReplicationDatabaseAuthIam model
         replication_database_auth_iam_model_json = {}
@@ -14071,23 +14288,17 @@ class TestReplicationDatabaseAuthIam():
         replication_database_auth_iam_model_json2 = replication_database_auth_iam_model.to_dict()
         assert replication_database_auth_iam_model_json2 == replication_database_auth_iam_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ReplicationDocument
-#-----------------------------------------------------------------------------
 class TestReplicationDocument():
+    """
+    Test Class for ReplicationDocument
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ReplicationDocument
-    #--------------------------------------------------------
     def test_replication_document_serialization(self):
+        """
+        Test serialization/deserialization for ReplicationDocument
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
-
-        replication_database_auth_iam_model = {} # ReplicationDatabaseAuthIam
-        replication_database_auth_iam_model['api_key'] = 'testString'
-
-        replication_database_auth_model = {} # ReplicationDatabaseAuth
-        replication_database_auth_model['iam'] = replication_database_auth_iam_model
 
         attachment_model = {} # Attachment
         attachment_model['content_type'] = 'testString'
@@ -14100,6 +14311,10 @@ class TestReplicationDocument():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
+        revisions_model = {} # Revisions
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
         document_revision_status_model = {} # DocumentRevisionStatus
         document_revision_status_model['rev'] = 'testString'
         document_revision_status_model['status'] = 'available'
@@ -14109,14 +14324,16 @@ class TestReplicationDocument():
         replication_create_target_parameters_model['partitioned'] = True
         replication_create_target_parameters_model['q'] = 1
 
+        replication_database_auth_iam_model = {} # ReplicationDatabaseAuthIam
+        replication_database_auth_iam_model['api_key'] = 'testString'
+
+        replication_database_auth_model = {} # ReplicationDatabaseAuth
+        replication_database_auth_model['iam'] = replication_database_auth_iam_model
+
         replication_database_model = {} # ReplicationDatabase
         replication_database_model['auth'] = replication_database_auth_model
         replication_database_model['headers'] = {}
         replication_database_model['url'] = 'testString'
-
-        revisions_model = {} # Revisions
-        revisions_model['ids'] = ['testString']
-        revisions_model['start'] = 1
 
         user_context_model = {} # UserContext
         user_context_model['db'] = 'testString'
@@ -14173,15 +14390,15 @@ class TestReplicationDocument():
         replication_document_model_json2 = replication_document_model.to_dict()
         assert replication_document_model_json2 == replication_document_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ReplicationHistory
-#-----------------------------------------------------------------------------
 class TestReplicationHistory():
+    """
+    Test Class for ReplicationHistory
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ReplicationHistory
-    #--------------------------------------------------------
     def test_replication_history_serialization(self):
+        """
+        Test serialization/deserialization for ReplicationHistory
+        """
 
         # Construct a json representation of a ReplicationHistory model
         replication_history_model_json = {}
@@ -14212,15 +14429,15 @@ class TestReplicationHistory():
         replication_history_model_json2 = replication_history_model.to_dict()
         assert replication_history_model_json2 == replication_history_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ReplicationResult
-#-----------------------------------------------------------------------------
 class TestReplicationResult():
+    """
+    Test Class for ReplicationResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ReplicationResult
-    #--------------------------------------------------------
     def test_replication_result_serialization(self):
+        """
+        Test serialization/deserialization for ReplicationResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -14260,15 +14477,15 @@ class TestReplicationResult():
         replication_result_model_json2 = replication_result_model.to_dict()
         assert replication_result_model_json2 == replication_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for Revisions
-#-----------------------------------------------------------------------------
 class TestRevisions():
+    """
+    Test Class for Revisions
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for Revisions
-    #--------------------------------------------------------
     def test_revisions_serialization(self):
+        """
+        Test serialization/deserialization for Revisions
+        """
 
         # Construct a json representation of a Revisions model
         revisions_model_json = {}
@@ -14290,15 +14507,15 @@ class TestRevisions():
         revisions_model_json2 = revisions_model.to_dict()
         assert revisions_model_json2 == revisions_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for RevsDiff
-#-----------------------------------------------------------------------------
 class TestRevsDiff():
+    """
+    Test Class for RevsDiff
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for RevsDiff
-    #--------------------------------------------------------
     def test_revs_diff_serialization(self):
+        """
+        Test serialization/deserialization for RevsDiff
+        """
 
         # Construct a json representation of a RevsDiff model
         revs_diff_model_json = {}
@@ -14320,15 +14537,15 @@ class TestRevsDiff():
         revs_diff_model_json2 = revs_diff_model.to_dict()
         assert revs_diff_model_json2 == revs_diff_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SchedulerDocsResult
-#-----------------------------------------------------------------------------
 class TestSchedulerDocsResult():
+    """
+    Test Class for SchedulerDocsResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SchedulerDocsResult
-    #--------------------------------------------------------
     def test_scheduler_docs_result_serialization(self):
+        """
+        Test serialization/deserialization for SchedulerDocsResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -14379,15 +14596,15 @@ class TestSchedulerDocsResult():
         scheduler_docs_result_model_json2 = scheduler_docs_result_model.to_dict()
         assert scheduler_docs_result_model_json2 == scheduler_docs_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SchedulerDocument
-#-----------------------------------------------------------------------------
 class TestSchedulerDocument():
+    """
+    Test Class for SchedulerDocument
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SchedulerDocument
-    #--------------------------------------------------------
     def test_scheduler_document_serialization(self):
+        """
+        Test serialization/deserialization for SchedulerDocument
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -14434,15 +14651,15 @@ class TestSchedulerDocument():
         scheduler_document_model_json2 = scheduler_document_model.to_dict()
         assert scheduler_document_model_json2 == scheduler_document_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SchedulerInfo
-#-----------------------------------------------------------------------------
 class TestSchedulerInfo():
+    """
+    Test Class for SchedulerInfo
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SchedulerInfo
-    #--------------------------------------------------------
     def test_scheduler_info_serialization(self):
+        """
+        Test serialization/deserialization for SchedulerInfo
+        """
 
         # Construct a json representation of a SchedulerInfo model
         scheduler_info_model_json = {}
@@ -14472,17 +14689,21 @@ class TestSchedulerInfo():
         scheduler_info_model_json2 = scheduler_info_model.to_dict()
         assert scheduler_info_model_json2 == scheduler_info_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SchedulerJob
-#-----------------------------------------------------------------------------
 class TestSchedulerJob():
+    """
+    Test Class for SchedulerJob
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SchedulerJob
-    #--------------------------------------------------------
     def test_scheduler_job_serialization(self):
+        """
+        Test serialization/deserialization for SchedulerJob
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
+
+        scheduler_job_event_model = {} # SchedulerJobEvent
+        scheduler_job_event_model['timestamp'] = '2020-01-28T18:40:40.123456Z'
+        scheduler_job_event_model['type'] = 'testString'
 
         scheduler_info_model = {} # SchedulerInfo
         scheduler_info_model['changes_pending'] = 0
@@ -14495,10 +14716,6 @@ class TestSchedulerJob():
         scheduler_info_model['revisions_checked'] = 0
         scheduler_info_model['source_seq'] = 'testString'
         scheduler_info_model['through_seq'] = 'testString'
-
-        scheduler_job_event_model = {} # SchedulerJobEvent
-        scheduler_job_event_model['timestamp'] = '2020-01-28T18:40:40.123456Z'
-        scheduler_job_event_model['type'] = 'testString'
 
         # Construct a json representation of a SchedulerJob model
         scheduler_job_model_json = {}
@@ -14529,15 +14746,15 @@ class TestSchedulerJob():
         scheduler_job_model_json2 = scheduler_job_model.to_dict()
         assert scheduler_job_model_json2 == scheduler_job_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SchedulerJobEvent
-#-----------------------------------------------------------------------------
 class TestSchedulerJobEvent():
+    """
+    Test Class for SchedulerJobEvent
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SchedulerJobEvent
-    #--------------------------------------------------------
     def test_scheduler_job_event_serialization(self):
+        """
+        Test serialization/deserialization for SchedulerJobEvent
+        """
 
         # Construct a json representation of a SchedulerJobEvent model
         scheduler_job_event_model_json = {}
@@ -14559,17 +14776,21 @@ class TestSchedulerJobEvent():
         scheduler_job_event_model_json2 = scheduler_job_event_model.to_dict()
         assert scheduler_job_event_model_json2 == scheduler_job_event_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SchedulerJobsResult
-#-----------------------------------------------------------------------------
 class TestSchedulerJobsResult():
+    """
+    Test Class for SchedulerJobsResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SchedulerJobsResult
-    #--------------------------------------------------------
     def test_scheduler_jobs_result_serialization(self):
+        """
+        Test serialization/deserialization for SchedulerJobsResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
+
+        scheduler_job_event_model = {} # SchedulerJobEvent
+        scheduler_job_event_model['timestamp'] = '2020-01-28T18:40:40.123456Z'
+        scheduler_job_event_model['type'] = 'testString'
 
         scheduler_info_model = {} # SchedulerInfo
         scheduler_info_model['changes_pending'] = 0
@@ -14582,10 +14803,6 @@ class TestSchedulerJobsResult():
         scheduler_info_model['revisions_checked'] = 0
         scheduler_info_model['source_seq'] = 'testString'
         scheduler_info_model['through_seq'] = 'testString'
-
-        scheduler_job_event_model = {} # SchedulerJobEvent
-        scheduler_job_event_model['timestamp'] = '2020-01-28T18:40:40.123456Z'
-        scheduler_job_event_model['type'] = 'testString'
 
         scheduler_job_model = {} # SchedulerJob
         scheduler_job_model['database'] = 'testString'
@@ -14620,15 +14837,15 @@ class TestSchedulerJobsResult():
         scheduler_jobs_result_model_json2 = scheduler_jobs_result_model.to_dict()
         assert scheduler_jobs_result_model_json2 == scheduler_jobs_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SearchAnalyzeResult
-#-----------------------------------------------------------------------------
 class TestSearchAnalyzeResult():
+    """
+    Test Class for SearchAnalyzeResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SearchAnalyzeResult
-    #--------------------------------------------------------
     def test_search_analyze_result_serialization(self):
+        """
+        Test serialization/deserialization for SearchAnalyzeResult
+        """
 
         # Construct a json representation of a SearchAnalyzeResult model
         search_analyze_result_model_json = {}
@@ -14649,15 +14866,15 @@ class TestSearchAnalyzeResult():
         search_analyze_result_model_json2 = search_analyze_result_model.to_dict()
         assert search_analyze_result_model_json2 == search_analyze_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SearchIndexDefinition
-#-----------------------------------------------------------------------------
 class TestSearchIndexDefinition():
+    """
+    Test Class for SearchIndexDefinition
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SearchIndexDefinition
-    #--------------------------------------------------------
     def test_search_index_definition_serialization(self):
+        """
+        Test serialization/deserialization for SearchIndexDefinition
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -14690,15 +14907,15 @@ class TestSearchIndexDefinition():
         search_index_definition_model_json2 = search_index_definition_model.to_dict()
         assert search_index_definition_model_json2 == search_index_definition_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SearchIndexInfo
-#-----------------------------------------------------------------------------
 class TestSearchIndexInfo():
+    """
+    Test Class for SearchIndexInfo
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SearchIndexInfo
-    #--------------------------------------------------------
     def test_search_index_info_serialization(self):
+        """
+        Test serialization/deserialization for SearchIndexInfo
+        """
 
         # Construct a json representation of a SearchIndexInfo model
         search_index_info_model_json = {}
@@ -14723,15 +14940,15 @@ class TestSearchIndexInfo():
         search_index_info_model_json2 = search_index_info_model.to_dict()
         assert search_index_info_model_json2 == search_index_info_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SearchInfoResult
-#-----------------------------------------------------------------------------
 class TestSearchInfoResult():
+    """
+    Test Class for SearchInfoResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SearchInfoResult
-    #--------------------------------------------------------
     def test_search_info_result_serialization(self):
+        """
+        Test serialization/deserialization for SearchInfoResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -14762,15 +14979,15 @@ class TestSearchInfoResult():
         search_info_result_model_json2 = search_info_result_model.to_dict()
         assert search_info_result_model_json2 == search_info_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SearchResult
-#-----------------------------------------------------------------------------
 class TestSearchResult():
+    """
+    Test Class for SearchResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SearchResult
-    #--------------------------------------------------------
     def test_search_result_serialization(self):
+        """
+        Test serialization/deserialization for SearchResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -14785,13 +15002,13 @@ class TestSearchResult():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
         document_model['_attachments'] = {}
@@ -14844,15 +15061,15 @@ class TestSearchResult():
         search_result_model_json2 = search_result_model.to_dict()
         assert search_result_model_json2 == search_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SearchResultProperties
-#-----------------------------------------------------------------------------
 class TestSearchResultProperties():
+    """
+    Test Class for SearchResultProperties
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SearchResultProperties
-    #--------------------------------------------------------
     def test_search_result_properties_serialization(self):
+        """
+        Test serialization/deserialization for SearchResultProperties
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -14867,13 +15084,13 @@ class TestSearchResultProperties():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
         document_model['_attachments'] = {}
@@ -14917,15 +15134,15 @@ class TestSearchResultProperties():
         search_result_properties_model_json2 = search_result_properties_model.to_dict()
         assert search_result_properties_model_json2 == search_result_properties_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SearchResultRow
-#-----------------------------------------------------------------------------
 class TestSearchResultRow():
+    """
+    Test Class for SearchResultRow
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SearchResultRow
-    #--------------------------------------------------------
     def test_search_result_row_serialization(self):
+        """
+        Test serialization/deserialization for SearchResultRow
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -14940,13 +15157,13 @@ class TestSearchResultRow():
         attachment_model['revpos'] = 1
         attachment_model['stub'] = True
 
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
         revisions_model = {} # Revisions
         revisions_model['ids'] = ['testString']
         revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
         document_model['_attachments'] = {}
@@ -14982,15 +15199,15 @@ class TestSearchResultRow():
         search_result_row_model_json2 = search_result_row_model.to_dict()
         assert search_result_row_model_json2 == search_result_row_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for Security
-#-----------------------------------------------------------------------------
 class TestSecurity():
+    """
+    Test Class for Security
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for Security
-    #--------------------------------------------------------
     def test_security_serialization(self):
+        """
+        Test serialization/deserialization for Security
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -15020,15 +15237,15 @@ class TestSecurity():
         security_model_json2 = security_model.to_dict()
         assert security_model_json2 == security_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SecurityObject
-#-----------------------------------------------------------------------------
 class TestSecurityObject():
+    """
+    Test Class for SecurityObject
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SecurityObject
-    #--------------------------------------------------------
     def test_security_object_serialization(self):
+        """
+        Test serialization/deserialization for SecurityObject
+        """
 
         # Construct a json representation of a SecurityObject model
         security_object_model_json = {}
@@ -15050,15 +15267,15 @@ class TestSecurityObject():
         security_object_model_json2 = security_object_model.to_dict()
         assert security_object_model_json2 == security_object_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ServerInformation
-#-----------------------------------------------------------------------------
 class TestServerInformation():
+    """
+    Test Class for ServerInformation
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ServerInformation
-    #--------------------------------------------------------
     def test_server_information_serialization(self):
+        """
+        Test serialization/deserialization for ServerInformation
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -15089,15 +15306,15 @@ class TestServerInformation():
         server_information_model_json2 = server_information_model.to_dict()
         assert server_information_model_json2 == server_information_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ServerVendor
-#-----------------------------------------------------------------------------
 class TestServerVendor():
+    """
+    Test Class for ServerVendor
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ServerVendor
-    #--------------------------------------------------------
     def test_server_vendor_serialization(self):
+        """
+        Test serialization/deserialization for ServerVendor
+        """
 
         # Construct a json representation of a ServerVendor model
         server_vendor_model_json = {}
@@ -15120,15 +15337,15 @@ class TestServerVendor():
         server_vendor_model_json2 = server_vendor_model.to_dict()
         assert server_vendor_model_json2 == server_vendor_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SessionAuthentication
-#-----------------------------------------------------------------------------
 class TestSessionAuthentication():
+    """
+    Test Class for SessionAuthentication
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SessionAuthentication
-    #--------------------------------------------------------
     def test_session_authentication_serialization(self):
+        """
+        Test serialization/deserialization for SessionAuthentication
+        """
 
         # Construct a json representation of a SessionAuthentication model
         session_authentication_model_json = {}
@@ -15151,15 +15368,15 @@ class TestSessionAuthentication():
         session_authentication_model_json2 = session_authentication_model.to_dict()
         assert session_authentication_model_json2 == session_authentication_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for SessionInformation
-#-----------------------------------------------------------------------------
 class TestSessionInformation():
+    """
+    Test Class for SessionInformation
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for SessionInformation
-    #--------------------------------------------------------
     def test_session_information_serialization(self):
+        """
+        Test serialization/deserialization for SessionInformation
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 
@@ -15194,15 +15411,15 @@ class TestSessionInformation():
         session_information_model_json2 = session_information_model.to_dict()
         assert session_information_model_json2 == session_information_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ShardsInformation
-#-----------------------------------------------------------------------------
 class TestShardsInformation():
+    """
+    Test Class for ShardsInformation
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ShardsInformation
-    #--------------------------------------------------------
     def test_shards_information_serialization(self):
+        """
+        Test serialization/deserialization for ShardsInformation
+        """
 
         # Construct a json representation of a ShardsInformation model
         shards_information_model_json = {}
@@ -15223,15 +15440,15 @@ class TestShardsInformation():
         shards_information_model_json2 = shards_information_model.to_dict()
         assert shards_information_model_json2 == shards_information_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for UpInformation
-#-----------------------------------------------------------------------------
 class TestUpInformation():
+    """
+    Test Class for UpInformation
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for UpInformation
-    #--------------------------------------------------------
     def test_up_information_serialization(self):
+        """
+        Test serialization/deserialization for UpInformation
+        """
 
         # Construct a json representation of a UpInformation model
         up_information_model_json = {}
@@ -15252,15 +15469,15 @@ class TestUpInformation():
         up_information_model_json2 = up_information_model.to_dict()
         assert up_information_model_json2 == up_information_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for UserContext
-#-----------------------------------------------------------------------------
 class TestUserContext():
+    """
+    Test Class for UserContext
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for UserContext
-    #--------------------------------------------------------
     def test_user_context_serialization(self):
+        """
+        Test serialization/deserialization for UserContext
+        """
 
         # Construct a json representation of a UserContext model
         user_context_model_json = {}
@@ -15283,15 +15500,15 @@ class TestUserContext():
         user_context_model_json2 = user_context_model.to_dict()
         assert user_context_model_json2 == user_context_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for UuidsResult
-#-----------------------------------------------------------------------------
 class TestUuidsResult():
+    """
+    Test Class for UuidsResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for UuidsResult
-    #--------------------------------------------------------
     def test_uuids_result_serialization(self):
+        """
+        Test serialization/deserialization for UuidsResult
+        """
 
         # Construct a json representation of a UuidsResult model
         uuids_result_model_json = {}
@@ -15312,22 +15529,54 @@ class TestUuidsResult():
         uuids_result_model_json2 = uuids_result_model.to_dict()
         assert uuids_result_model_json2 == uuids_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ViewQueriesResult
-#-----------------------------------------------------------------------------
 class TestViewQueriesResult():
+    """
+    Test Class for ViewQueriesResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ViewQueriesResult
-    #--------------------------------------------------------
     def test_view_queries_result_serialization(self):
+        """
+        Test serialization/deserialization for ViewQueriesResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
+
+        attachment_model = {} # Attachment
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        revisions_model = {} # Revisions
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        document_model = {} # Document
+        document_model['_attachments'] = {}
+        document_model['_conflicts'] = ['testString']
+        document_model['_deleted'] = True
+        document_model['_deleted_conflicts'] = ['testString']
+        document_model['_id'] = 'testString'
+        document_model['_local_seq'] = 'testString'
+        document_model['_rev'] = 'testString'
+        document_model['_revisions'] = revisions_model
+        document_model['_revs_info'] = [document_revision_status_model]
+        document_model['foo'] = { 'foo': 'bar' }
 
         view_result_row_model = {} # ViewResultRow
         view_result_row_model['caused_by'] = 'testString'
         view_result_row_model['error'] = 'testString'
         view_result_row_model['reason'] = 'testString'
+        view_result_row_model['doc'] = document_model
         view_result_row_model['id'] = 'testString'
         view_result_row_model['key'] = { 'foo': 'bar' }
         view_result_row_model['value'] = { 'foo': 'bar' }
@@ -15356,15 +15605,15 @@ class TestViewQueriesResult():
         view_queries_result_model_json2 = view_queries_result_model.to_dict()
         assert view_queries_result_model_json2 == view_queries_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ViewQuery
-#-----------------------------------------------------------------------------
 class TestViewQuery():
+    """
+    Test Class for ViewQuery
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ViewQuery
-    #--------------------------------------------------------
     def test_view_query_serialization(self):
+        """
+        Test serialization/deserialization for ViewQuery
+        """
 
         # Construct a json representation of a ViewQuery model
         view_query_model_json = {}
@@ -15404,22 +15653,54 @@ class TestViewQuery():
         view_query_model_json2 = view_query_model.to_dict()
         assert view_query_model_json2 == view_query_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ViewResult
-#-----------------------------------------------------------------------------
 class TestViewResult():
+    """
+    Test Class for ViewResult
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ViewResult
-    #--------------------------------------------------------
     def test_view_result_serialization(self):
+        """
+        Test serialization/deserialization for ViewResult
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
+
+        attachment_model = {} # Attachment
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        revisions_model = {} # Revisions
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        document_model = {} # Document
+        document_model['_attachments'] = {}
+        document_model['_conflicts'] = ['testString']
+        document_model['_deleted'] = True
+        document_model['_deleted_conflicts'] = ['testString']
+        document_model['_id'] = 'testString'
+        document_model['_local_seq'] = 'testString'
+        document_model['_rev'] = 'testString'
+        document_model['_revisions'] = revisions_model
+        document_model['_revs_info'] = [document_revision_status_model]
+        document_model['foo'] = { 'foo': 'bar' }
 
         view_result_row_model = {} # ViewResultRow
         view_result_row_model['caused_by'] = 'testString'
         view_result_row_model['error'] = 'testString'
         view_result_row_model['reason'] = 'testString'
+        view_result_row_model['doc'] = document_model
         view_result_row_model['id'] = 'testString'
         view_result_row_model['key'] = { 'foo': 'bar' }
         view_result_row_model['value'] = { 'foo': 'bar' }
@@ -15445,21 +15726,55 @@ class TestViewResult():
         view_result_model_json2 = view_result_model.to_dict()
         assert view_result_model_json2 == view_result_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for ViewResultRow
-#-----------------------------------------------------------------------------
 class TestViewResultRow():
+    """
+    Test Class for ViewResultRow
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for ViewResultRow
-    #--------------------------------------------------------
     def test_view_result_row_serialization(self):
+        """
+        Test serialization/deserialization for ViewResultRow
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        attachment_model = {} # Attachment
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        revisions_model = {} # Revisions
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        document_model = {} # Document
+        document_model['_attachments'] = {}
+        document_model['_conflicts'] = ['testString']
+        document_model['_deleted'] = True
+        document_model['_deleted_conflicts'] = ['testString']
+        document_model['_id'] = 'testString'
+        document_model['_local_seq'] = 'testString'
+        document_model['_rev'] = 'testString'
+        document_model['_revisions'] = revisions_model
+        document_model['_revs_info'] = [document_revision_status_model]
+        document_model['foo'] = { 'foo': 'bar' }
 
         # Construct a json representation of a ViewResultRow model
         view_result_row_model_json = {}
         view_result_row_model_json['caused_by'] = 'testString'
         view_result_row_model_json['error'] = 'testString'
         view_result_row_model_json['reason'] = 'testString'
+        view_result_row_model_json['doc'] = document_model
         view_result_row_model_json['id'] = 'testString'
         view_result_row_model_json['key'] = { 'foo': 'bar' }
         view_result_row_model_json['value'] = { 'foo': 'bar' }
@@ -15479,15 +15794,15 @@ class TestViewResultRow():
         view_result_row_model_json2 = view_result_row_model.to_dict()
         assert view_result_row_model_json2 == view_result_row_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for GeoJsonGeometry
-#-----------------------------------------------------------------------------
 class TestGeoJsonGeometry():
+    """
+    Test Class for GeoJsonGeometry
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for GeoJsonGeometry
-    #--------------------------------------------------------
     def test_geo_json_geometry_serialization(self):
+        """
+        Test serialization/deserialization for GeoJsonGeometry
+        """
 
         # Construct a json representation of a GeoJsonGeometry model
         geo_json_geometry_model_json = {}
@@ -15509,15 +15824,15 @@ class TestGeoJsonGeometry():
         geo_json_geometry_model_json2 = geo_json_geometry_model.to_dict()
         assert geo_json_geometry_model_json2 == geo_json_geometry_model_json
 
-#-----------------------------------------------------------------------------
-# Test Class for GeoJsonGeometryCollection
-#-----------------------------------------------------------------------------
 class TestGeoJsonGeometryCollection():
+    """
+    Test Class for GeoJsonGeometryCollection
+    """
 
-    #--------------------------------------------------------
-    # Test serialization/deserialization for GeoJsonGeometryCollection
-    #--------------------------------------------------------
     def test_geo_json_geometry_collection_serialization(self):
+        """
+        Test serialization/deserialization for GeoJsonGeometryCollection
+        """
 
         # Construct dict forms of any model objects needed in order to build this model.
 

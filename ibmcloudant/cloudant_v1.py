@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# IBM OpenAPI SDK Code Generator Version: 3.10.3-18e3fe12-20200803-172650
+# IBM OpenAPI SDK Code Generator Version: 3.12.0-64fe8d3f-20200820-144050
  
 """
 NoSQL database based on Apache CouchDB
@@ -462,6 +462,7 @@ class CloudantV1(BaseService):
         db: str,
         *,
         doc_ids: List[str] = None,
+        fields: List[str] = None,
         selector: dict = None,
         last_event_id: str = None,
         att_encoding_info: bool = None,
@@ -489,6 +490,9 @@ class CloudantV1(BaseService):
 
         :param str db: Path parameter to specify the database name.
         :param List[str] doc_ids: (optional) Schema for a list of document IDs.
+        :param List[str] fields: (optional) JSON array that uses the field syntax.
+               Use this parameter to specify which fields of a document must be returned.
+               If it is omitted, the entire document is returned.
         :param dict selector: (optional) JSON object describing criteria used to
                select documents. The selector specifies fields in the document, and
                provides an expression to evaluate with the field content or other data.
@@ -609,6 +613,7 @@ class CloudantV1(BaseService):
 
         data = {
             'doc_ids': doc_ids,
+            'fields': fields,
             'selector': selector
         }
         data = {k: v for (k, v) in data.items() if v is not None}
@@ -635,6 +640,7 @@ class CloudantV1(BaseService):
         db: str,
         *,
         doc_ids: List[str] = None,
+        fields: List[str] = None,
         selector: dict = None,
         last_event_id: str = None,
         att_encoding_info: bool = None,
@@ -662,6 +668,9 @@ class CloudantV1(BaseService):
 
         :param str db: Path parameter to specify the database name.
         :param List[str] doc_ids: (optional) Schema for a list of document IDs.
+        :param List[str] fields: (optional) JSON array that uses the field syntax.
+               Use this parameter to specify which fields of a document must be returned.
+               If it is omitted, the entire document is returned.
         :param dict selector: (optional) JSON object describing criteria used to
                select documents. The selector specifies fields in the document, and
                provides an expression to evaluate with the field content or other data.
@@ -782,6 +791,7 @@ class CloudantV1(BaseService):
 
         data = {
             'doc_ids': doc_ids,
+            'fields': fields,
             'selector': selector
         }
         data = {k: v for (k, v) in data.items() if v is not None}
@@ -3969,10 +3979,9 @@ class CloudantV1(BaseService):
                about the query that was run. This information includes total key lookups,
                total document lookups (when `include_docs=true` is used), and total quorum
                document lookups (when each document replica is fetched).
-        :param List[str] fields: (optional) JSON array that uses the field syntax
-               as described in the following information. Use this parameter to specify
-               which fields of a document must be returned. If it is omitted, the entire
-               document is returned.
+        :param List[str] fields: (optional) JSON array that uses the field syntax.
+               Use this parameter to specify which fields of a document must be returned.
+               If it is omitted, the entire document is returned.
         :param int limit: (optional) Maximum number of results returned. The `type:
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
@@ -4093,10 +4102,9 @@ class CloudantV1(BaseService):
                about the query that was run. This information includes total key lookups,
                total document lookups (when `include_docs=true` is used), and total quorum
                document lookups (when each document replica is fetched).
-        :param List[str] fields: (optional) JSON array that uses the field syntax
-               as described in the following information. Use this parameter to specify
-               which fields of a document must be returned. If it is omitted, the entire
-               document is returned.
+        :param List[str] fields: (optional) JSON array that uses the field syntax.
+               Use this parameter to specify which fields of a document must be returned.
+               If it is omitted, the entire document is returned.
         :param int limit: (optional) Maximum number of results returned. The `type:
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
@@ -4218,10 +4226,9 @@ class CloudantV1(BaseService):
                about the query that was run. This information includes total key lookups,
                total document lookups (when `include_docs=true` is used), and total quorum
                document lookups (when each document replica is fetched).
-        :param List[str] fields: (optional) JSON array that uses the field syntax
-               as described in the following information. Use this parameter to specify
-               which fields of a document must be returned. If it is omitted, the entire
-               document is returned.
+        :param List[str] fields: (optional) JSON array that uses the field syntax.
+               Use this parameter to specify which fields of a document must be returned.
+               If it is omitted, the entire document is returned.
         :param int limit: (optional) Maximum number of results returned. The `type:
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
@@ -4345,10 +4352,9 @@ class CloudantV1(BaseService):
                about the query that was run. This information includes total key lookups,
                total document lookups (when `include_docs=true` is used), and total quorum
                document lookups (when each document replica is fetched).
-        :param List[str] fields: (optional) JSON array that uses the field syntax
-               as described in the following information. Use this parameter to specify
-               which fields of a document must be returned. If it is omitted, the entire
-               document is returned.
+        :param List[str] fields: (optional) JSON array that uses the field syntax.
+               Use this parameter to specify which fields of a document must be returned.
+               If it is omitted, the entire document is returned.
         :param int limit: (optional) Maximum number of results returned. The `type:
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
@@ -4472,10 +4478,9 @@ class CloudantV1(BaseService):
                about the query that was run. This information includes total key lookups,
                total document lookups (when `include_docs=true` is used), and total quorum
                document lookups (when each document replica is fetched).
-        :param List[str] fields: (optional) JSON array that uses the field syntax
-               as described in the following information. Use this parameter to specify
-               which fields of a document must be returned. If it is omitted, the entire
-               document is returned.
+        :param List[str] fields: (optional) JSON array that uses the field syntax.
+               Use this parameter to specify which fields of a document must be returned.
+               If it is omitted, the entire document is returned.
         :param int limit: (optional) Maximum number of results returned. The `type:
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
@@ -6400,10 +6405,13 @@ class CloudantV1(BaseService):
         return response
 
 
-    def put_cloudant_security(self,
+    def put_cloudant_security_configuration(self,
         db: str,
         *,
         cloudant: dict = None,
+        admins: 'SecurityObject' = None,
+        members: 'SecurityObject' = None,
+        couchdb_auth_only: bool = None,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -6416,6 +6424,12 @@ class CloudantV1(BaseService):
         :param str db: Path parameter to specify the database name.
         :param dict cloudant: (optional) Database permissions for Cloudant users
                and/or API keys.
+        :param SecurityObject admins: (optional) Schema for names and roles to map
+               to a database permission.
+        :param SecurityObject members: (optional) Schema for names and roles to map
+               to a database permission.
+        :param bool couchdb_auth_only: (optional) Manage permissions using the
+               `_users` database only.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `Ok` object
@@ -6423,14 +6437,21 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
+        if admins is not None:
+            admins = convert_model(admins)
+        if members is not None:
+            members = convert_model(members)
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
-                                      operation_id='put_cloudant_security')
+                                      operation_id='put_cloudant_security_configuration')
         headers.update(sdk_headers)
 
         data = {
-            'cloudant': cloudant
+            'cloudant': cloudant,
+            'admins': admins,
+            'members': members,
+            'couchdb_auth_only': couchdb_auth_only
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -7240,7 +7261,7 @@ class CloudantV1(BaseService):
     def post_missing_revs(self,
         db: str,
         *,
-        missing_revs: dict = None,
+        document_revisions: dict = None,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -7250,8 +7271,8 @@ class CloudantV1(BaseService):
         exist in the database.
 
         :param str db: Path parameter to specify the database name.
-        :param dict missing_revs: (optional) HTTP request body for postMissingRevs
-               and postRevsDiff.
+        :param dict document_revisions: (optional) HTTP request body for
+               postMissingRevs and postRevsDiff.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `MissingRevsResult` object
@@ -7265,7 +7286,7 @@ class CloudantV1(BaseService):
                                       operation_id='post_missing_revs')
         headers.update(sdk_headers)
 
-        data = json.dumps(missing_revs)
+        data = json.dumps(document_revisions)
         headers['content-type'] = 'application/json'
 
         if 'headers' in kwargs:
@@ -7286,7 +7307,7 @@ class CloudantV1(BaseService):
     def post_revs_diff(self,
         db: str,
         *,
-        revs_diff_request: dict = None,
+        document_revisions: dict = None,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -7298,7 +7319,7 @@ class CloudantV1(BaseService):
         there. It can then avoid fetching and sending already-known document bodies.
 
         :param str db: Path parameter to specify the database name.
-        :param dict revs_diff_request: (optional) HTTP request body for
+        :param dict document_revisions: (optional) HTTP request body for
                postMissingRevs and postRevsDiff.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
@@ -7313,7 +7334,7 @@ class CloudantV1(BaseService):
                                       operation_id='post_revs_diff')
         headers.update(sdk_headers)
 
-        data = json.dumps(revs_diff_request)
+        data = json.dumps(document_revisions)
         headers['content-type'] = 'application/json'
 
         if 'headers' in kwargs:
@@ -8558,35 +8579,35 @@ class ApiKeysResult():
     """
     Schema for api keys.
 
+    :attr bool ok: (optional) ok.
     :attr str key: (optional) The generated api key.
-    :attr Ok ok: (optional) Schema for an OK result.
     :attr str password: (optional) The password associated with the api key.
     """
 
     def __init__(self,
                  *,
+                 ok: bool = None,
                  key: str = None,
-                 ok: 'Ok' = None,
                  password: str = None) -> None:
         """
         Initialize a ApiKeysResult object.
 
+        :param bool ok: (optional) ok.
         :param str key: (optional) The generated api key.
-        :param Ok ok: (optional) Schema for an OK result.
         :param str password: (optional) The password associated with the api key.
         """
-        self.key = key
         self.ok = ok
+        self.key = key
         self.password = password
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'ApiKeysResult':
         """Initialize a ApiKeysResult object from a json dictionary."""
         args = {}
+        if 'ok' in _dict:
+            args['ok'] = _dict.get('ok')
         if 'key' in _dict:
             args['key'] = _dict.get('key')
-        if 'ok' in _dict:
-            args['ok'] = Ok.from_dict(_dict.get('ok'))
         if 'password' in _dict:
             args['password'] = _dict.get('password')
         return cls(**args)
@@ -8599,10 +8620,10 @@ class ApiKeysResult():
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
+        if hasattr(self, 'ok') and self.ok is not None:
+            _dict['ok'] = self.ok
         if hasattr(self, 'key') and self.key is not None:
             _dict['key'] = self.key
-        if hasattr(self, 'ok') and self.ok is not None:
-            _dict['ok'] = self.ok.to_dict()
         if hasattr(self, 'password') and self.password is not None:
             _dict['password'] = self.password
         return _dict
@@ -10236,19 +10257,18 @@ class DesignDocumentInformation():
     Schema for information about a design document.
 
     :attr str name: (optional) name.
-    :attr DesignDocumentInformationViewIndex view_index: (optional) View index
-          information.
+    :attr DesignDocumentViewIndex view_index: (optional) View index information.
     """
 
     def __init__(self,
                  *,
                  name: str = None,
-                 view_index: 'DesignDocumentInformationViewIndex' = None) -> None:
+                 view_index: 'DesignDocumentViewIndex' = None) -> None:
         """
         Initialize a DesignDocumentInformation object.
 
         :param str name: (optional) name.
-        :param DesignDocumentInformationViewIndex view_index: (optional) View index
+        :param DesignDocumentViewIndex view_index: (optional) View index
                information.
         """
         self.name = name
@@ -10261,7 +10281,7 @@ class DesignDocumentInformation():
         if 'name' in _dict:
             args['name'] = _dict.get('name')
         if 'view_index' in _dict:
-            args['view_index'] = DesignDocumentInformationViewIndex.from_dict(_dict.get('view_index'))
+            args['view_index'] = DesignDocumentViewIndex.from_dict(_dict.get('view_index'))
         return cls(**args)
 
     @classmethod
@@ -10293,131 +10313,6 @@ class DesignDocumentInformation():
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'DesignDocumentInformation') -> bool:
-        """Return `true` when self and other are not equal, false otherwise."""
-        return not self == other
-
-class DesignDocumentInformationViewIndex():
-    """
-    View index information.
-
-    :attr bool compact_running: (optional) Indicates whether a compaction routine is
-          currently running on the view.
-    :attr str language: (optional) Language for the defined views.
-    :attr str signature: (optional) MD5 signature of the views for the design
-          document.
-    :attr ContentInformationSizes sizes: (optional) Schema for size information of
-          content.
-    :attr str update_seq: (optional) The update sequence of the corresponding
-          database that has been indexed.
-    :attr bool updater_running: (optional) Indicates if the view is currently being
-          updated.
-    :attr int waiting_clients: (optional) Number of clients waiting on views from
-          this design document.
-    :attr bool waiting_commit: (optional) Indicates if there are outstanding commits
-          to the underlying database that need to processed.
-    """
-
-    def __init__(self,
-                 *,
-                 compact_running: bool = None,
-                 language: str = None,
-                 signature: str = None,
-                 sizes: 'ContentInformationSizes' = None,
-                 update_seq: str = None,
-                 updater_running: bool = None,
-                 waiting_clients: int = None,
-                 waiting_commit: bool = None) -> None:
-        """
-        Initialize a DesignDocumentInformationViewIndex object.
-
-        :param bool compact_running: (optional) Indicates whether a compaction
-               routine is currently running on the view.
-        :param str language: (optional) Language for the defined views.
-        :param str signature: (optional) MD5 signature of the views for the design
-               document.
-        :param ContentInformationSizes sizes: (optional) Schema for size
-               information of content.
-        :param str update_seq: (optional) The update sequence of the corresponding
-               database that has been indexed.
-        :param bool updater_running: (optional) Indicates if the view is currently
-               being updated.
-        :param int waiting_clients: (optional) Number of clients waiting on views
-               from this design document.
-        :param bool waiting_commit: (optional) Indicates if there are outstanding
-               commits to the underlying database that need to processed.
-        """
-        self.compact_running = compact_running
-        self.language = language
-        self.signature = signature
-        self.sizes = sizes
-        self.update_seq = update_seq
-        self.updater_running = updater_running
-        self.waiting_clients = waiting_clients
-        self.waiting_commit = waiting_commit
-
-    @classmethod
-    def from_dict(cls, _dict: Dict) -> 'DesignDocumentInformationViewIndex':
-        """Initialize a DesignDocumentInformationViewIndex object from a json dictionary."""
-        args = {}
-        if 'compact_running' in _dict:
-            args['compact_running'] = _dict.get('compact_running')
-        if 'language' in _dict:
-            args['language'] = _dict.get('language')
-        if 'signature' in _dict:
-            args['signature'] = _dict.get('signature')
-        if 'sizes' in _dict:
-            args['sizes'] = ContentInformationSizes.from_dict(_dict.get('sizes'))
-        if 'update_seq' in _dict:
-            args['update_seq'] = _dict.get('update_seq')
-        if 'updater_running' in _dict:
-            args['updater_running'] = _dict.get('updater_running')
-        if 'waiting_clients' in _dict:
-            args['waiting_clients'] = _dict.get('waiting_clients')
-        if 'waiting_commit' in _dict:
-            args['waiting_commit'] = _dict.get('waiting_commit')
-        return cls(**args)
-
-    @classmethod
-    def _from_dict(cls, _dict):
-        """Initialize a DesignDocumentInformationViewIndex object from a json dictionary."""
-        return cls.from_dict(_dict)
-
-    def to_dict(self) -> Dict:
-        """Return a json dictionary representing this model."""
-        _dict = {}
-        if hasattr(self, 'compact_running') and self.compact_running is not None:
-            _dict['compact_running'] = self.compact_running
-        if hasattr(self, 'language') and self.language is not None:
-            _dict['language'] = self.language
-        if hasattr(self, 'signature') and self.signature is not None:
-            _dict['signature'] = self.signature
-        if hasattr(self, 'sizes') and self.sizes is not None:
-            _dict['sizes'] = self.sizes.to_dict()
-        if hasattr(self, 'update_seq') and self.update_seq is not None:
-            _dict['update_seq'] = self.update_seq
-        if hasattr(self, 'updater_running') and self.updater_running is not None:
-            _dict['updater_running'] = self.updater_running
-        if hasattr(self, 'waiting_clients') and self.waiting_clients is not None:
-            _dict['waiting_clients'] = self.waiting_clients
-        if hasattr(self, 'waiting_commit') and self.waiting_commit is not None:
-            _dict['waiting_commit'] = self.waiting_commit
-        return _dict
-
-    def _to_dict(self):
-        """Return a json dictionary representing this model."""
-        return self.to_dict()
-
-    def __str__(self) -> str:
-        """Return a `str` version of this DesignDocumentInformationViewIndex object."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    def __eq__(self, other: 'DesignDocumentInformationViewIndex') -> bool:
-        """Return `true` when self and other are equal, false otherwise."""
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other: 'DesignDocumentInformationViewIndex') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
@@ -10475,6 +10370,131 @@ class DesignDocumentOptions():
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'DesignDocumentOptions') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class DesignDocumentViewIndex():
+    """
+    View index information.
+
+    :attr bool compact_running: (optional) Indicates whether a compaction routine is
+          currently running on the view.
+    :attr str language: (optional) Language for the defined views.
+    :attr str signature: (optional) MD5 signature of the views for the design
+          document.
+    :attr ContentInformationSizes sizes: (optional) Schema for size information of
+          content.
+    :attr str update_seq: (optional) The update sequence of the corresponding
+          database that has been indexed.
+    :attr bool updater_running: (optional) Indicates if the view is currently being
+          updated.
+    :attr int waiting_clients: (optional) Number of clients waiting on views from
+          this design document.
+    :attr bool waiting_commit: (optional) Indicates if there are outstanding commits
+          to the underlying database that need to processed.
+    """
+
+    def __init__(self,
+                 *,
+                 compact_running: bool = None,
+                 language: str = None,
+                 signature: str = None,
+                 sizes: 'ContentInformationSizes' = None,
+                 update_seq: str = None,
+                 updater_running: bool = None,
+                 waiting_clients: int = None,
+                 waiting_commit: bool = None) -> None:
+        """
+        Initialize a DesignDocumentViewIndex object.
+
+        :param bool compact_running: (optional) Indicates whether a compaction
+               routine is currently running on the view.
+        :param str language: (optional) Language for the defined views.
+        :param str signature: (optional) MD5 signature of the views for the design
+               document.
+        :param ContentInformationSizes sizes: (optional) Schema for size
+               information of content.
+        :param str update_seq: (optional) The update sequence of the corresponding
+               database that has been indexed.
+        :param bool updater_running: (optional) Indicates if the view is currently
+               being updated.
+        :param int waiting_clients: (optional) Number of clients waiting on views
+               from this design document.
+        :param bool waiting_commit: (optional) Indicates if there are outstanding
+               commits to the underlying database that need to processed.
+        """
+        self.compact_running = compact_running
+        self.language = language
+        self.signature = signature
+        self.sizes = sizes
+        self.update_seq = update_seq
+        self.updater_running = updater_running
+        self.waiting_clients = waiting_clients
+        self.waiting_commit = waiting_commit
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'DesignDocumentViewIndex':
+        """Initialize a DesignDocumentViewIndex object from a json dictionary."""
+        args = {}
+        if 'compact_running' in _dict:
+            args['compact_running'] = _dict.get('compact_running')
+        if 'language' in _dict:
+            args['language'] = _dict.get('language')
+        if 'signature' in _dict:
+            args['signature'] = _dict.get('signature')
+        if 'sizes' in _dict:
+            args['sizes'] = ContentInformationSizes.from_dict(_dict.get('sizes'))
+        if 'update_seq' in _dict:
+            args['update_seq'] = _dict.get('update_seq')
+        if 'updater_running' in _dict:
+            args['updater_running'] = _dict.get('updater_running')
+        if 'waiting_clients' in _dict:
+            args['waiting_clients'] = _dict.get('waiting_clients')
+        if 'waiting_commit' in _dict:
+            args['waiting_commit'] = _dict.get('waiting_commit')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a DesignDocumentViewIndex object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'compact_running') and self.compact_running is not None:
+            _dict['compact_running'] = self.compact_running
+        if hasattr(self, 'language') and self.language is not None:
+            _dict['language'] = self.language
+        if hasattr(self, 'signature') and self.signature is not None:
+            _dict['signature'] = self.signature
+        if hasattr(self, 'sizes') and self.sizes is not None:
+            _dict['sizes'] = self.sizes.to_dict()
+        if hasattr(self, 'update_seq') and self.update_seq is not None:
+            _dict['update_seq'] = self.update_seq
+        if hasattr(self, 'updater_running') and self.updater_running is not None:
+            _dict['updater_running'] = self.updater_running
+        if hasattr(self, 'waiting_clients') and self.waiting_clients is not None:
+            _dict['waiting_clients'] = self.waiting_clients
+        if hasattr(self, 'waiting_commit') and self.waiting_commit is not None:
+            _dict['waiting_commit'] = self.waiting_commit
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this DesignDocumentViewIndex object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'DesignDocumentViewIndex') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'DesignDocumentViewIndex') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
@@ -12694,29 +12714,29 @@ class MembershipInformation():
 
 class MissingRevsResult():
     """
-    Schema for mapping document IDs to lists of missed revisions.
+    Schema for mapping document IDs to lists of missing revisions.
 
-    :attr dict missed_revs: (optional) Schema for mapping document IDs to lists of
+    :attr dict missing_revs: (optional) Schema for mapping document IDs to lists of
           revisions.
     """
 
     def __init__(self,
                  *,
-                 missed_revs: dict = None) -> None:
+                 missing_revs: dict = None) -> None:
         """
         Initialize a MissingRevsResult object.
 
-        :param dict missed_revs: (optional) Schema for mapping document IDs to
+        :param dict missing_revs: (optional) Schema for mapping document IDs to
                lists of revisions.
         """
-        self.missed_revs = missed_revs
+        self.missing_revs = missing_revs
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'MissingRevsResult':
         """Initialize a MissingRevsResult object from a json dictionary."""
         args = {}
-        if 'missed_revs' in _dict:
-            args['missed_revs'] = _dict.get('missed_revs')
+        if 'missing_revs' in _dict:
+            args['missing_revs'] = _dict.get('missing_revs')
         return cls(**args)
 
     @classmethod
@@ -12727,8 +12747,8 @@ class MissingRevsResult():
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
-        if hasattr(self, 'missed_revs') and self.missed_revs is not None:
-            _dict['missed_revs'] = self.missed_revs
+        if hasattr(self, 'missing_revs') and self.missing_revs is not None:
+            _dict['missing_revs'] = self.missing_revs
         return _dict
 
     def _to_dict(self):
@@ -16563,6 +16583,7 @@ class ViewResultRow():
     :attr str caused_by: (optional) The cause of the error (if available).
     :attr str error: (optional) The name of the error.
     :attr str reason: (optional) The reason the error occurred (if available).
+    :attr Document doc: (optional) Schema for a document.
     :attr str id: (optional) Schema for a document ID.
     :attr object key: (optional) Schema for any JSON type.
     :attr object value: (optional) Schema for any JSON type.
@@ -16573,6 +16594,7 @@ class ViewResultRow():
                  caused_by: str = None,
                  error: str = None,
                  reason: str = None,
+                 doc: 'Document' = None,
                  id: str = None,
                  key: object = None,
                  value: object = None) -> None:
@@ -16582,6 +16604,7 @@ class ViewResultRow():
         :param str caused_by: (optional) The cause of the error (if available).
         :param str error: (optional) The name of the error.
         :param str reason: (optional) The reason the error occurred (if available).
+        :param Document doc: (optional) Schema for a document.
         :param str id: (optional) Schema for a document ID.
         :param object key: (optional) Schema for any JSON type.
         :param object value: (optional) Schema for any JSON type.
@@ -16589,6 +16612,7 @@ class ViewResultRow():
         self.caused_by = caused_by
         self.error = error
         self.reason = reason
+        self.doc = doc
         self.id = id
         self.key = key
         self.value = value
@@ -16603,6 +16627,8 @@ class ViewResultRow():
             args['error'] = _dict.get('error')
         if 'reason' in _dict:
             args['reason'] = _dict.get('reason')
+        if 'doc' in _dict:
+            args['doc'] = Document.from_dict(_dict.get('doc'))
         if 'id' in _dict:
             args['id'] = _dict.get('id')
         if 'key' in _dict:
@@ -16625,6 +16651,8 @@ class ViewResultRow():
             _dict['error'] = self.error
         if hasattr(self, 'reason') and self.reason is not None:
             _dict['reason'] = self.reason
+        if hasattr(self, 'doc') and self.doc is not None:
+            _dict['doc'] = self.doc.to_dict()
         if hasattr(self, 'id') and self.id is not None:
             _dict['id'] = self.id
         if hasattr(self, 'key') and self.key is not None:
