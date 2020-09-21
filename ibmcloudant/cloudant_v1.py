@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# IBM OpenAPI SDK Code Generator Version: 3.12.0-64fe8d3f-20200820-144050
+# IBM OpenAPI SDK Code Generator Version: 3.12.2-b734cb71-20200916-142547
  
 """
 NoSQL database based on Apache CouchDB
@@ -221,8 +221,10 @@ class CloudantV1(BaseService):
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
 
-        url = '/{0}'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}'.format(**path_param_dict)
         request = self.prepare_request(method='HEAD',
                                        url=url,
                                        headers=headers)
@@ -364,8 +366,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}'.format(**path_param_dict)
         request = self.prepare_request(method='DELETE',
                                        url=url,
                                        headers=headers)
@@ -399,8 +403,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers)
@@ -447,8 +453,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}'.format(**path_param_dict)
         request = self.prepare_request(method='PUT',
                                        url=url,
                                        headers=headers,
@@ -624,8 +632,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_changes'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_changes'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -802,8 +812,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_changes'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_changes'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -869,8 +881,10 @@ class CloudantV1(BaseService):
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
 
-        url = '/{0}/{1}'.format(
-            *self.encode_path_vars(db, doc_id))
+        path_param_keys = ['db', 'doc_id']
+        path_param_values = self.encode_path_vars(db, doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='HEAD',
                                        url=url,
                                        headers=headers,
@@ -940,8 +954,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -1042,8 +1058,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_all_docs'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_all_docs'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -1143,8 +1161,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_all_docs'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_all_docs'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -1200,8 +1220,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_all_docs/queries'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_all_docs/queries'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -1257,8 +1279,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_all_docs/queries'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_all_docs/queries'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -1309,8 +1333,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_bulk_docs'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_bulk_docs'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -1381,8 +1407,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_bulk_get'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_bulk_get'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -1454,8 +1482,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'multipart/mixed'
 
-        url = '/{0}/_bulk_get'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_bulk_get'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -1527,8 +1557,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'multipart/related'
 
-        url = '/{0}/_bulk_get'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_bulk_get'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -1600,8 +1632,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_bulk_get'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_bulk_get'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -1664,8 +1698,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/{1}'.format(
-            *self.encode_path_vars(db, doc_id))
+        path_param_keys = ['db', 'doc_id']
+        path_param_values = self.encode_path_vars(db, doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='DELETE',
                                        url=url,
                                        headers=headers,
@@ -1770,8 +1806,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/{1}'.format(
-            *self.encode_path_vars(db, doc_id))
+        path_param_keys = ['db', 'doc_id']
+        path_param_values = self.encode_path_vars(db, doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers,
@@ -1876,8 +1914,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'multipart/mixed'
 
-        url = '/{0}/{1}'.format(
-            *self.encode_path_vars(db, doc_id))
+        path_param_keys = ['db', 'doc_id']
+        path_param_values = self.encode_path_vars(db, doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers,
@@ -1982,8 +2022,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'multipart/related'
 
-        url = '/{0}/{1}'.format(
-            *self.encode_path_vars(db, doc_id))
+        path_param_keys = ['db', 'doc_id']
+        path_param_values = self.encode_path_vars(db, doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers,
@@ -2088,8 +2130,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/{1}'.format(
-            *self.encode_path_vars(db, doc_id))
+        path_param_keys = ['db', 'doc_id']
+        path_param_values = self.encode_path_vars(db, doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers,
@@ -2172,8 +2216,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/{1}'.format(
-            *self.encode_path_vars(db, doc_id))
+        path_param_keys = ['db', 'doc_id']
+        path_param_values = self.encode_path_vars(db, doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='PUT',
                                        url=url,
                                        headers=headers,
@@ -2232,8 +2278,10 @@ class CloudantV1(BaseService):
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
 
-        url = '/{0}/_design/{1}'.format(
-            *self.encode_path_vars(db, ddoc))
+        path_param_keys = ['db', 'ddoc']
+        path_param_values = self.encode_path_vars(db, ddoc)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}'.format(**path_param_dict)
         request = self.prepare_request(method='HEAD',
                                        url=url,
                                        headers=headers)
@@ -2296,8 +2344,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}'.format(
-            *self.encode_path_vars(db, ddoc))
+        path_param_keys = ['db', 'ddoc']
+        path_param_values = self.encode_path_vars(db, ddoc)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}'.format(**path_param_dict)
         request = self.prepare_request(method='DELETE',
                                        url=url,
                                        headers=headers,
@@ -2404,8 +2454,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}'.format(
-            *self.encode_path_vars(db, ddoc))
+        path_param_keys = ['db', 'ddoc']
+        path_param_values = self.encode_path_vars(db, ddoc)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers,
@@ -2481,8 +2533,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}'.format(
-            *self.encode_path_vars(db, ddoc))
+        path_param_keys = ['db', 'ddoc']
+        path_param_values = self.encode_path_vars(db, ddoc)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}'.format(**path_param_dict)
         request = self.prepare_request(method='PUT',
                                        url=url,
                                        headers=headers,
@@ -2528,8 +2582,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}/_info'.format(
-            *self.encode_path_vars(db, ddoc))
+        path_param_keys = ['db', 'ddoc']
+        path_param_values = self.encode_path_vars(db, ddoc)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}/_info'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers)
@@ -2632,8 +2688,10 @@ class CloudantV1(BaseService):
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
 
-        url = '/{0}/_design_docs'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design_docs'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -2691,8 +2749,10 @@ class CloudantV1(BaseService):
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
 
-        url = '/{0}/_design_docs/queries'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design_docs/queries'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -2838,8 +2898,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}/_view/{2}'.format(
-            *self.encode_path_vars(db, ddoc, view))
+        path_param_keys = ['db', 'ddoc', 'view']
+        path_param_values = self.encode_path_vars(db, ddoc, view)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}/_view/{view}'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -2981,8 +3043,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}/_view/{2}'.format(
-            *self.encode_path_vars(db, ddoc, view))
+        path_param_keys = ['db', 'ddoc', 'view']
+        path_param_values = self.encode_path_vars(db, ddoc, view)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}/_view/{view}'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -3046,8 +3110,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}/_view/{2}/queries'.format(
-            *self.encode_path_vars(db, ddoc, view))
+        path_param_keys = ['db', 'ddoc', 'view']
+        path_param_values = self.encode_path_vars(db, ddoc, view)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}/_view/{view}/queries'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -3111,8 +3177,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}/_view/{2}/queries'.format(
-            *self.encode_path_vars(db, ddoc, view))
+        path_param_keys = ['db', 'ddoc', 'view']
+        path_param_values = self.encode_path_vars(db, ddoc, view)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}/_view/{view}/queries'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -3159,8 +3227,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_partition/{1}'.format(
-            *self.encode_path_vars(db, partition_key))
+        path_param_keys = ['db', 'partition_key']
+        path_param_values = self.encode_path_vars(db, partition_key)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_partition/{partition_key}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers)
@@ -3264,8 +3334,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_partition/{1}/_all_docs'.format(
-            *self.encode_path_vars(db, partition_key))
+        path_param_keys = ['db', 'partition_key']
+        path_param_values = self.encode_path_vars(db, partition_key)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_partition/{partition_key}/_all_docs'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -3370,8 +3442,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_partition/{1}/_all_docs'.format(
-            *self.encode_path_vars(db, partition_key))
+        path_param_keys = ['db', 'partition_key']
+        path_param_values = self.encode_path_vars(db, partition_key)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_partition/{partition_key}/_all_docs'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -3492,8 +3566,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_partition/{1}/_design/{2}/_search/{3}'.format(
-            *self.encode_path_vars(db, partition_key, ddoc, index))
+        path_param_keys = ['db', 'partition_key', 'ddoc', 'index']
+        path_param_values = self.encode_path_vars(db, partition_key, ddoc, index)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_partition/{partition_key}/_design/{ddoc}/_search/{index}'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -3614,8 +3690,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_partition/{1}/_design/{2}/_search/{3}'.format(
-            *self.encode_path_vars(db, partition_key, ddoc, index))
+        path_param_keys = ['db', 'partition_key', 'ddoc', 'index']
+        path_param_values = self.encode_path_vars(db, partition_key, ddoc, index)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_partition/{partition_key}/_design/{ddoc}/_search/{index}'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -3761,8 +3839,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_partition/{1}/_design/{2}/_view/{3}'.format(
-            *self.encode_path_vars(db, partition_key, ddoc, view))
+        path_param_keys = ['db', 'partition_key', 'ddoc', 'view']
+        path_param_values = self.encode_path_vars(db, partition_key, ddoc, view)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_partition/{partition_key}/_design/{ddoc}/_view/{view}'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -3908,8 +3988,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_partition/{1}/_design/{2}/_view/{3}'.format(
-            *self.encode_path_vars(db, partition_key, ddoc, view))
+        path_param_keys = ['db', 'partition_key', 'ddoc', 'view']
+        path_param_values = self.encode_path_vars(db, partition_key, ddoc, view)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_partition/{partition_key}/_design/{ddoc}/_view/{view}'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -4031,8 +4113,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_partition/{1}/_find'.format(
-            *self.encode_path_vars(db, partition_key))
+        path_param_keys = ['db', 'partition_key']
+        path_param_values = self.encode_path_vars(db, partition_key)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_partition/{partition_key}/_find'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -4154,8 +4238,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_partition/{1}/_find'.format(
-            *self.encode_path_vars(db, partition_key))
+        path_param_keys = ['db', 'partition_key']
+        path_param_values = self.encode_path_vars(db, partition_key)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_partition/{partition_key}/_find'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -4283,8 +4369,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_explain'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_explain'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -4409,8 +4497,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_find'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_find'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -4535,8 +4625,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_find'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_find'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -4576,8 +4668,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_index'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_index'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers)
@@ -4684,8 +4778,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_index'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_index'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -4734,8 +4830,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_index/_design/{1}/{2}/{3}'.format(
-            *self.encode_path_vars(db, ddoc, type, index))
+        path_param_keys = ['db', 'ddoc', 'type', 'index']
+        path_param_values = self.encode_path_vars(db, ddoc, type, index)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_index/_design/{ddoc}/{type}/{index}'.format(**path_param_dict)
         request = self.prepare_request(method='DELETE',
                                        url=url,
                                        headers=headers)
@@ -4945,8 +5043,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}/_search/{2}'.format(
-            *self.encode_path_vars(db, ddoc, index))
+        path_param_keys = ['db', 'ddoc', 'index']
+        path_param_values = self.encode_path_vars(db, ddoc, index)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}/_search/{index}'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -5106,8 +5206,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}/_search/{2}'.format(
-            *self.encode_path_vars(db, ddoc, index))
+        path_param_keys = ['db', 'ddoc', 'index']
+        path_param_values = self.encode_path_vars(db, ddoc, index)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}/_search/{index}'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -5154,8 +5256,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}/_search_info/{2}'.format(
-            *self.encode_path_vars(db, ddoc, index))
+        path_param_keys = ['db', 'ddoc', 'index']
+        path_param_values = self.encode_path_vars(db, ddoc, index)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}/_search_info/{index}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers)
@@ -5285,8 +5389,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}/_geo/{2}'.format(
-            *self.encode_path_vars(db, ddoc, index))
+        path_param_keys = ['db', 'ddoc', 'index']
+        path_param_values = self.encode_path_vars(db, ddoc, index)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}/_geo/{index}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers,
@@ -5413,8 +5519,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}/_geo/{2}'.format(
-            *self.encode_path_vars(db, ddoc, index))
+        path_param_keys = ['db', 'ddoc', 'index']
+        path_param_values = self.encode_path_vars(db, ddoc, index)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}/_geo/{index}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers,
@@ -5452,8 +5560,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_geo_cleanup'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_geo_cleanup'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers)
@@ -5497,8 +5607,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_design/{1}/_geo_info/{2}'.format(
-            *self.encode_path_vars(db, ddoc, index))
+        path_param_keys = ['db', 'ddoc', 'index']
+        path_param_values = self.encode_path_vars(db, ddoc, index)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}/_geo_info/{index}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers)
@@ -5615,8 +5727,10 @@ class CloudantV1(BaseService):
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
 
-        url = '/_replicator/{0}'.format(
-            *self.encode_path_vars(doc_id))
+        path_param_keys = ['doc_id']
+        path_param_values = self.encode_path_vars(doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/_replicator/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='HEAD',
                                        url=url,
                                        headers=headers)
@@ -5652,8 +5766,10 @@ class CloudantV1(BaseService):
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
 
-        url = '/_scheduler/jobs/{0}'.format(
-            *self.encode_path_vars(job_id))
+        path_param_keys = ['job_id']
+        path_param_values = self.encode_path_vars(job_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/_scheduler/jobs/{job_id}'.format(**path_param_dict)
         request = self.prepare_request(method='HEAD',
                                        url=url,
                                        headers=headers)
@@ -5749,8 +5865,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/_replicator/{0}'.format(
-            *self.encode_path_vars(doc_id))
+        path_param_keys = ['doc_id']
+        path_param_values = self.encode_path_vars(doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/_replicator/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='DELETE',
                                        url=url,
                                        headers=headers,
@@ -5851,8 +5969,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/_replicator/{0}'.format(
-            *self.encode_path_vars(doc_id))
+        path_param_keys = ['doc_id']
+        path_param_values = self.encode_path_vars(doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/_replicator/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers,
@@ -5922,8 +6042,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/_replicator/{0}'.format(
-            *self.encode_path_vars(doc_id))
+        path_param_keys = ['doc_id']
+        path_param_values = self.encode_path_vars(doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/_replicator/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='PUT',
                                        url=url,
                                        headers=headers,
@@ -6015,8 +6137,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/_scheduler/docs/_replicator/{0}'.format(
-            *self.encode_path_vars(doc_id))
+        path_param_keys = ['doc_id']
+        path_param_values = self.encode_path_vars(doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/_scheduler/docs/_replicator/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers)
@@ -6101,8 +6225,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/_scheduler/jobs/{0}'.format(
-            *self.encode_path_vars(job_id))
+        path_param_keys = ['job_id']
+        path_param_values = self.encode_path_vars(job_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/_scheduler/jobs/{job_id}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers)
@@ -6291,8 +6417,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_security'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_security'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers)
@@ -6359,8 +6487,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_security'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_security'.format(**path_param_dict)
         request = self.prepare_request(method='PUT',
                                        url=url,
                                        headers=headers,
@@ -6461,8 +6591,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/_api/v2/db/{0}/_security'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/_api/v2/db/{db}/_security'.format(**path_param_dict)
         request = self.prepare_request(method='PUT',
                                        url=url,
                                        headers=headers,
@@ -6623,8 +6755,10 @@ class CloudantV1(BaseService):
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
 
-        url = '/{0}/{1}/{2}'.format(
-            *self.encode_path_vars(db, doc_id, attachment_name))
+        path_param_keys = ['db', 'doc_id', 'attachment_name']
+        path_param_values = self.encode_path_vars(db, doc_id, attachment_name)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/{doc_id}/{attachment_name}'.format(**path_param_dict)
         request = self.prepare_request(method='HEAD',
                                        url=url,
                                        headers=headers,
@@ -6688,8 +6822,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/{1}/{2}'.format(
-            *self.encode_path_vars(db, doc_id, attachment_name))
+        path_param_keys = ['db', 'doc_id', 'attachment_name']
+        path_param_values = self.encode_path_vars(db, doc_id, attachment_name)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/{doc_id}/{attachment_name}'.format(**path_param_dict)
         request = self.prepare_request(method='DELETE',
                                        url=url,
                                        headers=headers,
@@ -6758,8 +6894,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = '*/*'
 
-        url = '/{0}/{1}/{2}'.format(
-            *self.encode_path_vars(db, doc_id, attachment_name))
+        path_param_keys = ['db', 'doc_id', 'attachment_name']
+        path_param_values = self.encode_path_vars(db, doc_id, attachment_name)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/{doc_id}/{attachment_name}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers,
@@ -6835,8 +6973,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/{1}/{2}'.format(
-            *self.encode_path_vars(db, doc_id, attachment_name))
+        path_param_keys = ['db', 'doc_id', 'attachment_name']
+        path_param_values = self.encode_path_vars(db, doc_id, attachment_name)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/{doc_id}/{attachment_name}'.format(**path_param_dict)
         request = self.prepare_request(method='PUT',
                                        url=url,
                                        headers=headers,
@@ -6893,8 +7033,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_local/{1}'.format(
-            *self.encode_path_vars(db, doc_id))
+        path_param_keys = ['db', 'doc_id']
+        path_param_values = self.encode_path_vars(db, doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_local/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='DELETE',
                                        url=url,
                                        headers=headers,
@@ -6967,8 +7109,10 @@ class CloudantV1(BaseService):
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
 
-        url = '/{0}/_local/{1}'.format(
-            *self.encode_path_vars(db, doc_id))
+        path_param_keys = ['db', 'doc_id']
+        path_param_values = self.encode_path_vars(db, doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_local/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers,
@@ -7037,8 +7181,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_local/{1}'.format(
-            *self.encode_path_vars(db, doc_id))
+        path_param_keys = ['db', 'doc_id']
+        path_param_values = self.encode_path_vars(db, doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_local/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='PUT',
                                        url=url,
                                        headers=headers,
@@ -7143,8 +7289,10 @@ class CloudantV1(BaseService):
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
 
-        url = '/{0}/_local_docs'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_local_docs'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -7202,8 +7350,10 @@ class CloudantV1(BaseService):
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
 
-        url = '/{0}/_local_docs/queries'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_local_docs/queries'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -7248,8 +7398,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_ensure_full_commit'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_ensure_full_commit'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers)
@@ -7293,8 +7445,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_missing_revs'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_missing_revs'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -7341,8 +7495,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_revs_diff'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_revs_diff'.format(**path_param_dict)
         request = self.prepare_request(method='POST',
                                        url=url,
                                        headers=headers,
@@ -7379,8 +7535,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_shards'.format(
-            *self.encode_path_vars(db))
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_shards'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers)
@@ -7421,8 +7579,10 @@ class CloudantV1(BaseService):
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/{0}/_shards/{1}'.format(
-            *self.encode_path_vars(db, doc_id))
+        path_param_keys = ['db', 'doc_id']
+        path_param_values = self.encode_path_vars(db, doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_shards/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='GET',
                                        url=url,
                                        headers=headers)
