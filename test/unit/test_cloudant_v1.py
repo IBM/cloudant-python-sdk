@@ -54,7 +54,6 @@ class TestGetServerInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -92,7 +91,6 @@ class TestGetMembershipInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -130,7 +128,6 @@ class TestGetUuids():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -210,7 +207,6 @@ class TestHeadDatabase():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -275,7 +271,6 @@ class TestGetAllDbs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -357,7 +352,6 @@ class TestPostDbsInfo():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -426,7 +420,6 @@ class TestDeleteDatabase():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -497,7 +490,6 @@ class TestGetDatabaseInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -568,7 +560,6 @@ class TestPutDatabase():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -676,7 +667,6 @@ class TestPostChanges():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -833,7 +823,6 @@ class TestPostChangesAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1012,7 +1001,6 @@ class TestHeadDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1119,7 +1107,6 @@ class TestPostDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1264,7 +1251,6 @@ class TestPostAllDocs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1404,7 +1390,6 @@ class TestPostAllDocsAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1556,7 +1541,6 @@ class TestPostAllDocsQueries():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1676,7 +1660,6 @@ class TestPostAllDocsQueriesAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1808,7 +1791,6 @@ class TestPostBulkDocs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1952,7 +1934,6 @@ class TestPostBulkGet():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2078,7 +2059,6 @@ class TestPostBulkGetAsMixed():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2101,9 +2081,9 @@ class TestPostBulkGetAsMixed():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'testString'
+        bulk_get_query_document_model['id'] = 'foo'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
 
         # Set up parameter values
         db = 'testString'
@@ -2204,7 +2184,6 @@ class TestPostBulkGetAsRelated():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2227,9 +2206,9 @@ class TestPostBulkGetAsRelated():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'testString'
+        bulk_get_query_document_model['id'] = 'foo'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
 
         # Set up parameter values
         db = 'testString'
@@ -2330,7 +2309,6 @@ class TestPostBulkGetAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2353,9 +2331,9 @@ class TestPostBulkGetAsStream():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'testString'
+        bulk_get_query_document_model['id'] = 'foo'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
 
         # Set up parameter values
         db = 'testString'
@@ -2468,7 +2446,6 @@ class TestDeleteDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2584,7 +2561,6 @@ class TestGetDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2730,7 +2706,6 @@ class TestGetDocumentAsMixed():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2876,7 +2851,6 @@ class TestGetDocumentAsRelated():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3022,7 +2996,6 @@ class TestGetDocumentAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3180,7 +3153,6 @@ class TestPutDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3349,7 +3321,6 @@ class TestHeadDesignDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3447,7 +3418,6 @@ class TestDeleteDesignDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3563,7 +3533,6 @@ class TestGetDesignDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3709,7 +3678,6 @@ class TestPutDesignDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3906,7 +3874,6 @@ class TestGetDesignDocumentInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3981,7 +3948,6 @@ class TestPostDesignDocs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -4123,7 +4089,6 @@ class TestPostDesignDocsQueries():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -4255,7 +4220,6 @@ class TestPostView():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -4428,7 +4392,6 @@ class TestPostViewAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -4613,7 +4576,6 @@ class TestPostViewQueries():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -4752,7 +4714,6 @@ class TestPostViewQueriesAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -4913,7 +4874,6 @@ class TestGetPartitionInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -4988,7 +4948,6 @@ class TestPostPartitionAllDocs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -5134,7 +5093,6 @@ class TestPostPartitionAllDocsAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -5292,7 +5250,6 @@ class TestPostPartitionSearch():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -5447,7 +5404,6 @@ class TestPostPartitionSearchAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -5481,7 +5437,7 @@ class TestPostPartitionSearchAsStream():
         highlight_size = 1
         include_docs = True
         include_fields = ['testString']
-        limit = 0
+        limit = 3
         sort = ['testString']
         stale = 'ok'
 
@@ -5520,7 +5476,7 @@ class TestPostPartitionSearchAsStream():
         assert req_body['highlight_size'] == 1
         assert req_body['include_docs'] == True
         assert req_body['include_fields'] == ['testString']
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 3
         assert req_body['sort'] == ['testString']
         assert req_body['stale'] == 'ok'
 
@@ -5614,7 +5570,6 @@ class TestPostPartitionView():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -5793,7 +5748,6 @@ class TestPostPartitionViewAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -5984,7 +5938,6 @@ class TestPostPartitionFind():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6124,7 +6077,6 @@ class TestPostPartitionFindAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6286,7 +6238,6 @@ class TestPostExplain():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6423,7 +6374,6 @@ class TestPostFind():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6560,7 +6510,6 @@ class TestPostFindAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6709,7 +6658,6 @@ class TestGetIndexesInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6780,7 +6728,6 @@ class TestPostIndex():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6925,7 +6872,6 @@ class TestDeleteIndex():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7018,7 +6964,6 @@ class TestPostSearchAnalyze():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7090,7 +7035,6 @@ class TestPostSearch():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7257,7 +7201,6 @@ class TestPostSearchAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7290,7 +7233,7 @@ class TestPostSearchAsStream():
         highlight_size = 1
         include_docs = True
         include_fields = ['testString']
-        limit = 0
+        limit = 3
         sort = ['testString']
         stale = 'ok'
         counts = ['testString']
@@ -7340,7 +7283,7 @@ class TestPostSearchAsStream():
         assert req_body['highlight_size'] == 1
         assert req_body['include_docs'] == True
         assert req_body['include_fields'] == ['testString']
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 3
         assert req_body['sort'] == ['testString']
         assert req_body['stale'] == 'ok'
         assert req_body['counts'] == ['testString']
@@ -7436,7 +7379,6 @@ class TestGetSearchInfo():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7525,7 +7467,6 @@ class TestGetGeo():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7684,7 +7625,6 @@ class TestGetGeoAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7855,7 +7795,6 @@ class TestPostGeoCleanup():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7926,7 +7865,6 @@ class TestGetGeoIndexInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8015,7 +7953,6 @@ class TestGetDbUpdates():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8104,7 +8041,6 @@ class TestHeadReplicationDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8196,7 +8132,6 @@ class TestHeadSchedulerJob():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8261,7 +8196,6 @@ class TestPostReplicate():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8413,7 +8347,6 @@ class TestDeleteReplicationDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8523,7 +8456,6 @@ class TestGetReplicationDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8663,7 +8595,6 @@ class TestPutReplicationDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8723,12 +8654,12 @@ class TestPutReplicationDocument():
         replication_database_model = {}
         replication_database_model['auth'] = replication_database_auth_model
         replication_database_model['headers'] = {}
-        replication_database_model['url'] = 'testString'
+        replication_database_model['url'] = 'http://myserver.example:5984/foo-db'
 
         # Construct a dict representation of a UserContext model
         user_context_model = {}
         user_context_model['db'] = 'testString'
-        user_context_model['name'] = 'testString'
+        user_context_model['name'] = 'john'
         user_context_model['roles'] = ['_reader']
 
         # Construct a dict representation of a ReplicationDocument model
@@ -8742,28 +8673,28 @@ class TestPutReplicationDocument():
         replication_document_model['_rev'] = 'testString'
         replication_document_model['_revisions'] = revisions_model
         replication_document_model['_revs_info'] = [document_revision_status_model]
-        replication_document_model['cancel'] = True
-        replication_document_model['checkpoint_interval'] = 0
-        replication_document_model['connection_timeout'] = 0
+        replication_document_model['cancel'] = False
+        replication_document_model['checkpoint_interval'] = 4500
+        replication_document_model['connection_timeout'] = 15000
         replication_document_model['continuous'] = True
         replication_document_model['create_target'] = True
         replication_document_model['create_target_params'] = replication_create_target_parameters_model
         replication_document_model['doc_ids'] = ['testString']
-        replication_document_model['filter'] = 'testString'
-        replication_document_model['http_connections'] = 1
+        replication_document_model['filter'] = 'ddoc/my_filter'
+        replication_document_model['http_connections'] = 10
         replication_document_model['query_params'] = {}
-        replication_document_model['retries_per_request'] = 0
+        replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {}
-        replication_document_model['since_seq'] = 'testString'
-        replication_document_model['socket_options'] = 'testString'
+        replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
+        replication_document_model['socket_options'] = '[{keepalive, true}, {nodelay, false}]'
         replication_document_model['source'] = replication_database_model
-        replication_document_model['source_proxy'] = 'testString'
+        replication_document_model['source_proxy'] = 'http://my-source-proxy.example:8888'
         replication_document_model['target'] = replication_database_model
-        replication_document_model['target_proxy'] = 'testString'
-        replication_document_model['use_checkpoints'] = True
+        replication_document_model['target_proxy'] = 'http://my-target-proxy.example:8888'
+        replication_document_model['use_checkpoints'] = False
         replication_document_model['user_ctx'] = user_context_model
-        replication_document_model['worker_batch_size'] = 1
-        replication_document_model['worker_processes'] = 1
+        replication_document_model['worker_batch_size'] = 400
+        replication_document_model['worker_processes'] = 3
         replication_document_model['foo'] = { 'foo': 'bar' }
 
         # Set up parameter values
@@ -8864,7 +8795,6 @@ class TestGetSchedulerDocs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8940,7 +8870,6 @@ class TestGetSchedulerDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9011,7 +8940,6 @@ class TestGetSchedulerJobs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9084,7 +9012,6 @@ class TestGetSchedulerJob():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9165,7 +9092,6 @@ class TestGetSessionInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9203,7 +9129,6 @@ class TestDeleteIamSession():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9241,7 +9166,6 @@ class TestGetIamSessionInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9279,7 +9203,6 @@ class TestPostIamSession():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9358,7 +9281,6 @@ class TestGetSecurity():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9429,7 +9351,6 @@ class TestPutSecurity():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9547,7 +9468,6 @@ class TestPostApiKeys():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9585,7 +9505,6 @@ class TestPutCloudantSecurityConfiguration():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9713,7 +9632,6 @@ class TestGetCorsInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9751,7 +9669,6 @@ class TestPutCorsConfiguration():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9836,7 +9753,6 @@ class TestHeadAttachment():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9948,7 +9864,6 @@ class TestDeleteAttachment():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10070,7 +9985,6 @@ class TestGetAttachment():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10193,7 +10107,6 @@ class TestPutAttachment():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10336,7 +10249,6 @@ class TestDeleteLocalDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10447,7 +10359,6 @@ class TestGetLocalDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10571,7 +10482,6 @@ class TestPutLocalDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10722,7 +10632,6 @@ class TestPostLocalDocs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10864,7 +10773,6 @@ class TestPostLocalDocsQueries():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10996,7 +10904,6 @@ class TestPostEnsureFullCommit():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11067,7 +10974,6 @@ class TestPostMissingRevs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11171,7 +11077,6 @@ class TestPostRevsDiff():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11275,7 +11180,6 @@ class TestGetShardsInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11346,7 +11250,6 @@ class TestGetDocumentShardsInfo():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11431,7 +11334,6 @@ class TestGetActiveTasks():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11469,7 +11371,6 @@ class TestGetUpInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
-        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -13150,7 +13051,7 @@ class TestExecutionStats():
 
         # Construct a json representation of a ExecutionStats model
         execution_stats_model_json = {}
-        execution_stats_model_json['execution_time_ms'] = 36.0
+        execution_stats_model_json['execution_time_ms'] = 72.5
         execution_stats_model_json['results_returned'] = 0
         execution_stats_model_json['total_docs_examined'] = 0
         execution_stats_model_json['total_keys_examined'] = 0
@@ -13312,7 +13213,7 @@ class TestFindResult():
         document_model['foo'] = { 'foo': 'bar' }
 
         execution_stats_model = {} # ExecutionStats
-        execution_stats_model['execution_time_ms'] = 36.0
+        execution_stats_model['execution_time_ms'] = 72.5
         execution_stats_model['results_returned'] = 0
         execution_stats_model['total_docs_examined'] = 0
         execution_stats_model['total_keys_examined'] = 0
@@ -13456,7 +13357,7 @@ class TestGeoJsonFeature():
         geo_json_feature_model_json = {}
         geo_json_feature_model_json['_id'] = 'testString'
         geo_json_feature_model_json['_rev'] = 'testString'
-        geo_json_feature_model_json['bbox'] = [36.0]
+        geo_json_feature_model_json['bbox'] = [72.5]
         geo_json_feature_model_json['geometry'] = geo_json_geometry_object_model
         geo_json_feature_model_json['properties'] = {}
         geo_json_feature_model_json['type'] = 'Feature'
@@ -13496,7 +13397,7 @@ class TestGeoResult():
         geo_json_feature_model = {} # GeoJsonFeature
         geo_json_feature_model['_id'] = 'testString'
         geo_json_feature_model['_rev'] = 'testString'
-        geo_json_feature_model['bbox'] = [36.0]
+        geo_json_feature_model['bbox'] = [72.5]
         geo_json_feature_model['geometry'] = geo_json_geometry_object_model
         geo_json_feature_model['properties'] = {}
         geo_json_feature_model['type'] = 'Feature'
