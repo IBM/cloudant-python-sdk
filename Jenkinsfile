@@ -8,7 +8,7 @@ pipeline {
     skipDefaultCheckout()
   }
   environment {
-    GH_CREDS = credentials('github-token')
+    GH_CREDS = credentials('gh-sdks-automation')
   }
   stages {
     stage('Checkout') {
@@ -19,7 +19,7 @@ pipeline {
           checkoutResult = checkout scm
           commitHash = "${checkoutResult.GIT_COMMIT[0..6]}"
           sh """
-            git config user.email 'ricellis@users.noreply.github.com'
+            git config user.email '71659186+cloudant-sdks-automation@users.noreply.github.com'
             git config user.name 'cloudant-sdks-automation'
             git config credential.username '${env.GH_CREDS_USR}'
             git config credential.helper '!f() { echo password=\$GH_CREDS_PSW; echo; }; f'
