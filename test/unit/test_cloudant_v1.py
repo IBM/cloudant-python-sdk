@@ -376,7 +376,7 @@ class TestPostDbsInfo():
 
         # Invoke method
         response = service.post_dbs_info(
-            keys=keys,
+            keys,
             headers={}
         )
 
@@ -389,9 +389,9 @@ class TestPostDbsInfo():
 
 
     @responses.activate
-    def test_post_dbs_info_required_params(self):
+    def test_post_dbs_info_value_error(self):
         """
-        test_post_dbs_info_required_params()
+        test_post_dbs_info_value_error()
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_dbs_info')
@@ -402,13 +402,18 @@ class TestPostDbsInfo():
                       content_type='application/json',
                       status=200)
 
-        # Invoke method
-        response = service.post_dbs_info()
+        # Set up parameter values
+        keys = ['testString']
 
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "keys": keys,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                service.post_dbs_info(**req_copy)
 
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
 
 
 class TestDeleteDatabase():
@@ -774,16 +779,27 @@ class TestPostChanges():
 
         # Set up parameter values
         db = 'testString'
+        doc_ids = ['testString']
+        fields = ['testString']
+        selector = {}
 
         # Invoke method
         response = service.post_changes(
             db,
+            doc_ids=doc_ids,
+            fields=fields,
+            selector=selector,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['doc_ids'] == ['testString']
+        assert req_body['fields'] == ['testString']
+        assert req_body['selector'] == {}
 
 
     @responses.activate
@@ -802,6 +818,9 @@ class TestPostChanges():
 
         # Set up parameter values
         db = 'testString'
+        doc_ids = ['testString']
+        fields = ['testString']
+        selector = {}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -936,16 +955,27 @@ class TestPostChangesAsStream():
 
         # Set up parameter values
         db = 'testString'
+        doc_ids = ['testString']
+        fields = ['testString']
+        selector = {}
 
         # Invoke method
         response = service.post_changes_as_stream(
             db,
+            doc_ids=doc_ids,
+            fields=fields,
+            selector=selector,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['doc_ids'] == ['testString']
+        assert req_body['fields'] == ['testString']
+        assert req_body['selector'] == {}
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -970,6 +1000,9 @@ class TestPostChangesAsStream():
 
         # Set up parameter values
         db = 'testString'
+        doc_ids = ['testString']
+        fields = ['testString']
+        selector = {}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -1170,7 +1203,7 @@ class TestPostDocument():
         # Invoke method
         response = service.post_document(
             db,
-            document=document,
+            document,
             content_type=content_type,
             batch=batch,
             headers={}
@@ -1200,18 +1233,56 @@ class TestPostDocument():
                       content_type='application/json',
                       status=201)
 
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a Document model
+        document_model = {}
+        document_model['_attachments'] = {}
+        document_model['_conflicts'] = ['testString']
+        document_model['_deleted'] = True
+        document_model['_deleted_conflicts'] = ['testString']
+        document_model['_id'] = 'testString'
+        document_model['_local_seq'] = 'testString'
+        document_model['_rev'] = 'testString'
+        document_model['_revisions'] = revisions_model
+        document_model['_revs_info'] = [document_revision_status_model]
+        document_model['foo'] = { 'foo': 'bar' }
+
         # Set up parameter values
         db = 'testString'
+        document = document_model
 
         # Invoke method
         response = service.post_document(
             db,
+            document,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 201
+        # Validate body params
 
 
     @responses.activate
@@ -1228,12 +1299,49 @@ class TestPostDocument():
                       content_type='application/json',
                       status=201)
 
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a Document model
+        document_model = {}
+        document_model['_attachments'] = {}
+        document_model['_conflicts'] = ['testString']
+        document_model['_deleted'] = True
+        document_model['_deleted_conflicts'] = ['testString']
+        document_model['_id'] = 'testString'
+        document_model['_local_seq'] = 'testString'
+        document_model['_rev'] = 'testString'
+        document_model['_revisions'] = revisions_model
+        document_model['_revs_info'] = [document_revision_status_model]
+        document_model['foo'] = { 'foo': 'bar' }
+
         # Set up parameter values
         db = 'testString'
+        document = document_model
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "document": document,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -1326,34 +1434,6 @@ class TestPostAllDocs():
 
 
     @responses.activate
-    def test_post_all_docs_required_params(self):
-        """
-        test_post_all_docs_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_all_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.post_all_docs(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-    @responses.activate
     def test_post_all_docs_value_error(self):
         """
         test_post_all_docs_value_error()
@@ -1369,6 +1449,19 @@ class TestPostAllDocs():
 
         # Set up parameter values
         db = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        include_docs = True
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = True
+        endkey = 'testString'
+        key = 'testString'
+        keys = ['testString']
+        startkey = 'testString'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -1471,40 +1564,6 @@ class TestPostAllDocsAsStream():
 
 
     @responses.activate
-    def test_post_all_docs_as_stream_required_params(self):
-        """
-        test_post_all_docs_as_stream_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_all_docs')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.post_all_docs_as_stream(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-
-    @responses.activate
     def test_post_all_docs_as_stream_value_error(self):
         """
         test_post_all_docs_as_stream_value_error()
@@ -1520,6 +1579,19 @@ class TestPostAllDocsAsStream():
 
         # Set up parameter values
         db = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        include_docs = True
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = True
+        endkey = 'testString'
+        key = 'testString'
+        keys = ['testString']
+        startkey = 'testString'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -1583,7 +1655,7 @@ class TestPostAllDocsQueries():
         # Invoke method
         response = service.post_all_docs_queries(
             db,
-            queries=queries,
+            queries,
             headers={}
         )
 
@@ -1593,34 +1665,6 @@ class TestPostAllDocsQueries():
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['queries'] == [all_docs_query_model]
-
-
-    @responses.activate
-    def test_post_all_docs_queries_required_params(self):
-        """
-        test_post_all_docs_queries_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_all_docs/queries')
-        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.post_all_docs_queries(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
 
 
     @responses.activate
@@ -1637,12 +1681,30 @@ class TestPostAllDocsQueries():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a AllDocsQuery model
+        all_docs_query_model = {}
+        all_docs_query_model['att_encoding_info'] = True
+        all_docs_query_model['attachments'] = True
+        all_docs_query_model['conflicts'] = True
+        all_docs_query_model['descending'] = True
+        all_docs_query_model['include_docs'] = True
+        all_docs_query_model['inclusive_end'] = True
+        all_docs_query_model['limit'] = 0
+        all_docs_query_model['skip'] = 0
+        all_docs_query_model['update_seq'] = True
+        all_docs_query_model['endkey'] = 'testString'
+        all_docs_query_model['key'] = 'testString'
+        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['startkey'] = 'testString'
+
         # Set up parameter values
         db = 'testString'
+        queries = [all_docs_query_model]
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "queries": queries,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -1702,7 +1764,7 @@ class TestPostAllDocsQueriesAsStream():
         # Invoke method
         response = service.post_all_docs_queries_as_stream(
             db,
-            queries=queries,
+            queries,
             headers={}
         )
 
@@ -1712,40 +1774,6 @@ class TestPostAllDocsQueriesAsStream():
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['queries'] == [all_docs_query_model]
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-
-    @responses.activate
-    def test_post_all_docs_queries_as_stream_required_params(self):
-        """
-        test_post_all_docs_queries_as_stream_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_all_docs/queries')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.post_all_docs_queries_as_stream(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -1768,12 +1796,30 @@ class TestPostAllDocsQueriesAsStream():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a AllDocsQuery model
+        all_docs_query_model = {}
+        all_docs_query_model['att_encoding_info'] = True
+        all_docs_query_model['attachments'] = True
+        all_docs_query_model['conflicts'] = True
+        all_docs_query_model['descending'] = True
+        all_docs_query_model['include_docs'] = True
+        all_docs_query_model['inclusive_end'] = True
+        all_docs_query_model['limit'] = 0
+        all_docs_query_model['skip'] = 0
+        all_docs_query_model['update_seq'] = True
+        all_docs_query_model['endkey'] = 'testString'
+        all_docs_query_model['key'] = 'testString'
+        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['startkey'] = 'testString'
+
         # Set up parameter values
         db = 'testString'
+        queries = [all_docs_query_model]
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "queries": queries,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -1857,7 +1903,7 @@ class TestPostBulkDocs():
         # Invoke method
         response = service.post_bulk_docs(
             db,
-            bulk_docs=bulk_docs,
+            bulk_docs,
             headers={}
         )
 
@@ -1867,34 +1913,6 @@ class TestPostBulkDocs():
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body == bulk_docs
-
-
-    @responses.activate
-    def test_post_bulk_docs_required_params(self):
-        """
-        test_post_bulk_docs_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_docs')
-        mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}]'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=201)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.post_bulk_docs(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 201
 
 
     @responses.activate
@@ -1911,12 +1929,54 @@ class TestPostBulkDocs():
                       content_type='application/json',
                       status=201)
 
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a Document model
+        document_model = {}
+        document_model['_attachments'] = {}
+        document_model['_conflicts'] = ['testString']
+        document_model['_deleted'] = True
+        document_model['_deleted_conflicts'] = ['testString']
+        document_model['_id'] = 'testString'
+        document_model['_local_seq'] = 'testString'
+        document_model['_rev'] = 'testString'
+        document_model['_revisions'] = revisions_model
+        document_model['_revs_info'] = [document_revision_status_model]
+        document_model['foo'] = { 'foo': 'bar' }
+
+        # Construct a dict representation of a BulkDocs model
+        bulk_docs_model = {}
+        bulk_docs_model['docs'] = [document_model]
+        bulk_docs_model['new_edits'] = True
+
         # Set up parameter values
         db = 'testString'
+        bulk_docs = bulk_docs_model
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "bulk_docs": bulk_docs,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -1971,7 +2031,7 @@ class TestPostBulkGet():
         # Invoke method
         response = service.post_bulk_get(
             db,
-            docs=docs,
+            docs,
             attachments=attachments,
             att_encoding_info=att_encoding_info,
             latest=latest,
@@ -2008,18 +2068,30 @@ class TestPostBulkGet():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a BulkGetQueryDocument model
+        bulk_get_query_document_model = {}
+        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['id'] = 'testString'
+        bulk_get_query_document_model['open_revs'] = ['testString']
+        bulk_get_query_document_model['rev'] = 'testString'
+
         # Set up parameter values
         db = 'testString'
+        docs = [bulk_get_query_document_model]
 
         # Invoke method
         response = service.post_bulk_get(
             db,
+            docs,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['docs'] == [bulk_get_query_document_model]
 
 
     @responses.activate
@@ -2036,12 +2108,21 @@ class TestPostBulkGet():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a BulkGetQueryDocument model
+        bulk_get_query_document_model = {}
+        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['id'] = 'testString'
+        bulk_get_query_document_model['open_revs'] = ['testString']
+        bulk_get_query_document_model['rev'] = 'testString'
+
         # Set up parameter values
         db = 'testString'
+        docs = [bulk_get_query_document_model]
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "docs": docs,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -2096,7 +2177,7 @@ class TestPostBulkGetAsMixed():
         # Invoke method
         response = service.post_bulk_get_as_mixed(
             db,
-            docs=docs,
+            docs,
             attachments=attachments,
             att_encoding_info=att_encoding_info,
             latest=latest,
@@ -2133,18 +2214,30 @@ class TestPostBulkGetAsMixed():
                       content_type='multipart/mixed',
                       status=200)
 
+        # Construct a dict representation of a BulkGetQueryDocument model
+        bulk_get_query_document_model = {}
+        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['open_revs'] = ['testString']
+        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+
         # Set up parameter values
         db = 'testString'
+        docs = [bulk_get_query_document_model]
 
         # Invoke method
         response = service.post_bulk_get_as_mixed(
             db,
+            docs,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['docs'] == [bulk_get_query_document_model]
 
 
     @responses.activate
@@ -2161,12 +2254,21 @@ class TestPostBulkGetAsMixed():
                       content_type='multipart/mixed',
                       status=200)
 
+        # Construct a dict representation of a BulkGetQueryDocument model
+        bulk_get_query_document_model = {}
+        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['open_revs'] = ['testString']
+        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+
         # Set up parameter values
         db = 'testString'
+        docs = [bulk_get_query_document_model]
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "docs": docs,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -2221,7 +2323,7 @@ class TestPostBulkGetAsRelated():
         # Invoke method
         response = service.post_bulk_get_as_related(
             db,
-            docs=docs,
+            docs,
             attachments=attachments,
             att_encoding_info=att_encoding_info,
             latest=latest,
@@ -2258,18 +2360,30 @@ class TestPostBulkGetAsRelated():
                       content_type='multipart/related',
                       status=200)
 
+        # Construct a dict representation of a BulkGetQueryDocument model
+        bulk_get_query_document_model = {}
+        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['open_revs'] = ['testString']
+        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+
         # Set up parameter values
         db = 'testString'
+        docs = [bulk_get_query_document_model]
 
         # Invoke method
         response = service.post_bulk_get_as_related(
             db,
+            docs,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['docs'] == [bulk_get_query_document_model]
 
 
     @responses.activate
@@ -2286,12 +2400,21 @@ class TestPostBulkGetAsRelated():
                       content_type='multipart/related',
                       status=200)
 
+        # Construct a dict representation of a BulkGetQueryDocument model
+        bulk_get_query_document_model = {}
+        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['open_revs'] = ['testString']
+        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+
         # Set up parameter values
         db = 'testString'
+        docs = [bulk_get_query_document_model]
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "docs": docs,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -2346,7 +2469,7 @@ class TestPostBulkGetAsStream():
         # Invoke method
         response = service.post_bulk_get_as_stream(
             db,
-            docs=docs,
+            docs,
             attachments=attachments,
             att_encoding_info=att_encoding_info,
             latest=latest,
@@ -2389,18 +2512,30 @@ class TestPostBulkGetAsStream():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a BulkGetQueryDocument model
+        bulk_get_query_document_model = {}
+        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['open_revs'] = ['testString']
+        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+
         # Set up parameter values
         db = 'testString'
+        docs = [bulk_get_query_document_model]
 
         # Invoke method
         response = service.post_bulk_get_as_stream(
             db,
+            docs,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['docs'] == [bulk_get_query_document_model]
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -2423,12 +2558,21 @@ class TestPostBulkGetAsStream():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a BulkGetQueryDocument model
+        bulk_get_query_document_model = {}
+        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['open_revs'] = ['testString']
+        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+
         # Set up parameter values
         db = 'testString'
+        docs = [bulk_get_query_document_model]
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "docs": docs,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -3221,7 +3365,7 @@ class TestPutDocument():
         response = service.put_document(
             db,
             doc_id,
-            document=document,
+            document,
             content_type=content_type,
             if_match=if_match,
             batch=batch,
@@ -3256,20 +3400,58 @@ class TestPutDocument():
                       content_type='application/json',
                       status=201)
 
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a Document model
+        document_model = {}
+        document_model['_attachments'] = {}
+        document_model['_conflicts'] = ['testString']
+        document_model['_deleted'] = True
+        document_model['_deleted_conflicts'] = ['testString']
+        document_model['_id'] = 'testString'
+        document_model['_local_seq'] = 'testString'
+        document_model['_rev'] = 'testString'
+        document_model['_revisions'] = revisions_model
+        document_model['_revs_info'] = [document_revision_status_model]
+        document_model['foo'] = { 'foo': 'bar' }
+
         # Set up parameter values
         db = 'testString'
         doc_id = 'testString'
+        document = document_model
 
         # Invoke method
         response = service.put_document(
             db,
             doc_id,
+            document,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 201
+        # Validate body params
 
 
     @responses.activate
@@ -3286,14 +3468,51 @@ class TestPutDocument():
                       content_type='application/json',
                       status=201)
 
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a Document model
+        document_model = {}
+        document_model['_attachments'] = {}
+        document_model['_conflicts'] = ['testString']
+        document_model['_deleted'] = True
+        document_model['_deleted_conflicts'] = ['testString']
+        document_model['_id'] = 'testString'
+        document_model['_local_seq'] = 'testString'
+        document_model['_rev'] = 'testString'
+        document_model['_revisions'] = revisions_model
+        document_model['_revs_info'] = [document_revision_status_model]
+        document_model['foo'] = { 'foo': 'bar' }
+
         # Set up parameter values
         db = 'testString'
         doc_id = 'testString'
+        document = document_model
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
             "doc_id": doc_id,
+            "document": document,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -3783,7 +4002,7 @@ class TestPutDesignDocument():
         response = service.put_design_document(
             db,
             ddoc,
-            design_document=design_document,
+            design_document,
             if_match=if_match,
             batch=batch,
             new_edits=new_edits,
@@ -3819,20 +4038,98 @@ class TestPutDesignDocument():
                       content_type='application/json',
                       status=201)
 
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a Analyzer model
+        analyzer_model = {}
+        analyzer_model['name'] = 'classic'
+        analyzer_model['stopwords'] = ['testString']
+
+        # Construct a dict representation of a AnalyzerConfiguration model
+        analyzer_configuration_model = {}
+        analyzer_configuration_model['name'] = 'classic'
+        analyzer_configuration_model['stopwords'] = ['testString']
+        analyzer_configuration_model['fields'] = {}
+
+        # Construct a dict representation of a SearchIndexDefinition model
+        search_index_definition_model = {}
+        search_index_definition_model['analyzer'] = analyzer_configuration_model
+        search_index_definition_model['index'] = 'testString'
+
+        # Construct a dict representation of a DesignDocumentOptions model
+        design_document_options_model = {}
+        design_document_options_model['partitioned'] = True
+
+        # Construct a dict representation of a DesignDocumentViewsMapReduce model
+        design_document_views_map_reduce_model = {}
+        design_document_views_map_reduce_model['map'] = 'testString'
+        design_document_views_map_reduce_model['reduce'] = 'testString'
+
+        # Construct a dict representation of a GeoIndexDefinition model
+        geo_index_definition_model = {}
+        geo_index_definition_model['index'] = 'testString'
+
+        # Construct a dict representation of a DesignDocument model
+        design_document_model = {}
+        design_document_model['_attachments'] = {}
+        design_document_model['_conflicts'] = ['testString']
+        design_document_model['_deleted'] = True
+        design_document_model['_deleted_conflicts'] = ['testString']
+        design_document_model['_id'] = 'testString'
+        design_document_model['_local_seq'] = 'testString'
+        design_document_model['_rev'] = 'testString'
+        design_document_model['_revisions'] = revisions_model
+        design_document_model['_revs_info'] = [document_revision_status_model]
+        design_document_model['autoupdate'] = True
+        design_document_model['filters'] = {}
+        design_document_model['indexes'] = {}
+        design_document_model['language'] = 'testString'
+        design_document_model['options'] = design_document_options_model
+        design_document_model['updates'] = {}
+        design_document_model['validate_doc_update'] = {}
+        design_document_model['views'] = {}
+        design_document_model['st_indexes'] = {}
+        design_document_model['foo'] = { 'foo': 'bar' }
+
         # Set up parameter values
         db = 'testString'
         ddoc = 'testString'
+        design_document = design_document_model
 
         # Invoke method
         response = service.put_design_document(
             db,
             ddoc,
+            design_document,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 201
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body == design_document
 
 
     @responses.activate
@@ -3849,14 +4146,89 @@ class TestPutDesignDocument():
                       content_type='application/json',
                       status=201)
 
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a Analyzer model
+        analyzer_model = {}
+        analyzer_model['name'] = 'classic'
+        analyzer_model['stopwords'] = ['testString']
+
+        # Construct a dict representation of a AnalyzerConfiguration model
+        analyzer_configuration_model = {}
+        analyzer_configuration_model['name'] = 'classic'
+        analyzer_configuration_model['stopwords'] = ['testString']
+        analyzer_configuration_model['fields'] = {}
+
+        # Construct a dict representation of a SearchIndexDefinition model
+        search_index_definition_model = {}
+        search_index_definition_model['analyzer'] = analyzer_configuration_model
+        search_index_definition_model['index'] = 'testString'
+
+        # Construct a dict representation of a DesignDocumentOptions model
+        design_document_options_model = {}
+        design_document_options_model['partitioned'] = True
+
+        # Construct a dict representation of a DesignDocumentViewsMapReduce model
+        design_document_views_map_reduce_model = {}
+        design_document_views_map_reduce_model['map'] = 'testString'
+        design_document_views_map_reduce_model['reduce'] = 'testString'
+
+        # Construct a dict representation of a GeoIndexDefinition model
+        geo_index_definition_model = {}
+        geo_index_definition_model['index'] = 'testString'
+
+        # Construct a dict representation of a DesignDocument model
+        design_document_model = {}
+        design_document_model['_attachments'] = {}
+        design_document_model['_conflicts'] = ['testString']
+        design_document_model['_deleted'] = True
+        design_document_model['_deleted_conflicts'] = ['testString']
+        design_document_model['_id'] = 'testString'
+        design_document_model['_local_seq'] = 'testString'
+        design_document_model['_rev'] = 'testString'
+        design_document_model['_revisions'] = revisions_model
+        design_document_model['_revs_info'] = [document_revision_status_model]
+        design_document_model['autoupdate'] = True
+        design_document_model['filters'] = {}
+        design_document_model['indexes'] = {}
+        design_document_model['language'] = 'testString'
+        design_document_model['options'] = design_document_options_model
+        design_document_model['updates'] = {}
+        design_document_model['validate_doc_update'] = {}
+        design_document_model['views'] = {}
+        design_document_model['st_indexes'] = {}
+        design_document_model['foo'] = { 'foo': 'bar' }
+
         # Set up parameter values
         db = 'testString'
         ddoc = 'testString'
+        design_document = design_document_model
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
             "ddoc": ddoc,
+            "design_document": design_document,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -3969,7 +4341,6 @@ class TestPostDesignDocs():
 
         # Set up parameter values
         db = 'testString'
-        accept = 'application/json'
         att_encoding_info = True
         attachments = True
         conflicts = True
@@ -3983,11 +4354,11 @@ class TestPostDesignDocs():
         key = 'testString'
         keys = ['testString']
         startkey = 'testString'
+        accept = 'application/json'
 
         # Invoke method
         response = service.post_design_docs(
             db,
-            accept=accept,
             att_encoding_info=att_encoding_info,
             attachments=attachments,
             conflicts=conflicts,
@@ -4001,6 +4372,7 @@ class TestPostDesignDocs():
             key=key,
             keys=keys,
             startkey=startkey,
+            accept=accept,
             headers={}
         )
 
@@ -4040,16 +4412,57 @@ class TestPostDesignDocs():
 
         # Set up parameter values
         db = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        include_docs = True
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = True
+        endkey = 'testString'
+        key = 'testString'
+        keys = ['testString']
+        startkey = 'testString'
 
         # Invoke method
         response = service.post_design_docs(
             db,
+            att_encoding_info=att_encoding_info,
+            attachments=attachments,
+            conflicts=conflicts,
+            descending=descending,
+            include_docs=include_docs,
+            inclusive_end=inclusive_end,
+            limit=limit,
+            skip=skip,
+            update_seq=update_seq,
+            endkey=endkey,
+            key=key,
+            keys=keys,
+            startkey=startkey,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['att_encoding_info'] == True
+        assert req_body['attachments'] == True
+        assert req_body['conflicts'] == True
+        assert req_body['descending'] == True
+        assert req_body['include_docs'] == True
+        assert req_body['inclusive_end'] == True
+        assert req_body['limit'] == 0
+        assert req_body['skip'] == 0
+        assert req_body['update_seq'] == True
+        assert req_body['endkey'] == 'testString'
+        assert req_body['key'] == 'testString'
+        assert req_body['keys'] == ['testString']
+        assert req_body['startkey'] == 'testString'
 
 
     @responses.activate
@@ -4068,6 +4481,19 @@ class TestPostDesignDocs():
 
         # Set up parameter values
         db = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        include_docs = True
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = True
+        endkey = 'testString'
+        key = 'testString'
+        keys = ['testString']
+        startkey = 'testString'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -4126,14 +4552,14 @@ class TestPostDesignDocsQueries():
 
         # Set up parameter values
         db = 'testString'
-        accept = 'application/json'
         queries = [all_docs_query_model]
+        accept = 'application/json'
 
         # Invoke method
         response = service.post_design_docs_queries(
             db,
+            queries,
             accept=accept,
-            queries=queries,
             headers={}
         )
 
@@ -4159,18 +4585,39 @@ class TestPostDesignDocsQueries():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a AllDocsQuery model
+        all_docs_query_model = {}
+        all_docs_query_model['att_encoding_info'] = True
+        all_docs_query_model['attachments'] = True
+        all_docs_query_model['conflicts'] = True
+        all_docs_query_model['descending'] = True
+        all_docs_query_model['include_docs'] = True
+        all_docs_query_model['inclusive_end'] = True
+        all_docs_query_model['limit'] = 0
+        all_docs_query_model['skip'] = 0
+        all_docs_query_model['update_seq'] = True
+        all_docs_query_model['endkey'] = 'testString'
+        all_docs_query_model['key'] = 'testString'
+        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['startkey'] = 'testString'
+
         # Set up parameter values
         db = 'testString'
+        queries = [all_docs_query_model]
 
         # Invoke method
         response = service.post_design_docs_queries(
             db,
+            queries,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['queries'] == [all_docs_query_model]
 
 
     @responses.activate
@@ -4187,12 +4634,30 @@ class TestPostDesignDocsQueries():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a AllDocsQuery model
+        all_docs_query_model = {}
+        all_docs_query_model['att_encoding_info'] = True
+        all_docs_query_model['attachments'] = True
+        all_docs_query_model['conflicts'] = True
+        all_docs_query_model['descending'] = True
+        all_docs_query_model['include_docs'] = True
+        all_docs_query_model['inclusive_end'] = True
+        all_docs_query_model['limit'] = 0
+        all_docs_query_model['skip'] = 0
+        all_docs_query_model['update_seq'] = True
+        all_docs_query_model['endkey'] = 'testString'
+        all_docs_query_model['key'] = 'testString'
+        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['startkey'] = 'testString'
+
         # Set up parameter values
         db = 'testString'
+        queries = [all_docs_query_model]
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "queries": queries,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -4320,38 +4785,6 @@ class TestPostView():
 
 
     @responses.activate
-    def test_post_view_required_params(self):
-        """
-        test_post_view_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        view = 'testString'
-
-        # Invoke method
-        response = service.post_view(
-            db,
-            ddoc,
-            view,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-    @responses.activate
     def test_post_view_value_error(self):
         """
         test_post_view_value_error()
@@ -4369,6 +4802,26 @@ class TestPostView():
         db = 'testString'
         ddoc = 'testString'
         view = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        include_docs = True
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = True
+        endkey = { 'foo': 'bar' }
+        endkey_docid = 'testString'
+        group = True
+        group_level = 1
+        key = { 'foo': 'bar' }
+        keys = [{ 'foo': 'bar' }]
+        reduce = True
+        stable = True
+        startkey = { 'foo': 'bar' }
+        startkey_docid = 'testString'
+        update = 'true'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -4498,44 +4951,6 @@ class TestPostViewAsStream():
 
 
     @responses.activate
-    def test_post_view_as_stream_required_params(self):
-        """
-        test_post_view_as_stream_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        view = 'testString'
-
-        # Invoke method
-        response = service.post_view_as_stream(
-            db,
-            ddoc,
-            view,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-
-    @responses.activate
     def test_post_view_as_stream_value_error(self):
         """
         test_post_view_as_stream_value_error()
@@ -4553,6 +4968,26 @@ class TestPostViewAsStream():
         db = 'testString'
         ddoc = 'testString'
         view = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        include_docs = True
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = True
+        endkey = { 'foo': 'bar' }
+        endkey_docid = 'testString'
+        group = True
+        group_level = 1
+        key = { 'foo': 'bar' }
+        keys = [{ 'foo': 'bar' }]
+        reduce = True
+        stable = True
+        startkey = { 'foo': 'bar' }
+        startkey_docid = 'testString'
+        update = 'true'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -4629,7 +5064,7 @@ class TestPostViewQueries():
             db,
             ddoc,
             view,
-            queries=queries,
+            queries,
             headers={}
         )
 
@@ -4639,38 +5074,6 @@ class TestPostViewQueries():
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['queries'] == [view_query_model]
-
-
-    @responses.activate
-    def test_post_view_queries_required_params(self):
-        """
-        test_post_view_queries_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString/queries')
-        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}]}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        view = 'testString'
-
-        # Invoke method
-        response = service.post_view_queries(
-            db,
-            ddoc,
-            view,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
 
 
     @responses.activate
@@ -4687,16 +5090,41 @@ class TestPostViewQueries():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a ViewQuery model
+        view_query_model = {}
+        view_query_model['att_encoding_info'] = True
+        view_query_model['attachments'] = True
+        view_query_model['conflicts'] = True
+        view_query_model['descending'] = True
+        view_query_model['include_docs'] = True
+        view_query_model['inclusive_end'] = True
+        view_query_model['limit'] = 0
+        view_query_model['skip'] = 0
+        view_query_model['update_seq'] = True
+        view_query_model['endkey'] = { 'foo': 'bar' }
+        view_query_model['endkey_docid'] = 'testString'
+        view_query_model['group'] = True
+        view_query_model['group_level'] = 1
+        view_query_model['key'] = { 'foo': 'bar' }
+        view_query_model['keys'] = [{ 'foo': 'bar' }]
+        view_query_model['reduce'] = True
+        view_query_model['stable'] = True
+        view_query_model['startkey'] = { 'foo': 'bar' }
+        view_query_model['startkey_docid'] = 'testString'
+        view_query_model['update'] = 'true'
+
         # Set up parameter values
         db = 'testString'
         ddoc = 'testString'
         view = 'testString'
+        queries = [view_query_model]
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
             "ddoc": ddoc,
             "view": view,
+            "queries": queries,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -4767,7 +5195,7 @@ class TestPostViewQueriesAsStream():
             db,
             ddoc,
             view,
-            queries=queries,
+            queries,
             headers={}
         )
 
@@ -4777,44 +5205,6 @@ class TestPostViewQueriesAsStream():
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['queries'] == [view_query_model]
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-
-    @responses.activate
-    def test_post_view_queries_as_stream_required_params(self):
-        """
-        test_post_view_queries_as_stream_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString/queries')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        view = 'testString'
-
-        # Invoke method
-        response = service.post_view_queries_as_stream(
-            db,
-            ddoc,
-            view,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -4837,16 +5227,41 @@ class TestPostViewQueriesAsStream():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a ViewQuery model
+        view_query_model = {}
+        view_query_model['att_encoding_info'] = True
+        view_query_model['attachments'] = True
+        view_query_model['conflicts'] = True
+        view_query_model['descending'] = True
+        view_query_model['include_docs'] = True
+        view_query_model['inclusive_end'] = True
+        view_query_model['limit'] = 0
+        view_query_model['skip'] = 0
+        view_query_model['update_seq'] = True
+        view_query_model['endkey'] = { 'foo': 'bar' }
+        view_query_model['endkey_docid'] = 'testString'
+        view_query_model['group'] = True
+        view_query_model['group_level'] = 1
+        view_query_model['key'] = { 'foo': 'bar' }
+        view_query_model['keys'] = [{ 'foo': 'bar' }]
+        view_query_model['reduce'] = True
+        view_query_model['stable'] = True
+        view_query_model['startkey'] = { 'foo': 'bar' }
+        view_query_model['startkey_docid'] = 'testString'
+        view_query_model['update'] = 'true'
+
         # Set up parameter values
         db = 'testString'
         ddoc = 'testString'
         view = 'testString'
+        queries = [view_query_model]
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
             "ddoc": ddoc,
             "view": view,
+            "queries": queries,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -5025,36 +5440,6 @@ class TestPostPartitionAllDocs():
 
 
     @responses.activate
-    def test_post_partition_all_docs_required_params(self):
-        """
-        test_post_partition_all_docs_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_all_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        partition_key = 'testString'
-
-        # Invoke method
-        response = service.post_partition_all_docs(
-            db,
-            partition_key,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-    @responses.activate
     def test_post_partition_all_docs_value_error(self):
         """
         test_post_partition_all_docs_value_error()
@@ -5071,6 +5456,19 @@ class TestPostPartitionAllDocs():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        include_docs = True
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = True
+        endkey = 'testString'
+        key = 'testString'
+        keys = ['testString']
+        startkey = 'testString'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -5176,42 +5574,6 @@ class TestPostPartitionAllDocsAsStream():
 
 
     @responses.activate
-    def test_post_partition_all_docs_as_stream_required_params(self):
-        """
-        test_post_partition_all_docs_as_stream_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_all_docs')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        partition_key = 'testString'
-
-        # Invoke method
-        response = service.post_partition_all_docs_as_stream(
-            db,
-            partition_key,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-
-    @responses.activate
     def test_post_partition_all_docs_as_stream_value_error(self):
         """
         test_post_partition_all_docs_as_stream_value_error()
@@ -5228,6 +5590,19 @@ class TestPostPartitionAllDocsAsStream():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        include_docs = True
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = True
+        endkey = 'testString'
+        key = 'testString'
+        keys = ['testString']
+        startkey = 'testString'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -5293,7 +5668,7 @@ class TestPostPartitionSearch():
             partition_key,
             ddoc,
             index,
-            query=query,
+            query,
             bookmark=bookmark,
             highlight_fields=highlight_fields,
             highlight_number=highlight_number,
@@ -5328,40 +5703,6 @@ class TestPostPartitionSearch():
 
 
     @responses.activate
-    def test_post_partition_search_required_params(self):
-        """
-        test_post_partition_search_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_search/testString')
-        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        partition_key = 'testString'
-        ddoc = 'testString'
-        index = 'testString'
-
-        # Invoke method
-        response = service.post_partition_search(
-            db,
-            partition_key,
-            ddoc,
-            index,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-    @responses.activate
     def test_post_partition_search_value_error(self):
         """
         test_post_partition_search_value_error()
@@ -5380,6 +5721,18 @@ class TestPostPartitionSearch():
         partition_key = 'testString'
         ddoc = 'testString'
         index = 'testString'
+        query = 'testString'
+        bookmark = 'testString'
+        highlight_fields = ['testString']
+        highlight_number = 1
+        highlight_post_tag = 'testString'
+        highlight_pre_tag = 'testString'
+        highlight_size = 1
+        include_docs = True
+        include_fields = ['testString']
+        limit = 0
+        sort = ['testString']
+        stale = 'ok'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -5387,6 +5740,7 @@ class TestPostPartitionSearch():
             "partition_key": partition_key,
             "ddoc": ddoc,
             "index": index,
+            "query": query,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -5447,7 +5801,7 @@ class TestPostPartitionSearchAsStream():
             partition_key,
             ddoc,
             index,
-            query=query,
+            query,
             bookmark=bookmark,
             highlight_fields=highlight_fields,
             highlight_number=highlight_number,
@@ -5488,46 +5842,6 @@ class TestPostPartitionSearchAsStream():
 
 
     @responses.activate
-    def test_post_partition_search_as_stream_required_params(self):
-        """
-        test_post_partition_search_as_stream_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_search/testString')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        partition_key = 'testString'
-        ddoc = 'testString'
-        index = 'testString'
-
-        # Invoke method
-        response = service.post_partition_search_as_stream(
-            db,
-            partition_key,
-            ddoc,
-            index,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-
-    @responses.activate
     def test_post_partition_search_as_stream_value_error(self):
         """
         test_post_partition_search_as_stream_value_error()
@@ -5546,6 +5860,18 @@ class TestPostPartitionSearchAsStream():
         partition_key = 'testString'
         ddoc = 'testString'
         index = 'testString'
+        query = 'testString'
+        bookmark = 'testString'
+        highlight_fields = ['testString']
+        highlight_number = 1
+        highlight_post_tag = 'testString'
+        highlight_pre_tag = 'testString'
+        highlight_size = 1
+        include_docs = True
+        include_fields = ['testString']
+        limit = 3
+        sort = ['testString']
+        stale = 'ok'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -5553,6 +5879,7 @@ class TestPostPartitionSearchAsStream():
             "partition_key": partition_key,
             "ddoc": ddoc,
             "index": index,
+            "query": query,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -5672,40 +5999,6 @@ class TestPostPartitionView():
 
 
     @responses.activate
-    def test_post_partition_view_required_params(self):
-        """
-        test_post_partition_view_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        partition_key = 'testString'
-        ddoc = 'testString'
-        view = 'testString'
-
-        # Invoke method
-        response = service.post_partition_view(
-            db,
-            partition_key,
-            ddoc,
-            view,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-    @responses.activate
     def test_post_partition_view_value_error(self):
         """
         test_post_partition_view_value_error()
@@ -5724,6 +6017,26 @@ class TestPostPartitionView():
         partition_key = 'testString'
         ddoc = 'testString'
         view = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        include_docs = True
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = True
+        endkey = { 'foo': 'bar' }
+        endkey_docid = 'testString'
+        group = True
+        group_level = 1
+        key = { 'foo': 'bar' }
+        keys = [{ 'foo': 'bar' }]
+        reduce = True
+        stable = True
+        startkey = { 'foo': 'bar' }
+        startkey_docid = 'testString'
+        update = 'true'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -5856,46 +6169,6 @@ class TestPostPartitionViewAsStream():
 
 
     @responses.activate
-    def test_post_partition_view_as_stream_required_params(self):
-        """
-        test_post_partition_view_as_stream_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_view/testString')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        partition_key = 'testString'
-        ddoc = 'testString'
-        view = 'testString'
-
-        # Invoke method
-        response = service.post_partition_view_as_stream(
-            db,
-            partition_key,
-            ddoc,
-            view,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-
-    @responses.activate
     def test_post_partition_view_as_stream_value_error(self):
         """
         test_post_partition_view_as_stream_value_error()
@@ -5914,6 +6187,26 @@ class TestPostPartitionViewAsStream():
         partition_key = 'testString'
         ddoc = 'testString'
         view = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        include_docs = True
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = True
+        endkey = { 'foo': 'bar' }
+        endkey_docid = 'testString'
+        group = True
+        group_level = 1
+        key = { 'foo': 'bar' }
+        keys = [{ 'foo': 'bar' }]
+        reduce = True
+        stable = True
+        startkey = { 'foo': 'bar' }
+        startkey_docid = 'testString'
+        update = 'true'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -5976,7 +6269,7 @@ class TestPostPartitionFind():
         response = service.post_partition_find(
             db,
             partition_key,
-            selector=selector,
+            selector,
             bookmark=bookmark,
             conflicts=conflicts,
             execution_stats=execution_stats,
@@ -6009,36 +6302,6 @@ class TestPostPartitionFind():
 
 
     @responses.activate
-    def test_post_partition_find_required_params(self):
-        """
-        test_post_partition_find_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_find')
-        mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        partition_key = 'testString'
-
-        # Invoke method
-        response = service.post_partition_find(
-            db,
-            partition_key,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-    @responses.activate
     def test_post_partition_find_value_error(self):
         """
         test_post_partition_find_value_error()
@@ -6055,11 +6318,23 @@ class TestPostPartitionFind():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
+        selector = {}
+        bookmark = 'testString'
+        conflicts = True
+        execution_stats = True
+        fields = ['testString']
+        limit = 0
+        skip = 0
+        sort = [{}]
+        stable = True
+        update = 'false'
+        use_index = ['testString']
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
             "partition_key": partition_key,
+            "selector": selector,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -6115,7 +6390,7 @@ class TestPostPartitionFindAsStream():
         response = service.post_partition_find_as_stream(
             db,
             partition_key,
-            selector=selector,
+            selector,
             bookmark=bookmark,
             conflicts=conflicts,
             execution_stats=execution_stats,
@@ -6154,42 +6429,6 @@ class TestPostPartitionFindAsStream():
 
 
     @responses.activate
-    def test_post_partition_find_as_stream_required_params(self):
-        """
-        test_post_partition_find_as_stream_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_find')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        partition_key = 'testString'
-
-        # Invoke method
-        response = service.post_partition_find_as_stream(
-            db,
-            partition_key,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-
-    @responses.activate
     def test_post_partition_find_as_stream_value_error(self):
         """
         test_post_partition_find_as_stream_value_error()
@@ -6206,11 +6445,23 @@ class TestPostPartitionFindAsStream():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
+        selector = {}
+        bookmark = 'testString'
+        conflicts = True
+        execution_stats = True
+        fields = ['testString']
+        limit = 0
+        skip = 0
+        sort = [{}]
+        stable = True
+        update = 'false'
+        use_index = ['testString']
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
             "partition_key": partition_key,
+            "selector": selector,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -6275,7 +6526,7 @@ class TestPostExplain():
         # Invoke method
         response = service.post_explain(
             db,
-            selector=selector,
+            selector,
             bookmark=bookmark,
             conflicts=conflicts,
             execution_stats=execution_stats,
@@ -6310,34 +6561,6 @@ class TestPostExplain():
 
 
     @responses.activate
-    def test_post_explain_required_params(self):
-        """
-        test_post_explain_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_explain')
-        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": {"anyKey": "anyValue"}}, "range": {"end_key": [{"anyKey": "anyValue"}], "start_key": [{"anyKey": "anyValue"}]}, "selector": {"mapKey": {"anyKey": "anyValue"}}, "skip": 0}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.post_explain(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-    @responses.activate
     def test_post_explain_value_error(self):
         """
         test_post_explain_value_error()
@@ -6353,10 +6576,23 @@ class TestPostExplain():
 
         # Set up parameter values
         db = 'testString'
+        selector = {}
+        bookmark = 'testString'
+        conflicts = True
+        execution_stats = True
+        fields = ['testString']
+        limit = 0
+        skip = 0
+        sort = [{}]
+        stable = True
+        update = 'false'
+        use_index = ['testString']
+        r = 1
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "selector": selector,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -6411,7 +6647,7 @@ class TestPostFind():
         # Invoke method
         response = service.post_find(
             db,
-            selector=selector,
+            selector,
             bookmark=bookmark,
             conflicts=conflicts,
             execution_stats=execution_stats,
@@ -6446,34 +6682,6 @@ class TestPostFind():
 
 
     @responses.activate
-    def test_post_find_required_params(self):
-        """
-        test_post_find_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_find')
-        mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.post_find(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-    @responses.activate
     def test_post_find_value_error(self):
         """
         test_post_find_value_error()
@@ -6489,10 +6697,23 @@ class TestPostFind():
 
         # Set up parameter values
         db = 'testString'
+        selector = {}
+        bookmark = 'testString'
+        conflicts = True
+        execution_stats = True
+        fields = ['testString']
+        limit = 0
+        skip = 0
+        sort = [{}]
+        stable = True
+        update = 'false'
+        use_index = ['testString']
+        r = 1
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "selector": selector,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -6547,7 +6768,7 @@ class TestPostFindAsStream():
         # Invoke method
         response = service.post_find_as_stream(
             db,
-            selector=selector,
+            selector,
             bookmark=bookmark,
             conflicts=conflicts,
             execution_stats=execution_stats,
@@ -6588,40 +6809,6 @@ class TestPostFindAsStream():
 
 
     @responses.activate
-    def test_post_find_as_stream_required_params(self):
-        """
-        test_post_find_as_stream_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_find')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.post_find_as_stream(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-
-    @responses.activate
     def test_post_find_as_stream_value_error(self):
         """
         test_post_find_as_stream_value_error()
@@ -6637,10 +6824,23 @@ class TestPostFindAsStream():
 
         # Set up parameter values
         db = 'testString'
+        selector = {}
+        bookmark = 'testString'
+        conflicts = True
+        execution_stats = True
+        fields = ['testString']
+        limit = 0
+        skip = 0
+        sort = [{}]
+        stable = True
+        update = 'false'
+        use_index = ['testString']
+        r = 1
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "selector": selector,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -6772,9 +6972,9 @@ class TestPostIndex():
 
         # Set up parameter values
         db = 'testString'
+        index = index_definition_model
         ddoc = 'testString'
         def_ = index_definition_model
-        index = index_definition_model
         name = 'testString'
         partial_filter_selector = {}
         partitioned = True
@@ -6783,9 +6983,9 @@ class TestPostIndex():
         # Invoke method
         response = service.post_index(
             db,
+            index,
             ddoc=ddoc,
             def_=def_,
-            index=index,
             name=name,
             partial_filter_selector=partial_filter_selector,
             partitioned=partitioned,
@@ -6798,41 +6998,13 @@ class TestPostIndex():
         assert response.status_code == 200
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['index'] == index_definition_model
         assert req_body['ddoc'] == 'testString'
         assert req_body['def'] == index_definition_model
-        assert req_body['index'] == index_definition_model
         assert req_body['name'] == 'testString'
         assert req_body['partial_filter_selector'] == {}
         assert req_body['partitioned'] == True
         assert req_body['type'] == 'json'
-
-
-    @responses.activate
-    def test_post_index_required_params(self):
-        """
-        test_post_index_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_index')
-        mock_response = '{"id": "id", "name": "name", "result": "created"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.post_index(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
 
 
     @responses.activate
@@ -6849,12 +7021,43 @@ class TestPostIndex():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a Analyzer model
+        analyzer_model = {}
+        analyzer_model['name'] = 'classic'
+        analyzer_model['stopwords'] = ['testString']
+
+        # Construct a dict representation of a IndexTextOperatorDefaultField model
+        index_text_operator_default_field_model = {}
+        index_text_operator_default_field_model['analyzer'] = analyzer_model
+        index_text_operator_default_field_model['enabled'] = True
+
+        # Construct a dict representation of a IndexField model
+        index_field_model = {}
+        index_field_model['name'] = 'testString'
+        index_field_model['type'] = 'boolean'
+        index_field_model['foo'] = 'asc'
+
+        # Construct a dict representation of a IndexDefinition model
+        index_definition_model = {}
+        index_definition_model['default_analyzer'] = analyzer_model
+        index_definition_model['default_field'] = index_text_operator_default_field_model
+        index_definition_model['fields'] = [index_field_model]
+        index_definition_model['index_array_lengths'] = True
+
         # Set up parameter values
         db = 'testString'
+        index = index_definition_model
+        ddoc = 'testString'
+        def_ = index_definition_model
+        name = 'testString'
+        partial_filter_selector = {}
+        partitioned = True
+        type = 'json'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "index": index,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -6989,8 +7192,8 @@ class TestPostSearchAnalyze():
 
         # Invoke method
         response = service.post_search_analyze(
-            analyzer=analyzer,
-            text=text,
+            analyzer,
+            text,
             headers={}
         )
 
@@ -7004,9 +7207,9 @@ class TestPostSearchAnalyze():
 
 
     @responses.activate
-    def test_post_search_analyze_required_params(self):
+    def test_post_search_analyze_value_error(self):
         """
-        test_post_search_analyze_required_params()
+        test_post_search_analyze_value_error()
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_search_analyze')
@@ -7017,13 +7220,20 @@ class TestPostSearchAnalyze():
                       content_type='application/json',
                       status=200)
 
-        # Invoke method
-        response = service.post_search_analyze()
+        # Set up parameter values
+        analyzer = 'arabic'
+        text = 'testString'
 
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "analyzer": analyzer,
+            "text": text,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                service.post_search_analyze(**req_copy)
 
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
 
 
 class TestPostSearch():
@@ -7082,7 +7292,7 @@ class TestPostSearch():
             db,
             ddoc,
             index,
-            query=query,
+            query,
             bookmark=bookmark,
             highlight_fields=highlight_fields,
             highlight_number=highlight_number,
@@ -7129,38 +7339,6 @@ class TestPostSearch():
 
 
     @responses.activate
-    def test_post_search_required_params(self):
-        """
-        test_post_search_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_search/testString')
-        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        index = 'testString'
-
-        # Invoke method
-        response = service.post_search(
-            db,
-            ddoc,
-            index,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-    @responses.activate
     def test_post_search_value_error(self):
         """
         test_post_search_value_error()
@@ -7178,12 +7356,31 @@ class TestPostSearch():
         db = 'testString'
         ddoc = 'testString'
         index = 'testString'
+        query = 'testString'
+        bookmark = 'testString'
+        highlight_fields = ['testString']
+        highlight_number = 1
+        highlight_post_tag = 'testString'
+        highlight_pre_tag = 'testString'
+        highlight_size = 1
+        include_docs = True
+        include_fields = ['testString']
+        limit = 0
+        sort = ['testString']
+        stale = 'ok'
+        counts = ['testString']
+        drilldown = [['testString']]
+        group_field = 'testString'
+        group_limit = 1
+        group_sort = ['testString']
+        ranges = {}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
             "ddoc": ddoc,
             "index": index,
+            "query": query,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -7248,7 +7445,7 @@ class TestPostSearchAsStream():
             db,
             ddoc,
             index,
-            query=query,
+            query,
             bookmark=bookmark,
             highlight_fields=highlight_fields,
             highlight_number=highlight_number,
@@ -7301,44 +7498,6 @@ class TestPostSearchAsStream():
 
 
     @responses.activate
-    def test_post_search_as_stream_required_params(self):
-        """
-        test_post_search_as_stream_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_search/testString')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        index = 'testString'
-
-        # Invoke method
-        response = service.post_search_as_stream(
-            db,
-            ddoc,
-            index,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-
-    @responses.activate
     def test_post_search_as_stream_value_error(self):
         """
         test_post_search_as_stream_value_error()
@@ -7356,12 +7515,31 @@ class TestPostSearchAsStream():
         db = 'testString'
         ddoc = 'testString'
         index = 'testString'
+        query = 'testString'
+        bookmark = 'testString'
+        highlight_fields = ['testString']
+        highlight_number = 1
+        highlight_post_tag = 'testString'
+        highlight_pre_tag = 'testString'
+        highlight_size = 1
+        include_docs = True
+        include_fields = ['testString']
+        limit = 3
+        sort = ['testString']
+        stale = 'ok'
+        counts = ['testString']
+        drilldown = [['testString']]
+        group_field = 'testString'
+        group_limit = 1
+        group_sort = ['testString']
+        ranges = {}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
             "ddoc": ddoc,
             "index": index,
+            "query": query,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -8303,7 +8481,7 @@ class TestPostReplicate():
 
         # Invoke method
         response = service.post_replicate(
-            replication_document=replication_document,
+            replication_document,
             headers={}
         )
 
@@ -8316,9 +8494,9 @@ class TestPostReplicate():
 
 
     @responses.activate
-    def test_post_replicate_required_params(self):
+    def test_post_replicate_value_error(self):
         """
-        test_post_replicate_required_params()
+        test_post_replicate_value_error()
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_replicate')
@@ -8329,13 +8507,101 @@ class TestPostReplicate():
                       content_type='application/json',
                       status=200)
 
-        # Invoke method
-        response = service.post_replicate()
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
 
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
 
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a ReplicationCreateTargetParameters model
+        replication_create_target_parameters_model = {}
+        replication_create_target_parameters_model['n'] = 1
+        replication_create_target_parameters_model['partitioned'] = True
+        replication_create_target_parameters_model['q'] = 1
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIam model
+        replication_database_auth_iam_model = {}
+        replication_database_auth_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuth model
+        replication_database_auth_model = {}
+        replication_database_auth_model['iam'] = replication_database_auth_iam_model
+
+        # Construct a dict representation of a ReplicationDatabase model
+        replication_database_model = {}
+        replication_database_model['auth'] = replication_database_auth_model
+        replication_database_model['headers'] = {}
+        replication_database_model['url'] = 'testString'
+
+        # Construct a dict representation of a UserContext model
+        user_context_model = {}
+        user_context_model['db'] = 'testString'
+        user_context_model['name'] = 'testString'
+        user_context_model['roles'] = ['_reader']
+
+        # Construct a dict representation of a ReplicationDocument model
+        replication_document_model = {}
+        replication_document_model['_attachments'] = {}
+        replication_document_model['_conflicts'] = ['testString']
+        replication_document_model['_deleted'] = True
+        replication_document_model['_deleted_conflicts'] = ['testString']
+        replication_document_model['_id'] = 'testString'
+        replication_document_model['_local_seq'] = 'testString'
+        replication_document_model['_rev'] = 'testString'
+        replication_document_model['_revisions'] = revisions_model
+        replication_document_model['_revs_info'] = [document_revision_status_model]
+        replication_document_model['cancel'] = True
+        replication_document_model['checkpoint_interval'] = 0
+        replication_document_model['connection_timeout'] = 0
+        replication_document_model['continuous'] = True
+        replication_document_model['create_target'] = True
+        replication_document_model['create_target_params'] = replication_create_target_parameters_model
+        replication_document_model['doc_ids'] = ['testString']
+        replication_document_model['filter'] = 'testString'
+        replication_document_model['http_connections'] = 1
+        replication_document_model['query_params'] = {}
+        replication_document_model['retries_per_request'] = 0
+        replication_document_model['selector'] = {}
+        replication_document_model['since_seq'] = 'testString'
+        replication_document_model['socket_options'] = 'testString'
+        replication_document_model['source'] = replication_database_model
+        replication_document_model['source_proxy'] = 'testString'
+        replication_document_model['target'] = replication_database_model
+        replication_document_model['target_proxy'] = 'testString'
+        replication_document_model['use_checkpoints'] = True
+        replication_document_model['user_ctx'] = user_context_model
+        replication_document_model['worker_batch_size'] = 1
+        replication_document_model['worker_processes'] = 1
+        replication_document_model['foo'] = { 'foo': 'bar' }
+
+        # Set up parameter values
+        replication_document = replication_document_model
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "replication_document": replication_document,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                service.post_replicate(**req_copy)
+
 
 
 class TestDeleteReplicationDocument():
@@ -8708,7 +8974,7 @@ class TestPutReplicationDocument():
         # Invoke method
         response = service.put_replication_document(
             doc_id,
-            replication_document=replication_document,
+            replication_document,
             if_match=if_match,
             batch=batch,
             new_edits=new_edits,
@@ -8744,18 +9010,106 @@ class TestPutReplicationDocument():
                       content_type='application/json',
                       status=201)
 
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a ReplicationCreateTargetParameters model
+        replication_create_target_parameters_model = {}
+        replication_create_target_parameters_model['n'] = 1
+        replication_create_target_parameters_model['partitioned'] = True
+        replication_create_target_parameters_model['q'] = 1
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIam model
+        replication_database_auth_iam_model = {}
+        replication_database_auth_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuth model
+        replication_database_auth_model = {}
+        replication_database_auth_model['iam'] = replication_database_auth_iam_model
+
+        # Construct a dict representation of a ReplicationDatabase model
+        replication_database_model = {}
+        replication_database_model['auth'] = replication_database_auth_model
+        replication_database_model['headers'] = {}
+        replication_database_model['url'] = 'http://myserver.example:5984/foo-db'
+
+        # Construct a dict representation of a UserContext model
+        user_context_model = {}
+        user_context_model['db'] = 'testString'
+        user_context_model['name'] = 'john'
+        user_context_model['roles'] = ['_reader']
+
+        # Construct a dict representation of a ReplicationDocument model
+        replication_document_model = {}
+        replication_document_model['_attachments'] = {}
+        replication_document_model['_conflicts'] = ['testString']
+        replication_document_model['_deleted'] = True
+        replication_document_model['_deleted_conflicts'] = ['testString']
+        replication_document_model['_id'] = 'testString'
+        replication_document_model['_local_seq'] = 'testString'
+        replication_document_model['_rev'] = 'testString'
+        replication_document_model['_revisions'] = revisions_model
+        replication_document_model['_revs_info'] = [document_revision_status_model]
+        replication_document_model['cancel'] = False
+        replication_document_model['checkpoint_interval'] = 4500
+        replication_document_model['connection_timeout'] = 15000
+        replication_document_model['continuous'] = True
+        replication_document_model['create_target'] = True
+        replication_document_model['create_target_params'] = replication_create_target_parameters_model
+        replication_document_model['doc_ids'] = ['testString']
+        replication_document_model['filter'] = 'ddoc/my_filter'
+        replication_document_model['http_connections'] = 10
+        replication_document_model['query_params'] = {}
+        replication_document_model['retries_per_request'] = 3
+        replication_document_model['selector'] = {}
+        replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
+        replication_document_model['socket_options'] = '[{keepalive, true}, {nodelay, false}]'
+        replication_document_model['source'] = replication_database_model
+        replication_document_model['source_proxy'] = 'http://my-source-proxy.example:8888'
+        replication_document_model['target'] = replication_database_model
+        replication_document_model['target_proxy'] = 'http://my-target-proxy.example:8888'
+        replication_document_model['use_checkpoints'] = False
+        replication_document_model['user_ctx'] = user_context_model
+        replication_document_model['worker_batch_size'] = 400
+        replication_document_model['worker_processes'] = 3
+        replication_document_model['foo'] = { 'foo': 'bar' }
+
         # Set up parameter values
         doc_id = 'testString'
+        replication_document = replication_document_model
 
         # Invoke method
         response = service.put_replication_document(
             doc_id,
+            replication_document,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 201
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body == replication_document
 
 
     @responses.activate
@@ -8772,12 +9126,97 @@ class TestPutReplicationDocument():
                       content_type='application/json',
                       status=201)
 
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a ReplicationCreateTargetParameters model
+        replication_create_target_parameters_model = {}
+        replication_create_target_parameters_model['n'] = 1
+        replication_create_target_parameters_model['partitioned'] = True
+        replication_create_target_parameters_model['q'] = 1
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIam model
+        replication_database_auth_iam_model = {}
+        replication_database_auth_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuth model
+        replication_database_auth_model = {}
+        replication_database_auth_model['iam'] = replication_database_auth_iam_model
+
+        # Construct a dict representation of a ReplicationDatabase model
+        replication_database_model = {}
+        replication_database_model['auth'] = replication_database_auth_model
+        replication_database_model['headers'] = {}
+        replication_database_model['url'] = 'http://myserver.example:5984/foo-db'
+
+        # Construct a dict representation of a UserContext model
+        user_context_model = {}
+        user_context_model['db'] = 'testString'
+        user_context_model['name'] = 'john'
+        user_context_model['roles'] = ['_reader']
+
+        # Construct a dict representation of a ReplicationDocument model
+        replication_document_model = {}
+        replication_document_model['_attachments'] = {}
+        replication_document_model['_conflicts'] = ['testString']
+        replication_document_model['_deleted'] = True
+        replication_document_model['_deleted_conflicts'] = ['testString']
+        replication_document_model['_id'] = 'testString'
+        replication_document_model['_local_seq'] = 'testString'
+        replication_document_model['_rev'] = 'testString'
+        replication_document_model['_revisions'] = revisions_model
+        replication_document_model['_revs_info'] = [document_revision_status_model]
+        replication_document_model['cancel'] = False
+        replication_document_model['checkpoint_interval'] = 4500
+        replication_document_model['connection_timeout'] = 15000
+        replication_document_model['continuous'] = True
+        replication_document_model['create_target'] = True
+        replication_document_model['create_target_params'] = replication_create_target_parameters_model
+        replication_document_model['doc_ids'] = ['testString']
+        replication_document_model['filter'] = 'ddoc/my_filter'
+        replication_document_model['http_connections'] = 10
+        replication_document_model['query_params'] = {}
+        replication_document_model['retries_per_request'] = 3
+        replication_document_model['selector'] = {}
+        replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
+        replication_document_model['socket_options'] = '[{keepalive, true}, {nodelay, false}]'
+        replication_document_model['source'] = replication_database_model
+        replication_document_model['source_proxy'] = 'http://my-source-proxy.example:8888'
+        replication_document_model['target'] = replication_database_model
+        replication_document_model['target_proxy'] = 'http://my-target-proxy.example:8888'
+        replication_document_model['use_checkpoints'] = False
+        replication_document_model['user_ctx'] = user_context_model
+        replication_document_model['worker_batch_size'] = 400
+        replication_document_model['worker_processes'] = 3
+        replication_document_model['foo'] = { 'foo': 'bar' }
+
         # Set up parameter values
         doc_id = 'testString'
+        replication_document = replication_document_model
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "doc_id": doc_id,
+            "replication_document": replication_document,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -9120,148 +9559,6 @@ class TestGetSessionInformation():
         assert response.status_code == 200
 
 
-class TestDeleteIamSession():
-    """
-    Test Class for delete_iam_session
-    """
-
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
-    @responses.activate
-    def test_delete_iam_session_all_params(self):
-        """
-        delete_iam_session()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/_iam_session')
-        mock_response = '{"ok": true}'
-        responses.add(responses.DELETE,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Invoke method
-        response = service.delete_iam_session()
-
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-class TestGetIamSessionInformation():
-    """
-    Test Class for get_iam_session_information
-    """
-
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
-    @responses.activate
-    def test_get_iam_session_information_all_params(self):
-        """
-        get_iam_session_information()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/_iam_session')
-        mock_response = '{"id": "id", "ok": true, "scope": "scope", "type": "type"}'
-        responses.add(responses.GET,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Invoke method
-        response = service.get_iam_session_information()
-
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-class TestPostIamSession():
-    """
-    Test Class for post_iam_session
-    """
-
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
-    @responses.activate
-    def test_post_iam_session_all_params(self):
-        """
-        post_iam_session()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/_iam_session')
-        mock_response = '{"ok": true}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        access_token = 'testString'
-
-        # Invoke method
-        response = service.post_iam_session(
-            access_token=access_token,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-        # Validate body params
-        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['access_token'] == 'testString'
-
-
-    @responses.activate
-    def test_post_iam_session_required_params(self):
-        """
-        test_post_iam_session_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/_iam_session')
-        mock_response = '{"ok": true}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Invoke method
-        response = service.post_iam_session()
-
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
 # endregion
 ##############################################################################
 # End of Service: Authentication
@@ -9404,34 +9701,6 @@ class TestPutSecurity():
 
 
     @responses.activate
-    def test_put_security_required_params(self):
-        """
-        test_put_security_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_security')
-        mock_response = '{"ok": true}'
-        responses.add(responses.PUT,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.put_security(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-    @responses.activate
     def test_put_security_value_error(self):
         """
         test_put_security_value_error()
@@ -9445,8 +9714,17 @@ class TestPutSecurity():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a SecurityObject model
+        security_object_model = {}
+        security_object_model['names'] = ['testString']
+        security_object_model['roles'] = ['testString']
+
         # Set up parameter values
         db = 'testString'
+        admins = security_object_model
+        members = security_object_model
+        cloudant = {}
+        couchdb_auth_only = True
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -9539,7 +9817,7 @@ class TestPutCloudantSecurityConfiguration():
         # Invoke method
         response = service.put_cloudant_security_configuration(
             db,
-            cloudant=cloudant,
+            cloudant,
             admins=admins,
             members=members,
             couchdb_auth_only=couchdb_auth_only,
@@ -9558,34 +9836,6 @@ class TestPutCloudantSecurityConfiguration():
 
 
     @responses.activate
-    def test_put_cloudant_security_configuration_required_params(self):
-        """
-        test_put_cloudant_security_configuration_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/db/testString/_security')
-        mock_response = '{"ok": true}'
-        responses.add(responses.PUT,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.put_cloudant_security_configuration(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-    @responses.activate
     def test_put_cloudant_security_configuration_value_error(self):
         """
         test_put_cloudant_security_configuration_value_error()
@@ -9599,12 +9849,22 @@ class TestPutCloudantSecurityConfiguration():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a SecurityObject model
+        security_object_model = {}
+        security_object_model['names'] = ['testString']
+        security_object_model['roles'] = ['testString']
+
         # Set up parameter values
         db = 'testString'
+        cloudant = {}
+        admins = security_object_model
+        members = security_object_model
+        couchdb_auth_only = True
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "cloudant": cloudant,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -9695,7 +9955,7 @@ class TestPutCorsConfiguration():
 
         # Invoke method
         response = service.put_cors_configuration(
-            origins=origins,
+            origins,
             allow_credentials=allow_credentials,
             enable_cors=enable_cors,
             headers={}
@@ -9712,9 +9972,9 @@ class TestPutCorsConfiguration():
 
 
     @responses.activate
-    def test_put_cors_configuration_required_params(self):
+    def test_put_cors_configuration_value_error(self):
         """
-        test_put_cors_configuration_required_params()
+        test_put_cors_configuration_value_error()
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_api/v2/user/config/cors')
@@ -9725,13 +9985,20 @@ class TestPutCorsConfiguration():
                       content_type='application/json',
                       status=200)
 
-        # Invoke method
-        response = service.put_cors_configuration()
+        # Set up parameter values
+        origins = ['testString']
+        allow_credentials = True
+        enable_cors = True
 
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "origins": origins,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                service.put_cors_configuration(**req_copy)
 
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
 
 
 # endregion
@@ -10547,7 +10814,7 @@ class TestPutLocalDocument():
         response = service.put_local_document(
             db,
             doc_id,
-            document=document,
+            document,
             content_type=content_type,
             batch=batch,
             headers={}
@@ -10577,20 +10844,58 @@ class TestPutLocalDocument():
                       content_type='application/json',
                       status=201)
 
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a Document model
+        document_model = {}
+        document_model['_attachments'] = {}
+        document_model['_conflicts'] = ['testString']
+        document_model['_deleted'] = True
+        document_model['_deleted_conflicts'] = ['testString']
+        document_model['_id'] = 'testString'
+        document_model['_local_seq'] = 'testString'
+        document_model['_rev'] = 'testString'
+        document_model['_revisions'] = revisions_model
+        document_model['_revs_info'] = [document_revision_status_model]
+        document_model['foo'] = { 'foo': 'bar' }
+
         # Set up parameter values
         db = 'testString'
         doc_id = 'testString'
+        document = document_model
 
         # Invoke method
         response = service.put_local_document(
             db,
             doc_id,
+            document,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 201
+        # Validate body params
 
 
     @responses.activate
@@ -10607,14 +10912,51 @@ class TestPutLocalDocument():
                       content_type='application/json',
                       status=201)
 
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a Document model
+        document_model = {}
+        document_model['_attachments'] = {}
+        document_model['_conflicts'] = ['testString']
+        document_model['_deleted'] = True
+        document_model['_deleted_conflicts'] = ['testString']
+        document_model['_id'] = 'testString'
+        document_model['_local_seq'] = 'testString'
+        document_model['_rev'] = 'testString'
+        document_model['_revisions'] = revisions_model
+        document_model['_revs_info'] = [document_revision_status_model]
+        document_model['foo'] = { 'foo': 'bar' }
+
         # Set up parameter values
         db = 'testString'
         doc_id = 'testString'
+        document = document_model
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
             "doc_id": doc_id,
+            "document": document,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -10653,7 +10995,6 @@ class TestPostLocalDocs():
 
         # Set up parameter values
         db = 'testString'
-        accept = 'application/json'
         att_encoding_info = True
         attachments = True
         conflicts = True
@@ -10667,11 +11008,11 @@ class TestPostLocalDocs():
         key = 'testString'
         keys = ['testString']
         startkey = 'testString'
+        accept = 'application/json'
 
         # Invoke method
         response = service.post_local_docs(
             db,
-            accept=accept,
             att_encoding_info=att_encoding_info,
             attachments=attachments,
             conflicts=conflicts,
@@ -10685,6 +11026,7 @@ class TestPostLocalDocs():
             key=key,
             keys=keys,
             startkey=startkey,
+            accept=accept,
             headers={}
         )
 
@@ -10724,16 +11066,57 @@ class TestPostLocalDocs():
 
         # Set up parameter values
         db = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        include_docs = True
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = True
+        endkey = 'testString'
+        key = 'testString'
+        keys = ['testString']
+        startkey = 'testString'
 
         # Invoke method
         response = service.post_local_docs(
             db,
+            att_encoding_info=att_encoding_info,
+            attachments=attachments,
+            conflicts=conflicts,
+            descending=descending,
+            include_docs=include_docs,
+            inclusive_end=inclusive_end,
+            limit=limit,
+            skip=skip,
+            update_seq=update_seq,
+            endkey=endkey,
+            key=key,
+            keys=keys,
+            startkey=startkey,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['att_encoding_info'] == True
+        assert req_body['attachments'] == True
+        assert req_body['conflicts'] == True
+        assert req_body['descending'] == True
+        assert req_body['include_docs'] == True
+        assert req_body['inclusive_end'] == True
+        assert req_body['limit'] == 0
+        assert req_body['skip'] == 0
+        assert req_body['update_seq'] == True
+        assert req_body['endkey'] == 'testString'
+        assert req_body['key'] == 'testString'
+        assert req_body['keys'] == ['testString']
+        assert req_body['startkey'] == 'testString'
 
 
     @responses.activate
@@ -10752,6 +11135,19 @@ class TestPostLocalDocs():
 
         # Set up parameter values
         db = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        include_docs = True
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = True
+        endkey = 'testString'
+        key = 'testString'
+        keys = ['testString']
+        startkey = 'testString'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -10810,14 +11206,14 @@ class TestPostLocalDocsQueries():
 
         # Set up parameter values
         db = 'testString'
-        accept = 'application/json'
         queries = [all_docs_query_model]
+        accept = 'application/json'
 
         # Invoke method
         response = service.post_local_docs_queries(
             db,
+            queries,
             accept=accept,
-            queries=queries,
             headers={}
         )
 
@@ -10843,18 +11239,39 @@ class TestPostLocalDocsQueries():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a AllDocsQuery model
+        all_docs_query_model = {}
+        all_docs_query_model['att_encoding_info'] = True
+        all_docs_query_model['attachments'] = True
+        all_docs_query_model['conflicts'] = True
+        all_docs_query_model['descending'] = True
+        all_docs_query_model['include_docs'] = True
+        all_docs_query_model['inclusive_end'] = True
+        all_docs_query_model['limit'] = 0
+        all_docs_query_model['skip'] = 0
+        all_docs_query_model['update_seq'] = True
+        all_docs_query_model['endkey'] = 'testString'
+        all_docs_query_model['key'] = 'testString'
+        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['startkey'] = 'testString'
+
         # Set up parameter values
         db = 'testString'
+        queries = [all_docs_query_model]
 
         # Invoke method
         response = service.post_local_docs_queries(
             db,
+            queries,
             headers={}
         )
 
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['queries'] == [all_docs_query_model]
 
 
     @responses.activate
@@ -10871,12 +11288,30 @@ class TestPostLocalDocsQueries():
                       content_type='application/json',
                       status=200)
 
+        # Construct a dict representation of a AllDocsQuery model
+        all_docs_query_model = {}
+        all_docs_query_model['att_encoding_info'] = True
+        all_docs_query_model['attachments'] = True
+        all_docs_query_model['conflicts'] = True
+        all_docs_query_model['descending'] = True
+        all_docs_query_model['include_docs'] = True
+        all_docs_query_model['inclusive_end'] = True
+        all_docs_query_model['limit'] = 0
+        all_docs_query_model['skip'] = 0
+        all_docs_query_model['update_seq'] = True
+        all_docs_query_model['endkey'] = 'testString'
+        all_docs_query_model['key'] = 'testString'
+        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['startkey'] = 'testString'
+
         # Set up parameter values
         db = 'testString'
+        queries = [all_docs_query_model]
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "queries": queries,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -10894,76 +11329,6 @@ class TestPostLocalDocsQueries():
 # Start of Service: DatabaseDetails
 ##############################################################################
 # region
-
-class TestPostEnsureFullCommit():
-    """
-    Test Class for post_ensure_full_commit
-    """
-
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
-    @responses.activate
-    def test_post_ensure_full_commit_all_params(self):
-        """
-        post_ensure_full_commit()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_ensure_full_commit')
-        mock_response = '{"instance_start_time": "instance_start_time", "ok": true}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=201)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.post_ensure_full_commit(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 201
-
-
-    @responses.activate
-    def test_post_ensure_full_commit_value_error(self):
-        """
-        test_post_ensure_full_commit_value_error()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_ensure_full_commit')
-        mock_response = '{"instance_start_time": "instance_start_time", "ok": true}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=201)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Pass in all but one required param and check for a ValueError
-        req_param_dict = {
-            "db": db,
-        }
-        for param in req_param_dict.keys():
-            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
-            with pytest.raises(ValueError):
-                service.post_ensure_full_commit(**req_copy)
-
-
 
 class TestPostMissingRevs():
     """
@@ -11000,7 +11365,7 @@ class TestPostMissingRevs():
         # Invoke method
         response = service.post_missing_revs(
             db,
-            document_revisions=document_revisions,
+            document_revisions,
             headers={}
         )
 
@@ -11010,34 +11375,6 @@ class TestPostMissingRevs():
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body == document_revisions
-
-
-    @responses.activate
-    def test_post_missing_revs_required_params(self):
-        """
-        test_post_missing_revs_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_missing_revs')
-        mock_response = '{"missing_revs": {"mapKey": ["inner"]}}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.post_missing_revs(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
 
 
     @responses.activate
@@ -11056,10 +11393,12 @@ class TestPostMissingRevs():
 
         # Set up parameter values
         db = 'testString'
+        document_revisions = {}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "document_revisions": document_revisions,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -11103,7 +11442,7 @@ class TestPostRevsDiff():
         # Invoke method
         response = service.post_revs_diff(
             db,
-            document_revisions=document_revisions,
+            document_revisions,
             headers={}
         )
 
@@ -11113,34 +11452,6 @@ class TestPostRevsDiff():
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body == document_revisions
-
-
-    @responses.activate
-    def test_post_revs_diff_required_params(self):
-        """
-        test_post_revs_diff_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_revs_diff')
-        mock_response = '{"mapKey": {"missing": ["missing"], "possible_ancestors": ["possible_ancestors"]}}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = service.post_revs_diff(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
 
 
     @responses.activate
@@ -11159,10 +11470,12 @@ class TestPostRevsDiff():
 
         # Set up parameter values
         db = 'testString'
+        document_revisions = {}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
             "db": db,
+            "document_revisions": document_revisions,
         }
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
@@ -13009,36 +13322,6 @@ class TestDocumentShardInfo():
         document_shard_info_model_json2 = document_shard_info_model.to_dict()
         assert document_shard_info_model_json2 == document_shard_info_model_json
 
-class TestEnsureFullCommitInformation():
-    """
-    Test Class for EnsureFullCommitInformation
-    """
-
-    def test_ensure_full_commit_information_serialization(self):
-        """
-        Test serialization/deserialization for EnsureFullCommitInformation
-        """
-
-        # Construct a json representation of a EnsureFullCommitInformation model
-        ensure_full_commit_information_model_json = {}
-        ensure_full_commit_information_model_json['instance_start_time'] = 'testString'
-        ensure_full_commit_information_model_json['ok'] = True
-
-        # Construct a model instance of EnsureFullCommitInformation by calling from_dict on the json representation
-        ensure_full_commit_information_model = EnsureFullCommitInformation.from_dict(ensure_full_commit_information_model_json)
-        assert ensure_full_commit_information_model != False
-
-        # Construct a model instance of EnsureFullCommitInformation by calling from_dict on the json representation
-        ensure_full_commit_information_model_dict = EnsureFullCommitInformation.from_dict(ensure_full_commit_information_model_json).__dict__
-        ensure_full_commit_information_model2 = EnsureFullCommitInformation(**ensure_full_commit_information_model_dict)
-
-        # Verify the model instances are equivalent
-        assert ensure_full_commit_information_model == ensure_full_commit_information_model2
-
-        # Convert model instance back to dict and verify no loss of data
-        ensure_full_commit_information_model_json2 = ensure_full_commit_information_model.to_dict()
-        assert ensure_full_commit_information_model_json2 == ensure_full_commit_information_model_json
-
 class TestExecutionStats():
     """
     Test Class for ExecutionStats
@@ -13534,38 +13817,6 @@ class TestGeoResultRow():
         # Convert model instance back to dict and verify no loss of data
         geo_result_row_model_json2 = geo_result_row_model.to_dict()
         assert geo_result_row_model_json2 == geo_result_row_model_json
-
-class TestIamSessionInformation():
-    """
-    Test Class for IamSessionInformation
-    """
-
-    def test_iam_session_information_serialization(self):
-        """
-        Test serialization/deserialization for IamSessionInformation
-        """
-
-        # Construct a json representation of a IamSessionInformation model
-        iam_session_information_model_json = {}
-        iam_session_information_model_json['id'] = 'testString'
-        iam_session_information_model_json['ok'] = True
-        iam_session_information_model_json['scope'] = 'testString'
-        iam_session_information_model_json['type'] = 'testString'
-
-        # Construct a model instance of IamSessionInformation by calling from_dict on the json representation
-        iam_session_information_model = IamSessionInformation.from_dict(iam_session_information_model_json)
-        assert iam_session_information_model != False
-
-        # Construct a model instance of IamSessionInformation by calling from_dict on the json representation
-        iam_session_information_model_dict = IamSessionInformation.from_dict(iam_session_information_model_json).__dict__
-        iam_session_information_model2 = IamSessionInformation(**iam_session_information_model_dict)
-
-        # Verify the model instances are equivalent
-        assert iam_session_information_model == iam_session_information_model2
-
-        # Convert model instance back to dict and verify no loss of data
-        iam_session_information_model_json2 = iam_session_information_model.to_dict()
-        assert iam_session_information_model_json2 == iam_session_information_model_json
 
 class TestIndexDefinition():
     """
