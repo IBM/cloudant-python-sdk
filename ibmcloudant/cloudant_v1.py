@@ -291,8 +291,7 @@ class CloudantV1(BaseService):
 
 
     def post_dbs_info(self,
-        *,
-        keys: List[str] = None,
+        keys: List[str],
         **kwargs
     ) -> DetailedResponse:
         """
@@ -303,12 +302,14 @@ class CloudantV1(BaseService):
         list that contains an information object for each database specified in the
         request.
 
-        :param List[str] keys: (optional) A list of database names.
+        :param List[str] keys: A list of database names.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `List[DbsInfoResult]` result
         """
 
+        if keys is None:
+            raise ValueError('keys must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -896,8 +897,8 @@ class CloudantV1(BaseService):
 
     def post_document(self,
         db: str,
+        document: Union['Document', BinaryIO],
         *,
-        document: Union['Document', BinaryIO] = None,
         content_type: str = None,
         batch: str = None,
         **kwargs
@@ -915,8 +916,7 @@ class CloudantV1(BaseService):
         documents respectively.
 
         :param str db: Path parameter to specify the database name.
-        :param Document document: (optional) HTTP request body for Document
-               operations.
+        :param Document document: HTTP request body for Document operations.
         :param str content_type: (optional) The type of the input.
         :param str batch: (optional) Query parameter to specify whether to store in
                batch mode. The server will respond with a HTTP 202 Accepted response code
@@ -928,7 +928,9 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
-        if  document is not None and isinstance(document, Document):
+        if document is None:
+            raise ValueError('document must be provided')
+        if isinstance(document, Document):
             document = convert_model(document)
             content_type = content_type or 'application/json'
         headers = {
@@ -943,7 +945,7 @@ class CloudantV1(BaseService):
             'batch': batch
         }
 
-        if document is not None and isinstance(document, dict):
+        if isinstance(document, dict):
             data = json.dumps(document)
             if content_type is None:
                 headers['Content-Type'] = 'application/json'
@@ -1176,8 +1178,7 @@ class CloudantV1(BaseService):
 
     def post_all_docs_queries(self,
         db: str,
-        *,
-        queries: List['AllDocsQuery'] = None,
+        queries: List['AllDocsQuery'],
         **kwargs
     ) -> DetailedResponse:
         """
@@ -1190,10 +1191,10 @@ class CloudantV1(BaseService):
         /{db}/_all_docs` requests.
 
         :param str db: Path parameter to specify the database name.
-        :param List[AllDocsQuery] queries: (optional) An array of query objects
-               with fields for the parameters of each individual view query to be
-               executed. The field names and their meaning are the same as the query
-               parameters of a regular `/_all_docs` request.
+        :param List[AllDocsQuery] queries: An array of query objects with fields
+               for the parameters of each individual view query to be executed. The field
+               names and their meaning are the same as the query parameters of a regular
+               `/_all_docs` request.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `AllDocsQueriesResult` object
@@ -1201,8 +1202,9 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
-        if queries is not None:
-            queries = [convert_model(x) for x in queries]
+        if queries is None:
+            raise ValueError('queries must be provided')
+        queries = [convert_model(x) for x in queries]
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -1235,8 +1237,7 @@ class CloudantV1(BaseService):
 
     def post_all_docs_queries_as_stream(self,
         db: str,
-        *,
-        queries: List['AllDocsQuery'] = None,
+        queries: List['AllDocsQuery'],
         **kwargs
     ) -> DetailedResponse:
         """
@@ -1249,10 +1250,10 @@ class CloudantV1(BaseService):
         /{db}/_all_docs` requests.
 
         :param str db: Path parameter to specify the database name.
-        :param List[AllDocsQuery] queries: (optional) An array of query objects
-               with fields for the parameters of each individual view query to be
-               executed. The field names and their meaning are the same as the query
-               parameters of a regular `/_all_docs` request.
+        :param List[AllDocsQuery] queries: An array of query objects with fields
+               for the parameters of each individual view query to be executed. The field
+               names and their meaning are the same as the query parameters of a regular
+               `/_all_docs` request.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `BinaryIO` result
@@ -1260,8 +1261,9 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
-        if queries is not None:
-            queries = [convert_model(x) for x in queries]
+        if queries is None:
+            raise ValueError('queries must be provided')
+        queries = [convert_model(x) for x in queries]
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -1294,8 +1296,7 @@ class CloudantV1(BaseService):
 
     def post_bulk_docs(self,
         db: str,
-        *,
-        bulk_docs: Union['BulkDocs', BinaryIO] = None,
+        bulk_docs: Union['BulkDocs', BinaryIO],
         **kwargs
     ) -> DetailedResponse:
         """
@@ -1307,7 +1308,7 @@ class CloudantV1(BaseService):
         information.
 
         :param str db: Path parameter to specify the database name.
-        :param BulkDocs bulk_docs: (optional) HTTP request body for postBulkDocs.
+        :param BulkDocs bulk_docs: HTTP request body for postBulkDocs.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `List[DocumentResult]` result
@@ -1315,7 +1316,9 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
-        if  bulk_docs is not None and isinstance(bulk_docs, BulkDocs):
+        if bulk_docs is None:
+            raise ValueError('bulk_docs must be provided')
+        if isinstance(bulk_docs, BulkDocs):
             bulk_docs = convert_model(bulk_docs)
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -1348,8 +1351,8 @@ class CloudantV1(BaseService):
 
     def post_bulk_get(self,
         db: str,
+        docs: List['BulkGetQueryDocument'],
         *,
-        docs: List['BulkGetQueryDocument'] = None,
         attachments: bool = None,
         att_encoding_info: bool = None,
         latest: bool = None,
@@ -1363,8 +1366,8 @@ class CloudantV1(BaseService):
         replicators do.
 
         :param str db: Path parameter to specify the database name.
-        :param List[BulkGetQueryDocument] docs: (optional) List of document items
-               to get in bulk.
+        :param List[BulkGetQueryDocument] docs: List of document items to get in
+               bulk.
         :param bool attachments: (optional) Query parameter to specify whether to
                include attachments bodies in a response.
         :param bool att_encoding_info: (optional) Query parameter to specify
@@ -1381,8 +1384,9 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
-        if docs is not None:
-            docs = [convert_model(x) for x in docs]
+        if docs is None:
+            raise ValueError('docs must be provided')
+        docs = [convert_model(x) for x in docs]
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -1423,8 +1427,8 @@ class CloudantV1(BaseService):
 
     def post_bulk_get_as_mixed(self,
         db: str,
+        docs: List['BulkGetQueryDocument'],
         *,
-        docs: List['BulkGetQueryDocument'] = None,
         attachments: bool = None,
         att_encoding_info: bool = None,
         latest: bool = None,
@@ -1438,8 +1442,8 @@ class CloudantV1(BaseService):
         replicators do.
 
         :param str db: Path parameter to specify the database name.
-        :param List[BulkGetQueryDocument] docs: (optional) List of document items
-               to get in bulk.
+        :param List[BulkGetQueryDocument] docs: List of document items to get in
+               bulk.
         :param bool attachments: (optional) Query parameter to specify whether to
                include attachments bodies in a response.
         :param bool att_encoding_info: (optional) Query parameter to specify
@@ -1456,8 +1460,9 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
-        if docs is not None:
-            docs = [convert_model(x) for x in docs]
+        if docs is None:
+            raise ValueError('docs must be provided')
+        docs = [convert_model(x) for x in docs]
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -1498,8 +1503,8 @@ class CloudantV1(BaseService):
 
     def post_bulk_get_as_related(self,
         db: str,
+        docs: List['BulkGetQueryDocument'],
         *,
-        docs: List['BulkGetQueryDocument'] = None,
         attachments: bool = None,
         att_encoding_info: bool = None,
         latest: bool = None,
@@ -1513,8 +1518,8 @@ class CloudantV1(BaseService):
         replicators do.
 
         :param str db: Path parameter to specify the database name.
-        :param List[BulkGetQueryDocument] docs: (optional) List of document items
-               to get in bulk.
+        :param List[BulkGetQueryDocument] docs: List of document items to get in
+               bulk.
         :param bool attachments: (optional) Query parameter to specify whether to
                include attachments bodies in a response.
         :param bool att_encoding_info: (optional) Query parameter to specify
@@ -1531,8 +1536,9 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
-        if docs is not None:
-            docs = [convert_model(x) for x in docs]
+        if docs is None:
+            raise ValueError('docs must be provided')
+        docs = [convert_model(x) for x in docs]
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -1573,8 +1579,8 @@ class CloudantV1(BaseService):
 
     def post_bulk_get_as_stream(self,
         db: str,
+        docs: List['BulkGetQueryDocument'],
         *,
-        docs: List['BulkGetQueryDocument'] = None,
         attachments: bool = None,
         att_encoding_info: bool = None,
         latest: bool = None,
@@ -1588,8 +1594,8 @@ class CloudantV1(BaseService):
         replicators do.
 
         :param str db: Path parameter to specify the database name.
-        :param List[BulkGetQueryDocument] docs: (optional) List of document items
-               to get in bulk.
+        :param List[BulkGetQueryDocument] docs: List of document items to get in
+               bulk.
         :param bool attachments: (optional) Query parameter to specify whether to
                include attachments bodies in a response.
         :param bool att_encoding_info: (optional) Query parameter to specify
@@ -1606,8 +1612,9 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
-        if docs is not None:
-            docs = [convert_model(x) for x in docs]
+        if docs is None:
+            raise ValueError('docs must be provided')
+        docs = [convert_model(x) for x in docs]
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -2146,8 +2153,8 @@ class CloudantV1(BaseService):
     def put_document(self,
         db: str,
         doc_id: str,
+        document: Union['Document', BinaryIO],
         *,
-        document: Union['Document', BinaryIO] = None,
         content_type: str = None,
         if_match: str = None,
         batch: str = None,
@@ -2164,8 +2171,7 @@ class CloudantV1(BaseService):
 
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
-        :param Document document: (optional) HTTP request body for Document
-               operations.
+        :param Document document: HTTP request body for Document operations.
         :param str content_type: (optional) The type of the input.
         :param str if_match: (optional) Header parameter to specify the document
                revision. Alternative to rev query parameter.
@@ -2187,7 +2193,9 @@ class CloudantV1(BaseService):
             raise ValueError('db must be provided')
         if doc_id is None:
             raise ValueError('doc_id must be provided')
-        if  document is not None and isinstance(document, Document):
+        if document is None:
+            raise ValueError('document must be provided')
+        if isinstance(document, Document):
             document = convert_model(document)
             content_type = content_type or 'application/json'
         headers = {
@@ -2205,7 +2213,7 @@ class CloudantV1(BaseService):
             'rev': rev
         }
 
-        if document is not None and isinstance(document, dict):
+        if isinstance(document, dict):
             data = json.dumps(document)
             if content_type is None:
                 headers['Content-Type'] = 'application/json'
@@ -2470,8 +2478,8 @@ class CloudantV1(BaseService):
     def put_design_document(self,
         db: str,
         ddoc: str,
+        design_document: 'DesignDocument',
         *,
-        design_document: 'DesignDocument' = None,
         if_match: str = None,
         batch: str = None,
         new_edits: bool = None,
@@ -2488,8 +2496,8 @@ class CloudantV1(BaseService):
         :param str ddoc: Path parameter to specify the design document name. The
                design document name is the design document ID excluding the `_design/`
                prefix.
-        :param DesignDocument design_document: (optional) HTTP request body for
-               DesignDocument operations.
+        :param DesignDocument design_document: HTTP request body for DesignDocument
+               operations.
         :param str if_match: (optional) Header parameter to specify the document
                revision. Alternative to rev query parameter.
         :param str batch: (optional) Query parameter to specify whether to store in
@@ -2510,7 +2518,9 @@ class CloudantV1(BaseService):
             raise ValueError('db must be provided')
         if ddoc is None:
             raise ValueError('ddoc must be provided')
-        if  design_document is not None and isinstance(design_document, DesignDocument):
+        if design_document is None:
+            raise ValueError('design_document must be provided')
+        if isinstance(design_document, DesignDocument):
             design_document = convert_model(design_document)
         headers = {
             'If-Match': if_match
@@ -2597,7 +2607,6 @@ class CloudantV1(BaseService):
     def post_design_docs(self,
         db: str,
         *,
-        accept: str = None,
         att_encoding_info: bool = None,
         attachments: bool = None,
         conflicts: bool = None,
@@ -2611,6 +2620,7 @@ class CloudantV1(BaseService):
         key: str = None,
         keys: List[str] = None,
         startkey: str = None,
+        accept: str = None,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -2624,8 +2634,6 @@ class CloudantV1(BaseService):
         included in the response.
 
         :param str db: Path parameter to specify the database name.
-        :param str accept: (optional) The type of the response: application/json or
-               application/octet-stream.
         :param bool att_encoding_info: (optional) Parameter to specify whether to
                include the encoding information in attachment stubs if the particular
                attachment is compressed.
@@ -2651,6 +2659,8 @@ class CloudantV1(BaseService):
         :param str key: (optional) Schema for a document ID.
         :param List[str] keys: (optional) Schema for a list of document IDs.
         :param str startkey: (optional) Schema for a document ID.
+        :param str accept: (optional) The type of the response: application/json or
+               application/octet-stream.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `AllDocsResult` object
@@ -2703,9 +2713,9 @@ class CloudantV1(BaseService):
 
     def post_design_docs_queries(self,
         db: str,
+        queries: List['AllDocsQuery'],
         *,
         accept: str = None,
-        queries: List['AllDocsQuery'] = None,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -2716,12 +2726,12 @@ class CloudantV1(BaseService):
         place of multiple POST `/{db}/_design_docs` requests.
 
         :param str db: Path parameter to specify the database name.
+        :param List[AllDocsQuery] queries: An array of query objects with fields
+               for the parameters of each individual view query to be executed. The field
+               names and their meaning are the same as the query parameters of a regular
+               `/_all_docs` request.
         :param str accept: (optional) The type of the response: application/json or
                application/octet-stream.
-        :param List[AllDocsQuery] queries: (optional) An array of query objects
-               with fields for the parameters of each individual view query to be
-               executed. The field names and their meaning are the same as the query
-               parameters of a regular `/_all_docs` request.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `AllDocsQueriesResult` object
@@ -2729,8 +2739,9 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
-        if queries is not None:
-            queries = [convert_model(x) for x in queries]
+        if queries is None:
+            raise ValueError('queries must be provided')
+        queries = [convert_model(x) for x in queries]
         headers = {
             'Accept': accept
         }
@@ -3060,8 +3071,7 @@ class CloudantV1(BaseService):
         db: str,
         ddoc: str,
         view: str,
-        *,
-        queries: List['ViewQuery'] = None,
+        queries: List['ViewQuery'],
         **kwargs
     ) -> DetailedResponse:
         """
@@ -3076,10 +3086,10 @@ class CloudantV1(BaseService):
                prefix.
         :param str view: Path parameter to specify the map reduce view function
                name.
-        :param List[ViewQuery] queries: (optional) An array of query objects with
-               fields for the parameters of each individual view query to be executed. The
-               field names and their meaning are the same as the query parameters of a
-               regular view request.
+        :param List[ViewQuery] queries: An array of query objects with fields for
+               the parameters of each individual view query to be executed. The field
+               names and their meaning are the same as the query parameters of a regular
+               view request.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `ViewQueriesResult` object
@@ -3091,8 +3101,9 @@ class CloudantV1(BaseService):
             raise ValueError('ddoc must be provided')
         if view is None:
             raise ValueError('view must be provided')
-        if queries is not None:
-            queries = [convert_model(x) for x in queries]
+        if queries is None:
+            raise ValueError('queries must be provided')
+        queries = [convert_model(x) for x in queries]
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -3127,8 +3138,7 @@ class CloudantV1(BaseService):
         db: str,
         ddoc: str,
         view: str,
-        *,
-        queries: List['ViewQuery'] = None,
+        queries: List['ViewQuery'],
         **kwargs
     ) -> DetailedResponse:
         """
@@ -3143,10 +3153,10 @@ class CloudantV1(BaseService):
                prefix.
         :param str view: Path parameter to specify the map reduce view function
                name.
-        :param List[ViewQuery] queries: (optional) An array of query objects with
-               fields for the parameters of each individual view query to be executed. The
-               field names and their meaning are the same as the query parameters of a
-               regular view request.
+        :param List[ViewQuery] queries: An array of query objects with fields for
+               the parameters of each individual view query to be executed. The field
+               names and their meaning are the same as the query parameters of a regular
+               view request.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `BinaryIO` result
@@ -3158,8 +3168,9 @@ class CloudantV1(BaseService):
             raise ValueError('ddoc must be provided')
         if view is None:
             raise ValueError('view must be provided')
-        if queries is not None:
-            queries = [convert_model(x) for x in queries]
+        if queries is None:
+            raise ValueError('queries must be provided')
+        queries = [convert_model(x) for x in queries]
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -3460,8 +3471,8 @@ class CloudantV1(BaseService):
         partition_key: str,
         ddoc: str,
         index: str,
+        query: str,
         *,
-        query: str = None,
         bookmark: str = None,
         highlight_fields: List[str] = None,
         highlight_number: int = None,
@@ -3490,7 +3501,7 @@ class CloudantV1(BaseService):
                design document name is the design document ID excluding the `_design/`
                prefix.
         :param str index: Path parameter to specify the index name.
-        :param str query: (optional) The Lucene query to execute.
+        :param str query: The Lucene query to execute.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param List[str] highlight_fields: (optional) Specifies which fields to
@@ -3538,6 +3549,8 @@ class CloudantV1(BaseService):
             raise ValueError('ddoc must be provided')
         if index is None:
             raise ValueError('index must be provided')
+        if query is None:
+            raise ValueError('query must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -3584,8 +3597,8 @@ class CloudantV1(BaseService):
         partition_key: str,
         ddoc: str,
         index: str,
+        query: str,
         *,
-        query: str = None,
         bookmark: str = None,
         highlight_fields: List[str] = None,
         highlight_number: int = None,
@@ -3614,7 +3627,7 @@ class CloudantV1(BaseService):
                design document name is the design document ID excluding the `_design/`
                prefix.
         :param str index: Path parameter to specify the index name.
-        :param str query: (optional) The Lucene query to execute.
+        :param str query: The Lucene query to execute.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param List[str] highlight_fields: (optional) Specifies which fields to
@@ -3662,6 +3675,8 @@ class CloudantV1(BaseService):
             raise ValueError('ddoc must be provided')
         if index is None:
             raise ValueError('index must be provided')
+        if query is None:
+            raise ValueError('query must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -4004,8 +4019,8 @@ class CloudantV1(BaseService):
     def post_partition_find(self,
         db: str,
         partition_key: str,
+        selector: dict,
         *,
-        selector: dict = None,
         bookmark: str = None,
         conflicts: bool = None,
         execution_stats: bool = None,
@@ -4028,9 +4043,9 @@ class CloudantV1(BaseService):
         :param str db: Path parameter to specify the database name.
         :param str partition_key: Path parameter to specify the database partition
                key.
-        :param dict selector: (optional) JSON object describing criteria used to
-               select documents. The selector specifies fields in the document, and
-               provides an expression to evaluate with the field content or other data.
+        :param dict selector: JSON object describing criteria used to select
+               documents. The selector specifies fields in the document, and provides an
+               expression to evaluate with the field content or other data.
                The selector object must:
                  * Be structured as valid JSON.
                  * Contain a valid query expression.
@@ -4086,6 +4101,8 @@ class CloudantV1(BaseService):
             raise ValueError('db must be provided')
         if partition_key is None:
             raise ValueError('partition_key must be provided')
+        if selector is None:
+            raise ValueError('selector must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -4129,8 +4146,8 @@ class CloudantV1(BaseService):
     def post_partition_find_as_stream(self,
         db: str,
         partition_key: str,
+        selector: dict,
         *,
-        selector: dict = None,
         bookmark: str = None,
         conflicts: bool = None,
         execution_stats: bool = None,
@@ -4153,9 +4170,9 @@ class CloudantV1(BaseService):
         :param str db: Path parameter to specify the database name.
         :param str partition_key: Path parameter to specify the database partition
                key.
-        :param dict selector: (optional) JSON object describing criteria used to
-               select documents. The selector specifies fields in the document, and
-               provides an expression to evaluate with the field content or other data.
+        :param dict selector: JSON object describing criteria used to select
+               documents. The selector specifies fields in the document, and provides an
+               expression to evaluate with the field content or other data.
                The selector object must:
                  * Be structured as valid JSON.
                  * Contain a valid query expression.
@@ -4211,6 +4228,8 @@ class CloudantV1(BaseService):
             raise ValueError('db must be provided')
         if partition_key is None:
             raise ValueError('partition_key must be provided')
+        if selector is None:
+            raise ValueError('selector must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -4257,8 +4276,8 @@ class CloudantV1(BaseService):
 
     def post_explain(self,
         db: str,
+        selector: dict,
         *,
-        selector: dict = None,
         bookmark: str = None,
         conflicts: bool = None,
         execution_stats: bool = None,
@@ -4279,9 +4298,9 @@ class CloudantV1(BaseService):
         [`_find` endpoint](#query-an-index-by-using-selector-syntax.
 
         :param str db: Path parameter to specify the database name.
-        :param dict selector: (optional) JSON object describing criteria used to
-               select documents. The selector specifies fields in the document, and
-               provides an expression to evaluate with the field content or other data.
+        :param dict selector: JSON object describing criteria used to select
+               documents. The selector specifies fields in the document, and provides an
+               expression to evaluate with the field content or other data.
                The selector object must:
                  * Be structured as valid JSON.
                  * Contain a valid query expression.
@@ -4341,6 +4360,8 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
+        if selector is None:
+            raise ValueError('selector must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -4384,8 +4405,8 @@ class CloudantV1(BaseService):
 
     def post_find(self,
         db: str,
+        selector: dict,
         *,
-        selector: dict = None,
         bookmark: str = None,
         conflicts: bool = None,
         execution_stats: bool = None,
@@ -4407,9 +4428,9 @@ class CloudantV1(BaseService):
         endpoint.
 
         :param str db: Path parameter to specify the database name.
-        :param dict selector: (optional) JSON object describing criteria used to
-               select documents. The selector specifies fields in the document, and
-               provides an expression to evaluate with the field content or other data.
+        :param dict selector: JSON object describing criteria used to select
+               documents. The selector specifies fields in the document, and provides an
+               expression to evaluate with the field content or other data.
                The selector object must:
                  * Be structured as valid JSON.
                  * Contain a valid query expression.
@@ -4469,6 +4490,8 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
+        if selector is None:
+            raise ValueError('selector must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -4512,8 +4535,8 @@ class CloudantV1(BaseService):
 
     def post_find_as_stream(self,
         db: str,
+        selector: dict,
         *,
-        selector: dict = None,
         bookmark: str = None,
         conflicts: bool = None,
         execution_stats: bool = None,
@@ -4535,9 +4558,9 @@ class CloudantV1(BaseService):
         endpoint.
 
         :param str db: Path parameter to specify the database name.
-        :param dict selector: (optional) JSON object describing criteria used to
-               select documents. The selector specifies fields in the document, and
-               provides an expression to evaluate with the field content or other data.
+        :param dict selector: JSON object describing criteria used to select
+               documents. The selector specifies fields in the document, and provides an
+               expression to evaluate with the field content or other data.
                The selector object must:
                  * Be structured as valid JSON.
                  * Contain a valid query expression.
@@ -4597,6 +4620,8 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
+        if selector is None:
+            raise ValueError('selector must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -4682,10 +4707,10 @@ class CloudantV1(BaseService):
 
     def post_index(self,
         db: str,
+        index: 'IndexDefinition',
         *,
         ddoc: str = None,
         def_: 'IndexDefinition' = None,
-        index: 'IndexDefinition' = None,
         name: str = None,
         partial_filter_selector: dict = None,
         partitioned: bool = None,
@@ -4698,17 +4723,17 @@ class CloudantV1(BaseService):
         Create a new index on a database.
 
         :param str db: Path parameter to specify the database name.
+        :param IndexDefinition index: Schema for a `json` or `text` query index
+               definition. Indexes of type `text` have additional configuration properties
+               that do not apply to `json` indexes, these are:
+               * `default_analyzer` - the default text analyzer to use * `default_field` -
+               whether to index the text in all document fields and what analyzer to use
+               for that purpose.
         :param str ddoc: (optional) Name of the design document in which the index
                will be created.
         :param IndexDefinition def_: (optional) Schema for a `json` or `text` query
                index definition. Indexes of type `text` have additional configuration
                properties that do not apply to `json` indexes, these are:
-               * `default_analyzer` - the default text analyzer to use * `default_field` -
-               whether to index the text in all document fields and what analyzer to use
-               for that purpose.
-        :param IndexDefinition index: (optional) Schema for a `json` or `text`
-               query index definition. Indexes of type `text` have additional
-               configuration properties that do not apply to `json` indexes, these are:
                * `default_analyzer` - the default text analyzer to use * `default_field` -
                whether to index the text in all document fields and what analyzer to use
                for that purpose.
@@ -4751,10 +4776,11 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
+        if index is None:
+            raise ValueError('index must be provided')
+        index = convert_model(index)
         if def_ is not None:
             def_ = convert_model(def_)
-        if index is not None:
-            index = convert_model(index)
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -4762,9 +4788,9 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         data = {
+            'index': index,
             'ddoc': ddoc,
             'def': def_,
-            'index': index,
             'name': name,
             'partial_filter_selector': partial_filter_selector,
             'partitioned': partitioned,
@@ -4847,9 +4873,8 @@ class CloudantV1(BaseService):
 
 
     def post_search_analyze(self,
-        *,
-        analyzer: str = None,
-        text: str = None,
+        analyzer: str,
+        text: str,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -4858,13 +4883,17 @@ class CloudantV1(BaseService):
         Returns the results of analyzer tokenization of the provided sample text. This
         endpoint can be used for testing analyzer tokenization.
 
-        :param str analyzer: (optional) analyzer.
-        :param str text: (optional) text.
+        :param str analyzer: analyzer.
+        :param str text: text.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `SearchAnalyzeResult` object
         """
 
+        if analyzer is None:
+            raise ValueError('analyzer must be provided')
+        if text is None:
+            raise ValueError('text must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -4897,8 +4926,8 @@ class CloudantV1(BaseService):
         db: str,
         ddoc: str,
         index: str,
+        query: str,
         *,
-        query: str = None,
         bookmark: str = None,
         highlight_fields: List[str] = None,
         highlight_number: int = None,
@@ -4934,7 +4963,7 @@ class CloudantV1(BaseService):
                design document name is the design document ID excluding the `_design/`
                prefix.
         :param str index: Path parameter to specify the index name.
-        :param str query: (optional) The Lucene query to execute.
+        :param str query: The Lucene query to execute.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param List[str] highlight_fields: (optional) Specifies which fields to
@@ -5009,6 +5038,8 @@ class CloudantV1(BaseService):
             raise ValueError('ddoc must be provided')
         if index is None:
             raise ValueError('index must be provided')
+        if query is None:
+            raise ValueError('query must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -5060,8 +5091,8 @@ class CloudantV1(BaseService):
         db: str,
         ddoc: str,
         index: str,
+        query: str,
         *,
-        query: str = None,
         bookmark: str = None,
         highlight_fields: List[str] = None,
         highlight_number: int = None,
@@ -5097,7 +5128,7 @@ class CloudantV1(BaseService):
                design document name is the design document ID excluding the `_design/`
                prefix.
         :param str index: Path parameter to specify the index name.
-        :param str query: (optional) The Lucene query to execute.
+        :param str query: The Lucene query to execute.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param List[str] highlight_fields: (optional) Specifies which fields to
@@ -5172,6 +5203,8 @@ class CloudantV1(BaseService):
             raise ValueError('ddoc must be provided')
         if index is None:
             raise ValueError('index must be provided')
+        if query is None:
+            raise ValueError('query must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -5779,8 +5812,7 @@ class CloudantV1(BaseService):
 
 
     def post_replicate(self,
-        *,
-        replication_document: 'ReplicationDocument' = None,
+        replication_document: 'ReplicationDocument',
         **kwargs
     ) -> DetailedResponse:
         """
@@ -5788,14 +5820,16 @@ class CloudantV1(BaseService):
 
         Requests, configures, or stops a replicate operation.
 
-        :param ReplicationDocument replication_document: (optional) HTTP request
-               body for replication operations.
+        :param ReplicationDocument replication_document: HTTP request body for
+               replication operations.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `ReplicationResult` object
         """
 
-        if  replication_document is not None and isinstance(replication_document, ReplicationDocument):
+        if replication_document is None:
+            raise ValueError('replication_document must be provided')
+        if isinstance(replication_document, ReplicationDocument):
             replication_document = convert_model(replication_document)
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -5984,8 +6018,8 @@ class CloudantV1(BaseService):
 
     def put_replication_document(self,
         doc_id: str,
+        replication_document: 'ReplicationDocument',
         *,
-        replication_document: 'ReplicationDocument' = None,
         if_match: str = None,
         batch: str = None,
         new_edits: bool = None,
@@ -5999,8 +6033,8 @@ class CloudantV1(BaseService):
         replication or to edit an existing replication.
 
         :param str doc_id: Path parameter to specify the document ID.
-        :param ReplicationDocument replication_document: (optional) HTTP request
-               body for replication operations.
+        :param ReplicationDocument replication_document: HTTP request body for
+               replication operations.
         :param str if_match: (optional) Header parameter to specify the document
                revision. Alternative to rev query parameter.
         :param str batch: (optional) Query parameter to specify whether to store in
@@ -6019,7 +6053,9 @@ class CloudantV1(BaseService):
 
         if doc_id is None:
             raise ValueError('doc_id must be provided')
-        if  replication_document is not None and isinstance(replication_document, ReplicationDocument):
+        if replication_document is None:
+            raise ValueError('replication_document must be provided')
+        if isinstance(replication_document, ReplicationDocument):
             replication_document = convert_model(replication_document)
         headers = {
             'If-Match': if_match
@@ -6272,115 +6308,6 @@ class CloudantV1(BaseService):
         response = self.send(request)
         return response
 
-
-    def delete_iam_session(self,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Delete an IAM cookie session.
-
-        Returns a response that instructs the HTTP client to clear the cookie. The session
-        cookies are stateless and cannot be invalidated; hence, this operation is optional
-        and does not invalidate the cookie on the server.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `Ok` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='delete_iam_session')
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-        headers['Accept'] = 'application/json'
-
-        url = '/_iam_session'
-        request = self.prepare_request(method='DELETE',
-                                       url=url,
-                                       headers=headers)
-
-        response = self.send(request)
-        return response
-
-
-    def get_iam_session_information(self,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Retrieve current IAM cookie session information.
-
-        Retrieves information about an IAM cookie session.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `IamSessionInformation` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_iam_session_information')
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-        headers['Accept'] = 'application/json'
-
-        url = '/_iam_session'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
-
-        response = self.send(request)
-        return response
-
-
-    def post_iam_session(self,
-        *,
-        access_token: str = None,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Create a session cookie by using an IAM token.
-
-        Log in by exchanging an IAM token for an IBM Cloudant cookie.
-
-        :param str access_token: (optional) Token obtained from the IAM service.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `Ok` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_iam_session')
-        headers.update(sdk_headers)
-
-        data = {
-            'access_token': access_token
-        }
-        data = {k: v for (k, v) in data.items() if v is not None}
-        data = json.dumps(data)
-        headers['content-type'] = 'application/json'
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-        headers['Accept'] = 'application/json'
-
-        url = '/_iam_session'
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
-
-        response = self.send(request)
-        return response
-
     #########################
     # Authorization
     #########################
@@ -6537,8 +6464,8 @@ class CloudantV1(BaseService):
 
     def put_cloudant_security_configuration(self,
         db: str,
+        cloudant: dict,
         *,
-        cloudant: dict = None,
         admins: 'SecurityObject' = None,
         members: 'SecurityObject' = None,
         couchdb_auth_only: bool = None,
@@ -6552,8 +6479,8 @@ class CloudantV1(BaseService):
         access to the database.
 
         :param str db: Path parameter to specify the database name.
-        :param dict cloudant: (optional) Database permissions for Cloudant users
-               and/or API keys.
+        :param dict cloudant: Database permissions for Cloudant users and/or API
+               keys.
         :param SecurityObject admins: (optional) Schema for names and roles to map
                to a database permission.
         :param SecurityObject members: (optional) Schema for names and roles to map
@@ -6567,6 +6494,8 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
+        if cloudant is None:
+            raise ValueError('cloudant must be provided')
         if admins is not None:
             admins = convert_model(admins)
         if members is not None:
@@ -6643,8 +6572,8 @@ class CloudantV1(BaseService):
 
 
     def put_cors_configuration(self,
+        origins: List[str],
         *,
-        origins: List[str] = None,
         allow_credentials: bool = None,
         enable_cors: bool = None,
         **kwargs
@@ -6655,11 +6584,10 @@ class CloudantV1(BaseService):
         Sets the CORS configuration. The configuration applies to all databases and all
         account level endpoints in your account.
 
-        :param List[str] origins: (optional) An array of strings that contain
-               allowed origin domains. You have to specify the full URL including the
-               protocol. It is recommended that only the HTTPS protocol is used.
-               Subdomains count as separate domains, so you have to specify all subdomains
-               used.
+        :param List[str] origins: An array of strings that contain allowed origin
+               domains. You have to specify the full URL including the protocol. It is
+               recommended that only the HTTPS protocol is used. Subdomains count as
+               separate domains, so you have to specify all subdomains used.
         :param bool allow_credentials: (optional) Boolean value to allow
                authentication credentials. If set to true, browser requests must be done
                by using withCredentials = true.
@@ -6669,6 +6597,8 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `Ok` object
         """
 
+        if origins is None:
+            raise ValueError('origins must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -7125,8 +7055,8 @@ class CloudantV1(BaseService):
     def put_local_document(self,
         db: str,
         doc_id: str,
+        document: Union['Document', BinaryIO],
         *,
-        document: Union['Document', BinaryIO] = None,
         content_type: str = None,
         batch: str = None,
         **kwargs
@@ -7140,8 +7070,7 @@ class CloudantV1(BaseService):
 
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
-        :param Document document: (optional) HTTP request body for Document
-               operations.
+        :param Document document: HTTP request body for Document operations.
         :param str content_type: (optional) The type of the input.
         :param str batch: (optional) Query parameter to specify whether to store in
                batch mode. The server will respond with a HTTP 202 Accepted response code
@@ -7155,7 +7084,9 @@ class CloudantV1(BaseService):
             raise ValueError('db must be provided')
         if doc_id is None:
             raise ValueError('doc_id must be provided')
-        if  document is not None and isinstance(document, Document):
+        if document is None:
+            raise ValueError('document must be provided')
+        if isinstance(document, Document):
             document = convert_model(document)
             content_type = content_type or 'application/json'
         headers = {
@@ -7170,7 +7101,7 @@ class CloudantV1(BaseService):
             'batch': batch
         }
 
-        if document is not None and isinstance(document, dict):
+        if isinstance(document, dict):
             data = json.dumps(document)
             if content_type is None:
                 headers['Content-Type'] = 'application/json'
@@ -7198,7 +7129,6 @@ class CloudantV1(BaseService):
     def post_local_docs(self,
         db: str,
         *,
-        accept: str = None,
         att_encoding_info: bool = None,
         attachments: bool = None,
         conflicts: bool = None,
@@ -7212,6 +7142,7 @@ class CloudantV1(BaseService):
         key: str = None,
         keys: List[str] = None,
         startkey: str = None,
+        accept: str = None,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -7225,8 +7156,6 @@ class CloudantV1(BaseService):
         response.
 
         :param str db: Path parameter to specify the database name.
-        :param str accept: (optional) The type of the response: application/json or
-               application/octet-stream.
         :param bool att_encoding_info: (optional) Parameter to specify whether to
                include the encoding information in attachment stubs if the particular
                attachment is compressed.
@@ -7252,6 +7181,8 @@ class CloudantV1(BaseService):
         :param str key: (optional) Schema for a document ID.
         :param List[str] keys: (optional) Schema for a list of document IDs.
         :param str startkey: (optional) Schema for a document ID.
+        :param str accept: (optional) The type of the response: application/json or
+               application/octet-stream.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `AllDocsResult` object
@@ -7304,9 +7235,9 @@ class CloudantV1(BaseService):
 
     def post_local_docs_queries(self,
         db: str,
+        queries: List['AllDocsQuery'],
         *,
         accept: str = None,
-        queries: List['AllDocsQuery'] = None,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -7317,12 +7248,12 @@ class CloudantV1(BaseService):
         `POST /{db}/_local_docs` requests.
 
         :param str db: Path parameter to specify the database name.
+        :param List[AllDocsQuery] queries: An array of query objects with fields
+               for the parameters of each individual view query to be executed. The field
+               names and their meaning are the same as the query parameters of a regular
+               `/_all_docs` request.
         :param str accept: (optional) The type of the response: application/json or
                application/octet-stream.
-        :param List[AllDocsQuery] queries: (optional) An array of query objects
-               with fields for the parameters of each individual view query to be
-               executed. The field names and their meaning are the same as the query
-               parameters of a regular `/_all_docs` request.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `AllDocsQueriesResult` object
@@ -7330,8 +7261,9 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
-        if queries is not None:
-            queries = [convert_model(x) for x in queries]
+        if queries is None:
+            raise ValueError('queries must be provided')
+        queries = [convert_model(x) for x in queries]
         headers = {
             'Accept': accept
         }
@@ -7367,53 +7299,9 @@ class CloudantV1(BaseService):
     #########################
 
 
-    def post_ensure_full_commit(self,
-        db: str,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Commit any recent changes to the specified database to disk.
-
-        Commits any recent changes to the specified database to disk. You must make a
-        request to this endpoint if you want to ensure that recent changes have been
-        flushed. This function is likely not required, assuming you have the recommended
-        configuration setting, `delayed_commits=false`. This setting requires that changes
-        are written to disk before a 200 or similar result is returned.
-
-        :param str db: Path parameter to specify the database name.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `EnsureFullCommitInformation` object
-        """
-
-        if db is None:
-            raise ValueError('db must be provided')
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_ensure_full_commit')
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-        headers['Accept'] = 'application/json'
-
-        path_param_keys = ['db']
-        path_param_values = self.encode_path_vars(db)
-        path_param_dict = dict(zip(path_param_keys, path_param_values))
-        url = '/{db}/_ensure_full_commit'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers)
-
-        response = self.send(request)
-        return response
-
-
     def post_missing_revs(self,
         db: str,
-        *,
-        document_revisions: dict = None,
+        document_revisions: dict,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -7423,8 +7311,8 @@ class CloudantV1(BaseService):
         exist in the database.
 
         :param str db: Path parameter to specify the database name.
-        :param dict document_revisions: (optional) HTTP request body for
-               postMissingRevs and postRevsDiff.
+        :param dict document_revisions: HTTP request body for postMissingRevs and
+               postRevsDiff.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `MissingRevsResult` object
@@ -7432,6 +7320,8 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
+        if document_revisions is None:
+            raise ValueError('document_revisions must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -7460,8 +7350,7 @@ class CloudantV1(BaseService):
 
     def post_revs_diff(self,
         db: str,
-        *,
-        document_revisions: dict = None,
+        document_revisions: dict,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -7473,8 +7362,8 @@ class CloudantV1(BaseService):
         there. It can then avoid fetching and sending already-known document bodies.
 
         :param str db: Path parameter to specify the database name.
-        :param dict document_revisions: (optional) HTTP request body for
-               postMissingRevs and postRevsDiff.
+        :param dict document_revisions: HTTP request body for postMissingRevs and
+               postRevsDiff.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `dict` object
@@ -7482,6 +7371,8 @@ class CloudantV1(BaseService):
 
         if db is None:
             raise ValueError('db must be provided')
+        if document_revisions is None:
+            raise ValueError('document_revisions must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -8958,19 +8849,19 @@ class BulkDocs():
     """
     Schema for submitting documents for bulk modifications.
 
-    :attr List[Document] docs: (optional) Array of documents.
+    :attr List[Document] docs: Array of documents.
     :attr bool new_edits: (optional) If `false`, prevents the database from
           assigning them new revision IDs. Default is `true`.
     """
 
     def __init__(self,
+                 docs: List['Document'],
                  *,
-                 docs: List['Document'] = None,
                  new_edits: bool = None) -> None:
         """
         Initialize a BulkDocs object.
 
-        :param List[Document] docs: (optional) Array of documents.
+        :param List[Document] docs: Array of documents.
         :param bool new_edits: (optional) If `false`, prevents the database from
                assigning them new revision IDs. Default is `true`.
         """
@@ -8983,6 +8874,8 @@ class BulkDocs():
         args = {}
         if 'docs' in _dict:
             args['docs'] = [Document.from_dict(x) for x in _dict.get('docs')]
+        else:
+            raise ValueError('Required property \'docs\' not present in BulkDocs JSON')
         if 'new_edits' in _dict:
             args['new_edits'] = _dict.get('new_edits')
         return cls(**args)
@@ -11263,71 +11156,6 @@ class DocumentShardInfo():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class EnsureFullCommitInformation():
-    """
-    Schema for the status of a commit operation.
-
-    :attr str instance_start_time: (optional) Timestamp of when the database was
-          opened, expressed in microseconds since the epoch.
-    :attr bool ok: (optional) Operation status.
-    """
-
-    def __init__(self,
-                 *,
-                 instance_start_time: str = None,
-                 ok: bool = None) -> None:
-        """
-        Initialize a EnsureFullCommitInformation object.
-
-        :param str instance_start_time: (optional) Timestamp of when the database
-               was opened, expressed in microseconds since the epoch.
-        :param bool ok: (optional) Operation status.
-        """
-        self.instance_start_time = instance_start_time
-        self.ok = ok
-
-    @classmethod
-    def from_dict(cls, _dict: Dict) -> 'EnsureFullCommitInformation':
-        """Initialize a EnsureFullCommitInformation object from a json dictionary."""
-        args = {}
-        if 'instance_start_time' in _dict:
-            args['instance_start_time'] = _dict.get('instance_start_time')
-        if 'ok' in _dict:
-            args['ok'] = _dict.get('ok')
-        return cls(**args)
-
-    @classmethod
-    def _from_dict(cls, _dict):
-        """Initialize a EnsureFullCommitInformation object from a json dictionary."""
-        return cls.from_dict(_dict)
-
-    def to_dict(self) -> Dict:
-        """Return a json dictionary representing this model."""
-        _dict = {}
-        if hasattr(self, 'instance_start_time') and self.instance_start_time is not None:
-            _dict['instance_start_time'] = self.instance_start_time
-        if hasattr(self, 'ok') and self.ok is not None:
-            _dict['ok'] = self.ok
-        return _dict
-
-    def _to_dict(self):
-        """Return a json dictionary representing this model."""
-        return self.to_dict()
-
-    def __str__(self) -> str:
-        """Return a `str` version of this EnsureFullCommitInformation object."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    def __eq__(self, other: 'EnsureFullCommitInformation') -> bool:
-        """Return `true` when self and other are equal, false otherwise."""
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other: 'EnsureFullCommitInformation') -> bool:
-        """Return `true` when self and other are not equal, false otherwise."""
-        return not self == other
-
 class ExecutionStats():
     """
     Schema for find query execution statistics.
@@ -12231,85 +12059,6 @@ class GeoResultRow():
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'GeoResultRow') -> bool:
-        """Return `true` when self and other are not equal, false otherwise."""
-        return not self == other
-
-class IamSessionInformation():
-    """
-    Schema for information about an IAM session.
-
-    :attr str id: (optional) User ID.
-    :attr bool ok: (optional) Session is ok.
-    :attr str scope: (optional) Scope of the session.
-    :attr str type: (optional) Type of the session.
-    """
-
-    def __init__(self,
-                 *,
-                 id: str = None,
-                 ok: bool = None,
-                 scope: str = None,
-                 type: str = None) -> None:
-        """
-        Initialize a IamSessionInformation object.
-
-        :param str id: (optional) User ID.
-        :param bool ok: (optional) Session is ok.
-        :param str scope: (optional) Scope of the session.
-        :param str type: (optional) Type of the session.
-        """
-        self.id = id
-        self.ok = ok
-        self.scope = scope
-        self.type = type
-
-    @classmethod
-    def from_dict(cls, _dict: Dict) -> 'IamSessionInformation':
-        """Initialize a IamSessionInformation object from a json dictionary."""
-        args = {}
-        if 'id' in _dict:
-            args['id'] = _dict.get('id')
-        if 'ok' in _dict:
-            args['ok'] = _dict.get('ok')
-        if 'scope' in _dict:
-            args['scope'] = _dict.get('scope')
-        if 'type' in _dict:
-            args['type'] = _dict.get('type')
-        return cls(**args)
-
-    @classmethod
-    def _from_dict(cls, _dict):
-        """Initialize a IamSessionInformation object from a json dictionary."""
-        return cls.from_dict(_dict)
-
-    def to_dict(self) -> Dict:
-        """Return a json dictionary representing this model."""
-        _dict = {}
-        if hasattr(self, 'id') and self.id is not None:
-            _dict['id'] = self.id
-        if hasattr(self, 'ok') and self.ok is not None:
-            _dict['ok'] = self.ok
-        if hasattr(self, 'scope') and self.scope is not None:
-            _dict['scope'] = self.scope
-        if hasattr(self, 'type') and self.type is not None:
-            _dict['type'] = self.type
-        return _dict
-
-    def _to_dict(self):
-        """Return a json dictionary representing this model."""
-        return self.to_dict()
-
-    def __str__(self) -> str:
-        """Return a `str` version of this IamSessionInformation object."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    def __eq__(self, other: 'IamSessionInformation') -> bool:
-        """Return `true` when self and other are equal, false otherwise."""
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other: 'IamSessionInformation') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
@@ -13499,16 +13248,15 @@ class ReplicationDatabaseAuthIam():
     """
     Schema for an IAM API key for replication database authentication.
 
-    :attr str api_key: (optional) IAM API key.
+    :attr str api_key: IAM API key.
     """
 
     def __init__(self,
-                 *,
-                 api_key: str = None) -> None:
+                 api_key: str) -> None:
         """
         Initialize a ReplicationDatabaseAuthIam object.
 
-        :param str api_key: (optional) IAM API key.
+        :param str api_key: IAM API key.
         """
         self.api_key = api_key
 
@@ -13518,6 +13266,8 @@ class ReplicationDatabaseAuthIam():
         args = {}
         if 'api_key' in _dict:
             args['api_key'] = _dict.get('api_key')
+        else:
+            raise ValueError('Required property \'api_key\' not present in ReplicationDatabaseAuthIam JSON')
         return cls(**args)
 
     @classmethod
@@ -13619,12 +13369,12 @@ class ReplicationDocument():
     :attr str since_seq: (optional) Start the replication at a specific sequence
           value.
     :attr str socket_options: (optional) Replication socket options.
-    :attr ReplicationDatabase source: (optional) Schema for a replication source or
-          target database.
+    :attr ReplicationDatabase source: Schema for a replication source or target
+          database.
     :attr str source_proxy: (optional) Address of a (http or socks5 protocol) proxy
           server through which replication with the source database should occur.
-    :attr ReplicationDatabase target: (optional) Schema for a replication source or
-          target database.
+    :attr ReplicationDatabase target: Schema for a replication source or target
+          database.
     :attr str target_proxy: (optional) Address of a (http or socks5 protocol) proxy
           server through which replication with the target database should occur.
     :attr bool use_checkpoints: (optional) Specify if checkpoints should be saved
@@ -13643,6 +13393,8 @@ class ReplicationDocument():
     _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info', 'cancel', 'checkpoint_interval', 'connection_timeout', 'continuous', 'create_target', 'create_target_params', 'doc_ids', 'filter', 'http_connections', 'query_params', 'retries_per_request', 'selector', 'since_seq', 'socket_options', 'source', 'source_proxy', 'target', 'target_proxy', 'use_checkpoints', 'user_ctx', 'worker_batch_size', 'worker_processes'])
 
     def __init__(self,
+                 source: 'ReplicationDatabase',
+                 target: 'ReplicationDatabase',
                  *,
                  attachments: dict = None,
                  conflicts: List[str] = None,
@@ -13667,9 +13419,7 @@ class ReplicationDocument():
                  selector: dict = None,
                  since_seq: str = None,
                  socket_options: str = None,
-                 source: 'ReplicationDatabase' = None,
                  source_proxy: str = None,
-                 target: 'ReplicationDatabase' = None,
                  target_proxy: str = None,
                  use_checkpoints: bool = None,
                  user_ctx: 'UserContext' = None,
@@ -13679,6 +13429,10 @@ class ReplicationDocument():
         """
         Initialize a ReplicationDocument object.
 
+        :param ReplicationDatabase source: Schema for a replication source or
+               target database.
+        :param ReplicationDatabase target: Schema for a replication source or
+               target database.
         :param dict attachments: (optional) Schema for a map of attachment name to
                attachment metadata.
         :param List[str] conflicts: (optional) Schema for a list of document
@@ -13748,13 +13502,9 @@ class ReplicationDocument():
         :param str since_seq: (optional) Start the replication at a specific
                sequence value.
         :param str socket_options: (optional) Replication socket options.
-        :param ReplicationDatabase source: (optional) Schema for a replication
-               source or target database.
         :param str source_proxy: (optional) Address of a (http or socks5 protocol)
                proxy server through which replication with the source database should
                occur.
-        :param ReplicationDatabase target: (optional) Schema for a replication
-               source or target database.
         :param str target_proxy: (optional) Address of a (http or socks5 protocol)
                proxy server through which replication with the target database should
                occur.
@@ -13857,10 +13607,14 @@ class ReplicationDocument():
             args['socket_options'] = _dict.get('socket_options')
         if 'source' in _dict:
             args['source'] = ReplicationDatabase.from_dict(_dict.get('source'))
+        else:
+            raise ValueError('Required property \'source\' not present in ReplicationDocument JSON')
         if 'source_proxy' in _dict:
             args['source_proxy'] = _dict.get('source_proxy')
         if 'target' in _dict:
             args['target'] = ReplicationDatabase.from_dict(_dict.get('target'))
+        else:
+            raise ValueError('Required property \'target\' not present in ReplicationDocument JSON')
         if 'target_proxy' in _dict:
             args['target_proxy'] = _dict.get('target_proxy')
         if 'use_checkpoints' in _dict:
