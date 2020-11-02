@@ -188,6 +188,87 @@ class CloudantV1(BaseService):
         response = self.send(request)
         return response
 
+
+    def get_capacity_throughput_information(self,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Retrieve provisioned throughput capacity information.
+
+        View the amount of provisioned throughput capacity allocated to an IBM Cloudant
+        instance and what is the target provisioned throughput capacity.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `CapacityThroughputInformation` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='get_capacity_throughput_information')
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        url = '/_api/v2/user/capacity/throughput'
+        request = self.prepare_request(method='GET',
+                                       url=url,
+                                       headers=headers)
+
+        response = self.send(request)
+        return response
+
+
+    def put_capacity_throughput_information(self,
+        blocks: int,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Update the target provisioned throughput capacity.
+
+        Sets the target provisioned throughput capacity for an IBM Cloudant instance. When
+        target capacity is changed, the current capacity asynchronously changes to meet
+        the target capacity.
+
+        :param int blocks: A number of blocks of throughput units. A block consists
+               of 100 reads/sec, 50 writes/sec, and 5 global queries/sec of provisioned
+               throughput capacity.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `CapacityThroughputInformation` object
+        """
+
+        if blocks is None:
+            raise ValueError('blocks must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='put_capacity_throughput_information')
+        headers.update(sdk_headers)
+
+        data = {
+            'blocks': blocks
+        }
+        data = {k: v for (k, v) in data.items() if v is not None}
+        data = json.dumps(data)
+        headers['content-type'] = 'application/json'
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        url = '/_api/v2/user/capacity/throughput'
+        request = self.prepare_request(method='PUT',
+                                       url=url,
+                                       headers=headers,
+                                       data=data)
+
+        response = self.send(request)
+        return response
+
     #########################
     # Databases
     #########################
@@ -4295,7 +4376,7 @@ class CloudantV1(BaseService):
         Retrieve information about which index is used for a query.
 
         Shows which index is being used by the query. Parameters are the same as the
-        [`_find` endpoint](#query-an-index-by-using-selector-syntax.
+        [`_find` endpoint](#query-an-index-by-using-selector-syntax).
 
         :param str db: Path parameter to specify the database name.
         :param dict selector: JSON object describing criteria used to select
@@ -6549,7 +6630,7 @@ class CloudantV1(BaseService):
 
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `CorsConfiguration` object
+        :rtype: DetailedResponse with `dict` result representing a `CorsInformation` object
         """
 
         headers = {}
@@ -7554,6 +7635,120 @@ class CloudantV1(BaseService):
         return response
 
 
+    def get_activity_tracker_events_information(self,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Retrieve Activity Tracker events information.
+
+        Check event types that are being sent to IBM Cloud Activity Tracker with LogDNA
+        for the IBM Cloudant instance.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `ActivityTrackerEventsConfiguration` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='get_activity_tracker_events_information')
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        url = '/_api/v2/user/activity_tracker/events'
+        request = self.prepare_request(method='GET',
+                                       url=url,
+                                       headers=headers)
+
+        response = self.send(request)
+        return response
+
+
+    def post_activity_tracker_events_configuration(self,
+        types: List[str],
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Modify Activity Tracker events configuration.
+
+        Configure event types that are being sent to IBM Cloud Activity Tracker with
+        LogDNA for the IBM Cloudant instance.
+
+        :param List[str] types: An array of event types that are being sent to IBM
+               Cloud Activity Tracker with LogDNA for the IBM Cloudant instance.
+               "management" is a required element of this array.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `Ok` object
+        """
+
+        if types is None:
+            raise ValueError('types must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='post_activity_tracker_events_configuration')
+        headers.update(sdk_headers)
+
+        data = {
+            'types': types
+        }
+        data = {k: v for (k, v) in data.items() if v is not None}
+        data = json.dumps(data)
+        headers['content-type'] = 'application/json'
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        url = '/_api/v2/user/activity_tracker/events'
+        request = self.prepare_request(method='POST',
+                                       url=url,
+                                       headers=headers,
+                                       data=data)
+
+        response = self.send(request)
+        return response
+
+
+    def get_current_throughput_information(self,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Retrieve the current provisioned throughput capacity consumption.
+
+        View the current consumption of provisioned throughput capacity for an IBM
+        Cloudant instance. The current consumption shows the quantities of reads, writes,
+        and global queries conducted against the instance for a given second.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `CurrentThroughputInformation` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='get_current_throughput_information')
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        url = '/_api/v2/user/current/throughput'
+        request = self.prepare_request(method='GET',
+                                       url=url,
+                                       headers=headers)
+
+        response = self.send(request)
+        return response
+
+
 class PostChangesEnums:
     """
     Enums for post_changes parameters.
@@ -7938,45 +8133,49 @@ class ActiveTask():
     Schema for information about a running task.
 
     :attr int changes_done: (optional) Processed changes.
-    :attr str database: (optional) Source database.
-    :attr str pid: (optional) Process ID.
+    :attr str database: Source database.
+    :attr str node: Cluster node where the task is running.
+    :attr str pid: Process ID.
     :attr int progress: (optional) Current percentage progress.
-    :attr int started_on: (optional) Schema for a Unix epoch timestamp.
+    :attr int started_on: Schema for a Unix epoch timestamp.
     :attr str status: (optional) Task status message.
     :attr str task: (optional) Task name.
     :attr int total_changes: (optional) Total changes to process.
-    :attr str type: (optional) Operation type.
-    :attr int updated_on: (optional) Schema for a Unix epoch timestamp.
+    :attr str type: Operation type.
+    :attr int updated_on: Schema for a Unix epoch timestamp.
     """
 
     def __init__(self,
+                 database: str,
+                 node: str,
+                 pid: str,
+                 started_on: int,
+                 type: str,
+                 updated_on: int,
                  *,
                  changes_done: int = None,
-                 database: str = None,
-                 pid: str = None,
                  progress: int = None,
-                 started_on: int = None,
                  status: str = None,
                  task: str = None,
-                 total_changes: int = None,
-                 type: str = None,
-                 updated_on: int = None) -> None:
+                 total_changes: int = None) -> None:
         """
         Initialize a ActiveTask object.
 
+        :param str database: Source database.
+        :param str node: Cluster node where the task is running.
+        :param str pid: Process ID.
+        :param int started_on: Schema for a Unix epoch timestamp.
+        :param str type: Operation type.
+        :param int updated_on: Schema for a Unix epoch timestamp.
         :param int changes_done: (optional) Processed changes.
-        :param str database: (optional) Source database.
-        :param str pid: (optional) Process ID.
         :param int progress: (optional) Current percentage progress.
-        :param int started_on: (optional) Schema for a Unix epoch timestamp.
         :param str status: (optional) Task status message.
         :param str task: (optional) Task name.
         :param int total_changes: (optional) Total changes to process.
-        :param str type: (optional) Operation type.
-        :param int updated_on: (optional) Schema for a Unix epoch timestamp.
         """
         self.changes_done = changes_done
         self.database = database
+        self.node = node
         self.pid = pid
         self.progress = progress
         self.started_on = started_on
@@ -7994,12 +8193,22 @@ class ActiveTask():
             args['changes_done'] = _dict.get('changes_done')
         if 'database' in _dict:
             args['database'] = _dict.get('database')
+        else:
+            raise ValueError('Required property \'database\' not present in ActiveTask JSON')
+        if 'node' in _dict:
+            args['node'] = _dict.get('node')
+        else:
+            raise ValueError('Required property \'node\' not present in ActiveTask JSON')
         if 'pid' in _dict:
             args['pid'] = _dict.get('pid')
+        else:
+            raise ValueError('Required property \'pid\' not present in ActiveTask JSON')
         if 'progress' in _dict:
             args['progress'] = _dict.get('progress')
         if 'started_on' in _dict:
             args['started_on'] = _dict.get('started_on')
+        else:
+            raise ValueError('Required property \'started_on\' not present in ActiveTask JSON')
         if 'status' in _dict:
             args['status'] = _dict.get('status')
         if 'task' in _dict:
@@ -8008,8 +8217,12 @@ class ActiveTask():
             args['total_changes'] = _dict.get('total_changes')
         if 'type' in _dict:
             args['type'] = _dict.get('type')
+        else:
+            raise ValueError('Required property \'type\' not present in ActiveTask JSON')
         if 'updated_on' in _dict:
             args['updated_on'] = _dict.get('updated_on')
+        else:
+            raise ValueError('Required property \'updated_on\' not present in ActiveTask JSON')
         return cls(**args)
 
     @classmethod
@@ -8024,6 +8237,8 @@ class ActiveTask():
             _dict['changes_done'] = self.changes_done
         if hasattr(self, 'database') and self.database is not None:
             _dict['database'] = self.database
+        if hasattr(self, 'node') and self.node is not None:
+            _dict['node'] = self.node
         if hasattr(self, 'pid') and self.pid is not None:
             _dict['pid'] = self.pid
         if hasattr(self, 'progress') and self.progress is not None:
@@ -8059,6 +8274,74 @@ class ActiveTask():
     def __ne__(self, other: 'ActiveTask') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
+
+class ActivityTrackerEventsConfiguration():
+    """
+    Schema for Activity Tracker events configuration.
+
+    :attr List[str] types: An array of event types that are being sent to IBM Cloud
+          Activity Tracker with LogDNA for the IBM Cloudant instance. "management" is a
+          required element of this array.
+    """
+
+    def __init__(self,
+                 types: List[str]) -> None:
+        """
+        Initialize a ActivityTrackerEventsConfiguration object.
+
+        :param List[str] types: An array of event types that are being sent to IBM
+               Cloud Activity Tracker with LogDNA for the IBM Cloudant instance.
+               "management" is a required element of this array.
+        """
+        self.types = types
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ActivityTrackerEventsConfiguration':
+        """Initialize a ActivityTrackerEventsConfiguration object from a json dictionary."""
+        args = {}
+        if 'types' in _dict:
+            args['types'] = _dict.get('types')
+        else:
+            raise ValueError('Required property \'types\' not present in ActivityTrackerEventsConfiguration JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ActivityTrackerEventsConfiguration object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'types') and self.types is not None:
+            _dict['types'] = self.types
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ActivityTrackerEventsConfiguration object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ActivityTrackerEventsConfiguration') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ActivityTrackerEventsConfiguration') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+    class TypesEnum(str, Enum):
+        """
+        types.
+        """
+        MANAGEMENT = 'management'
+        DATA = 'data'
+
 
 class AllDocsQueriesResult():
     """
@@ -8299,21 +8582,21 @@ class AllDocsResult():
     """
     Schema for the result of an all documents operation.
 
-    :attr int total_rows: (optional) Number of total rows.
-    :attr List[DocsResultRow] rows: (optional) List of doc results.
+    :attr int total_rows: Number of total rows.
+    :attr List[DocsResultRow] rows: List of doc results.
     :attr str update_seq: (optional) Current update sequence for the database.
     """
 
     def __init__(self,
+                 total_rows: int,
+                 rows: List['DocsResultRow'],
                  *,
-                 total_rows: int = None,
-                 rows: List['DocsResultRow'] = None,
                  update_seq: str = None) -> None:
         """
         Initialize a AllDocsResult object.
 
-        :param int total_rows: (optional) Number of total rows.
-        :param List[DocsResultRow] rows: (optional) List of doc results.
+        :param int total_rows: Number of total rows.
+        :param List[DocsResultRow] rows: List of doc results.
         :param str update_seq: (optional) Current update sequence for the database.
         """
         self.total_rows = total_rows
@@ -8326,8 +8609,12 @@ class AllDocsResult():
         args = {}
         if 'total_rows' in _dict:
             args['total_rows'] = _dict.get('total_rows')
+        else:
+            raise ValueError('Required property \'total_rows\' not present in AllDocsResult JSON')
         if 'rows' in _dict:
             args['rows'] = [DocsResultRow.from_dict(x) for x in _dict.get('rows')]
+        else:
+            raise ValueError('Required property \'rows\' not present in AllDocsResult JSON')
         if 'update_seq' in _dict:
             args['update_seq'] = _dict.get('update_seq')
         return cls(**args)
@@ -8630,22 +8917,21 @@ class ApiKeysResult():
     """
     Schema for api keys.
 
-    :attr bool ok: (optional) ok.
-    :attr str key: (optional) The generated api key.
-    :attr str password: (optional) The password associated with the api key.
+    :attr bool ok: ok.
+    :attr str key: The generated api key.
+    :attr str password: The password associated with the api key.
     """
 
     def __init__(self,
-                 *,
-                 ok: bool = None,
-                 key: str = None,
-                 password: str = None) -> None:
+                 ok: bool,
+                 key: str,
+                 password: str) -> None:
         """
         Initialize a ApiKeysResult object.
 
-        :param bool ok: (optional) ok.
-        :param str key: (optional) The generated api key.
-        :param str password: (optional) The password associated with the api key.
+        :param bool ok: ok.
+        :param str key: The generated api key.
+        :param str password: The password associated with the api key.
         """
         self.ok = ok
         self.key = key
@@ -8657,10 +8943,16 @@ class ApiKeysResult():
         args = {}
         if 'ok' in _dict:
             args['ok'] = _dict.get('ok')
+        else:
+            raise ValueError('Required property \'ok\' not present in ApiKeysResult JSON')
         if 'key' in _dict:
             args['key'] = _dict.get('key')
+        else:
+            raise ValueError('Required property \'key\' not present in ApiKeysResult JSON')
         if 'password' in _dict:
             args['password'] = _dict.get('password')
+        else:
+            raise ValueError('Required property \'password\' not present in ApiKeysResult JSON')
         return cls(**args)
 
     @classmethod
@@ -9001,16 +9293,15 @@ class BulkGetResult():
     """
     Schema for the results object of a bulk get operation.
 
-    :attr List[BulkGetResultItem] results: (optional) Results.
+    :attr List[BulkGetResultItem] results: Results.
     """
 
     def __init__(self,
-                 *,
-                 results: List['BulkGetResultItem'] = None) -> None:
+                 results: List['BulkGetResultItem']) -> None:
         """
         Initialize a BulkGetResult object.
 
-        :param List[BulkGetResultItem] results: (optional) Results.
+        :param List[BulkGetResultItem] results: Results.
         """
         self.results = results
 
@@ -9020,6 +9311,8 @@ class BulkGetResult():
         args = {}
         if 'results' in _dict:
             args['results'] = [BulkGetResultItem.from_dict(x) for x in _dict.get('results')]
+        else:
+            raise ValueError('Required property \'results\' not present in BulkGetResult JSON')
         return cls(**args)
 
     @classmethod
@@ -9122,21 +9415,20 @@ class BulkGetResultItem():
     """
     Schema for the document revisions information from a bulk get operation.
 
-    :attr List[BulkGetResultDocument] docs: (optional) Array of document revisions
-          or error information.
-    :attr str id: (optional) Schema for a document ID.
+    :attr List[BulkGetResultDocument] docs: Array of document revisions or error
+          information.
+    :attr str id: Schema for a document ID.
     """
 
     def __init__(self,
-                 *,
-                 docs: List['BulkGetResultDocument'] = None,
-                 id: str = None) -> None:
+                 docs: List['BulkGetResultDocument'],
+                 id: str) -> None:
         """
         Initialize a BulkGetResultItem object.
 
-        :param List[BulkGetResultDocument] docs: (optional) Array of document
-               revisions or error information.
-        :param str id: (optional) Schema for a document ID.
+        :param List[BulkGetResultDocument] docs: Array of document revisions or
+               error information.
+        :param str id: Schema for a document ID.
         """
         self.docs = docs
         self.id = id
@@ -9147,8 +9439,12 @@ class BulkGetResultItem():
         args = {}
         if 'docs' in _dict:
             args['docs'] = [BulkGetResultDocument.from_dict(x) for x in _dict.get('docs')]
+        else:
+            raise ValueError('Required property \'docs\' not present in BulkGetResultItem JSON')
         if 'id' in _dict:
             args['id'] = _dict.get('id')
+        else:
+            raise ValueError('Required property \'id\' not present in BulkGetResultItem JSON')
         return cls(**args)
 
     @classmethod
@@ -9183,20 +9479,206 @@ class BulkGetResultItem():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
+class CapacityThroughputInformation():
+    """
+    Schema for information about the currently provisioned and target throughput capacity.
+
+    :attr CapacityThroughputInformationCurrent current: Detailed information about
+          provisioned throughput capacity.
+    :attr CapacityThroughputInformationTarget target: (optional) Detailed
+          information about target throughput capacity.
+    """
+
+    def __init__(self,
+                 current: 'CapacityThroughputInformationCurrent',
+                 *,
+                 target: 'CapacityThroughputInformationTarget' = None) -> None:
+        """
+        Initialize a CapacityThroughputInformation object.
+
+        :param CapacityThroughputInformationCurrent current: Detailed information
+               about provisioned throughput capacity.
+        :param CapacityThroughputInformationTarget target: (optional) Detailed
+               information about target throughput capacity.
+        """
+        self.current = current
+        self.target = target
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'CapacityThroughputInformation':
+        """Initialize a CapacityThroughputInformation object from a json dictionary."""
+        args = {}
+        if 'current' in _dict:
+            args['current'] = CapacityThroughputInformationCurrent.from_dict(_dict.get('current'))
+        else:
+            raise ValueError('Required property \'current\' not present in CapacityThroughputInformation JSON')
+        if 'target' in _dict:
+            args['target'] = CapacityThroughputInformationTarget.from_dict(_dict.get('target'))
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a CapacityThroughputInformation object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'current') and self.current is not None:
+            _dict['current'] = self.current.to_dict()
+        if hasattr(self, 'target') and self.target is not None:
+            _dict['target'] = self.target.to_dict()
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this CapacityThroughputInformation object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'CapacityThroughputInformation') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'CapacityThroughputInformation') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class CapacityThroughputInformationCurrent():
+    """
+    Detailed information about provisioned throughput capacity.
+
+    :attr ThroughputInformation throughput: Schema for detailed information about
+          throughput capacity with breakdown by specific throughput requests classes.
+    """
+
+    def __init__(self,
+                 throughput: 'ThroughputInformation') -> None:
+        """
+        Initialize a CapacityThroughputInformationCurrent object.
+
+        :param ThroughputInformation throughput: Schema for detailed information
+               about throughput capacity with breakdown by specific throughput requests
+               classes.
+        """
+        self.throughput = throughput
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'CapacityThroughputInformationCurrent':
+        """Initialize a CapacityThroughputInformationCurrent object from a json dictionary."""
+        args = {}
+        if 'throughput' in _dict:
+            args['throughput'] = ThroughputInformation.from_dict(_dict.get('throughput'))
+        else:
+            raise ValueError('Required property \'throughput\' not present in CapacityThroughputInformationCurrent JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a CapacityThroughputInformationCurrent object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'throughput') and self.throughput is not None:
+            _dict['throughput'] = self.throughput.to_dict()
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this CapacityThroughputInformationCurrent object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'CapacityThroughputInformationCurrent') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'CapacityThroughputInformationCurrent') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class CapacityThroughputInformationTarget():
+    """
+    Detailed information about target throughput capacity.
+
+    :attr ThroughputInformation throughput: Schema for detailed information about
+          throughput capacity with breakdown by specific throughput requests classes.
+    """
+
+    def __init__(self,
+                 throughput: 'ThroughputInformation') -> None:
+        """
+        Initialize a CapacityThroughputInformationTarget object.
+
+        :param ThroughputInformation throughput: Schema for detailed information
+               about throughput capacity with breakdown by specific throughput requests
+               classes.
+        """
+        self.throughput = throughput
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'CapacityThroughputInformationTarget':
+        """Initialize a CapacityThroughputInformationTarget object from a json dictionary."""
+        args = {}
+        if 'throughput' in _dict:
+            args['throughput'] = ThroughputInformation.from_dict(_dict.get('throughput'))
+        else:
+            raise ValueError('Required property \'throughput\' not present in CapacityThroughputInformationTarget JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a CapacityThroughputInformationTarget object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'throughput') and self.throughput is not None:
+            _dict['throughput'] = self.throughput.to_dict()
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this CapacityThroughputInformationTarget object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'CapacityThroughputInformationTarget') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'CapacityThroughputInformationTarget') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
 class Change():
     """
     Schema for a document leaf with single field rev.
 
-    :attr str rev: (optional) Schema for a document revision identifier.
+    :attr str rev: Schema for a document revision identifier.
     """
 
     def __init__(self,
-                 *,
-                 rev: str = None) -> None:
+                 rev: str) -> None:
         """
         Initialize a Change object.
 
-        :param str rev: (optional) Schema for a document revision identifier.
+        :param str rev: Schema for a document revision identifier.
         """
         self.rev = rev
 
@@ -9206,6 +9688,8 @@ class Change():
         args = {}
         if 'rev' in _dict:
             args['rev'] = _dict.get('rev')
+        else:
+            raise ValueError('Required property \'rev\' not present in Change JSON')
         return cls(**args)
 
     @classmethod
@@ -9242,22 +9726,21 @@ class ChangesResult():
     """
     Schema for normal changes feed result.
 
-    :attr str last_seq: (optional) last_seq.
-    :attr int pending: (optional) pending.
-    :attr List[ChangesResultItem] results: (optional) results.
+    :attr str last_seq: last_seq.
+    :attr int pending: pending.
+    :attr List[ChangesResultItem] results: results.
     """
 
     def __init__(self,
-                 *,
-                 last_seq: str = None,
-                 pending: int = None,
-                 results: List['ChangesResultItem'] = None) -> None:
+                 last_seq: str,
+                 pending: int,
+                 results: List['ChangesResultItem']) -> None:
         """
         Initialize a ChangesResult object.
 
-        :param str last_seq: (optional) last_seq.
-        :param int pending: (optional) pending.
-        :param List[ChangesResultItem] results: (optional) results.
+        :param str last_seq: last_seq.
+        :param int pending: pending.
+        :param List[ChangesResultItem] results: results.
         """
         self.last_seq = last_seq
         self.pending = pending
@@ -9269,10 +9752,16 @@ class ChangesResult():
         args = {}
         if 'last_seq' in _dict:
             args['last_seq'] = _dict.get('last_seq')
+        else:
+            raise ValueError('Required property \'last_seq\' not present in ChangesResult JSON')
         if 'pending' in _dict:
             args['pending'] = _dict.get('pending')
+        else:
+            raise ValueError('Required property \'pending\' not present in ChangesResult JSON')
         if 'results' in _dict:
             args['results'] = [ChangesResultItem.from_dict(x) for x in _dict.get('results')]
+        else:
+            raise ValueError('Required property \'results\' not present in ChangesResult JSON')
         return cls(**args)
 
     @classmethod
@@ -9313,30 +9802,33 @@ class ChangesResultItem():
     """
     Schema for an item in the changes results array.
 
-    :attr List[Change] changes: (optional) List of document's leaves with single
-          field rev.
+    :attr List[Change] changes: List of document's leaves with single field rev.
     :attr bool deleted: (optional) if `true` then the document is deleted.
-    :attr str id: (optional) Schema for a document ID.
-    :attr str seq: (optional) Update sequence.
+    :attr Document doc: (optional) Schema for a document.
+    :attr str id: Schema for a document ID.
+    :attr str seq: Update sequence.
     """
 
     def __init__(self,
+                 changes: List['Change'],
+                 id: str,
+                 seq: str,
                  *,
-                 changes: List['Change'] = None,
                  deleted: bool = None,
-                 id: str = None,
-                 seq: str = None) -> None:
+                 doc: 'Document' = None) -> None:
         """
         Initialize a ChangesResultItem object.
 
-        :param List[Change] changes: (optional) List of document's leaves with
-               single field rev.
+        :param List[Change] changes: List of document's leaves with single field
+               rev.
+        :param str id: Schema for a document ID.
+        :param str seq: Update sequence.
         :param bool deleted: (optional) if `true` then the document is deleted.
-        :param str id: (optional) Schema for a document ID.
-        :param str seq: (optional) Update sequence.
+        :param Document doc: (optional) Schema for a document.
         """
         self.changes = changes
         self.deleted = deleted
+        self.doc = doc
         self.id = id
         self.seq = seq
 
@@ -9346,12 +9838,20 @@ class ChangesResultItem():
         args = {}
         if 'changes' in _dict:
             args['changes'] = [Change.from_dict(x) for x in _dict.get('changes')]
+        else:
+            raise ValueError('Required property \'changes\' not present in ChangesResultItem JSON')
         if 'deleted' in _dict:
             args['deleted'] = _dict.get('deleted')
+        if 'doc' in _dict:
+            args['doc'] = Document.from_dict(_dict.get('doc'))
         if 'id' in _dict:
             args['id'] = _dict.get('id')
+        else:
+            raise ValueError('Required property \'id\' not present in ChangesResultItem JSON')
         if 'seq' in _dict:
             args['seq'] = _dict.get('seq')
+        else:
+            raise ValueError('Required property \'seq\' not present in ChangesResultItem JSON')
         return cls(**args)
 
     @classmethod
@@ -9366,6 +9866,8 @@ class ChangesResultItem():
             _dict['changes'] = [x.to_dict() for x in self.changes]
         if hasattr(self, 'deleted') and self.deleted is not None:
             _dict['deleted'] = self.deleted
+        if hasattr(self, 'doc') and self.doc is not None:
+            _dict['doc'] = self.doc.to_dict()
         if hasattr(self, 'id') and self.id is not None:
             _dict['id'] = self.id
         if hasattr(self, 'seq') and self.seq is not None:
@@ -9394,26 +9896,21 @@ class ContentInformationSizes():
     """
     Schema for size information of content.
 
-    :attr int active: (optional) The active size of the content, in bytes.
-    :attr int external: (optional) The total uncompressed size of the content, in
-          bytes.
-    :attr int file: (optional) The total size of the content as stored on disk, in
-          bytes.
+    :attr int active: The active size of the content, in bytes.
+    :attr int external: The total uncompressed size of the content, in bytes.
+    :attr int file: The total size of the content as stored on disk, in bytes.
     """
 
     def __init__(self,
-                 *,
-                 active: int = None,
-                 external: int = None,
-                 file: int = None) -> None:
+                 active: int,
+                 external: int,
+                 file: int) -> None:
         """
         Initialize a ContentInformationSizes object.
 
-        :param int active: (optional) The active size of the content, in bytes.
-        :param int external: (optional) The total uncompressed size of the content,
-               in bytes.
-        :param int file: (optional) The total size of the content as stored on
-               disk, in bytes.
+        :param int active: The active size of the content, in bytes.
+        :param int external: The total uncompressed size of the content, in bytes.
+        :param int file: The total size of the content as stored on disk, in bytes.
         """
         self.active = active
         self.external = external
@@ -9425,10 +9922,16 @@ class ContentInformationSizes():
         args = {}
         if 'active' in _dict:
             args['active'] = _dict.get('active')
+        else:
+            raise ValueError('Required property \'active\' not present in ContentInformationSizes JSON')
         if 'external' in _dict:
             args['external'] = _dict.get('external')
+        else:
+            raise ValueError('Required property \'external\' not present in ContentInformationSizes JSON')
         if 'file' in _dict:
             args['file'] = _dict.get('file')
+        else:
+            raise ValueError('Required property \'file\' not present in ContentInformationSizes JSON')
         return cls(**args)
 
     @classmethod
@@ -9465,14 +9968,13 @@ class ContentInformationSizes():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class CorsConfiguration():
+class CorsInformation():
     """
-    Schema for a CORS configuration.
+    Schema for information about the CORS configuration.
 
-    :attr bool allow_credentials: (optional) Boolean value to allow authentication
-          credentials. If set to true, browser requests must be done by using
-          withCredentials = true.
-    :attr bool enable_cors: (optional) Boolean value to turn CORS on and off.
+    :attr bool allow_credentials: Boolean value to allow authentication credentials.
+          If set to true, browser requests must be done by using withCredentials = true.
+    :attr bool enable_cors: Boolean value to turn CORS on and off.
     :attr List[str] origins: An array of strings that contain allowed origin
           domains. You have to specify the full URL including the protocol. It is
           recommended that only the HTTPS protocol is used. Subdomains count as separate
@@ -9480,43 +9982,46 @@ class CorsConfiguration():
     """
 
     def __init__(self,
-                 origins: List[str],
-                 *,
-                 allow_credentials: bool = None,
-                 enable_cors: bool = None) -> None:
+                 allow_credentials: bool,
+                 enable_cors: bool,
+                 origins: List[str]) -> None:
         """
-        Initialize a CorsConfiguration object.
+        Initialize a CorsInformation object.
 
+        :param bool allow_credentials: Boolean value to allow authentication
+               credentials. If set to true, browser requests must be done by using
+               withCredentials = true.
+        :param bool enable_cors: Boolean value to turn CORS on and off.
         :param List[str] origins: An array of strings that contain allowed origin
                domains. You have to specify the full URL including the protocol. It is
                recommended that only the HTTPS protocol is used. Subdomains count as
                separate domains, so you have to specify all subdomains used.
-        :param bool allow_credentials: (optional) Boolean value to allow
-               authentication credentials. If set to true, browser requests must be done
-               by using withCredentials = true.
-        :param bool enable_cors: (optional) Boolean value to turn CORS on and off.
         """
         self.allow_credentials = allow_credentials
         self.enable_cors = enable_cors
         self.origins = origins
 
     @classmethod
-    def from_dict(cls, _dict: Dict) -> 'CorsConfiguration':
-        """Initialize a CorsConfiguration object from a json dictionary."""
+    def from_dict(cls, _dict: Dict) -> 'CorsInformation':
+        """Initialize a CorsInformation object from a json dictionary."""
         args = {}
         if 'allow_credentials' in _dict:
             args['allow_credentials'] = _dict.get('allow_credentials')
+        else:
+            raise ValueError('Required property \'allow_credentials\' not present in CorsInformation JSON')
         if 'enable_cors' in _dict:
             args['enable_cors'] = _dict.get('enable_cors')
+        else:
+            raise ValueError('Required property \'enable_cors\' not present in CorsInformation JSON')
         if 'origins' in _dict:
             args['origins'] = _dict.get('origins')
         else:
-            raise ValueError('Required property \'origins\' not present in CorsConfiguration JSON')
+            raise ValueError('Required property \'origins\' not present in CorsInformation JSON')
         return cls(**args)
 
     @classmethod
     def _from_dict(cls, _dict):
-        """Initialize a CorsConfiguration object from a json dictionary."""
+        """Initialize a CorsInformation object from a json dictionary."""
         return cls.from_dict(_dict)
 
     def to_dict(self) -> Dict:
@@ -9535,16 +10040,156 @@ class CorsConfiguration():
         return self.to_dict()
 
     def __str__(self) -> str:
-        """Return a `str` version of this CorsConfiguration object."""
+        """Return a `str` version of this CorsInformation object."""
         return json.dumps(self.to_dict(), indent=2)
 
-    def __eq__(self, other: 'CorsConfiguration') -> bool:
+    def __eq__(self, other: 'CorsInformation') -> bool:
         """Return `true` when self and other are equal, false otherwise."""
         if not isinstance(other, self.__class__):
             return False
         return self.__dict__ == other.__dict__
 
-    def __ne__(self, other: 'CorsConfiguration') -> bool:
+    def __ne__(self, other: 'CorsInformation') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class CurrentThroughputInformation():
+    """
+    Schema for information about current consumption of a provisioned throughput capacity.
+
+    :attr CurrentThroughputInformationThroughput throughput: Detailed information
+          about current consumption.
+    """
+
+    def __init__(self,
+                 throughput: 'CurrentThroughputInformationThroughput') -> None:
+        """
+        Initialize a CurrentThroughputInformation object.
+
+        :param CurrentThroughputInformationThroughput throughput: Detailed
+               information about current consumption.
+        """
+        self.throughput = throughput
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'CurrentThroughputInformation':
+        """Initialize a CurrentThroughputInformation object from a json dictionary."""
+        args = {}
+        if 'throughput' in _dict:
+            args['throughput'] = CurrentThroughputInformationThroughput.from_dict(_dict.get('throughput'))
+        else:
+            raise ValueError('Required property \'throughput\' not present in CurrentThroughputInformation JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a CurrentThroughputInformation object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'throughput') and self.throughput is not None:
+            _dict['throughput'] = self.throughput.to_dict()
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this CurrentThroughputInformation object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'CurrentThroughputInformation') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'CurrentThroughputInformation') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class CurrentThroughputInformationThroughput():
+    """
+    Detailed information about current consumption.
+
+    :attr int query: Number of global queries conducted against the instance for a
+          given second.
+    :attr int read: Number of reads conducted against the instance for a given
+          second.
+    :attr int write: Number of writes conducted against the instance for a given
+          second.
+    """
+
+    def __init__(self,
+                 query: int,
+                 read: int,
+                 write: int) -> None:
+        """
+        Initialize a CurrentThroughputInformationThroughput object.
+
+        :param int query: Number of global queries conducted against the instance
+               for a given second.
+        :param int read: Number of reads conducted against the instance for a given
+               second.
+        :param int write: Number of writes conducted against the instance for a
+               given second.
+        """
+        self.query = query
+        self.read = read
+        self.write = write
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'CurrentThroughputInformationThroughput':
+        """Initialize a CurrentThroughputInformationThroughput object from a json dictionary."""
+        args = {}
+        if 'query' in _dict:
+            args['query'] = _dict.get('query')
+        else:
+            raise ValueError('Required property \'query\' not present in CurrentThroughputInformationThroughput JSON')
+        if 'read' in _dict:
+            args['read'] = _dict.get('read')
+        else:
+            raise ValueError('Required property \'read\' not present in CurrentThroughputInformationThroughput JSON')
+        if 'write' in _dict:
+            args['write'] = _dict.get('write')
+        else:
+            raise ValueError('Required property \'write\' not present in CurrentThroughputInformationThroughput JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a CurrentThroughputInformationThroughput object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'query') and self.query is not None:
+            _dict['query'] = self.query
+        if hasattr(self, 'read') and self.read is not None:
+            _dict['read'] = self.read
+        if hasattr(self, 'write') and self.write is not None:
+            _dict['write'] = self.write
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this CurrentThroughputInformationThroughput object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'CurrentThroughputInformationThroughput') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'CurrentThroughputInformationThroughput') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
@@ -9552,69 +10197,64 @@ class DatabaseInformation():
     """
     Schema for information about a database.
 
-    :attr DatabaseInformationCluster cluster: (optional) Schema for database cluster
+    :attr DatabaseInformationCluster cluster: Schema for database cluster
           information.
     :attr str committed_update_seq: (optional) An opaque string that describes the
           committed state of the database.
-    :attr bool compact_running: (optional) True if the database compaction routine
-          is operating on this database.
+    :attr bool compact_running: True if the database compaction routine is operating
+          on this database.
     :attr str compacted_seq: (optional) An opaque string that describes the
           compaction state of the database.
-    :attr str db_name: (optional) The name of the database.
-    :attr int disk_format_version: (optional) The version of the physical format
-          used for the data when it is stored on disk.
-    :attr int doc_count: (optional) A count of the documents in the specified
-          database.
-    :attr int doc_del_count: (optional) Number of deleted documents.
+    :attr str db_name: The name of the database.
+    :attr int disk_format_version: The version of the physical format used for the
+          data when it is stored on disk.
+    :attr int doc_count: A count of the documents in the specified database.
+    :attr int doc_del_count: Number of deleted documents.
     :attr str engine: (optional) The engine used for the database.
-    :attr DatabaseInformationProps props: (optional) Schema for database properties.
-    :attr ContentInformationSizes sizes: (optional) Schema for size information of
-          content.
-    :attr str update_seq: (optional) An opaque string that describes the state of
-          the database. Do not rely on this string for counting the number of updates.
+    :attr DatabaseInformationProps props: Schema for database properties.
+    :attr ContentInformationSizes sizes: Schema for size information of content.
+    :attr str update_seq: An opaque string that describes the state of the database.
+          Do not rely on this string for counting the number of updates.
     :attr str uuid: (optional) The UUID of the database.
     """
 
     def __init__(self,
+                 cluster: 'DatabaseInformationCluster',
+                 compact_running: bool,
+                 db_name: str,
+                 disk_format_version: int,
+                 doc_count: int,
+                 doc_del_count: int,
+                 props: 'DatabaseInformationProps',
+                 sizes: 'ContentInformationSizes',
+                 update_seq: str,
                  *,
-                 cluster: 'DatabaseInformationCluster' = None,
                  committed_update_seq: str = None,
-                 compact_running: bool = None,
                  compacted_seq: str = None,
-                 db_name: str = None,
-                 disk_format_version: int = None,
-                 doc_count: int = None,
-                 doc_del_count: int = None,
                  engine: str = None,
-                 props: 'DatabaseInformationProps' = None,
-                 sizes: 'ContentInformationSizes' = None,
-                 update_seq: str = None,
                  uuid: str = None) -> None:
         """
         Initialize a DatabaseInformation object.
 
-        :param DatabaseInformationCluster cluster: (optional) Schema for database
-               cluster information.
+        :param DatabaseInformationCluster cluster: Schema for database cluster
+               information.
+        :param bool compact_running: True if the database compaction routine is
+               operating on this database.
+        :param str db_name: The name of the database.
+        :param int disk_format_version: The version of the physical format used for
+               the data when it is stored on disk.
+        :param int doc_count: A count of the documents in the specified database.
+        :param int doc_del_count: Number of deleted documents.
+        :param DatabaseInformationProps props: Schema for database properties.
+        :param ContentInformationSizes sizes: Schema for size information of
+               content.
+        :param str update_seq: An opaque string that describes the state of the
+               database. Do not rely on this string for counting the number of updates.
         :param str committed_update_seq: (optional) An opaque string that describes
                the committed state of the database.
-        :param bool compact_running: (optional) True if the database compaction
-               routine is operating on this database.
         :param str compacted_seq: (optional) An opaque string that describes the
                compaction state of the database.
-        :param str db_name: (optional) The name of the database.
-        :param int disk_format_version: (optional) The version of the physical
-               format used for the data when it is stored on disk.
-        :param int doc_count: (optional) A count of the documents in the specified
-               database.
-        :param int doc_del_count: (optional) Number of deleted documents.
         :param str engine: (optional) The engine used for the database.
-        :param DatabaseInformationProps props: (optional) Schema for database
-               properties.
-        :param ContentInformationSizes sizes: (optional) Schema for size
-               information of content.
-        :param str update_seq: (optional) An opaque string that describes the state
-               of the database. Do not rely on this string for counting the number of
-               updates.
         :param str uuid: (optional) The UUID of the database.
         """
         self.cluster = cluster
@@ -9637,28 +10277,46 @@ class DatabaseInformation():
         args = {}
         if 'cluster' in _dict:
             args['cluster'] = DatabaseInformationCluster.from_dict(_dict.get('cluster'))
+        else:
+            raise ValueError('Required property \'cluster\' not present in DatabaseInformation JSON')
         if 'committed_update_seq' in _dict:
             args['committed_update_seq'] = _dict.get('committed_update_seq')
         if 'compact_running' in _dict:
             args['compact_running'] = _dict.get('compact_running')
+        else:
+            raise ValueError('Required property \'compact_running\' not present in DatabaseInformation JSON')
         if 'compacted_seq' in _dict:
             args['compacted_seq'] = _dict.get('compacted_seq')
         if 'db_name' in _dict:
             args['db_name'] = _dict.get('db_name')
+        else:
+            raise ValueError('Required property \'db_name\' not present in DatabaseInformation JSON')
         if 'disk_format_version' in _dict:
             args['disk_format_version'] = _dict.get('disk_format_version')
+        else:
+            raise ValueError('Required property \'disk_format_version\' not present in DatabaseInformation JSON')
         if 'doc_count' in _dict:
             args['doc_count'] = _dict.get('doc_count')
+        else:
+            raise ValueError('Required property \'doc_count\' not present in DatabaseInformation JSON')
         if 'doc_del_count' in _dict:
             args['doc_del_count'] = _dict.get('doc_del_count')
+        else:
+            raise ValueError('Required property \'doc_del_count\' not present in DatabaseInformation JSON')
         if 'engine' in _dict:
             args['engine'] = _dict.get('engine')
         if 'props' in _dict:
             args['props'] = DatabaseInformationProps.from_dict(_dict.get('props'))
+        else:
+            raise ValueError('Required property \'props\' not present in DatabaseInformation JSON')
         if 'sizes' in _dict:
             args['sizes'] = ContentInformationSizes.from_dict(_dict.get('sizes'))
+        else:
+            raise ValueError('Required property \'sizes\' not present in DatabaseInformation JSON')
         if 'update_seq' in _dict:
             args['update_seq'] = _dict.get('update_seq')
+        else:
+            raise ValueError('Required property \'update_seq\' not present in DatabaseInformation JSON')
         if 'uuid' in _dict:
             args['uuid'] = _dict.get('uuid')
         return cls(**args)
@@ -9721,33 +10379,30 @@ class DatabaseInformationCluster():
     """
     Schema for database cluster information.
 
-    :attr int n: (optional) Schema for the number of replicas of a database in a
-          cluster.
-    :attr int q: (optional) Schema for the number of shards in a database. Each
-          shard is a partition of the hash value range.
-    :attr int r: (optional) Read quorum. The number of consistent copies of a
-          document that need to be read before a successful reply.
-    :attr int w: (optional) Write quorum. The number of copies of a document that
-          need to be written before a successful reply.
+    :attr int n: Schema for the number of replicas of a database in a cluster.
+    :attr int q: Schema for the number of shards in a database. Each shard is a
+          partition of the hash value range.
+    :attr int r: Read quorum. The number of consistent copies of a document that
+          need to be read before a successful reply.
+    :attr int w: Write quorum. The number of copies of a document that need to be
+          written before a successful reply.
     """
 
     def __init__(self,
-                 *,
-                 n: int = None,
-                 q: int = None,
-                 r: int = None,
-                 w: int = None) -> None:
+                 n: int,
+                 q: int,
+                 r: int,
+                 w: int) -> None:
         """
         Initialize a DatabaseInformationCluster object.
 
-        :param int n: (optional) Schema for the number of replicas of a database in
-               a cluster.
-        :param int q: (optional) Schema for the number of shards in a database.
-               Each shard is a partition of the hash value range.
-        :param int r: (optional) Read quorum. The number of consistent copies of a
-               document that need to be read before a successful reply.
-        :param int w: (optional) Write quorum. The number of copies of a document
-               that need to be written before a successful reply.
+        :param int n: Schema for the number of replicas of a database in a cluster.
+        :param int q: Schema for the number of shards in a database. Each shard is
+               a partition of the hash value range.
+        :param int r: Read quorum. The number of consistent copies of a document
+               that need to be read before a successful reply.
+        :param int w: Write quorum. The number of copies of a document that need to
+               be written before a successful reply.
         """
         self.n = n
         self.q = q
@@ -9760,12 +10415,20 @@ class DatabaseInformationCluster():
         args = {}
         if 'n' in _dict:
             args['n'] = _dict.get('n')
+        else:
+            raise ValueError('Required property \'n\' not present in DatabaseInformationCluster JSON')
         if 'q' in _dict:
             args['q'] = _dict.get('q')
+        else:
+            raise ValueError('Required property \'q\' not present in DatabaseInformationCluster JSON')
         if 'r' in _dict:
             args['r'] = _dict.get('r')
+        else:
+            raise ValueError('Required property \'r\' not present in DatabaseInformationCluster JSON')
         if 'w' in _dict:
             args['w'] = _dict.get('w')
+        else:
+            raise ValueError('Required property \'w\' not present in DatabaseInformationCluster JSON')
         return cls(**args)
 
     @classmethod
@@ -9866,27 +10529,27 @@ class DbEvent():
     Schema for a database change event.
 
     :attr str account: (optional) Account name.
-    :attr str dbname: (optional) Database name.
-    :attr str seq: (optional) Sequence number.
-    :attr str type: (optional) A database event.
+    :attr str db_name: Database name.
+    :attr str seq: Sequence number.
+    :attr str type: A database event.
     """
 
     def __init__(self,
+                 db_name: str,
+                 seq: str,
+                 type: str,
                  *,
-                 account: str = None,
-                 dbname: str = None,
-                 seq: str = None,
-                 type: str = None) -> None:
+                 account: str = None) -> None:
         """
         Initialize a DbEvent object.
 
+        :param str db_name: Database name.
+        :param str seq: Sequence number.
+        :param str type: A database event.
         :param str account: (optional) Account name.
-        :param str dbname: (optional) Database name.
-        :param str seq: (optional) Sequence number.
-        :param str type: (optional) A database event.
         """
         self.account = account
-        self.dbname = dbname
+        self.db_name = db_name
         self.seq = seq
         self.type = type
 
@@ -9896,12 +10559,18 @@ class DbEvent():
         args = {}
         if 'account' in _dict:
             args['account'] = _dict.get('account')
-        if 'dbname' in _dict:
-            args['dbname'] = _dict.get('dbname')
+        if 'db_name' in _dict:
+            args['db_name'] = _dict.get('db_name')
+        else:
+            raise ValueError('Required property \'db_name\' not present in DbEvent JSON')
         if 'seq' in _dict:
             args['seq'] = _dict.get('seq')
+        else:
+            raise ValueError('Required property \'seq\' not present in DbEvent JSON')
         if 'type' in _dict:
             args['type'] = _dict.get('type')
+        else:
+            raise ValueError('Required property \'type\' not present in DbEvent JSON')
         return cls(**args)
 
     @classmethod
@@ -9914,8 +10583,8 @@ class DbEvent():
         _dict = {}
         if hasattr(self, 'account') and self.account is not None:
             _dict['account'] = self.account
-        if hasattr(self, 'dbname') and self.dbname is not None:
-            _dict['dbname'] = self.dbname
+        if hasattr(self, 'db_name') and self.db_name is not None:
+            _dict['db_name'] = self.db_name
         if hasattr(self, 'seq') and self.seq is not None:
             _dict['seq'] = self.seq
         if hasattr(self, 'type') and self.type is not None:
@@ -9953,19 +10622,18 @@ class DbUpdates():
     """
     Schema for database updates.
 
-    :attr str last_seq: (optional) Last sequence number.
-    :attr List[DbEvent] results: (optional) results.
+    :attr str last_seq: Last sequence number.
+    :attr List[DbEvent] results: results.
     """
 
     def __init__(self,
-                 *,
-                 last_seq: str = None,
-                 results: List['DbEvent'] = None) -> None:
+                 last_seq: str,
+                 results: List['DbEvent']) -> None:
         """
         Initialize a DbUpdates object.
 
-        :param str last_seq: (optional) Last sequence number.
-        :param List[DbEvent] results: (optional) results.
+        :param str last_seq: Last sequence number.
+        :param List[DbEvent] results: results.
         """
         self.last_seq = last_seq
         self.results = results
@@ -9976,8 +10644,12 @@ class DbUpdates():
         args = {}
         if 'last_seq' in _dict:
             args['last_seq'] = _dict.get('last_seq')
+        else:
+            raise ValueError('Required property \'last_seq\' not present in DbUpdates JSON')
         if 'results' in _dict:
             args['results'] = [DbEvent.from_dict(x) for x in _dict.get('results')]
+        else:
+            raise ValueError('Required property \'results\' not present in DbUpdates JSON')
         return cls(**args)
 
     @classmethod
@@ -10018,19 +10690,19 @@ class DbsInfoResult():
 
     :attr DatabaseInformation info: (optional) Schema for information about a
           database.
-    :attr str key: (optional) Database name.
+    :attr str key: Database name.
     """
 
     def __init__(self,
+                 key: str,
                  *,
-                 info: 'DatabaseInformation' = None,
-                 key: str = None) -> None:
+                 info: 'DatabaseInformation' = None) -> None:
         """
         Initialize a DbsInfoResult object.
 
+        :param str key: Database name.
         :param DatabaseInformation info: (optional) Schema for information about a
                database.
-        :param str key: (optional) Database name.
         """
         self.info = info
         self.key = key
@@ -10043,6 +10715,8 @@ class DbsInfoResult():
             args['info'] = DatabaseInformation.from_dict(_dict.get('info'))
         if 'key' in _dict:
             args['key'] = _dict.get('key')
+        else:
+            raise ValueError('Required property \'key\' not present in DbsInfoResult JSON')
         return cls(**args)
 
     @classmethod
@@ -10309,20 +10983,18 @@ class DesignDocumentInformation():
     """
     Schema for information about a design document.
 
-    :attr str name: (optional) name.
-    :attr DesignDocumentViewIndex view_index: (optional) View index information.
+    :attr str name: name.
+    :attr DesignDocumentViewIndex view_index: View index information.
     """
 
     def __init__(self,
-                 *,
-                 name: str = None,
-                 view_index: 'DesignDocumentViewIndex' = None) -> None:
+                 name: str,
+                 view_index: 'DesignDocumentViewIndex') -> None:
         """
         Initialize a DesignDocumentInformation object.
 
-        :param str name: (optional) name.
-        :param DesignDocumentViewIndex view_index: (optional) View index
-               information.
+        :param str name: name.
+        :param DesignDocumentViewIndex view_index: View index information.
         """
         self.name = name
         self.view_index = view_index
@@ -10333,8 +11005,12 @@ class DesignDocumentInformation():
         args = {}
         if 'name' in _dict:
             args['name'] = _dict.get('name')
+        else:
+            raise ValueError('Required property \'name\' not present in DesignDocumentInformation JSON')
         if 'view_index' in _dict:
             args['view_index'] = DesignDocumentViewIndex.from_dict(_dict.get('view_index'))
+        else:
+            raise ValueError('Required property \'view_index\' not present in DesignDocumentInformation JSON')
         return cls(**args)
 
     @classmethod
@@ -10430,51 +11106,46 @@ class DesignDocumentViewIndex():
     """
     View index information.
 
-    :attr bool compact_running: (optional) Indicates whether a compaction routine is
-          currently running on the view.
-    :attr str language: (optional) Language for the defined views.
-    :attr str signature: (optional) MD5 signature of the views for the design
+    :attr bool compact_running: Indicates whether a compaction routine is currently
+          running on the view.
+    :attr str language: Language for the defined views.
+    :attr str signature: MD5 signature of the views for the design document.
+    :attr ContentInformationSizes sizes: Schema for size information of content.
+    :attr str update_seq: The update sequence of the corresponding database that has
+          been indexed.
+    :attr bool updater_running: Indicates if the view is currently being updated.
+    :attr int waiting_clients: Number of clients waiting on views from this design
           document.
-    :attr ContentInformationSizes sizes: (optional) Schema for size information of
-          content.
-    :attr str update_seq: (optional) The update sequence of the corresponding
-          database that has been indexed.
-    :attr bool updater_running: (optional) Indicates if the view is currently being
-          updated.
-    :attr int waiting_clients: (optional) Number of clients waiting on views from
-          this design document.
-    :attr bool waiting_commit: (optional) Indicates if there are outstanding commits
-          to the underlying database that need to processed.
+    :attr bool waiting_commit: Indicates if there are outstanding commits to the
+          underlying database that need to processed.
     """
 
     def __init__(self,
-                 *,
-                 compact_running: bool = None,
-                 language: str = None,
-                 signature: str = None,
-                 sizes: 'ContentInformationSizes' = None,
-                 update_seq: str = None,
-                 updater_running: bool = None,
-                 waiting_clients: int = None,
-                 waiting_commit: bool = None) -> None:
+                 compact_running: bool,
+                 language: str,
+                 signature: str,
+                 sizes: 'ContentInformationSizes',
+                 update_seq: str,
+                 updater_running: bool,
+                 waiting_clients: int,
+                 waiting_commit: bool) -> None:
         """
         Initialize a DesignDocumentViewIndex object.
 
-        :param bool compact_running: (optional) Indicates whether a compaction
-               routine is currently running on the view.
-        :param str language: (optional) Language for the defined views.
-        :param str signature: (optional) MD5 signature of the views for the design
-               document.
-        :param ContentInformationSizes sizes: (optional) Schema for size
-               information of content.
-        :param str update_seq: (optional) The update sequence of the corresponding
-               database that has been indexed.
-        :param bool updater_running: (optional) Indicates if the view is currently
-               being updated.
-        :param int waiting_clients: (optional) Number of clients waiting on views
-               from this design document.
-        :param bool waiting_commit: (optional) Indicates if there are outstanding
-               commits to the underlying database that need to processed.
+        :param bool compact_running: Indicates whether a compaction routine is
+               currently running on the view.
+        :param str language: Language for the defined views.
+        :param str signature: MD5 signature of the views for the design document.
+        :param ContentInformationSizes sizes: Schema for size information of
+               content.
+        :param str update_seq: The update sequence of the corresponding database
+               that has been indexed.
+        :param bool updater_running: Indicates if the view is currently being
+               updated.
+        :param int waiting_clients: Number of clients waiting on views from this
+               design document.
+        :param bool waiting_commit: Indicates if there are outstanding commits to
+               the underlying database that need to processed.
         """
         self.compact_running = compact_running
         self.language = language
@@ -10491,20 +11162,36 @@ class DesignDocumentViewIndex():
         args = {}
         if 'compact_running' in _dict:
             args['compact_running'] = _dict.get('compact_running')
+        else:
+            raise ValueError('Required property \'compact_running\' not present in DesignDocumentViewIndex JSON')
         if 'language' in _dict:
             args['language'] = _dict.get('language')
+        else:
+            raise ValueError('Required property \'language\' not present in DesignDocumentViewIndex JSON')
         if 'signature' in _dict:
             args['signature'] = _dict.get('signature')
+        else:
+            raise ValueError('Required property \'signature\' not present in DesignDocumentViewIndex JSON')
         if 'sizes' in _dict:
             args['sizes'] = ContentInformationSizes.from_dict(_dict.get('sizes'))
+        else:
+            raise ValueError('Required property \'sizes\' not present in DesignDocumentViewIndex JSON')
         if 'update_seq' in _dict:
             args['update_seq'] = _dict.get('update_seq')
+        else:
+            raise ValueError('Required property \'update_seq\' not present in DesignDocumentViewIndex JSON')
         if 'updater_running' in _dict:
             args['updater_running'] = _dict.get('updater_running')
+        else:
+            raise ValueError('Required property \'updater_running\' not present in DesignDocumentViewIndex JSON')
         if 'waiting_clients' in _dict:
             args['waiting_clients'] = _dict.get('waiting_clients')
+        else:
+            raise ValueError('Required property \'waiting_clients\' not present in DesignDocumentViewIndex JSON')
         if 'waiting_commit' in _dict:
             args['waiting_commit'] = _dict.get('waiting_commit')
+        else:
+            raise ValueError('Required property \'waiting_commit\' not present in DesignDocumentViewIndex JSON')
         return cls(**args)
 
     @classmethod
@@ -10555,18 +11242,18 @@ class DesignDocumentViewsMapReduce():
     """
     Schema for view functions definition.
 
-    :attr str map: (optional) JavaScript map function as a string.
+    :attr str map: JavaScript map function as a string.
     :attr str reduce: (optional) JavaScript reduce function as a string.
     """
 
     def __init__(self,
+                 map: str,
                  *,
-                 map: str = None,
                  reduce: str = None) -> None:
         """
         Initialize a DesignDocumentViewsMapReduce object.
 
-        :param str map: (optional) JavaScript map function as a string.
+        :param str map: JavaScript map function as a string.
         :param str reduce: (optional) JavaScript reduce function as a string.
         """
         self.map = map
@@ -10578,6 +11265,8 @@ class DesignDocumentViewsMapReduce():
         args = {}
         if 'map' in _dict:
             args['map'] = _dict.get('map')
+        else:
+            raise ValueError('Required property \'map\' not present in DesignDocumentViewsMapReduce JSON')
         if 'reduce' in _dict:
             args['reduce'] = _dict.get('reduce')
         return cls(**args)
@@ -10623,29 +11312,29 @@ class DocsResultRow():
     :attr str reason: (optional) The reason the error occurred (if available).
     :attr Document doc: (optional) Schema for a document.
     :attr str id: (optional) id.
-    :attr str key: (optional) Document ID.
+    :attr str key: Document ID.
     :attr DocsResultRowValue value: (optional) Value of built-in `/_all_docs` style
           view.
     """
 
     def __init__(self,
+                 key: str,
                  *,
                  caused_by: str = None,
                  error: str = None,
                  reason: str = None,
                  doc: 'Document' = None,
                  id: str = None,
-                 key: str = None,
                  value: 'DocsResultRowValue' = None) -> None:
         """
         Initialize a DocsResultRow object.
 
+        :param str key: Document ID.
         :param str caused_by: (optional) The cause of the error (if available).
         :param str error: (optional) The name of the error.
         :param str reason: (optional) The reason the error occurred (if available).
         :param Document doc: (optional) Schema for a document.
         :param str id: (optional) id.
-        :param str key: (optional) Document ID.
         :param DocsResultRowValue value: (optional) Value of built-in `/_all_docs`
                style view.
         """
@@ -10673,6 +11362,8 @@ class DocsResultRow():
             args['id'] = _dict.get('id')
         if 'key' in _dict:
             args['key'] = _dict.get('key')
+        else:
+            raise ValueError('Required property \'key\' not present in DocsResultRow JSON')
         if 'value' in _dict:
             args['value'] = DocsResultRowValue.from_dict(_dict.get('value'))
         return cls(**args)
@@ -10723,16 +11414,15 @@ class DocsResultRowValue():
     """
     Value of built-in `/_all_docs` style view.
 
-    :attr str rev: (optional) Schema for a document revision identifier.
+    :attr str rev: Schema for a document revision identifier.
     """
 
     def __init__(self,
-                 *,
-                 rev: str = None) -> None:
+                 rev: str) -> None:
         """
         Initialize a DocsResultRowValue object.
 
-        :param str rev: (optional) Schema for a document revision identifier.
+        :param str rev: Schema for a document revision identifier.
         """
         self.rev = rev
 
@@ -10742,6 +11432,8 @@ class DocsResultRowValue():
         args = {}
         if 'rev' in _dict:
             args['rev'] = _dict.get('rev')
+        else:
+            raise ValueError('Required property \'rev\' not present in DocsResultRowValue JSON')
         return cls(**args)
 
     @classmethod
@@ -10920,7 +11612,7 @@ class DocumentResult():
     """
     Schema for the result of a document modification.
 
-    :attr str id: (optional) Schema for a document ID.
+    :attr str id: Schema for a document ID.
     :attr str rev: (optional) Schema for a document revision identifier.
     :attr bool ok: (optional) ok.
     :attr str caused_by: (optional) The cause of the error (if available).
@@ -10929,8 +11621,8 @@ class DocumentResult():
     """
 
     def __init__(self,
+                 id: str,
                  *,
-                 id: str = None,
                  rev: str = None,
                  ok: bool = None,
                  caused_by: str = None,
@@ -10939,7 +11631,7 @@ class DocumentResult():
         """
         Initialize a DocumentResult object.
 
-        :param str id: (optional) Schema for a document ID.
+        :param str id: Schema for a document ID.
         :param str rev: (optional) Schema for a document revision identifier.
         :param bool ok: (optional) ok.
         :param str caused_by: (optional) The cause of the error (if available).
@@ -10959,6 +11651,8 @@ class DocumentResult():
         args = {}
         if 'id' in _dict:
             args['id'] = _dict.get('id')
+        else:
+            raise ValueError('Required property \'id\' not present in DocumentResult JSON')
         if 'rev' in _dict:
             args['rev'] = _dict.get('rev')
         if 'ok' in _dict:
@@ -11015,25 +11709,23 @@ class DocumentRevisionStatus():
     """
     Schema for information about revisions and their status.
 
-    :attr str rev: (optional) Schema for a document revision identifier.
-    :attr str status: (optional) Status of the revision. May be one of: -
-          `available`: Revision is available for retrieving with rev query parameter -
-          `missing`: Revision is not available - `deleted`: Revision belongs to deleted
-          document.
+    :attr str rev: Schema for a document revision identifier.
+    :attr str status: Status of the revision. May be one of: - `available`: Revision
+          is available for retrieving with rev query parameter - `missing`: Revision is
+          not available - `deleted`: Revision belongs to deleted document.
     """
 
     def __init__(self,
-                 *,
-                 rev: str = None,
-                 status: str = None) -> None:
+                 rev: str,
+                 status: str) -> None:
         """
         Initialize a DocumentRevisionStatus object.
 
-        :param str rev: (optional) Schema for a document revision identifier.
-        :param str status: (optional) Status of the revision. May be one of: -
-               `available`: Revision is available for retrieving with rev query parameter
-               - `missing`: Revision is not available - `deleted`: Revision belongs to
-               deleted document.
+        :param str rev: Schema for a document revision identifier.
+        :param str status: Status of the revision. May be one of: - `available`:
+               Revision is available for retrieving with rev query parameter - `missing`:
+               Revision is not available - `deleted`: Revision belongs to deleted
+               document.
         """
         self.rev = rev
         self.status = status
@@ -11044,8 +11736,12 @@ class DocumentRevisionStatus():
         args = {}
         if 'rev' in _dict:
             args['rev'] = _dict.get('rev')
+        else:
+            raise ValueError('Required property \'rev\' not present in DocumentRevisionStatus JSON')
         if 'status' in _dict:
             args['status'] = _dict.get('status')
+        else:
+            raise ValueError('Required property \'status\' not present in DocumentRevisionStatus JSON')
         return cls(**args)
 
     @classmethod
@@ -11095,21 +11791,18 @@ class DocumentShardInfo():
     """
     Schema for document shard information.
 
-    :attr List[str] nodes: (optional) List of nodes serving a replica of the shard.
-    :attr str range: (optional) The shard range in which the document is stored.
+    :attr List[str] nodes: List of nodes serving a replica of the shard.
+    :attr str range: The shard range in which the document is stored.
     """
 
     def __init__(self,
-                 *,
-                 nodes: List[str] = None,
-                 range: str = None) -> None:
+                 nodes: List[str],
+                 range: str) -> None:
         """
         Initialize a DocumentShardInfo object.
 
-        :param List[str] nodes: (optional) List of nodes serving a replica of the
-               shard.
-        :param str range: (optional) The shard range in which the document is
-               stored.
+        :param List[str] nodes: List of nodes serving a replica of the shard.
+        :param str range: The shard range in which the document is stored.
         """
         self.nodes = nodes
         self.range = range
@@ -11120,8 +11813,12 @@ class DocumentShardInfo():
         args = {}
         if 'nodes' in _dict:
             args['nodes'] = _dict.get('nodes')
+        else:
+            raise ValueError('Required property \'nodes\' not present in DocumentShardInfo JSON')
         if 'range' in _dict:
             args['range'] = _dict.get('range')
+        else:
+            raise ValueError('Required property \'range\' not present in DocumentShardInfo JSON')
         return cls(**args)
 
     @classmethod
@@ -11160,33 +11857,29 @@ class ExecutionStats():
     """
     Schema for find query execution statistics.
 
-    :attr float execution_time_ms: (optional) Time to execute the query.
-    :attr int results_returned: (optional) Number of results returned.
-    :attr int total_docs_examined: (optional) Number of documents fetched from the
-          index.
-    :attr int total_keys_examined: (optional) Number of rows scanned in the index.
-    :attr int total_quorum_docs_examined: (optional) Number of documents fetched
-          from the primary index with the specified read quorum.
+    :attr float execution_time_ms: Time to execute the query.
+    :attr int results_returned: Number of results returned.
+    :attr int total_docs_examined: Number of documents fetched from the index.
+    :attr int total_keys_examined: Number of rows scanned in the index.
+    :attr int total_quorum_docs_examined: Number of documents fetched from the
+          primary index with the specified read quorum.
     """
 
     def __init__(self,
-                 *,
-                 execution_time_ms: float = None,
-                 results_returned: int = None,
-                 total_docs_examined: int = None,
-                 total_keys_examined: int = None,
-                 total_quorum_docs_examined: int = None) -> None:
+                 execution_time_ms: float,
+                 results_returned: int,
+                 total_docs_examined: int,
+                 total_keys_examined: int,
+                 total_quorum_docs_examined: int) -> None:
         """
         Initialize a ExecutionStats object.
 
-        :param float execution_time_ms: (optional) Time to execute the query.
-        :param int results_returned: (optional) Number of results returned.
-        :param int total_docs_examined: (optional) Number of documents fetched from
-               the index.
-        :param int total_keys_examined: (optional) Number of rows scanned in the
-               index.
-        :param int total_quorum_docs_examined: (optional) Number of documents
-               fetched from the primary index with the specified read quorum.
+        :param float execution_time_ms: Time to execute the query.
+        :param int results_returned: Number of results returned.
+        :param int total_docs_examined: Number of documents fetched from the index.
+        :param int total_keys_examined: Number of rows scanned in the index.
+        :param int total_quorum_docs_examined: Number of documents fetched from the
+               primary index with the specified read quorum.
         """
         self.execution_time_ms = execution_time_ms
         self.results_returned = results_returned
@@ -11200,14 +11893,24 @@ class ExecutionStats():
         args = {}
         if 'execution_time_ms' in _dict:
             args['execution_time_ms'] = _dict.get('execution_time_ms')
+        else:
+            raise ValueError('Required property \'execution_time_ms\' not present in ExecutionStats JSON')
         if 'results_returned' in _dict:
             args['results_returned'] = _dict.get('results_returned')
+        else:
+            raise ValueError('Required property \'results_returned\' not present in ExecutionStats JSON')
         if 'total_docs_examined' in _dict:
             args['total_docs_examined'] = _dict.get('total_docs_examined')
+        else:
+            raise ValueError('Required property \'total_docs_examined\' not present in ExecutionStats JSON')
         if 'total_keys_examined' in _dict:
             args['total_keys_examined'] = _dict.get('total_keys_examined')
+        else:
+            raise ValueError('Required property \'total_keys_examined\' not present in ExecutionStats JSON')
         if 'total_quorum_docs_examined' in _dict:
             args['total_quorum_docs_examined'] = _dict.get('total_quorum_docs_examined')
+        else:
+            raise ValueError('Required property \'total_quorum_docs_examined\' not present in ExecutionStats JSON')
         return cls(**args)
 
     @classmethod
@@ -11252,15 +11955,15 @@ class ExplainResult():
     """
     Schema for information about the index used for a find query.
 
-    :attr str dbname: (optional) dbname.
-    :attr List[str] fields: (optional) fields.
-    :attr IndexInformation index: (optional) Schema for information about an index.
-    :attr int limit: (optional) limit.
-    :attr dict opts: (optional) opts.
+    :attr str dbname: dbname.
+    :attr List[str] fields: fields.
+    :attr IndexInformation index: Schema for information about an index.
+    :attr int limit: limit.
+    :attr dict opts: opts.
     :attr ExplainResultRange range: (optional) range.
-    :attr dict selector: (optional) JSON object describing criteria used to select
-          documents. The selector specifies fields in the document, and provides an
-          expression to evaluate with the field content or other data.
+    :attr dict selector: JSON object describing criteria used to select documents.
+          The selector specifies fields in the document, and provides an expression to
+          evaluate with the field content or other data.
           The selector object must:
             * Be structured as valid JSON.
             * Contain a valid query expression.
@@ -11281,32 +11984,30 @@ class ExplainResult():
           * Condition operators: are specific to a field, and are used to evaluate the
           value stored in that field. For instance, the basic `$eq` operator matches when
           the specified field contains a value that is equal to the supplied argument.
-    :attr int skip: (optional) skip.
+    :attr int skip: skip.
     """
 
     def __init__(self,
+                 dbname: str,
+                 fields: List[str],
+                 index: 'IndexInformation',
+                 limit: int,
+                 opts: dict,
+                 selector: dict,
+                 skip: int,
                  *,
-                 dbname: str = None,
-                 fields: List[str] = None,
-                 index: 'IndexInformation' = None,
-                 limit: int = None,
-                 opts: dict = None,
-                 range: 'ExplainResultRange' = None,
-                 selector: dict = None,
-                 skip: int = None) -> None:
+                 range: 'ExplainResultRange' = None) -> None:
         """
         Initialize a ExplainResult object.
 
-        :param str dbname: (optional) dbname.
-        :param List[str] fields: (optional) fields.
-        :param IndexInformation index: (optional) Schema for information about an
-               index.
-        :param int limit: (optional) limit.
-        :param dict opts: (optional) opts.
-        :param ExplainResultRange range: (optional) range.
-        :param dict selector: (optional) JSON object describing criteria used to
-               select documents. The selector specifies fields in the document, and
-               provides an expression to evaluate with the field content or other data.
+        :param str dbname: dbname.
+        :param List[str] fields: fields.
+        :param IndexInformation index: Schema for information about an index.
+        :param int limit: limit.
+        :param dict opts: opts.
+        :param dict selector: JSON object describing criteria used to select
+               documents. The selector specifies fields in the document, and provides an
+               expression to evaluate with the field content or other data.
                The selector object must:
                  * Be structured as valid JSON.
                  * Contain a valid query expression.
@@ -11329,7 +12030,8 @@ class ExplainResult():
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
                supplied argument.
-        :param int skip: (optional) skip.
+        :param int skip: skip.
+        :param ExplainResultRange range: (optional) range.
         """
         self.dbname = dbname
         self.fields = fields
@@ -11346,20 +12048,34 @@ class ExplainResult():
         args = {}
         if 'dbname' in _dict:
             args['dbname'] = _dict.get('dbname')
+        else:
+            raise ValueError('Required property \'dbname\' not present in ExplainResult JSON')
         if 'fields' in _dict:
             args['fields'] = _dict.get('fields')
+        else:
+            raise ValueError('Required property \'fields\' not present in ExplainResult JSON')
         if 'index' in _dict:
             args['index'] = IndexInformation.from_dict(_dict.get('index'))
+        else:
+            raise ValueError('Required property \'index\' not present in ExplainResult JSON')
         if 'limit' in _dict:
             args['limit'] = _dict.get('limit')
+        else:
+            raise ValueError('Required property \'limit\' not present in ExplainResult JSON')
         if 'opts' in _dict:
             args['opts'] = _dict.get('opts')
+        else:
+            raise ValueError('Required property \'opts\' not present in ExplainResult JSON')
         if 'range' in _dict:
             args['range'] = ExplainResultRange.from_dict(_dict.get('range'))
         if 'selector' in _dict:
             args['selector'] = _dict.get('selector')
+        else:
+            raise ValueError('Required property \'selector\' not present in ExplainResult JSON')
         if 'skip' in _dict:
             args['skip'] = _dict.get('skip')
+        else:
+            raise ValueError('Required property \'skip\' not present in ExplainResult JSON')
         return cls(**args)
 
     @classmethod
@@ -11473,26 +12189,24 @@ class FindResult():
     """
     Schema for the result of a query find operation.
 
-    :attr str bookmark: (optional) Opaque bookmark token used when paginating
-          results.
-    :attr List[Document] docs: (optional) Documents matching the selector.
+    :attr str bookmark: Opaque bookmark token used when paginating results.
+    :attr List[Document] docs: Documents matching the selector.
     :attr ExecutionStats execution_stats: (optional) Schema for find query execution
           statistics.
     :attr str warning: (optional) warning.
     """
 
     def __init__(self,
+                 bookmark: str,
+                 docs: List['Document'],
                  *,
-                 bookmark: str = None,
-                 docs: List['Document'] = None,
                  execution_stats: 'ExecutionStats' = None,
                  warning: str = None) -> None:
         """
         Initialize a FindResult object.
 
-        :param str bookmark: (optional) Opaque bookmark token used when paginating
-               results.
-        :param List[Document] docs: (optional) Documents matching the selector.
+        :param str bookmark: Opaque bookmark token used when paginating results.
+        :param List[Document] docs: Documents matching the selector.
         :param ExecutionStats execution_stats: (optional) Schema for find query
                execution statistics.
         :param str warning: (optional) warning.
@@ -11508,8 +12222,12 @@ class FindResult():
         args = {}
         if 'bookmark' in _dict:
             args['bookmark'] = _dict.get('bookmark')
+        else:
+            raise ValueError('Required property \'bookmark\' not present in FindResult JSON')
         if 'docs' in _dict:
             args['docs'] = [Document.from_dict(x) for x in _dict.get('docs')]
+        else:
+            raise ValueError('Required property \'docs\' not present in FindResult JSON')
         if 'execution_stats' in _dict:
             args['execution_stats'] = ExecutionStats.from_dict(_dict.get('execution_stats'))
         if 'warning' in _dict:
@@ -11619,20 +12337,21 @@ class GeoIndexInformation():
     """
     Schema for information about a geospatial index.
 
-    :attr GeoIndexStats geo_index: (optional) Schema for geospatial index
-          statistics.
+    :attr GeoIndexStats geo_index: Schema for geospatial index statistics.
+    :attr str name: The name of the geospatial index design document.
     """
 
     def __init__(self,
-                 *,
-                 geo_index: 'GeoIndexStats' = None) -> None:
+                 geo_index: 'GeoIndexStats',
+                 name: str) -> None:
         """
         Initialize a GeoIndexInformation object.
 
-        :param GeoIndexStats geo_index: (optional) Schema for geospatial index
-               statistics.
+        :param GeoIndexStats geo_index: Schema for geospatial index statistics.
+        :param str name: The name of the geospatial index design document.
         """
         self.geo_index = geo_index
+        self.name = name
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'GeoIndexInformation':
@@ -11640,6 +12359,12 @@ class GeoIndexInformation():
         args = {}
         if 'geo_index' in _dict:
             args['geo_index'] = GeoIndexStats.from_dict(_dict.get('geo_index'))
+        else:
+            raise ValueError('Required property \'geo_index\' not present in GeoIndexInformation JSON')
+        if 'name' in _dict:
+            args['name'] = _dict.get('name')
+        else:
+            raise ValueError('Required property \'name\' not present in GeoIndexInformation JSON')
         return cls(**args)
 
     @classmethod
@@ -11652,6 +12377,8 @@ class GeoIndexInformation():
         _dict = {}
         if hasattr(self, 'geo_index') and self.geo_index is not None:
             _dict['geo_index'] = self.geo_index.to_dict()
+        if hasattr(self, 'name') and self.name is not None:
+            _dict['name'] = self.name
         return _dict
 
     def _to_dict(self):
@@ -11676,26 +12403,23 @@ class GeoIndexStats():
     """
     Schema for geospatial index statistics.
 
-    :attr int data_size: (optional) The size of the geospatial index, in bytes.
-    :attr int disk_size: (optional) The size of the geospatial index, as stored on
-          disk, in bytes.
-    :attr int doc_count: (optional) Number of documents in the geospatial index.
+    :attr int data_size: The size of the geospatial index, in bytes.
+    :attr int disk_size: The size of the geospatial index, as stored on disk, in
+          bytes.
+    :attr int doc_count: Number of documents in the geospatial index.
     """
 
     def __init__(self,
-                 *,
-                 data_size: int = None,
-                 disk_size: int = None,
-                 doc_count: int = None) -> None:
+                 data_size: int,
+                 disk_size: int,
+                 doc_count: int) -> None:
         """
         Initialize a GeoIndexStats object.
 
-        :param int data_size: (optional) The size of the geospatial index, in
-               bytes.
-        :param int disk_size: (optional) The size of the geospatial index, as
-               stored on disk, in bytes.
-        :param int doc_count: (optional) Number of documents in the geospatial
-               index.
+        :param int data_size: The size of the geospatial index, in bytes.
+        :param int disk_size: The size of the geospatial index, as stored on disk,
+               in bytes.
+        :param int doc_count: Number of documents in the geospatial index.
         """
         self.data_size = data_size
         self.disk_size = disk_size
@@ -11707,10 +12431,16 @@ class GeoIndexStats():
         args = {}
         if 'data_size' in _dict:
             args['data_size'] = _dict.get('data_size')
+        else:
+            raise ValueError('Required property \'data_size\' not present in GeoIndexStats JSON')
         if 'disk_size' in _dict:
             args['disk_size'] = _dict.get('disk_size')
+        else:
+            raise ValueError('Required property \'disk_size\' not present in GeoIndexStats JSON')
         if 'doc_count' in _dict:
             args['doc_count'] = _dict.get('doc_count')
+        else:
+            raise ValueError('Required property \'doc_count\' not present in GeoIndexStats JSON')
         return cls(**args)
 
     @classmethod
@@ -11893,31 +12623,29 @@ class GeoResult():
     `application/vnd.geo+json` format this is a GeoJson FeatureCollection with additional
     metadata in foreign members.
 
-    :attr str bookmark: (optional) Opaque bookmark token used when paginating
-          results.
+    :attr str bookmark: Opaque bookmark token used when paginating results.
     :attr List[GeoJsonFeature] features: (optional) The array of GeoJSON Feature
           Objects matching the geospatial query.
-    :attr List[GeoResultRow] rows: (optional) The array of rows matching the
-          geospatial query. Present only when using `view` format.
+    :attr List[GeoResultRow] rows: The array of rows matching the geospatial query.
+          Present only when using `view` format.
     :attr str type: (optional) Declaration of the GeoJSON type: FeatureCollection
           Object.
     """
 
     def __init__(self,
+                 bookmark: str,
+                 rows: List['GeoResultRow'],
                  *,
-                 bookmark: str = None,
                  features: List['GeoJsonFeature'] = None,
-                 rows: List['GeoResultRow'] = None,
                  type: str = None) -> None:
         """
         Initialize a GeoResult object.
 
-        :param str bookmark: (optional) Opaque bookmark token used when paginating
-               results.
+        :param str bookmark: Opaque bookmark token used when paginating results.
+        :param List[GeoResultRow] rows: The array of rows matching the geospatial
+               query. Present only when using `view` format.
         :param List[GeoJsonFeature] features: (optional) The array of GeoJSON
                Feature Objects matching the geospatial query.
-        :param List[GeoResultRow] rows: (optional) The array of rows matching the
-               geospatial query. Present only when using `view` format.
         :param str type: (optional) Declaration of the GeoJSON type:
                FeatureCollection Object.
         """
@@ -11932,10 +12660,14 @@ class GeoResult():
         args = {}
         if 'bookmark' in _dict:
             args['bookmark'] = _dict.get('bookmark')
+        else:
+            raise ValueError('Required property \'bookmark\' not present in GeoResult JSON')
         if 'features' in _dict:
             args['features'] = [GeoJsonFeature.from_dict(x) for x in _dict.get('features')]
         if 'rows' in _dict:
             args['rows'] = [GeoResultRow.from_dict(x) for x in _dict.get('rows')]
+        else:
+            raise ValueError('Required property \'rows\' not present in GeoResult JSON')
         if 'type' in _dict:
             args['type'] = _dict.get('type')
         return cls(**args)
@@ -12251,35 +12983,34 @@ class IndexInformation():
     """
     Schema for information about an index.
 
-    :attr str ddoc: (optional) Design document ID.
-    :attr IndexDefinition def_: (optional) Schema for a `json` or `text` query index
+    :attr str ddoc: Design document ID.
+    :attr IndexDefinition def_: Schema for a `json` or `text` query index
           definition. Indexes of type `text` have additional configuration properties that
           do not apply to `json` indexes, these are:
           * `default_analyzer` - the default text analyzer to use * `default_field` -
           whether to index the text in all document fields and what analyzer to use for
           that purpose.
-    :attr str name: (optional) Index name.
-    :attr str type: (optional) Schema for the type of an index.
+    :attr str name: Index name.
+    :attr str type: Schema for the type of an index.
     """
 
     def __init__(self,
-                 *,
-                 ddoc: str = None,
-                 def_: 'IndexDefinition' = None,
-                 name: str = None,
-                 type: str = None) -> None:
+                 ddoc: str,
+                 def_: 'IndexDefinition',
+                 name: str,
+                 type: str) -> None:
         """
         Initialize a IndexInformation object.
 
-        :param str ddoc: (optional) Design document ID.
-        :param IndexDefinition def_: (optional) Schema for a `json` or `text` query
-               index definition. Indexes of type `text` have additional configuration
-               properties that do not apply to `json` indexes, these are:
+        :param str ddoc: Design document ID.
+        :param IndexDefinition def_: Schema for a `json` or `text` query index
+               definition. Indexes of type `text` have additional configuration properties
+               that do not apply to `json` indexes, these are:
                * `default_analyzer` - the default text analyzer to use * `default_field` -
                whether to index the text in all document fields and what analyzer to use
                for that purpose.
-        :param str name: (optional) Index name.
-        :param str type: (optional) Schema for the type of an index.
+        :param str name: Index name.
+        :param str type: Schema for the type of an index.
         """
         self.ddoc = ddoc
         self.def_ = def_
@@ -12292,12 +13023,20 @@ class IndexInformation():
         args = {}
         if 'ddoc' in _dict:
             args['ddoc'] = _dict.get('ddoc')
+        else:
+            raise ValueError('Required property \'ddoc\' not present in IndexInformation JSON')
         if 'def' in _dict:
             args['def_'] = IndexDefinition.from_dict(_dict.get('def'))
+        else:
+            raise ValueError('Required property \'def\' not present in IndexInformation JSON')
         if 'name' in _dict:
             args['name'] = _dict.get('name')
+        else:
+            raise ValueError('Required property \'name\' not present in IndexInformation JSON')
         if 'type' in _dict:
             args['type'] = _dict.get('type')
+        else:
+            raise ValueError('Required property \'type\' not present in IndexInformation JSON')
         return cls(**args)
 
     @classmethod
@@ -12349,25 +13088,23 @@ class IndexResult():
     """
     Schema for the result of creating an index.
 
-    :attr str id: (optional) Id of the design document the index was created in.
-    :attr str name: (optional) Name of the index created.
-    :attr str result: (optional) Flag to show whether the index was created or one
-          already exists.
+    :attr str id: Id of the design document the index was created in.
+    :attr str name: Name of the index created.
+    :attr str result: Flag to show whether the index was created or one already
+          exists.
     """
 
     def __init__(self,
-                 *,
-                 id: str = None,
-                 name: str = None,
-                 result: str = None) -> None:
+                 id: str,
+                 name: str,
+                 result: str) -> None:
         """
         Initialize a IndexResult object.
 
-        :param str id: (optional) Id of the design document the index was created
-               in.
-        :param str name: (optional) Name of the index created.
-        :param str result: (optional) Flag to show whether the index was created or
-               one already exists.
+        :param str id: Id of the design document the index was created in.
+        :param str name: Name of the index created.
+        :param str result: Flag to show whether the index was created or one
+               already exists.
         """
         self.id = id
         self.name = name
@@ -12379,10 +13116,16 @@ class IndexResult():
         args = {}
         if 'id' in _dict:
             args['id'] = _dict.get('id')
+        else:
+            raise ValueError('Required property \'id\' not present in IndexResult JSON')
         if 'name' in _dict:
             args['name'] = _dict.get('name')
+        else:
+            raise ValueError('Required property \'name\' not present in IndexResult JSON')
         if 'result' in _dict:
             args['result'] = _dict.get('result')
+        else:
+            raise ValueError('Required property \'result\' not present in IndexResult JSON')
         return cls(**args)
 
     @classmethod
@@ -12497,19 +13240,18 @@ class IndexesInformation():
     """
     Schema for information about the indexes in a database.
 
-    :attr int total_rows: (optional) Number of total rows.
-    :attr List[IndexInformation] indexes: (optional) Indexes.
+    :attr int total_rows: Number of total rows.
+    :attr List[IndexInformation] indexes: Indexes.
     """
 
     def __init__(self,
-                 *,
-                 total_rows: int = None,
-                 indexes: List['IndexInformation'] = None) -> None:
+                 total_rows: int,
+                 indexes: List['IndexInformation']) -> None:
         """
         Initialize a IndexesInformation object.
 
-        :param int total_rows: (optional) Number of total rows.
-        :param List[IndexInformation] indexes: (optional) Indexes.
+        :param int total_rows: Number of total rows.
+        :param List[IndexInformation] indexes: Indexes.
         """
         self.total_rows = total_rows
         self.indexes = indexes
@@ -12520,8 +13262,12 @@ class IndexesInformation():
         args = {}
         if 'total_rows' in _dict:
             args['total_rows'] = _dict.get('total_rows')
+        else:
+            raise ValueError('Required property \'total_rows\' not present in IndexesInformation JSON')
         if 'indexes' in _dict:
             args['indexes'] = [IndexInformation.from_dict(x) for x in _dict.get('indexes')]
+        else:
+            raise ValueError('Required property \'indexes\' not present in IndexesInformation JSON')
         return cls(**args)
 
     @classmethod
@@ -12560,21 +13306,20 @@ class MembershipInformation():
     """
     Schema for information about known nodes and cluster membership.
 
-    :attr List[str] all_nodes: (optional) List of nodes this node knows about,
-          including the ones that are part of the cluster.
-    :attr List[str] cluster_nodes: (optional) All cluster nodes.
+    :attr List[str] all_nodes: List of nodes this node knows about, including the
+          ones that are part of the cluster.
+    :attr List[str] cluster_nodes: All cluster nodes.
     """
 
     def __init__(self,
-                 *,
-                 all_nodes: List[str] = None,
-                 cluster_nodes: List[str] = None) -> None:
+                 all_nodes: List[str],
+                 cluster_nodes: List[str]) -> None:
         """
         Initialize a MembershipInformation object.
 
-        :param List[str] all_nodes: (optional) List of nodes this node knows about,
-               including the ones that are part of the cluster.
-        :param List[str] cluster_nodes: (optional) All cluster nodes.
+        :param List[str] all_nodes: List of nodes this node knows about, including
+               the ones that are part of the cluster.
+        :param List[str] cluster_nodes: All cluster nodes.
         """
         self.all_nodes = all_nodes
         self.cluster_nodes = cluster_nodes
@@ -12585,8 +13330,12 @@ class MembershipInformation():
         args = {}
         if 'all_nodes' in _dict:
             args['all_nodes'] = _dict.get('all_nodes')
+        else:
+            raise ValueError('Required property \'all_nodes\' not present in MembershipInformation JSON')
         if 'cluster_nodes' in _dict:
             args['cluster_nodes'] = _dict.get('cluster_nodes')
+        else:
+            raise ValueError('Required property \'cluster_nodes\' not present in MembershipInformation JSON')
         return cls(**args)
 
     @classmethod
@@ -12625,18 +13374,16 @@ class MissingRevsResult():
     """
     Schema for mapping document IDs to lists of missing revisions.
 
-    :attr dict missing_revs: (optional) Schema for mapping document IDs to lists of
-          revisions.
+    :attr dict missing_revs: Schema for mapping document IDs to lists of revisions.
     """
 
     def __init__(self,
-                 *,
-                 missing_revs: dict = None) -> None:
+                 missing_revs: dict) -> None:
         """
         Initialize a MissingRevsResult object.
 
-        :param dict missing_revs: (optional) Schema for mapping document IDs to
-               lists of revisions.
+        :param dict missing_revs: Schema for mapping document IDs to lists of
+               revisions.
         """
         self.missing_revs = missing_revs
 
@@ -12646,6 +13393,8 @@ class MissingRevsResult():
         args = {}
         if 'missing_revs' in _dict:
             args['missing_revs'] = _dict.get('missing_revs')
+        else:
+            raise ValueError('Required property \'missing_revs\' not present in MissingRevsResult JSON')
         return cls(**args)
 
     @classmethod
@@ -12737,37 +13486,37 @@ class PartitionInformation():
     """
     Schema for information about a database partition.
 
-    :attr str db_name: (optional) The name of the database.
-    :attr int doc_count: (optional) A count of the documents in the specified
-          database partition.
-    :attr int doc_del_count: (optional) Number of deleted documents.
-    :attr str partition: (optional) The name of the partition in the database.
+    :attr str db_name: The name of the database.
+    :attr int doc_count: A count of the documents in the specified database
+          partition.
+    :attr int doc_del_count: Number of deleted documents.
+    :attr str partition: The name of the partition in the database.
     :attr PartitionInformationIndexes partitioned_indexes: (optional) Schema for
           information about the partition index count and limit in a database.
-    :attr PartitionInformationSizes sizes: (optional) The size of active and
-          external data, in bytes.
+    :attr PartitionInformationSizes sizes: The size of active and external data, in
+          bytes.
     """
 
     def __init__(self,
+                 db_name: str,
+                 doc_count: int,
+                 doc_del_count: int,
+                 partition: str,
+                 sizes: 'PartitionInformationSizes',
                  *,
-                 db_name: str = None,
-                 doc_count: int = None,
-                 doc_del_count: int = None,
-                 partition: str = None,
-                 partitioned_indexes: 'PartitionInformationIndexes' = None,
-                 sizes: 'PartitionInformationSizes' = None) -> None:
+                 partitioned_indexes: 'PartitionInformationIndexes' = None) -> None:
         """
         Initialize a PartitionInformation object.
 
-        :param str db_name: (optional) The name of the database.
-        :param int doc_count: (optional) A count of the documents in the specified
-               database partition.
-        :param int doc_del_count: (optional) Number of deleted documents.
-        :param str partition: (optional) The name of the partition in the database.
+        :param str db_name: The name of the database.
+        :param int doc_count: A count of the documents in the specified database
+               partition.
+        :param int doc_del_count: Number of deleted documents.
+        :param str partition: The name of the partition in the database.
+        :param PartitionInformationSizes sizes: The size of active and external
+               data, in bytes.
         :param PartitionInformationIndexes partitioned_indexes: (optional) Schema
                for information about the partition index count and limit in a database.
-        :param PartitionInformationSizes sizes: (optional) The size of active and
-               external data, in bytes.
         """
         self.db_name = db_name
         self.doc_count = doc_count
@@ -12782,16 +13531,26 @@ class PartitionInformation():
         args = {}
         if 'db_name' in _dict:
             args['db_name'] = _dict.get('db_name')
+        else:
+            raise ValueError('Required property \'db_name\' not present in PartitionInformation JSON')
         if 'doc_count' in _dict:
             args['doc_count'] = _dict.get('doc_count')
+        else:
+            raise ValueError('Required property \'doc_count\' not present in PartitionInformation JSON')
         if 'doc_del_count' in _dict:
             args['doc_del_count'] = _dict.get('doc_del_count')
+        else:
+            raise ValueError('Required property \'doc_del_count\' not present in PartitionInformation JSON')
         if 'partition' in _dict:
             args['partition'] = _dict.get('partition')
+        else:
+            raise ValueError('Required property \'partition\' not present in PartitionInformation JSON')
         if 'partitioned_indexes' in _dict:
             args['partitioned_indexes'] = PartitionInformationIndexes.from_dict(_dict.get('partitioned_indexes'))
         if 'sizes' in _dict:
             args['sizes'] = PartitionInformationSizes.from_dict(_dict.get('sizes'))
+        else:
+            raise ValueError('Required property \'sizes\' not present in PartitionInformation JSON')
         return cls(**args)
 
     @classmethod
@@ -13121,21 +13880,21 @@ class ReplicationDatabase():
     :attr ReplicationDatabaseAuth auth: (optional) Schema for replication source or
           target database authentication.
     :attr dict headers_: (optional) Replication request headers.
-    :attr str url: (optional) Replication database URL.
+    :attr str url: Replication database URL.
     """
 
     def __init__(self,
+                 url: str,
                  *,
                  auth: 'ReplicationDatabaseAuth' = None,
-                 headers_: dict = None,
-                 url: str = None) -> None:
+                 headers_: dict = None) -> None:
         """
         Initialize a ReplicationDatabase object.
 
+        :param str url: Replication database URL.
         :param ReplicationDatabaseAuth auth: (optional) Schema for replication
                source or target database authentication.
         :param dict headers_: (optional) Replication request headers.
-        :param str url: (optional) Replication database URL.
         """
         self.auth = auth
         self.headers_ = headers_
@@ -13151,6 +13910,8 @@ class ReplicationDatabase():
             args['headers_'] = _dict.get('headers')
         if 'url' in _dict:
             args['url'] = _dict.get('url')
+        else:
+            raise ValueError('Required property \'url\' not present in ReplicationDatabase JSON')
         return cls(**args)
 
     @classmethod
@@ -13725,53 +14486,49 @@ class ReplicationHistory():
     """
     Schema for replication history information.
 
-    :attr int doc_write_failures: (optional) Number of document write failures.
-    :attr int docs_read: (optional) Number of documents read.
-    :attr int docs_written: (optional) Number of documents written to target.
-    :attr str end_last_seq: (optional) Last sequence number in changes stream.
-    :attr str end_time: (optional) Date/Time replication operation completed in RFC
-          2822 format.
-    :attr int missing_checked: (optional) Number of missing documents checked.
-    :attr int missing_found: (optional) Number of missing documents found.
-    :attr str recorded_seq: (optional) Last recorded sequence number.
-    :attr str session_id: (optional) Session ID for this replication operation.
-    :attr str start_last_seq: (optional) First sequence number in changes stream.
-    :attr str start_time: (optional) Date/Time replication operation started in RFC
-          2822 format.
+    :attr int doc_write_failures: Number of document write failures.
+    :attr int docs_read: Number of documents read.
+    :attr int docs_written: Number of documents written to target.
+    :attr str end_last_seq: Last sequence number in changes stream.
+    :attr str end_time: Date/Time replication operation completed in RFC 2822
+          format.
+    :attr int missing_checked: Number of missing documents checked.
+    :attr int missing_found: Number of missing documents found.
+    :attr str recorded_seq: Last recorded sequence number.
+    :attr str session_id: Session ID for this replication operation.
+    :attr str start_last_seq: First sequence number in changes stream.
+    :attr str start_time: Date/Time replication operation started in RFC 2822
+          format.
     """
 
     def __init__(self,
-                 *,
-                 doc_write_failures: int = None,
-                 docs_read: int = None,
-                 docs_written: int = None,
-                 end_last_seq: str = None,
-                 end_time: str = None,
-                 missing_checked: int = None,
-                 missing_found: int = None,
-                 recorded_seq: str = None,
-                 session_id: str = None,
-                 start_last_seq: str = None,
-                 start_time: str = None) -> None:
+                 doc_write_failures: int,
+                 docs_read: int,
+                 docs_written: int,
+                 end_last_seq: str,
+                 end_time: str,
+                 missing_checked: int,
+                 missing_found: int,
+                 recorded_seq: str,
+                 session_id: str,
+                 start_last_seq: str,
+                 start_time: str) -> None:
         """
         Initialize a ReplicationHistory object.
 
-        :param int doc_write_failures: (optional) Number of document write
-               failures.
-        :param int docs_read: (optional) Number of documents read.
-        :param int docs_written: (optional) Number of documents written to target.
-        :param str end_last_seq: (optional) Last sequence number in changes stream.
-        :param str end_time: (optional) Date/Time replication operation completed
-               in RFC 2822 format.
-        :param int missing_checked: (optional) Number of missing documents checked.
-        :param int missing_found: (optional) Number of missing documents found.
-        :param str recorded_seq: (optional) Last recorded sequence number.
-        :param str session_id: (optional) Session ID for this replication
-               operation.
-        :param str start_last_seq: (optional) First sequence number in changes
-               stream.
-        :param str start_time: (optional) Date/Time replication operation started
-               in RFC 2822 format.
+        :param int doc_write_failures: Number of document write failures.
+        :param int docs_read: Number of documents read.
+        :param int docs_written: Number of documents written to target.
+        :param str end_last_seq: Last sequence number in changes stream.
+        :param str end_time: Date/Time replication operation completed in RFC 2822
+               format.
+        :param int missing_checked: Number of missing documents checked.
+        :param int missing_found: Number of missing documents found.
+        :param str recorded_seq: Last recorded sequence number.
+        :param str session_id: Session ID for this replication operation.
+        :param str start_last_seq: First sequence number in changes stream.
+        :param str start_time: Date/Time replication operation started in RFC 2822
+               format.
         """
         self.doc_write_failures = doc_write_failures
         self.docs_read = docs_read
@@ -13791,26 +14548,48 @@ class ReplicationHistory():
         args = {}
         if 'doc_write_failures' in _dict:
             args['doc_write_failures'] = _dict.get('doc_write_failures')
+        else:
+            raise ValueError('Required property \'doc_write_failures\' not present in ReplicationHistory JSON')
         if 'docs_read' in _dict:
             args['docs_read'] = _dict.get('docs_read')
+        else:
+            raise ValueError('Required property \'docs_read\' not present in ReplicationHistory JSON')
         if 'docs_written' in _dict:
             args['docs_written'] = _dict.get('docs_written')
+        else:
+            raise ValueError('Required property \'docs_written\' not present in ReplicationHistory JSON')
         if 'end_last_seq' in _dict:
             args['end_last_seq'] = _dict.get('end_last_seq')
+        else:
+            raise ValueError('Required property \'end_last_seq\' not present in ReplicationHistory JSON')
         if 'end_time' in _dict:
             args['end_time'] = _dict.get('end_time')
+        else:
+            raise ValueError('Required property \'end_time\' not present in ReplicationHistory JSON')
         if 'missing_checked' in _dict:
             args['missing_checked'] = _dict.get('missing_checked')
+        else:
+            raise ValueError('Required property \'missing_checked\' not present in ReplicationHistory JSON')
         if 'missing_found' in _dict:
             args['missing_found'] = _dict.get('missing_found')
+        else:
+            raise ValueError('Required property \'missing_found\' not present in ReplicationHistory JSON')
         if 'recorded_seq' in _dict:
             args['recorded_seq'] = _dict.get('recorded_seq')
+        else:
+            raise ValueError('Required property \'recorded_seq\' not present in ReplicationHistory JSON')
         if 'session_id' in _dict:
             args['session_id'] = _dict.get('session_id')
+        else:
+            raise ValueError('Required property \'session_id\' not present in ReplicationHistory JSON')
         if 'start_last_seq' in _dict:
             args['start_last_seq'] = _dict.get('start_last_seq')
+        else:
+            raise ValueError('Required property \'start_last_seq\' not present in ReplicationHistory JSON')
         if 'start_time' in _dict:
             args['start_time'] = _dict.get('start_time')
+        else:
+            raise ValueError('Required property \'start_time\' not present in ReplicationHistory JSON')
         return cls(**args)
 
     @classmethod
@@ -13867,30 +14646,27 @@ class ReplicationResult():
     """
     Schema for a replication result.
 
-    :attr List[ReplicationHistory] history: (optional) Replication history.
-    :attr bool ok: (optional) Replication status.
-    :attr int replication_id_version: (optional) Replication protocol version.
-    :attr str session_id: (optional) Unique session ID.
-    :attr str source_last_seq: (optional) Last sequence number read from source
-          database.
+    :attr List[ReplicationHistory] history: Replication history.
+    :attr bool ok: Replication status.
+    :attr int replication_id_version: Replication protocol version.
+    :attr str session_id: Unique session ID.
+    :attr str source_last_seq: Last sequence number read from source database.
     """
 
     def __init__(self,
-                 *,
-                 history: List['ReplicationHistory'] = None,
-                 ok: bool = None,
-                 replication_id_version: int = None,
-                 session_id: str = None,
-                 source_last_seq: str = None) -> None:
+                 history: List['ReplicationHistory'],
+                 ok: bool,
+                 replication_id_version: int,
+                 session_id: str,
+                 source_last_seq: str) -> None:
         """
         Initialize a ReplicationResult object.
 
-        :param List[ReplicationHistory] history: (optional) Replication history.
-        :param bool ok: (optional) Replication status.
-        :param int replication_id_version: (optional) Replication protocol version.
-        :param str session_id: (optional) Unique session ID.
-        :param str source_last_seq: (optional) Last sequence number read from
-               source database.
+        :param List[ReplicationHistory] history: Replication history.
+        :param bool ok: Replication status.
+        :param int replication_id_version: Replication protocol version.
+        :param str session_id: Unique session ID.
+        :param str source_last_seq: Last sequence number read from source database.
         """
         self.history = history
         self.ok = ok
@@ -13904,14 +14680,24 @@ class ReplicationResult():
         args = {}
         if 'history' in _dict:
             args['history'] = [ReplicationHistory.from_dict(x) for x in _dict.get('history')]
+        else:
+            raise ValueError('Required property \'history\' not present in ReplicationResult JSON')
         if 'ok' in _dict:
             args['ok'] = _dict.get('ok')
+        else:
+            raise ValueError('Required property \'ok\' not present in ReplicationResult JSON')
         if 'replication_id_version' in _dict:
             args['replication_id_version'] = _dict.get('replication_id_version')
+        else:
+            raise ValueError('Required property \'replication_id_version\' not present in ReplicationResult JSON')
         if 'session_id' in _dict:
             args['session_id'] = _dict.get('session_id')
+        else:
+            raise ValueError('Required property \'session_id\' not present in ReplicationResult JSON')
         if 'source_last_seq' in _dict:
             args['source_last_seq'] = _dict.get('source_last_seq')
+        else:
+            raise ValueError('Required property \'source_last_seq\' not present in ReplicationResult JSON')
         return cls(**args)
 
     @classmethod
@@ -13956,21 +14742,20 @@ class Revisions():
     """
     Schema for list of revision information.
 
-    :attr List[str] ids: (optional) Array of valid revision IDs, in reverse order
-          (latest first).
-    :attr int start: (optional) Prefix number for the latest revision.
+    :attr List[str] ids: Array of valid revision IDs, in reverse order (latest
+          first).
+    :attr int start: Prefix number for the latest revision.
     """
 
     def __init__(self,
-                 *,
-                 ids: List[str] = None,
-                 start: int = None) -> None:
+                 ids: List[str],
+                 start: int) -> None:
         """
         Initialize a Revisions object.
 
-        :param List[str] ids: (optional) Array of valid revision IDs, in reverse
-               order (latest first).
-        :param int start: (optional) Prefix number for the latest revision.
+        :param List[str] ids: Array of valid revision IDs, in reverse order (latest
+               first).
+        :param int start: Prefix number for the latest revision.
         """
         self.ids = ids
         self.start = start
@@ -13981,8 +14766,12 @@ class Revisions():
         args = {}
         if 'ids' in _dict:
             args['ids'] = _dict.get('ids')
+        else:
+            raise ValueError('Required property \'ids\' not present in Revisions JSON')
         if 'start' in _dict:
             args['start'] = _dict.get('start')
+        else:
+            raise ValueError('Required property \'start\' not present in Revisions JSON')
         return cls(**args)
 
     @classmethod
@@ -14086,21 +14875,19 @@ class SchedulerDocsResult():
     """
     Schema for a listing of replication scheduler documents.
 
-    :attr int total_rows: (optional) Number of total rows.
-    :attr List[SchedulerDocument] docs: (optional) Array of replication scheduler
-          doc objects.
+    :attr int total_rows: Number of total rows.
+    :attr List[SchedulerDocument] docs: Array of replication scheduler doc objects.
     """
 
     def __init__(self,
-                 *,
-                 total_rows: int = None,
-                 docs: List['SchedulerDocument'] = None) -> None:
+                 total_rows: int,
+                 docs: List['SchedulerDocument']) -> None:
         """
         Initialize a SchedulerDocsResult object.
 
-        :param int total_rows: (optional) Number of total rows.
-        :param List[SchedulerDocument] docs: (optional) Array of replication
-               scheduler doc objects.
+        :param int total_rows: Number of total rows.
+        :param List[SchedulerDocument] docs: Array of replication scheduler doc
+               objects.
         """
         self.total_rows = total_rows
         self.docs = docs
@@ -14111,8 +14898,12 @@ class SchedulerDocsResult():
         args = {}
         if 'total_rows' in _dict:
             args['total_rows'] = _dict.get('total_rows')
+        else:
+            raise ValueError('Required property \'total_rows\' not present in SchedulerDocsResult JSON')
         if 'docs' in _dict:
             args['docs'] = [SchedulerDocument.from_dict(x) for x in _dict.get('docs')]
+        else:
+            raise ValueError('Required property \'docs\' not present in SchedulerDocsResult JSON')
         return cls(**args)
 
     @classmethod
@@ -14151,72 +14942,66 @@ class SchedulerDocument():
     """
     Schema for a replication scheduler document.
 
-    :attr str database: (optional) Database where replication document came from.
-    :attr str doc_id: (optional) Replication document ID.
-    :attr int error_count: (optional) Consecutive errors count. Indicates how many
-          times in a row this replication has crashed. Replication will be retried with an
+    :attr str database: Database where replication document came from.
+    :attr str doc_id: Replication document ID.
+    :attr int error_count: Consecutive errors count. Indicates how many times in a
+          row this replication has crashed. Replication will be retried with an
           exponential backoff based on this number. As soon as the replication succeeds
           this count is reset to 0. To can be used to get an idea why a particular
           replication is not making progress.
-    :attr str id: (optional) Replication ID, or null if state is completed or
-          failed.
-    :attr SchedulerInfo info: (optional) Schema for scheduler document information.
-          A JSON object that may contain additional information about the state. For error
-          states this will contain an error field and string value.
-    :attr datetime last_updated: (optional) Timestamp of last state update.
+    :attr str id: Replication ID, or null if state is completed or failed.
+    :attr SchedulerInfo info: Schema for scheduler document information. A JSON
+          object that may contain additional information about the state. For error states
+          this will contain an error field and string value.
+    :attr datetime last_updated: Timestamp of last state update.
     :attr str node: (optional) Cluster node where the job is running.
     :attr str source: (optional) Replication source.
     :attr str source_proxy: (optional) Address of the (http or socks5 protocol)
           proxy server through which replication with the source database occurs.
-    :attr datetime start_time: (optional) Timestamp of when the replication was
-          started.
-    :attr str state: (optional) Schema for replication state.
+    :attr datetime start_time: Timestamp of when the replication was started.
+    :attr str state: Schema for replication state.
     :attr str target: (optional) Replication target.
     :attr str target_proxy: (optional) Address of the (http or socks5 protocol)
           proxy server through which replication with the target database occurs.
     """
 
     def __init__(self,
+                 database: str,
+                 doc_id: str,
+                 error_count: int,
+                 id: str,
+                 info: 'SchedulerInfo',
+                 last_updated: datetime,
+                 start_time: datetime,
+                 state: str,
                  *,
-                 database: str = None,
-                 doc_id: str = None,
-                 error_count: int = None,
-                 id: str = None,
-                 info: 'SchedulerInfo' = None,
-                 last_updated: datetime = None,
                  node: str = None,
                  source: str = None,
                  source_proxy: str = None,
-                 start_time: datetime = None,
-                 state: str = None,
                  target: str = None,
                  target_proxy: str = None) -> None:
         """
         Initialize a SchedulerDocument object.
 
-        :param str database: (optional) Database where replication document came
-               from.
-        :param str doc_id: (optional) Replication document ID.
-        :param int error_count: (optional) Consecutive errors count. Indicates how
-               many times in a row this replication has crashed. Replication will be
-               retried with an exponential backoff based on this number. As soon as the
-               replication succeeds this count is reset to 0. To can be used to get an
-               idea why a particular replication is not making progress.
-        :param str id: (optional) Replication ID, or null if state is completed or
-               failed.
-        :param SchedulerInfo info: (optional) Schema for scheduler document
-               information. A JSON object that may contain additional information about
-               the state. For error states this will contain an error field and string
-               value.
-        :param datetime last_updated: (optional) Timestamp of last state update.
+        :param str database: Database where replication document came from.
+        :param str doc_id: Replication document ID.
+        :param int error_count: Consecutive errors count. Indicates how many times
+               in a row this replication has crashed. Replication will be retried with an
+               exponential backoff based on this number. As soon as the replication
+               succeeds this count is reset to 0. To can be used to get an idea why a
+               particular replication is not making progress.
+        :param str id: Replication ID, or null if state is completed or failed.
+        :param SchedulerInfo info: Schema for scheduler document information. A
+               JSON object that may contain additional information about the state. For
+               error states this will contain an error field and string value.
+        :param datetime last_updated: Timestamp of last state update.
+        :param datetime start_time: Timestamp of when the replication was started.
+        :param str state: Schema for replication state.
         :param str node: (optional) Cluster node where the job is running.
         :param str source: (optional) Replication source.
         :param str source_proxy: (optional) Address of the (http or socks5
                protocol) proxy server through which replication with the source database
                occurs.
-        :param datetime start_time: (optional) Timestamp of when the replication
-               was started.
-        :param str state: (optional) Schema for replication state.
         :param str target: (optional) Replication target.
         :param str target_proxy: (optional) Address of the (http or socks5
                protocol) proxy server through which replication with the target database
@@ -14242,16 +15027,28 @@ class SchedulerDocument():
         args = {}
         if 'database' in _dict:
             args['database'] = _dict.get('database')
+        else:
+            raise ValueError('Required property \'database\' not present in SchedulerDocument JSON')
         if 'doc_id' in _dict:
             args['doc_id'] = _dict.get('doc_id')
+        else:
+            raise ValueError('Required property \'doc_id\' not present in SchedulerDocument JSON')
         if 'error_count' in _dict:
             args['error_count'] = _dict.get('error_count')
+        else:
+            raise ValueError('Required property \'error_count\' not present in SchedulerDocument JSON')
         if 'id' in _dict:
             args['id'] = _dict.get('id')
+        else:
+            raise ValueError('Required property \'id\' not present in SchedulerDocument JSON')
         if 'info' in _dict:
             args['info'] = SchedulerInfo.from_dict(_dict.get('info'))
+        else:
+            raise ValueError('Required property \'info\' not present in SchedulerDocument JSON')
         if 'last_updated' in _dict:
             args['last_updated'] = string_to_datetime(_dict.get('last_updated'))
+        else:
+            raise ValueError('Required property \'last_updated\' not present in SchedulerDocument JSON')
         if 'node' in _dict:
             args['node'] = _dict.get('node')
         if 'source' in _dict:
@@ -14260,8 +15057,12 @@ class SchedulerDocument():
             args['source_proxy'] = _dict.get('source_proxy')
         if 'start_time' in _dict:
             args['start_time'] = string_to_datetime(_dict.get('start_time'))
+        else:
+            raise ValueError('Required property \'start_time\' not present in SchedulerDocument JSON')
         if 'state' in _dict:
             args['state'] = _dict.get('state')
+        else:
+            raise ValueError('Required property \'state\' not present in SchedulerDocument JSON')
         if 'target' in _dict:
             args['target'] = _dict.get('target')
         if 'target_proxy' in _dict:
@@ -14485,55 +15286,51 @@ class SchedulerJob():
     """
     Schema for a replication scheduler job.
 
-    :attr str database: (optional) Replication document database.
-    :attr str doc_id: (optional) Replication document ID.
-    :attr List[SchedulerJobEvent] history: (optional) Timestamped history of events
-          as a list of objects.
-    :attr str id: (optional) Schema for a replication job id.
-    :attr SchedulerInfo info: (optional) Schema for scheduler document information.
-          A JSON object that may contain additional information about the state. For error
-          states this will contain an error field and string value.
-    :attr str node: (optional) Cluster node where the job is running.
-    :attr str pid: (optional) Replication process ID.
-    :attr str source: (optional) Replication source.
-    :attr datetime start_time: (optional) Timestamp of when the replication was
-          started.
-    :attr str target: (optional) Replication target.
-    :attr str user: (optional) Name of user running replication.
+    :attr str database: Replication document database.
+    :attr str doc_id: Replication document ID.
+    :attr List[SchedulerJobEvent] history: Timestamped history of events as a list
+          of objects.
+    :attr str id: Schema for a replication job id.
+    :attr SchedulerInfo info: Schema for scheduler document information. A JSON
+          object that may contain additional information about the state. For error states
+          this will contain an error field and string value.
+    :attr str node: Cluster node where the job is running.
+    :attr str pid: Replication process ID.
+    :attr str source: Replication source.
+    :attr datetime start_time: Timestamp of when the replication was started.
+    :attr str target: Replication target.
+    :attr str user: Name of user running replication.
     """
 
     def __init__(self,
-                 *,
-                 database: str = None,
-                 doc_id: str = None,
-                 history: List['SchedulerJobEvent'] = None,
-                 id: str = None,
-                 info: 'SchedulerInfo' = None,
-                 node: str = None,
-                 pid: str = None,
-                 source: str = None,
-                 start_time: datetime = None,
-                 target: str = None,
-                 user: str = None) -> None:
+                 database: str,
+                 doc_id: str,
+                 history: List['SchedulerJobEvent'],
+                 id: str,
+                 info: 'SchedulerInfo',
+                 node: str,
+                 pid: str,
+                 source: str,
+                 start_time: datetime,
+                 target: str,
+                 user: str) -> None:
         """
         Initialize a SchedulerJob object.
 
-        :param str database: (optional) Replication document database.
-        :param str doc_id: (optional) Replication document ID.
-        :param List[SchedulerJobEvent] history: (optional) Timestamped history of
-               events as a list of objects.
-        :param str id: (optional) Schema for a replication job id.
-        :param SchedulerInfo info: (optional) Schema for scheduler document
-               information. A JSON object that may contain additional information about
-               the state. For error states this will contain an error field and string
-               value.
-        :param str node: (optional) Cluster node where the job is running.
-        :param str pid: (optional) Replication process ID.
-        :param str source: (optional) Replication source.
-        :param datetime start_time: (optional) Timestamp of when the replication
-               was started.
-        :param str target: (optional) Replication target.
-        :param str user: (optional) Name of user running replication.
+        :param str database: Replication document database.
+        :param str doc_id: Replication document ID.
+        :param List[SchedulerJobEvent] history: Timestamped history of events as a
+               list of objects.
+        :param str id: Schema for a replication job id.
+        :param SchedulerInfo info: Schema for scheduler document information. A
+               JSON object that may contain additional information about the state. For
+               error states this will contain an error field and string value.
+        :param str node: Cluster node where the job is running.
+        :param str pid: Replication process ID.
+        :param str source: Replication source.
+        :param datetime start_time: Timestamp of when the replication was started.
+        :param str target: Replication target.
+        :param str user: Name of user running replication.
         """
         self.database = database
         self.doc_id = doc_id
@@ -14553,26 +15350,48 @@ class SchedulerJob():
         args = {}
         if 'database' in _dict:
             args['database'] = _dict.get('database')
+        else:
+            raise ValueError('Required property \'database\' not present in SchedulerJob JSON')
         if 'doc_id' in _dict:
             args['doc_id'] = _dict.get('doc_id')
+        else:
+            raise ValueError('Required property \'doc_id\' not present in SchedulerJob JSON')
         if 'history' in _dict:
             args['history'] = [SchedulerJobEvent.from_dict(x) for x in _dict.get('history')]
+        else:
+            raise ValueError('Required property \'history\' not present in SchedulerJob JSON')
         if 'id' in _dict:
             args['id'] = _dict.get('id')
+        else:
+            raise ValueError('Required property \'id\' not present in SchedulerJob JSON')
         if 'info' in _dict:
             args['info'] = SchedulerInfo.from_dict(_dict.get('info'))
+        else:
+            raise ValueError('Required property \'info\' not present in SchedulerJob JSON')
         if 'node' in _dict:
             args['node'] = _dict.get('node')
+        else:
+            raise ValueError('Required property \'node\' not present in SchedulerJob JSON')
         if 'pid' in _dict:
             args['pid'] = _dict.get('pid')
+        else:
+            raise ValueError('Required property \'pid\' not present in SchedulerJob JSON')
         if 'source' in _dict:
             args['source'] = _dict.get('source')
+        else:
+            raise ValueError('Required property \'source\' not present in SchedulerJob JSON')
         if 'start_time' in _dict:
             args['start_time'] = string_to_datetime(_dict.get('start_time'))
+        else:
+            raise ValueError('Required property \'start_time\' not present in SchedulerJob JSON')
         if 'target' in _dict:
             args['target'] = _dict.get('target')
+        else:
+            raise ValueError('Required property \'target\' not present in SchedulerJob JSON')
         if 'user' in _dict:
             args['user'] = _dict.get('user')
+        else:
+            raise ValueError('Required property \'user\' not present in SchedulerJob JSON')
         return cls(**args)
 
     @classmethod
@@ -14629,19 +15448,18 @@ class SchedulerJobEvent():
     """
     Schema for a replication scheduler job event.
 
-    :attr datetime timestamp: (optional) Timestamp of the event.
-    :attr str type: (optional) Type of the event.
+    :attr datetime timestamp: Timestamp of the event.
+    :attr str type: Type of the event.
     """
 
     def __init__(self,
-                 *,
-                 timestamp: datetime = None,
-                 type: str = None) -> None:
+                 timestamp: datetime,
+                 type: str) -> None:
         """
         Initialize a SchedulerJobEvent object.
 
-        :param datetime timestamp: (optional) Timestamp of the event.
-        :param str type: (optional) Type of the event.
+        :param datetime timestamp: Timestamp of the event.
+        :param str type: Type of the event.
         """
         self.timestamp = timestamp
         self.type = type
@@ -14652,8 +15470,12 @@ class SchedulerJobEvent():
         args = {}
         if 'timestamp' in _dict:
             args['timestamp'] = string_to_datetime(_dict.get('timestamp'))
+        else:
+            raise ValueError('Required property \'timestamp\' not present in SchedulerJobEvent JSON')
         if 'type' in _dict:
             args['type'] = _dict.get('type')
+        else:
+            raise ValueError('Required property \'type\' not present in SchedulerJobEvent JSON')
         return cls(**args)
 
     @classmethod
@@ -14692,20 +15514,18 @@ class SchedulerJobsResult():
     """
     Schema for a listing of replication scheduler jobs.
 
-    :attr int total_rows: (optional) Number of total rows.
-    :attr List[SchedulerJob] jobs: (optional) Array of replication job objects.
+    :attr int total_rows: Number of total rows.
+    :attr List[SchedulerJob] jobs: Array of replication job objects.
     """
 
     def __init__(self,
-                 *,
-                 total_rows: int = None,
-                 jobs: List['SchedulerJob'] = None) -> None:
+                 total_rows: int,
+                 jobs: List['SchedulerJob']) -> None:
         """
         Initialize a SchedulerJobsResult object.
 
-        :param int total_rows: (optional) Number of total rows.
-        :param List[SchedulerJob] jobs: (optional) Array of replication job
-               objects.
+        :param int total_rows: Number of total rows.
+        :param List[SchedulerJob] jobs: Array of replication job objects.
         """
         self.total_rows = total_rows
         self.jobs = jobs
@@ -14716,8 +15536,12 @@ class SchedulerJobsResult():
         args = {}
         if 'total_rows' in _dict:
             args['total_rows'] = _dict.get('total_rows')
+        else:
+            raise ValueError('Required property \'total_rows\' not present in SchedulerJobsResult JSON')
         if 'jobs' in _dict:
             args['jobs'] = [SchedulerJob.from_dict(x) for x in _dict.get('jobs')]
+        else:
+            raise ValueError('Required property \'jobs\' not present in SchedulerJobsResult JSON')
         return cls(**args)
 
     @classmethod
@@ -14756,16 +15580,15 @@ class SearchAnalyzeResult():
     """
     Schema for the output of testing search analyzer tokenization.
 
-    :attr List[str] tokens: (optional) tokens.
+    :attr List[str] tokens: tokens.
     """
 
     def __init__(self,
-                 *,
-                 tokens: List[str] = None) -> None:
+                 tokens: List[str]) -> None:
         """
         Initialize a SearchAnalyzeResult object.
 
-        :param List[str] tokens: (optional) tokens.
+        :param List[str] tokens: tokens.
         """
         self.tokens = tokens
 
@@ -14775,6 +15598,8 @@ class SearchAnalyzeResult():
         args = {}
         if 'tokens' in _dict:
             args['tokens'] = _dict.get('tokens')
+        else:
+            raise ValueError('Required property \'tokens\' not present in SearchAnalyzeResult JSON')
         return cls(**args)
 
     @classmethod
@@ -15079,7 +15904,7 @@ class SearchResult():
     """
     Schema for the result of a query search operation.
 
-    :attr int total_rows: (optional) Number of total rows.
+    :attr int total_rows: Number of total rows.
     :attr str bookmark: (optional) Opaque bookmark token used when paginating
           results.
     :attr str by: (optional) Grouped search matches.
@@ -15094,8 +15919,8 @@ class SearchResult():
     """
 
     def __init__(self,
+                 total_rows: int,
                  *,
-                 total_rows: int = None,
                  bookmark: str = None,
                  by: str = None,
                  counts: dict = None,
@@ -15105,7 +15930,7 @@ class SearchResult():
         """
         Initialize a SearchResult object.
 
-        :param int total_rows: (optional) Number of total rows.
+        :param int total_rows: Number of total rows.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param str by: (optional) Grouped search matches.
@@ -15132,6 +15957,8 @@ class SearchResult():
         args = {}
         if 'total_rows' in _dict:
             args['total_rows'] = _dict.get('total_rows')
+        else:
+            raise ValueError('Required property \'total_rows\' not present in SearchResult JSON')
         if 'bookmark' in _dict:
             args['bookmark'] = _dict.get('bookmark')
         if 'by' in _dict:
@@ -15192,7 +16019,7 @@ class SearchResultProperties():
     """
     Schema for the result of a query search operation.
 
-    :attr int total_rows: (optional) Number of total rows.
+    :attr int total_rows: Number of total rows.
     :attr str bookmark: (optional) Opaque bookmark token used when paginating
           results.
     :attr str by: (optional) Grouped search matches.
@@ -15205,8 +16032,8 @@ class SearchResultProperties():
     """
 
     def __init__(self,
+                 total_rows: int,
                  *,
-                 total_rows: int = None,
                  bookmark: str = None,
                  by: str = None,
                  counts: dict = None,
@@ -15215,7 +16042,7 @@ class SearchResultProperties():
         """
         Initialize a SearchResultProperties object.
 
-        :param int total_rows: (optional) Number of total rows.
+        :param int total_rows: Number of total rows.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param str by: (optional) Grouped search matches.
@@ -15239,6 +16066,8 @@ class SearchResultProperties():
         args = {}
         if 'total_rows' in _dict:
             args['total_rows'] = _dict.get('total_rows')
+        else:
+            raise ValueError('Required property \'total_rows\' not present in SearchResultProperties JSON')
         if 'bookmark' in _dict:
             args['bookmark'] = _dict.get('bookmark')
         if 'by' in _dict:
@@ -15296,29 +16125,29 @@ class SearchResultRow():
     Schema for a row of the result of a query search operation.
 
     :attr Document doc: (optional) Schema for a document.
-    :attr dict fields: (optional) Schema for the fields returned by a query search
-          operation, a map of field name to value.
+    :attr dict fields: Schema for the fields returned by a query search operation, a
+          map of field name to value.
     :attr dict highlights: (optional) Returns the context in which a search term was
           mentioned so that you can display more emphasized results to a user.
-    :attr str id: (optional) Schema for a document ID.
+    :attr str id: Schema for a document ID.
     """
 
     def __init__(self,
+                 fields: dict,
+                 id: str,
                  *,
                  doc: 'Document' = None,
-                 fields: dict = None,
-                 highlights: dict = None,
-                 id: str = None) -> None:
+                 highlights: dict = None) -> None:
         """
         Initialize a SearchResultRow object.
 
+        :param dict fields: Schema for the fields returned by a query search
+               operation, a map of field name to value.
+        :param str id: Schema for a document ID.
         :param Document doc: (optional) Schema for a document.
-        :param dict fields: (optional) Schema for the fields returned by a query
-               search operation, a map of field name to value.
         :param dict highlights: (optional) Returns the context in which a search
                term was mentioned so that you can display more emphasized results to a
                user.
-        :param str id: (optional) Schema for a document ID.
         """
         self.doc = doc
         self.fields = fields
@@ -15333,10 +16162,14 @@ class SearchResultRow():
             args['doc'] = Document.from_dict(_dict.get('doc'))
         if 'fields' in _dict:
             args['fields'] = _dict.get('fields')
+        else:
+            raise ValueError('Required property \'fields\' not present in SearchResultRow JSON')
         if 'highlights' in _dict:
             args['highlights'] = _dict.get('highlights')
         if 'id' in _dict:
             args['id'] = _dict.get('id')
+        else:
+            raise ValueError('Required property \'id\' not present in SearchResultRow JSON')
         return cls(**args)
 
     @classmethod
@@ -15543,31 +16376,33 @@ class ServerInformation():
     """
     Schema for information about the server instance.
 
-    :attr str couchdb: (optional) Welcome message.
-    :attr List[str] features: (optional) List of enabled optional features.
-    :attr ServerVendor vendor: (optional) Schema for server vendor information.
-    :attr str version: (optional) Apache CouchDB version.
+    :attr str couchdb: Welcome message.
+    :attr List[str] features: List of enabled optional features.
+    :attr ServerVendor vendor: Schema for server vendor information.
+    :attr str version: Apache CouchDB version.
+    :attr List[str] features_flags: List of feature flags.
     """
 
     def __init__(self,
-                 *,
-                 couchdb: str = None,
-                 features: List[str] = None,
-                 vendor: 'ServerVendor' = None,
-                 version: str = None) -> None:
+                 couchdb: str,
+                 features: List[str],
+                 vendor: 'ServerVendor',
+                 version: str,
+                 features_flags: List[str]) -> None:
         """
         Initialize a ServerInformation object.
 
-        :param str couchdb: (optional) Welcome message.
-        :param List[str] features: (optional) List of enabled optional features.
-        :param ServerVendor vendor: (optional) Schema for server vendor
-               information.
-        :param str version: (optional) Apache CouchDB version.
+        :param str couchdb: Welcome message.
+        :param List[str] features: List of enabled optional features.
+        :param ServerVendor vendor: Schema for server vendor information.
+        :param str version: Apache CouchDB version.
+        :param List[str] features_flags: List of feature flags.
         """
         self.couchdb = couchdb
         self.features = features
         self.vendor = vendor
         self.version = version
+        self.features_flags = features_flags
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'ServerInformation':
@@ -15575,12 +16410,24 @@ class ServerInformation():
         args = {}
         if 'couchdb' in _dict:
             args['couchdb'] = _dict.get('couchdb')
+        else:
+            raise ValueError('Required property \'couchdb\' not present in ServerInformation JSON')
         if 'features' in _dict:
             args['features'] = _dict.get('features')
+        else:
+            raise ValueError('Required property \'features\' not present in ServerInformation JSON')
         if 'vendor' in _dict:
             args['vendor'] = ServerVendor.from_dict(_dict.get('vendor'))
+        else:
+            raise ValueError('Required property \'vendor\' not present in ServerInformation JSON')
         if 'version' in _dict:
             args['version'] = _dict.get('version')
+        else:
+            raise ValueError('Required property \'version\' not present in ServerInformation JSON')
+        if 'features_flags' in _dict:
+            args['features_flags'] = _dict.get('features_flags')
+        else:
+            raise ValueError('Required property \'features_flags\' not present in ServerInformation JSON')
         return cls(**args)
 
     @classmethod
@@ -15599,6 +16446,8 @@ class ServerInformation():
             _dict['vendor'] = self.vendor.to_dict()
         if hasattr(self, 'version') and self.version is not None:
             _dict['version'] = self.version
+        if hasattr(self, 'features_flags') and self.features_flags is not None:
+            _dict['features_flags'] = self.features_flags
         return _dict
 
     def _to_dict(self):
@@ -15623,20 +16472,20 @@ class ServerVendor():
     """
     Schema for server vendor information.
 
-    :attr str name: (optional) Vendor name.
+    :attr str name: Vendor name.
     :attr str variant: (optional) Vendor variant.
     :attr str version: (optional) Vendor version.
     """
 
     def __init__(self,
+                 name: str,
                  *,
-                 name: str = None,
                  variant: str = None,
                  version: str = None) -> None:
         """
         Initialize a ServerVendor object.
 
-        :param str name: (optional) Vendor name.
+        :param str name: Vendor name.
         :param str variant: (optional) Vendor variant.
         :param str version: (optional) Vendor version.
         """
@@ -15650,6 +16499,8 @@ class ServerVendor():
         args = {}
         if 'name' in _dict:
             args['name'] = _dict.get('name')
+        else:
+            raise ValueError('Required property \'name\' not present in ServerVendor JSON')
         if 'variant' in _dict:
             args['variant'] = _dict.get('variant')
         if 'version' in _dict:
@@ -15696,21 +16547,20 @@ class SessionAuthentication():
 
     :attr str authenticated: (optional) authenticated.
     :attr str authentication_db: (optional) authentication_db.
-    :attr List[str] authentication_handlers: (optional) authentication_handlers.
+    :attr List[str] authentication_handlers: authentication_handlers.
     """
 
     def __init__(self,
+                 authentication_handlers: List[str],
                  *,
                  authenticated: str = None,
-                 authentication_db: str = None,
-                 authentication_handlers: List[str] = None) -> None:
+                 authentication_db: str = None) -> None:
         """
         Initialize a SessionAuthentication object.
 
+        :param List[str] authentication_handlers: authentication_handlers.
         :param str authenticated: (optional) authenticated.
         :param str authentication_db: (optional) authentication_db.
-        :param List[str] authentication_handlers: (optional)
-               authentication_handlers.
         """
         self.authenticated = authenticated
         self.authentication_db = authentication_db
@@ -15726,6 +16576,8 @@ class SessionAuthentication():
             args['authentication_db'] = _dict.get('authentication_db')
         if 'authentication_handlers' in _dict:
             args['authentication_handlers'] = _dict.get('authentication_handlers')
+        else:
+            raise ValueError('Required property \'authentication_handlers\' not present in SessionAuthentication JSON')
         return cls(**args)
 
     @classmethod
@@ -15766,25 +16618,22 @@ class SessionInformation():
     """
     Schema for information about a session.
 
-    :attr bool ok: (optional) ok.
-    :attr SessionAuthentication info: (optional) Schema for session authentication
-          information.
-    :attr UserContext user_ctx: (optional) Schema for the user context of a session.
+    :attr bool ok: ok.
+    :attr SessionAuthentication info: Schema for session authentication information.
+    :attr UserContext user_ctx: Schema for the user context of a session.
     """
 
     def __init__(self,
-                 *,
-                 ok: bool = None,
-                 info: 'SessionAuthentication' = None,
-                 user_ctx: 'UserContext' = None) -> None:
+                 ok: bool,
+                 info: 'SessionAuthentication',
+                 user_ctx: 'UserContext') -> None:
         """
         Initialize a SessionInformation object.
 
-        :param bool ok: (optional) ok.
-        :param SessionAuthentication info: (optional) Schema for session
-               authentication information.
-        :param UserContext user_ctx: (optional) Schema for the user context of a
-               session.
+        :param bool ok: ok.
+        :param SessionAuthentication info: Schema for session authentication
+               information.
+        :param UserContext user_ctx: Schema for the user context of a session.
         """
         self.ok = ok
         self.info = info
@@ -15796,10 +16645,16 @@ class SessionInformation():
         args = {}
         if 'ok' in _dict:
             args['ok'] = _dict.get('ok')
+        else:
+            raise ValueError('Required property \'ok\' not present in SessionInformation JSON')
         if 'info' in _dict:
             args['info'] = SessionAuthentication.from_dict(_dict.get('info'))
+        else:
+            raise ValueError('Required property \'info\' not present in SessionInformation JSON')
         if 'userCtx' in _dict:
             args['user_ctx'] = UserContext.from_dict(_dict.get('userCtx'))
+        else:
+            raise ValueError('Required property \'userCtx\' not present in SessionInformation JSON')
         return cls(**args)
 
     @classmethod
@@ -15841,18 +16696,15 @@ class ShardsInformation():
     Schema for a shards object that maps the hash value range for each shard to the array
     of nodes that contain a copy of that shard.
 
-    :attr dict shards: (optional) Mapping of shard hash value range to a list of
-          nodes.
+    :attr dict shards: Mapping of shard hash value range to a list of nodes.
     """
 
     def __init__(self,
-                 *,
-                 shards: dict = None) -> None:
+                 shards: dict) -> None:
         """
         Initialize a ShardsInformation object.
 
-        :param dict shards: (optional) Mapping of shard hash value range to a list
-               of nodes.
+        :param dict shards: Mapping of shard hash value range to a list of nodes.
         """
         self.shards = shards
 
@@ -15862,6 +16714,8 @@ class ShardsInformation():
         args = {}
         if 'shards' in _dict:
             args['shards'] = _dict.get('shards')
+        else:
+            raise ValueError('Required property \'shards\' not present in ShardsInformation JSON')
         return cls(**args)
 
     @classmethod
@@ -15894,29 +16748,130 @@ class ShardsInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
+class ThroughputInformation():
+    """
+    Schema for detailed information about throughput capacity with breakdown by specific
+    throughput requests classes.
+
+    :attr int blocks: A number of blocks of throughput units. A block consists of
+          100 reads/sec, 50 writes/sec, and 5 global queries/sec of provisioned throughput
+          capacity.
+    :attr int query: Provisioned global queries capacity in operations per second.
+    :attr int read: Provisioned reads capacity in operations per second.
+    :attr int write: Provisioned writes capacity in operations per second.
+    """
+
+    def __init__(self,
+                 blocks: int,
+                 query: int,
+                 read: int,
+                 write: int) -> None:
+        """
+        Initialize a ThroughputInformation object.
+
+        :param int blocks: A number of blocks of throughput units. A block consists
+               of 100 reads/sec, 50 writes/sec, and 5 global queries/sec of provisioned
+               throughput capacity.
+        :param int query: Provisioned global queries capacity in operations per
+               second.
+        :param int read: Provisioned reads capacity in operations per second.
+        :param int write: Provisioned writes capacity in operations per second.
+        """
+        self.blocks = blocks
+        self.query = query
+        self.read = read
+        self.write = write
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ThroughputInformation':
+        """Initialize a ThroughputInformation object from a json dictionary."""
+        args = {}
+        if 'blocks' in _dict:
+            args['blocks'] = _dict.get('blocks')
+        else:
+            raise ValueError('Required property \'blocks\' not present in ThroughputInformation JSON')
+        if 'query' in _dict:
+            args['query'] = _dict.get('query')
+        else:
+            raise ValueError('Required property \'query\' not present in ThroughputInformation JSON')
+        if 'read' in _dict:
+            args['read'] = _dict.get('read')
+        else:
+            raise ValueError('Required property \'read\' not present in ThroughputInformation JSON')
+        if 'write' in _dict:
+            args['write'] = _dict.get('write')
+        else:
+            raise ValueError('Required property \'write\' not present in ThroughputInformation JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ThroughputInformation object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'blocks') and self.blocks is not None:
+            _dict['blocks'] = self.blocks
+        if hasattr(self, 'query') and self.query is not None:
+            _dict['query'] = self.query
+        if hasattr(self, 'read') and self.read is not None:
+            _dict['read'] = self.read
+        if hasattr(self, 'write') and self.write is not None:
+            _dict['write'] = self.write
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ThroughputInformation object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ThroughputInformation') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ThroughputInformation') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
 class UpInformation():
     """
     Schema for information about the up state of the server.
 
-    :attr str status: (optional) status.
+    :attr object seeds: seeds.
+    :attr str status: status.
     """
 
     def __init__(self,
-                 *,
-                 status: str = None) -> None:
+                 seeds: object,
+                 status: str) -> None:
         """
         Initialize a UpInformation object.
 
-        :param str status: (optional) status.
+        :param object seeds: seeds.
+        :param str status: status.
         """
+        self.seeds = seeds
         self.status = status
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'UpInformation':
         """Initialize a UpInformation object from a json dictionary."""
         args = {}
+        if 'seeds' in _dict:
+            args['seeds'] = _dict.get('seeds')
+        else:
+            raise ValueError('Required property \'seeds\' not present in UpInformation JSON')
         if 'status' in _dict:
             args['status'] = _dict.get('status')
+        else:
+            raise ValueError('Required property \'status\' not present in UpInformation JSON')
         return cls(**args)
 
     @classmethod
@@ -15927,6 +16882,8 @@ class UpInformation():
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
+        if hasattr(self, 'seeds') and self.seeds is not None:
+            _dict['seeds'] = self.seeds
         if hasattr(self, 'status') and self.status is not None:
             _dict['status'] = self.status
         return _dict
@@ -15963,22 +16920,22 @@ class UserContext():
     Schema for the user context of a session.
 
     :attr str db: (optional) Database name in the context of the provided operation.
-    :attr str name: (optional) User name.
-    :attr List[str] roles: (optional) List of user roles.
+    :attr str name: User name.
+    :attr List[str] roles: List of user roles.
     """
 
     def __init__(self,
+                 name: str,
+                 roles: List[str],
                  *,
-                 db: str = None,
-                 name: str = None,
-                 roles: List[str] = None) -> None:
+                 db: str = None) -> None:
         """
         Initialize a UserContext object.
 
+        :param str name: User name.
+        :param List[str] roles: List of user roles.
         :param str db: (optional) Database name in the context of the provided
                operation.
-        :param str name: (optional) User name.
-        :param List[str] roles: (optional) List of user roles.
         """
         self.db = db
         self.name = name
@@ -15992,8 +16949,12 @@ class UserContext():
             args['db'] = _dict.get('db')
         if 'name' in _dict:
             args['name'] = _dict.get('name')
+        else:
+            raise ValueError('Required property \'name\' not present in UserContext JSON')
         if 'roles' in _dict:
             args['roles'] = _dict.get('roles')
+        else:
+            raise ValueError('Required property \'roles\' not present in UserContext JSON')
         return cls(**args)
 
     @classmethod
@@ -16048,16 +17009,15 @@ class UuidsResult():
     """
     Schema for a set of uuids generated by the server.
 
-    :attr List[str] uuids: (optional) uuids.
+    :attr List[str] uuids: uuids.
     """
 
     def __init__(self,
-                 *,
-                 uuids: List[str] = None) -> None:
+                 uuids: List[str]) -> None:
         """
         Initialize a UuidsResult object.
 
-        :param List[str] uuids: (optional) uuids.
+        :param List[str] uuids: uuids.
         """
         self.uuids = uuids
 
@@ -16067,6 +17027,8 @@ class UuidsResult():
         args = {}
         if 'uuids' in _dict:
             args['uuids'] = _dict.get('uuids')
+        else:
+            raise ValueError('Required property \'uuids\' not present in UuidsResult JSON')
         return cls(**args)
 
     @classmethod
@@ -16425,20 +17387,20 @@ class ViewResult():
 
     :attr int total_rows: (optional) Number of total rows.
     :attr str update_seq: (optional) Current update sequence for the database.
-    :attr List[ViewResultRow] rows: (optional) rows.
+    :attr List[ViewResultRow] rows: rows.
     """
 
     def __init__(self,
+                 rows: List['ViewResultRow'],
                  *,
                  total_rows: int = None,
-                 update_seq: str = None,
-                 rows: List['ViewResultRow'] = None) -> None:
+                 update_seq: str = None) -> None:
         """
         Initialize a ViewResult object.
 
+        :param List[ViewResultRow] rows: rows.
         :param int total_rows: (optional) Number of total rows.
         :param str update_seq: (optional) Current update sequence for the database.
-        :param List[ViewResultRow] rows: (optional) rows.
         """
         self.total_rows = total_rows
         self.update_seq = update_seq
@@ -16454,6 +17416,8 @@ class ViewResult():
             args['update_seq'] = _dict.get('update_seq')
         if 'rows' in _dict:
             args['rows'] = [ViewResultRow.from_dict(x) for x in _dict.get('rows')]
+        else:
+            raise ValueError('Required property \'rows\' not present in ViewResult JSON')
         return cls(**args)
 
     @classmethod
@@ -16499,29 +17463,29 @@ class ViewResultRow():
     :attr str reason: (optional) The reason the error occurred (if available).
     :attr Document doc: (optional) Schema for a document.
     :attr str id: (optional) Schema for a document ID.
-    :attr object key: (optional) Schema for any JSON type.
-    :attr object value: (optional) Schema for any JSON type.
+    :attr object key: Schema for any JSON type.
+    :attr object value: Schema for any JSON type.
     """
 
     def __init__(self,
+                 key: object,
+                 value: object,
                  *,
                  caused_by: str = None,
                  error: str = None,
                  reason: str = None,
                  doc: 'Document' = None,
-                 id: str = None,
-                 key: object = None,
-                 value: object = None) -> None:
+                 id: str = None) -> None:
         """
         Initialize a ViewResultRow object.
 
+        :param object key: Schema for any JSON type.
+        :param object value: Schema for any JSON type.
         :param str caused_by: (optional) The cause of the error (if available).
         :param str error: (optional) The name of the error.
         :param str reason: (optional) The reason the error occurred (if available).
         :param Document doc: (optional) Schema for a document.
         :param str id: (optional) Schema for a document ID.
-        :param object key: (optional) Schema for any JSON type.
-        :param object value: (optional) Schema for any JSON type.
         """
         self.caused_by = caused_by
         self.error = error
@@ -16547,8 +17511,12 @@ class ViewResultRow():
             args['id'] = _dict.get('id')
         if 'key' in _dict:
             args['key'] = _dict.get('key')
+        else:
+            raise ValueError('Required property \'key\' not present in ViewResultRow JSON')
         if 'value' in _dict:
             args['value'] = _dict.get('value')
+        else:
+            raise ValueError('Required property \'value\' not present in ViewResultRow JSON')
         return cls(**args)
 
     @classmethod
