@@ -66,7 +66,7 @@ class TestGetServerInformation():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/')
-        mock_response = '{"couchdb": "couchdb", "features": ["features"], "vendor": {"name": "name", "variant": "variant", "version": "version"}, "version": "version"}'
+        mock_response = '{"couchdb": "couchdb", "features": ["features"], "vendor": {"name": "name", "variant": "variant", "version": "version"}, "version": "version", "features_flags": ["features_flags"]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -186,6 +186,116 @@ class TestGetUuids():
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
+
+
+class TestGetCapacityThroughputInformation():
+    """
+    Test Class for get_capacity_throughput_information
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_get_capacity_throughput_information_all_params(self):
+        """
+        get_capacity_throughput_information()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/_api/v2/user/capacity/throughput')
+        mock_response = '{"current": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}, "target": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}}'
+        responses.add(responses.GET,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Invoke method
+        response = service.get_capacity_throughput_information()
+
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+
+class TestPutCapacityThroughputInformation():
+    """
+    Test Class for put_capacity_throughput_information
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_put_capacity_throughput_information_all_params(self):
+        """
+        put_capacity_throughput_information()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/_api/v2/user/capacity/throughput')
+        mock_response = '{"current": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}, "target": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}}'
+        responses.add(responses.PUT,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        blocks = 0
+
+        # Invoke method
+        response = service.put_capacity_throughput_information(
+            blocks,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['blocks'] == 0
+
+
+    @responses.activate
+    def test_put_capacity_throughput_information_value_error(self):
+        """
+        test_put_capacity_throughput_information_value_error()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/_api/v2/user/capacity/throughput')
+        mock_response = '{"current": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}, "target": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}}'
+        responses.add(responses.PUT,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        blocks = 0
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "blocks": blocks,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                service.put_capacity_throughput_information(**req_copy)
+
 
 
 # endregion
@@ -684,7 +794,7 @@ class TestPostChanges():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_changes')
-        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "id": "id", "seq": "seq"}]}'
+        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -770,7 +880,7 @@ class TestPostChanges():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_changes')
-        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "id": "id", "seq": "seq"}]}'
+        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -809,7 +919,7 @@ class TestPostChanges():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_changes')
-        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "id": "id", "seq": "seq"}]}'
+        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -1510,13 +1620,13 @@ class TestPostAllDocsAsStream():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        startkey = '0007741142412418284'
 
         # Invoke method
         response = service.post_all_docs_as_stream(
@@ -1548,13 +1658,13 @@ class TestPostAllDocsAsStream():
         assert req_body['descending'] == True
         assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == True
         assert req_body['endkey'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['startkey'] == 'testString'
+        assert req_body['startkey'] == '0007741142412418284'
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -1585,13 +1695,13 @@ class TestPostAllDocsAsStream():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        startkey = '0007741142412418284'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -2162,9 +2272,9 @@ class TestPostBulkGetAsMixed():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+        bulk_get_query_document_model['rev'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -2217,9 +2327,9 @@ class TestPostBulkGetAsMixed():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+        bulk_get_query_document_model['rev'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -2257,9 +2367,9 @@ class TestPostBulkGetAsMixed():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+        bulk_get_query_document_model['rev'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -2308,9 +2418,9 @@ class TestPostBulkGetAsRelated():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+        bulk_get_query_document_model['rev'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -2363,9 +2473,9 @@ class TestPostBulkGetAsRelated():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+        bulk_get_query_document_model['rev'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -2403,9 +2513,9 @@ class TestPostBulkGetAsRelated():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+        bulk_get_query_document_model['rev'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -2454,9 +2564,9 @@ class TestPostBulkGetAsStream():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+        bulk_get_query_document_model['rev'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -2515,9 +2625,9 @@ class TestPostBulkGetAsStream():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+        bulk_get_query_document_model['rev'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -2561,9 +2671,9 @@ class TestPostBulkGetAsStream():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'foo'
+        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = '4-753875d51501a6b1883a9d62b4d33f91'
+        bulk_get_query_document_model['rev'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -3344,7 +3454,7 @@ class TestPutDocument():
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
@@ -3428,7 +3538,7 @@ class TestPutDocument():
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
@@ -3496,7 +3606,7 @@ class TestPutDocument():
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
@@ -4347,13 +4457,13 @@ class TestPostDesignDocs():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        startkey = '0007741142412418284'
         accept = 'application/json'
 
         # Invoke method
@@ -4387,13 +4497,13 @@ class TestPostDesignDocs():
         assert req_body['descending'] == True
         assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == True
         assert req_body['endkey'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['startkey'] == 'testString'
+        assert req_body['startkey'] == '0007741142412418284'
 
 
     @responses.activate
@@ -4418,13 +4528,13 @@ class TestPostDesignDocs():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        startkey = '0007741142412418284'
 
         # Invoke method
         response = service.post_design_docs(
@@ -4456,13 +4566,13 @@ class TestPostDesignDocs():
         assert req_body['descending'] == True
         assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == True
         assert req_body['endkey'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['startkey'] == 'testString'
+        assert req_body['startkey'] == '0007741142412418284'
 
 
     @responses.activate
@@ -4487,13 +4597,13 @@ class TestPostDesignDocs():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        startkey = '0007741142412418284'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -4874,7 +4984,7 @@ class TestPostViewAsStream():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = { 'foo': 'bar' }
@@ -4928,7 +5038,7 @@ class TestPostViewAsStream():
         assert req_body['descending'] == True
         assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == True
         assert req_body['endkey'] == { 'foo': 'bar' }
@@ -4974,7 +5084,7 @@ class TestPostViewAsStream():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = { 'foo': 'bar' }
@@ -5169,7 +5279,7 @@ class TestPostViewQueriesAsStream():
         view_query_model['descending'] = True
         view_query_model['include_docs'] = True
         view_query_model['inclusive_end'] = True
-        view_query_model['limit'] = 0
+        view_query_model['limit'] = 5
         view_query_model['skip'] = 0
         view_query_model['update_seq'] = True
         view_query_model['endkey'] = { 'foo': 'bar' }
@@ -5235,7 +5345,7 @@ class TestPostViewQueriesAsStream():
         view_query_model['descending'] = True
         view_query_model['include_docs'] = True
         view_query_model['inclusive_end'] = True
-        view_query_model['limit'] = 0
+        view_query_model['limit'] = 5
         view_query_model['skip'] = 0
         view_query_model['update_seq'] = True
         view_query_model['endkey'] = { 'foo': 'bar' }
@@ -5391,13 +5501,13 @@ class TestPostPartitionAllDocs():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        startkey = '0007741142412418284'
 
         # Invoke method
         response = service.post_partition_all_docs(
@@ -5430,13 +5540,13 @@ class TestPostPartitionAllDocs():
         assert req_body['descending'] == True
         assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == True
         assert req_body['endkey'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['startkey'] == 'testString'
+        assert req_body['startkey'] == '0007741142412418284'
 
 
     @responses.activate
@@ -5462,13 +5572,13 @@ class TestPostPartitionAllDocs():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        startkey = '0007741142412418284'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -5519,13 +5629,13 @@ class TestPostPartitionAllDocsAsStream():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        startkey = '0007741142412418284'
 
         # Invoke method
         response = service.post_partition_all_docs_as_stream(
@@ -5558,13 +5668,13 @@ class TestPostPartitionAllDocsAsStream():
         assert req_body['descending'] == True
         assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == True
         assert req_body['endkey'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['startkey'] == 'testString'
+        assert req_body['startkey'] == '0007741142412418284'
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -5596,13 +5706,13 @@ class TestPostPartitionAllDocsAsStream():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        startkey = '0007741142412418284'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -5927,7 +6037,7 @@ class TestPostPartitionView():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = { 'foo': 'bar' }
@@ -5982,7 +6092,7 @@ class TestPostPartitionView():
         assert req_body['descending'] == True
         assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == True
         assert req_body['endkey'] == { 'foo': 'bar' }
@@ -6023,7 +6133,7 @@ class TestPostPartitionView():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = { 'foo': 'bar' }
@@ -6091,7 +6201,7 @@ class TestPostPartitionViewAsStream():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = { 'foo': 'bar' }
@@ -6146,7 +6256,7 @@ class TestPostPartitionViewAsStream():
         assert req_body['descending'] == True
         assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == True
         assert req_body['endkey'] == { 'foo': 'bar' }
@@ -6193,7 +6303,7 @@ class TestPostPartitionViewAsStream():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = { 'foo': 'bar' }
@@ -6636,7 +6746,7 @@ class TestPostFind():
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 3
         skip = 0
         sort = [{}]
         stable = True
@@ -6672,7 +6782,7 @@ class TestPostFind():
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
         assert req_body['fields'] == ['testString']
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 3
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{}]
         assert req_body['stable'] == True
@@ -6702,7 +6812,7 @@ class TestPostFind():
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 3
         skip = 0
         sort = [{}]
         stable = True
@@ -6757,7 +6867,7 @@ class TestPostFindAsStream():
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 3
         skip = 0
         sort = [{}]
         stable = True
@@ -6793,7 +6903,7 @@ class TestPostFindAsStream():
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
         assert req_body['fields'] == ['testString']
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 3
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{}]
         assert req_body['stable'] == True
@@ -6829,7 +6939,7 @@ class TestPostFindAsStream():
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 3
         skip = 0
         sort = [{}]
         stable = True
@@ -8055,7 +8165,7 @@ class TestGetGeoIndexInformation():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_geo_info/testString')
-        mock_response = '{"geo_index": {"data_size": 0, "disk_size": 0, "doc_count": 0}}'
+        mock_response = '{"geo_index": {"data_size": 0, "disk_size": 0, "doc_count": 0}, "name": "name"}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -8087,7 +8197,7 @@ class TestGetGeoIndexInformation():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString/_geo_info/testString')
-        mock_response = '{"geo_index": {"data_size": 0, "disk_size": 0, "doc_count": 0}}'
+        mock_response = '{"geo_index": {"data_size": 0, "disk_size": 0, "doc_count": 0}, "name": "name"}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -8143,7 +8253,7 @@ class TestGetDbUpdates():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_db_updates')
-        mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "dbname": "dbname", "seq": "seq", "type": "created"}]}'
+        mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "db_name": "db_name", "seq": "seq", "type": "created"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -8184,7 +8294,7 @@ class TestGetDbUpdates():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_db_updates')
-        mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "dbname": "dbname", "seq": "seq", "type": "created"}]}'
+        mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "db_name": "db_name", "seq": "seq", "type": "created"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -8920,7 +9030,7 @@ class TestPutReplicationDocument():
         replication_database_model = {}
         replication_database_model['auth'] = replication_database_auth_model
         replication_database_model['headers'] = {}
-        replication_database_model['url'] = 'http://myserver.example:5984/foo-db'
+        replication_database_model['url'] = 'https://examples.cloudant.com/animaldb'
 
         # Construct a dict representation of a UserContext model
         user_context_model = {}
@@ -9050,7 +9160,7 @@ class TestPutReplicationDocument():
         replication_database_model = {}
         replication_database_model['auth'] = replication_database_auth_model
         replication_database_model['headers'] = {}
-        replication_database_model['url'] = 'http://myserver.example:5984/foo-db'
+        replication_database_model['url'] = 'https://examples.cloudant.com/animaldb'
 
         # Construct a dict representation of a UserContext model
         user_context_model = {}
@@ -9166,7 +9276,7 @@ class TestPutReplicationDocument():
         replication_database_model = {}
         replication_database_model['auth'] = replication_database_auth_model
         replication_database_model['headers'] = {}
-        replication_database_model['url'] = 'http://myserver.example:5984/foo-db'
+        replication_database_model['url'] = 'https://examples.cloudant.com/animaldb'
 
         # Construct a dict representation of a UserContext model
         user_context_model = {}
@@ -10796,7 +10906,7 @@ class TestPutLocalDocument():
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
@@ -10872,7 +10982,7 @@ class TestPutLocalDocument():
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
@@ -10940,7 +11050,7 @@ class TestPutLocalDocument():
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
@@ -11001,13 +11111,13 @@ class TestPostLocalDocs():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        startkey = '0007741142412418284'
         accept = 'application/json'
 
         # Invoke method
@@ -11041,13 +11151,13 @@ class TestPostLocalDocs():
         assert req_body['descending'] == True
         assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == True
         assert req_body['endkey'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['startkey'] == 'testString'
+        assert req_body['startkey'] == '0007741142412418284'
 
 
     @responses.activate
@@ -11072,13 +11182,13 @@ class TestPostLocalDocs():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        startkey = '0007741142412418284'
 
         # Invoke method
         response = service.post_local_docs(
@@ -11110,13 +11220,13 @@ class TestPostLocalDocs():
         assert req_body['descending'] == True
         assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == True
         assert req_body['endkey'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['startkey'] == 'testString'
+        assert req_body['startkey'] == '0007741142412418284'
 
 
     @responses.activate
@@ -11141,13 +11251,13 @@ class TestPostLocalDocs():
         descending = True
         include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = True
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        startkey = '0007741142412418284'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -11659,7 +11769,7 @@ class TestGetActiveTasks():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_active_tasks')
-        mock_response = '[{"changes_done": 0, "database": "database", "pid": "pid", "progress": 0, "started_on": 0, "status": "status", "task": "task", "total_changes": 0, "type": "type", "updated_on": 0}]'
+        mock_response = '[{"changes_done": 0, "database": "database", "node": "node", "pid": "pid", "progress": 0, "started_on": 0, "status": "status", "task": "task", "total_changes": 0, "type": "type", "updated_on": 0}]'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -11696,7 +11806,7 @@ class TestGetUpInformation():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_up')
-        mock_response = '{"status": "maintenance_mode"}'
+        mock_response = '{"seeds": {"anyKey": "anyValue"}, "status": "maintenance_mode"}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -11705,6 +11815,153 @@ class TestGetUpInformation():
 
         # Invoke method
         response = service.get_up_information()
+
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+
+class TestGetActivityTrackerEventsInformation():
+    """
+    Test Class for get_activity_tracker_events_information
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_get_activity_tracker_events_information_all_params(self):
+        """
+        get_activity_tracker_events_information()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/_api/v2/user/activity_tracker/events')
+        mock_response = '{"types": ["management"]}'
+        responses.add(responses.GET,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Invoke method
+        response = service.get_activity_tracker_events_information()
+
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+
+class TestPostActivityTrackerEventsConfiguration():
+    """
+    Test Class for post_activity_tracker_events_configuration
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_post_activity_tracker_events_configuration_all_params(self):
+        """
+        post_activity_tracker_events_configuration()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/_api/v2/user/activity_tracker/events')
+        mock_response = '{"ok": true}'
+        responses.add(responses.POST,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        types = ['management']
+
+        # Invoke method
+        response = service.post_activity_tracker_events_configuration(
+            types,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['types'] == ['management']
+
+
+    @responses.activate
+    def test_post_activity_tracker_events_configuration_value_error(self):
+        """
+        test_post_activity_tracker_events_configuration_value_error()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/_api/v2/user/activity_tracker/events')
+        mock_response = '{"ok": true}'
+        responses.add(responses.POST,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        types = ['management']
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "types": types,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                service.post_activity_tracker_events_configuration(**req_copy)
+
+
+
+class TestGetCurrentThroughputInformation():
+    """
+    Test Class for get_current_throughput_information
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_get_current_throughput_information_all_params(self):
+        """
+        get_current_throughput_information()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/_api/v2/user/current/throughput')
+        mock_response = '{"throughput": {"query": 0, "read": 0, "write": 0}}'
+        responses.add(responses.GET,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Invoke method
+        response = service.get_current_throughput_information()
 
 
         # Check for correct operation
@@ -11736,6 +11993,7 @@ class TestActiveTask():
         active_task_model_json = {}
         active_task_model_json['changes_done'] = 0
         active_task_model_json['database'] = 'testString'
+        active_task_model_json['node'] = 'testString'
         active_task_model_json['pid'] = 'testString'
         active_task_model_json['progress'] = 0
         active_task_model_json['started_on'] = 0
@@ -11759,6 +12017,35 @@ class TestActiveTask():
         # Convert model instance back to dict and verify no loss of data
         active_task_model_json2 = active_task_model.to_dict()
         assert active_task_model_json2 == active_task_model_json
+
+class TestActivityTrackerEventsConfiguration():
+    """
+    Test Class for ActivityTrackerEventsConfiguration
+    """
+
+    def test_activity_tracker_events_configuration_serialization(self):
+        """
+        Test serialization/deserialization for ActivityTrackerEventsConfiguration
+        """
+
+        # Construct a json representation of a ActivityTrackerEventsConfiguration model
+        activity_tracker_events_configuration_model_json = {}
+        activity_tracker_events_configuration_model_json['types'] = ['management']
+
+        # Construct a model instance of ActivityTrackerEventsConfiguration by calling from_dict on the json representation
+        activity_tracker_events_configuration_model = ActivityTrackerEventsConfiguration.from_dict(activity_tracker_events_configuration_model_json)
+        assert activity_tracker_events_configuration_model != False
+
+        # Construct a model instance of ActivityTrackerEventsConfiguration by calling from_dict on the json representation
+        activity_tracker_events_configuration_model_dict = ActivityTrackerEventsConfiguration.from_dict(activity_tracker_events_configuration_model_json).__dict__
+        activity_tracker_events_configuration_model2 = ActivityTrackerEventsConfiguration(**activity_tracker_events_configuration_model_dict)
+
+        # Verify the model instances are equivalent
+        assert activity_tracker_events_configuration_model == activity_tracker_events_configuration_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        activity_tracker_events_configuration_model_json2 = activity_tracker_events_configuration_model.to_dict()
+        assert activity_tracker_events_configuration_model_json2 == activity_tracker_events_configuration_model_json
 
 class TestAllDocsQueriesResult():
     """
@@ -12410,6 +12697,124 @@ class TestBulkGetResultItem():
         bulk_get_result_item_model_json2 = bulk_get_result_item_model.to_dict()
         assert bulk_get_result_item_model_json2 == bulk_get_result_item_model_json
 
+class TestCapacityThroughputInformation():
+    """
+    Test Class for CapacityThroughputInformation
+    """
+
+    def test_capacity_throughput_information_serialization(self):
+        """
+        Test serialization/deserialization for CapacityThroughputInformation
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        throughput_information_model = {} # ThroughputInformation
+        throughput_information_model['blocks'] = 0
+        throughput_information_model['query'] = 0
+        throughput_information_model['read'] = 0
+        throughput_information_model['write'] = 0
+
+        capacity_throughput_information_current_model = {} # CapacityThroughputInformationCurrent
+        capacity_throughput_information_current_model['throughput'] = throughput_information_model
+
+        capacity_throughput_information_target_model = {} # CapacityThroughputInformationTarget
+        capacity_throughput_information_target_model['throughput'] = throughput_information_model
+
+        # Construct a json representation of a CapacityThroughputInformation model
+        capacity_throughput_information_model_json = {}
+        capacity_throughput_information_model_json['current'] = capacity_throughput_information_current_model
+        capacity_throughput_information_model_json['target'] = capacity_throughput_information_target_model
+
+        # Construct a model instance of CapacityThroughputInformation by calling from_dict on the json representation
+        capacity_throughput_information_model = CapacityThroughputInformation.from_dict(capacity_throughput_information_model_json)
+        assert capacity_throughput_information_model != False
+
+        # Construct a model instance of CapacityThroughputInformation by calling from_dict on the json representation
+        capacity_throughput_information_model_dict = CapacityThroughputInformation.from_dict(capacity_throughput_information_model_json).__dict__
+        capacity_throughput_information_model2 = CapacityThroughputInformation(**capacity_throughput_information_model_dict)
+
+        # Verify the model instances are equivalent
+        assert capacity_throughput_information_model == capacity_throughput_information_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        capacity_throughput_information_model_json2 = capacity_throughput_information_model.to_dict()
+        assert capacity_throughput_information_model_json2 == capacity_throughput_information_model_json
+
+class TestCapacityThroughputInformationCurrent():
+    """
+    Test Class for CapacityThroughputInformationCurrent
+    """
+
+    def test_capacity_throughput_information_current_serialization(self):
+        """
+        Test serialization/deserialization for CapacityThroughputInformationCurrent
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        throughput_information_model = {} # ThroughputInformation
+        throughput_information_model['blocks'] = 0
+        throughput_information_model['query'] = 0
+        throughput_information_model['read'] = 0
+        throughput_information_model['write'] = 0
+
+        # Construct a json representation of a CapacityThroughputInformationCurrent model
+        capacity_throughput_information_current_model_json = {}
+        capacity_throughput_information_current_model_json['throughput'] = throughput_information_model
+
+        # Construct a model instance of CapacityThroughputInformationCurrent by calling from_dict on the json representation
+        capacity_throughput_information_current_model = CapacityThroughputInformationCurrent.from_dict(capacity_throughput_information_current_model_json)
+        assert capacity_throughput_information_current_model != False
+
+        # Construct a model instance of CapacityThroughputInformationCurrent by calling from_dict on the json representation
+        capacity_throughput_information_current_model_dict = CapacityThroughputInformationCurrent.from_dict(capacity_throughput_information_current_model_json).__dict__
+        capacity_throughput_information_current_model2 = CapacityThroughputInformationCurrent(**capacity_throughput_information_current_model_dict)
+
+        # Verify the model instances are equivalent
+        assert capacity_throughput_information_current_model == capacity_throughput_information_current_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        capacity_throughput_information_current_model_json2 = capacity_throughput_information_current_model.to_dict()
+        assert capacity_throughput_information_current_model_json2 == capacity_throughput_information_current_model_json
+
+class TestCapacityThroughputInformationTarget():
+    """
+    Test Class for CapacityThroughputInformationTarget
+    """
+
+    def test_capacity_throughput_information_target_serialization(self):
+        """
+        Test serialization/deserialization for CapacityThroughputInformationTarget
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        throughput_information_model = {} # ThroughputInformation
+        throughput_information_model['blocks'] = 0
+        throughput_information_model['query'] = 0
+        throughput_information_model['read'] = 0
+        throughput_information_model['write'] = 0
+
+        # Construct a json representation of a CapacityThroughputInformationTarget model
+        capacity_throughput_information_target_model_json = {}
+        capacity_throughput_information_target_model_json['throughput'] = throughput_information_model
+
+        # Construct a model instance of CapacityThroughputInformationTarget by calling from_dict on the json representation
+        capacity_throughput_information_target_model = CapacityThroughputInformationTarget.from_dict(capacity_throughput_information_target_model_json)
+        assert capacity_throughput_information_target_model != False
+
+        # Construct a model instance of CapacityThroughputInformationTarget by calling from_dict on the json representation
+        capacity_throughput_information_target_model_dict = CapacityThroughputInformationTarget.from_dict(capacity_throughput_information_target_model_json).__dict__
+        capacity_throughput_information_target_model2 = CapacityThroughputInformationTarget(**capacity_throughput_information_target_model_dict)
+
+        # Verify the model instances are equivalent
+        assert capacity_throughput_information_target_model == capacity_throughput_information_target_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        capacity_throughput_information_target_model_json2 = capacity_throughput_information_target_model.to_dict()
+        assert capacity_throughput_information_target_model_json2 == capacity_throughput_information_target_model_json
+
 class TestChange():
     """
     Test Class for Change
@@ -12454,9 +12859,41 @@ class TestChangesResult():
         change_model = {} # Change
         change_model['rev'] = 'testString'
 
+        attachment_model = {} # Attachment
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        revisions_model = {} # Revisions
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        document_model = {} # Document
+        document_model['_attachments'] = {}
+        document_model['_conflicts'] = ['testString']
+        document_model['_deleted'] = True
+        document_model['_deleted_conflicts'] = ['testString']
+        document_model['_id'] = 'testString'
+        document_model['_local_seq'] = 'testString'
+        document_model['_rev'] = 'testString'
+        document_model['_revisions'] = revisions_model
+        document_model['_revs_info'] = [document_revision_status_model]
+        document_model['foo'] = { 'foo': 'bar' }
+
         changes_result_item_model = {} # ChangesResultItem
         changes_result_item_model['changes'] = [change_model]
         changes_result_item_model['deleted'] = True
+        changes_result_item_model['doc'] = document_model
         changes_result_item_model['id'] = 'testString'
         changes_result_item_model['seq'] = 'testString'
 
@@ -12496,10 +12933,42 @@ class TestChangesResultItem():
         change_model = {} # Change
         change_model['rev'] = 'testString'
 
+        attachment_model = {} # Attachment
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        revisions_model = {} # Revisions
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        document_revision_status_model = {} # DocumentRevisionStatus
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        document_model = {} # Document
+        document_model['_attachments'] = {}
+        document_model['_conflicts'] = ['testString']
+        document_model['_deleted'] = True
+        document_model['_deleted_conflicts'] = ['testString']
+        document_model['_id'] = 'testString'
+        document_model['_local_seq'] = 'testString'
+        document_model['_rev'] = 'testString'
+        document_model['_revisions'] = revisions_model
+        document_model['_revs_info'] = [document_revision_status_model]
+        document_model['foo'] = { 'foo': 'bar' }
+
         # Construct a json representation of a ChangesResultItem model
         changes_result_item_model_json = {}
         changes_result_item_model_json['changes'] = [change_model]
         changes_result_item_model_json['deleted'] = True
+        changes_result_item_model_json['doc'] = document_model
         changes_result_item_model_json['id'] = 'testString'
         changes_result_item_model_json['seq'] = 'testString'
 
@@ -12549,36 +13018,103 @@ class TestContentInformationSizes():
         content_information_sizes_model_json2 = content_information_sizes_model.to_dict()
         assert content_information_sizes_model_json2 == content_information_sizes_model_json
 
-class TestCorsConfiguration():
+class TestCorsInformation():
     """
-    Test Class for CorsConfiguration
+    Test Class for CorsInformation
     """
 
-    def test_cors_configuration_serialization(self):
+    def test_cors_information_serialization(self):
         """
-        Test serialization/deserialization for CorsConfiguration
+        Test serialization/deserialization for CorsInformation
         """
 
-        # Construct a json representation of a CorsConfiguration model
-        cors_configuration_model_json = {}
-        cors_configuration_model_json['allow_credentials'] = True
-        cors_configuration_model_json['enable_cors'] = True
-        cors_configuration_model_json['origins'] = ['testString']
+        # Construct a json representation of a CorsInformation model
+        cors_information_model_json = {}
+        cors_information_model_json['allow_credentials'] = True
+        cors_information_model_json['enable_cors'] = True
+        cors_information_model_json['origins'] = ['testString']
 
-        # Construct a model instance of CorsConfiguration by calling from_dict on the json representation
-        cors_configuration_model = CorsConfiguration.from_dict(cors_configuration_model_json)
-        assert cors_configuration_model != False
+        # Construct a model instance of CorsInformation by calling from_dict on the json representation
+        cors_information_model = CorsInformation.from_dict(cors_information_model_json)
+        assert cors_information_model != False
 
-        # Construct a model instance of CorsConfiguration by calling from_dict on the json representation
-        cors_configuration_model_dict = CorsConfiguration.from_dict(cors_configuration_model_json).__dict__
-        cors_configuration_model2 = CorsConfiguration(**cors_configuration_model_dict)
+        # Construct a model instance of CorsInformation by calling from_dict on the json representation
+        cors_information_model_dict = CorsInformation.from_dict(cors_information_model_json).__dict__
+        cors_information_model2 = CorsInformation(**cors_information_model_dict)
 
         # Verify the model instances are equivalent
-        assert cors_configuration_model == cors_configuration_model2
+        assert cors_information_model == cors_information_model2
 
         # Convert model instance back to dict and verify no loss of data
-        cors_configuration_model_json2 = cors_configuration_model.to_dict()
-        assert cors_configuration_model_json2 == cors_configuration_model_json
+        cors_information_model_json2 = cors_information_model.to_dict()
+        assert cors_information_model_json2 == cors_information_model_json
+
+class TestCurrentThroughputInformation():
+    """
+    Test Class for CurrentThroughputInformation
+    """
+
+    def test_current_throughput_information_serialization(self):
+        """
+        Test serialization/deserialization for CurrentThroughputInformation
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        current_throughput_information_throughput_model = {} # CurrentThroughputInformationThroughput
+        current_throughput_information_throughput_model['query'] = 0
+        current_throughput_information_throughput_model['read'] = 0
+        current_throughput_information_throughput_model['write'] = 0
+
+        # Construct a json representation of a CurrentThroughputInformation model
+        current_throughput_information_model_json = {}
+        current_throughput_information_model_json['throughput'] = current_throughput_information_throughput_model
+
+        # Construct a model instance of CurrentThroughputInformation by calling from_dict on the json representation
+        current_throughput_information_model = CurrentThroughputInformation.from_dict(current_throughput_information_model_json)
+        assert current_throughput_information_model != False
+
+        # Construct a model instance of CurrentThroughputInformation by calling from_dict on the json representation
+        current_throughput_information_model_dict = CurrentThroughputInformation.from_dict(current_throughput_information_model_json).__dict__
+        current_throughput_information_model2 = CurrentThroughputInformation(**current_throughput_information_model_dict)
+
+        # Verify the model instances are equivalent
+        assert current_throughput_information_model == current_throughput_information_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        current_throughput_information_model_json2 = current_throughput_information_model.to_dict()
+        assert current_throughput_information_model_json2 == current_throughput_information_model_json
+
+class TestCurrentThroughputInformationThroughput():
+    """
+    Test Class for CurrentThroughputInformationThroughput
+    """
+
+    def test_current_throughput_information_throughput_serialization(self):
+        """
+        Test serialization/deserialization for CurrentThroughputInformationThroughput
+        """
+
+        # Construct a json representation of a CurrentThroughputInformationThroughput model
+        current_throughput_information_throughput_model_json = {}
+        current_throughput_information_throughput_model_json['query'] = 0
+        current_throughput_information_throughput_model_json['read'] = 0
+        current_throughput_information_throughput_model_json['write'] = 0
+
+        # Construct a model instance of CurrentThroughputInformationThroughput by calling from_dict on the json representation
+        current_throughput_information_throughput_model = CurrentThroughputInformationThroughput.from_dict(current_throughput_information_throughput_model_json)
+        assert current_throughput_information_throughput_model != False
+
+        # Construct a model instance of CurrentThroughputInformationThroughput by calling from_dict on the json representation
+        current_throughput_information_throughput_model_dict = CurrentThroughputInformationThroughput.from_dict(current_throughput_information_throughput_model_json).__dict__
+        current_throughput_information_throughput_model2 = CurrentThroughputInformationThroughput(**current_throughput_information_throughput_model_dict)
+
+        # Verify the model instances are equivalent
+        assert current_throughput_information_throughput_model == current_throughput_information_throughput_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        current_throughput_information_throughput_model_json2 = current_throughput_information_throughput_model.to_dict()
+        assert current_throughput_information_throughput_model_json2 == current_throughput_information_throughput_model_json
 
 class TestDatabaseInformation():
     """
@@ -12711,7 +13247,7 @@ class TestDbEvent():
         # Construct a json representation of a DbEvent model
         db_event_model_json = {}
         db_event_model_json['account'] = 'testString'
-        db_event_model_json['dbname'] = 'testString'
+        db_event_model_json['db_name'] = 'testString'
         db_event_model_json['seq'] = 'testString'
         db_event_model_json['type'] = 'created'
 
@@ -12744,7 +13280,7 @@ class TestDbUpdates():
 
         db_event_model = {} # DbEvent
         db_event_model['account'] = 'testString'
-        db_event_model['dbname'] = 'testString'
+        db_event_model['db_name'] = 'testString'
         db_event_model['seq'] = 'testString'
         db_event_model['type'] = 'created'
 
@@ -13573,6 +14109,7 @@ class TestGeoIndexInformation():
         # Construct a json representation of a GeoIndexInformation model
         geo_index_information_model_json = {}
         geo_index_information_model_json['geo_index'] = geo_index_stats_model
+        geo_index_information_model_json['name'] = 'testString'
 
         # Construct a model instance of GeoIndexInformation by calling from_dict on the json representation
         geo_index_information_model = GeoIndexInformation.from_dict(geo_index_information_model_json)
@@ -15442,6 +15979,7 @@ class TestServerInformation():
         server_information_model_json['features'] = ['testString']
         server_information_model_json['vendor'] = server_vendor_model
         server_information_model_json['version'] = 'testString'
+        server_information_model_json['features_flags'] = ['testString']
 
         # Construct a model instance of ServerInformation by calling from_dict on the json representation
         server_information_model = ServerInformation.from_dict(server_information_model_json)
@@ -15592,6 +16130,38 @@ class TestShardsInformation():
         shards_information_model_json2 = shards_information_model.to_dict()
         assert shards_information_model_json2 == shards_information_model_json
 
+class TestThroughputInformation():
+    """
+    Test Class for ThroughputInformation
+    """
+
+    def test_throughput_information_serialization(self):
+        """
+        Test serialization/deserialization for ThroughputInformation
+        """
+
+        # Construct a json representation of a ThroughputInformation model
+        throughput_information_model_json = {}
+        throughput_information_model_json['blocks'] = 0
+        throughput_information_model_json['query'] = 0
+        throughput_information_model_json['read'] = 0
+        throughput_information_model_json['write'] = 0
+
+        # Construct a model instance of ThroughputInformation by calling from_dict on the json representation
+        throughput_information_model = ThroughputInformation.from_dict(throughput_information_model_json)
+        assert throughput_information_model != False
+
+        # Construct a model instance of ThroughputInformation by calling from_dict on the json representation
+        throughput_information_model_dict = ThroughputInformation.from_dict(throughput_information_model_json).__dict__
+        throughput_information_model2 = ThroughputInformation(**throughput_information_model_dict)
+
+        # Verify the model instances are equivalent
+        assert throughput_information_model == throughput_information_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        throughput_information_model_json2 = throughput_information_model.to_dict()
+        assert throughput_information_model_json2 == throughput_information_model_json
+
 class TestUpInformation():
     """
     Test Class for UpInformation
@@ -15604,6 +16174,7 @@ class TestUpInformation():
 
         # Construct a json representation of a UpInformation model
         up_information_model_json = {}
+        up_information_model_json['seeds'] = { 'foo': 'bar' }
         up_information_model_json['status'] = 'maintenance_mode'
 
         # Construct a model instance of UpInformation by calling from_dict on the json representation
