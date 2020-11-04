@@ -3,10 +3,10 @@ import json
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 # 1. Create a Cloudant client with "EXAMPLES" service name ============
-examples_client = CloudantV1.new_instance(service_name="EXAMPLES")
+client = CloudantV1.new_instance(service_name="EXAMPLES")
 
 # 2. Get server information ===========================================
-server_information = examples_client.get_server_information(
+server_information = client.get_server_information(
 ).get_result()
 
 print(f'Server Version: {server_information["version"]}')
@@ -14,7 +14,7 @@ print(f'Server Version: {server_information["version"]}')
 # 3. Get database information for "animaldb" ==========================
 db_name = "animaldb"
 
-db_information = examples_client.get_database_information(
+db_information = client.get_database_information(
     db=db_name
 ).get_result()
 
@@ -25,7 +25,7 @@ print(f'Document count in \"{db_information["db_name"]}\" '
       f'database is {document_count}.')
 
 # 5. Get zebra document out of the database by document id ============
-document_about_zebra = examples_client.get_document(
+document_about_zebra = client.get_document(
     db=db_name,
     doc_id="zebra"
 ).get_result()
