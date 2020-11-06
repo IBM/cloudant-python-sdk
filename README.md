@@ -47,6 +47,7 @@ Changes might occur which impact applications that use this SDK.
     + [2. Create your own database and add a document](#2-create-your-own-database-and-add-a-document)
     + [3. Update your previously created document](#3-update-your-previously-created-document)
     + [4. Delete your previously created document](#4-delete-your-previously-created-document)
+- [Error handling](#error-handling)
 - [Using the SDK](#using-the-sdk)
 - [Questions](#questions)
 - [Issues](#issues)
@@ -422,6 +423,10 @@ The result of the code is the following output.
 ```txt
 You have deleted the document.
 ```
+
+## Error handling
+
+For sample code on handling errors, please see [Cloudant API docs](https://cloud.ibm.com/apidocs/cloudant?code=python#error-handling)
 
 ## Using the SDK
 
