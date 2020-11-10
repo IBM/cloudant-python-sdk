@@ -60,6 +60,36 @@ pipeline {
         publishStaging()
       }
     }
+    stage('Run Gauge tests') {
+      steps {
+        script {
+            buildResults = null
+            prefixedSdkVersion = ''
+            if (libName == 'go') {
+              prefixedSdkVersion = "@$commitHash"
+            } else if (libName == 'node') {
+              prefixedSdkVersion = "@${env.NEW_SDK_VERSION}"
+            } else if (libName == 'python') {
+              prefixedSdkVersion = "==${env.NEW_SDK_VERSION}"
+            } else if (libName == 'java') {
+              prefixedSdkVersion = "${env.NEW_SDK_VERSION}"
+            }
+          try {
+            buildResults = build job: "/SDKs NextGen/sdks-gauge/${env.BRANCH_NAME}", parameters: [
+                string(name: 'SDK_RUN_LANG', value: "$libName"),
+                string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "$prefixedSdkVersion")]
+          } catch (Exception e) {
+            // only run build in sdks-gauge master branch if BRANCH_NAME doesn't exist
+            if (buildResults == null) {
+              echo "No matching branch named '${env.BRANCH_NAME}' in sdks-gauge, building master branch"
+              build job: '/SDKs NextGen/sdks-gauge/master', parameters: [
+                  string(name: 'SDK_RUN_LANG', value: "$libName"),
+                  string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "$prefixedSdkVersion")]
+            }
+          }
+        }
+      }
+    }
     stage('Publish[repository]') {
       when {
         beforeAgent true
@@ -87,11 +117,14 @@ def libName
 def commitHash
 def bumpVersion
 def customizeVersion
+def prefixSdkVersion
 
 void defaultInit() {
   // Default to using bump2version
   bumpVersion = { isDevRelease ->
     newVersion = getNextVersion(isDevRelease)
+    // Set an env var with the new version
+    env.NEW_SDK_VERSION = newVersion
     doVersionBump(isDevRelease, newVersion)
   }
 
