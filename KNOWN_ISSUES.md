@@ -37,6 +37,11 @@ It should be noted that not all existing API options are applicable to _Cloudant
 and new API options added in _Cloudant on Transaction Engine_ are not yet available in the SDKs. Please
 consult the Cloudant documentation for further information.
 
+### Compression
+
+* Manually setting an `Accept-Encoding` header on requests will disable the transparent gzip decompression of response bodies from the server.
+* Manually setting a `Content-Encoding` header on requests will disable the transparent gzip compression of request bodies to the server.
+
 <!-- End common section -->
 
 <!-- Template substitution for language specific content -->
