@@ -9,15 +9,15 @@ If you encounter an issue with the project, you are welcome to submit a
 Before that, please search for similar issues. It's possible that someone has already reported the problem.
 
 # PRs
-Much of the code in this repository is generated from
-Cloudant's OpenAPI specification. This means PRs
-to code, tests and sometimes even markdown
-are often inappropriate and we may need to make
-changes to the specification instead. For this reason
-we ask that an **issue is always opened prior to a PR**
-to give us the opportunity to discuss the best place
-for the change before investing your effort on a patch
-that we may not be able to accept.
+We ask that an **issue is always opened prior to a PR** to give us the
+opportunity to discuss the best place for the change before investing
+your effort on a patch that we may not be able to accept.
+
+The code in the repository is partly generated from the Cloudant OpenAPI
+specification. This means PRs to code, tests and sometimes even markdown
+are often inappropriate and we may need to make changes to the specification
+instead. Please, first [look at the list of files](.github/CODEOWNERS) that
+_should not_ be modified.
 
 # General Information
 For general guidance on contributing to this project, please see
