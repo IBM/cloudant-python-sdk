@@ -2,3 +2,4 @@
 # Exclude org members from DCO sign-off on commits
 require:
   members: false
+# Trial commit
