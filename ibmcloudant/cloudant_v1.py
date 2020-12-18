@@ -71,6 +71,8 @@ class CloudantV1(BaseService):
         BaseService.__init__(self,
                              service_url=self.DEFAULT_SERVICE_URL,
                              authenticator=authenticator)
+        # enable gzip compression of request bodies
+        self.set_enable_gzip_compression(True)
 
 
     #########################
