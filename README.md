@@ -41,12 +41,12 @@ Changes might occur which impact applications that use this SDK.
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Authentication](#authentication)
-  * [Authenticate with environment variables](#authenticate-with-environment-variables)
+  * [Authentication with environment variables](#authentication-with-environment-variables)
     + [IAM authentication](#iam-authentication)
     + [Session cookie authentication](#session-cookie-authentication)
     + [Basic authentication](#basic-authentication)
-  * [Authenticate with external configuration](#authenticate-with-external-configuration)
-  * [Authenticate programmatically](#authenticate-programmatically)
+  * [Authentication with external configuration](#authentication-with-external-configuration)
+  * [Programmatic authentication](#programmatic-authentication)
 - [Using the SDK](#using-the-sdk)
   * [Code examples](#code-examples)
     + [1. Retrieve information from an existing database](#1-retrieve-information-from-an-existing-database)
@@ -82,9 +82,10 @@ Reasons why you should consider using Cloudant Python SDK in your
 project:
 
 - Supported by IBM Cloudant.
-- Service compatibility besides Cloudant _Classic_ with
-  [CouchDB 3.x](https://docs.couchdb.org/en/stable/) and some
-  [Cloudant TXE](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-overview-te)
+- Server compatibility with:
+    - IBM Cloudant "Classic"
+    - [Cloudant "Standard on Transaction Engine"](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-overview-te) for APIs compatible with Cloudant "Classic" (see the [Feature Parity page](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-overview-te#feature-parity-between-ibm-cloudant-on-the-transaction-engine-vs-classic-architecture) for further details).
+    - [Apache CouchDB 3.x](https://docs.couchdb.org/en/stable/) for data operations
 - Includes all the most popular and latest supported endpoints for
   applications.
 - Handles the authentication.
@@ -153,7 +154,7 @@ There are several ways to **set** these properties:
 1. The [programmatic approach](#authenticate-programmatically)
 1. With an [external credentials file](#authenticate-with-external-configuration)
 
-### Authenticate with environment variables
+### Authentication with environment variables
 
 #### IAM authentication
 
@@ -196,7 +197,7 @@ CLOUDANT_PASSWORD=<password>
 **Note**: We recommend using [IAM](#iam-authentication) for Cloudant and
 [Session](#session-cookie-authentication) for CouchDB authentication.
 
-### Authenticate with external configuration
+### Authentication with external configuration
 
 To use an external configuration file, the
 [Cloudant API docs](https://cloud.ibm.com/apidocs/cloudant?code=python#authentication-with-external-configuration),
@@ -204,7 +205,7 @@ or the
 [general SDK usage information](https://github.com/IBM/ibm-cloud-sdk-common#using-external-configuration)
 will guide you.
 
-### Authenticate programmatically
+### Programmatic authentication
 
 To learn more about how to use programmatic authentication, see the related
 documentation in the
@@ -215,7 +216,7 @@ or in the
 ## Using the SDK
 
 For general IBM Cloud SDK usage information, please see
-[this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md).
+[IBM Cloud SDK Common](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md).
 
 ### Code examples
 
