@@ -1,4 +1,27 @@
 {"mappings":[{
+  "id" : "9fa984ad-62e6-4e74-a0ee-a531711f5dbc",
+  "name" : "orders_example",
+  "request" : {
+    "url" : "/orders/example?rev=2-4e2178e85cffb32d38ba4e451f6ca376",
+    "method" : "DELETE"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"ok\":true,\"id\":\"example\",\"rev\":\"3-4f1787d7a0520f825bd36822d7be627a\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "ETag" : "\"3-4f1787d7a0520f825bd36822d7be627a\"",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "1b41b9bfa1",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "9fa984ad-62e6-4e74-a0ee-a531711f5dbc",
+  "persistent" : true,
+  "insertionIndex" : 17
+},{
   "id" : "75821ec1-cfed-41f0-bdef-cf3524a0ec4a",
   "name" : "orders_example",
   "request" : {
@@ -26,17 +49,17 @@
   "id" : "9fa984ad-62e6-4e74-a0ee-a531711f5dba",
   "name" : "orders_example",
   "request" : {
-    "url" : "/orders/example?rev=4-bf3f53fe029a70e6451e375ccd36599c",
+    "url" : "/orders/example?rev=3-4f1787d7a0520f825bd36822d7be627a",
     "method" : "DELETE"
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"ok\":true,\"id\":\"example\",\"rev\":\"5-c746d7e6f5cd15d63968b5aafbfa854a\"}\n",
+    "body" : "{\"ok\":true,\"id\":\"example\",\"rev\":\"4-bf3f53fe029a70e6451e375ccd36599c\"}\n",
     "headers" : {
       "Cache-Control" : "must-revalidate",
       "Content-Type" : "application/json",
       "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
-      "ETag" : "\"5-c746d7e6f5cd15d63968b5aafbfa854a\"",
+      "ETag" : "\"4-bf3f53fe029a70e6451e375ccd36599c\"",
       "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
       "X-Couch-Request-ID" : "1b41b9bfa1",
       "X-CouchDB-Body-Time" : "0"
@@ -186,7 +209,7 @@
     "url" : "/orders",
     "method" : "POST",
     "bodyPatterns" : [ {
-      "equalToJson" : "{\"_id\":\"example\",\"name\":\"Bob Smith\",\"joined\":\"2019-01-24T10:42:99.000Z\",\"_rev\":\"1-1b403633540686aa32d013fda9041a5d\"}",
+      "equalToJson" : "{\"_id\": \"example\", \"_rev\": \"1-1b403633540686aa32d013fda9041a5d\", \"name\": \"Bob Smith\", \"address\": \"19 Front Street, Darlington, DL5 1TY\"}",
       "ignoreArrayOrder" : true,
       "ignoreExtraElements" : true
     } ]
@@ -230,7 +253,7 @@
   "uuid" : "c8ad5e93-3d1c-4fd4-a6ed-92f28a683a23",
   "persistent" : true,
   "scenarioName" : "scenario-2-orders-example",
-  "requiredScenarioState" : "scenario-2-orders-example-2",
+  "requiredScenarioState" : "Started",
   "newScenarioState" : "scenario-2-orders-example-3",
   "insertionIndex" : 8
 },{
@@ -285,31 +308,6 @@
   "uuid" : "666242fb-0be6-4e5d-8e68-fbfa863f3f3a",
   "persistent" : true,
   "insertionIndex" : 6
-},{
-  "id" : "cd8ee6e5-232a-4ee7-8053-a39d79bd307a",
-  "name" : "orders_example",
-  "request" : {
-    "url" : "/orders/example",
-    "method" : "GET"
-  },
-  "response" : {
-    "status" : 404,
-    "body" : "{\"error\":\"not_found\",\"reason\":\"missing\"}\n",
-    "headers" : {
-      "Cache-Control" : "must-revalidate",
-      "Content-Type" : "application/json",
-      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
-      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
-      "X-Couch-Request-ID" : "9aeec03544",
-      "X-CouchDB-Body-Time" : "0"
-    }
-  },
-  "uuid" : "cd8ee6e5-232a-4ee7-8053-a39d79bd307a",
-  "persistent" : true,
-  "scenarioName" : "scenario-2-orders-example",
-  "requiredScenarioState" : "Started",
-  "newScenarioState" : "scenario-2-orders-example-2",
-  "insertionIndex" : 5
 },{
   "id" : "05def288-5864-48e7-87ff-f7552a9dd1c2",
   "name" : "orders",
