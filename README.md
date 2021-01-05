@@ -225,6 +225,8 @@ The code examples below will follow the
 
 #### 1. Retrieve information from an existing database
 
+**Note:** this example code assumes that `animaldb` database does not exist in your account.
+
 This example code gathers some information about an existing database hosted on
 the https://examples.cloudant.com/ service `url`. To do this, you need to
 extend your environment variables with the *service url* and *authentication
@@ -298,6 +300,8 @@ Document retrieved from database:
 ```
 
 #### 2. Create your own database and add a document
+
+**Note:** this example code assumes that `orders` database does not exist in your account.
 
 Now comes the exciting part of creating your own `orders` database and adding
 a document about *Bob Smith* with your own [IAM](#iam-authentication) or
