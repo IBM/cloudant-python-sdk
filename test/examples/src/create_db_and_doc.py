@@ -33,21 +33,6 @@ example_document: Document = Document(id=example_doc_id)
 example_document.name = "Bob Smith"
 example_document.joined = "2019-01-24T10:42:99.000Z"
 
-'''
-Try to get the document and set revision of example_document to the
-latest one if it previously existed in the database
-'''
-try:
-    document_info = client.get_document(
-        db=example_db_name, doc_id=example_doc_id
-    ).get_result()
-    example_document.rev = document_info["_rev"]
-    print(f'The document revision for {example_doc_id} document' +
-          f'is set to {example_document.rev}.')
-except ApiException as ae:
-    if ae.code == 404:
-        pass
-
 # Save the document in the database
 create_document_response = client.post_document(
     db=example_db_name,
