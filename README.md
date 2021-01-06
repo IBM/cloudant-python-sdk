@@ -150,9 +150,9 @@ account.
 
 There are several ways to **set** these properties:
 
-1. As [environment variables](#authenticate-with-environment-variables)
-1. The [programmatic approach](#authenticate-programmatically)
-1. With an [external credentials file](#authenticate-with-external-configuration)
+1. As [environment variables](#authentication-with-environment-variables)
+1. The [programmatic approach](#programmatic-authentication)
+1. With an [external credentials file](#authentication-with-external-configuration)
 
 ### Authentication with environment variables
 
@@ -347,21 +347,6 @@ example_document: Document = Document(id=example_doc_id)
 example_document.name = "Bob Smith"
 example_document.joined = "2019-01-24T10:42:99.000Z"
 
-'''
-Try to get the document and set revision of example_document to the
-latest one if it previously existed in the database
-'''
-try:
-    document_info = client.get_document(
-        db=example_db_name, doc_id=example_doc_id
-    ).get_result()
-    example_document.rev = document_info["_rev"]
-    print(f'The document revision for {example_doc_id} document' +
-          f'is set to {example_document.rev}.')
-except ApiException as ae:
-    if ae.code == 404:
-        pass
-
 # Save the document in the database
 create_document_response = client.post_document(
     db=example_db_name,
@@ -458,7 +443,7 @@ The result of the code is similar to the following output.
 ```txt
 {
   "_id": "example",
-  "_rev": "2-70476cf75eb02f55c6c4061aa6941ec8",
+  "_rev": "2-4e2178e85cffb32d38ba4e451f6ca376",
   "name": "Bob Smith",
   "address": "19 Front Street, Darlington, DL5 1TY"
 }
