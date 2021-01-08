@@ -23,7 +23,7 @@ from pylint.checkers import BaseChecker
 
 class CopyrightChecker(BaseChecker):
     """
-    Check for copyright
+    Check for copyright header
     """
 
     __implements__ = IRawChecker
@@ -37,8 +37,8 @@ class CopyrightChecker(BaseChecker):
 
     def process_module(self, node):
         ibm_copyright_regex = r'^# © Copyright IBM Corporation 20\d\d(?:, 20\d\d)?\.$'
+        ibm_generated_copyright_regex = r'^# \(C\) Copyright IBM Corp\. 20\d\d\.$'
         with node.stream() as stream:
-            # get actual file line by line
             for (lineno, raw_actual_line) in enumerate(stream):
                 actual_line = raw_actual_line.decode("utf-8").strip()
                 if actual_line == '':
@@ -46,7 +46,7 @@ class CopyrightChecker(BaseChecker):
                 if actual_line[0] != '#':
                     self.add_message('file-no-copyright', line=lineno, confidence=HIGH)
                     break
-                if re.match(ibm_copyright_regex, actual_line):
+                if re.match(ibm_copyright_regex, actual_line) or re.match(ibm_generated_copyright_regex, actual_line):
                     break
 
 

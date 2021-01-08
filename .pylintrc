@@ -1,8 +1,4 @@
 [MASTER]
-
-ignore=cloudant_v1.py,
-       test_cloudant_v1.py
-
 # Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
 # number of processors available to use.
 jobs=1
@@ -14,7 +10,8 @@ limit-inference-results=100
 
 # List of plugins (as comma separated values of python module names) to load,
 # usually to register additional checkers.
-load-plugins=copyright-checker
+load-plugins=copyright-checker,
+             license-checker
 
 # Pickle collected data for later comparisons.
 persistent=yes

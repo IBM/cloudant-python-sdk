@@ -21,8 +21,8 @@ from ibm_cloud_sdk_core import get_authenticator
 
 old_construct_authenticator = get_authenticator.__construct_authenticator
 
-# pylint: disable=missing-function-docstring
-def new_construct_authenticator(config):
+
+def new_construct_authenticator(config):  # pylint: disable=missing-docstring
     auth_type = config.get('AUTH_TYPE').upper() if config.get('AUTH_TYPE') else ''
     if auth_type == 'COUCHDB_SESSION':
         return CouchDbSessionAuthenticator(
