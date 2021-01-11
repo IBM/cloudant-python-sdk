@@ -54,6 +54,7 @@ Changes might occur which impact applications that use this SDK.
     + [3. Update your previously created document](#3-update-your-previously-created-document)
     + [4. Delete your previously created document](#4-delete-your-previously-created-document)
   * [Error handling](#error-handling)
+  * [Raw IO](#raw-io)
   * [Further resources](#further-resources)
 - [Questions](#questions)
 - [Issues](#issues)
@@ -90,6 +91,7 @@ project:
   applications.
 - Handles the authentication.
 - Familiar user experience of IBM Cloud SDKs.
+- Flexibility to use either built-in models or byte-based requests and responses for documents.
 - Instances of the client are unconditionally thread-safe.
 
 ## Prerequisites
@@ -513,6 +515,17 @@ You have deleted the document.
 
 For sample code on handling errors, please see
 [Cloudant API docs](https://cloud.ibm.com/apidocs/cloudant?code=python#error-handling).
+
+### Raw IO
+
+For endpoints that read or write document content it is possible to bypass
+usage of the built-in models and send or receive a bytes response.
+For examples of using byte streams, see the API reference documentation
+("Example request as a stream" section).
+
+- [Bulk modify multiple documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=python#postbulkdocs)
+- [Query a list of all documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=python#postalldocs)
+- [Query the database document changes feed](https://cloud.ibm.com/apidocs/cloudant?code=python#postchanges)
 
 ### Further resources
 
