@@ -20,7 +20,7 @@ print(os.path.abspath('..'))
 
 project = 'Cloudant Python SDK'
 copyright = '2021, (C) Copyright IBM Corp'
-author = 'cloudant-team'
+author = '@IBM/cloudant-sdks'
 
 # -- General configuration ---------------------------------------------------
 
