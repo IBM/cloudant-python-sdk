@@ -1,3 +1,6 @@
+# Copyright IBM Corporation 2021.
+# SPDX-License-Identifier: Apache-2.0
+
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -19,7 +22,7 @@ print(os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'Cloudant Python SDK'
-copyright = '2021, (C) Copyright IBM Corp'
+copyright = 'Copyright IBM Corp. 2021'
 author = '@IBM/cloudant-sdks'
 
 # -- General configuration ---------------------------------------------------
