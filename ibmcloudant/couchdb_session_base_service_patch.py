@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2020.
+# © Copyright IBM Corporation 2020, 2021.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,8 +27,8 @@ from .couchdb_session_authenticator import CouchDbSessionAuthenticator
 
 old_init = CloudantV1.__init__
 
-# pylint: disable=missing-function-docstring
-def new_init(self, authenticator: Authenticator = None):
+
+def new_init(self, authenticator: Authenticator = None):  # pylint: disable=missing-docstring
     old_init(self, authenticator)
     if isinstance(authenticator, CouchDbSessionAuthenticator):
         # Replacing BaseService's http.cookiejar.CookieJar as RequestsCookieJar supports update(CookieJar)
@@ -38,8 +38,8 @@ def new_init(self, authenticator: Authenticator = None):
 
 old_set_service_url = CloudantV1.set_service_url
 
-# pylint: disable=missing-function-docstring
-def new_set_service_url(self, service_url: str):
+
+def new_set_service_url(self, service_url: str):  # pylint: disable=missing-docstring
     old_set_service_url(self, service_url)
     try:
         if isinstance(self.authenticator, CouchDbSessionAuthenticator):
@@ -50,8 +50,8 @@ def new_set_service_url(self, service_url: str):
 
 old_set_default_headers = CloudantV1.set_default_headers
 
-# pylint: disable=missing-function-docstring
-def new_set_default_headers(self, headers: Dict[str, str]):
+
+def new_set_default_headers(self, headers: Dict[str, str]):  # pylint: disable=missing-docstring
     old_set_default_headers(self, headers)
     if isinstance(self.authenticator, CouchDbSessionAuthenticator):
         combined_headers = {}
@@ -66,8 +66,8 @@ def new_set_default_headers(self, headers: Dict[str, str]):
 
 old_set_disable_ssl_verification = CloudantV1.set_disable_ssl_verification
 
-# pylint: disable=missing-function-docstring
-def new_set_disable_ssl_verification(self, status: bool = False) -> None:
+
+def new_set_disable_ssl_verification(self, status: bool = False) -> None:  # pylint: disable=missing-docstring
     old_set_disable_ssl_verification(self, status)
     if isinstance(self.authenticator, CouchDbSessionAuthenticator):
         self.authenticator.token_manager.set_disable_ssl_verification(status)

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2020.
+# © Copyright IBM Corporation 2020, 2021.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@ from ibm_cloud_sdk_core import get_authenticator
 
 old_construct_authenticator = get_authenticator.__construct_authenticator
 
-# pylint: disable=missing-function-docstring
-def new_construct_authenticator(config):
+
+def new_construct_authenticator(config):  # pylint: disable=missing-docstring
     auth_type = config.get('AUTH_TYPE').upper() if config.get('AUTH_TYPE') else ''
     if auth_type == 'COUCHDB_SESSION':
         return CouchDbSessionAuthenticator(
