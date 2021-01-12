@@ -13,7 +13,7 @@
 [![Build Status](https://travis-ci.com/IBM/cloudant-python-sdk.svg?branch=master)](https://travis-ci.com/IBM/cloudant-python-sdk)
 [![Release](https://img.shields.io/github/v/release/IBM/cloudant-python-sdk?include_prereleases&sort=semver)](https://github.com/IBM/cloudant-python-sdk/releases/latest)
 
-# IBM Cloudant Python SDK Version 0.0.28
+# IBM Cloudant Python SDK Version 0.0.29
 
 Python client library to interact with the
 [IBM Cloudant APIs](https://cloud.ibm.com/apidocs/cloudant?code=python).
@@ -108,13 +108,13 @@ project:
 To install, use `pip` or `easy_install`:
 
 ```bash
-pip install --upgrade "ibmcloudant>=0.0.28"
+pip install --upgrade "ibmcloudant>=0.0.29"
 ```
 
 or
 
 ```bash
-easy_install --upgrade "ibmcloudant>=0.0.28"
+easy_install --upgrade "ibmcloudant>=0.0.29"
 ```
 
 ## Authentication
