@@ -11,6 +11,8 @@ Jenkinsfile @IBM/cloudant-sdks
 KNOWN_ISSUES.md @IBM/cloudant-sdks
 LICENSE @IBM/cloudant-sdks
 README.md @IBM/cloudant-sdks
+scripts/pydoc/generate-index-html.sh @IBM/cloudant-sdks
+scripts/pydoc/publish-doc.sh @IBM/cloudant-sdks
 scripts/setup_couch.sh @IBM/cloudant-sdks
 scripts/setup_wiremock.sh @IBM/cloudant-sdks
 stubs/mappings.json @IBM/cloudant-sdks
