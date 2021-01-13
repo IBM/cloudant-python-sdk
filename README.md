@@ -12,6 +12,7 @@
 
 [![Build Status](https://travis-ci.com/IBM/cloudant-python-sdk.svg?branch=master)](https://travis-ci.com/IBM/cloudant-python-sdk)
 [![Release](https://img.shields.io/github/v/release/IBM/cloudant-python-sdk?include_prereleases&sort=semver)](https://github.com/IBM/cloudant-python-sdk/releases/latest)
+[![Docs](https://img.shields.io/static/v1?label=pythondoc&message=latest&color=blue)](https://ibm.github.io/cloudant-python-sdk/)
 
 # IBM Cloudant Python SDK Version 0.0.29
 
