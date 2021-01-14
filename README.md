@@ -234,8 +234,14 @@ This example code gathers some information about an existing database hosted on
 the https://examples.cloudant.com/ service `url`. To do this, you need to
 extend your environment variables with the *service url* and *authentication
 type* to use `NOAUTH` authentication while reaching the `animaldb` database.
-This step is necessary for the SDK to distinguish the `EXAMPLES` custom service
-name from the default service name which is `CLOUDANT`.
+
+Cloudant environment variable naming starts with a *service name* prefix that identifies your service.
+By default this is `CLOUDANT`, see the settings in the
+[authentication with environment variables section](#authentication-with-environment-variables).
+
+If you would like to rename your Cloudant service from `CLOUDANT`,
+you must use your defined service name as the prefix for all Cloudant releated environment variables.
+The code block below provides an example of instantiating a user-defined `EXAMPLES` service name.
 
 ```bash
 EXAMPLES_URL=https://examples.cloudant.com
