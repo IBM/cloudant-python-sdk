@@ -6,6 +6,9 @@ set -e
 GIT_COMMIT=$(git rev-parse --short HEAD)
 GIT_REPO=$(git remote get-url origin)
 
+# Use SDK version as tag from Jenkins env vars
+TAG_NAME=$NEW_SDK_VERSION
+
 # Create documentation
 printf ">>>>> Generate new documentation\n"
 python3 -m tox -e docs
