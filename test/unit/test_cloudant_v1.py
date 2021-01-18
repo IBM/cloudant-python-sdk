@@ -308,6 +308,458 @@ class TestPutCapacityThroughputInformation():
 ##############################################################################
 
 ##############################################################################
+# Start of Service: Changes
+##############################################################################
+# region
+
+class TestGetDbUpdates():
+    """
+    Test Class for get_db_updates
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_get_db_updates_all_params(self):
+        """
+        get_db_updates()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/_db_updates')
+        mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "db_name": "db_name", "seq": "seq", "type": "created"}]}'
+        responses.add(responses.GET,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        feed = 'continuous'
+        heartbeat = 0
+        timeout = 0
+        since = 'testString'
+
+        # Invoke method
+        response = service.get_db_updates(
+            feed=feed,
+            heartbeat=heartbeat,
+            timeout=timeout,
+            since=since,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # Validate query params
+        query_string = responses.calls[0].request.url.split('?',1)[1]
+        query_string = urllib.parse.unquote_plus(query_string)
+        assert 'feed={}'.format(feed) in query_string
+        assert 'heartbeat={}'.format(heartbeat) in query_string
+        assert 'timeout={}'.format(timeout) in query_string
+        assert 'since={}'.format(since) in query_string
+
+
+    @responses.activate
+    def test_get_db_updates_required_params(self):
+        """
+        test_get_db_updates_required_params()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/_db_updates')
+        mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "db_name": "db_name", "seq": "seq", "type": "created"}]}'
+        responses.add(responses.GET,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Invoke method
+        response = service.get_db_updates()
+
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+
+class TestPostChanges():
+    """
+    Test Class for post_changes
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_post_changes_all_params(self):
+        """
+        post_changes()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/testString/_changes')
+        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
+        responses.add(responses.POST,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        db = 'testString'
+        doc_ids = ['testString']
+        fields = ['testString']
+        selector = {}
+        last_event_id = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        feed = 'continuous'
+        filter = 'testString'
+        heartbeat = 0
+        include_docs = True
+        limit = 0
+        seq_interval = 1
+        since = 'testString'
+        style = 'testString'
+        timeout = 0
+        view = 'testString'
+
+        # Invoke method
+        response = service.post_changes(
+            db,
+            doc_ids=doc_ids,
+            fields=fields,
+            selector=selector,
+            last_event_id=last_event_id,
+            att_encoding_info=att_encoding_info,
+            attachments=attachments,
+            conflicts=conflicts,
+            descending=descending,
+            feed=feed,
+            filter=filter,
+            heartbeat=heartbeat,
+            include_docs=include_docs,
+            limit=limit,
+            seq_interval=seq_interval,
+            since=since,
+            style=style,
+            timeout=timeout,
+            view=view,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # Validate query params
+        query_string = responses.calls[0].request.url.split('?',1)[1]
+        query_string = urllib.parse.unquote_plus(query_string)
+        assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
+        assert 'attachments={}'.format('true' if attachments else 'false') in query_string
+        assert 'conflicts={}'.format('true' if conflicts else 'false') in query_string
+        assert 'descending={}'.format('true' if descending else 'false') in query_string
+        assert 'feed={}'.format(feed) in query_string
+        assert 'filter={}'.format(filter) in query_string
+        assert 'heartbeat={}'.format(heartbeat) in query_string
+        assert 'include_docs={}'.format('true' if include_docs else 'false') in query_string
+        assert 'limit={}'.format(limit) in query_string
+        assert 'seq_interval={}'.format(seq_interval) in query_string
+        assert 'since={}'.format(since) in query_string
+        assert 'style={}'.format(style) in query_string
+        assert 'timeout={}'.format(timeout) in query_string
+        assert 'view={}'.format(view) in query_string
+        # decompress gzip compressed request body
+        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['doc_ids'] == ['testString']
+        assert req_body['fields'] == ['testString']
+        assert req_body['selector'] == {}
+
+
+    @responses.activate
+    def test_post_changes_required_params(self):
+        """
+        test_post_changes_required_params()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/testString/_changes')
+        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
+        responses.add(responses.POST,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        db = 'testString'
+        doc_ids = ['testString']
+        fields = ['testString']
+        selector = {}
+
+        # Invoke method
+        response = service.post_changes(
+            db,
+            doc_ids=doc_ids,
+            fields=fields,
+            selector=selector,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # decompress gzip compressed request body
+        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['doc_ids'] == ['testString']
+        assert req_body['fields'] == ['testString']
+        assert req_body['selector'] == {}
+
+
+    @responses.activate
+    def test_post_changes_value_error(self):
+        """
+        test_post_changes_value_error()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/testString/_changes')
+        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
+        responses.add(responses.POST,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        db = 'testString'
+        doc_ids = ['testString']
+        fields = ['testString']
+        selector = {}
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "db": db,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                service.post_changes(**req_copy)
+
+
+
+class TestPostChangesAsStream():
+    """
+    Test Class for post_changes_as_stream
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_post_changes_as_stream_all_params(self):
+        """
+        post_changes_as_stream()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/testString/_changes')
+        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
+        responses.add(responses.POST,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        db = 'testString'
+        doc_ids = ['testString']
+        fields = ['testString']
+        selector = {}
+        last_event_id = 'testString'
+        att_encoding_info = True
+        attachments = True
+        conflicts = True
+        descending = True
+        feed = 'continuous'
+        filter = 'testString'
+        heartbeat = 0
+        include_docs = True
+        limit = 0
+        seq_interval = 1
+        since = 'testString'
+        style = 'testString'
+        timeout = 0
+        view = 'testString'
+
+        # Invoke method
+        response = service.post_changes_as_stream(
+            db,
+            doc_ids=doc_ids,
+            fields=fields,
+            selector=selector,
+            last_event_id=last_event_id,
+            att_encoding_info=att_encoding_info,
+            attachments=attachments,
+            conflicts=conflicts,
+            descending=descending,
+            feed=feed,
+            filter=filter,
+            heartbeat=heartbeat,
+            include_docs=include_docs,
+            limit=limit,
+            seq_interval=seq_interval,
+            since=since,
+            style=style,
+            timeout=timeout,
+            view=view,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # Validate query params
+        query_string = responses.calls[0].request.url.split('?',1)[1]
+        query_string = urllib.parse.unquote_plus(query_string)
+        assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
+        assert 'attachments={}'.format('true' if attachments else 'false') in query_string
+        assert 'conflicts={}'.format('true' if conflicts else 'false') in query_string
+        assert 'descending={}'.format('true' if descending else 'false') in query_string
+        assert 'feed={}'.format(feed) in query_string
+        assert 'filter={}'.format(filter) in query_string
+        assert 'heartbeat={}'.format(heartbeat) in query_string
+        assert 'include_docs={}'.format('true' if include_docs else 'false') in query_string
+        assert 'limit={}'.format(limit) in query_string
+        assert 'seq_interval={}'.format(seq_interval) in query_string
+        assert 'since={}'.format(since) in query_string
+        assert 'style={}'.format(style) in query_string
+        assert 'timeout={}'.format(timeout) in query_string
+        assert 'view={}'.format(view) in query_string
+        # decompress gzip compressed request body
+        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['doc_ids'] == ['testString']
+        assert req_body['fields'] == ['testString']
+        assert req_body['selector'] == {}
+
+        # Verify streamed JSON response
+        result = response.get_result()
+        assert isinstance(result, requests.models.Response)
+        response_buf = result.iter_content(chunk_size=1024)
+        assert str(next(response_buf), "utf-8") == mock_response
+
+
+    @responses.activate
+    def test_post_changes_as_stream_required_params(self):
+        """
+        test_post_changes_as_stream_required_params()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/testString/_changes')
+        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
+        responses.add(responses.POST,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        db = 'testString'
+        doc_ids = ['testString']
+        fields = ['testString']
+        selector = {}
+
+        # Invoke method
+        response = service.post_changes_as_stream(
+            db,
+            doc_ids=doc_ids,
+            fields=fields,
+            selector=selector,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # decompress gzip compressed request body
+        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['doc_ids'] == ['testString']
+        assert req_body['fields'] == ['testString']
+        assert req_body['selector'] == {}
+
+        # Verify streamed JSON response
+        result = response.get_result()
+        assert isinstance(result, requests.models.Response)
+        response_buf = result.iter_content(chunk_size=1024)
+        assert str(next(response_buf), "utf-8") == mock_response
+
+
+    @responses.activate
+    def test_post_changes_as_stream_value_error(self):
+        """
+        test_post_changes_as_stream_value_error()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/testString/_changes')
+        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
+        responses.add(responses.POST,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        db = 'testString'
+        doc_ids = ['testString']
+        fields = ['testString']
+        selector = {}
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "db": db,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                service.post_changes_as_stream(**req_copy)
+
+
+
+# endregion
+##############################################################################
+# End of Service: Changes
+##############################################################################
+
+##############################################################################
 # Start of Service: Databases
 ##############################################################################
 # region
@@ -777,370 +1229,6 @@ class TestPutDatabase():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 service.put_database(**req_copy)
-
-
-
-class TestPostChanges():
-    """
-    Test Class for post_changes
-    """
-
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
-    @responses.activate
-    def test_post_changes_all_params(self):
-        """
-        post_changes()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_changes')
-        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        doc_ids = ['testString']
-        fields = ['testString']
-        selector = {}
-        last_event_id = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        feed = 'continuous'
-        filter = 'testString'
-        heartbeat = 0
-        include_docs = True
-        limit = 0
-        seq_interval = 1
-        since = 'testString'
-        style = 'testString'
-        timeout = 0
-        view = 'testString'
-
-        # Invoke method
-        response = service.post_changes(
-            db,
-            doc_ids=doc_ids,
-            fields=fields,
-            selector=selector,
-            last_event_id=last_event_id,
-            att_encoding_info=att_encoding_info,
-            attachments=attachments,
-            conflicts=conflicts,
-            descending=descending,
-            feed=feed,
-            filter=filter,
-            heartbeat=heartbeat,
-            include_docs=include_docs,
-            limit=limit,
-            seq_interval=seq_interval,
-            since=since,
-            style=style,
-            timeout=timeout,
-            view=view,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-        # Validate query params
-        query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = urllib.parse.unquote_plus(query_string)
-        assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
-        assert 'attachments={}'.format('true' if attachments else 'false') in query_string
-        assert 'conflicts={}'.format('true' if conflicts else 'false') in query_string
-        assert 'descending={}'.format('true' if descending else 'false') in query_string
-        assert 'feed={}'.format(feed) in query_string
-        assert 'filter={}'.format(filter) in query_string
-        assert 'heartbeat={}'.format(heartbeat) in query_string
-        assert 'include_docs={}'.format('true' if include_docs else 'false') in query_string
-        assert 'limit={}'.format(limit) in query_string
-        assert 'seq_interval={}'.format(seq_interval) in query_string
-        assert 'since={}'.format(since) in query_string
-        assert 'style={}'.format(style) in query_string
-        assert 'timeout={}'.format(timeout) in query_string
-        assert 'view={}'.format(view) in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
-
-        # Validate body params
-        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['doc_ids'] == ['testString']
-        assert req_body['fields'] == ['testString']
-        assert req_body['selector'] == {}
-
-
-    @responses.activate
-    def test_post_changes_required_params(self):
-        """
-        test_post_changes_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_changes')
-        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        doc_ids = ['testString']
-        fields = ['testString']
-        selector = {}
-
-        # Invoke method
-        response = service.post_changes(
-            db,
-            doc_ids=doc_ids,
-            fields=fields,
-            selector=selector,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
-
-        # Validate body params
-        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['doc_ids'] == ['testString']
-        assert req_body['fields'] == ['testString']
-        assert req_body['selector'] == {}
-
-
-    @responses.activate
-    def test_post_changes_value_error(self):
-        """
-        test_post_changes_value_error()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_changes')
-        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        doc_ids = ['testString']
-        fields = ['testString']
-        selector = {}
-
-        # Pass in all but one required param and check for a ValueError
-        req_param_dict = {
-            "db": db,
-        }
-        for param in req_param_dict.keys():
-            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
-            with pytest.raises(ValueError):
-                service.post_changes(**req_copy)
-
-
-
-class TestPostChangesAsStream():
-    """
-    Test Class for post_changes_as_stream
-    """
-
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
-    @responses.activate
-    def test_post_changes_as_stream_all_params(self):
-        """
-        post_changes_as_stream()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_changes')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        doc_ids = ['testString']
-        fields = ['testString']
-        selector = {}
-        last_event_id = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        feed = 'continuous'
-        filter = 'testString'
-        heartbeat = 0
-        include_docs = True
-        limit = 0
-        seq_interval = 1
-        since = 'testString'
-        style = 'testString'
-        timeout = 0
-        view = 'testString'
-
-        # Invoke method
-        response = service.post_changes_as_stream(
-            db,
-            doc_ids=doc_ids,
-            fields=fields,
-            selector=selector,
-            last_event_id=last_event_id,
-            att_encoding_info=att_encoding_info,
-            attachments=attachments,
-            conflicts=conflicts,
-            descending=descending,
-            feed=feed,
-            filter=filter,
-            heartbeat=heartbeat,
-            include_docs=include_docs,
-            limit=limit,
-            seq_interval=seq_interval,
-            since=since,
-            style=style,
-            timeout=timeout,
-            view=view,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-        # Validate query params
-        query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = urllib.parse.unquote_plus(query_string)
-        assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
-        assert 'attachments={}'.format('true' if attachments else 'false') in query_string
-        assert 'conflicts={}'.format('true' if conflicts else 'false') in query_string
-        assert 'descending={}'.format('true' if descending else 'false') in query_string
-        assert 'feed={}'.format(feed) in query_string
-        assert 'filter={}'.format(filter) in query_string
-        assert 'heartbeat={}'.format(heartbeat) in query_string
-        assert 'include_docs={}'.format('true' if include_docs else 'false') in query_string
-        assert 'limit={}'.format(limit) in query_string
-        assert 'seq_interval={}'.format(seq_interval) in query_string
-        assert 'since={}'.format(since) in query_string
-        assert 'style={}'.format(style) in query_string
-        assert 'timeout={}'.format(timeout) in query_string
-        assert 'view={}'.format(view) in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
-
-        # Validate body params
-        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['doc_ids'] == ['testString']
-        assert req_body['fields'] == ['testString']
-        assert req_body['selector'] == {}
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-
-    @responses.activate
-    def test_post_changes_as_stream_required_params(self):
-        """
-        test_post_changes_as_stream_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_changes')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        doc_ids = ['testString']
-        fields = ['testString']
-        selector = {}
-
-        # Invoke method
-        response = service.post_changes_as_stream(
-            db,
-            doc_ids=doc_ids,
-            fields=fields,
-            selector=selector,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
-
-        # Validate body params
-        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['doc_ids'] == ['testString']
-        assert req_body['fields'] == ['testString']
-        assert req_body['selector'] == {}
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-
-    @responses.activate
-    def test_post_changes_as_stream_value_error(self):
-        """
-        test_post_changes_as_stream_value_error()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_changes')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        doc_ids = ['testString']
-        fields = ['testString']
-        selector = {}
-
-        # Pass in all but one required param and check for a ValueError
-        req_param_dict = {
-            "db": db,
-        }
-        for param in req_param_dict.keys():
-            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
-            with pytest.raises(ValueError):
-                service.post_changes_as_stream(**req_copy)
 
 
 
@@ -8373,94 +8461,6 @@ class TestGetGeoIndexInformation():
 ##############################################################################
 
 ##############################################################################
-# Start of Service: Changes
-##############################################################################
-# region
-
-class TestGetDbUpdates():
-    """
-    Test Class for get_db_updates
-    """
-
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
-    @responses.activate
-    def test_get_db_updates_all_params(self):
-        """
-        get_db_updates()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/_db_updates')
-        mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "db_name": "db_name", "seq": "seq", "type": "created"}]}'
-        responses.add(responses.GET,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        feed = 'continuous'
-        heartbeat = 0
-        timeout = 0
-        since = 'testString'
-
-        # Invoke method
-        response = service.get_db_updates(
-            feed=feed,
-            heartbeat=heartbeat,
-            timeout=timeout,
-            since=since,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-        # Validate query params
-        query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = urllib.parse.unquote_plus(query_string)
-        assert 'feed={}'.format(feed) in query_string
-        assert 'heartbeat={}'.format(heartbeat) in query_string
-        assert 'timeout={}'.format(timeout) in query_string
-        assert 'since={}'.format(since) in query_string
-
-
-    @responses.activate
-    def test_get_db_updates_required_params(self):
-        """
-        test_get_db_updates_required_params()
-        """
-        # Set up mock
-        url = self.preprocess_url(base_url + '/_db_updates')
-        mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "db_name": "db_name", "seq": "seq", "type": "created"}]}'
-        responses.add(responses.GET,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Invoke method
-        response = service.get_db_updates()
-
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-
-# endregion
-##############################################################################
-# End of Service: Changes
-##############################################################################
-
-##############################################################################
 # Start of Service: Replication
 ##############################################################################
 # region
@@ -8553,6 +8553,70 @@ class TestHeadReplicationDocument():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 service.head_replication_document(**req_copy)
+
+
+
+class TestHeadSchedulerDocument():
+    """
+    Test Class for head_scheduler_document
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_head_scheduler_document_all_params(self):
+        """
+        head_scheduler_document()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/_scheduler/docs/_replicator/testString')
+        responses.add(responses.HEAD,
+                      url,
+                      status=200)
+
+        # Set up parameter values
+        doc_id = 'testString'
+
+        # Invoke method
+        response = service.head_scheduler_document(
+            doc_id,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+
+    @responses.activate
+    def test_head_scheduler_document_value_error(self):
+        """
+        test_head_scheduler_document_value_error()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/_scheduler/docs/_replicator/testString')
+        responses.add(responses.HEAD,
+                      url,
+                      status=200)
+
+        # Set up parameter values
+        doc_id = 'testString'
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "doc_id": doc_id,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                service.head_scheduler_document(**req_copy)
 
 
 
@@ -10786,6 +10850,103 @@ class TestPutAttachment():
 ##############################################################################
 # region
 
+class TestHeadLocalDocument():
+    """
+    Test Class for head_local_document
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_head_local_document_all_params(self):
+        """
+        head_local_document()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        responses.add(responses.HEAD,
+                      url,
+                      status=200)
+
+        # Set up parameter values
+        db = 'testString'
+        doc_id = 'testString'
+        if_none_match = 'testString'
+
+        # Invoke method
+        response = service.head_local_document(
+            db,
+            doc_id,
+            if_none_match=if_none_match,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+
+    @responses.activate
+    def test_head_local_document_required_params(self):
+        """
+        test_head_local_document_required_params()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        responses.add(responses.HEAD,
+                      url,
+                      status=200)
+
+        # Set up parameter values
+        db = 'testString'
+        doc_id = 'testString'
+
+        # Invoke method
+        response = service.head_local_document(
+            db,
+            doc_id,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+
+    @responses.activate
+    def test_head_local_document_value_error(self):
+        """
+        test_head_local_document_value_error()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        responses.add(responses.HEAD,
+                      url,
+                      status=200)
+
+        # Set up parameter values
+        db = 'testString'
+        doc_id = 'testString'
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "db": db,
+            "doc_id": doc_id,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                service.head_local_document(**req_copy)
+
+
+
 class TestDeleteLocalDocument():
     """
     Test Class for delete_local_document
@@ -11940,6 +12101,40 @@ class TestGetDocumentShardsInfo():
 # Start of Service: Monitoring
 ##############################################################################
 # region
+
+class TestHeadUpInformation():
+    """
+    Test Class for head_up_information
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_head_up_information_all_params(self):
+        """
+        head_up_information()
+        """
+        # Set up mock
+        url = self.preprocess_url(base_url + '/_up')
+        responses.add(responses.HEAD,
+                      url,
+                      status=200)
+
+        # Invoke method
+        response = service.head_up_information()
+
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
 
 class TestGetActiveTasks():
     """

@@ -276,272 +276,65 @@ class CloudantV1(BaseService):
     #########################
 
 
-    def head_database(self,
-        db: str,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Retrieve the HTTP headers for a database.
-
-        Returns the HTTP headers that contain a minimal amount of information about the
-        specified database. Since the response body is empty, using the HEAD method is a
-        lightweight way to check if the database exists or not.
-
-        :param str db: Path parameter to specify the database name.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse
-        """
-
-        if db is None:
-            raise ValueError('db must be provided')
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='head_database')
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-
-        path_param_keys = ['db']
-        path_param_values = self.encode_path_vars(db)
-        path_param_dict = dict(zip(path_param_keys, path_param_values))
-        url = '/{db}'.format(**path_param_dict)
-        request = self.prepare_request(method='HEAD',
-                                       url=url,
-                                       headers=headers)
-
-        response = self.send(request)
-        return response
-
-
-    def get_all_dbs(self,
+    def get_db_updates(self,
         *,
-        descending: bool = None,
-        endkey: str = None,
-        limit: int = None,
-        skip: int = None,
-        startkey: str = None,
+        feed: str = None,
+        heartbeat: int = None,
+        timeout: int = None,
+        since: str = None,
         **kwargs
     ) -> DetailedResponse:
         """
-        Query a list of all database names in the instance.
+        Retrieve change events for all databases.
 
-        :param bool descending: (optional) Query parameter to specify whether to
-               return the documents in descending by key order.
-        :param str endkey: (optional) Query parameter to specify to stop returning
-               records when the specified key is reached. String representation of any
-               JSON type that matches the key type emitted by the view function.
-        :param int limit: (optional) Query parameter to specify the number of
-               returned documents to limit the result to.
-        :param int skip: (optional) Query parameter to specify the number of
-               records before starting to return the results.
-        :param str startkey: (optional) Query parameter to specify to start
-               returning records from the specified key. String representation of any JSON
-               type that matches the key type emitted by the view function.
+        Lists changes to databases, like a global changes feed. Types of changes include
+        updating the database and creating or deleting a database. Like the changes feed,
+        the feed is not guaranteed to return changes in the correct order and might repeat
+        changes. Polling modes for this method work like polling modes for the changes
+        feed.
+        **Note: This endpoint requires _admin or _db_updates role and is only available on
+        dedicated clusters.**.
+
+        :param str feed: (optional) Query parameter to specify the changes feed
+               type.
+        :param int heartbeat: (optional) Query parameter to specify the period in
+               milliseconds after which an empty line is sent in the results. Only
+               applicable for longpoll, continuous, and eventsource feeds. Overrides any
+               timeout to keep the feed alive indefinitely. May also be `true` to use
+               default value of 60000.
+        :param int timeout: (optional) Query parameter to specify the maximum
+               period in milliseconds to wait for a change before the response is sent,
+               even if there are no results. Only applicable for `longpoll` or
+               `continuous` feeds. Default value is specified by `httpd/changes_timeout`
+               configuration option. Note that `60000` value is also the default maximum
+               timeout to prevent undetected dead connections.
+        :param str since: (optional) Query parameter to specify to start the
+               results from the change immediately after the given update sequence. Can be
+               a valid update sequence or `now` value. Default is `0` i.e. all changes.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `List[str]` result
+        :rtype: DetailedResponse with `dict` result representing a `DbUpdates` object
         """
 
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
-                                      operation_id='get_all_dbs')
+                                      operation_id='get_db_updates')
         headers.update(sdk_headers)
 
         params = {
-            'descending': descending,
-            'endkey': endkey,
-            'limit': limit,
-            'skip': skip,
-            'startkey': startkey
+            'feed': feed,
+            'heartbeat': heartbeat,
+            'timeout': timeout,
+            'since': since
         }
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
         headers['Accept'] = 'application/json'
 
-        url = '/_all_dbs'
+        url = '/_db_updates'
         request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
-
-        response = self.send(request)
-        return response
-
-
-    def post_dbs_info(self,
-        keys: List[str],
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Query information about multiple databases.
-
-        This operation enables you to request information about multiple databases in a
-        single request, instead of issuing multiple `GET /{db}` requests. It returns a
-        list that contains an information object for each database specified in the
-        request.
-
-        :param List[str] keys: A list of database names.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `List[DbsInfoResult]` result
-        """
-
-        if keys is None:
-            raise ValueError('keys must be provided')
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_dbs_info')
-        headers.update(sdk_headers)
-
-        data = {
-            'keys': keys
-        }
-        data = {k: v for (k, v) in data.items() if v is not None}
-        data = json.dumps(data)
-        headers['content-type'] = 'application/json'
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-        headers['Accept'] = 'application/json'
-
-        url = '/_dbs_info'
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
-
-        response = self.send(request)
-        return response
-
-
-    def delete_database(self,
-        db: str,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Delete a database.
-
-        Deletes the specified database and all documents and attachments contained within
-        it. To avoid deleting a database, the server responds with a 400 HTTP status code
-        when the request URL includes a `?rev=` parameter. This response suggests that a
-        user wanted to delete a document but forgot to add the document ID to the URL.
-
-        :param str db: Path parameter to specify the database name.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `Ok` object
-        """
-
-        if db is None:
-            raise ValueError('db must be provided')
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='delete_database')
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-        headers['Accept'] = 'application/json'
-
-        path_param_keys = ['db']
-        path_param_values = self.encode_path_vars(db)
-        path_param_dict = dict(zip(path_param_keys, path_param_values))
-        url = '/{db}'.format(**path_param_dict)
-        request = self.prepare_request(method='DELETE',
-                                       url=url,
-                                       headers=headers)
-
-        response = self.send(request)
-        return response
-
-
-    def get_database_information(self,
-        db: str,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Retrieve information about a database.
-
-        :param str db: Path parameter to specify the database name.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `DatabaseInformation` object
-        """
-
-        if db is None:
-            raise ValueError('db must be provided')
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_database_information')
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-        headers['Accept'] = 'application/json'
-
-        path_param_keys = ['db']
-        path_param_values = self.encode_path_vars(db)
-        path_param_dict = dict(zip(path_param_keys, path_param_values))
-        url = '/{db}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
-
-        response = self.send(request)
-        return response
-
-
-    def put_database(self,
-        db: str,
-        *,
-        partitioned: bool = None,
-        q: int = None,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Create a database.
-
-        :param str db: Path parameter to specify the database name.
-        :param bool partitioned: (optional) Query parameter to specify whether to
-               enable database partitions when creating a database.
-        :param int q: (optional) The number of shards in the database. Each shard
-               is a partition of the hash value range. Default is 8, unless overridden in
-               the `cluster config`.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `Ok` object
-        """
-
-        if db is None:
-            raise ValueError('db must be provided')
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='put_database')
-        headers.update(sdk_headers)
-
-        params = {
-            'partitioned': partitioned,
-            'q': q
-        }
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-        headers['Accept'] = 'application/json'
-
-        path_param_keys = ['db']
-        path_param_values = self.encode_path_vars(db)
-        path_param_dict = dict(zip(path_param_keys, path_param_values))
-        url = '/{db}'.format(**path_param_dict)
-        request = self.prepare_request(method='PUT',
                                        url=url,
                                        headers=headers,
                                        params=params)
@@ -907,6 +700,284 @@ class CloudantV1(BaseService):
                                        data=data)
 
         response = self.send(request, stream=True)
+        return response
+
+    #########################
+    # Databases
+    #########################
+
+
+    def head_database(self,
+        db: str,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Retrieve the HTTP headers for a database.
+
+        Returns the HTTP headers that contain a minimal amount of information about the
+        specified database. Since the response body is empty, using the HEAD method is a
+        lightweight way to check if the database exists or not.
+
+        :param str db: Path parameter to specify the database name.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse
+        """
+
+        if db is None:
+            raise ValueError('db must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='head_database')
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}'.format(**path_param_dict)
+        request = self.prepare_request(method='HEAD',
+                                       url=url,
+                                       headers=headers)
+
+        response = self.send(request)
+        return response
+
+
+    def get_all_dbs(self,
+        *,
+        descending: bool = None,
+        endkey: str = None,
+        limit: int = None,
+        skip: int = None,
+        startkey: str = None,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Query a list of all database names in the instance.
+
+        :param bool descending: (optional) Query parameter to specify whether to
+               return the documents in descending by key order.
+        :param str endkey: (optional) Query parameter to specify to stop returning
+               records when the specified key is reached. String representation of any
+               JSON type that matches the key type emitted by the view function.
+        :param int limit: (optional) Query parameter to specify the number of
+               returned documents to limit the result to.
+        :param int skip: (optional) Query parameter to specify the number of
+               records before starting to return the results.
+        :param str startkey: (optional) Query parameter to specify to start
+               returning records from the specified key. String representation of any JSON
+               type that matches the key type emitted by the view function.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `List[str]` result
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='get_all_dbs')
+        headers.update(sdk_headers)
+
+        params = {
+            'descending': descending,
+            'endkey': endkey,
+            'limit': limit,
+            'skip': skip,
+            'startkey': startkey
+        }
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        url = '/_all_dbs'
+        request = self.prepare_request(method='GET',
+                                       url=url,
+                                       headers=headers,
+                                       params=params)
+
+        response = self.send(request)
+        return response
+
+
+    def post_dbs_info(self,
+        keys: List[str],
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Query information about multiple databases.
+
+        This operation enables you to request information about multiple databases in a
+        single request, instead of issuing multiple `GET /{db}` requests. It returns a
+        list that contains an information object for each database specified in the
+        request.
+
+        :param List[str] keys: A list of database names.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `List[DbsInfoResult]` result
+        """
+
+        if keys is None:
+            raise ValueError('keys must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='post_dbs_info')
+        headers.update(sdk_headers)
+
+        data = {
+            'keys': keys
+        }
+        data = {k: v for (k, v) in data.items() if v is not None}
+        data = json.dumps(data)
+        headers['content-type'] = 'application/json'
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        url = '/_dbs_info'
+        request = self.prepare_request(method='POST',
+                                       url=url,
+                                       headers=headers,
+                                       data=data)
+
+        response = self.send(request)
+        return response
+
+
+    def delete_database(self,
+        db: str,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Delete a database.
+
+        Deletes the specified database and all documents and attachments contained within
+        it. To avoid deleting a database, the server responds with a 400 HTTP status code
+        when the request URL includes a `?rev=` parameter. This response suggests that a
+        user wanted to delete a document but forgot to add the document ID to the URL.
+
+        :param str db: Path parameter to specify the database name.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `Ok` object
+        """
+
+        if db is None:
+            raise ValueError('db must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='delete_database')
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}'.format(**path_param_dict)
+        request = self.prepare_request(method='DELETE',
+                                       url=url,
+                                       headers=headers)
+
+        response = self.send(request)
+        return response
+
+
+    def get_database_information(self,
+        db: str,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Retrieve information about a database.
+
+        :param str db: Path parameter to specify the database name.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `DatabaseInformation` object
+        """
+
+        if db is None:
+            raise ValueError('db must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='get_database_information')
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}'.format(**path_param_dict)
+        request = self.prepare_request(method='GET',
+                                       url=url,
+                                       headers=headers)
+
+        response = self.send(request)
+        return response
+
+
+    def put_database(self,
+        db: str,
+        *,
+        partitioned: bool = None,
+        q: int = None,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Create a database.
+
+        :param str db: Path parameter to specify the database name.
+        :param bool partitioned: (optional) Query parameter to specify whether to
+               enable database partitions when creating a database.
+        :param int q: (optional) The number of shards in the database. Each shard
+               is a partition of the hash value range. Default is 8, unless overridden in
+               the `cluster config`.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `Ok` object
+        """
+
+        if db is None:
+            raise ValueError('db must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='put_database')
+        headers.update(sdk_headers)
+
+        params = {
+            'partitioned': partitioned,
+            'q': q
+        }
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}'.format(**path_param_dict)
+        request = self.prepare_request(method='PUT',
+                                       url=url,
+                                       headers=headers,
+                                       params=params)
+
+        response = self.send(request)
         return response
 
     #########################
@@ -4966,8 +5037,9 @@ class CloudantV1(BaseService):
         Returns the results of analyzer tokenization of the provided sample text. This
         endpoint can be used for testing analyzer tokenization.
 
-        :param str analyzer: analyzer.
-        :param str text: text.
+        :param str analyzer: The analyzer type that is being used at the
+               tokenization.
+        :param str text: The text to tokenize with the analyzer.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `SearchAnalyzeResult` object
@@ -5735,77 +5807,6 @@ class CloudantV1(BaseService):
         return response
 
     #########################
-    # Changes
-    #########################
-
-
-    def get_db_updates(self,
-        *,
-        feed: str = None,
-        heartbeat: int = None,
-        timeout: int = None,
-        since: str = None,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Retrieve change events for all databases.
-
-        Lists changes to databases, like a global changes feed. Types of changes include
-        updating the database and creating or deleting a database. Like the changes feed,
-        the feed is not guaranteed to return changes in the correct order and might repeat
-        changes. Polling modes for this method work like polling modes for the changes
-        feed.
-        **Note: This endpoint requires _admin or _db_updates role and is only available on
-        dedicated clusters.**.
-
-        :param str feed: (optional) Query parameter to specify the changes feed
-               type.
-        :param int heartbeat: (optional) Query parameter to specify the period in
-               milliseconds after which an empty line is sent in the results. Only
-               applicable for longpoll, continuous, and eventsource feeds. Overrides any
-               timeout to keep the feed alive indefinitely. May also be `true` to use
-               default value of 60000.
-        :param int timeout: (optional) Query parameter to specify the maximum
-               period in milliseconds to wait for a change before the response is sent,
-               even if there are no results. Only applicable for `longpoll` or
-               `continuous` feeds. Default value is specified by `httpd/changes_timeout`
-               configuration option. Note that `60000` value is also the default maximum
-               timeout to prevent undetected dead connections.
-        :param str since: (optional) Query parameter to specify to start the
-               results from the change immediately after the given update sequence. Can be
-               a valid update sequence or `now` value. Default is `0` i.e. all changes.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `DbUpdates` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_db_updates')
-        headers.update(sdk_headers)
-
-        params = {
-            'feed': feed,
-            'heartbeat': heartbeat,
-            'timeout': timeout,
-            'since': since
-        }
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-        headers['Accept'] = 'application/json'
-
-        url = '/_db_updates'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
-
-        response = self.send(request)
-        return response
-
-    #########################
     # Replication
     #########################
 
@@ -5819,8 +5820,10 @@ class CloudantV1(BaseService):
         """
         Retrieve the HTTP headers for a replication document.
 
-        Retrieves the HTTP headers for a replication document from the `_replicator`
-        database.
+        Retrieves the HTTP headers containing minimal amount of information about the
+        specified replication document from the `_replicator` database.  The method
+        supports the same query arguments as the `GET /_replicator/{doc_id}` method, but
+        only headers like content length and the revision (ETag header) are returned.
 
         :param str doc_id: Path parameter to specify the document ID.
         :param str if_none_match: (optional) Header parameter to specify a double
@@ -5847,6 +5850,47 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/_replicator/{doc_id}'.format(**path_param_dict)
+        request = self.prepare_request(method='HEAD',
+                                       url=url,
+                                       headers=headers)
+
+        response = self.send(request)
+        return response
+
+
+    def head_scheduler_document(self,
+        doc_id: str,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Retrieve HTTP headers for a replication scheduler document.
+
+        Retrieves the HTTP headers containing minimal amount of information about the
+        specified replication scheduler document.  Since the response body is empty, using
+        the HEAD method is a lightweight way to check if the replication scheduler
+        document exists or not.
+
+        :param str doc_id: Path parameter to specify the document ID.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse
+        """
+
+        if doc_id is None:
+            raise ValueError('doc_id must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='head_scheduler_document')
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+
+        path_param_keys = ['doc_id']
+        path_param_values = self.encode_path_vars(doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/_scheduler/docs/_replicator/{doc_id}'.format(**path_param_dict)
         request = self.prepare_request(method='HEAD',
                                        url=url,
                                        headers=headers)
@@ -7004,6 +7048,56 @@ class CloudantV1(BaseService):
     #########################
 
 
+    def head_local_document(self,
+        db: str,
+        doc_id: str,
+        *,
+        if_none_match: str = None,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Retrieve HTTP headers for a local document.
+
+        Retrieves the HTTP headers containing minimal amount of information about the
+        specified local document. Since the response body is empty, using the HEAD method
+        is a lightweight way to check if the local document exists or not.
+
+        :param str db: Path parameter to specify the database name.
+        :param str doc_id: Path parameter to specify the document ID.
+        :param str if_none_match: (optional) Header parameter to specify a double
+               quoted document revision token for cache control.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse
+        """
+
+        if db is None:
+            raise ValueError('db must be provided')
+        if doc_id is None:
+            raise ValueError('doc_id must be provided')
+        headers = {
+            'If-None-Match': if_none_match
+        }
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='head_local_document')
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+
+        path_param_keys = ['db', 'doc_id']
+        path_param_values = self.encode_path_vars(db, doc_id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_local/{doc_id}'.format(**path_param_dict)
+        request = self.prepare_request(method='HEAD',
+                                       url=url,
+                                       headers=headers)
+
+        response = self.send(request)
+        return response
+
+
     def delete_local_document(self,
         db: str,
         doc_id: str,
@@ -7569,6 +7663,37 @@ class CloudantV1(BaseService):
     #########################
 
 
+    def head_up_information(self,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Retrieve HTTP headers about whether the server is up.
+
+        Retrieves the HTTP headers about whether the server is up.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='head_up_information')
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+
+        url = '/_up'
+        request = self.prepare_request(method='HEAD',
+                                       url=url,
+                                       headers=headers)
+
+        response = self.send(request)
+        return response
+
+
     def get_active_tasks(self,
         **kwargs
     ) -> DetailedResponse:
@@ -7749,6 +7874,21 @@ class CloudantV1(BaseService):
 
         response = self.send(request)
         return response
+
+
+class GetDbUpdatesEnums:
+    """
+    Enums for get_db_updates parameters.
+    """
+
+    class Feed(str, Enum):
+        """
+        Query parameter to specify the changes feed type.
+        """
+        CONTINUOUS = 'continuous'
+        EVENTSOURCE = 'eventsource'
+        LONGPOLL = 'longpoll'
+        NORMAL = 'normal'
 
 
 class PostChangesEnums:
@@ -7974,21 +8114,6 @@ class GetGeoEnums:
         returning results.
         """
         OK = 'ok'
-
-
-class GetDbUpdatesEnums:
-    """
-    Enums for get_db_updates parameters.
-    """
-
-    class Feed(str, Enum):
-        """
-        Query parameter to specify the changes feed type.
-        """
-        CONTINUOUS = 'continuous'
-        EVENTSOURCE = 'eventsource'
-        LONGPOLL = 'longpoll'
-        NORMAL = 'normal'
 
 
 class DeleteReplicationDocumentEnums:
