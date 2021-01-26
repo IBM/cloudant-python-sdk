@@ -16,10 +16,10 @@
 
 # IBM Cloudant Python SDK Version 0.0.29
 
-Python client library to interact with the
+IBM Cloudant Python SDK is a client library that interacts with the
 [IBM Cloudant APIs](https://cloud.ibm.com/apidocs/cloudant?code=python).
 
-Disclaimer: this SDK is being released initially as a **pre-release** version.
+Disclaimer: This SDK is being released initially as a **pre-release** version.
 Changes might occur which impact applications that use this SDK.
 
 <details>
@@ -29,8 +29,6 @@ Changes might occur which impact applications that use this SDK.
   The TOC below is generated using the `markdown-toc` node package.
 
       https://github.com/jonschlinkert/markdown-toc
-
-  You should regenerate the TOC after making changes to this file.
 
       npx markdown-toc -i README.md
   -->
@@ -59,7 +57,7 @@ Changes might occur which impact applications that use this SDK.
   * [Further resources](#further-resources)
 - [Questions](#questions)
 - [Issues](#issues)
-- [Open source @ IBM](#open-source--ibm)
+- [Open source at IBM](#open-source-at-ibm)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -70,7 +68,7 @@ Changes might occur which impact applications that use this SDK.
 ## Overview
 
 The IBM Cloudant Python SDK allows developers to programmatically
-interact with IBM [Cloudant](https://cloud.ibm.com/apidocs/cloudant)
+interact with [IBM Cloudant](https://cloud.ibm.com/apidocs/cloudant)
 with the help of the `ibmcloudant` package.
 
 ## Features
@@ -78,20 +76,20 @@ with the help of the `ibmcloudant` package.
 The purpose of this Python SDK is to wrap most of the HTTP request APIs
 provided by Cloudant and supply other functions to ease the usage of Cloudant.
 This SDK should make life easier for programmers to do what’s really important
-for them: develop.
+to them: developing software.
 
 Reasons why you should consider using Cloudant Python SDK in your
 project:
 
 - Supported by IBM Cloudant.
 - Server compatibility with:
-    - IBM Cloudant "Classic"
-    - [Cloudant "Standard on Transaction Engine"](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-overview-te) for APIs compatible with Cloudant "Classic" (see the [Feature Parity page](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-overview-te#feature-parity-between-ibm-cloudant-on-the-transaction-engine-vs-classic-architecture) for further details).
-    - [Apache CouchDB 3.x](https://docs.couchdb.org/en/stable/) for data operations
+    - IBM Cloudant "Classic".
+    - [Cloudant "Standard on Transaction Engine"](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-overview-te) for APIs compatible with Cloudant "Classic". For more information, see the [Feature Parity](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-overview-te#feature-parity-between-ibm-cloudant-on-the-transaction-engine-vs-classic-architecture) page.
+    - [Apache CouchDB 3.x](https://docs.couchdb.org/en/stable/) for data operations.
 - Includes all the most popular and latest supported endpoints for
   applications.
 - Handles the authentication.
-- Familiar user experience of IBM Cloud SDKs.
+- Familiar user experience with IBM Cloud SDKs.
 - Flexibility to use either built-in models or byte-based requests and responses for documents.
 - Instances of the client are unconditionally thread-safe.
 
@@ -146,8 +144,8 @@ account.
     for both [Cloudant][cloudant-basic-auth] and [Apache CouchDB][couch-basic-auth]
     back-end database servers. This authentication type requires the good old
     `username` and `password` credentials.
-    1. *Noauth* authentication does not need any credentials. Note that this
-    authentication type will only work for queries against a database with read
+    1. *Noauth* authentication does not require credentials. Note that this
+    authentication type only works with queries against a database with read
     access for everyone.
 1. The service `url`.
 
@@ -161,8 +159,8 @@ There are several ways to **set** these properties:
 
 #### IAM authentication
 
-For Cloudant *IAM authentication* set the following environmental variables by
-replacing `<url>` and `<apikey>` with your proper
+For Cloudant *IAM authentication*, set the following environmental variables by
+replacing the `<url>` and `<apikey>` with your proper
 [service credentials][service-credentials]. There is no need to set
 `CLOUDANT_AUTH_TYPE` to `IAM` because it is the default.
 
@@ -173,8 +171,8 @@ CLOUDANT_APIKEY=<apikey>
 
 #### Session cookie authentication
 
-For `COUCHDB_SESSION` authentication set the following environmental variables
-by replacing `<url>`, `<username>` and `<password>` with your proper
+For `COUCHDB_SESSION` authentication, set the following environmental variables
+by replacing the `<url>`, `<username>` and `<password>` with your proper
 [service credentials][service-credentials].
 
 ```bash
@@ -186,8 +184,8 @@ CLOUDANT_PASSWORD=<password>
 
 #### Basic authentication
 
-For *Basic authentication* set the following environmental variables by
-replacing `<url>`, `<username>` and `<password>` with your proper
+For *Basic authentication*, set the following environmental variables by
+replacing the `<url>`, `<username>` and `<password>` with your proper
 [service credentials][service-credentials].
 
 ```bash
@@ -197,7 +195,7 @@ CLOUDANT_USERNAME=<username>
 CLOUDANT_PASSWORD=<password>
 ```
 
-**Note**: We recommend using [IAM](#iam-authentication) for Cloudant and
+**Note**: We recommend that you use [IAM](#iam-authentication) for Cloudant and
 [Session](#session-cookie-authentication) for CouchDB authentication.
 
 ### Authentication with external configuration
@@ -214,7 +212,7 @@ To learn more about how to use programmatic authentication, see the related
 documentation in the
 [Cloudant API docs](https://cloud.ibm.com/apidocs/cloudant?code=python#programmatic-authentication)
 or in the
-[Python SDK Core document about authentication](https://github.com/IBM/python-sdk-core/blob/master/Authentication.md).
+[Python SDK Core document](https://github.com/IBM/python-sdk-core/blob/master/Authentication.md) about authentication.
 
 ## Using the SDK
 
@@ -223,17 +221,19 @@ For general IBM Cloud SDK usage information, please see
 
 ### Code examples
 
-The code examples below will follow the
-[authentication with environment variables](#authenticate-with-environment-variables).
+The following code examples 
+[authenticate with the environment variables](#authenticate-with-environment-variables).
 
 #### 1. Retrieve information from an existing database
 
-**Note:** this example code assumes that `animaldb` database does not exist in your account.
+**Note:** This example code assumes that `animaldb` database does not exist in your account.
 
-This example code gathers some information about an existing database hosted on
-the https://examples.cloudant.com/ service `url`. To do this, you need to
+This example code gathers information about an existing database hosted on
+the https://examples.cloudant.com/ service `url`. To connect, you must 
 extend your environment variables with the *service url* and *authentication
-type* to use `NOAUTH` authentication while reaching the `animaldb` database.
+type* to use `NOAUTH` authentication while you connect to the `animaldb` database.
+This step is necessary for the SDK to distinguish the `EXAMPLES` custom service
+name from the default service name which is `CLOUDANT`.
 
 Cloudant environment variable naming starts with a *service name* prefix that identifies your service.
 By default this is `CLOUDANT`, see the settings in the
@@ -288,7 +288,7 @@ print(f'Document retrieved from database:\n'
       f'{json.dumps(document_about_zebra, indent=2)}')
 ```
 
-The result of the code is similar to the following output.
+When you run the code, you see a result similar to the following output.
 
 [embedmd]:# (test/examples/output/get_info_from_existing_database.txt)
 ```txt
@@ -310,10 +310,9 @@ Document retrieved from database:
 
 #### 2. Create your own database and add a document
 
-**Note:** this example code assumes that `orders` database does not exist in your account.
+**Note:** This example code assumes that `orders` database does not exist in your account.
 
-Now comes the exciting part of creating your own `orders` database and adding
-a document about *Bob Smith* with your own [IAM](#iam-authentication) or
+Now comes the exciting part, you create your own `orders` database and add a document about *Bob Smith* with your own [IAM](#iam-authentication) or
 [Basic](#basic-authentication) service credentials.
 
 <details>
@@ -369,7 +368,7 @@ print(f'You have created the document:\n{example_document}')
 
 
 </details>
-The result of the code is similar to the following output.
+When you run the code, you see a result similar to the following output.
 
 [embedmd]:# (test/examples/output/create_db_and_doc.txt)
 ```txt
@@ -385,11 +384,11 @@ You have created the document:
 
 #### 3. Update your previously created document
 
-**Note**: this example code assumes that you have created both the `orders`
+**Note**: This example code assumes that you have created both the `orders`
 database and the `example` document by
-[running this previous example code](#2-create-your-own-database-and-add-a-document)
-successfully, otherwise you get the `Cannot update document because either "orders"
-database or "example" document was not found.` message.
+[running the previous example code](#2-create-your-own-database-and-add-a-document)
+successfully. Otherwise, the following error message occurs, "Cannot update document because either 'orders'
+database or 'example' document was not found."
 
 <details>
 <summary>Update code example</summary>
@@ -446,7 +445,7 @@ except ApiException as ae:
 
 
 </details>
-The result of the code is similar to the following output.
+When you run the code, you see a result similar to the following output.
 
 [embedmd]:# (test/examples/output/update_doc.txt)
 ```txt
@@ -460,11 +459,11 @@ The result of the code is similar to the following output.
 
 #### 4. Delete your previously created document
 
-**Note**: this example code assumes that you have created both the `orders`
+**Note**: This example code assumes that you have created both the `orders`
 database and the `example` document by
-[running this previous example code](#2-create-your-own-database-and-add-a-document)
-successfully, otherwise you get the `Cannot delete document because either "orders"
-database or "example" document was not found.` message.
+[running the previous example code](#2-create-your-own-database-and-add-a-document)
+successfully. Otherwise, the following error message occurs, "Cannot delete document because either 'orders'
+database or 'example' document was not found."
 
 <details>
 <summary>Delete code example</summary>
@@ -511,7 +510,7 @@ except ApiException as ae:
 
 
 </details>
-The result of the code is the following output.
+When you run the code, you see the following output.
 
 [embedmd]:# (test/examples/output/delete_doc.txt)
 ```txt
@@ -520,7 +519,7 @@ You have deleted the document.
 
 ### Error handling
 
-For sample code on handling errors, please see
+For sample code on handling errors, see
 [Cloudant API docs](https://cloud.ibm.com/apidocs/cloudant?code=python#error-handling).
 
 ### Raw IO
@@ -541,33 +540,31 @@ For examples of using byte streams, see the API reference documentation
 - [Cloudant docs](https://cloud.ibm.com/docs/services/Cloudant?topic=cloudant-overview#overview):
   The official documentation page for Cloudant.
 - [Cloudant Learning Center](https://developer.ibm.com/clouddataservices/docs/compose/cloudant/):
-  The official learning center with several useful videos which help you to use
+  The official learning center with several useful videos which help you use
   Cloudant successfully.
 - [Cloudant blog](https://blog.cloudant.com/):
-  Many useful articles how to optimize Cloudant for common problems.
+  Many useful articles about how to optimize Cloudant for common problems.
 
 ## Questions
 
 If you are having difficulties using this SDK or have a question about the
-IBM Cloud services, please ask a question on
+IBM Cloud services, ask a question on
 [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
 
 ## Issues
 
 If you encounter an issue with the project, you are welcome to submit a
 [bug report](https://github.com/IBM/cloudant-python-sdk/issues).
-Before that, please search for similar issues. It's possible that someone
-has already reported the problem.
+Before you submit a bug report, search for similar issues. It's possible that your issue has already been reported.
 
-## Open source @ IBM
+## Open source at IBM
 
-Find more open source projects on the [IBM Github Page](http://ibm.github.io/).
+Find more open source projects on the [IBM Github](http://ibm.github.io/) page.
 
 ## Contributing
 
-See [CONTRIBUTING](CONTRIBUTING.md).
+For more information, see [CONTRIBUTING](CONTRIBUTING.md).
 
 ## License
 
-This SDK is released under the Apache 2.0 license.
-The license's full text can be found in [LICENSE](LICENSE).
+This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](LICENSE).
