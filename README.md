@@ -240,7 +240,7 @@ By default this is `CLOUDANT`, see the settings in the
 [authentication with environment variables section](#authentication-with-environment-variables).
 
 If you would like to rename your Cloudant service from `CLOUDANT`,
-you must use your defined service name as the prefix for all Cloudant related environment variables.
+you must use your defined service name as the prefix for all Cloudant releated environment variables.
 The code block below provides an example of instantiating a user-defined `EXAMPLES` service name.
 
 ```bash
