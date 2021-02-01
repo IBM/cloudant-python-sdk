@@ -31,11 +31,15 @@ request_args = None
 request_kwargs = None
 
 
-def requests_request_spy(*args, **kwargs):
-    global request_args, request_kwargs
-    request_args = args
-    request_kwargs = kwargs
-    return request(*args, **kwargs)
+class MockSession(requests.sessions.Session):
+    def __init__(self):
+        super().__init__()
+        self.last_verify = None
+
+    def request(self, *args, **kwargs):
+        if 'verify' in kwargs:
+            self.last_verify = kwargs['verify']
+        return super().request(*args, **kwargs)
 
 
 class TestCouchDbSessionAuth(unittest.TestCase):
@@ -80,20 +84,28 @@ class TestCouchDbSessionAuth(unittest.TestCase):
         self.assertEqual(responses.calls[1].request.headers["yes"], "works")
 
     @responses.activate
-    @mock.patch('requests.request', wraps=requests_request_spy)
-    def test_disable_ssl_verification_on(self, *args):
-        global request_kwargs
-        self.client.set_disable_ssl_verification(True)
-        self.client.get_session_information()
-        assert request_kwargs['verify'] is False
+    def test_disable_ssl_verification_on(self):
+        original_http_client = self.client.get_http_client()
+        mock_session = MockSession()
+        try:
+            self.client.set_http_client(mock_session)
+            self.client.set_disable_ssl_verification(True)
+            self.client.get_session_information()
+            assert mock_session.last_verify is False
+        finally:
+            self.client.set_http_client(original_http_client)
 
     @responses.activate
-    @mock.patch('requests.request', wraps=requests_request_spy)
-    def test_disable_ssl_verification_off(self, *args):
-        global request_kwargs
-        self.client.set_disable_ssl_verification(False)
-        self.client.get_session_information()
-        self.assertNotIn('verify', request_kwargs)
+    def test_disable_ssl_verification_off(self):
+        original_http_client = self.client.get_http_client()
+        mock_session = MockSession()
+        try:
+            self.client.set_http_client(mock_session)
+            self.client.set_disable_ssl_verification(False)
+            self.client.get_session_information()
+            assert mock_session.last_verify is None
+        finally:
+            self.client.set_http_client(original_http_client)
 
     @responses.activate
     def test_cookie_refresh(self):
