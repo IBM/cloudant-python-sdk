@@ -19,6 +19,7 @@ import json
 import unittest
 
 import requests
+import responses
 import time
 
 from ibmcloudant import CouchDbSessionAuthenticator
