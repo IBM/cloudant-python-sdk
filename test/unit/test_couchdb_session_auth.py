@@ -17,10 +17,8 @@
 import datetime
 import json
 import unittest
-from unittest import mock
 
 import requests
-import responses
 import time
 
 from ibmcloudant import CouchDbSessionAuthenticator
