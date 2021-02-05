@@ -75,14 +75,14 @@ pipeline {
               prefixedSdkVersion = "${env.NEW_SDK_VERSION}"
             }
           try {
-            buildResults = build job: "/SDKs NextGen/sdks-gauge/${env.BRANCH_NAME}", parameters: [
+            buildResults = build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${env.BRANCH_NAME}", parameters: [
                 string(name: 'SDK_RUN_LANG', value: "$libName"),
                 string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "$prefixedSdkVersion")]
           } catch (Exception e) {
             // only run build in sdks-gauge master branch if BRANCH_NAME doesn't exist
             if (buildResults == null) {
               echo "No matching branch named '${env.BRANCH_NAME}' in sdks-gauge, building master branch"
-              build job: '/SDKs NextGen/sdks-gauge/master', parameters: [
+              build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/master", parameters: [
                   string(name: 'SDK_RUN_LANG', value: "$libName"),
                   string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "$prefixedSdkVersion")]
             }
