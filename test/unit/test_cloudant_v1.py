@@ -9574,7 +9574,7 @@ class TestGetSchedulerDocs():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/docs')
-        mock_response = '{"total_rows": 0, "docs": [{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00.000Z", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00.000Z", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}]}'
+        mock_response = '{"total_rows": 0, "docs": [{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9612,7 +9612,7 @@ class TestGetSchedulerDocs():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/docs')
-        mock_response = '{"total_rows": 0, "docs": [{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00.000Z", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00.000Z", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}]}'
+        mock_response = '{"total_rows": 0, "docs": [{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9649,7 +9649,7 @@ class TestGetSchedulerDocument():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/docs/_replicator/testString')
-        mock_response = '{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00.000Z", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00.000Z", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}'
+        mock_response = '{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9677,7 +9677,7 @@ class TestGetSchedulerDocument():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/docs/_replicator/testString')
-        mock_response = '{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00.000Z", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00.000Z", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}'
+        mock_response = '{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9719,7 +9719,7 @@ class TestGetSchedulerJobs():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/jobs')
-        mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}]}'
+        mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00", "target": "target", "user": "user"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9754,7 +9754,7 @@ class TestGetSchedulerJobs():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/jobs')
-        mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}]}'
+        mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00", "target": "target", "user": "user"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9791,7 +9791,7 @@ class TestGetSchedulerJob():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/jobs/testString')
-        mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}'
+        mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00", "target": "target", "user": "user"}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9819,7 +9819,7 @@ class TestGetSchedulerJob():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_scheduler/jobs/testString')
-        mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}'
+        mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00", "target": "target", "user": "user"}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
