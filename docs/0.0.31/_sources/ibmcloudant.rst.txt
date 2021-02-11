@@ -1,0 +1,69 @@
+ibmcloudant package
+===================
+
+Submodules
+----------
+
+ibmcloudant.cloudant\_v1 module
+-------------------------------
+
+.. automodule:: ibmcloudant.cloudant_v1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ibmcloudant.common module
+-------------------------
+
+.. automodule:: ibmcloudant.common
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ibmcloudant.couchdb\_session\_authenticator module
+--------------------------------------------------
+
+.. automodule:: ibmcloudant.couchdb_session_authenticator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ibmcloudant.couchdb\_session\_base\_service\_patch module
+---------------------------------------------------------
+
+.. automodule:: ibmcloudant.couchdb_session_base_service_patch
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ibmcloudant.couchdb\_session\_get\_authenticator\_patch module
+--------------------------------------------------------------
+
+.. automodule:: ibmcloudant.couchdb_session_get_authenticator_patch
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ibmcloudant.couchdb\_session\_token\_manager module
+---------------------------------------------------
+
+.. automodule:: ibmcloudant.couchdb_session_token_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ibmcloudant.version module
+--------------------------
+
+.. automodule:: ibmcloudant.version
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: ibmcloudant
+   :members:
+   :undoc-members:
+   :show-inheritance:
