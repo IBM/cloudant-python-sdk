@@ -32,18 +32,14 @@ pipeline {
         withEnv(['DOCKER_HOST=',
           'SERVER_AUTH_TYPE=basic',
           'SERVER_URL=http://127.0.0.1:5984',
+          'SERVER_USERNAME=admin',
+          'SERVER_PASSWORD=password',
           'WIREMOCK_URL=http://127.0.0.1:8080',
           'WIREMOCK_PORT=8080'
         ]) {
-          withCredentials([
-            usernamePassword(credentialsId: 'container-test-server',
-                             usernameVariable: 'SERVER_USERNAME',
-                             passwordVariable: 'SERVER_PASSWORD')
-            ]) {
-              sh './scripts/setup_couch.sh'
-              sh './scripts/setup_wiremock.sh'
-              runTests()
-          }
+          sh './scripts/setup_couch.sh'
+          sh './scripts/setup_wiremock.sh'
+          runTests()
         }
       }
 
