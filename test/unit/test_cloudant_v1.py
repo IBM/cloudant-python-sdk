@@ -596,7 +596,7 @@ class TestPostChangesAsStream():
 
         # Set up parameter values
         db = 'testString'
-        doc_ids = ['testString']
+        doc_ids = ['0007741142412418284']
         fields = ['testString']
         selector = {}
         last_event_id = 'testString'
@@ -664,7 +664,7 @@ class TestPostChangesAsStream():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['doc_ids'] == ['testString']
+        assert req_body['doc_ids'] == ['0007741142412418284']
         assert req_body['fields'] == ['testString']
         assert req_body['selector'] == {}
 
@@ -691,7 +691,7 @@ class TestPostChangesAsStream():
 
         # Set up parameter values
         db = 'testString'
-        doc_ids = ['testString']
+        doc_ids = ['0007741142412418284']
         fields = ['testString']
         selector = {}
 
@@ -712,7 +712,7 @@ class TestPostChangesAsStream():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['doc_ids'] == ['testString']
+        assert req_body['doc_ids'] == ['0007741142412418284']
         assert req_body['fields'] == ['testString']
         assert req_body['selector'] == {}
 
@@ -739,7 +739,7 @@ class TestPostChangesAsStream():
 
         # Set up parameter values
         db = 'testString'
-        doc_ids = ['testString']
+        doc_ids = ['0007741142412418284']
         fields = ['testString']
         selector = {}
 
@@ -1986,7 +1986,7 @@ class TestPostAllDocsQueriesAsStream():
         all_docs_query_model['update_seq'] = True
         all_docs_query_model['endkey'] = 'testString'
         all_docs_query_model['key'] = 'testString'
-        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
         all_docs_query_model['startkey'] = 'testString'
 
         # Set up parameter values
@@ -2044,7 +2044,7 @@ class TestPostAllDocsQueriesAsStream():
         all_docs_query_model['update_seq'] = True
         all_docs_query_model['endkey'] = 'testString'
         all_docs_query_model['key'] = 'testString'
-        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
         all_docs_query_model['startkey'] = 'testString'
 
         # Set up parameter values
@@ -4827,7 +4827,7 @@ class TestPostDesignDocsQueries():
         all_docs_query_model['update_seq'] = True
         all_docs_query_model['endkey'] = 'testString'
         all_docs_query_model['key'] = 'testString'
-        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
         all_docs_query_model['startkey'] = 'testString'
 
         # Set up parameter values
@@ -4881,7 +4881,7 @@ class TestPostDesignDocsQueries():
         all_docs_query_model['update_seq'] = True
         all_docs_query_model['endkey'] = 'testString'
         all_docs_query_model['key'] = 'testString'
-        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
         all_docs_query_model['startkey'] = 'testString'
 
         # Set up parameter values
@@ -4933,7 +4933,7 @@ class TestPostDesignDocsQueries():
         all_docs_query_model['update_seq'] = True
         all_docs_query_model['endkey'] = 'testString'
         all_docs_query_model['key'] = 'testString'
-        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
         all_docs_query_model['startkey'] = 'testString'
 
         # Set up parameter values
@@ -5171,7 +5171,7 @@ class TestPostViewAsStream():
         group = True
         group_level = 1
         key = { 'foo': 'bar' }
-        keys = [{ 'foo': 'bar' }]
+        keys = ['examplekey']
         reduce = True
         stable = True
         startkey = { 'foo': 'bar' }
@@ -5228,7 +5228,7 @@ class TestPostViewAsStream():
         assert req_body['group'] == True
         assert req_body['group_level'] == 1
         assert req_body['key'] == { 'foo': 'bar' }
-        assert req_body['keys'] == [{ 'foo': 'bar' }]
+        assert req_body['keys'] == ['examplekey']
         assert req_body['reduce'] == True
         assert req_body['stable'] == True
         assert req_body['startkey'] == { 'foo': 'bar' }
@@ -5274,7 +5274,7 @@ class TestPostViewAsStream():
         group = True
         group_level = 1
         key = { 'foo': 'bar' }
-        keys = [{ 'foo': 'bar' }]
+        keys = ['examplekey']
         reduce = True
         stable = True
         startkey = { 'foo': 'bar' }
@@ -6245,7 +6245,7 @@ class TestPostPartitionView():
         group = True
         group_level = 1
         key = { 'foo': 'bar' }
-        keys = [{ 'foo': 'bar' }]
+        keys = ['examplekey']
         reduce = True
         stable = True
         startkey = { 'foo': 'bar' }
@@ -6303,7 +6303,7 @@ class TestPostPartitionView():
         assert req_body['group'] == True
         assert req_body['group_level'] == 1
         assert req_body['key'] == { 'foo': 'bar' }
-        assert req_body['keys'] == [{ 'foo': 'bar' }]
+        assert req_body['keys'] == ['examplekey']
         assert req_body['reduce'] == True
         assert req_body['stable'] == True
         assert req_body['startkey'] == { 'foo': 'bar' }
@@ -6344,7 +6344,7 @@ class TestPostPartitionView():
         group = True
         group_level = 1
         key = { 'foo': 'bar' }
-        keys = [{ 'foo': 'bar' }]
+        keys = ['examplekey']
         reduce = True
         stable = True
         startkey = { 'foo': 'bar' }
@@ -6412,7 +6412,7 @@ class TestPostPartitionViewAsStream():
         group = True
         group_level = 1
         key = { 'foo': 'bar' }
-        keys = [{ 'foo': 'bar' }]
+        keys = ['examplekey']
         reduce = True
         stable = True
         startkey = { 'foo': 'bar' }
@@ -6470,7 +6470,7 @@ class TestPostPartitionViewAsStream():
         assert req_body['group'] == True
         assert req_body['group_level'] == 1
         assert req_body['key'] == { 'foo': 'bar' }
-        assert req_body['keys'] == [{ 'foo': 'bar' }]
+        assert req_body['keys'] == ['examplekey']
         assert req_body['reduce'] == True
         assert req_body['stable'] == True
         assert req_body['startkey'] == { 'foo': 'bar' }
@@ -6517,7 +6517,7 @@ class TestPostPartitionViewAsStream():
         group = True
         group_level = 1
         key = { 'foo': 'bar' }
-        keys = [{ 'foo': 'bar' }]
+        keys = ['examplekey']
         reduce = True
         stable = True
         startkey = { 'foo': 'bar' }
@@ -6697,7 +6697,7 @@ class TestPostPartitionFindAsStream():
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
+        fields = ['productid', 'name', 'description']
         limit = 0
         skip = 0
         sort = [{}]
@@ -6735,7 +6735,7 @@ class TestPostPartitionFindAsStream():
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
-        assert req_body['fields'] == ['testString']
+        assert req_body['fields'] == ['productid', 'name', 'description']
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{}]
@@ -6771,7 +6771,7 @@ class TestPostPartitionFindAsStream():
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
+        fields = ['productid', 'name', 'description']
         limit = 0
         skip = 0
         sort = [{}]
@@ -6960,7 +6960,7 @@ class TestPostFind():
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
+        fields = ['_id', 'type', 'name', 'email']
         limit = 3
         skip = 0
         sort = [{}]
@@ -6999,7 +6999,7 @@ class TestPostFind():
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
-        assert req_body['fields'] == ['testString']
+        assert req_body['fields'] == ['_id', 'type', 'name', 'email']
         assert req_body['limit'] == 3
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{}]
@@ -7029,7 +7029,7 @@ class TestPostFind():
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
+        fields = ['_id', 'type', 'name', 'email']
         limit = 3
         skip = 0
         sort = [{}]
@@ -7084,7 +7084,7 @@ class TestPostFindAsStream():
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
+        fields = ['_id', 'type', 'name', 'email']
         limit = 3
         skip = 0
         sort = [{}]
@@ -7123,7 +7123,7 @@ class TestPostFindAsStream():
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
-        assert req_body['fields'] == ['testString']
+        assert req_body['fields'] == ['_id', 'type', 'name', 'email']
         assert req_body['limit'] == 3
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{}]
@@ -7159,7 +7159,7 @@ class TestPostFindAsStream():
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
+        fields = ['_id', 'type', 'name', 'email']
         limit = 3
         skip = 0
         sort = [{}]
@@ -9248,7 +9248,7 @@ class TestPutReplicationDocument():
         user_context_model = {}
         user_context_model['db'] = 'testString'
         user_context_model['name'] = 'john'
-        user_context_model['roles'] = ['_reader']
+        user_context_model['roles'] = ['researcher']
 
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {}
@@ -9267,7 +9267,7 @@ class TestPutReplicationDocument():
         replication_document_model['continuous'] = True
         replication_document_model['create_target'] = True
         replication_document_model['create_target_params'] = replication_create_target_parameters_model
-        replication_document_model['doc_ids'] = ['testString']
+        replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
         replication_document_model['filter'] = 'ddoc/my_filter'
         replication_document_model['http_connections'] = 10
         replication_document_model['query_params'] = {}
@@ -9381,7 +9381,7 @@ class TestPutReplicationDocument():
         user_context_model = {}
         user_context_model['db'] = 'testString'
         user_context_model['name'] = 'john'
-        user_context_model['roles'] = ['_reader']
+        user_context_model['roles'] = ['researcher']
 
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {}
@@ -9400,7 +9400,7 @@ class TestPutReplicationDocument():
         replication_document_model['continuous'] = True
         replication_document_model['create_target'] = True
         replication_document_model['create_target_params'] = replication_create_target_parameters_model
-        replication_document_model['doc_ids'] = ['testString']
+        replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
         replication_document_model['filter'] = 'ddoc/my_filter'
         replication_document_model['http_connections'] = 10
         replication_document_model['query_params'] = {}
@@ -9500,7 +9500,7 @@ class TestPutReplicationDocument():
         user_context_model = {}
         user_context_model['db'] = 'testString'
         user_context_model['name'] = 'john'
-        user_context_model['roles'] = ['_reader']
+        user_context_model['roles'] = ['researcher']
 
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {}
@@ -9519,7 +9519,7 @@ class TestPutReplicationDocument():
         replication_document_model['continuous'] = True
         replication_document_model['create_target'] = True
         replication_document_model['create_target_params'] = replication_create_target_parameters_model
-        replication_document_model['doc_ids'] = ['testString']
+        replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
         replication_document_model['filter'] = 'ddoc/my_filter'
         replication_document_model['http_connections'] = 10
         replication_document_model['query_params'] = {}
