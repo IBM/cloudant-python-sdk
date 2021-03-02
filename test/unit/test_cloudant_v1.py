@@ -6823,7 +6823,7 @@ class TestPostExplain():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_explain')
-        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": {"anyKey": "anyValue"}}, "range": {"end_key": [{"anyKey": "anyValue"}], "start_key": [{"anyKey": "anyValue"}]}, "selector": {"mapKey": {"anyKey": "anyValue"}}, "skip": 0}'
+        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false, "partial_filter_selector": {"mapKey": {"anyKey": "anyValue"}}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": {"anyKey": "anyValue"}}, "range": {"end_key": [{"anyKey": "anyValue"}], "start_key": [{"anyKey": "anyValue"}]}, "selector": {"mapKey": {"anyKey": "anyValue"}}, "skip": 0}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -6892,7 +6892,7 @@ class TestPostExplain():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_explain')
-        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": {"anyKey": "anyValue"}}, "range": {"end_key": [{"anyKey": "anyValue"}], "start_key": [{"anyKey": "anyValue"}]}, "selector": {"mapKey": {"anyKey": "anyValue"}}, "skip": 0}'
+        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false, "partial_filter_selector": {"mapKey": {"anyKey": "anyValue"}}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": {"anyKey": "anyValue"}}, "range": {"end_key": [{"anyKey": "anyValue"}], "start_key": [{"anyKey": "anyValue"}]}, "selector": {"mapKey": {"anyKey": "anyValue"}}, "skip": 0}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -7201,7 +7201,7 @@ class TestGetIndexesInformation():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_index')
-        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false}, "name": "name", "type": "json"}]}'
+        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false, "partial_filter_selector": {"mapKey": {"anyKey": "anyValue"}}}, "name": "name", "type": "json"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -7229,7 +7229,7 @@ class TestGetIndexesInformation():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_index')
-        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false}, "name": "name", "type": "json"}]}'
+        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false, "partial_filter_selector": {"mapKey": {"anyKey": "anyValue"}}}, "name": "name", "type": "json"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -7300,6 +7300,7 @@ class TestPostIndex():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
+        index_definition_model['partial_filter_selector'] = {}
 
         # Set up parameter values
         db = 'testString'
@@ -7307,7 +7308,6 @@ class TestPostIndex():
         ddoc = 'testString'
         def_ = index_definition_model
         name = 'testString'
-        partial_filter_selector = {}
         partitioned = True
         type = 'json'
 
@@ -7318,7 +7318,6 @@ class TestPostIndex():
             ddoc=ddoc,
             def_=def_,
             name=name,
-            partial_filter_selector=partial_filter_selector,
             partitioned=partitioned,
             type=type,
             headers={}
@@ -7336,7 +7335,6 @@ class TestPostIndex():
         assert req_body['ddoc'] == 'testString'
         assert req_body['def'] == index_definition_model
         assert req_body['name'] == 'testString'
-        assert req_body['partial_filter_selector'] == {}
         assert req_body['partitioned'] == True
         assert req_body['type'] == 'json'
 
@@ -7377,6 +7375,7 @@ class TestPostIndex():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
+        index_definition_model['partial_filter_selector'] = {}
 
         # Set up parameter values
         db = 'testString'
@@ -7384,7 +7383,6 @@ class TestPostIndex():
         ddoc = 'testString'
         def_ = index_definition_model
         name = 'testString'
-        partial_filter_selector = {}
         partitioned = True
         type = 'json'
 
@@ -13945,6 +13943,7 @@ class TestExplainResult():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
+        index_definition_model['partial_filter_selector'] = {}
 
         index_information_model = {} # IndexInformation
         index_information_model['ddoc'] = 'testString'
@@ -14410,6 +14409,7 @@ class TestIndexDefinition():
         index_definition_model_json['default_field'] = index_text_operator_default_field_model
         index_definition_model_json['fields'] = [index_field_model]
         index_definition_model_json['index_array_lengths'] = True
+        index_definition_model_json['partial_filter_selector'] = {}
 
         # Construct a model instance of IndexDefinition by calling from_dict on the json representation
         index_definition_model = IndexDefinition.from_dict(index_definition_model_json)
@@ -14487,6 +14487,7 @@ class TestIndexInformation():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
+        index_definition_model['partial_filter_selector'] = {}
 
         # Construct a json representation of a IndexInformation model
         index_information_model_json = {}
@@ -14607,6 +14608,7 @@ class TestIndexesInformation():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
+        index_definition_model['partial_filter_selector'] = {}
 
         index_information_model = {} # IndexInformation
         index_information_model['ddoc'] = 'testString'
