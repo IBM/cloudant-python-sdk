@@ -27,17 +27,8 @@ object after serialization is not guaranteed.
 #### Cannot use `drilldown` parameters
 
 Drilldown parameters cannot be used for search queries with server versions:
-* CouchDB versions <= 3.1.0
-* Cloudant (Classic) <= 8158
-
-### Changes
-
-#### Terminated connections
-
-When using the `post` changes operation the connection may intermittently terminate with an early `EOF` when using
-server versions:
-* CouchDB versions <= 3.1.1
-* Cloudant (Classic) <= 8169
+* CouchDB versions <=3.1.0
+* Cloudant <= 8158
 
 ### Cloudant on Transaction Engine
 

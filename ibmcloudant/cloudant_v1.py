@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# IBM OpenAPI SDK Code Generator Version: 3.28.0-55613c9e-20210220-164656
+# IBM OpenAPI SDK Code Generator Version: 3.26.0-4b317b0c-20210127-171701
  
 """
 NoSQL database based on Apache CouchDB
@@ -4866,6 +4866,7 @@ class CloudantV1(BaseService):
         ddoc: str = None,
         def_: 'IndexDefinition' = None,
         name: str = None,
+        partial_filter_selector: dict = None,
         partitioned: bool = None,
         type: str = None,
         **kwargs
@@ -4891,6 +4892,32 @@ class CloudantV1(BaseService):
                whether to index the text in all document fields and what analyzer to use
                for that purpose.
         :param str name: (optional) name.
+        :param dict partial_filter_selector: (optional) JSON object describing
+               criteria used to select documents. The selector specifies fields in the
+               document, and provides an expression to evaluate with the field content or
+               other data.
+               The selector object must:
+                 * Be structured as valid JSON.
+                 * Contain a valid query expression.
+               Using a selector is significantly more efficient than using a JavaScript
+               filter function, and is the recommended option if filtering on document
+               attributes only.
+               Elementary selector syntax requires you to specify one or more fields, and
+               the corresponding values required for those fields. You can create more
+               complex selector expressions by combining operators.
+               Operators are identified by the use of a dollar sign `$` prefix in the name
+               field.
+               There are two core types of operators in the selector syntax:
+               * Combination operators: applied at the topmost level of selection. They
+               are used to combine selectors. In addition to the common boolean operators
+               (`$and`, `$or`, `$not`, `$nor`) there are three combination operators:
+               `$all`, `$elemMatch`, and `$allMatch`. A combination operator takes a
+               single argument. The argument is either another selector, or an array of
+               selectors.
+               * Condition operators: are specific to a field, and are used to evaluate
+               the value stored in that field. For instance, the basic `$eq` operator
+               matches when the specified field contains a value that is equal to the
+               supplied argument.
         :param bool partitioned: (optional) The default value is `true` for
                databases with `partitioned: true` and `false` otherwise. For databases
                with `partitioned: false` if this option is specified the value must be
@@ -4919,6 +4946,7 @@ class CloudantV1(BaseService):
             'ddoc': ddoc,
             'def': def_,
             'name': name,
+            'partial_filter_selector': partial_filter_selector,
             'partitioned': partitioned,
             'type': type
         }
@@ -12718,29 +12746,6 @@ class IndexDefinition():
           operator. * The documents in your database are complex, or not completely under
           your control. As a result, it is difficult to estimate the impact of the extra
           processing that is needed to determine and store the arrays lengths.
-    :attr dict partial_filter_selector: (optional) JSON object describing criteria
-          used to select documents. The selector specifies fields in the document, and
-          provides an expression to evaluate with the field content or other data.
-          The selector object must:
-            * Be structured as valid JSON.
-            * Contain a valid query expression.
-          Using a selector is significantly more efficient than using a JavaScript filter
-          function, and is the recommended option if filtering on document attributes
-          only.
-          Elementary selector syntax requires you to specify one or more fields, and the
-          corresponding values required for those fields. You can create more complex
-          selector expressions by combining operators.
-          Operators are identified by the use of a dollar sign `$` prefix in the name
-          field.
-          There are two core types of operators in the selector syntax:
-          * Combination operators: applied at the topmost level of selection. They are
-          used to combine selectors. In addition to the common boolean operators (`$and`,
-          `$or`, `$not`, `$nor`) there are three combination operators: `$all`,
-          `$elemMatch`, and `$allMatch`. A combination operator takes a single argument.
-          The argument is either another selector, or an array of selectors.
-          * Condition operators: are specific to a field, and are used to evaluate the
-          value stored in that field. For instance, the basic `$eq` operator matches when
-          the specified field contains a value that is equal to the supplied argument.
     """
 
     def __init__(self,
@@ -12748,8 +12753,7 @@ class IndexDefinition():
                  default_analyzer: 'Analyzer' = None,
                  default_field: 'IndexTextOperatorDefaultField' = None,
                  fields: List['IndexField'] = None,
-                 index_array_lengths: bool = None,
-                 partial_filter_selector: dict = None) -> None:
+                 index_array_lengths: bool = None) -> None:
         """
         Initialize a IndexDefinition object.
 
@@ -12768,38 +12772,11 @@ class IndexDefinition():
                completely under your control. As a result, it is difficult to estimate the
                impact of the extra processing that is needed to determine and store the
                arrays lengths.
-        :param dict partial_filter_selector: (optional) JSON object describing
-               criteria used to select documents. The selector specifies fields in the
-               document, and provides an expression to evaluate with the field content or
-               other data.
-               The selector object must:
-                 * Be structured as valid JSON.
-                 * Contain a valid query expression.
-               Using a selector is significantly more efficient than using a JavaScript
-               filter function, and is the recommended option if filtering on document
-               attributes only.
-               Elementary selector syntax requires you to specify one or more fields, and
-               the corresponding values required for those fields. You can create more
-               complex selector expressions by combining operators.
-               Operators are identified by the use of a dollar sign `$` prefix in the name
-               field.
-               There are two core types of operators in the selector syntax:
-               * Combination operators: applied at the topmost level of selection. They
-               are used to combine selectors. In addition to the common boolean operators
-               (`$and`, `$or`, `$not`, `$nor`) there are three combination operators:
-               `$all`, `$elemMatch`, and `$allMatch`. A combination operator takes a
-               single argument. The argument is either another selector, or an array of
-               selectors.
-               * Condition operators: are specific to a field, and are used to evaluate
-               the value stored in that field. For instance, the basic `$eq` operator
-               matches when the specified field contains a value that is equal to the
-               supplied argument.
         """
         self.default_analyzer = default_analyzer
         self.default_field = default_field
         self.fields = fields
         self.index_array_lengths = index_array_lengths
-        self.partial_filter_selector = partial_filter_selector
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'IndexDefinition':
@@ -12813,8 +12790,6 @@ class IndexDefinition():
             args['fields'] = [IndexField.from_dict(x) for x in _dict.get('fields')]
         if 'index_array_lengths' in _dict:
             args['index_array_lengths'] = _dict.get('index_array_lengths')
-        if 'partial_filter_selector' in _dict:
-            args['partial_filter_selector'] = _dict.get('partial_filter_selector')
         return cls(**args)
 
     @classmethod
@@ -12833,8 +12808,6 @@ class IndexDefinition():
             _dict['fields'] = [x.to_dict() for x in self.fields]
         if hasattr(self, 'index_array_lengths') and self.index_array_lengths is not None:
             _dict['index_array_lengths'] = self.index_array_lengths
-        if hasattr(self, 'partial_filter_selector') and self.partial_filter_selector is not None:
-            _dict['partial_filter_selector'] = self.partial_filter_selector
         return _dict
 
     def _to_dict(self):
