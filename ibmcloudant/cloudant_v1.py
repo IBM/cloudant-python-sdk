@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# IBM OpenAPI SDK Code Generator Version: 3.28.0-55613c9e-20210220-164656
+# IBM OpenAPI SDK Code Generator Version: 3.30.0-bd714324-20210406-200538
  
 """
 NoSQL database based on Apache CouchDB

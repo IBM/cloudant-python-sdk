@@ -19,6 +19,7 @@ Unit Tests for CloudantV1
 
 from datetime import datetime, timezone
 from ibm_cloud_sdk_core.authenticators.no_auth_authenticator import NoAuthAuthenticator
+from ibm_cloud_sdk_core.utils import datetime_to_string, string_to_datetime
 import base64
 import inspect
 import io
@@ -15282,11 +15283,11 @@ class TestSchedulerDocsResult():
         scheduler_document_model['error_count'] = 0
         scheduler_document_model['id'] = 'testString'
         scheduler_document_model['info'] = scheduler_info_model
-        scheduler_document_model['last_updated'] = '2020-01-28T18:40:40.123456Z'
+        scheduler_document_model['last_updated'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
         scheduler_document_model['node'] = 'testString'
         scheduler_document_model['source'] = 'testString'
         scheduler_document_model['source_proxy'] = 'testString'
-        scheduler_document_model['start_time'] = '2020-01-28T18:40:40.123456Z'
+        scheduler_document_model['start_time'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
         scheduler_document_model['state'] = 'initializing'
         scheduler_document_model['target'] = 'testString'
         scheduler_document_model['target_proxy'] = 'testString'
@@ -15342,11 +15343,11 @@ class TestSchedulerDocument():
         scheduler_document_model_json['error_count'] = 0
         scheduler_document_model_json['id'] = 'testString'
         scheduler_document_model_json['info'] = scheduler_info_model
-        scheduler_document_model_json['last_updated'] = '2020-01-28T18:40:40.123456Z'
+        scheduler_document_model_json['last_updated'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
         scheduler_document_model_json['node'] = 'testString'
         scheduler_document_model_json['source'] = 'testString'
         scheduler_document_model_json['source_proxy'] = 'testString'
-        scheduler_document_model_json['start_time'] = '2020-01-28T18:40:40.123456Z'
+        scheduler_document_model_json['start_time'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
         scheduler_document_model_json['state'] = 'initializing'
         scheduler_document_model_json['target'] = 'testString'
         scheduler_document_model_json['target_proxy'] = 'testString'
@@ -15417,7 +15418,7 @@ class TestSchedulerJob():
         # Construct dict forms of any model objects needed in order to build this model.
 
         scheduler_job_event_model = {} # SchedulerJobEvent
-        scheduler_job_event_model['timestamp'] = '2020-01-28T18:40:40.123456Z'
+        scheduler_job_event_model['timestamp'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
         scheduler_job_event_model['type'] = 'testString'
 
         scheduler_info_model = {} # SchedulerInfo
@@ -15442,7 +15443,7 @@ class TestSchedulerJob():
         scheduler_job_model_json['node'] = 'testString'
         scheduler_job_model_json['pid'] = 'testString'
         scheduler_job_model_json['source'] = 'testString'
-        scheduler_job_model_json['start_time'] = '2020-01-28T18:40:40.123456Z'
+        scheduler_job_model_json['start_time'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
         scheduler_job_model_json['target'] = 'testString'
         scheduler_job_model_json['user'] = 'testString'
 
@@ -15473,7 +15474,7 @@ class TestSchedulerJobEvent():
 
         # Construct a json representation of a SchedulerJobEvent model
         scheduler_job_event_model_json = {}
-        scheduler_job_event_model_json['timestamp'] = '2020-01-28T18:40:40.123456Z'
+        scheduler_job_event_model_json['timestamp'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
         scheduler_job_event_model_json['type'] = 'testString'
 
         # Construct a model instance of SchedulerJobEvent by calling from_dict on the json representation
@@ -15504,7 +15505,7 @@ class TestSchedulerJobsResult():
         # Construct dict forms of any model objects needed in order to build this model.
 
         scheduler_job_event_model = {} # SchedulerJobEvent
-        scheduler_job_event_model['timestamp'] = '2020-01-28T18:40:40.123456Z'
+        scheduler_job_event_model['timestamp'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
         scheduler_job_event_model['type'] = 'testString'
 
         scheduler_info_model = {} # SchedulerInfo
@@ -15528,7 +15529,7 @@ class TestSchedulerJobsResult():
         scheduler_job_model['node'] = 'testString'
         scheduler_job_model['pid'] = 'testString'
         scheduler_job_model['source'] = 'testString'
-        scheduler_job_model['start_time'] = '2020-01-28T18:40:40.123456Z'
+        scheduler_job_model['start_time'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
         scheduler_job_model['target'] = 'testString'
         scheduler_job_model['user'] = 'testString'
 
