@@ -197,8 +197,8 @@ class CloudantV1(BaseService):
         """
         Retrieve provisioned throughput capacity information.
 
-        View the amount of provisioned throughput capacity allocated to an IBM Cloudant
-        instance and what is the target provisioned throughput capacity.
+        View the amount of provisioned throughput capacity that is allocated to an IBM
+        Cloudant instance and what is the target provisioned throughput capacity.
 
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
@@ -224,7 +224,7 @@ class CloudantV1(BaseService):
         return response
 
 
-    def put_capacity_throughput_information(self,
+    def put_capacity_throughput_configuration(self,
         blocks: int,
         **kwargs
     ) -> DetailedResponse:
@@ -248,7 +248,7 @@ class CloudantV1(BaseService):
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
-                                      operation_id='put_capacity_throughput_information')
+                                      operation_id='put_capacity_throughput_configuration')
         headers.update(sdk_headers)
 
         data = {
@@ -1879,13 +1879,11 @@ class CloudantV1(BaseService):
         if_none_match: str = None,
         attachments: bool = None,
         att_encoding_info: bool = None,
-        atts_since: List[str] = None,
         conflicts: bool = None,
         deleted_conflicts: bool = None,
         latest: bool = None,
         local_seq: bool = None,
         meta: bool = None,
-        open_revs: List[str] = None,
         rev: str = None,
         revs: bool = None,
         revs_info: bool = None,
@@ -1907,9 +1905,6 @@ class CloudantV1(BaseService):
         :param bool att_encoding_info: (optional) Query parameter to specify
                whether to include the encoding information in attachment stubs if the
                particular attachment is compressed.
-        :param List[str] atts_since: (optional) Query parameter to specify whether
-               to include attachments only since specified revisions. Note this does not
-               include the attachments for the specified revisions.
         :param bool conflicts: (optional) Query parameter to specify whether to
                include a list of conflicted revisions in the `_conflicts` property of the
                returned document. Ignored if `include_docs` isn't `true`.
@@ -1923,9 +1918,6 @@ class CloudantV1(BaseService):
         :param bool meta: (optional) Query parameter to specify whether to include
                document meta information. Acts the same as specifying all of the
                conflicts, deleted_conflicts and open_revs query parameters.
-        :param List[str] open_revs: (optional) Query parameter to specify leaf
-               revisions to retrieve. Additionally, it accepts a value of `all` to return
-               all leaf revisions.
         :param str rev: (optional) Query parameter to specify a document revision.
         :param bool revs: (optional) Query parameter to specify whether to include
                a list of all known document revisions.
@@ -1951,13 +1943,11 @@ class CloudantV1(BaseService):
         params = {
             'attachments': attachments,
             'att_encoding_info': att_encoding_info,
-            'atts_since': convert_list(atts_since),
             'conflicts': conflicts,
             'deleted_conflicts': deleted_conflicts,
             'latest': latest,
             'local_seq': local_seq,
             'meta': meta,
-            'open_revs': convert_list(open_revs),
             'rev': rev,
             'revs': revs,
             'revs_info': revs_info
@@ -1987,13 +1977,11 @@ class CloudantV1(BaseService):
         if_none_match: str = None,
         attachments: bool = None,
         att_encoding_info: bool = None,
-        atts_since: List[str] = None,
         conflicts: bool = None,
         deleted_conflicts: bool = None,
         latest: bool = None,
         local_seq: bool = None,
         meta: bool = None,
-        open_revs: List[str] = None,
         rev: str = None,
         revs: bool = None,
         revs_info: bool = None,
@@ -2015,9 +2003,6 @@ class CloudantV1(BaseService):
         :param bool att_encoding_info: (optional) Query parameter to specify
                whether to include the encoding information in attachment stubs if the
                particular attachment is compressed.
-        :param List[str] atts_since: (optional) Query parameter to specify whether
-               to include attachments only since specified revisions. Note this does not
-               include the attachments for the specified revisions.
         :param bool conflicts: (optional) Query parameter to specify whether to
                include a list of conflicted revisions in the `_conflicts` property of the
                returned document. Ignored if `include_docs` isn't `true`.
@@ -2031,9 +2016,6 @@ class CloudantV1(BaseService):
         :param bool meta: (optional) Query parameter to specify whether to include
                document meta information. Acts the same as specifying all of the
                conflicts, deleted_conflicts and open_revs query parameters.
-        :param List[str] open_revs: (optional) Query parameter to specify leaf
-               revisions to retrieve. Additionally, it accepts a value of `all` to return
-               all leaf revisions.
         :param str rev: (optional) Query parameter to specify a document revision.
         :param bool revs: (optional) Query parameter to specify whether to include
                a list of all known document revisions.
@@ -2059,13 +2041,11 @@ class CloudantV1(BaseService):
         params = {
             'attachments': attachments,
             'att_encoding_info': att_encoding_info,
-            'atts_since': convert_list(atts_since),
             'conflicts': conflicts,
             'deleted_conflicts': deleted_conflicts,
             'latest': latest,
             'local_seq': local_seq,
             'meta': meta,
-            'open_revs': convert_list(open_revs),
             'rev': rev,
             'revs': revs,
             'revs_info': revs_info
@@ -2095,13 +2075,11 @@ class CloudantV1(BaseService):
         if_none_match: str = None,
         attachments: bool = None,
         att_encoding_info: bool = None,
-        atts_since: List[str] = None,
         conflicts: bool = None,
         deleted_conflicts: bool = None,
         latest: bool = None,
         local_seq: bool = None,
         meta: bool = None,
-        open_revs: List[str] = None,
         rev: str = None,
         revs: bool = None,
         revs_info: bool = None,
@@ -2123,9 +2101,6 @@ class CloudantV1(BaseService):
         :param bool att_encoding_info: (optional) Query parameter to specify
                whether to include the encoding information in attachment stubs if the
                particular attachment is compressed.
-        :param List[str] atts_since: (optional) Query parameter to specify whether
-               to include attachments only since specified revisions. Note this does not
-               include the attachments for the specified revisions.
         :param bool conflicts: (optional) Query parameter to specify whether to
                include a list of conflicted revisions in the `_conflicts` property of the
                returned document. Ignored if `include_docs` isn't `true`.
@@ -2139,9 +2114,6 @@ class CloudantV1(BaseService):
         :param bool meta: (optional) Query parameter to specify whether to include
                document meta information. Acts the same as specifying all of the
                conflicts, deleted_conflicts and open_revs query parameters.
-        :param List[str] open_revs: (optional) Query parameter to specify leaf
-               revisions to retrieve. Additionally, it accepts a value of `all` to return
-               all leaf revisions.
         :param str rev: (optional) Query parameter to specify a document revision.
         :param bool revs: (optional) Query parameter to specify whether to include
                a list of all known document revisions.
@@ -2167,13 +2139,11 @@ class CloudantV1(BaseService):
         params = {
             'attachments': attachments,
             'att_encoding_info': att_encoding_info,
-            'atts_since': convert_list(atts_since),
             'conflicts': conflicts,
             'deleted_conflicts': deleted_conflicts,
             'latest': latest,
             'local_seq': local_seq,
             'meta': meta,
-            'open_revs': convert_list(open_revs),
             'rev': rev,
             'revs': revs,
             'revs_info': revs_info
@@ -2203,13 +2173,11 @@ class CloudantV1(BaseService):
         if_none_match: str = None,
         attachments: bool = None,
         att_encoding_info: bool = None,
-        atts_since: List[str] = None,
         conflicts: bool = None,
         deleted_conflicts: bool = None,
         latest: bool = None,
         local_seq: bool = None,
         meta: bool = None,
-        open_revs: List[str] = None,
         rev: str = None,
         revs: bool = None,
         revs_info: bool = None,
@@ -2231,9 +2199,6 @@ class CloudantV1(BaseService):
         :param bool att_encoding_info: (optional) Query parameter to specify
                whether to include the encoding information in attachment stubs if the
                particular attachment is compressed.
-        :param List[str] atts_since: (optional) Query parameter to specify whether
-               to include attachments only since specified revisions. Note this does not
-               include the attachments for the specified revisions.
         :param bool conflicts: (optional) Query parameter to specify whether to
                include a list of conflicted revisions in the `_conflicts` property of the
                returned document. Ignored if `include_docs` isn't `true`.
@@ -2247,9 +2212,6 @@ class CloudantV1(BaseService):
         :param bool meta: (optional) Query parameter to specify whether to include
                document meta information. Acts the same as specifying all of the
                conflicts, deleted_conflicts and open_revs query parameters.
-        :param List[str] open_revs: (optional) Query parameter to specify leaf
-               revisions to retrieve. Additionally, it accepts a value of `all` to return
-               all leaf revisions.
         :param str rev: (optional) Query parameter to specify a document revision.
         :param bool revs: (optional) Query parameter to specify whether to include
                a list of all known document revisions.
@@ -2275,13 +2237,11 @@ class CloudantV1(BaseService):
         params = {
             'attachments': attachments,
             'att_encoding_info': att_encoding_info,
-            'atts_since': convert_list(atts_since),
             'conflicts': conflicts,
             'deleted_conflicts': deleted_conflicts,
             'latest': latest,
             'local_seq': local_seq,
             'meta': meta,
-            'open_revs': convert_list(open_revs),
             'rev': rev,
             'revs': revs,
             'revs_info': revs_info
@@ -2526,13 +2486,11 @@ class CloudantV1(BaseService):
         if_none_match: str = None,
         attachments: bool = None,
         att_encoding_info: bool = None,
-        atts_since: List[str] = None,
         conflicts: bool = None,
         deleted_conflicts: bool = None,
         latest: bool = None,
         local_seq: bool = None,
         meta: bool = None,
-        open_revs: List[str] = None,
         rev: str = None,
         revs: bool = None,
         revs_info: bool = None,
@@ -2556,9 +2514,6 @@ class CloudantV1(BaseService):
         :param bool att_encoding_info: (optional) Query parameter to specify
                whether to include the encoding information in attachment stubs if the
                particular attachment is compressed.
-        :param List[str] atts_since: (optional) Query parameter to specify whether
-               to include attachments only since specified revisions. Note this does not
-               include the attachments for the specified revisions.
         :param bool conflicts: (optional) Query parameter to specify whether to
                include a list of conflicted revisions in the `_conflicts` property of the
                returned document. Ignored if `include_docs` isn't `true`.
@@ -2572,9 +2527,6 @@ class CloudantV1(BaseService):
         :param bool meta: (optional) Query parameter to specify whether to include
                document meta information. Acts the same as specifying all of the
                conflicts, deleted_conflicts and open_revs query parameters.
-        :param List[str] open_revs: (optional) Query parameter to specify leaf
-               revisions to retrieve. Additionally, it accepts a value of `all` to return
-               all leaf revisions.
         :param str rev: (optional) Query parameter to specify a document revision.
         :param bool revs: (optional) Query parameter to specify whether to include
                a list of all known document revisions.
@@ -2600,13 +2552,11 @@ class CloudantV1(BaseService):
         params = {
             'attachments': attachments,
             'att_encoding_info': att_encoding_info,
-            'atts_since': convert_list(atts_since),
             'conflicts': conflicts,
             'deleted_conflicts': deleted_conflicts,
             'latest': latest,
             'local_seq': local_seq,
             'meta': meta,
-            'open_revs': convert_list(open_revs),
             'rev': rev,
             'revs': revs,
             'revs_info': revs_info
@@ -6017,13 +5967,11 @@ class CloudantV1(BaseService):
         if_none_match: str = None,
         attachments: bool = None,
         att_encoding_info: bool = None,
-        atts_since: List[str] = None,
         conflicts: bool = None,
         deleted_conflicts: bool = None,
         latest: bool = None,
         local_seq: bool = None,
         meta: bool = None,
-        open_revs: List[str] = None,
         rev: str = None,
         revs: bool = None,
         revs_info: bool = None,
@@ -6044,9 +5992,6 @@ class CloudantV1(BaseService):
         :param bool att_encoding_info: (optional) Query parameter to specify
                whether to include the encoding information in attachment stubs if the
                particular attachment is compressed.
-        :param List[str] atts_since: (optional) Query parameter to specify whether
-               to include attachments only since specified revisions. Note this does not
-               include the attachments for the specified revisions.
         :param bool conflicts: (optional) Query parameter to specify whether to
                include a list of conflicted revisions in the `_conflicts` property of the
                returned document. Ignored if `include_docs` isn't `true`.
@@ -6060,9 +6005,6 @@ class CloudantV1(BaseService):
         :param bool meta: (optional) Query parameter to specify whether to include
                document meta information. Acts the same as specifying all of the
                conflicts, deleted_conflicts and open_revs query parameters.
-        :param List[str] open_revs: (optional) Query parameter to specify leaf
-               revisions to retrieve. Additionally, it accepts a value of `all` to return
-               all leaf revisions.
         :param str rev: (optional) Query parameter to specify a document revision.
         :param bool revs: (optional) Query parameter to specify whether to include
                a list of all known document revisions.
@@ -6086,13 +6028,11 @@ class CloudantV1(BaseService):
         params = {
             'attachments': attachments,
             'att_encoding_info': att_encoding_info,
-            'atts_since': convert_list(atts_since),
             'conflicts': conflicts,
             'deleted_conflicts': deleted_conflicts,
             'latest': latest,
             'local_seq': local_seq,
             'meta': meta,
-            'open_revs': convert_list(open_revs),
             'rev': rev,
             'revs': revs,
             'revs_info': revs_info
@@ -7133,7 +7073,6 @@ class CloudantV1(BaseService):
         if_none_match: str = None,
         attachments: bool = None,
         att_encoding_info: bool = None,
-        atts_since: List[str] = None,
         local_seq: bool = None,
         **kwargs
     ) -> DetailedResponse:
@@ -7155,9 +7094,6 @@ class CloudantV1(BaseService):
         :param bool att_encoding_info: (optional) Query parameter to specify
                whether to include the encoding information in attachment stubs if the
                particular attachment is compressed.
-        :param List[str] atts_since: (optional) Query parameter to specify whether
-               to include attachments only since specified revisions. Note this does not
-               include the attachments for the specified revisions.
         :param bool local_seq: (optional) Query parameter to specify whether to
                include the last update sequence for the document.
         :param dict headers: A `dict` containing the request headers
@@ -7181,7 +7117,6 @@ class CloudantV1(BaseService):
         params = {
             'attachments': attachments,
             'att_encoding_info': att_encoding_info,
-            'atts_since': convert_list(atts_since),
             'local_seq': local_seq
         }
 
@@ -7565,24 +7500,24 @@ class CloudantV1(BaseService):
         return response
 
 
-    def get_activity_tracker_events_information(self,
+    def get_activity_tracker_events(self,
         **kwargs
     ) -> DetailedResponse:
         """
         Retrieve Activity Tracker events information.
 
-        Check event types that are being sent to IBM Cloud Activity Tracker with LogDNA
-        for the IBM Cloudant instance.
+        Check event types that are being sent to IBM Cloud Activity Tracker for the IBM
+        Cloudant instance.
 
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `ActivityTrackerEventsConfiguration` object
+        :rtype: DetailedResponse with `dict` result representing a `ActivityTrackerEvents` object
         """
 
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
-                                      operation_id='get_activity_tracker_events_information')
+                                      operation_id='get_activity_tracker_events')
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -7598,19 +7533,19 @@ class CloudantV1(BaseService):
         return response
 
 
-    def post_activity_tracker_events_configuration(self,
+    def post_activity_tracker_events(self,
         types: List[str],
         **kwargs
     ) -> DetailedResponse:
         """
         Modify Activity Tracker events configuration.
 
-        Configure event types that are being sent to IBM Cloud Activity Tracker with
-        LogDNA for the IBM Cloudant instance.
+        Configure event types that are being sent to IBM Cloud Activity Tracker for the
+        IBM Cloudant instance.
 
         :param List[str] types: An array of event types that are being sent to IBM
-               Cloud Activity Tracker with LogDNA for the IBM Cloudant instance.
-               "management" is a required element of this array.
+               Cloud Activity Tracker for the IBM Cloudant instance. "management" is a
+               required element of this array.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `Ok` object
@@ -7621,7 +7556,7 @@ class CloudantV1(BaseService):
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
-                                      operation_id='post_activity_tracker_events_configuration')
+                                      operation_id='post_activity_tracker_events')
         headers.update(sdk_headers)
 
         data = {
@@ -8179,39 +8114,39 @@ class ActiveTask():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ActivityTrackerEventsConfiguration():
+class ActivityTrackerEvents():
     """
-    Schema for Activity Tracker events configuration.
+    Schema for Activity Tracker events.
 
     :attr List[str] types: An array of event types that are being sent to IBM Cloud
-          Activity Tracker with LogDNA for the IBM Cloudant instance. "management" is a
-          required element of this array.
+          Activity Tracker for the IBM Cloudant instance. "management" is a required
+          element of this array.
     """
 
     def __init__(self,
                  types: List[str]) -> None:
         """
-        Initialize a ActivityTrackerEventsConfiguration object.
+        Initialize a ActivityTrackerEvents object.
 
         :param List[str] types: An array of event types that are being sent to IBM
-               Cloud Activity Tracker with LogDNA for the IBM Cloudant instance.
-               "management" is a required element of this array.
+               Cloud Activity Tracker for the IBM Cloudant instance. "management" is a
+               required element of this array.
         """
         self.types = types
 
     @classmethod
-    def from_dict(cls, _dict: Dict) -> 'ActivityTrackerEventsConfiguration':
-        """Initialize a ActivityTrackerEventsConfiguration object from a json dictionary."""
+    def from_dict(cls, _dict: Dict) -> 'ActivityTrackerEvents':
+        """Initialize a ActivityTrackerEvents object from a json dictionary."""
         args = {}
         if 'types' in _dict:
             args['types'] = _dict.get('types')
         else:
-            raise ValueError('Required property \'types\' not present in ActivityTrackerEventsConfiguration JSON')
+            raise ValueError('Required property \'types\' not present in ActivityTrackerEvents JSON')
         return cls(**args)
 
     @classmethod
     def _from_dict(cls, _dict):
-        """Initialize a ActivityTrackerEventsConfiguration object from a json dictionary."""
+        """Initialize a ActivityTrackerEvents object from a json dictionary."""
         return cls.from_dict(_dict)
 
     def to_dict(self) -> Dict:
@@ -8226,16 +8161,16 @@ class ActivityTrackerEventsConfiguration():
         return self.to_dict()
 
     def __str__(self) -> str:
-        """Return a `str` version of this ActivityTrackerEventsConfiguration object."""
+        """Return a `str` version of this ActivityTrackerEvents object."""
         return json.dumps(self.to_dict(), indent=2)
 
-    def __eq__(self, other: 'ActivityTrackerEventsConfiguration') -> bool:
+    def __eq__(self, other: 'ActivityTrackerEvents') -> bool:
         """Return `true` when self and other are equal, false otherwise."""
         if not isinstance(other, self.__class__):
             return False
         return self.__dict__ == other.__dict__
 
-    def __ne__(self, other: 'ActivityTrackerEventsConfiguration') -> bool:
+    def __ne__(self, other: 'ActivityTrackerEvents') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 

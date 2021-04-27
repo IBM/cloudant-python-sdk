@@ -227,9 +227,9 @@ class TestGetCapacityThroughputInformation():
         assert response.status_code == 200
 
 
-class TestPutCapacityThroughputInformation():
+class TestPutCapacityThroughputConfiguration():
     """
-    Test Class for put_capacity_throughput_information
+    Test Class for put_capacity_throughput_configuration
     """
 
     def preprocess_url(self, request_url: str):
@@ -242,9 +242,9 @@ class TestPutCapacityThroughputInformation():
             return re.compile(request_url.rstrip('/') + '/+')
 
     @responses.activate
-    def test_put_capacity_throughput_information_all_params(self):
+    def test_put_capacity_throughput_configuration_all_params(self):
         """
-        put_capacity_throughput_information()
+        put_capacity_throughput_configuration()
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_api/v2/user/capacity/throughput')
@@ -259,7 +259,7 @@ class TestPutCapacityThroughputInformation():
         blocks = 0
 
         # Invoke method
-        response = service.put_capacity_throughput_information(
+        response = service.put_capacity_throughput_configuration(
             blocks,
             headers={}
         )
@@ -276,9 +276,9 @@ class TestPutCapacityThroughputInformation():
 
 
     @responses.activate
-    def test_put_capacity_throughput_information_value_error(self):
+    def test_put_capacity_throughput_configuration_value_error(self):
         """
-        test_put_capacity_throughput_information_value_error()
+        test_put_capacity_throughput_configuration_value_error()
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_api/v2/user/capacity/throughput')
@@ -299,7 +299,7 @@ class TestPutCapacityThroughputInformation():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.put_capacity_throughput_information(**req_copy)
+                service.put_capacity_throughput_configuration(**req_copy)
 
 
 
@@ -2407,9 +2407,9 @@ class TestPostBulkGetAsMixed():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
+        bulk_get_query_document_model['id'] = 'order00067'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2465,9 +2465,9 @@ class TestPostBulkGetAsMixed():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
+        bulk_get_query_document_model['id'] = 'order00067'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2508,9 +2508,9 @@ class TestPostBulkGetAsMixed():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
+        bulk_get_query_document_model['id'] = 'order00067'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2559,9 +2559,9 @@ class TestPostBulkGetAsRelated():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
+        bulk_get_query_document_model['id'] = 'order00067'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2617,9 +2617,9 @@ class TestPostBulkGetAsRelated():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
+        bulk_get_query_document_model['id'] = 'order00067'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2660,9 +2660,9 @@ class TestPostBulkGetAsRelated():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
+        bulk_get_query_document_model['id'] = 'order00067'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2711,9 +2711,9 @@ class TestPostBulkGetAsStream():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
+        bulk_get_query_document_model['id'] = 'order00067'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2775,9 +2775,9 @@ class TestPostBulkGetAsStream():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
+        bulk_get_query_document_model['id'] = 'order00067'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2824,9 +2824,9 @@ class TestPostBulkGetAsStream():
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['testString']
-        bulk_get_query_document_model['id'] = 'small-appliances:1000042'
+        bulk_get_query_document_model['id'] = 'order00067'
         bulk_get_query_document_model['open_revs'] = ['testString']
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2993,13 +2993,11 @@ class TestGetDocument():
         if_none_match = 'testString'
         attachments = True
         att_encoding_info = True
-        atts_since = ['testString']
         conflicts = True
         deleted_conflicts = True
         latest = True
         local_seq = True
         meta = True
-        open_revs = ['testString']
         rev = 'testString'
         revs = True
         revs_info = True
@@ -3011,13 +3009,11 @@ class TestGetDocument():
             if_none_match=if_none_match,
             attachments=attachments,
             att_encoding_info=att_encoding_info,
-            atts_since=atts_since,
             conflicts=conflicts,
             deleted_conflicts=deleted_conflicts,
             latest=latest,
             local_seq=local_seq,
             meta=meta,
-            open_revs=open_revs,
             rev=rev,
             revs=revs,
             revs_info=revs_info,
@@ -3032,13 +3028,11 @@ class TestGetDocument():
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
-        assert 'atts_since={}'.format(','.join(atts_since)) in query_string
         assert 'conflicts={}'.format('true' if conflicts else 'false') in query_string
         assert 'deleted_conflicts={}'.format('true' if deleted_conflicts else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
         assert 'local_seq={}'.format('true' if local_seq else 'false') in query_string
         assert 'meta={}'.format('true' if meta else 'false') in query_string
-        assert 'open_revs={}'.format(','.join(open_revs)) in query_string
         assert 'rev={}'.format(rev) in query_string
         assert 'revs={}'.format('true' if revs else 'false') in query_string
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
@@ -3138,13 +3132,11 @@ class TestGetDocumentAsMixed():
         if_none_match = 'testString'
         attachments = True
         att_encoding_info = True
-        atts_since = ['testString']
         conflicts = True
         deleted_conflicts = True
         latest = True
         local_seq = True
         meta = True
-        open_revs = ['testString']
         rev = 'testString'
         revs = True
         revs_info = True
@@ -3156,13 +3148,11 @@ class TestGetDocumentAsMixed():
             if_none_match=if_none_match,
             attachments=attachments,
             att_encoding_info=att_encoding_info,
-            atts_since=atts_since,
             conflicts=conflicts,
             deleted_conflicts=deleted_conflicts,
             latest=latest,
             local_seq=local_seq,
             meta=meta,
-            open_revs=open_revs,
             rev=rev,
             revs=revs,
             revs_info=revs_info,
@@ -3177,13 +3167,11 @@ class TestGetDocumentAsMixed():
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
-        assert 'atts_since={}'.format(','.join(atts_since)) in query_string
         assert 'conflicts={}'.format('true' if conflicts else 'false') in query_string
         assert 'deleted_conflicts={}'.format('true' if deleted_conflicts else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
         assert 'local_seq={}'.format('true' if local_seq else 'false') in query_string
         assert 'meta={}'.format('true' if meta else 'false') in query_string
-        assert 'open_revs={}'.format(','.join(open_revs)) in query_string
         assert 'rev={}'.format(rev) in query_string
         assert 'revs={}'.format('true' if revs else 'false') in query_string
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
@@ -3283,13 +3271,11 @@ class TestGetDocumentAsRelated():
         if_none_match = 'testString'
         attachments = True
         att_encoding_info = True
-        atts_since = ['testString']
         conflicts = True
         deleted_conflicts = True
         latest = True
         local_seq = True
         meta = True
-        open_revs = ['testString']
         rev = 'testString'
         revs = True
         revs_info = True
@@ -3301,13 +3287,11 @@ class TestGetDocumentAsRelated():
             if_none_match=if_none_match,
             attachments=attachments,
             att_encoding_info=att_encoding_info,
-            atts_since=atts_since,
             conflicts=conflicts,
             deleted_conflicts=deleted_conflicts,
             latest=latest,
             local_seq=local_seq,
             meta=meta,
-            open_revs=open_revs,
             rev=rev,
             revs=revs,
             revs_info=revs_info,
@@ -3322,13 +3306,11 @@ class TestGetDocumentAsRelated():
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
-        assert 'atts_since={}'.format(','.join(atts_since)) in query_string
         assert 'conflicts={}'.format('true' if conflicts else 'false') in query_string
         assert 'deleted_conflicts={}'.format('true' if deleted_conflicts else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
         assert 'local_seq={}'.format('true' if local_seq else 'false') in query_string
         assert 'meta={}'.format('true' if meta else 'false') in query_string
-        assert 'open_revs={}'.format(','.join(open_revs)) in query_string
         assert 'rev={}'.format(rev) in query_string
         assert 'revs={}'.format('true' if revs else 'false') in query_string
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
@@ -3428,13 +3410,11 @@ class TestGetDocumentAsStream():
         if_none_match = 'testString'
         attachments = True
         att_encoding_info = True
-        atts_since = ['testString']
         conflicts = True
         deleted_conflicts = True
         latest = True
         local_seq = True
         meta = True
-        open_revs = ['testString']
         rev = 'testString'
         revs = True
         revs_info = True
@@ -3446,13 +3426,11 @@ class TestGetDocumentAsStream():
             if_none_match=if_none_match,
             attachments=attachments,
             att_encoding_info=att_encoding_info,
-            atts_since=atts_since,
             conflicts=conflicts,
             deleted_conflicts=deleted_conflicts,
             latest=latest,
             local_seq=local_seq,
             meta=meta,
-            open_revs=open_revs,
             rev=rev,
             revs=revs,
             revs_info=revs_info,
@@ -3467,13 +3445,11 @@ class TestGetDocumentAsStream():
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
-        assert 'atts_since={}'.format(','.join(atts_since)) in query_string
         assert 'conflicts={}'.format('true' if conflicts else 'false') in query_string
         assert 'deleted_conflicts={}'.format('true' if deleted_conflicts else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
         assert 'local_seq={}'.format('true' if local_seq else 'false') in query_string
         assert 'meta={}'.format('true' if meta else 'false') in query_string
-        assert 'open_revs={}'.format(','.join(open_revs)) in query_string
         assert 'rev={}'.format(rev) in query_string
         assert 'revs={}'.format('true' if revs else 'false') in query_string
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
@@ -4046,13 +4022,11 @@ class TestGetDesignDocument():
         if_none_match = 'testString'
         attachments = True
         att_encoding_info = True
-        atts_since = ['testString']
         conflicts = True
         deleted_conflicts = True
         latest = True
         local_seq = True
         meta = True
-        open_revs = ['testString']
         rev = 'testString'
         revs = True
         revs_info = True
@@ -4064,13 +4038,11 @@ class TestGetDesignDocument():
             if_none_match=if_none_match,
             attachments=attachments,
             att_encoding_info=att_encoding_info,
-            atts_since=atts_since,
             conflicts=conflicts,
             deleted_conflicts=deleted_conflicts,
             latest=latest,
             local_seq=local_seq,
             meta=meta,
-            open_revs=open_revs,
             rev=rev,
             revs=revs,
             revs_info=revs_info,
@@ -4085,13 +4057,11 @@ class TestGetDesignDocument():
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
-        assert 'atts_since={}'.format(','.join(atts_since)) in query_string
         assert 'conflicts={}'.format('true' if conflicts else 'false') in query_string
         assert 'deleted_conflicts={}'.format('true' if deleted_conflicts else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
         assert 'local_seq={}'.format('true' if local_seq else 'false') in query_string
         assert 'meta={}'.format('true' if meta else 'false') in query_string
-        assert 'open_revs={}'.format(','.join(open_revs)) in query_string
         assert 'rev={}'.format(rev) in query_string
         assert 'revs={}'.format('true' if revs else 'false') in query_string
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
@@ -9067,13 +9037,11 @@ class TestGetReplicationDocument():
         if_none_match = 'testString'
         attachments = True
         att_encoding_info = True
-        atts_since = ['testString']
         conflicts = True
         deleted_conflicts = True
         latest = True
         local_seq = True
         meta = True
-        open_revs = ['testString']
         rev = 'testString'
         revs = True
         revs_info = True
@@ -9084,13 +9052,11 @@ class TestGetReplicationDocument():
             if_none_match=if_none_match,
             attachments=attachments,
             att_encoding_info=att_encoding_info,
-            atts_since=atts_since,
             conflicts=conflicts,
             deleted_conflicts=deleted_conflicts,
             latest=latest,
             local_seq=local_seq,
             meta=meta,
-            open_revs=open_revs,
             rev=rev,
             revs=revs,
             revs_info=revs_info,
@@ -9105,13 +9071,11 @@ class TestGetReplicationDocument():
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
-        assert 'atts_since={}'.format(','.join(atts_since)) in query_string
         assert 'conflicts={}'.format('true' if conflicts else 'false') in query_string
         assert 'deleted_conflicts={}'.format('true' if deleted_conflicts else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
         assert 'local_seq={}'.format('true' if local_seq else 'false') in query_string
         assert 'meta={}'.format('true' if meta else 'false') in query_string
-        assert 'open_revs={}'.format(','.join(open_revs)) in query_string
         assert 'rev={}'.format(rev) in query_string
         assert 'revs={}'.format('true' if revs else 'false') in query_string
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
@@ -11091,7 +11055,6 @@ class TestGetLocalDocument():
         if_none_match = 'testString'
         attachments = True
         att_encoding_info = True
-        atts_since = ['testString']
         local_seq = True
 
         # Invoke method
@@ -11102,7 +11065,6 @@ class TestGetLocalDocument():
             if_none_match=if_none_match,
             attachments=attachments,
             att_encoding_info=att_encoding_info,
-            atts_since=atts_since,
             local_seq=local_seq,
             headers={}
         )
@@ -11115,7 +11077,6 @@ class TestGetLocalDocument():
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'attachments={}'.format('true' if attachments else 'false') in query_string
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
-        assert 'atts_since={}'.format(','.join(atts_since)) in query_string
         assert 'local_seq={}'.format('true' if local_seq else 'false') in query_string
 
 
@@ -11842,9 +11803,9 @@ class TestGetUpInformation():
         assert response.status_code == 200
 
 
-class TestGetActivityTrackerEventsInformation():
+class TestGetActivityTrackerEvents():
     """
-    Test Class for get_activity_tracker_events_information
+    Test Class for get_activity_tracker_events
     """
 
     def preprocess_url(self, request_url: str):
@@ -11857,9 +11818,9 @@ class TestGetActivityTrackerEventsInformation():
             return re.compile(request_url.rstrip('/') + '/+')
 
     @responses.activate
-    def test_get_activity_tracker_events_information_all_params(self):
+    def test_get_activity_tracker_events_all_params(self):
         """
-        get_activity_tracker_events_information()
+        get_activity_tracker_events()
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_api/v2/user/activity_tracker/events')
@@ -11871,7 +11832,7 @@ class TestGetActivityTrackerEventsInformation():
                       status=200)
 
         # Invoke method
-        response = service.get_activity_tracker_events_information()
+        response = service.get_activity_tracker_events()
 
 
         # Check for correct operation
@@ -11879,9 +11840,9 @@ class TestGetActivityTrackerEventsInformation():
         assert response.status_code == 200
 
 
-class TestPostActivityTrackerEventsConfiguration():
+class TestPostActivityTrackerEvents():
     """
-    Test Class for post_activity_tracker_events_configuration
+    Test Class for post_activity_tracker_events
     """
 
     def preprocess_url(self, request_url: str):
@@ -11894,9 +11855,9 @@ class TestPostActivityTrackerEventsConfiguration():
             return re.compile(request_url.rstrip('/') + '/+')
 
     @responses.activate
-    def test_post_activity_tracker_events_configuration_all_params(self):
+    def test_post_activity_tracker_events_all_params(self):
         """
-        post_activity_tracker_events_configuration()
+        post_activity_tracker_events()
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_api/v2/user/activity_tracker/events')
@@ -11911,7 +11872,7 @@ class TestPostActivityTrackerEventsConfiguration():
         types = ['management']
 
         # Invoke method
-        response = service.post_activity_tracker_events_configuration(
+        response = service.post_activity_tracker_events(
             types,
             headers={}
         )
@@ -11928,9 +11889,9 @@ class TestPostActivityTrackerEventsConfiguration():
 
 
     @responses.activate
-    def test_post_activity_tracker_events_configuration_value_error(self):
+    def test_post_activity_tracker_events_value_error(self):
         """
-        test_post_activity_tracker_events_configuration_value_error()
+        test_post_activity_tracker_events_value_error()
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/_api/v2/user/activity_tracker/events')
@@ -11951,7 +11912,7 @@ class TestPostActivityTrackerEventsConfiguration():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_activity_tracker_events_configuration(**req_copy)
+                service.post_activity_tracker_events(**req_copy)
 
 
 
@@ -12041,34 +12002,34 @@ class TestActiveTask():
         active_task_model_json2 = active_task_model.to_dict()
         assert active_task_model_json2 == active_task_model_json
 
-class TestActivityTrackerEventsConfiguration():
+class TestActivityTrackerEvents():
     """
-    Test Class for ActivityTrackerEventsConfiguration
+    Test Class for ActivityTrackerEvents
     """
 
-    def test_activity_tracker_events_configuration_serialization(self):
+    def test_activity_tracker_events_serialization(self):
         """
-        Test serialization/deserialization for ActivityTrackerEventsConfiguration
+        Test serialization/deserialization for ActivityTrackerEvents
         """
 
-        # Construct a json representation of a ActivityTrackerEventsConfiguration model
-        activity_tracker_events_configuration_model_json = {}
-        activity_tracker_events_configuration_model_json['types'] = ['management']
+        # Construct a json representation of a ActivityTrackerEvents model
+        activity_tracker_events_model_json = {}
+        activity_tracker_events_model_json['types'] = ['management']
 
-        # Construct a model instance of ActivityTrackerEventsConfiguration by calling from_dict on the json representation
-        activity_tracker_events_configuration_model = ActivityTrackerEventsConfiguration.from_dict(activity_tracker_events_configuration_model_json)
-        assert activity_tracker_events_configuration_model != False
+        # Construct a model instance of ActivityTrackerEvents by calling from_dict on the json representation
+        activity_tracker_events_model = ActivityTrackerEvents.from_dict(activity_tracker_events_model_json)
+        assert activity_tracker_events_model != False
 
-        # Construct a model instance of ActivityTrackerEventsConfiguration by calling from_dict on the json representation
-        activity_tracker_events_configuration_model_dict = ActivityTrackerEventsConfiguration.from_dict(activity_tracker_events_configuration_model_json).__dict__
-        activity_tracker_events_configuration_model2 = ActivityTrackerEventsConfiguration(**activity_tracker_events_configuration_model_dict)
+        # Construct a model instance of ActivityTrackerEvents by calling from_dict on the json representation
+        activity_tracker_events_model_dict = ActivityTrackerEvents.from_dict(activity_tracker_events_model_json).__dict__
+        activity_tracker_events_model2 = ActivityTrackerEvents(**activity_tracker_events_model_dict)
 
         # Verify the model instances are equivalent
-        assert activity_tracker_events_configuration_model == activity_tracker_events_configuration_model2
+        assert activity_tracker_events_model == activity_tracker_events_model2
 
         # Convert model instance back to dict and verify no loss of data
-        activity_tracker_events_configuration_model_json2 = activity_tracker_events_configuration_model.to_dict()
-        assert activity_tracker_events_configuration_model_json2 == activity_tracker_events_configuration_model_json
+        activity_tracker_events_model_json2 = activity_tracker_events_model.to_dict()
+        assert activity_tracker_events_model_json2 == activity_tracker_events_model_json
 
 class TestAllDocsQueriesResult():
     """
