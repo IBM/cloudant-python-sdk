@@ -39,6 +39,19 @@ server versions:
 * CouchDB versions <= 3.1.1
 * Cloudant (Classic) <= 8169
 
+### Documents
+
+#### Attachments
+
+The `atts_since` parameter is not supported when retrieving a document.
+The workaround is to call `POST /{db}/_bulk_get` using the `atts_since` field under the `docs` request body. See the [alternative example request for `atts_since` using the `/_bulk_get` endpoint](https://cloud.ibm.com/apidocs/cloudant#postbulkget) in our API Docs.
+Example JSON request body:
+```json
+{
+  "docs": [{"id": "order00058", "atts_since": "1-99b02e08da151943c2dcb40090160bb8"}] 
+}
+```
+
 ### Cloudant on Transaction Engine
 
 Whilst most SDK methods will work with _Cloudant on Transaction Engine_ there are some limitations.
