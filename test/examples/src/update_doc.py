@@ -21,6 +21,12 @@ try:
         doc_id=example_doc_id
     ).get_result()
 
+    # Note: for byte response (Output Stream) use:
+    # documentAsStream = client.get_document_as_stream(
+    #     db=example_db_name,
+    #     doc_id=example_doc_id
+    # ).get_result()
+
     #  Add Bob Smith's address to the document
     document["address"] = "19 Front Street, Darlington, DL5 1TY"
 
@@ -33,6 +39,12 @@ try:
         db=example_db_name,
         document=document
     ).get_result()
+
+    # Note: for byte request (Input Stream) use:
+    # update_document_response = client.post_document(
+    #     db=example_db_name,
+    #     document=inputStream
+    # ).get_result()
 
     # Keep track with the revision number of the document object:
     document["_rev"] = update_document_response["rev"]
