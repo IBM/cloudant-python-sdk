@@ -525,11 +525,29 @@ For sample code on handling errors, see
 ### Raw IO
 
 For endpoints that read or write document content it is possible to bypass
-usage of the built-in models and send or receive a bytes response.
-For examples of using byte streams, see the API reference documentation
-("Example request as a stream" section).
+usage of the built-in models with byte streams. 
+Some endpoints send input streams, 
+while others receive output streams.
 
+Input stream can be supplied for `BinaryIO` typed
+ property.
+The model based request appends this value to the request body.
+
+Output stream is supported in functions with the suffix of `AsStream`.
+The returned byte stream allows the response body to be consumed
+without triggering JSON unmarshalling that is typically performed by the SDK.
+
+The [update document](#3-update-your-previously-created-document) section
+contains examples for both input and output stream cases.
+
+For further examples of using byte streams,
+see the [API reference documentation](https://cloud.ibm.com/apidocs/cloudant)
+("Example request as a stream" collapsed example).
+
+See an example for byte request (input stream):
 - [Bulk modify multiple documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=python#postbulkdocs)
+
+See examples for byte response (output stream):
 - [Query a list of all documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=python#postalldocs)
 - [Query the database document changes feed](https://cloud.ibm.com/apidocs/cloudant?code=python#postchanges)
 
