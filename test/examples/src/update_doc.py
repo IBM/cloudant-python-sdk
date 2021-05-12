@@ -21,7 +21,7 @@ try:
         doc_id=example_doc_id
     ).get_result()
 
-    # Note: for byte response (Output Stream) use:
+    # Note: for response byte stream use:
     # documentAsStream = client.get_document_as_stream(
     #     db=example_db_name,
     #     doc_id=example_doc_id
@@ -40,10 +40,10 @@ try:
         document=document
     ).get_result()
 
-    # Note: for byte request (Input Stream) use:
+    # Note: for request byte stream use:
     # update_document_response = client.post_document(
     #     db=example_db_name,
-    #     document=inputStream
+    #     document=documentAsBinaryIO
     # ).get_result()
 
     # Keep track with the revision number of the document object:
