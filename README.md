@@ -406,6 +406,12 @@ try:
         doc_id=example_doc_id
     ).get_result()
 
+    # Note: for response byte stream use:
+    # document_as_byte_stream = client.get_document_as_stream(
+    #     db=example_db_name,
+    #     doc_id=example_doc_id
+    # ).get_result()
+
     #  Add Bob Smith's address to the document
     document["address"] = "19 Front Street, Darlington, DL5 1TY"
 
@@ -418,6 +424,12 @@ try:
         db=example_db_name,
         document=document
     ).get_result()
+
+    # Note: for request byte stream use:
+    # update_document_response = client.post_document(
+    #     db=example_db_name,
+    #     document=document_as_byte_stream
+    # ).get_result()
 
     # Keep track with the revision number of the document object:
     document["_rev"] = update_document_response["rev"]
@@ -513,13 +525,32 @@ For sample code on handling errors, see
 ### Raw IO
 
 For endpoints that read or write document content it is possible to bypass
-usage of the built-in models and send or receive a bytes response.
-For examples of using byte streams, see the API reference documentation
-("Example request as a stream" section).
+usage of the built-in object with byte streams. 
 
-- [Bulk modify multiple documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=python#postbulkdocs)
-- [Query a list of all documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=python#postalldocs)
-- [Query the database document changes feed](https://cloud.ibm.com/apidocs/cloudant?code=python#postchanges)
+Depending on the specific SDK operation it may be possible to:
+* accept a user-provided byte stream to send to the server as a request body
+* return a byte stream of the server response body to the user
+
+Request byte stream can be supplied for arguments that accept the `BinaryIO` type.
+For these cases you can pass this byte stream directly to the HTTP request body.
+
+Response byte stream is supported in functions with the suffix of `_as_stream`.
+The returned byte stream allows the response body to be consumed
+without triggering JSON unmarshalling that is typically performed by the SDK.
+
+The [update document](#3-update-your-previously-created-document) section
+contains examples for both request and response byte stream cases.
+
+The API reference contains further examples of using byte streams. 
+They are titled "Example request as stream" and are initially collapsed. 
+Expand them to see examples of:
+
+- Byte requests:
+  - [Bulk modify multiple documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=python#postbulkdocs)
+
+- Byte responses:
+  - [Query a list of all documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=python#postalldocs)
+  - [Query the database document changes feed](https://cloud.ibm.com/apidocs/cloudant?code=python#postchanges)
 
 ### Further resources
 
