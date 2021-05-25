@@ -149,3 +149,11 @@ The example above represents this JSON body:
     ...
 }
 ```
+
+### Disabling request body compression
+```python
+from ibmcloudant.cloudant_v1 import CloudantV1
+client = CloudantV1.new_instance(service_name="YOUR_SERVICE_NAME")
+client.set_enable_gzip_compression(False)
+...
+```
