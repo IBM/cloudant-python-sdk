@@ -82,6 +82,24 @@ Example JSON request body:
 }
 ```
 
+### Monitoring, Authorization, and CORS
+
+The server (Cloudant (Classic) <= 8169) incorrectly processes gzip compressed request bodies for the following endpoints:
+| Endpoint                              | HTTP operation |
+|---------------------------------------|----------------|
+|`/_api/v2/user/activity_tracker/events`|`POST`          |
+|`/_api/v2/user/capacity/throughput`    |`PUT`           |
+|`/_api/v2/api_keys`                    |`POST`          |
+|`/_api/v2/db/{db}/_security`           |`PUT`           |
+|`/_api/v2/user/config/cors`            |`PUT`           |
+
+The workaround is to [disable request body compression](#disabling-request-body-compression).
+
+### Replication
+
+The server (Cloudant (Classic) <= 8169) incorrectly processes gzip compressed request bodies for `_replicate` endpoint.
+The workaround is to [disable request body compression](#disabling-request-body-compression).
+
 ### Cloudant on Transaction Engine
 
 Whilst most SDK methods will work with _Cloudant on Transaction Engine_ there are some limitations.
@@ -130,4 +148,13 @@ The example above represents this JSON body:
     },
     ...
 }
+```
+
+### Disabling request body compression
+
+```python
+from ibmcloudant.cloudant_v1 import CloudantV1
+client = CloudantV1.new_instance(service_name="YOUR_SERVICE_NAME")
+client.set_enable_gzip_compression(False)
+...
 ```
