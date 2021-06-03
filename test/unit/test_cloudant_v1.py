@@ -2254,9 +2254,8 @@ class TestPostBulkGet():
 
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
-        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
         bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['open_revs'] = ['testString']
         bulk_get_query_document_model['rev'] = 'testString'
 
         # Set up parameter values
@@ -2312,9 +2311,8 @@ class TestPostBulkGet():
 
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
-        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
         bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['open_revs'] = ['testString']
         bulk_get_query_document_model['rev'] = 'testString'
 
         # Set up parameter values
@@ -2355,9 +2353,8 @@ class TestPostBulkGet():
 
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
-        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
         bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['open_revs'] = ['testString']
         bulk_get_query_document_model['rev'] = 'testString'
 
         # Set up parameter values
@@ -2406,9 +2403,8 @@ class TestPostBulkGetAsMixed():
 
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
-        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
         bulk_get_query_document_model['id'] = 'order00067'
-        bulk_get_query_document_model['open_revs'] = ['testString']
         bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
@@ -2464,9 +2460,8 @@ class TestPostBulkGetAsMixed():
 
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
-        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
         bulk_get_query_document_model['id'] = 'order00067'
-        bulk_get_query_document_model['open_revs'] = ['testString']
         bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
@@ -2507,9 +2502,8 @@ class TestPostBulkGetAsMixed():
 
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
-        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
         bulk_get_query_document_model['id'] = 'order00067'
-        bulk_get_query_document_model['open_revs'] = ['testString']
         bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
@@ -2558,9 +2552,8 @@ class TestPostBulkGetAsRelated():
 
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
-        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
         bulk_get_query_document_model['id'] = 'order00067'
-        bulk_get_query_document_model['open_revs'] = ['testString']
         bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
@@ -2616,9 +2609,8 @@ class TestPostBulkGetAsRelated():
 
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
-        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
         bulk_get_query_document_model['id'] = 'order00067'
-        bulk_get_query_document_model['open_revs'] = ['testString']
         bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
@@ -2659,9 +2651,8 @@ class TestPostBulkGetAsRelated():
 
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
-        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
         bulk_get_query_document_model['id'] = 'order00067'
-        bulk_get_query_document_model['open_revs'] = ['testString']
         bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
@@ -2710,9 +2701,8 @@ class TestPostBulkGetAsStream():
 
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
-        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
         bulk_get_query_document_model['id'] = 'order00067'
-        bulk_get_query_document_model['open_revs'] = ['testString']
         bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
@@ -2774,9 +2764,8 @@ class TestPostBulkGetAsStream():
 
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
-        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
         bulk_get_query_document_model['id'] = 'order00067'
-        bulk_get_query_document_model['open_revs'] = ['testString']
         bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
@@ -2823,9 +2812,8 @@ class TestPostBulkGetAsStream():
 
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
-        bulk_get_query_document_model['atts_since'] = ['testString']
+        bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
         bulk_get_query_document_model['id'] = 'order00067'
-        bulk_get_query_document_model['open_revs'] = ['testString']
         bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
@@ -12437,9 +12425,8 @@ class TestBulkGetQueryDocument():
 
         # Construct a json representation of a BulkGetQueryDocument model
         bulk_get_query_document_model_json = {}
-        bulk_get_query_document_model_json['atts_since'] = ['testString']
+        bulk_get_query_document_model_json['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
         bulk_get_query_document_model_json['id'] = 'testString'
-        bulk_get_query_document_model_json['open_revs'] = ['testString']
         bulk_get_query_document_model_json['rev'] = 'testString'
 
         # Construct a model instance of BulkGetQueryDocument by calling from_dict on the json representation

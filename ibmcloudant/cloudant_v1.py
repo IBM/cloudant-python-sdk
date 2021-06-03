@@ -9050,8 +9050,6 @@ class BulkGetQueryDocument():
     :attr List[str] atts_since: (optional) Includes attachments only since specified
           revisions.
     :attr str id: Schema for a document ID.
-    :attr List[str] open_revs: (optional) Retrieves documents of specified leaf
-          revisions.
     :attr str rev: (optional) Schema for a document revision identifier.
     """
 
@@ -9059,7 +9057,6 @@ class BulkGetQueryDocument():
                  id: str,
                  *,
                  atts_since: List[str] = None,
-                 open_revs: List[str] = None,
                  rev: str = None) -> None:
         """
         Initialize a BulkGetQueryDocument object.
@@ -9067,13 +9064,10 @@ class BulkGetQueryDocument():
         :param str id: Schema for a document ID.
         :param List[str] atts_since: (optional) Includes attachments only since
                specified revisions.
-        :param List[str] open_revs: (optional) Retrieves documents of specified
-               leaf revisions.
         :param str rev: (optional) Schema for a document revision identifier.
         """
         self.atts_since = atts_since
         self.id = id
-        self.open_revs = open_revs
         self.rev = rev
 
     @classmethod
@@ -9086,8 +9080,6 @@ class BulkGetQueryDocument():
             args['id'] = _dict.get('id')
         else:
             raise ValueError('Required property \'id\' not present in BulkGetQueryDocument JSON')
-        if 'open_revs' in _dict:
-            args['open_revs'] = _dict.get('open_revs')
         if 'rev' in _dict:
             args['rev'] = _dict.get('rev')
         return cls(**args)
@@ -9104,8 +9096,6 @@ class BulkGetQueryDocument():
             _dict['atts_since'] = self.atts_since
         if hasattr(self, 'id') and self.id is not None:
             _dict['id'] = self.id
-        if hasattr(self, 'open_revs') and self.open_revs is not None:
-            _dict['open_revs'] = self.open_revs
         if hasattr(self, 'rev') and self.rev is not None:
             _dict['rev'] = self.rev
         return _dict
