@@ -5860,6 +5860,49 @@ class CloudantV1(BaseService):
         return response
 
 
+    def post_replicate(self,
+        replication_document: 'ReplicationDocument',
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Create or modify a replication operation.
+
+        Requests, configures, or stops a replicate operation.
+
+        :param ReplicationDocument replication_document: HTTP request body for
+               replication operations.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `ReplicationResult` object
+        """
+
+        if replication_document is None:
+            raise ValueError('replication_document must be provided')
+        if isinstance(replication_document, ReplicationDocument):
+            replication_document = convert_model(replication_document)
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='post_replicate')
+        headers.update(sdk_headers)
+
+        data = json.dumps(replication_document)
+        headers['content-type'] = 'application/json'
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        url = '/_replicate'
+        request = self.prepare_request(method='POST',
+                                       url=url,
+                                       headers=headers,
+                                       data=data)
+
+        response = self.send(request)
+        return response
+
+
     def delete_replication_document(self,
         doc_id: str,
         *,
@@ -6023,7 +6066,7 @@ class CloudantV1(BaseService):
         **kwargs
     ) -> DetailedResponse:
         """
-        Create or modify a replication using a replication document.
+        Start or update a replication.
 
         Creates or modifies a document in the `_replicator` database to start a new
         replication or to edit an existing replication.
@@ -14320,6 +14363,262 @@ class ReplicationDocument():
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'ReplicationDocument') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class ReplicationHistory():
+    """
+    Schema for replication history information.
+
+    :attr int doc_write_failures: Number of document write failures.
+    :attr int docs_read: Number of documents read.
+    :attr int docs_written: Number of documents written to target.
+    :attr str end_last_seq: Last sequence number in changes stream.
+    :attr str end_time: Date/Time replication operation completed in RFC 2822
+          format.
+    :attr int missing_checked: Number of missing documents checked.
+    :attr int missing_found: Number of missing documents found.
+    :attr str recorded_seq: Last recorded sequence number.
+    :attr str session_id: Session ID for this replication operation.
+    :attr str start_last_seq: First sequence number in changes stream.
+    :attr str start_time: Date/Time replication operation started in RFC 2822
+          format.
+    """
+
+    def __init__(self,
+                 doc_write_failures: int,
+                 docs_read: int,
+                 docs_written: int,
+                 end_last_seq: str,
+                 end_time: str,
+                 missing_checked: int,
+                 missing_found: int,
+                 recorded_seq: str,
+                 session_id: str,
+                 start_last_seq: str,
+                 start_time: str) -> None:
+        """
+        Initialize a ReplicationHistory object.
+
+        :param int doc_write_failures: Number of document write failures.
+        :param int docs_read: Number of documents read.
+        :param int docs_written: Number of documents written to target.
+        :param str end_last_seq: Last sequence number in changes stream.
+        :param str end_time: Date/Time replication operation completed in RFC 2822
+               format.
+        :param int missing_checked: Number of missing documents checked.
+        :param int missing_found: Number of missing documents found.
+        :param str recorded_seq: Last recorded sequence number.
+        :param str session_id: Session ID for this replication operation.
+        :param str start_last_seq: First sequence number in changes stream.
+        :param str start_time: Date/Time replication operation started in RFC 2822
+               format.
+        """
+        self.doc_write_failures = doc_write_failures
+        self.docs_read = docs_read
+        self.docs_written = docs_written
+        self.end_last_seq = end_last_seq
+        self.end_time = end_time
+        self.missing_checked = missing_checked
+        self.missing_found = missing_found
+        self.recorded_seq = recorded_seq
+        self.session_id = session_id
+        self.start_last_seq = start_last_seq
+        self.start_time = start_time
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ReplicationHistory':
+        """Initialize a ReplicationHistory object from a json dictionary."""
+        args = {}
+        if 'doc_write_failures' in _dict:
+            args['doc_write_failures'] = _dict.get('doc_write_failures')
+        else:
+            raise ValueError('Required property \'doc_write_failures\' not present in ReplicationHistory JSON')
+        if 'docs_read' in _dict:
+            args['docs_read'] = _dict.get('docs_read')
+        else:
+            raise ValueError('Required property \'docs_read\' not present in ReplicationHistory JSON')
+        if 'docs_written' in _dict:
+            args['docs_written'] = _dict.get('docs_written')
+        else:
+            raise ValueError('Required property \'docs_written\' not present in ReplicationHistory JSON')
+        if 'end_last_seq' in _dict:
+            args['end_last_seq'] = _dict.get('end_last_seq')
+        else:
+            raise ValueError('Required property \'end_last_seq\' not present in ReplicationHistory JSON')
+        if 'end_time' in _dict:
+            args['end_time'] = _dict.get('end_time')
+        else:
+            raise ValueError('Required property \'end_time\' not present in ReplicationHistory JSON')
+        if 'missing_checked' in _dict:
+            args['missing_checked'] = _dict.get('missing_checked')
+        else:
+            raise ValueError('Required property \'missing_checked\' not present in ReplicationHistory JSON')
+        if 'missing_found' in _dict:
+            args['missing_found'] = _dict.get('missing_found')
+        else:
+            raise ValueError('Required property \'missing_found\' not present in ReplicationHistory JSON')
+        if 'recorded_seq' in _dict:
+            args['recorded_seq'] = _dict.get('recorded_seq')
+        else:
+            raise ValueError('Required property \'recorded_seq\' not present in ReplicationHistory JSON')
+        if 'session_id' in _dict:
+            args['session_id'] = _dict.get('session_id')
+        else:
+            raise ValueError('Required property \'session_id\' not present in ReplicationHistory JSON')
+        if 'start_last_seq' in _dict:
+            args['start_last_seq'] = _dict.get('start_last_seq')
+        else:
+            raise ValueError('Required property \'start_last_seq\' not present in ReplicationHistory JSON')
+        if 'start_time' in _dict:
+            args['start_time'] = _dict.get('start_time')
+        else:
+            raise ValueError('Required property \'start_time\' not present in ReplicationHistory JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ReplicationHistory object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'doc_write_failures') and self.doc_write_failures is not None:
+            _dict['doc_write_failures'] = self.doc_write_failures
+        if hasattr(self, 'docs_read') and self.docs_read is not None:
+            _dict['docs_read'] = self.docs_read
+        if hasattr(self, 'docs_written') and self.docs_written is not None:
+            _dict['docs_written'] = self.docs_written
+        if hasattr(self, 'end_last_seq') and self.end_last_seq is not None:
+            _dict['end_last_seq'] = self.end_last_seq
+        if hasattr(self, 'end_time') and self.end_time is not None:
+            _dict['end_time'] = self.end_time
+        if hasattr(self, 'missing_checked') and self.missing_checked is not None:
+            _dict['missing_checked'] = self.missing_checked
+        if hasattr(self, 'missing_found') and self.missing_found is not None:
+            _dict['missing_found'] = self.missing_found
+        if hasattr(self, 'recorded_seq') and self.recorded_seq is not None:
+            _dict['recorded_seq'] = self.recorded_seq
+        if hasattr(self, 'session_id') and self.session_id is not None:
+            _dict['session_id'] = self.session_id
+        if hasattr(self, 'start_last_seq') and self.start_last_seq is not None:
+            _dict['start_last_seq'] = self.start_last_seq
+        if hasattr(self, 'start_time') and self.start_time is not None:
+            _dict['start_time'] = self.start_time
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ReplicationHistory object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ReplicationHistory') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ReplicationHistory') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class ReplicationResult():
+    """
+    Schema for a replication result.
+
+    :attr List[ReplicationHistory] history: Replication history.
+    :attr bool ok: Replication status.
+    :attr int replication_id_version: Replication protocol version.
+    :attr str session_id: Unique session ID.
+    :attr str source_last_seq: Last sequence number read from source database.
+    """
+
+    def __init__(self,
+                 history: List['ReplicationHistory'],
+                 ok: bool,
+                 replication_id_version: int,
+                 session_id: str,
+                 source_last_seq: str) -> None:
+        """
+        Initialize a ReplicationResult object.
+
+        :param List[ReplicationHistory] history: Replication history.
+        :param bool ok: Replication status.
+        :param int replication_id_version: Replication protocol version.
+        :param str session_id: Unique session ID.
+        :param str source_last_seq: Last sequence number read from source database.
+        """
+        self.history = history
+        self.ok = ok
+        self.replication_id_version = replication_id_version
+        self.session_id = session_id
+        self.source_last_seq = source_last_seq
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ReplicationResult':
+        """Initialize a ReplicationResult object from a json dictionary."""
+        args = {}
+        if 'history' in _dict:
+            args['history'] = [ReplicationHistory.from_dict(x) for x in _dict.get('history')]
+        else:
+            raise ValueError('Required property \'history\' not present in ReplicationResult JSON')
+        if 'ok' in _dict:
+            args['ok'] = _dict.get('ok')
+        else:
+            raise ValueError('Required property \'ok\' not present in ReplicationResult JSON')
+        if 'replication_id_version' in _dict:
+            args['replication_id_version'] = _dict.get('replication_id_version')
+        else:
+            raise ValueError('Required property \'replication_id_version\' not present in ReplicationResult JSON')
+        if 'session_id' in _dict:
+            args['session_id'] = _dict.get('session_id')
+        else:
+            raise ValueError('Required property \'session_id\' not present in ReplicationResult JSON')
+        if 'source_last_seq' in _dict:
+            args['source_last_seq'] = _dict.get('source_last_seq')
+        else:
+            raise ValueError('Required property \'source_last_seq\' not present in ReplicationResult JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ReplicationResult object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'history') and self.history is not None:
+            _dict['history'] = [x.to_dict() for x in self.history]
+        if hasattr(self, 'ok') and self.ok is not None:
+            _dict['ok'] = self.ok
+        if hasattr(self, 'replication_id_version') and self.replication_id_version is not None:
+            _dict['replication_id_version'] = self.replication_id_version
+        if hasattr(self, 'session_id') and self.session_id is not None:
+            _dict['session_id'] = self.session_id
+        if hasattr(self, 'source_last_seq') and self.source_last_seq is not None:
+            _dict['source_last_seq'] = self.source_last_seq
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ReplicationResult object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ReplicationResult') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ReplicationResult') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
