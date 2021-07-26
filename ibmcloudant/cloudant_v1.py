@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# IBM OpenAPI SDK Code Generator Version: 3.30.0-bd714324-20210406-200538
+# IBM OpenAPI SDK Code Generator Version: 3.36.1-694fc13e-20210723-211159
  
 """
 NoSQL database based on Apache CouchDB
@@ -111,7 +111,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -145,7 +145,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -187,7 +187,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -220,7 +220,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -268,7 +268,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -339,7 +339,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -519,7 +519,7 @@ class CloudantV1(BaseService):
                                        params=params,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -699,7 +699,7 @@ class CloudantV1(BaseService):
                                        params=params,
                                        data=data)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
     #########################
@@ -743,7 +743,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -800,7 +800,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -847,7 +847,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -889,7 +889,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -926,7 +926,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -977,7 +977,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -1045,7 +1045,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -1120,7 +1120,7 @@ class CloudantV1(BaseService):
                                        params=params,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -1223,7 +1223,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -1326,7 +1326,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
 
@@ -1385,7 +1385,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -1444,7 +1444,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
 
@@ -1499,7 +1499,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -1575,7 +1575,7 @@ class CloudantV1(BaseService):
                                        params=params,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -1651,7 +1651,7 @@ class CloudantV1(BaseService):
                                        params=params,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -1727,7 +1727,7 @@ class CloudantV1(BaseService):
                                        params=params,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -1803,7 +1803,7 @@ class CloudantV1(BaseService):
                                        params=params,
                                        data=data)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
 
@@ -1868,7 +1868,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -1966,7 +1966,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -2064,7 +2064,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -2162,7 +2162,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -2260,7 +2260,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
 
@@ -2348,7 +2348,7 @@ class CloudantV1(BaseService):
                                        params=params,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -2408,7 +2408,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -2475,7 +2475,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -2575,7 +2575,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -2657,7 +2657,7 @@ class CloudantV1(BaseService):
                                        params=params,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -2704,7 +2704,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -2811,7 +2811,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -2873,7 +2873,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -3022,7 +3022,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -3167,7 +3167,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
 
@@ -3234,7 +3234,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -3301,7 +3301,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
     #########################
@@ -3350,7 +3350,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -3458,7 +3458,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -3566,7 +3566,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
 
@@ -3692,7 +3692,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -3818,7 +3818,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
 
@@ -3967,7 +3967,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -4116,7 +4116,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
 
@@ -4243,7 +4243,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -4370,7 +4370,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
     #########################
@@ -4503,7 +4503,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -4633,7 +4633,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -4763,7 +4763,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
 
@@ -4805,7 +4805,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -4889,7 +4889,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -4940,7 +4940,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -4995,7 +4995,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -5160,7 +5160,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -5325,7 +5325,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
 
@@ -5374,7 +5374,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -5508,7 +5508,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -5638,7 +5638,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request, stream=True)
+        response = self.send(request, stream=True, **kwargs)
         return response
 
 
@@ -5678,7 +5678,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -5725,7 +5725,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -5776,7 +5776,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -5817,7 +5817,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -5856,7 +5856,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -5914,7 +5914,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -6008,7 +6008,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -6084,7 +6084,7 @@ class CloudantV1(BaseService):
                                        params=params,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -6136,7 +6136,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -6177,7 +6177,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -6226,7 +6226,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -6265,7 +6265,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -6301,7 +6301,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -6348,7 +6348,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -6419,7 +6419,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -6454,7 +6454,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -6525,7 +6525,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -6563,7 +6563,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -6620,7 +6620,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -6690,7 +6690,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -6757,7 +6757,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -6829,7 +6829,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -6909,7 +6909,7 @@ class CloudantV1(BaseService):
                                        params=params,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -6963,7 +6963,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -7018,7 +7018,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -7089,7 +7089,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -7163,7 +7163,7 @@ class CloudantV1(BaseService):
                                        params=params,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -7216,7 +7216,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -7267,7 +7267,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -7306,7 +7306,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -7350,7 +7350,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -7385,7 +7385,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -7420,7 +7420,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -7453,7 +7453,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -7486,7 +7486,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -7533,7 +7533,7 @@ class CloudantV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -7567,7 +7567,7 @@ class CloudantV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -10751,6 +10751,23 @@ class DesignDocument():
         """Return a json dictionary representing this model."""
         return self.to_dict()
 
+    def get_properties(self) -> Dict:
+        """Return a dictionary of arbitrary properties from this instance of DesignDocument"""
+        _dict = {}
+
+        for _key in [k for k in vars(self).keys() if k not in DesignDocument._properties]:
+            _dict[_key] = getattr(self, _key)
+        return _dict
+
+    def set_properties(self, _dict: dict):
+        """Set a dictionary of arbitrary properties to this instance of DesignDocument"""
+        for _key in [k for k in vars(self).keys() if k not in DesignDocument._properties]:
+            delattr(self, _key)
+
+        for _key, _value in _dict.items():
+            if _key not in DesignDocument._properties:
+                setattr(self, _key, _value)
+
     def __str__(self) -> str:
         """Return a `str` version of this DesignDocument object."""
         return json.dumps(self.to_dict(), indent=2)
@@ -11379,6 +11396,23 @@ class Document():
     def _to_dict(self):
         """Return a json dictionary representing this model."""
         return self.to_dict()
+
+    def get_properties(self) -> Dict:
+        """Return a dictionary of arbitrary properties from this instance of Document"""
+        _dict = {}
+
+        for _key in [k for k in vars(self).keys() if k not in Document._properties]:
+            _dict[_key] = getattr(self, _key)
+        return _dict
+
+    def set_properties(self, _dict: dict):
+        """Set a dictionary of arbitrary properties to this instance of Document"""
+        for _key in [k for k in vars(self).keys() if k not in Document._properties]:
+            delattr(self, _key)
+
+        for _key, _value in _dict.items():
+            if _key not in Document._properties:
+                setattr(self, _key, _value)
 
     def __str__(self) -> str:
         """Return a `str` version of this Document object."""
@@ -12367,6 +12401,23 @@ class GeoJsonFeature():
         """Return a json dictionary representing this model."""
         return self.to_dict()
 
+    def get_properties(self) -> Dict:
+        """Return a dictionary of arbitrary properties from this instance of GeoJsonFeature"""
+        _dict = {}
+
+        for _key in [k for k in vars(self).keys() if k not in GeoJsonFeature._properties]:
+            _dict[_key] = getattr(self, _key)
+        return _dict
+
+    def set_properties(self, _dict: dict):
+        """Set a dictionary of arbitrary properties to this instance of GeoJsonFeature"""
+        for _key in [k for k in vars(self).keys() if k not in GeoJsonFeature._properties]:
+            delattr(self, _key)
+
+        for _key, _value in _dict.items():
+            if _key not in GeoJsonFeature._properties:
+                setattr(self, _key, _value)
+
     def __str__(self) -> str:
         """Return a `str` version of this GeoJsonFeature object."""
         return json.dumps(self.to_dict(), indent=2)
@@ -12796,6 +12847,23 @@ class IndexField():
     def _to_dict(self):
         """Return a json dictionary representing this model."""
         return self.to_dict()
+
+    def get_properties(self) -> Dict:
+        """Return a dictionary of arbitrary properties from this instance of IndexField"""
+        _dict = {}
+
+        for _key in [k for k in vars(self).keys() if k not in IndexField._properties]:
+            _dict[_key] = getattr(self, _key)
+        return _dict
+
+    def set_properties(self, _dict: dict):
+        """Set a dictionary of arbitrary properties to this instance of IndexField"""
+        for _key in [k for k in vars(self).keys() if k not in IndexField._properties]:
+            delattr(self, _key)
+
+        for _key, _value in _dict.items():
+            if _key not in IndexField._properties:
+                setattr(self, _key, _value)
 
     def __str__(self) -> str:
         """Return a `str` version of this IndexField object."""
@@ -14308,6 +14376,23 @@ class ReplicationDocument():
     def _to_dict(self):
         """Return a json dictionary representing this model."""
         return self.to_dict()
+
+    def get_properties(self) -> Dict:
+        """Return a dictionary of arbitrary properties from this instance of ReplicationDocument"""
+        _dict = {}
+
+        for _key in [k for k in vars(self).keys() if k not in ReplicationDocument._properties]:
+            _dict[_key] = getattr(self, _key)
+        return _dict
+
+    def set_properties(self, _dict: dict):
+        """Set a dictionary of arbitrary properties to this instance of ReplicationDocument"""
+        for _key in [k for k in vars(self).keys() if k not in ReplicationDocument._properties]:
+            delattr(self, _key)
+
+        for _key, _value in _dict.items():
+            if _key not in ReplicationDocument._properties:
+                setattr(self, _key, _value)
 
     def __str__(self) -> str:
         """Return a `str` version of this ReplicationDocument object."""

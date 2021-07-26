@@ -24,6 +24,7 @@ import base64
 import inspect
 import io
 import json
+import os
 import pytest
 import re
 import requests
@@ -35,17 +36,43 @@ import gzip
 from ibmcloudant.cloudant_v1 import *
 
 
-service = CloudantV1(
+_service = CloudantV1(
     authenticator=NoAuthAuthenticator()
     )
 
-base_url = 'http://localhost:5984'
-service.set_service_url(base_url)
+_base_url = 'http://localhost:5984'
+_service.set_service_url(_base_url)
 
 ##############################################################################
 # Start of Service: Server
 ##############################################################################
 # region
+
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
 
 class TestGetServerInformation():
     """
@@ -56,6 +83,8 @@ class TestGetServerInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -67,7 +96,7 @@ class TestGetServerInformation():
         get_server_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/')
+        url = self.preprocess_url(_base_url + '/')
         mock_response = '{"couchdb": "couchdb", "features": ["features"], "vendor": {"name": "name", "variant": "variant", "version": "version"}, "version": "version", "features_flags": ["features_flags"]}'
         responses.add(responses.GET,
                       url,
@@ -76,7 +105,7 @@ class TestGetServerInformation():
                       status=200)
 
         # Invoke method
-        response = service.get_server_information()
+        response = _service.get_server_information()
 
 
         # Check for correct operation
@@ -93,6 +122,8 @@ class TestGetMembershipInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -104,7 +135,7 @@ class TestGetMembershipInformation():
         get_membership_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_membership')
+        url = self.preprocess_url(_base_url + '/_membership')
         mock_response = '{"all_nodes": ["all_nodes"], "cluster_nodes": ["cluster_nodes"]}'
         responses.add(responses.GET,
                       url,
@@ -113,7 +144,7 @@ class TestGetMembershipInformation():
                       status=200)
 
         # Invoke method
-        response = service.get_membership_information()
+        response = _service.get_membership_information()
 
 
         # Check for correct operation
@@ -130,6 +161,8 @@ class TestGetUuids():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -141,7 +174,7 @@ class TestGetUuids():
         get_uuids()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_uuids')
+        url = self.preprocess_url(_base_url + '/_uuids')
         mock_response = '{"uuids": ["uuids"]}'
         responses.add(responses.GET,
                       url,
@@ -153,7 +186,7 @@ class TestGetUuids():
         count = 1
 
         # Invoke method
-        response = service.get_uuids(
+        response = _service.get_uuids(
             count=count,
             headers={}
         )
@@ -173,7 +206,7 @@ class TestGetUuids():
         test_get_uuids_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_uuids')
+        url = self.preprocess_url(_base_url + '/_uuids')
         mock_response = '{"uuids": ["uuids"]}'
         responses.add(responses.GET,
                       url,
@@ -182,7 +215,7 @@ class TestGetUuids():
                       status=200)
 
         # Invoke method
-        response = service.get_uuids()
+        response = _service.get_uuids()
 
 
         # Check for correct operation
@@ -199,6 +232,8 @@ class TestGetCapacityThroughputInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -210,7 +245,7 @@ class TestGetCapacityThroughputInformation():
         get_capacity_throughput_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/user/capacity/throughput')
+        url = self.preprocess_url(_base_url + '/_api/v2/user/capacity/throughput')
         mock_response = '{"current": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}, "target": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}}'
         responses.add(responses.GET,
                       url,
@@ -219,7 +254,7 @@ class TestGetCapacityThroughputInformation():
                       status=200)
 
         # Invoke method
-        response = service.get_capacity_throughput_information()
+        response = _service.get_capacity_throughput_information()
 
 
         # Check for correct operation
@@ -236,6 +271,8 @@ class TestPutCapacityThroughputConfiguration():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -247,7 +284,7 @@ class TestPutCapacityThroughputConfiguration():
         put_capacity_throughput_configuration()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/user/capacity/throughput')
+        url = self.preprocess_url(_base_url + '/_api/v2/user/capacity/throughput')
         mock_response = '{"current": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}, "target": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}}'
         responses.add(responses.PUT,
                       url,
@@ -259,7 +296,7 @@ class TestPutCapacityThroughputConfiguration():
         blocks = 0
 
         # Invoke method
-        response = service.put_capacity_throughput_configuration(
+        response = _service.put_capacity_throughput_configuration(
             blocks,
             headers={}
         )
@@ -281,7 +318,7 @@ class TestPutCapacityThroughputConfiguration():
         test_put_capacity_throughput_configuration_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/user/capacity/throughput')
+        url = self.preprocess_url(_base_url + '/_api/v2/user/capacity/throughput')
         mock_response = '{"current": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}, "target": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}}'
         responses.add(responses.PUT,
                       url,
@@ -299,7 +336,7 @@ class TestPutCapacityThroughputConfiguration():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.put_capacity_throughput_configuration(**req_copy)
+                _service.put_capacity_throughput_configuration(**req_copy)
 
 
 
@@ -313,6 +350,32 @@ class TestPutCapacityThroughputConfiguration():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestGetDbUpdates():
     """
     Test Class for get_db_updates
@@ -322,6 +385,8 @@ class TestGetDbUpdates():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -333,7 +398,7 @@ class TestGetDbUpdates():
         get_db_updates()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_db_updates')
+        url = self.preprocess_url(_base_url + '/_db_updates')
         mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "db_name": "db_name", "seq": "seq", "type": "created"}]}'
         responses.add(responses.GET,
                       url,
@@ -342,13 +407,13 @@ class TestGetDbUpdates():
                       status=200)
 
         # Set up parameter values
-        feed = 'continuous'
+        feed = 'normal'
         heartbeat = 0
         timeout = 0
-        since = 'testString'
+        since = '0'
 
         # Invoke method
-        response = service.get_db_updates(
+        response = _service.get_db_updates(
             feed=feed,
             heartbeat=heartbeat,
             timeout=timeout,
@@ -374,7 +439,7 @@ class TestGetDbUpdates():
         test_get_db_updates_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_db_updates')
+        url = self.preprocess_url(_base_url + '/_db_updates')
         mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "db_name": "db_name", "seq": "seq", "type": "created"}]}'
         responses.add(responses.GET,
                       url,
@@ -383,7 +448,7 @@ class TestGetDbUpdates():
                       status=200)
 
         # Invoke method
-        response = service.get_db_updates()
+        response = _service.get_db_updates()
 
 
         # Check for correct operation
@@ -400,6 +465,8 @@ class TestPostChanges():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -411,7 +478,7 @@ class TestPostChanges():
         post_changes()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_changes')
+        url = self.preprocess_url(_base_url + '/testString/_changes')
         mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -425,23 +492,23 @@ class TestPostChanges():
         fields = ['testString']
         selector = {}
         last_event_id = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        feed = 'continuous'
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        feed = 'normal'
         filter = 'testString'
         heartbeat = 0
-        include_docs = True
+        include_docs = False
         limit = 0
         seq_interval = 1
-        since = 'testString'
-        style = 'testString'
+        since = '0'
+        style = 'main_only'
         timeout = 0
         view = 'testString'
 
         # Invoke method
-        response = service.post_changes(
+        response = _service.post_changes(
             db,
             doc_ids=doc_ids,
             fields=fields,
@@ -500,7 +567,7 @@ class TestPostChanges():
         test_post_changes_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_changes')
+        url = self.preprocess_url(_base_url + '/testString/_changes')
         mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -515,7 +582,7 @@ class TestPostChanges():
         selector = {}
 
         # Invoke method
-        response = service.post_changes(
+        response = _service.post_changes(
             db,
             doc_ids=doc_ids,
             fields=fields,
@@ -542,7 +609,7 @@ class TestPostChanges():
         test_post_changes_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_changes')
+        url = self.preprocess_url(_base_url + '/testString/_changes')
         mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -563,7 +630,7 @@ class TestPostChanges():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_changes(**req_copy)
+                _service.post_changes(**req_copy)
 
 
 
@@ -576,6 +643,8 @@ class TestPostChangesAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -587,7 +656,7 @@ class TestPostChangesAsStream():
         post_changes_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_changes')
+        url = self.preprocess_url(_base_url + '/testString/_changes')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -601,23 +670,23 @@ class TestPostChangesAsStream():
         fields = ['testString']
         selector = {}
         last_event_id = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        feed = 'continuous'
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        feed = 'normal'
         filter = 'testString'
         heartbeat = 0
-        include_docs = True
+        include_docs = False
         limit = 0
         seq_interval = 1
-        since = 'testString'
-        style = 'testString'
+        since = '0'
+        style = 'main_only'
         timeout = 0
         view = 'testString'
 
         # Invoke method
-        response = service.post_changes_as_stream(
+        response = _service.post_changes_as_stream(
             db,
             doc_ids=doc_ids,
             fields=fields,
@@ -682,7 +751,7 @@ class TestPostChangesAsStream():
         test_post_changes_as_stream_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_changes')
+        url = self.preprocess_url(_base_url + '/testString/_changes')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -697,7 +766,7 @@ class TestPostChangesAsStream():
         selector = {}
 
         # Invoke method
-        response = service.post_changes_as_stream(
+        response = _service.post_changes_as_stream(
             db,
             doc_ids=doc_ids,
             fields=fields,
@@ -730,7 +799,7 @@ class TestPostChangesAsStream():
         test_post_changes_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_changes')
+        url = self.preprocess_url(_base_url + '/testString/_changes')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -751,7 +820,7 @@ class TestPostChangesAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_changes_as_stream(**req_copy)
+                _service.post_changes_as_stream(**req_copy)
 
 
 
@@ -765,6 +834,32 @@ class TestPostChangesAsStream():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestHeadDatabase():
     """
     Test Class for head_database
@@ -774,6 +869,8 @@ class TestHeadDatabase():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -785,7 +882,7 @@ class TestHeadDatabase():
         head_database()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString')
+        url = self.preprocess_url(_base_url + '/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -794,7 +891,7 @@ class TestHeadDatabase():
         db = 'testString'
 
         # Invoke method
-        response = service.head_database(
+        response = _service.head_database(
             db,
             headers={}
         )
@@ -810,7 +907,7 @@ class TestHeadDatabase():
         test_head_database_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString')
+        url = self.preprocess_url(_base_url + '/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -825,7 +922,7 @@ class TestHeadDatabase():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.head_database(**req_copy)
+                _service.head_database(**req_copy)
 
 
 
@@ -838,6 +935,8 @@ class TestGetAllDbs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -849,7 +948,7 @@ class TestGetAllDbs():
         get_all_dbs()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_all_dbs')
+        url = self.preprocess_url(_base_url + '/_all_dbs')
         mock_response = '["operation_response"]'
         responses.add(responses.GET,
                       url,
@@ -858,14 +957,14 @@ class TestGetAllDbs():
                       status=200)
 
         # Set up parameter values
-        descending = True
+        descending = False
         endkey = 'testString'
         limit = 0
         skip = 0
         startkey = 'testString'
 
         # Invoke method
-        response = service.get_all_dbs(
+        response = _service.get_all_dbs(
             descending=descending,
             endkey=endkey,
             limit=limit,
@@ -893,7 +992,7 @@ class TestGetAllDbs():
         test_get_all_dbs_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_all_dbs')
+        url = self.preprocess_url(_base_url + '/_all_dbs')
         mock_response = '["operation_response"]'
         responses.add(responses.GET,
                       url,
@@ -902,7 +1001,7 @@ class TestGetAllDbs():
                       status=200)
 
         # Invoke method
-        response = service.get_all_dbs()
+        response = _service.get_all_dbs()
 
 
         # Check for correct operation
@@ -919,6 +1018,8 @@ class TestPostDbsInfo():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -930,7 +1031,7 @@ class TestPostDbsInfo():
         post_dbs_info()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_dbs_info')
+        url = self.preprocess_url(_base_url + '/_dbs_info')
         mock_response = '[{"info": {"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
         responses.add(responses.POST,
                       url,
@@ -942,7 +1043,7 @@ class TestPostDbsInfo():
         keys = ['testString']
 
         # Invoke method
-        response = service.post_dbs_info(
+        response = _service.post_dbs_info(
             keys,
             headers={}
         )
@@ -964,7 +1065,7 @@ class TestPostDbsInfo():
         test_post_dbs_info_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_dbs_info')
+        url = self.preprocess_url(_base_url + '/_dbs_info')
         mock_response = '[{"info": {"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
         responses.add(responses.POST,
                       url,
@@ -982,7 +1083,7 @@ class TestPostDbsInfo():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_dbs_info(**req_copy)
+                _service.post_dbs_info(**req_copy)
 
 
 
@@ -995,6 +1096,8 @@ class TestDeleteDatabase():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1006,7 +1109,7 @@ class TestDeleteDatabase():
         delete_database()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString')
+        url = self.preprocess_url(_base_url + '/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.DELETE,
                       url,
@@ -1018,7 +1121,7 @@ class TestDeleteDatabase():
         db = 'testString'
 
         # Invoke method
-        response = service.delete_database(
+        response = _service.delete_database(
             db,
             headers={}
         )
@@ -1034,7 +1137,7 @@ class TestDeleteDatabase():
         test_delete_database_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString')
+        url = self.preprocess_url(_base_url + '/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.DELETE,
                       url,
@@ -1052,7 +1155,7 @@ class TestDeleteDatabase():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.delete_database(**req_copy)
+                _service.delete_database(**req_copy)
 
 
 
@@ -1065,6 +1168,8 @@ class TestGetDatabaseInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1076,7 +1181,7 @@ class TestGetDatabaseInformation():
         get_database_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString')
+        url = self.preprocess_url(_base_url + '/testString')
         mock_response = '{"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}'
         responses.add(responses.GET,
                       url,
@@ -1088,7 +1193,7 @@ class TestGetDatabaseInformation():
         db = 'testString'
 
         # Invoke method
-        response = service.get_database_information(
+        response = _service.get_database_information(
             db,
             headers={}
         )
@@ -1104,7 +1209,7 @@ class TestGetDatabaseInformation():
         test_get_database_information_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString')
+        url = self.preprocess_url(_base_url + '/testString')
         mock_response = '{"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}'
         responses.add(responses.GET,
                       url,
@@ -1122,7 +1227,7 @@ class TestGetDatabaseInformation():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_database_information(**req_copy)
+                _service.get_database_information(**req_copy)
 
 
 
@@ -1135,6 +1240,8 @@ class TestPutDatabase():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1146,7 +1253,7 @@ class TestPutDatabase():
         put_database()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString')
+        url = self.preprocess_url(_base_url + '/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -1156,11 +1263,11 @@ class TestPutDatabase():
 
         # Set up parameter values
         db = 'testString'
-        partitioned = True
+        partitioned = False
         q = 1
 
         # Invoke method
-        response = service.put_database(
+        response = _service.put_database(
             db,
             partitioned=partitioned,
             q=q,
@@ -1183,7 +1290,7 @@ class TestPutDatabase():
         test_put_database_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString')
+        url = self.preprocess_url(_base_url + '/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -1195,7 +1302,7 @@ class TestPutDatabase():
         db = 'testString'
 
         # Invoke method
-        response = service.put_database(
+        response = _service.put_database(
             db,
             headers={}
         )
@@ -1211,7 +1318,7 @@ class TestPutDatabase():
         test_put_database_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString')
+        url = self.preprocess_url(_base_url + '/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -1229,7 +1336,7 @@ class TestPutDatabase():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.put_database(**req_copy)
+                _service.put_database(**req_copy)
 
 
 
@@ -1243,6 +1350,32 @@ class TestPutDatabase():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestHeadDocument():
     """
     Test Class for head_document
@@ -1252,6 +1385,8 @@ class TestHeadDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1263,7 +1398,7 @@ class TestHeadDocument():
         head_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -1272,11 +1407,11 @@ class TestHeadDocument():
         db = 'testString'
         doc_id = 'testString'
         if_none_match = 'testString'
-        latest = True
+        latest = False
         rev = 'testString'
 
         # Invoke method
-        response = service.head_document(
+        response = _service.head_document(
             db,
             doc_id,
             if_none_match=if_none_match,
@@ -1301,7 +1436,7 @@ class TestHeadDocument():
         test_head_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -1311,7 +1446,7 @@ class TestHeadDocument():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.head_document(
+        response = _service.head_document(
             db,
             doc_id,
             headers={}
@@ -1328,7 +1463,7 @@ class TestHeadDocument():
         test_head_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -1345,7 +1480,7 @@ class TestHeadDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.head_document(**req_copy)
+                _service.head_document(**req_copy)
 
 
 
@@ -1358,6 +1493,8 @@ class TestPostDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1369,7 +1506,7 @@ class TestPostDocument():
         post_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString')
+        url = self.preprocess_url(_base_url + '/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.POST,
                       url,
@@ -1410,7 +1547,7 @@ class TestPostDocument():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -1419,7 +1556,7 @@ class TestPostDocument():
         batch = 'ok'
 
         # Invoke method
-        response = service.post_document(
+        response = _service.post_document(
             db,
             document,
             content_type=content_type,
@@ -1446,7 +1583,7 @@ class TestPostDocument():
         test_post_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString')
+        url = self.preprocess_url(_base_url + '/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.POST,
                       url,
@@ -1487,14 +1624,14 @@ class TestPostDocument():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
         document = document_model
 
         # Invoke method
-        response = service.post_document(
+        response = _service.post_document(
             db,
             document,
             headers={}
@@ -1515,7 +1652,7 @@ class TestPostDocument():
         test_post_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString')
+        url = self.preprocess_url(_base_url + '/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.POST,
                       url,
@@ -1556,7 +1693,7 @@ class TestPostDocument():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -1570,7 +1707,7 @@ class TestPostDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_document(**req_copy)
+                _service.post_document(**req_copy)
 
 
 
@@ -1583,6 +1720,8 @@ class TestPostAllDocs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1594,7 +1733,7 @@ class TestPostAllDocs():
         post_all_docs()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_all_docs')
+        url = self.preprocess_url(_base_url + '/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -1604,22 +1743,22 @@ class TestPostAllDocs():
 
         # Set up parameter values
         db = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        include_docs = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
         inclusive_end = True
         limit = 0
         skip = 0
-        update_seq = True
+        update_seq = False
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
         startkey = 'testString'
 
         # Invoke method
-        response = service.post_all_docs(
+        response = _service.post_all_docs(
             db,
             att_encoding_info=att_encoding_info,
             attachments=attachments,
@@ -1645,15 +1784,15 @@ class TestPostAllDocs():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['att_encoding_info'] == True
-        assert req_body['attachments'] == True
-        assert req_body['conflicts'] == True
-        assert req_body['descending'] == True
-        assert req_body['include_docs'] == True
+        assert req_body['att_encoding_info'] == False
+        assert req_body['attachments'] == False
+        assert req_body['conflicts'] == False
+        assert req_body['descending'] == False
+        assert req_body['include_docs'] == False
         assert req_body['inclusive_end'] == True
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
-        assert req_body['update_seq'] == True
+        assert req_body['update_seq'] == False
         assert req_body['endkey'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
@@ -1666,7 +1805,7 @@ class TestPostAllDocs():
         test_post_all_docs_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_all_docs')
+        url = self.preprocess_url(_base_url + '/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -1676,15 +1815,15 @@ class TestPostAllDocs():
 
         # Set up parameter values
         db = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        include_docs = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
         inclusive_end = True
         limit = 0
         skip = 0
-        update_seq = True
+        update_seq = False
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
@@ -1697,7 +1836,7 @@ class TestPostAllDocs():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_all_docs(**req_copy)
+                _service.post_all_docs(**req_copy)
 
 
 
@@ -1710,6 +1849,8 @@ class TestPostAllDocsAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1721,7 +1862,7 @@ class TestPostAllDocsAsStream():
         post_all_docs_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_all_docs')
+        url = self.preprocess_url(_base_url + '/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -1731,22 +1872,22 @@ class TestPostAllDocsAsStream():
 
         # Set up parameter values
         db = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        include_docs = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
+        update_seq = False
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
         startkey = '0007741142412418284'
 
         # Invoke method
-        response = service.post_all_docs_as_stream(
+        response = _service.post_all_docs_as_stream(
             db,
             att_encoding_info=att_encoding_info,
             attachments=attachments,
@@ -1772,15 +1913,15 @@ class TestPostAllDocsAsStream():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['att_encoding_info'] == True
-        assert req_body['attachments'] == True
-        assert req_body['conflicts'] == True
-        assert req_body['descending'] == True
-        assert req_body['include_docs'] == True
+        assert req_body['att_encoding_info'] == False
+        assert req_body['attachments'] == False
+        assert req_body['conflicts'] == False
+        assert req_body['descending'] == False
+        assert req_body['include_docs'] == False
         assert req_body['inclusive_end'] == True
         assert req_body['limit'] == 10
         assert req_body['skip'] == 0
-        assert req_body['update_seq'] == True
+        assert req_body['update_seq'] == False
         assert req_body['endkey'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
@@ -1799,7 +1940,7 @@ class TestPostAllDocsAsStream():
         test_post_all_docs_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_all_docs')
+        url = self.preprocess_url(_base_url + '/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -1809,15 +1950,15 @@ class TestPostAllDocsAsStream():
 
         # Set up parameter values
         db = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        include_docs = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
+        update_seq = False
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
@@ -1830,7 +1971,7 @@ class TestPostAllDocsAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_all_docs_as_stream(**req_copy)
+                _service.post_all_docs_as_stream(**req_copy)
 
 
 
@@ -1843,6 +1984,8 @@ class TestPostAllDocsQueries():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1854,7 +1997,7 @@ class TestPostAllDocsQueries():
         post_all_docs_queries()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_all_docs/queries')
+        url = self.preprocess_url(_base_url + '/testString/_all_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -1864,15 +2007,15 @@ class TestPostAllDocsQueries():
 
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {}
-        all_docs_query_model['att_encoding_info'] = True
-        all_docs_query_model['attachments'] = True
-        all_docs_query_model['conflicts'] = True
-        all_docs_query_model['descending'] = True
-        all_docs_query_model['include_docs'] = True
+        all_docs_query_model['att_encoding_info'] = False
+        all_docs_query_model['attachments'] = False
+        all_docs_query_model['conflicts'] = False
+        all_docs_query_model['descending'] = False
+        all_docs_query_model['include_docs'] = False
         all_docs_query_model['inclusive_end'] = True
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
-        all_docs_query_model['update_seq'] = True
+        all_docs_query_model['update_seq'] = False
         all_docs_query_model['endkey'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['testString']
@@ -1883,7 +2026,7 @@ class TestPostAllDocsQueries():
         queries = [all_docs_query_model]
 
         # Invoke method
-        response = service.post_all_docs_queries(
+        response = _service.post_all_docs_queries(
             db,
             queries,
             headers={}
@@ -1906,7 +2049,7 @@ class TestPostAllDocsQueries():
         test_post_all_docs_queries_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_all_docs/queries')
+        url = self.preprocess_url(_base_url + '/testString/_all_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -1916,15 +2059,15 @@ class TestPostAllDocsQueries():
 
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {}
-        all_docs_query_model['att_encoding_info'] = True
-        all_docs_query_model['attachments'] = True
-        all_docs_query_model['conflicts'] = True
-        all_docs_query_model['descending'] = True
-        all_docs_query_model['include_docs'] = True
+        all_docs_query_model['att_encoding_info'] = False
+        all_docs_query_model['attachments'] = False
+        all_docs_query_model['conflicts'] = False
+        all_docs_query_model['descending'] = False
+        all_docs_query_model['include_docs'] = False
         all_docs_query_model['inclusive_end'] = True
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
-        all_docs_query_model['update_seq'] = True
+        all_docs_query_model['update_seq'] = False
         all_docs_query_model['endkey'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['testString']
@@ -1942,7 +2085,7 @@ class TestPostAllDocsQueries():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_all_docs_queries(**req_copy)
+                _service.post_all_docs_queries(**req_copy)
 
 
 
@@ -1955,6 +2098,8 @@ class TestPostAllDocsQueriesAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1966,7 +2111,7 @@ class TestPostAllDocsQueriesAsStream():
         post_all_docs_queries_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_all_docs/queries')
+        url = self.preprocess_url(_base_url + '/testString/_all_docs/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -1976,15 +2121,15 @@ class TestPostAllDocsQueriesAsStream():
 
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {}
-        all_docs_query_model['att_encoding_info'] = True
-        all_docs_query_model['attachments'] = True
-        all_docs_query_model['conflicts'] = True
-        all_docs_query_model['descending'] = True
-        all_docs_query_model['include_docs'] = True
+        all_docs_query_model['att_encoding_info'] = False
+        all_docs_query_model['attachments'] = False
+        all_docs_query_model['conflicts'] = False
+        all_docs_query_model['descending'] = False
+        all_docs_query_model['include_docs'] = False
         all_docs_query_model['inclusive_end'] = True
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
-        all_docs_query_model['update_seq'] = True
+        all_docs_query_model['update_seq'] = False
         all_docs_query_model['endkey'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
@@ -1995,7 +2140,7 @@ class TestPostAllDocsQueriesAsStream():
         queries = [all_docs_query_model]
 
         # Invoke method
-        response = service.post_all_docs_queries_as_stream(
+        response = _service.post_all_docs_queries_as_stream(
             db,
             queries,
             headers={}
@@ -2024,7 +2169,7 @@ class TestPostAllDocsQueriesAsStream():
         test_post_all_docs_queries_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_all_docs/queries')
+        url = self.preprocess_url(_base_url + '/testString/_all_docs/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -2034,15 +2179,15 @@ class TestPostAllDocsQueriesAsStream():
 
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {}
-        all_docs_query_model['att_encoding_info'] = True
-        all_docs_query_model['attachments'] = True
-        all_docs_query_model['conflicts'] = True
-        all_docs_query_model['descending'] = True
-        all_docs_query_model['include_docs'] = True
+        all_docs_query_model['att_encoding_info'] = False
+        all_docs_query_model['attachments'] = False
+        all_docs_query_model['conflicts'] = False
+        all_docs_query_model['descending'] = False
+        all_docs_query_model['include_docs'] = False
         all_docs_query_model['inclusive_end'] = True
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
-        all_docs_query_model['update_seq'] = True
+        all_docs_query_model['update_seq'] = False
         all_docs_query_model['endkey'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
@@ -2060,7 +2205,7 @@ class TestPostAllDocsQueriesAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_all_docs_queries_as_stream(**req_copy)
+                _service.post_all_docs_queries_as_stream(**req_copy)
 
 
 
@@ -2073,6 +2218,8 @@ class TestPostBulkDocs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2084,7 +2231,7 @@ class TestPostBulkDocs():
         post_bulk_docs()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_docs')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_docs')
         mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}]'
         responses.add(responses.POST,
                       url,
@@ -2125,7 +2272,7 @@ class TestPostBulkDocs():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         # Construct a dict representation of a BulkDocs model
         bulk_docs_model = {}
@@ -2137,7 +2284,7 @@ class TestPostBulkDocs():
         bulk_docs = bulk_docs_model
 
         # Invoke method
-        response = service.post_bulk_docs(
+        response = _service.post_bulk_docs(
             db,
             bulk_docs,
             headers={}
@@ -2160,7 +2307,7 @@ class TestPostBulkDocs():
         test_post_bulk_docs_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_docs')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_docs')
         mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}]'
         responses.add(responses.POST,
                       url,
@@ -2201,7 +2348,7 @@ class TestPostBulkDocs():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         # Construct a dict representation of a BulkDocs model
         bulk_docs_model = {}
@@ -2220,7 +2367,7 @@ class TestPostBulkDocs():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_bulk_docs(**req_copy)
+                _service.post_bulk_docs(**req_copy)
 
 
 
@@ -2233,6 +2380,8 @@ class TestPostBulkGet():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2244,7 +2393,7 @@ class TestPostBulkGet():
         post_bulk_get()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_get')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
         mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
         responses.add(responses.POST,
                       url,
@@ -2261,13 +2410,13 @@ class TestPostBulkGet():
         # Set up parameter values
         db = 'testString'
         docs = [bulk_get_query_document_model]
-        attachments = True
-        att_encoding_info = True
-        latest = True
-        revs = True
+        attachments = False
+        att_encoding_info = False
+        latest = False
+        revs = False
 
         # Invoke method
-        response = service.post_bulk_get(
+        response = _service.post_bulk_get(
             db,
             docs,
             attachments=attachments,
@@ -2301,7 +2450,7 @@ class TestPostBulkGet():
         test_post_bulk_get_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_get')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
         mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
         responses.add(responses.POST,
                       url,
@@ -2320,7 +2469,7 @@ class TestPostBulkGet():
         docs = [bulk_get_query_document_model]
 
         # Invoke method
-        response = service.post_bulk_get(
+        response = _service.post_bulk_get(
             db,
             docs,
             headers={}
@@ -2343,7 +2492,7 @@ class TestPostBulkGet():
         test_post_bulk_get_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_get')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
         mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
         responses.add(responses.POST,
                       url,
@@ -2369,7 +2518,7 @@ class TestPostBulkGet():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_bulk_get(**req_copy)
+                _service.post_bulk_get(**req_copy)
 
 
 
@@ -2382,6 +2531,8 @@ class TestPostBulkGetAsMixed():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2393,7 +2544,7 @@ class TestPostBulkGetAsMixed():
         post_bulk_get_as_mixed()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_get')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.POST,
                       url,
@@ -2410,13 +2561,13 @@ class TestPostBulkGetAsMixed():
         # Set up parameter values
         db = 'testString'
         docs = [bulk_get_query_document_model]
-        attachments = True
-        att_encoding_info = True
-        latest = True
-        revs = True
+        attachments = False
+        att_encoding_info = False
+        latest = False
+        revs = False
 
         # Invoke method
-        response = service.post_bulk_get_as_mixed(
+        response = _service.post_bulk_get_as_mixed(
             db,
             docs,
             attachments=attachments,
@@ -2450,7 +2601,7 @@ class TestPostBulkGetAsMixed():
         test_post_bulk_get_as_mixed_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_get')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.POST,
                       url,
@@ -2469,7 +2620,7 @@ class TestPostBulkGetAsMixed():
         docs = [bulk_get_query_document_model]
 
         # Invoke method
-        response = service.post_bulk_get_as_mixed(
+        response = _service.post_bulk_get_as_mixed(
             db,
             docs,
             headers={}
@@ -2492,7 +2643,7 @@ class TestPostBulkGetAsMixed():
         test_post_bulk_get_as_mixed_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_get')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.POST,
                       url,
@@ -2518,7 +2669,7 @@ class TestPostBulkGetAsMixed():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_bulk_get_as_mixed(**req_copy)
+                _service.post_bulk_get_as_mixed(**req_copy)
 
 
 
@@ -2531,6 +2682,8 @@ class TestPostBulkGetAsRelated():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2542,7 +2695,7 @@ class TestPostBulkGetAsRelated():
         post_bulk_get_as_related()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_get')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.POST,
                       url,
@@ -2559,13 +2712,13 @@ class TestPostBulkGetAsRelated():
         # Set up parameter values
         db = 'testString'
         docs = [bulk_get_query_document_model]
-        attachments = True
-        att_encoding_info = True
-        latest = True
-        revs = True
+        attachments = False
+        att_encoding_info = False
+        latest = False
+        revs = False
 
         # Invoke method
-        response = service.post_bulk_get_as_related(
+        response = _service.post_bulk_get_as_related(
             db,
             docs,
             attachments=attachments,
@@ -2599,7 +2752,7 @@ class TestPostBulkGetAsRelated():
         test_post_bulk_get_as_related_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_get')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.POST,
                       url,
@@ -2618,7 +2771,7 @@ class TestPostBulkGetAsRelated():
         docs = [bulk_get_query_document_model]
 
         # Invoke method
-        response = service.post_bulk_get_as_related(
+        response = _service.post_bulk_get_as_related(
             db,
             docs,
             headers={}
@@ -2641,7 +2794,7 @@ class TestPostBulkGetAsRelated():
         test_post_bulk_get_as_related_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_get')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.POST,
                       url,
@@ -2667,7 +2820,7 @@ class TestPostBulkGetAsRelated():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_bulk_get_as_related(**req_copy)
+                _service.post_bulk_get_as_related(**req_copy)
 
 
 
@@ -2680,6 +2833,8 @@ class TestPostBulkGetAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2691,7 +2846,7 @@ class TestPostBulkGetAsStream():
         post_bulk_get_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_get')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -2708,13 +2863,13 @@ class TestPostBulkGetAsStream():
         # Set up parameter values
         db = 'testString'
         docs = [bulk_get_query_document_model]
-        attachments = True
-        att_encoding_info = True
-        latest = True
-        revs = True
+        attachments = False
+        att_encoding_info = False
+        latest = False
+        revs = False
 
         # Invoke method
-        response = service.post_bulk_get_as_stream(
+        response = _service.post_bulk_get_as_stream(
             db,
             docs,
             attachments=attachments,
@@ -2754,7 +2909,7 @@ class TestPostBulkGetAsStream():
         test_post_bulk_get_as_stream_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_get')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -2773,7 +2928,7 @@ class TestPostBulkGetAsStream():
         docs = [bulk_get_query_document_model]
 
         # Invoke method
-        response = service.post_bulk_get_as_stream(
+        response = _service.post_bulk_get_as_stream(
             db,
             docs,
             headers={}
@@ -2802,7 +2957,7 @@ class TestPostBulkGetAsStream():
         test_post_bulk_get_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_bulk_get')
+        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -2828,7 +2983,7 @@ class TestPostBulkGetAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_bulk_get_as_stream(**req_copy)
+                _service.post_bulk_get_as_stream(**req_copy)
 
 
 
@@ -2841,6 +2996,8 @@ class TestDeleteDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2852,7 +3009,7 @@ class TestDeleteDocument():
         delete_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -2868,7 +3025,7 @@ class TestDeleteDocument():
         rev = 'testString'
 
         # Invoke method
-        response = service.delete_document(
+        response = _service.delete_document(
             db,
             doc_id,
             if_match=if_match,
@@ -2893,7 +3050,7 @@ class TestDeleteDocument():
         test_delete_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -2906,7 +3063,7 @@ class TestDeleteDocument():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.delete_document(
+        response = _service.delete_document(
             db,
             doc_id,
             headers={}
@@ -2923,7 +3080,7 @@ class TestDeleteDocument():
         test_delete_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -2943,7 +3100,7 @@ class TestDeleteDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.delete_document(**req_copy)
+                _service.delete_document(**req_copy)
 
 
 
@@ -2956,6 +3113,8 @@ class TestGetDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -2967,7 +3126,7 @@ class TestGetDocument():
         get_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
         responses.add(responses.GET,
                       url,
@@ -2979,19 +3138,19 @@ class TestGetDocument():
         db = 'testString'
         doc_id = 'testString'
         if_none_match = 'testString'
-        attachments = True
-        att_encoding_info = True
-        conflicts = True
-        deleted_conflicts = True
-        latest = True
-        local_seq = True
-        meta = True
+        attachments = False
+        att_encoding_info = False
+        conflicts = False
+        deleted_conflicts = False
+        latest = False
+        local_seq = False
+        meta = False
         rev = 'testString'
-        revs = True
-        revs_info = True
+        revs = False
+        revs_info = False
 
         # Invoke method
-        response = service.get_document(
+        response = _service.get_document(
             db,
             doc_id,
             if_none_match=if_none_match,
@@ -3032,7 +3191,7 @@ class TestGetDocument():
         test_get_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
         responses.add(responses.GET,
                       url,
@@ -3045,7 +3204,7 @@ class TestGetDocument():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.get_document(
+        response = _service.get_document(
             db,
             doc_id,
             headers={}
@@ -3062,7 +3221,7 @@ class TestGetDocument():
         test_get_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
         responses.add(responses.GET,
                       url,
@@ -3082,7 +3241,7 @@ class TestGetDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_document(**req_copy)
+                _service.get_document(**req_copy)
 
 
 
@@ -3095,6 +3254,8 @@ class TestGetDocumentAsMixed():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3106,7 +3267,7 @@ class TestGetDocumentAsMixed():
         get_document_as_mixed()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -3118,19 +3279,19 @@ class TestGetDocumentAsMixed():
         db = 'testString'
         doc_id = 'testString'
         if_none_match = 'testString'
-        attachments = True
-        att_encoding_info = True
-        conflicts = True
-        deleted_conflicts = True
-        latest = True
-        local_seq = True
-        meta = True
+        attachments = False
+        att_encoding_info = False
+        conflicts = False
+        deleted_conflicts = False
+        latest = False
+        local_seq = False
+        meta = False
         rev = 'testString'
-        revs = True
-        revs_info = True
+        revs = False
+        revs_info = False
 
         # Invoke method
-        response = service.get_document_as_mixed(
+        response = _service.get_document_as_mixed(
             db,
             doc_id,
             if_none_match=if_none_match,
@@ -3171,7 +3332,7 @@ class TestGetDocumentAsMixed():
         test_get_document_as_mixed_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -3184,7 +3345,7 @@ class TestGetDocumentAsMixed():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.get_document_as_mixed(
+        response = _service.get_document_as_mixed(
             db,
             doc_id,
             headers={}
@@ -3201,7 +3362,7 @@ class TestGetDocumentAsMixed():
         test_get_document_as_mixed_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -3221,7 +3382,7 @@ class TestGetDocumentAsMixed():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_document_as_mixed(**req_copy)
+                _service.get_document_as_mixed(**req_copy)
 
 
 
@@ -3234,6 +3395,8 @@ class TestGetDocumentAsRelated():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3245,7 +3408,7 @@ class TestGetDocumentAsRelated():
         get_document_as_related()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -3257,19 +3420,19 @@ class TestGetDocumentAsRelated():
         db = 'testString'
         doc_id = 'testString'
         if_none_match = 'testString'
-        attachments = True
-        att_encoding_info = True
-        conflicts = True
-        deleted_conflicts = True
-        latest = True
-        local_seq = True
-        meta = True
+        attachments = False
+        att_encoding_info = False
+        conflicts = False
+        deleted_conflicts = False
+        latest = False
+        local_seq = False
+        meta = False
         rev = 'testString'
-        revs = True
-        revs_info = True
+        revs = False
+        revs_info = False
 
         # Invoke method
-        response = service.get_document_as_related(
+        response = _service.get_document_as_related(
             db,
             doc_id,
             if_none_match=if_none_match,
@@ -3310,7 +3473,7 @@ class TestGetDocumentAsRelated():
         test_get_document_as_related_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -3323,7 +3486,7 @@ class TestGetDocumentAsRelated():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.get_document_as_related(
+        response = _service.get_document_as_related(
             db,
             doc_id,
             headers={}
@@ -3340,7 +3503,7 @@ class TestGetDocumentAsRelated():
         test_get_document_as_related_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -3360,7 +3523,7 @@ class TestGetDocumentAsRelated():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_document_as_related(**req_copy)
+                _service.get_document_as_related(**req_copy)
 
 
 
@@ -3373,6 +3536,8 @@ class TestGetDocumentAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3384,7 +3549,7 @@ class TestGetDocumentAsStream():
         get_document_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.GET,
                       url,
@@ -3396,19 +3561,19 @@ class TestGetDocumentAsStream():
         db = 'testString'
         doc_id = 'testString'
         if_none_match = 'testString'
-        attachments = True
-        att_encoding_info = True
-        conflicts = True
-        deleted_conflicts = True
-        latest = True
-        local_seq = True
-        meta = True
+        attachments = False
+        att_encoding_info = False
+        conflicts = False
+        deleted_conflicts = False
+        latest = False
+        local_seq = False
+        meta = False
         rev = 'testString'
-        revs = True
-        revs_info = True
+        revs = False
+        revs_info = False
 
         # Invoke method
-        response = service.get_document_as_stream(
+        response = _service.get_document_as_stream(
             db,
             doc_id,
             if_none_match=if_none_match,
@@ -3455,7 +3620,7 @@ class TestGetDocumentAsStream():
         test_get_document_as_stream_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.GET,
                       url,
@@ -3468,7 +3633,7 @@ class TestGetDocumentAsStream():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.get_document_as_stream(
+        response = _service.get_document_as_stream(
             db,
             doc_id,
             headers={}
@@ -3491,7 +3656,7 @@ class TestGetDocumentAsStream():
         test_get_document_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.GET,
                       url,
@@ -3511,7 +3676,7 @@ class TestGetDocumentAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_document_as_stream(**req_copy)
+                _service.get_document_as_stream(**req_copy)
 
 
 
@@ -3524,6 +3689,8 @@ class TestPutDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3535,7 +3702,7 @@ class TestPutDocument():
         put_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -3576,7 +3743,16 @@ class TestPutDocument():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -3585,11 +3761,11 @@ class TestPutDocument():
         content_type = 'application/json'
         if_match = 'testString'
         batch = 'ok'
-        new_edits = True
+        new_edits = False
         rev = 'testString'
 
         # Invoke method
-        response = service.put_document(
+        response = _service.put_document(
             db,
             doc_id,
             document,
@@ -3622,7 +3798,7 @@ class TestPutDocument():
         test_put_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -3663,7 +3839,16 @@ class TestPutDocument():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -3671,7 +3856,7 @@ class TestPutDocument():
         document = document_model
 
         # Invoke method
-        response = service.put_document(
+        response = _service.put_document(
             db,
             doc_id,
             document,
@@ -3693,7 +3878,7 @@ class TestPutDocument():
         test_put_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -3734,7 +3919,16 @@ class TestPutDocument():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -3750,7 +3944,7 @@ class TestPutDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.put_document(**req_copy)
+                _service.put_document(**req_copy)
 
 
 
@@ -3764,6 +3958,32 @@ class TestPutDocument():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestHeadDesignDocument():
     """
     Test Class for head_design_document
@@ -3773,6 +3993,8 @@ class TestHeadDesignDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3784,7 +4006,7 @@ class TestHeadDesignDocument():
         head_design_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -3795,7 +4017,7 @@ class TestHeadDesignDocument():
         if_none_match = 'testString'
 
         # Invoke method
-        response = service.head_design_document(
+        response = _service.head_design_document(
             db,
             ddoc,
             if_none_match=if_none_match,
@@ -3813,7 +4035,7 @@ class TestHeadDesignDocument():
         test_head_design_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -3823,7 +4045,7 @@ class TestHeadDesignDocument():
         ddoc = 'testString'
 
         # Invoke method
-        response = service.head_design_document(
+        response = _service.head_design_document(
             db,
             ddoc,
             headers={}
@@ -3840,7 +4062,7 @@ class TestHeadDesignDocument():
         test_head_design_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -3857,7 +4079,7 @@ class TestHeadDesignDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.head_design_document(**req_copy)
+                _service.head_design_document(**req_copy)
 
 
 
@@ -3870,6 +4092,8 @@ class TestDeleteDesignDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3881,7 +4105,7 @@ class TestDeleteDesignDocument():
         delete_design_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -3897,7 +4121,7 @@ class TestDeleteDesignDocument():
         rev = 'testString'
 
         # Invoke method
-        response = service.delete_design_document(
+        response = _service.delete_design_document(
             db,
             ddoc,
             if_match=if_match,
@@ -3922,7 +4146,7 @@ class TestDeleteDesignDocument():
         test_delete_design_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -3935,7 +4159,7 @@ class TestDeleteDesignDocument():
         ddoc = 'testString'
 
         # Invoke method
-        response = service.delete_design_document(
+        response = _service.delete_design_document(
             db,
             ddoc,
             headers={}
@@ -3952,7 +4176,7 @@ class TestDeleteDesignDocument():
         test_delete_design_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -3972,7 +4196,7 @@ class TestDeleteDesignDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.delete_design_document(**req_copy)
+                _service.delete_design_document(**req_copy)
 
 
 
@@ -3985,6 +4209,8 @@ class TestGetDesignDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -3996,8 +4222,8 @@ class TestGetDesignDocument():
         get_design_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "language", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": {"mapKey": "inner"}, "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
+        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": {"mapKey": "inner"}, "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -4008,19 +4234,19 @@ class TestGetDesignDocument():
         db = 'testString'
         ddoc = 'testString'
         if_none_match = 'testString'
-        attachments = True
-        att_encoding_info = True
-        conflicts = True
-        deleted_conflicts = True
-        latest = True
-        local_seq = True
-        meta = True
+        attachments = False
+        att_encoding_info = False
+        conflicts = False
+        deleted_conflicts = False
+        latest = False
+        local_seq = False
+        meta = False
         rev = 'testString'
-        revs = True
-        revs_info = True
+        revs = False
+        revs_info = False
 
         # Invoke method
-        response = service.get_design_document(
+        response = _service.get_design_document(
             db,
             ddoc,
             if_none_match=if_none_match,
@@ -4061,8 +4287,8 @@ class TestGetDesignDocument():
         test_get_design_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "language", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": {"mapKey": "inner"}, "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
+        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": {"mapKey": "inner"}, "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -4074,7 +4300,7 @@ class TestGetDesignDocument():
         ddoc = 'testString'
 
         # Invoke method
-        response = service.get_design_document(
+        response = _service.get_design_document(
             db,
             ddoc,
             headers={}
@@ -4091,8 +4317,8 @@ class TestGetDesignDocument():
         test_get_design_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "language", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": {"mapKey": "inner"}, "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
+        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": {"mapKey": "inner"}, "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -4111,7 +4337,7 @@ class TestGetDesignDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_design_document(**req_copy)
+                _service.get_design_document(**req_copy)
 
 
 
@@ -4124,6 +4350,8 @@ class TestPutDesignDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -4135,7 +4363,7 @@ class TestPutDesignDocument():
         put_design_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -4208,13 +4436,13 @@ class TestPutDesignDocument():
         design_document_model['autoupdate'] = True
         design_document_model['filters'] = {}
         design_document_model['indexes'] = {}
-        design_document_model['language'] = 'testString'
+        design_document_model['language'] = 'javascript'
         design_document_model['options'] = design_document_options_model
         design_document_model['updates'] = {}
         design_document_model['validate_doc_update'] = {}
         design_document_model['views'] = {}
         design_document_model['st_indexes'] = {}
-        design_document_model['foo'] = { 'foo': 'bar' }
+        design_document_model['foo'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -4222,11 +4450,11 @@ class TestPutDesignDocument():
         design_document = design_document_model
         if_match = 'testString'
         batch = 'ok'
-        new_edits = True
+        new_edits = False
         rev = 'testString'
 
         # Invoke method
-        response = service.put_design_document(
+        response = _service.put_design_document(
             db,
             ddoc,
             design_document,
@@ -4260,7 +4488,7 @@ class TestPutDesignDocument():
         test_put_design_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -4333,13 +4561,13 @@ class TestPutDesignDocument():
         design_document_model['autoupdate'] = True
         design_document_model['filters'] = {}
         design_document_model['indexes'] = {}
-        design_document_model['language'] = 'testString'
+        design_document_model['language'] = 'javascript'
         design_document_model['options'] = design_document_options_model
         design_document_model['updates'] = {}
         design_document_model['validate_doc_update'] = {}
         design_document_model['views'] = {}
         design_document_model['st_indexes'] = {}
-        design_document_model['foo'] = { 'foo': 'bar' }
+        design_document_model['foo'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -4347,7 +4575,7 @@ class TestPutDesignDocument():
         design_document = design_document_model
 
         # Invoke method
-        response = service.put_design_document(
+        response = _service.put_design_document(
             db,
             ddoc,
             design_document,
@@ -4371,7 +4599,7 @@ class TestPutDesignDocument():
         test_put_design_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -4444,13 +4672,13 @@ class TestPutDesignDocument():
         design_document_model['autoupdate'] = True
         design_document_model['filters'] = {}
         design_document_model['indexes'] = {}
-        design_document_model['language'] = 'testString'
+        design_document_model['language'] = 'javascript'
         design_document_model['options'] = design_document_options_model
         design_document_model['updates'] = {}
         design_document_model['validate_doc_update'] = {}
         design_document_model['views'] = {}
         design_document_model['st_indexes'] = {}
-        design_document_model['foo'] = { 'foo': 'bar' }
+        design_document_model['foo'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -4466,7 +4694,7 @@ class TestPutDesignDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.put_design_document(**req_copy)
+                _service.put_design_document(**req_copy)
 
 
 
@@ -4479,6 +4707,8 @@ class TestGetDesignDocumentInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -4490,7 +4720,7 @@ class TestGetDesignDocumentInformation():
         get_design_document_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_info')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_info')
         mock_response = '{"name": "name", "view_index": {"compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(responses.GET,
                       url,
@@ -4503,7 +4733,7 @@ class TestGetDesignDocumentInformation():
         ddoc = 'testString'
 
         # Invoke method
-        response = service.get_design_document_information(
+        response = _service.get_design_document_information(
             db,
             ddoc,
             headers={}
@@ -4520,7 +4750,7 @@ class TestGetDesignDocumentInformation():
         test_get_design_document_information_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_info')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_info')
         mock_response = '{"name": "name", "view_index": {"compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(responses.GET,
                       url,
@@ -4540,7 +4770,7 @@ class TestGetDesignDocumentInformation():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_design_document_information(**req_copy)
+                _service.get_design_document_information(**req_copy)
 
 
 
@@ -4553,6 +4783,8 @@ class TestPostDesignDocs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -4564,7 +4796,7 @@ class TestPostDesignDocs():
         post_design_docs()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design_docs')
+        url = self.preprocess_url(_base_url + '/testString/_design_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -4574,15 +4806,15 @@ class TestPostDesignDocs():
 
         # Set up parameter values
         db = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        include_docs = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
+        update_seq = False
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
@@ -4590,7 +4822,7 @@ class TestPostDesignDocs():
         accept = 'application/json'
 
         # Invoke method
-        response = service.post_design_docs(
+        response = _service.post_design_docs(
             db,
             att_encoding_info=att_encoding_info,
             attachments=attachments,
@@ -4617,15 +4849,15 @@ class TestPostDesignDocs():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['att_encoding_info'] == True
-        assert req_body['attachments'] == True
-        assert req_body['conflicts'] == True
-        assert req_body['descending'] == True
-        assert req_body['include_docs'] == True
+        assert req_body['att_encoding_info'] == False
+        assert req_body['attachments'] == False
+        assert req_body['conflicts'] == False
+        assert req_body['descending'] == False
+        assert req_body['include_docs'] == False
         assert req_body['inclusive_end'] == True
         assert req_body['limit'] == 10
         assert req_body['skip'] == 0
-        assert req_body['update_seq'] == True
+        assert req_body['update_seq'] == False
         assert req_body['endkey'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
@@ -4638,7 +4870,7 @@ class TestPostDesignDocs():
         test_post_design_docs_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design_docs')
+        url = self.preprocess_url(_base_url + '/testString/_design_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -4648,22 +4880,22 @@ class TestPostDesignDocs():
 
         # Set up parameter values
         db = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        include_docs = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
+        update_seq = False
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
         startkey = '0007741142412418284'
 
         # Invoke method
-        response = service.post_design_docs(
+        response = _service.post_design_docs(
             db,
             att_encoding_info=att_encoding_info,
             attachments=attachments,
@@ -4689,15 +4921,15 @@ class TestPostDesignDocs():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['att_encoding_info'] == True
-        assert req_body['attachments'] == True
-        assert req_body['conflicts'] == True
-        assert req_body['descending'] == True
-        assert req_body['include_docs'] == True
+        assert req_body['att_encoding_info'] == False
+        assert req_body['attachments'] == False
+        assert req_body['conflicts'] == False
+        assert req_body['descending'] == False
+        assert req_body['include_docs'] == False
         assert req_body['inclusive_end'] == True
         assert req_body['limit'] == 10
         assert req_body['skip'] == 0
-        assert req_body['update_seq'] == True
+        assert req_body['update_seq'] == False
         assert req_body['endkey'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
@@ -4710,7 +4942,7 @@ class TestPostDesignDocs():
         test_post_design_docs_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design_docs')
+        url = self.preprocess_url(_base_url + '/testString/_design_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -4720,15 +4952,15 @@ class TestPostDesignDocs():
 
         # Set up parameter values
         db = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        include_docs = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
+        update_seq = False
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
@@ -4741,7 +4973,7 @@ class TestPostDesignDocs():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_design_docs(**req_copy)
+                _service.post_design_docs(**req_copy)
 
 
 
@@ -4754,6 +4986,8 @@ class TestPostDesignDocsQueries():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -4765,7 +4999,7 @@ class TestPostDesignDocsQueries():
         post_design_docs_queries()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design_docs/queries')
+        url = self.preprocess_url(_base_url + '/testString/_design_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -4775,15 +5009,15 @@ class TestPostDesignDocsQueries():
 
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {}
-        all_docs_query_model['att_encoding_info'] = True
-        all_docs_query_model['attachments'] = True
-        all_docs_query_model['conflicts'] = True
-        all_docs_query_model['descending'] = True
-        all_docs_query_model['include_docs'] = True
+        all_docs_query_model['att_encoding_info'] = False
+        all_docs_query_model['attachments'] = False
+        all_docs_query_model['conflicts'] = False
+        all_docs_query_model['descending'] = False
+        all_docs_query_model['include_docs'] = False
         all_docs_query_model['inclusive_end'] = True
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
-        all_docs_query_model['update_seq'] = True
+        all_docs_query_model['update_seq'] = False
         all_docs_query_model['endkey'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
@@ -4795,7 +5029,7 @@ class TestPostDesignDocsQueries():
         accept = 'application/json'
 
         # Invoke method
-        response = service.post_design_docs_queries(
+        response = _service.post_design_docs_queries(
             db,
             queries,
             accept=accept,
@@ -4819,7 +5053,7 @@ class TestPostDesignDocsQueries():
         test_post_design_docs_queries_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design_docs/queries')
+        url = self.preprocess_url(_base_url + '/testString/_design_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -4829,15 +5063,15 @@ class TestPostDesignDocsQueries():
 
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {}
-        all_docs_query_model['att_encoding_info'] = True
-        all_docs_query_model['attachments'] = True
-        all_docs_query_model['conflicts'] = True
-        all_docs_query_model['descending'] = True
-        all_docs_query_model['include_docs'] = True
+        all_docs_query_model['att_encoding_info'] = False
+        all_docs_query_model['attachments'] = False
+        all_docs_query_model['conflicts'] = False
+        all_docs_query_model['descending'] = False
+        all_docs_query_model['include_docs'] = False
         all_docs_query_model['inclusive_end'] = True
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
-        all_docs_query_model['update_seq'] = True
+        all_docs_query_model['update_seq'] = False
         all_docs_query_model['endkey'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
@@ -4848,7 +5082,7 @@ class TestPostDesignDocsQueries():
         queries = [all_docs_query_model]
 
         # Invoke method
-        response = service.post_design_docs_queries(
+        response = _service.post_design_docs_queries(
             db,
             queries,
             headers={}
@@ -4871,7 +5105,7 @@ class TestPostDesignDocsQueries():
         test_post_design_docs_queries_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design_docs/queries')
+        url = self.preprocess_url(_base_url + '/testString/_design_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -4881,15 +5115,15 @@ class TestPostDesignDocsQueries():
 
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {}
-        all_docs_query_model['att_encoding_info'] = True
-        all_docs_query_model['attachments'] = True
-        all_docs_query_model['conflicts'] = True
-        all_docs_query_model['descending'] = True
-        all_docs_query_model['include_docs'] = True
+        all_docs_query_model['att_encoding_info'] = False
+        all_docs_query_model['attachments'] = False
+        all_docs_query_model['conflicts'] = False
+        all_docs_query_model['descending'] = False
+        all_docs_query_model['include_docs'] = False
         all_docs_query_model['inclusive_end'] = True
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
-        all_docs_query_model['update_seq'] = True
+        all_docs_query_model['update_seq'] = False
         all_docs_query_model['endkey'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
@@ -4907,7 +5141,7 @@ class TestPostDesignDocsQueries():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_design_docs_queries(**req_copy)
+                _service.post_design_docs_queries(**req_copy)
 
 
 
@@ -4921,6 +5155,32 @@ class TestPostDesignDocsQueries():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestPostView():
     """
     Test Class for post_view
@@ -4930,6 +5190,8 @@ class TestPostView():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -4941,8 +5203,8 @@ class TestPostView():
         post_view()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString')
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -4953,29 +5215,29 @@ class TestPostView():
         db = 'testString'
         ddoc = 'testString'
         view = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        include_docs = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
         inclusive_end = True
         limit = 0
         skip = 0
-        update_seq = True
-        endkey = { 'foo': 'bar' }
+        update_seq = False
+        endkey = 'testString'
         endkey_docid = 'testString'
-        group = True
+        group = False
         group_level = 1
-        key = { 'foo': 'bar' }
-        keys = [{ 'foo': 'bar' }]
+        key = 'testString'
+        keys = ['testString']
         reduce = True
-        stable = True
-        startkey = { 'foo': 'bar' }
+        stable = False
+        startkey = 'testString'
         startkey_docid = 'testString'
         update = 'true'
 
         # Invoke method
-        response = service.post_view(
+        response = _service.post_view(
             db,
             ddoc,
             view,
@@ -5010,24 +5272,24 @@ class TestPostView():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['att_encoding_info'] == True
-        assert req_body['attachments'] == True
-        assert req_body['conflicts'] == True
-        assert req_body['descending'] == True
-        assert req_body['include_docs'] == True
+        assert req_body['att_encoding_info'] == False
+        assert req_body['attachments'] == False
+        assert req_body['conflicts'] == False
+        assert req_body['descending'] == False
+        assert req_body['include_docs'] == False
         assert req_body['inclusive_end'] == True
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
-        assert req_body['update_seq'] == True
-        assert req_body['endkey'] == { 'foo': 'bar' }
+        assert req_body['update_seq'] == False
+        assert req_body['endkey'] == 'testString'
         assert req_body['endkey_docid'] == 'testString'
-        assert req_body['group'] == True
+        assert req_body['group'] == False
         assert req_body['group_level'] == 1
-        assert req_body['key'] == { 'foo': 'bar' }
-        assert req_body['keys'] == [{ 'foo': 'bar' }]
+        assert req_body['key'] == 'testString'
+        assert req_body['keys'] == ['testString']
         assert req_body['reduce'] == True
-        assert req_body['stable'] == True
-        assert req_body['startkey'] == { 'foo': 'bar' }
+        assert req_body['stable'] == False
+        assert req_body['startkey'] == 'testString'
         assert req_body['startkey_docid'] == 'testString'
         assert req_body['update'] == 'true'
 
@@ -5038,8 +5300,8 @@ class TestPostView():
         test_post_view_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString')
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -5050,24 +5312,24 @@ class TestPostView():
         db = 'testString'
         ddoc = 'testString'
         view = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        include_docs = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
         inclusive_end = True
         limit = 0
         skip = 0
-        update_seq = True
-        endkey = { 'foo': 'bar' }
+        update_seq = False
+        endkey = 'testString'
         endkey_docid = 'testString'
-        group = True
+        group = False
         group_level = 1
-        key = { 'foo': 'bar' }
-        keys = [{ 'foo': 'bar' }]
+        key = 'testString'
+        keys = ['testString']
         reduce = True
-        stable = True
-        startkey = { 'foo': 'bar' }
+        stable = False
+        startkey = 'testString'
         startkey_docid = 'testString'
         update = 'true'
 
@@ -5080,7 +5342,7 @@ class TestPostView():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_view(**req_copy)
+                _service.post_view(**req_copy)
 
 
 
@@ -5093,6 +5355,8 @@ class TestPostViewAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -5104,7 +5368,7 @@ class TestPostViewAsStream():
         post_view_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -5116,29 +5380,29 @@ class TestPostViewAsStream():
         db = 'testString'
         ddoc = 'testString'
         view = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
         include_docs = True
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
-        endkey = { 'foo': 'bar' }
+        update_seq = False
+        endkey = 'testString'
         endkey_docid = 'testString'
-        group = True
+        group = False
         group_level = 1
-        key = { 'foo': 'bar' }
+        key = 'testString'
         keys = ['examplekey']
         reduce = True
-        stable = True
-        startkey = { 'foo': 'bar' }
+        stable = False
+        startkey = 'testString'
         startkey_docid = 'testString'
         update = 'true'
 
         # Invoke method
-        response = service.post_view_as_stream(
+        response = _service.post_view_as_stream(
             db,
             ddoc,
             view,
@@ -5173,24 +5437,24 @@ class TestPostViewAsStream():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['att_encoding_info'] == True
-        assert req_body['attachments'] == True
-        assert req_body['conflicts'] == True
-        assert req_body['descending'] == True
+        assert req_body['att_encoding_info'] == False
+        assert req_body['attachments'] == False
+        assert req_body['conflicts'] == False
+        assert req_body['descending'] == False
         assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
         assert req_body['limit'] == 10
         assert req_body['skip'] == 0
-        assert req_body['update_seq'] == True
-        assert req_body['endkey'] == { 'foo': 'bar' }
+        assert req_body['update_seq'] == False
+        assert req_body['endkey'] == 'testString'
         assert req_body['endkey_docid'] == 'testString'
-        assert req_body['group'] == True
+        assert req_body['group'] == False
         assert req_body['group_level'] == 1
-        assert req_body['key'] == { 'foo': 'bar' }
+        assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['examplekey']
         assert req_body['reduce'] == True
-        assert req_body['stable'] == True
-        assert req_body['startkey'] == { 'foo': 'bar' }
+        assert req_body['stable'] == False
+        assert req_body['startkey'] == 'testString'
         assert req_body['startkey_docid'] == 'testString'
         assert req_body['update'] == 'true'
 
@@ -5207,7 +5471,7 @@ class TestPostViewAsStream():
         test_post_view_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -5219,24 +5483,24 @@ class TestPostViewAsStream():
         db = 'testString'
         ddoc = 'testString'
         view = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
         include_docs = True
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
-        endkey = { 'foo': 'bar' }
+        update_seq = False
+        endkey = 'testString'
         endkey_docid = 'testString'
-        group = True
+        group = False
         group_level = 1
-        key = { 'foo': 'bar' }
+        key = 'testString'
         keys = ['examplekey']
         reduce = True
-        stable = True
-        startkey = { 'foo': 'bar' }
+        stable = False
+        startkey = 'testString'
         startkey_docid = 'testString'
         update = 'true'
 
@@ -5249,7 +5513,7 @@ class TestPostViewAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_view_as_stream(**req_copy)
+                _service.post_view_as_stream(**req_copy)
 
 
 
@@ -5262,6 +5526,8 @@ class TestPostViewQueries():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -5273,8 +5539,8 @@ class TestPostViewQueries():
         post_view_queries()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString/queries')
-        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}]}'
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString/queries')
+        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -5283,24 +5549,24 @@ class TestPostViewQueries():
 
         # Construct a dict representation of a ViewQuery model
         view_query_model = {}
-        view_query_model['att_encoding_info'] = True
-        view_query_model['attachments'] = True
-        view_query_model['conflicts'] = True
-        view_query_model['descending'] = True
-        view_query_model['include_docs'] = True
+        view_query_model['att_encoding_info'] = False
+        view_query_model['attachments'] = False
+        view_query_model['conflicts'] = False
+        view_query_model['descending'] = False
+        view_query_model['include_docs'] = False
         view_query_model['inclusive_end'] = True
         view_query_model['limit'] = 0
         view_query_model['skip'] = 0
-        view_query_model['update_seq'] = True
-        view_query_model['endkey'] = { 'foo': 'bar' }
+        view_query_model['update_seq'] = False
+        view_query_model['endkey'] = 'testString'
         view_query_model['endkey_docid'] = 'testString'
-        view_query_model['group'] = True
+        view_query_model['group'] = False
         view_query_model['group_level'] = 1
-        view_query_model['key'] = { 'foo': 'bar' }
-        view_query_model['keys'] = [{ 'foo': 'bar' }]
+        view_query_model['key'] = 'testString'
+        view_query_model['keys'] = ['testString']
         view_query_model['reduce'] = True
-        view_query_model['stable'] = True
-        view_query_model['startkey'] = { 'foo': 'bar' }
+        view_query_model['stable'] = False
+        view_query_model['startkey'] = 'testString'
         view_query_model['startkey_docid'] = 'testString'
         view_query_model['update'] = 'true'
 
@@ -5311,7 +5577,7 @@ class TestPostViewQueries():
         queries = [view_query_model]
 
         # Invoke method
-        response = service.post_view_queries(
+        response = _service.post_view_queries(
             db,
             ddoc,
             view,
@@ -5336,8 +5602,8 @@ class TestPostViewQueries():
         test_post_view_queries_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString/queries')
-        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}]}'
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString/queries')
+        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -5346,24 +5612,24 @@ class TestPostViewQueries():
 
         # Construct a dict representation of a ViewQuery model
         view_query_model = {}
-        view_query_model['att_encoding_info'] = True
-        view_query_model['attachments'] = True
-        view_query_model['conflicts'] = True
-        view_query_model['descending'] = True
-        view_query_model['include_docs'] = True
+        view_query_model['att_encoding_info'] = False
+        view_query_model['attachments'] = False
+        view_query_model['conflicts'] = False
+        view_query_model['descending'] = False
+        view_query_model['include_docs'] = False
         view_query_model['inclusive_end'] = True
         view_query_model['limit'] = 0
         view_query_model['skip'] = 0
-        view_query_model['update_seq'] = True
-        view_query_model['endkey'] = { 'foo': 'bar' }
+        view_query_model['update_seq'] = False
+        view_query_model['endkey'] = 'testString'
         view_query_model['endkey_docid'] = 'testString'
-        view_query_model['group'] = True
+        view_query_model['group'] = False
         view_query_model['group_level'] = 1
-        view_query_model['key'] = { 'foo': 'bar' }
-        view_query_model['keys'] = [{ 'foo': 'bar' }]
+        view_query_model['key'] = 'testString'
+        view_query_model['keys'] = ['testString']
         view_query_model['reduce'] = True
-        view_query_model['stable'] = True
-        view_query_model['startkey'] = { 'foo': 'bar' }
+        view_query_model['stable'] = False
+        view_query_model['startkey'] = 'testString'
         view_query_model['startkey_docid'] = 'testString'
         view_query_model['update'] = 'true'
 
@@ -5383,7 +5649,7 @@ class TestPostViewQueries():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_view_queries(**req_copy)
+                _service.post_view_queries(**req_copy)
 
 
 
@@ -5396,6 +5662,8 @@ class TestPostViewQueriesAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -5407,7 +5675,7 @@ class TestPostViewQueriesAsStream():
         post_view_queries_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString/queries')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -5417,24 +5685,24 @@ class TestPostViewQueriesAsStream():
 
         # Construct a dict representation of a ViewQuery model
         view_query_model = {}
-        view_query_model['att_encoding_info'] = True
-        view_query_model['attachments'] = True
-        view_query_model['conflicts'] = True
-        view_query_model['descending'] = True
+        view_query_model['att_encoding_info'] = False
+        view_query_model['attachments'] = False
+        view_query_model['conflicts'] = False
+        view_query_model['descending'] = False
         view_query_model['include_docs'] = True
         view_query_model['inclusive_end'] = True
         view_query_model['limit'] = 5
         view_query_model['skip'] = 0
-        view_query_model['update_seq'] = True
-        view_query_model['endkey'] = { 'foo': 'bar' }
+        view_query_model['update_seq'] = False
+        view_query_model['endkey'] = 'testString'
         view_query_model['endkey_docid'] = 'testString'
-        view_query_model['group'] = True
+        view_query_model['group'] = False
         view_query_model['group_level'] = 1
-        view_query_model['key'] = { 'foo': 'bar' }
-        view_query_model['keys'] = [{ 'foo': 'bar' }]
+        view_query_model['key'] = 'testString'
+        view_query_model['keys'] = ['testString']
         view_query_model['reduce'] = True
-        view_query_model['stable'] = True
-        view_query_model['startkey'] = { 'foo': 'bar' }
+        view_query_model['stable'] = False
+        view_query_model['startkey'] = 'testString'
         view_query_model['startkey_docid'] = 'testString'
         view_query_model['update'] = 'true'
 
@@ -5445,7 +5713,7 @@ class TestPostViewQueriesAsStream():
         queries = [view_query_model]
 
         # Invoke method
-        response = service.post_view_queries_as_stream(
+        response = _service.post_view_queries_as_stream(
             db,
             ddoc,
             view,
@@ -5476,7 +5744,7 @@ class TestPostViewQueriesAsStream():
         test_post_view_queries_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_view/testString/queries')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -5486,24 +5754,24 @@ class TestPostViewQueriesAsStream():
 
         # Construct a dict representation of a ViewQuery model
         view_query_model = {}
-        view_query_model['att_encoding_info'] = True
-        view_query_model['attachments'] = True
-        view_query_model['conflicts'] = True
-        view_query_model['descending'] = True
+        view_query_model['att_encoding_info'] = False
+        view_query_model['attachments'] = False
+        view_query_model['conflicts'] = False
+        view_query_model['descending'] = False
         view_query_model['include_docs'] = True
         view_query_model['inclusive_end'] = True
         view_query_model['limit'] = 5
         view_query_model['skip'] = 0
-        view_query_model['update_seq'] = True
-        view_query_model['endkey'] = { 'foo': 'bar' }
+        view_query_model['update_seq'] = False
+        view_query_model['endkey'] = 'testString'
         view_query_model['endkey_docid'] = 'testString'
-        view_query_model['group'] = True
+        view_query_model['group'] = False
         view_query_model['group_level'] = 1
-        view_query_model['key'] = { 'foo': 'bar' }
-        view_query_model['keys'] = [{ 'foo': 'bar' }]
+        view_query_model['key'] = 'testString'
+        view_query_model['keys'] = ['testString']
         view_query_model['reduce'] = True
-        view_query_model['stable'] = True
-        view_query_model['startkey'] = { 'foo': 'bar' }
+        view_query_model['stable'] = False
+        view_query_model['startkey'] = 'testString'
         view_query_model['startkey_docid'] = 'testString'
         view_query_model['update'] = 'true'
 
@@ -5523,7 +5791,7 @@ class TestPostViewQueriesAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_view_queries_as_stream(**req_copy)
+                _service.post_view_queries_as_stream(**req_copy)
 
 
 
@@ -5537,6 +5805,32 @@ class TestPostViewQueriesAsStream():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestGetPartitionInformation():
     """
     Test Class for get_partition_information
@@ -5546,6 +5840,8 @@ class TestGetPartitionInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -5557,7 +5853,7 @@ class TestGetPartitionInformation():
         get_partition_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString')
         mock_response = '{"db_name": "db_name", "doc_count": 0, "doc_del_count": 0, "partition": "partition", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 0}, "sizes": {"active": 0, "external": 0}}'
         responses.add(responses.GET,
                       url,
@@ -5570,7 +5866,7 @@ class TestGetPartitionInformation():
         partition_key = 'testString'
 
         # Invoke method
-        response = service.get_partition_information(
+        response = _service.get_partition_information(
             db,
             partition_key,
             headers={}
@@ -5587,7 +5883,7 @@ class TestGetPartitionInformation():
         test_get_partition_information_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString')
         mock_response = '{"db_name": "db_name", "doc_count": 0, "doc_del_count": 0, "partition": "partition", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 0}, "sizes": {"active": 0, "external": 0}}'
         responses.add(responses.GET,
                       url,
@@ -5607,7 +5903,7 @@ class TestGetPartitionInformation():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_partition_information(**req_copy)
+                _service.get_partition_information(**req_copy)
 
 
 
@@ -5620,6 +5916,8 @@ class TestPostPartitionAllDocs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -5631,7 +5929,7 @@ class TestPostPartitionAllDocs():
         post_partition_all_docs()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_all_docs')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -5642,22 +5940,22 @@ class TestPostPartitionAllDocs():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        include_docs = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
+        update_seq = False
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
         startkey = '0007741142412418284'
 
         # Invoke method
-        response = service.post_partition_all_docs(
+        response = _service.post_partition_all_docs(
             db,
             partition_key,
             att_encoding_info=att_encoding_info,
@@ -5684,15 +5982,15 @@ class TestPostPartitionAllDocs():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['att_encoding_info'] == True
-        assert req_body['attachments'] == True
-        assert req_body['conflicts'] == True
-        assert req_body['descending'] == True
-        assert req_body['include_docs'] == True
+        assert req_body['att_encoding_info'] == False
+        assert req_body['attachments'] == False
+        assert req_body['conflicts'] == False
+        assert req_body['descending'] == False
+        assert req_body['include_docs'] == False
         assert req_body['inclusive_end'] == True
         assert req_body['limit'] == 10
         assert req_body['skip'] == 0
-        assert req_body['update_seq'] == True
+        assert req_body['update_seq'] == False
         assert req_body['endkey'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
@@ -5705,7 +6003,7 @@ class TestPostPartitionAllDocs():
         test_post_partition_all_docs_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_all_docs')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -5716,15 +6014,15 @@ class TestPostPartitionAllDocs():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        include_docs = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
+        update_seq = False
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
@@ -5738,7 +6036,7 @@ class TestPostPartitionAllDocs():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_partition_all_docs(**req_copy)
+                _service.post_partition_all_docs(**req_copy)
 
 
 
@@ -5751,6 +6049,8 @@ class TestPostPartitionAllDocsAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -5762,7 +6062,7 @@ class TestPostPartitionAllDocsAsStream():
         post_partition_all_docs_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_all_docs')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -5773,22 +6073,22 @@ class TestPostPartitionAllDocsAsStream():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        include_docs = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
+        update_seq = False
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
         startkey = '0007741142412418284'
 
         # Invoke method
-        response = service.post_partition_all_docs_as_stream(
+        response = _service.post_partition_all_docs_as_stream(
             db,
             partition_key,
             att_encoding_info=att_encoding_info,
@@ -5815,15 +6115,15 @@ class TestPostPartitionAllDocsAsStream():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['att_encoding_info'] == True
-        assert req_body['attachments'] == True
-        assert req_body['conflicts'] == True
-        assert req_body['descending'] == True
-        assert req_body['include_docs'] == True
+        assert req_body['att_encoding_info'] == False
+        assert req_body['attachments'] == False
+        assert req_body['conflicts'] == False
+        assert req_body['descending'] == False
+        assert req_body['include_docs'] == False
         assert req_body['inclusive_end'] == True
         assert req_body['limit'] == 10
         assert req_body['skip'] == 0
-        assert req_body['update_seq'] == True
+        assert req_body['update_seq'] == False
         assert req_body['endkey'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
@@ -5842,7 +6142,7 @@ class TestPostPartitionAllDocsAsStream():
         test_post_partition_all_docs_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_all_docs')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -5853,15 +6153,15 @@ class TestPostPartitionAllDocsAsStream():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
-        include_docs = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
+        update_seq = False
         endkey = 'testString'
         key = 'testString'
         keys = ['testString']
@@ -5875,7 +6175,7 @@ class TestPostPartitionAllDocsAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_partition_all_docs_as_stream(**req_copy)
+                _service.post_partition_all_docs_as_stream(**req_copy)
 
 
 
@@ -5888,6 +6188,8 @@ class TestPostPartitionSearch():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -5899,8 +6201,8 @@ class TestPostPartitionSearch():
         post_partition_search()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_search/testString')
-        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_search/testString')
+        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -5916,17 +6218,17 @@ class TestPostPartitionSearch():
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
-        highlight_post_tag = 'testString'
-        highlight_pre_tag = 'testString'
+        highlight_post_tag = '</em>'
+        highlight_pre_tag = '<em>'
         highlight_size = 1
-        include_docs = True
+        include_docs = False
         include_fields = ['testString']
         limit = 0
         sort = ['testString']
         stale = 'ok'
 
         # Invoke method
-        response = service.post_partition_search(
+        response = _service.post_partition_search(
             db,
             partition_key,
             ddoc,
@@ -5958,10 +6260,10 @@ class TestPostPartitionSearch():
         assert req_body['bookmark'] == 'testString'
         assert req_body['highlight_fields'] == ['testString']
         assert req_body['highlight_number'] == 1
-        assert req_body['highlight_post_tag'] == 'testString'
-        assert req_body['highlight_pre_tag'] == 'testString'
+        assert req_body['highlight_post_tag'] == '</em>'
+        assert req_body['highlight_pre_tag'] == '<em>'
         assert req_body['highlight_size'] == 1
-        assert req_body['include_docs'] == True
+        assert req_body['include_docs'] == False
         assert req_body['include_fields'] == ['testString']
         assert req_body['limit'] == 0
         assert req_body['sort'] == ['testString']
@@ -5974,8 +6276,8 @@ class TestPostPartitionSearch():
         test_post_partition_search_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_search/testString')
-        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_search/testString')
+        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -5991,10 +6293,10 @@ class TestPostPartitionSearch():
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
-        highlight_post_tag = 'testString'
-        highlight_pre_tag = 'testString'
+        highlight_post_tag = '</em>'
+        highlight_pre_tag = '<em>'
         highlight_size = 1
-        include_docs = True
+        include_docs = False
         include_fields = ['testString']
         limit = 0
         sort = ['testString']
@@ -6011,7 +6313,7 @@ class TestPostPartitionSearch():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_partition_search(**req_copy)
+                _service.post_partition_search(**req_copy)
 
 
 
@@ -6024,6 +6326,8 @@ class TestPostPartitionSearchAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6035,7 +6339,7 @@ class TestPostPartitionSearchAsStream():
         post_partition_search_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_search/testString')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -6052,17 +6356,17 @@ class TestPostPartitionSearchAsStream():
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
-        highlight_post_tag = 'testString'
-        highlight_pre_tag = 'testString'
+        highlight_post_tag = '</em>'
+        highlight_pre_tag = '<em>'
         highlight_size = 1
-        include_docs = True
+        include_docs = False
         include_fields = ['testString']
         limit = 3
         sort = ['testString']
         stale = 'ok'
 
         # Invoke method
-        response = service.post_partition_search_as_stream(
+        response = _service.post_partition_search_as_stream(
             db,
             partition_key,
             ddoc,
@@ -6094,10 +6398,10 @@ class TestPostPartitionSearchAsStream():
         assert req_body['bookmark'] == 'testString'
         assert req_body['highlight_fields'] == ['testString']
         assert req_body['highlight_number'] == 1
-        assert req_body['highlight_post_tag'] == 'testString'
-        assert req_body['highlight_pre_tag'] == 'testString'
+        assert req_body['highlight_post_tag'] == '</em>'
+        assert req_body['highlight_pre_tag'] == '<em>'
         assert req_body['highlight_size'] == 1
-        assert req_body['include_docs'] == True
+        assert req_body['include_docs'] == False
         assert req_body['include_fields'] == ['testString']
         assert req_body['limit'] == 3
         assert req_body['sort'] == ['testString']
@@ -6116,7 +6420,7 @@ class TestPostPartitionSearchAsStream():
         test_post_partition_search_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_search/testString')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -6133,10 +6437,10 @@ class TestPostPartitionSearchAsStream():
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
-        highlight_post_tag = 'testString'
-        highlight_pre_tag = 'testString'
+        highlight_post_tag = '</em>'
+        highlight_pre_tag = '<em>'
         highlight_size = 1
-        include_docs = True
+        include_docs = False
         include_fields = ['testString']
         limit = 3
         sort = ['testString']
@@ -6153,7 +6457,7 @@ class TestPostPartitionSearchAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_partition_search_as_stream(**req_copy)
+                _service.post_partition_search_as_stream(**req_copy)
 
 
 
@@ -6166,6 +6470,8 @@ class TestPostPartitionView():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6177,8 +6483,8 @@ class TestPostPartitionView():
         post_partition_view()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_view/testString')
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -6190,29 +6496,29 @@ class TestPostPartitionView():
         partition_key = 'testString'
         ddoc = 'testString'
         view = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
         include_docs = True
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
-        endkey = { 'foo': 'bar' }
+        update_seq = False
+        endkey = 'testString'
         endkey_docid = 'testString'
-        group = True
+        group = False
         group_level = 1
-        key = { 'foo': 'bar' }
+        key = 'testString'
         keys = ['examplekey']
         reduce = True
-        stable = True
-        startkey = { 'foo': 'bar' }
+        stable = False
+        startkey = 'testString'
         startkey_docid = 'testString'
         update = 'true'
 
         # Invoke method
-        response = service.post_partition_view(
+        response = _service.post_partition_view(
             db,
             partition_key,
             ddoc,
@@ -6248,24 +6554,24 @@ class TestPostPartitionView():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['att_encoding_info'] == True
-        assert req_body['attachments'] == True
-        assert req_body['conflicts'] == True
-        assert req_body['descending'] == True
+        assert req_body['att_encoding_info'] == False
+        assert req_body['attachments'] == False
+        assert req_body['conflicts'] == False
+        assert req_body['descending'] == False
         assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
         assert req_body['limit'] == 10
         assert req_body['skip'] == 0
-        assert req_body['update_seq'] == True
-        assert req_body['endkey'] == { 'foo': 'bar' }
+        assert req_body['update_seq'] == False
+        assert req_body['endkey'] == 'testString'
         assert req_body['endkey_docid'] == 'testString'
-        assert req_body['group'] == True
+        assert req_body['group'] == False
         assert req_body['group_level'] == 1
-        assert req_body['key'] == { 'foo': 'bar' }
+        assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['examplekey']
         assert req_body['reduce'] == True
-        assert req_body['stable'] == True
-        assert req_body['startkey'] == { 'foo': 'bar' }
+        assert req_body['stable'] == False
+        assert req_body['startkey'] == 'testString'
         assert req_body['startkey_docid'] == 'testString'
         assert req_body['update'] == 'true'
 
@@ -6276,8 +6582,8 @@ class TestPostPartitionView():
         test_post_partition_view_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": {"anyKey": "anyValue"}, "value": {"anyKey": "anyValue"}}]}'
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_view/testString')
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -6289,24 +6595,24 @@ class TestPostPartitionView():
         partition_key = 'testString'
         ddoc = 'testString'
         view = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
         include_docs = True
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
-        endkey = { 'foo': 'bar' }
+        update_seq = False
+        endkey = 'testString'
         endkey_docid = 'testString'
-        group = True
+        group = False
         group_level = 1
-        key = { 'foo': 'bar' }
+        key = 'testString'
         keys = ['examplekey']
         reduce = True
-        stable = True
-        startkey = { 'foo': 'bar' }
+        stable = False
+        startkey = 'testString'
         startkey_docid = 'testString'
         update = 'true'
 
@@ -6320,7 +6626,7 @@ class TestPostPartitionView():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_partition_view(**req_copy)
+                _service.post_partition_view(**req_copy)
 
 
 
@@ -6333,6 +6639,8 @@ class TestPostPartitionViewAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6344,7 +6652,7 @@ class TestPostPartitionViewAsStream():
         post_partition_view_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_view/testString')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -6357,29 +6665,29 @@ class TestPostPartitionViewAsStream():
         partition_key = 'testString'
         ddoc = 'testString'
         view = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
         include_docs = True
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
-        endkey = { 'foo': 'bar' }
+        update_seq = False
+        endkey = 'testString'
         endkey_docid = 'testString'
-        group = True
+        group = False
         group_level = 1
-        key = { 'foo': 'bar' }
+        key = 'testString'
         keys = ['examplekey']
         reduce = True
-        stable = True
-        startkey = { 'foo': 'bar' }
+        stable = False
+        startkey = 'testString'
         startkey_docid = 'testString'
         update = 'true'
 
         # Invoke method
-        response = service.post_partition_view_as_stream(
+        response = _service.post_partition_view_as_stream(
             db,
             partition_key,
             ddoc,
@@ -6415,24 +6723,24 @@ class TestPostPartitionViewAsStream():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['att_encoding_info'] == True
-        assert req_body['attachments'] == True
-        assert req_body['conflicts'] == True
-        assert req_body['descending'] == True
+        assert req_body['att_encoding_info'] == False
+        assert req_body['attachments'] == False
+        assert req_body['conflicts'] == False
+        assert req_body['descending'] == False
         assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
         assert req_body['limit'] == 10
         assert req_body['skip'] == 0
-        assert req_body['update_seq'] == True
-        assert req_body['endkey'] == { 'foo': 'bar' }
+        assert req_body['update_seq'] == False
+        assert req_body['endkey'] == 'testString'
         assert req_body['endkey_docid'] == 'testString'
-        assert req_body['group'] == True
+        assert req_body['group'] == False
         assert req_body['group_level'] == 1
-        assert req_body['key'] == { 'foo': 'bar' }
+        assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['examplekey']
         assert req_body['reduce'] == True
-        assert req_body['stable'] == True
-        assert req_body['startkey'] == { 'foo': 'bar' }
+        assert req_body['stable'] == False
+        assert req_body['startkey'] == 'testString'
         assert req_body['startkey_docid'] == 'testString'
         assert req_body['update'] == 'true'
 
@@ -6449,7 +6757,7 @@ class TestPostPartitionViewAsStream():
         test_post_partition_view_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_design/testString/_view/testString')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -6462,24 +6770,24 @@ class TestPostPartitionViewAsStream():
         partition_key = 'testString'
         ddoc = 'testString'
         view = 'testString'
-        att_encoding_info = True
-        attachments = True
-        conflicts = True
-        descending = True
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
         include_docs = True
         inclusive_end = True
         limit = 10
         skip = 0
-        update_seq = True
-        endkey = { 'foo': 'bar' }
+        update_seq = False
+        endkey = 'testString'
         endkey_docid = 'testString'
-        group = True
+        group = False
         group_level = 1
-        key = { 'foo': 'bar' }
+        key = 'testString'
         keys = ['examplekey']
         reduce = True
-        stable = True
-        startkey = { 'foo': 'bar' }
+        stable = False
+        startkey = 'testString'
         startkey_docid = 'testString'
         update = 'true'
 
@@ -6493,7 +6801,7 @@ class TestPostPartitionViewAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_partition_view_as_stream(**req_copy)
+                _service.post_partition_view_as_stream(**req_copy)
 
 
 
@@ -6506,6 +6814,8 @@ class TestPostPartitionFind():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6517,7 +6827,7 @@ class TestPostPartitionFind():
         post_partition_find()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_find')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
         responses.add(responses.POST,
                       url,
@@ -6537,11 +6847,11 @@ class TestPostPartitionFind():
         skip = 0
         sort = [{}]
         stable = True
-        update = 'false'
+        update = 'true'
         use_index = ['testString']
 
         # Invoke method
-        response = service.post_partition_find(
+        response = _service.post_partition_find(
             db,
             partition_key,
             selector,
@@ -6575,7 +6885,7 @@ class TestPostPartitionFind():
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{}]
         assert req_body['stable'] == True
-        assert req_body['update'] == 'false'
+        assert req_body['update'] == 'true'
         assert req_body['use_index'] == ['testString']
 
 
@@ -6585,7 +6895,7 @@ class TestPostPartitionFind():
         test_post_partition_find_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_find')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
         responses.add(responses.POST,
                       url,
@@ -6605,7 +6915,7 @@ class TestPostPartitionFind():
         skip = 0
         sort = [{}]
         stable = True
-        update = 'false'
+        update = 'true'
         use_index = ['testString']
 
         # Pass in all but one required param and check for a ValueError
@@ -6617,7 +6927,7 @@ class TestPostPartitionFind():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_partition_find(**req_copy)
+                _service.post_partition_find(**req_copy)
 
 
 
@@ -6630,6 +6940,8 @@ class TestPostPartitionFindAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6641,7 +6953,7 @@ class TestPostPartitionFindAsStream():
         post_partition_find_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_find')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -6661,11 +6973,11 @@ class TestPostPartitionFindAsStream():
         skip = 0
         sort = [{}]
         stable = True
-        update = 'false'
+        update = 'true'
         use_index = ['testString']
 
         # Invoke method
-        response = service.post_partition_find_as_stream(
+        response = _service.post_partition_find_as_stream(
             db,
             partition_key,
             selector,
@@ -6699,7 +7011,7 @@ class TestPostPartitionFindAsStream():
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{}]
         assert req_body['stable'] == True
-        assert req_body['update'] == 'false'
+        assert req_body['update'] == 'true'
         assert req_body['use_index'] == ['testString']
 
         # Verify streamed JSON response
@@ -6715,7 +7027,7 @@ class TestPostPartitionFindAsStream():
         test_post_partition_find_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_partition/testString/_find')
+        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -6735,7 +7047,7 @@ class TestPostPartitionFindAsStream():
         skip = 0
         sort = [{}]
         stable = True
-        update = 'false'
+        update = 'true'
         use_index = ['testString']
 
         # Pass in all but one required param and check for a ValueError
@@ -6747,7 +7059,7 @@ class TestPostPartitionFindAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_partition_find_as_stream(**req_copy)
+                _service.post_partition_find_as_stream(**req_copy)
 
 
 
@@ -6761,6 +7073,32 @@ class TestPostPartitionFindAsStream():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestPostExplain():
     """
     Test Class for post_explain
@@ -6770,6 +7108,8 @@ class TestPostExplain():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6781,8 +7121,8 @@ class TestPostExplain():
         post_explain()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_explain')
-        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false, "partial_filter_selector": {"mapKey": {"anyKey": "anyValue"}}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": {"anyKey": "anyValue"}}, "range": {"end_key": [{"anyKey": "anyValue"}], "start_key": [{"anyKey": "anyValue"}]}, "selector": {"mapKey": {"anyKey": "anyValue"}}, "skip": 0}'
+        url = self.preprocess_url(_base_url + '/testString/_explain')
+        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"mapKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"mapKey": "anyValue"}, "skip": 0}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -6800,12 +7140,12 @@ class TestPostExplain():
         skip = 0
         sort = [{}]
         stable = True
-        update = 'false'
+        update = 'true'
         use_index = ['testString']
         r = 1
 
         # Invoke method
-        response = service.post_explain(
+        response = _service.post_explain(
             db,
             selector,
             bookmark=bookmark,
@@ -6839,7 +7179,7 @@ class TestPostExplain():
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{}]
         assert req_body['stable'] == True
-        assert req_body['update'] == 'false'
+        assert req_body['update'] == 'true'
         assert req_body['use_index'] == ['testString']
         assert req_body['r'] == 1
 
@@ -6850,8 +7190,8 @@ class TestPostExplain():
         test_post_explain_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_explain')
-        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false, "partial_filter_selector": {"mapKey": {"anyKey": "anyValue"}}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": {"anyKey": "anyValue"}}, "range": {"end_key": [{"anyKey": "anyValue"}], "start_key": [{"anyKey": "anyValue"}]}, "selector": {"mapKey": {"anyKey": "anyValue"}}, "skip": 0}'
+        url = self.preprocess_url(_base_url + '/testString/_explain')
+        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"mapKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"mapKey": "anyValue"}, "skip": 0}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -6869,7 +7209,7 @@ class TestPostExplain():
         skip = 0
         sort = [{}]
         stable = True
-        update = 'false'
+        update = 'true'
         use_index = ['testString']
         r = 1
 
@@ -6881,7 +7221,7 @@ class TestPostExplain():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_explain(**req_copy)
+                _service.post_explain(**req_copy)
 
 
 
@@ -6894,6 +7234,8 @@ class TestPostFind():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -6905,7 +7247,7 @@ class TestPostFind():
         post_find()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_find')
+        url = self.preprocess_url(_base_url + '/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
         responses.add(responses.POST,
                       url,
@@ -6924,12 +7266,12 @@ class TestPostFind():
         skip = 0
         sort = [{}]
         stable = True
-        update = 'false'
+        update = 'true'
         use_index = ['testString']
         r = 1
 
         # Invoke method
-        response = service.post_find(
+        response = _service.post_find(
             db,
             selector,
             bookmark=bookmark,
@@ -6963,7 +7305,7 @@ class TestPostFind():
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{}]
         assert req_body['stable'] == True
-        assert req_body['update'] == 'false'
+        assert req_body['update'] == 'true'
         assert req_body['use_index'] == ['testString']
         assert req_body['r'] == 1
 
@@ -6974,7 +7316,7 @@ class TestPostFind():
         test_post_find_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_find')
+        url = self.preprocess_url(_base_url + '/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
         responses.add(responses.POST,
                       url,
@@ -6993,7 +7335,7 @@ class TestPostFind():
         skip = 0
         sort = [{}]
         stable = True
-        update = 'false'
+        update = 'true'
         use_index = ['testString']
         r = 1
 
@@ -7005,7 +7347,7 @@ class TestPostFind():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_find(**req_copy)
+                _service.post_find(**req_copy)
 
 
 
@@ -7018,6 +7360,8 @@ class TestPostFindAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7029,7 +7373,7 @@ class TestPostFindAsStream():
         post_find_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_find')
+        url = self.preprocess_url(_base_url + '/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -7048,12 +7392,12 @@ class TestPostFindAsStream():
         skip = 0
         sort = [{}]
         stable = True
-        update = 'false'
+        update = 'true'
         use_index = ['testString']
         r = 1
 
         # Invoke method
-        response = service.post_find_as_stream(
+        response = _service.post_find_as_stream(
             db,
             selector,
             bookmark=bookmark,
@@ -7087,7 +7431,7 @@ class TestPostFindAsStream():
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{}]
         assert req_body['stable'] == True
-        assert req_body['update'] == 'false'
+        assert req_body['update'] == 'true'
         assert req_body['use_index'] == ['testString']
         assert req_body['r'] == 1
 
@@ -7104,7 +7448,7 @@ class TestPostFindAsStream():
         test_post_find_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_find')
+        url = self.preprocess_url(_base_url + '/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -7123,7 +7467,7 @@ class TestPostFindAsStream():
         skip = 0
         sort = [{}]
         stable = True
-        update = 'false'
+        update = 'true'
         use_index = ['testString']
         r = 1
 
@@ -7135,7 +7479,7 @@ class TestPostFindAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_find_as_stream(**req_copy)
+                _service.post_find_as_stream(**req_copy)
 
 
 
@@ -7148,6 +7492,8 @@ class TestGetIndexesInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7159,8 +7505,8 @@ class TestGetIndexesInformation():
         get_indexes_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_index')
-        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false, "partial_filter_selector": {"mapKey": {"anyKey": "anyValue"}}}, "name": "name", "type": "json"}]}'
+        url = self.preprocess_url(_base_url + '/testString/_index')
+        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"mapKey": "anyValue"}}, "name": "name", "type": "json"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -7171,7 +7517,7 @@ class TestGetIndexesInformation():
         db = 'testString'
 
         # Invoke method
-        response = service.get_indexes_information(
+        response = _service.get_indexes_information(
             db,
             headers={}
         )
@@ -7187,8 +7533,8 @@ class TestGetIndexesInformation():
         test_get_indexes_information_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_index')
-        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": false}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": false, "partial_filter_selector": {"mapKey": {"anyKey": "anyValue"}}}, "name": "name", "type": "json"}]}'
+        url = self.preprocess_url(_base_url + '/testString/_index')
+        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"mapKey": "anyValue"}}, "name": "name", "type": "json"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -7205,7 +7551,7 @@ class TestGetIndexesInformation():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_indexes_information(**req_copy)
+                _service.get_indexes_information(**req_copy)
 
 
 
@@ -7218,6 +7564,8 @@ class TestPostIndex():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7229,7 +7577,7 @@ class TestPostIndex():
         post_index()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_index')
+        url = self.preprocess_url(_base_url + '/testString/_index')
         mock_response = '{"id": "id", "name": "name", "result": "created"}'
         responses.add(responses.POST,
                       url,
@@ -7271,7 +7619,7 @@ class TestPostIndex():
         type = 'json'
 
         # Invoke method
-        response = service.post_index(
+        response = _service.post_index(
             db,
             index,
             ddoc=ddoc,
@@ -7304,7 +7652,7 @@ class TestPostIndex():
         test_post_index_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_index')
+        url = self.preprocess_url(_base_url + '/testString/_index')
         mock_response = '{"id": "id", "name": "name", "result": "created"}'
         responses.add(responses.POST,
                       url,
@@ -7353,7 +7701,7 @@ class TestPostIndex():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_index(**req_copy)
+                _service.post_index(**req_copy)
 
 
 
@@ -7366,6 +7714,8 @@ class TestDeleteIndex():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7377,7 +7727,7 @@ class TestDeleteIndex():
         delete_index()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_index/_design/testString/json/testString')
+        url = self.preprocess_url(_base_url + '/testString/_index/_design/testString/json/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.DELETE,
                       url,
@@ -7392,7 +7742,7 @@ class TestDeleteIndex():
         index = 'testString'
 
         # Invoke method
-        response = service.delete_index(
+        response = _service.delete_index(
             db,
             ddoc,
             type,
@@ -7411,7 +7761,7 @@ class TestDeleteIndex():
         test_delete_index_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_index/_design/testString/json/testString')
+        url = self.preprocess_url(_base_url + '/testString/_index/_design/testString/json/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.DELETE,
                       url,
@@ -7435,7 +7785,7 @@ class TestDeleteIndex():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.delete_index(**req_copy)
+                _service.delete_index(**req_copy)
 
 
 
@@ -7449,6 +7799,32 @@ class TestDeleteIndex():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestPostSearchAnalyze():
     """
     Test Class for post_search_analyze
@@ -7458,6 +7834,8 @@ class TestPostSearchAnalyze():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7469,7 +7847,7 @@ class TestPostSearchAnalyze():
         post_search_analyze()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_search_analyze')
+        url = self.preprocess_url(_base_url + '/_search_analyze')
         mock_response = '{"tokens": ["tokens"]}'
         responses.add(responses.POST,
                       url,
@@ -7482,7 +7860,7 @@ class TestPostSearchAnalyze():
         text = 'testString'
 
         # Invoke method
-        response = service.post_search_analyze(
+        response = _service.post_search_analyze(
             analyzer,
             text,
             headers={}
@@ -7506,7 +7884,7 @@ class TestPostSearchAnalyze():
         test_post_search_analyze_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_search_analyze')
+        url = self.preprocess_url(_base_url + '/_search_analyze')
         mock_response = '{"tokens": ["tokens"]}'
         responses.add(responses.POST,
                       url,
@@ -7526,7 +7904,7 @@ class TestPostSearchAnalyze():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_search_analyze(**req_copy)
+                _service.post_search_analyze(**req_copy)
 
 
 
@@ -7539,6 +7917,8 @@ class TestPostSearch():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7550,8 +7930,8 @@ class TestPostSearch():
         post_search()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_search/testString')
-        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_search/testString')
+        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -7566,10 +7946,10 @@ class TestPostSearch():
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
-        highlight_post_tag = 'testString'
-        highlight_pre_tag = 'testString'
+        highlight_post_tag = '</em>'
+        highlight_pre_tag = '<em>'
         highlight_size = 1
-        include_docs = True
+        include_docs = False
         include_fields = ['testString']
         limit = 0
         sort = ['testString']
@@ -7582,7 +7962,7 @@ class TestPostSearch():
         ranges = {}
 
         # Invoke method
-        response = service.post_search(
+        response = _service.post_search(
             db,
             ddoc,
             index,
@@ -7619,10 +7999,10 @@ class TestPostSearch():
         assert req_body['bookmark'] == 'testString'
         assert req_body['highlight_fields'] == ['testString']
         assert req_body['highlight_number'] == 1
-        assert req_body['highlight_post_tag'] == 'testString'
-        assert req_body['highlight_pre_tag'] == 'testString'
+        assert req_body['highlight_post_tag'] == '</em>'
+        assert req_body['highlight_pre_tag'] == '<em>'
         assert req_body['highlight_size'] == 1
-        assert req_body['include_docs'] == True
+        assert req_body['include_docs'] == False
         assert req_body['include_fields'] == ['testString']
         assert req_body['limit'] == 0
         assert req_body['sort'] == ['testString']
@@ -7641,8 +8021,8 @@ class TestPostSearch():
         test_post_search_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_search/testString')
-        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": {"anyKey": "anyValue"}}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_search/testString')
+        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -7657,10 +8037,10 @@ class TestPostSearch():
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
-        highlight_post_tag = 'testString'
-        highlight_pre_tag = 'testString'
+        highlight_post_tag = '</em>'
+        highlight_pre_tag = '<em>'
         highlight_size = 1
-        include_docs = True
+        include_docs = False
         include_fields = ['testString']
         limit = 0
         sort = ['testString']
@@ -7682,7 +8062,7 @@ class TestPostSearch():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_search(**req_copy)
+                _service.post_search(**req_copy)
 
 
 
@@ -7695,6 +8075,8 @@ class TestPostSearchAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7706,7 +8088,7 @@ class TestPostSearchAsStream():
         post_search_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_search/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -7722,10 +8104,10 @@ class TestPostSearchAsStream():
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
-        highlight_post_tag = 'testString'
-        highlight_pre_tag = 'testString'
+        highlight_post_tag = '</em>'
+        highlight_pre_tag = '<em>'
         highlight_size = 1
-        include_docs = True
+        include_docs = False
         include_fields = ['testString']
         limit = 3
         sort = ['testString']
@@ -7738,7 +8120,7 @@ class TestPostSearchAsStream():
         ranges = {}
 
         # Invoke method
-        response = service.post_search_as_stream(
+        response = _service.post_search_as_stream(
             db,
             ddoc,
             index,
@@ -7775,10 +8157,10 @@ class TestPostSearchAsStream():
         assert req_body['bookmark'] == 'testString'
         assert req_body['highlight_fields'] == ['testString']
         assert req_body['highlight_number'] == 1
-        assert req_body['highlight_post_tag'] == 'testString'
-        assert req_body['highlight_pre_tag'] == 'testString'
+        assert req_body['highlight_post_tag'] == '</em>'
+        assert req_body['highlight_pre_tag'] == '<em>'
         assert req_body['highlight_size'] == 1
-        assert req_body['include_docs'] == True
+        assert req_body['include_docs'] == False
         assert req_body['include_fields'] == ['testString']
         assert req_body['limit'] == 3
         assert req_body['sort'] == ['testString']
@@ -7803,7 +8185,7 @@ class TestPostSearchAsStream():
         test_post_search_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_search/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -7819,10 +8201,10 @@ class TestPostSearchAsStream():
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
-        highlight_post_tag = 'testString'
-        highlight_pre_tag = 'testString'
+        highlight_post_tag = '</em>'
+        highlight_pre_tag = '<em>'
         highlight_size = 1
-        include_docs = True
+        include_docs = False
         include_fields = ['testString']
         limit = 3
         sort = ['testString']
@@ -7844,7 +8226,7 @@ class TestPostSearchAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_search_as_stream(**req_copy)
+                _service.post_search_as_stream(**req_copy)
 
 
 
@@ -7857,6 +8239,8 @@ class TestGetSearchInfo():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7868,7 +8252,7 @@ class TestGetSearchInfo():
         get_search_info()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_search_info/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_search_info/testString')
         mock_response = '{"name": "name", "search_index": {"committed_seq": 13, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 11}}'
         responses.add(responses.GET,
                       url,
@@ -7882,7 +8266,7 @@ class TestGetSearchInfo():
         index = 'testString'
 
         # Invoke method
-        response = service.get_search_info(
+        response = _service.get_search_info(
             db,
             ddoc,
             index,
@@ -7900,7 +8284,7 @@ class TestGetSearchInfo():
         test_get_search_info_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_search_info/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_search_info/testString')
         mock_response = '{"name": "name", "search_index": {"committed_seq": 13, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 11}}'
         responses.add(responses.GET,
                       url,
@@ -7922,7 +8306,7 @@ class TestGetSearchInfo():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_search_info(**req_copy)
+                _service.get_search_info(**req_copy)
 
 
 
@@ -7936,6 +8320,32 @@ class TestGetSearchInfo():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestGetGeo():
     """
     Test Class for get_geo
@@ -7945,6 +8355,8 @@ class TestGetGeo():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -7956,8 +8368,8 @@ class TestGetGeo():
         get_geo()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_geo/testString')
-        mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": [{"anyKey": "anyValue"}]}, "properties": {"mapKey": {"anyKey": "anyValue"}}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": [{"anyKey": "anyValue"}]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo/testString')
+        mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "properties": {"mapKey": "anyValue"}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -7970,22 +8382,22 @@ class TestGetGeo():
         index = 'testString'
         bbox = 'testString'
         bookmark = 'testString'
-        format = 'legacy'
+        format = 'view'
         g = 'testString'
-        include_docs = True
+        include_docs = False
         lat = -90
         limit = 0
         lon = -180
-        nearest = True
+        nearest = False
         radius = 0
         rangex = 0
         rangey = 0
-        relation = 'contains'
+        relation = 'intersects'
         skip = 0
         stale = 'ok'
 
         # Invoke method
-        response = service.get_geo(
+        response = _service.get_geo(
             db,
             ddoc,
             index,
@@ -8036,8 +8448,8 @@ class TestGetGeo():
         test_get_geo_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_geo/testString')
-        mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": [{"anyKey": "anyValue"}]}, "properties": {"mapKey": {"anyKey": "anyValue"}}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": [{"anyKey": "anyValue"}]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo/testString')
+        mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "properties": {"mapKey": "anyValue"}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -8050,7 +8462,7 @@ class TestGetGeo():
         index = 'testString'
 
         # Invoke method
-        response = service.get_geo(
+        response = _service.get_geo(
             db,
             ddoc,
             index,
@@ -8068,8 +8480,8 @@ class TestGetGeo():
         test_get_geo_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_geo/testString')
-        mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": [{"anyKey": "anyValue"}]}, "properties": {"mapKey": {"anyKey": "anyValue"}}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": [{"anyKey": "anyValue"}]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo/testString')
+        mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "properties": {"mapKey": "anyValue"}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -8090,7 +8502,7 @@ class TestGetGeo():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_geo(**req_copy)
+                _service.get_geo(**req_copy)
 
 
 
@@ -8103,6 +8515,8 @@ class TestGetGeoAsStream():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8114,7 +8528,7 @@ class TestGetGeoAsStream():
         get_geo_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_geo/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.GET,
                       url,
@@ -8128,22 +8542,22 @@ class TestGetGeoAsStream():
         index = 'testString'
         bbox = 'testString'
         bookmark = 'testString'
-        format = 'legacy'
+        format = 'view'
         g = 'testString'
-        include_docs = True
+        include_docs = False
         lat = -90
         limit = 0
         lon = -180
-        nearest = True
+        nearest = False
         radius = 0
         rangex = 0
         rangey = 0
-        relation = 'contains'
+        relation = 'intersects'
         skip = 0
         stale = 'ok'
 
         # Invoke method
-        response = service.get_geo_as_stream(
+        response = _service.get_geo_as_stream(
             db,
             ddoc,
             index,
@@ -8200,7 +8614,7 @@ class TestGetGeoAsStream():
         test_get_geo_as_stream_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_geo/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.GET,
                       url,
@@ -8214,7 +8628,7 @@ class TestGetGeoAsStream():
         index = 'testString'
 
         # Invoke method
-        response = service.get_geo_as_stream(
+        response = _service.get_geo_as_stream(
             db,
             ddoc,
             index,
@@ -8238,7 +8652,7 @@ class TestGetGeoAsStream():
         test_get_geo_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_geo/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.GET,
                       url,
@@ -8260,7 +8674,7 @@ class TestGetGeoAsStream():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_geo_as_stream(**req_copy)
+                _service.get_geo_as_stream(**req_copy)
 
 
 
@@ -8273,6 +8687,8 @@ class TestPostGeoCleanup():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8284,7 +8700,7 @@ class TestPostGeoCleanup():
         post_geo_cleanup()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_geo_cleanup')
+        url = self.preprocess_url(_base_url + '/testString/_geo_cleanup')
         mock_response = '{"ok": true}'
         responses.add(responses.POST,
                       url,
@@ -8296,7 +8712,7 @@ class TestPostGeoCleanup():
         db = 'testString'
 
         # Invoke method
-        response = service.post_geo_cleanup(
+        response = _service.post_geo_cleanup(
             db,
             headers={}
         )
@@ -8312,7 +8728,7 @@ class TestPostGeoCleanup():
         test_post_geo_cleanup_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_geo_cleanup')
+        url = self.preprocess_url(_base_url + '/testString/_geo_cleanup')
         mock_response = '{"ok": true}'
         responses.add(responses.POST,
                       url,
@@ -8330,7 +8746,7 @@ class TestPostGeoCleanup():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_geo_cleanup(**req_copy)
+                _service.post_geo_cleanup(**req_copy)
 
 
 
@@ -8343,6 +8759,8 @@ class TestGetGeoIndexInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8354,7 +8772,7 @@ class TestGetGeoIndexInformation():
         get_geo_index_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_geo_info/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo_info/testString')
         mock_response = '{"geo_index": {"data_size": 0, "disk_size": 0, "doc_count": 0}, "name": "name"}'
         responses.add(responses.GET,
                       url,
@@ -8368,7 +8786,7 @@ class TestGetGeoIndexInformation():
         index = 'testString'
 
         # Invoke method
-        response = service.get_geo_index_information(
+        response = _service.get_geo_index_information(
             db,
             ddoc,
             index,
@@ -8386,7 +8804,7 @@ class TestGetGeoIndexInformation():
         test_get_geo_index_information_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_design/testString/_geo_info/testString')
+        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo_info/testString')
         mock_response = '{"geo_index": {"data_size": 0, "disk_size": 0, "doc_count": 0}, "name": "name"}'
         responses.add(responses.GET,
                       url,
@@ -8408,7 +8826,7 @@ class TestGetGeoIndexInformation():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_geo_index_information(**req_copy)
+                _service.get_geo_index_information(**req_copy)
 
 
 
@@ -8422,6 +8840,32 @@ class TestGetGeoIndexInformation():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestHeadReplicationDocument():
     """
     Test Class for head_replication_document
@@ -8431,6 +8875,8 @@ class TestHeadReplicationDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8442,7 +8888,7 @@ class TestHeadReplicationDocument():
         head_replication_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_replicator/testString')
+        url = self.preprocess_url(_base_url + '/_replicator/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -8452,7 +8898,7 @@ class TestHeadReplicationDocument():
         if_none_match = 'testString'
 
         # Invoke method
-        response = service.head_replication_document(
+        response = _service.head_replication_document(
             doc_id,
             if_none_match=if_none_match,
             headers={}
@@ -8469,7 +8915,7 @@ class TestHeadReplicationDocument():
         test_head_replication_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_replicator/testString')
+        url = self.preprocess_url(_base_url + '/_replicator/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -8478,7 +8924,7 @@ class TestHeadReplicationDocument():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.head_replication_document(
+        response = _service.head_replication_document(
             doc_id,
             headers={}
         )
@@ -8494,7 +8940,7 @@ class TestHeadReplicationDocument():
         test_head_replication_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_replicator/testString')
+        url = self.preprocess_url(_base_url + '/_replicator/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -8509,7 +8955,7 @@ class TestHeadReplicationDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.head_replication_document(**req_copy)
+                _service.head_replication_document(**req_copy)
 
 
 
@@ -8522,6 +8968,8 @@ class TestHeadSchedulerDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8533,7 +8981,7 @@ class TestHeadSchedulerDocument():
         head_scheduler_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_scheduler/docs/_replicator/testString')
+        url = self.preprocess_url(_base_url + '/_scheduler/docs/_replicator/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -8542,7 +8990,7 @@ class TestHeadSchedulerDocument():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.head_scheduler_document(
+        response = _service.head_scheduler_document(
             doc_id,
             headers={}
         )
@@ -8558,7 +9006,7 @@ class TestHeadSchedulerDocument():
         test_head_scheduler_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_scheduler/docs/_replicator/testString')
+        url = self.preprocess_url(_base_url + '/_scheduler/docs/_replicator/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -8573,7 +9021,7 @@ class TestHeadSchedulerDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.head_scheduler_document(**req_copy)
+                _service.head_scheduler_document(**req_copy)
 
 
 
@@ -8586,6 +9034,8 @@ class TestHeadSchedulerJob():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8597,7 +9047,7 @@ class TestHeadSchedulerJob():
         head_scheduler_job()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_scheduler/jobs/testString')
+        url = self.preprocess_url(_base_url + '/_scheduler/jobs/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -8606,7 +9056,7 @@ class TestHeadSchedulerJob():
         job_id = 'testString'
 
         # Invoke method
-        response = service.head_scheduler_job(
+        response = _service.head_scheduler_job(
             job_id,
             headers={}
         )
@@ -8622,7 +9072,7 @@ class TestHeadSchedulerJob():
         test_head_scheduler_job_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_scheduler/jobs/testString')
+        url = self.preprocess_url(_base_url + '/_scheduler/jobs/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -8637,7 +9087,7 @@ class TestHeadSchedulerJob():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.head_scheduler_job(**req_copy)
+                _service.head_scheduler_job(**req_copy)
 
 
 
@@ -8650,6 +9100,8 @@ class TestDeleteReplicationDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8661,7 +9113,7 @@ class TestDeleteReplicationDocument():
         delete_replication_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_replicator/testString')
+        url = self.preprocess_url(_base_url + '/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -8676,7 +9128,7 @@ class TestDeleteReplicationDocument():
         rev = 'testString'
 
         # Invoke method
-        response = service.delete_replication_document(
+        response = _service.delete_replication_document(
             doc_id,
             if_match=if_match,
             batch=batch,
@@ -8700,7 +9152,7 @@ class TestDeleteReplicationDocument():
         test_delete_replication_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_replicator/testString')
+        url = self.preprocess_url(_base_url + '/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -8712,7 +9164,7 @@ class TestDeleteReplicationDocument():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.delete_replication_document(
+        response = _service.delete_replication_document(
             doc_id,
             headers={}
         )
@@ -8728,7 +9180,7 @@ class TestDeleteReplicationDocument():
         test_delete_replication_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_replicator/testString')
+        url = self.preprocess_url(_base_url + '/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -8746,7 +9198,7 @@ class TestDeleteReplicationDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.delete_replication_document(**req_copy)
+                _service.delete_replication_document(**req_copy)
 
 
 
@@ -8759,6 +9211,8 @@ class TestGetReplicationDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8770,8 +9224,8 @@ class TestGetReplicationDocument():
         get_replication_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": true, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": {"anyKey": "anyValue"}}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": false, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
+        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -8781,19 +9235,19 @@ class TestGetReplicationDocument():
         # Set up parameter values
         doc_id = 'testString'
         if_none_match = 'testString'
-        attachments = True
-        att_encoding_info = True
-        conflicts = True
-        deleted_conflicts = True
-        latest = True
-        local_seq = True
-        meta = True
+        attachments = False
+        att_encoding_info = False
+        conflicts = False
+        deleted_conflicts = False
+        latest = False
+        local_seq = False
+        meta = False
         rev = 'testString'
-        revs = True
-        revs_info = True
+        revs = False
+        revs_info = False
 
         # Invoke method
-        response = service.get_replication_document(
+        response = _service.get_replication_document(
             doc_id,
             if_none_match=if_none_match,
             attachments=attachments,
@@ -8833,8 +9287,8 @@ class TestGetReplicationDocument():
         test_get_replication_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": true, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": {"anyKey": "anyValue"}}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": false, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
+        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -8845,7 +9299,7 @@ class TestGetReplicationDocument():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.get_replication_document(
+        response = _service.get_replication_document(
             doc_id,
             headers={}
         )
@@ -8861,8 +9315,8 @@ class TestGetReplicationDocument():
         test_get_replication_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": true, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": {"anyKey": "anyValue"}}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": false, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
+        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -8879,7 +9333,7 @@ class TestGetReplicationDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_replication_document(**req_copy)
+                _service.get_replication_document(**req_copy)
 
 
 
@@ -8892,6 +9346,8 @@ class TestPutReplicationDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -8903,7 +9359,7 @@ class TestPutReplicationDocument():
         put_replication_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_replicator/testString')
+        url = self.preprocess_url(_base_url + '/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -8936,7 +9392,7 @@ class TestPutReplicationDocument():
         # Construct a dict representation of a ReplicationCreateTargetParameters model
         replication_create_target_parameters_model = {}
         replication_create_target_parameters_model['n'] = 1
-        replication_create_target_parameters_model['partitioned'] = True
+        replication_create_target_parameters_model['partitioned'] = False
         replication_create_target_parameters_model['q'] = 1
 
         # Construct a dict representation of a ReplicationDatabaseAuthIam model
@@ -8973,8 +9429,8 @@ class TestPutReplicationDocument():
         replication_document_model['cancel'] = True
         replication_document_model['checkpoint_interval'] = 0
         replication_document_model['connection_timeout'] = 0
-        replication_document_model['continuous'] = True
-        replication_document_model['create_target'] = True
+        replication_document_model['continuous'] = False
+        replication_document_model['create_target'] = False
         replication_document_model['create_target_params'] = replication_create_target_parameters_model
         replication_document_model['doc_ids'] = ['testString']
         replication_document_model['filter'] = 'testString'
@@ -8992,18 +9448,18 @@ class TestPutReplicationDocument():
         replication_document_model['user_ctx'] = user_context_model
         replication_document_model['worker_batch_size'] = 1
         replication_document_model['worker_processes'] = 1
-        replication_document_model['foo'] = { 'foo': 'bar' }
+        replication_document_model['foo'] = 'testString'
 
         # Set up parameter values
         doc_id = 'testString'
         replication_document = replication_document_model
         if_match = 'testString'
         batch = 'ok'
-        new_edits = True
+        new_edits = False
         rev = 'testString'
 
         # Invoke method
-        response = service.put_replication_document(
+        response = _service.put_replication_document(
             doc_id,
             replication_document,
             if_match=if_match,
@@ -9036,7 +9492,7 @@ class TestPutReplicationDocument():
         test_put_replication_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_replicator/testString')
+        url = self.preprocess_url(_base_url + '/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -9069,7 +9525,7 @@ class TestPutReplicationDocument():
         # Construct a dict representation of a ReplicationCreateTargetParameters model
         replication_create_target_parameters_model = {}
         replication_create_target_parameters_model['n'] = 1
-        replication_create_target_parameters_model['partitioned'] = True
+        replication_create_target_parameters_model['partitioned'] = False
         replication_create_target_parameters_model['q'] = 1
 
         # Construct a dict representation of a ReplicationDatabaseAuthIam model
@@ -9106,8 +9562,8 @@ class TestPutReplicationDocument():
         replication_document_model['cancel'] = True
         replication_document_model['checkpoint_interval'] = 0
         replication_document_model['connection_timeout'] = 0
-        replication_document_model['continuous'] = True
-        replication_document_model['create_target'] = True
+        replication_document_model['continuous'] = False
+        replication_document_model['create_target'] = False
         replication_document_model['create_target_params'] = replication_create_target_parameters_model
         replication_document_model['doc_ids'] = ['testString']
         replication_document_model['filter'] = 'testString'
@@ -9125,14 +9581,14 @@ class TestPutReplicationDocument():
         replication_document_model['user_ctx'] = user_context_model
         replication_document_model['worker_batch_size'] = 1
         replication_document_model['worker_processes'] = 1
-        replication_document_model['foo'] = { 'foo': 'bar' }
+        replication_document_model['foo'] = 'testString'
 
         # Set up parameter values
         doc_id = 'testString'
         replication_document = replication_document_model
 
         # Invoke method
-        response = service.put_replication_document(
+        response = _service.put_replication_document(
             doc_id,
             replication_document,
             headers={}
@@ -9155,7 +9611,7 @@ class TestPutReplicationDocument():
         test_put_replication_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_replicator/testString')
+        url = self.preprocess_url(_base_url + '/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -9188,7 +9644,7 @@ class TestPutReplicationDocument():
         # Construct a dict representation of a ReplicationCreateTargetParameters model
         replication_create_target_parameters_model = {}
         replication_create_target_parameters_model['n'] = 1
-        replication_create_target_parameters_model['partitioned'] = True
+        replication_create_target_parameters_model['partitioned'] = False
         replication_create_target_parameters_model['q'] = 1
 
         # Construct a dict representation of a ReplicationDatabaseAuthIam model
@@ -9225,8 +9681,8 @@ class TestPutReplicationDocument():
         replication_document_model['cancel'] = True
         replication_document_model['checkpoint_interval'] = 0
         replication_document_model['connection_timeout'] = 0
-        replication_document_model['continuous'] = True
-        replication_document_model['create_target'] = True
+        replication_document_model['continuous'] = False
+        replication_document_model['create_target'] = False
         replication_document_model['create_target_params'] = replication_create_target_parameters_model
         replication_document_model['doc_ids'] = ['testString']
         replication_document_model['filter'] = 'testString'
@@ -9244,7 +9700,7 @@ class TestPutReplicationDocument():
         replication_document_model['user_ctx'] = user_context_model
         replication_document_model['worker_batch_size'] = 1
         replication_document_model['worker_processes'] = 1
-        replication_document_model['foo'] = { 'foo': 'bar' }
+        replication_document_model['foo'] = 'testString'
 
         # Set up parameter values
         doc_id = 'testString'
@@ -9258,7 +9714,7 @@ class TestPutReplicationDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.put_replication_document(**req_copy)
+                _service.put_replication_document(**req_copy)
 
 
 
@@ -9271,6 +9727,8 @@ class TestGetSchedulerDocs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9282,7 +9740,7 @@ class TestGetSchedulerDocs():
         get_scheduler_docs()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_scheduler/docs')
+        url = self.preprocess_url(_base_url + '/_scheduler/docs')
         mock_response = '{"total_rows": 0, "docs": [{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00.000Z", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00.000Z", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}]}'
         responses.add(responses.GET,
                       url,
@@ -9296,7 +9754,7 @@ class TestGetSchedulerDocs():
         states = ['initializing']
 
         # Invoke method
-        response = service.get_scheduler_docs(
+        response = _service.get_scheduler_docs(
             limit=limit,
             skip=skip,
             states=states,
@@ -9320,7 +9778,7 @@ class TestGetSchedulerDocs():
         test_get_scheduler_docs_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_scheduler/docs')
+        url = self.preprocess_url(_base_url + '/_scheduler/docs')
         mock_response = '{"total_rows": 0, "docs": [{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00.000Z", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00.000Z", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}]}'
         responses.add(responses.GET,
                       url,
@@ -9329,7 +9787,7 @@ class TestGetSchedulerDocs():
                       status=200)
 
         # Invoke method
-        response = service.get_scheduler_docs()
+        response = _service.get_scheduler_docs()
 
 
         # Check for correct operation
@@ -9346,6 +9804,8 @@ class TestGetSchedulerDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9357,7 +9817,7 @@ class TestGetSchedulerDocument():
         get_scheduler_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_scheduler/docs/_replicator/testString')
+        url = self.preprocess_url(_base_url + '/_scheduler/docs/_replicator/testString')
         mock_response = '{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00.000Z", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00.000Z", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}'
         responses.add(responses.GET,
                       url,
@@ -9369,7 +9829,7 @@ class TestGetSchedulerDocument():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.get_scheduler_document(
+        response = _service.get_scheduler_document(
             doc_id,
             headers={}
         )
@@ -9385,7 +9845,7 @@ class TestGetSchedulerDocument():
         test_get_scheduler_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_scheduler/docs/_replicator/testString')
+        url = self.preprocess_url(_base_url + '/_scheduler/docs/_replicator/testString')
         mock_response = '{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00.000Z", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00.000Z", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}'
         responses.add(responses.GET,
                       url,
@@ -9403,7 +9863,7 @@ class TestGetSchedulerDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_scheduler_document(**req_copy)
+                _service.get_scheduler_document(**req_copy)
 
 
 
@@ -9416,6 +9876,8 @@ class TestGetSchedulerJobs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9427,7 +9889,7 @@ class TestGetSchedulerJobs():
         get_scheduler_jobs()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_scheduler/jobs')
+        url = self.preprocess_url(_base_url + '/_scheduler/jobs')
         mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}]}'
         responses.add(responses.GET,
                       url,
@@ -9440,7 +9902,7 @@ class TestGetSchedulerJobs():
         skip = 0
 
         # Invoke method
-        response = service.get_scheduler_jobs(
+        response = _service.get_scheduler_jobs(
             limit=limit,
             skip=skip,
             headers={}
@@ -9462,7 +9924,7 @@ class TestGetSchedulerJobs():
         test_get_scheduler_jobs_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_scheduler/jobs')
+        url = self.preprocess_url(_base_url + '/_scheduler/jobs')
         mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}]}'
         responses.add(responses.GET,
                       url,
@@ -9471,7 +9933,7 @@ class TestGetSchedulerJobs():
                       status=200)
 
         # Invoke method
-        response = service.get_scheduler_jobs()
+        response = _service.get_scheduler_jobs()
 
 
         # Check for correct operation
@@ -9488,6 +9950,8 @@ class TestGetSchedulerJob():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9499,7 +9963,7 @@ class TestGetSchedulerJob():
         get_scheduler_job()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_scheduler/jobs/testString')
+        url = self.preprocess_url(_base_url + '/_scheduler/jobs/testString')
         mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}'
         responses.add(responses.GET,
                       url,
@@ -9511,7 +9975,7 @@ class TestGetSchedulerJob():
         job_id = 'testString'
 
         # Invoke method
-        response = service.get_scheduler_job(
+        response = _service.get_scheduler_job(
             job_id,
             headers={}
         )
@@ -9527,7 +9991,7 @@ class TestGetSchedulerJob():
         test_get_scheduler_job_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_scheduler/jobs/testString')
+        url = self.preprocess_url(_base_url + '/_scheduler/jobs/testString')
         mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}'
         responses.add(responses.GET,
                       url,
@@ -9545,7 +10009,7 @@ class TestGetSchedulerJob():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_scheduler_job(**req_copy)
+                _service.get_scheduler_job(**req_copy)
 
 
 
@@ -9559,6 +10023,32 @@ class TestGetSchedulerJob():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestGetSessionInformation():
     """
     Test Class for get_session_information
@@ -9568,6 +10058,8 @@ class TestGetSessionInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9579,7 +10071,7 @@ class TestGetSessionInformation():
         get_session_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_session')
+        url = self.preprocess_url(_base_url + '/_session')
         mock_response = '{"ok": true, "info": {"authenticated": "authenticated", "authentication_db": "authentication_db", "authentication_handlers": ["authentication_handlers"]}, "userCtx": {"db": "db", "name": "name", "roles": ["_reader"]}}'
         responses.add(responses.GET,
                       url,
@@ -9588,7 +10080,7 @@ class TestGetSessionInformation():
                       status=200)
 
         # Invoke method
-        response = service.get_session_information()
+        response = _service.get_session_information()
 
 
         # Check for correct operation
@@ -9606,6 +10098,32 @@ class TestGetSessionInformation():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestGetSecurity():
     """
     Test Class for get_security
@@ -9615,6 +10133,8 @@ class TestGetSecurity():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9626,7 +10146,7 @@ class TestGetSecurity():
         get_security()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_security')
+        url = self.preprocess_url(_base_url + '/testString/_security')
         mock_response = '{"admins": {"names": ["names"], "roles": ["roles"]}, "members": {"names": ["names"], "roles": ["roles"]}, "cloudant": {"mapKey": ["_reader"]}, "couchdb_auth_only": false}'
         responses.add(responses.GET,
                       url,
@@ -9638,7 +10158,7 @@ class TestGetSecurity():
         db = 'testString'
 
         # Invoke method
-        response = service.get_security(
+        response = _service.get_security(
             db,
             headers={}
         )
@@ -9654,7 +10174,7 @@ class TestGetSecurity():
         test_get_security_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_security')
+        url = self.preprocess_url(_base_url + '/testString/_security')
         mock_response = '{"admins": {"names": ["names"], "roles": ["roles"]}, "members": {"names": ["names"], "roles": ["roles"]}, "cloudant": {"mapKey": ["_reader"]}, "couchdb_auth_only": false}'
         responses.add(responses.GET,
                       url,
@@ -9672,7 +10192,7 @@ class TestGetSecurity():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_security(**req_copy)
+                _service.get_security(**req_copy)
 
 
 
@@ -9685,6 +10205,8 @@ class TestPutSecurity():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9696,7 +10218,7 @@ class TestPutSecurity():
         put_security()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_security')
+        url = self.preprocess_url(_base_url + '/testString/_security')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -9717,7 +10239,7 @@ class TestPutSecurity():
         couchdb_auth_only = True
 
         # Invoke method
-        response = service.put_security(
+        response = _service.put_security(
             db,
             admins=admins,
             members=members,
@@ -9746,7 +10268,7 @@ class TestPutSecurity():
         test_put_security_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_security')
+        url = self.preprocess_url(_base_url + '/testString/_security')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -9773,7 +10295,7 @@ class TestPutSecurity():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.put_security(**req_copy)
+                _service.put_security(**req_copy)
 
 
 
@@ -9786,6 +10308,8 @@ class TestPostApiKeys():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9797,7 +10321,7 @@ class TestPostApiKeys():
         post_api_keys()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/api_keys')
+        url = self.preprocess_url(_base_url + '/_api/v2/api_keys')
         mock_response = '{"ok": true, "key": "key", "password": "password"}'
         responses.add(responses.POST,
                       url,
@@ -9806,7 +10330,7 @@ class TestPostApiKeys():
                       status=201)
 
         # Invoke method
-        response = service.post_api_keys()
+        response = _service.post_api_keys()
 
 
         # Check for correct operation
@@ -9823,6 +10347,8 @@ class TestPutCloudantSecurityConfiguration():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9834,7 +10360,7 @@ class TestPutCloudantSecurityConfiguration():
         put_cloudant_security_configuration()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/db/testString/_security')
+        url = self.preprocess_url(_base_url + '/_api/v2/db/testString/_security')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -9855,7 +10381,7 @@ class TestPutCloudantSecurityConfiguration():
         couchdb_auth_only = True
 
         # Invoke method
-        response = service.put_cloudant_security_configuration(
+        response = _service.put_cloudant_security_configuration(
             db,
             cloudant,
             admins=admins,
@@ -9884,7 +10410,7 @@ class TestPutCloudantSecurityConfiguration():
         test_put_cloudant_security_configuration_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/db/testString/_security')
+        url = self.preprocess_url(_base_url + '/_api/v2/db/testString/_security')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -9912,7 +10438,7 @@ class TestPutCloudantSecurityConfiguration():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.put_cloudant_security_configuration(**req_copy)
+                _service.put_cloudant_security_configuration(**req_copy)
 
 
 
@@ -9926,6 +10452,32 @@ class TestPutCloudantSecurityConfiguration():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestGetCorsInformation():
     """
     Test Class for get_cors_information
@@ -9935,6 +10487,8 @@ class TestGetCorsInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9946,8 +10500,8 @@ class TestGetCorsInformation():
         get_cors_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/user/config/cors')
-        mock_response = '{"allow_credentials": false, "enable_cors": false, "origins": ["origins"]}'
+        url = self.preprocess_url(_base_url + '/_api/v2/user/config/cors')
+        mock_response = '{"allow_credentials": true, "enable_cors": true, "origins": ["origins"]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9955,7 +10509,7 @@ class TestGetCorsInformation():
                       status=200)
 
         # Invoke method
-        response = service.get_cors_information()
+        response = _service.get_cors_information()
 
 
         # Check for correct operation
@@ -9972,6 +10526,8 @@ class TestPutCorsConfiguration():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -9983,7 +10539,7 @@ class TestPutCorsConfiguration():
         put_cors_configuration()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/user/config/cors')
+        url = self.preprocess_url(_base_url + '/_api/v2/user/config/cors')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -9997,7 +10553,7 @@ class TestPutCorsConfiguration():
         enable_cors = True
 
         # Invoke method
-        response = service.put_cors_configuration(
+        response = _service.put_cors_configuration(
             origins,
             allow_credentials=allow_credentials,
             enable_cors=enable_cors,
@@ -10023,7 +10579,7 @@ class TestPutCorsConfiguration():
         test_put_cors_configuration_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/user/config/cors')
+        url = self.preprocess_url(_base_url + '/_api/v2/user/config/cors')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -10043,7 +10599,7 @@ class TestPutCorsConfiguration():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.put_cors_configuration(**req_copy)
+                _service.put_cors_configuration(**req_copy)
 
 
 
@@ -10057,6 +10613,32 @@ class TestPutCorsConfiguration():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestHeadAttachment():
     """
     Test Class for head_attachment
@@ -10066,6 +10648,8 @@ class TestHeadAttachment():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10077,7 +10661,7 @@ class TestHeadAttachment():
         head_attachment()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -10091,7 +10675,7 @@ class TestHeadAttachment():
         rev = 'testString'
 
         # Invoke method
-        response = service.head_attachment(
+        response = _service.head_attachment(
             db,
             doc_id,
             attachment_name,
@@ -10116,7 +10700,7 @@ class TestHeadAttachment():
         test_head_attachment_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -10127,7 +10711,7 @@ class TestHeadAttachment():
         attachment_name = 'testString'
 
         # Invoke method
-        response = service.head_attachment(
+        response = _service.head_attachment(
             db,
             doc_id,
             attachment_name,
@@ -10145,7 +10729,7 @@ class TestHeadAttachment():
         test_head_attachment_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -10164,7 +10748,7 @@ class TestHeadAttachment():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.head_attachment(**req_copy)
+                _service.head_attachment(**req_copy)
 
 
 
@@ -10177,6 +10761,8 @@ class TestDeleteAttachment():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10188,7 +10774,7 @@ class TestDeleteAttachment():
         delete_attachment()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -10205,7 +10791,7 @@ class TestDeleteAttachment():
         batch = 'ok'
 
         # Invoke method
-        response = service.delete_attachment(
+        response = _service.delete_attachment(
             db,
             doc_id,
             attachment_name,
@@ -10231,7 +10817,7 @@ class TestDeleteAttachment():
         test_delete_attachment_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -10245,7 +10831,7 @@ class TestDeleteAttachment():
         attachment_name = 'testString'
 
         # Invoke method
-        response = service.delete_attachment(
+        response = _service.delete_attachment(
             db,
             doc_id,
             attachment_name,
@@ -10263,7 +10849,7 @@ class TestDeleteAttachment():
         test_delete_attachment_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -10285,7 +10871,7 @@ class TestDeleteAttachment():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.delete_attachment(**req_copy)
+                _service.delete_attachment(**req_copy)
 
 
 
@@ -10298,6 +10884,8 @@ class TestGetAttachment():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10309,7 +10897,7 @@ class TestGetAttachment():
         get_attachment()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -10327,7 +10915,7 @@ class TestGetAttachment():
         rev = 'testString'
 
         # Invoke method
-        response = service.get_attachment(
+        response = _service.get_attachment(
             db,
             doc_id,
             attachment_name,
@@ -10353,7 +10941,7 @@ class TestGetAttachment():
         test_get_attachment_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -10367,7 +10955,7 @@ class TestGetAttachment():
         attachment_name = 'testString'
 
         # Invoke method
-        response = service.get_attachment(
+        response = _service.get_attachment(
             db,
             doc_id,
             attachment_name,
@@ -10385,7 +10973,7 @@ class TestGetAttachment():
         test_get_attachment_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -10407,7 +10995,7 @@ class TestGetAttachment():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_attachment(**req_copy)
+                _service.get_attachment(**req_copy)
 
 
 
@@ -10420,6 +11008,8 @@ class TestPutAttachment():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10431,7 +11021,7 @@ class TestPutAttachment():
         put_attachment()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -10444,12 +11034,12 @@ class TestPutAttachment():
         doc_id = 'testString'
         attachment_name = 'testString'
         attachment = io.BytesIO(b'This is a mock file.').getvalue()
-        content_type = 'testString'
+        content_type = 'application/octet-stream'
         if_match = 'testString'
         rev = 'testString'
 
         # Invoke method
-        response = service.put_attachment(
+        response = _service.put_attachment(
             db,
             doc_id,
             attachment_name,
@@ -10479,7 +11069,7 @@ class TestPutAttachment():
         test_put_attachment_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -10492,10 +11082,10 @@ class TestPutAttachment():
         doc_id = 'testString'
         attachment_name = 'testString'
         attachment = io.BytesIO(b'This is a mock file.').getvalue()
-        content_type = 'testString'
+        content_type = 'application/octet-stream'
 
         # Invoke method
-        response = service.put_attachment(
+        response = _service.put_attachment(
             db,
             doc_id,
             attachment_name,
@@ -10519,7 +11109,7 @@ class TestPutAttachment():
         test_put_attachment_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/testString/testString')
+        url = self.preprocess_url(_base_url + '/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -10532,7 +11122,7 @@ class TestPutAttachment():
         doc_id = 'testString'
         attachment_name = 'testString'
         attachment = io.BytesIO(b'This is a mock file.').getvalue()
-        content_type = 'testString'
+        content_type = 'application/octet-stream'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -10545,7 +11135,7 @@ class TestPutAttachment():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.put_attachment(**req_copy)
+                _service.put_attachment(**req_copy)
 
 
 
@@ -10559,6 +11149,32 @@ class TestPutAttachment():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestHeadLocalDocument():
     """
     Test Class for head_local_document
@@ -10568,6 +11184,8 @@ class TestHeadLocalDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10579,7 +11197,7 @@ class TestHeadLocalDocument():
         head_local_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        url = self.preprocess_url(_base_url + '/testString/_local/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -10590,7 +11208,7 @@ class TestHeadLocalDocument():
         if_none_match = 'testString'
 
         # Invoke method
-        response = service.head_local_document(
+        response = _service.head_local_document(
             db,
             doc_id,
             if_none_match=if_none_match,
@@ -10608,7 +11226,7 @@ class TestHeadLocalDocument():
         test_head_local_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        url = self.preprocess_url(_base_url + '/testString/_local/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -10618,7 +11236,7 @@ class TestHeadLocalDocument():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.head_local_document(
+        response = _service.head_local_document(
             db,
             doc_id,
             headers={}
@@ -10635,7 +11253,7 @@ class TestHeadLocalDocument():
         test_head_local_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        url = self.preprocess_url(_base_url + '/testString/_local/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -10652,7 +11270,7 @@ class TestHeadLocalDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.head_local_document(**req_copy)
+                _service.head_local_document(**req_copy)
 
 
 
@@ -10665,6 +11283,8 @@ class TestDeleteLocalDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10676,7 +11296,7 @@ class TestDeleteLocalDocument():
         delete_local_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        url = self.preprocess_url(_base_url + '/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -10690,7 +11310,7 @@ class TestDeleteLocalDocument():
         batch = 'ok'
 
         # Invoke method
-        response = service.delete_local_document(
+        response = _service.delete_local_document(
             db,
             doc_id,
             batch=batch,
@@ -10712,7 +11332,7 @@ class TestDeleteLocalDocument():
         test_delete_local_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        url = self.preprocess_url(_base_url + '/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -10725,7 +11345,7 @@ class TestDeleteLocalDocument():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.delete_local_document(
+        response = _service.delete_local_document(
             db,
             doc_id,
             headers={}
@@ -10742,7 +11362,7 @@ class TestDeleteLocalDocument():
         test_delete_local_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        url = self.preprocess_url(_base_url + '/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -10762,7 +11382,7 @@ class TestDeleteLocalDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.delete_local_document(**req_copy)
+                _service.delete_local_document(**req_copy)
 
 
 
@@ -10775,6 +11395,8 @@ class TestGetLocalDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10786,7 +11408,7 @@ class TestGetLocalDocument():
         get_local_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        url = self.preprocess_url(_base_url + '/testString/_local/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
         responses.add(responses.GET,
                       url,
@@ -10799,12 +11421,12 @@ class TestGetLocalDocument():
         doc_id = 'testString'
         accept = 'application/json'
         if_none_match = 'testString'
-        attachments = True
-        att_encoding_info = True
-        local_seq = True
+        attachments = False
+        att_encoding_info = False
+        local_seq = False
 
         # Invoke method
-        response = service.get_local_document(
+        response = _service.get_local_document(
             db,
             doc_id,
             accept=accept,
@@ -10832,7 +11454,7 @@ class TestGetLocalDocument():
         test_get_local_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        url = self.preprocess_url(_base_url + '/testString/_local/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
         responses.add(responses.GET,
                       url,
@@ -10845,7 +11467,7 @@ class TestGetLocalDocument():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.get_local_document(
+        response = _service.get_local_document(
             db,
             doc_id,
             headers={}
@@ -10862,7 +11484,7 @@ class TestGetLocalDocument():
         test_get_local_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        url = self.preprocess_url(_base_url + '/testString/_local/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
         responses.add(responses.GET,
                       url,
@@ -10882,7 +11504,7 @@ class TestGetLocalDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_local_document(**req_copy)
+                _service.get_local_document(**req_copy)
 
 
 
@@ -10895,6 +11517,8 @@ class TestPutLocalDocument():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -10906,7 +11530,7 @@ class TestPutLocalDocument():
         put_local_document()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        url = self.preprocess_url(_base_url + '/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -10947,7 +11571,16 @@ class TestPutLocalDocument():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -10957,7 +11590,7 @@ class TestPutLocalDocument():
         batch = 'ok'
 
         # Invoke method
-        response = service.put_local_document(
+        response = _service.put_local_document(
             db,
             doc_id,
             document,
@@ -10985,7 +11618,7 @@ class TestPutLocalDocument():
         test_put_local_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        url = self.preprocess_url(_base_url + '/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -11026,7 +11659,16 @@ class TestPutLocalDocument():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -11034,7 +11676,7 @@ class TestPutLocalDocument():
         document = document_model
 
         # Invoke method
-        response = service.put_local_document(
+        response = _service.put_local_document(
             db,
             doc_id,
             document,
@@ -11056,7 +11698,7 @@ class TestPutLocalDocument():
         test_put_local_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_local/testString')
+        url = self.preprocess_url(_base_url + '/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -11097,7 +11739,16 @@ class TestPutLocalDocument():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -11113,7 +11764,7 @@ class TestPutLocalDocument():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.put_local_document(**req_copy)
+                _service.put_local_document(**req_copy)
 
 
 
@@ -11127,6 +11778,32 @@ class TestPutLocalDocument():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestPostMissingRevs():
     """
     Test Class for post_missing_revs
@@ -11136,6 +11813,8 @@ class TestPostMissingRevs():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11147,7 +11826,7 @@ class TestPostMissingRevs():
         post_missing_revs()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_missing_revs')
+        url = self.preprocess_url(_base_url + '/testString/_missing_revs')
         mock_response = '{"missing_revs": {"mapKey": ["inner"]}}'
         responses.add(responses.POST,
                       url,
@@ -11160,7 +11839,7 @@ class TestPostMissingRevs():
         document_revisions = {}
 
         # Invoke method
-        response = service.post_missing_revs(
+        response = _service.post_missing_revs(
             db,
             document_revisions,
             headers={}
@@ -11183,7 +11862,7 @@ class TestPostMissingRevs():
         test_post_missing_revs_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_missing_revs')
+        url = self.preprocess_url(_base_url + '/testString/_missing_revs')
         mock_response = '{"missing_revs": {"mapKey": ["inner"]}}'
         responses.add(responses.POST,
                       url,
@@ -11203,7 +11882,7 @@ class TestPostMissingRevs():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_missing_revs(**req_copy)
+                _service.post_missing_revs(**req_copy)
 
 
 
@@ -11216,6 +11895,8 @@ class TestPostRevsDiff():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11227,7 +11908,7 @@ class TestPostRevsDiff():
         post_revs_diff()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_revs_diff')
+        url = self.preprocess_url(_base_url + '/testString/_revs_diff')
         mock_response = '{"mapKey": {"missing": ["missing"], "possible_ancestors": ["possible_ancestors"]}}'
         responses.add(responses.POST,
                       url,
@@ -11240,7 +11921,7 @@ class TestPostRevsDiff():
         document_revisions = {}
 
         # Invoke method
-        response = service.post_revs_diff(
+        response = _service.post_revs_diff(
             db,
             document_revisions,
             headers={}
@@ -11263,7 +11944,7 @@ class TestPostRevsDiff():
         test_post_revs_diff_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_revs_diff')
+        url = self.preprocess_url(_base_url + '/testString/_revs_diff')
         mock_response = '{"mapKey": {"missing": ["missing"], "possible_ancestors": ["possible_ancestors"]}}'
         responses.add(responses.POST,
                       url,
@@ -11283,7 +11964,7 @@ class TestPostRevsDiff():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_revs_diff(**req_copy)
+                _service.post_revs_diff(**req_copy)
 
 
 
@@ -11296,6 +11977,8 @@ class TestGetShardsInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11307,7 +11990,7 @@ class TestGetShardsInformation():
         get_shards_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_shards')
+        url = self.preprocess_url(_base_url + '/testString/_shards')
         mock_response = '{"shards": {"mapKey": ["inner"]}}'
         responses.add(responses.GET,
                       url,
@@ -11319,7 +12002,7 @@ class TestGetShardsInformation():
         db = 'testString'
 
         # Invoke method
-        response = service.get_shards_information(
+        response = _service.get_shards_information(
             db,
             headers={}
         )
@@ -11335,7 +12018,7 @@ class TestGetShardsInformation():
         test_get_shards_information_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_shards')
+        url = self.preprocess_url(_base_url + '/testString/_shards')
         mock_response = '{"shards": {"mapKey": ["inner"]}}'
         responses.add(responses.GET,
                       url,
@@ -11353,7 +12036,7 @@ class TestGetShardsInformation():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_shards_information(**req_copy)
+                _service.get_shards_information(**req_copy)
 
 
 
@@ -11366,6 +12049,8 @@ class TestGetDocumentShardsInfo():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11377,7 +12062,7 @@ class TestGetDocumentShardsInfo():
         get_document_shards_info()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_shards/testString')
+        url = self.preprocess_url(_base_url + '/testString/_shards/testString')
         mock_response = '{"nodes": ["nodes"], "range": "range"}'
         responses.add(responses.GET,
                       url,
@@ -11390,7 +12075,7 @@ class TestGetDocumentShardsInfo():
         doc_id = 'testString'
 
         # Invoke method
-        response = service.get_document_shards_info(
+        response = _service.get_document_shards_info(
             db,
             doc_id,
             headers={}
@@ -11407,7 +12092,7 @@ class TestGetDocumentShardsInfo():
         test_get_document_shards_info_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/testString/_shards/testString')
+        url = self.preprocess_url(_base_url + '/testString/_shards/testString')
         mock_response = '{"nodes": ["nodes"], "range": "range"}'
         responses.add(responses.GET,
                       url,
@@ -11427,7 +12112,7 @@ class TestGetDocumentShardsInfo():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.get_document_shards_info(**req_copy)
+                _service.get_document_shards_info(**req_copy)
 
 
 
@@ -11441,6 +12126,32 @@ class TestGetDocumentShardsInfo():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+            )
+
 class TestHeadUpInformation():
     """
     Test Class for head_up_information
@@ -11450,6 +12161,8 @@ class TestHeadUpInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11461,13 +12174,13 @@ class TestHeadUpInformation():
         head_up_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_up')
+        url = self.preprocess_url(_base_url + '/_up')
         responses.add(responses.HEAD,
                       url,
                       status=200)
 
         # Invoke method
-        response = service.head_up_information()
+        response = _service.head_up_information()
 
 
         # Check for correct operation
@@ -11484,6 +12197,8 @@ class TestGetActiveTasks():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11495,7 +12210,7 @@ class TestGetActiveTasks():
         get_active_tasks()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_active_tasks')
+        url = self.preprocess_url(_base_url + '/_active_tasks')
         mock_response = '[{"changes_done": 0, "database": "database", "node": "node", "pid": "pid", "progress": 0, "started_on": 0, "status": "status", "task": "task", "total_changes": 0, "type": "type", "updated_on": 0}]'
         responses.add(responses.GET,
                       url,
@@ -11504,7 +12219,7 @@ class TestGetActiveTasks():
                       status=200)
 
         # Invoke method
-        response = service.get_active_tasks()
+        response = _service.get_active_tasks()
 
 
         # Check for correct operation
@@ -11521,6 +12236,8 @@ class TestGetUpInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11532,7 +12249,7 @@ class TestGetUpInformation():
         get_up_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_up')
+        url = self.preprocess_url(_base_url + '/_up')
         mock_response = '{"seeds": {"anyKey": "anyValue"}, "status": "maintenance_mode"}'
         responses.add(responses.GET,
                       url,
@@ -11541,7 +12258,7 @@ class TestGetUpInformation():
                       status=200)
 
         # Invoke method
-        response = service.get_up_information()
+        response = _service.get_up_information()
 
 
         # Check for correct operation
@@ -11558,6 +12275,8 @@ class TestGetActivityTrackerEvents():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11569,7 +12288,7 @@ class TestGetActivityTrackerEvents():
         get_activity_tracker_events()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/user/activity_tracker/events')
+        url = self.preprocess_url(_base_url + '/_api/v2/user/activity_tracker/events')
         mock_response = '{"types": ["management"]}'
         responses.add(responses.GET,
                       url,
@@ -11578,7 +12297,7 @@ class TestGetActivityTrackerEvents():
                       status=200)
 
         # Invoke method
-        response = service.get_activity_tracker_events()
+        response = _service.get_activity_tracker_events()
 
 
         # Check for correct operation
@@ -11595,6 +12314,8 @@ class TestPostActivityTrackerEvents():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11606,7 +12327,7 @@ class TestPostActivityTrackerEvents():
         post_activity_tracker_events()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/user/activity_tracker/events')
+        url = self.preprocess_url(_base_url + '/_api/v2/user/activity_tracker/events')
         mock_response = '{"ok": true}'
         responses.add(responses.POST,
                       url,
@@ -11618,7 +12339,7 @@ class TestPostActivityTrackerEvents():
         types = ['management']
 
         # Invoke method
-        response = service.post_activity_tracker_events(
+        response = _service.post_activity_tracker_events(
             types,
             headers={}
         )
@@ -11640,7 +12361,7 @@ class TestPostActivityTrackerEvents():
         test_post_activity_tracker_events_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/user/activity_tracker/events')
+        url = self.preprocess_url(_base_url + '/_api/v2/user/activity_tracker/events')
         mock_response = '{"ok": true}'
         responses.add(responses.POST,
                       url,
@@ -11658,7 +12379,7 @@ class TestPostActivityTrackerEvents():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_activity_tracker_events(**req_copy)
+                _service.post_activity_tracker_events(**req_copy)
 
 
 
@@ -11671,6 +12392,8 @@ class TestGetCurrentThroughputInformation():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -11682,7 +12405,7 @@ class TestGetCurrentThroughputInformation():
         get_current_throughput_information()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/_api/v2/user/current/throughput')
+        url = self.preprocess_url(_base_url + '/_api/v2/user/current/throughput')
         mock_response = '{"throughput": {"query": 0, "read": 0, "write": 0}}'
         responses.add(responses.GET,
                       url,
@@ -11691,7 +12414,7 @@ class TestGetCurrentThroughputInformation():
                       status=200)
 
         # Invoke method
-        response = service.get_current_throughput_information()
+        response = _service.get_current_throughput_information()
 
 
         # Check for correct operation
@@ -11709,7 +12432,7 @@ class TestGetCurrentThroughputInformation():
 # Start of Model Tests
 ##############################################################################
 # region
-class TestActiveTask():
+class TestModel_ActiveTask():
     """
     Test Class for ActiveTask
     """
@@ -11748,7 +12471,7 @@ class TestActiveTask():
         active_task_model_json2 = active_task_model.to_dict()
         assert active_task_model_json2 == active_task_model_json
 
-class TestActivityTrackerEvents():
+class TestModel_ActivityTrackerEvents():
     """
     Test Class for ActivityTrackerEvents
     """
@@ -11777,7 +12500,7 @@ class TestActivityTrackerEvents():
         activity_tracker_events_model_json2 = activity_tracker_events_model.to_dict()
         assert activity_tracker_events_model_json2 == activity_tracker_events_model_json
 
-class TestAllDocsQueriesResult():
+class TestModel_AllDocsQueriesResult():
     """
     Test Class for AllDocsQueriesResult
     """
@@ -11818,7 +12541,7 @@ class TestAllDocsQueriesResult():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         docs_result_row_value_model = {} # DocsResultRowValue
         docs_result_row_value_model['rev'] = 'testString'
@@ -11856,7 +12579,7 @@ class TestAllDocsQueriesResult():
         all_docs_queries_result_model_json2 = all_docs_queries_result_model.to_dict()
         assert all_docs_queries_result_model_json2 == all_docs_queries_result_model_json
 
-class TestAllDocsQuery():
+class TestModel_AllDocsQuery():
     """
     Test Class for AllDocsQuery
     """
@@ -11868,15 +12591,15 @@ class TestAllDocsQuery():
 
         # Construct a json representation of a AllDocsQuery model
         all_docs_query_model_json = {}
-        all_docs_query_model_json['att_encoding_info'] = True
-        all_docs_query_model_json['attachments'] = True
-        all_docs_query_model_json['conflicts'] = True
-        all_docs_query_model_json['descending'] = True
-        all_docs_query_model_json['include_docs'] = True
+        all_docs_query_model_json['att_encoding_info'] = False
+        all_docs_query_model_json['attachments'] = False
+        all_docs_query_model_json['conflicts'] = False
+        all_docs_query_model_json['descending'] = False
+        all_docs_query_model_json['include_docs'] = False
         all_docs_query_model_json['inclusive_end'] = True
         all_docs_query_model_json['limit'] = 0
         all_docs_query_model_json['skip'] = 0
-        all_docs_query_model_json['update_seq'] = True
+        all_docs_query_model_json['update_seq'] = False
         all_docs_query_model_json['endkey'] = 'testString'
         all_docs_query_model_json['key'] = 'testString'
         all_docs_query_model_json['keys'] = ['testString']
@@ -11897,7 +12620,7 @@ class TestAllDocsQuery():
         all_docs_query_model_json2 = all_docs_query_model.to_dict()
         assert all_docs_query_model_json2 == all_docs_query_model_json
 
-class TestAllDocsResult():
+class TestModel_AllDocsResult():
     """
     Test Class for AllDocsResult
     """
@@ -11938,7 +12661,7 @@ class TestAllDocsResult():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         docs_result_row_value_model = {} # DocsResultRowValue
         docs_result_row_value_model['rev'] = 'testString'
@@ -11973,7 +12696,7 @@ class TestAllDocsResult():
         all_docs_result_model_json2 = all_docs_result_model.to_dict()
         assert all_docs_result_model_json2 == all_docs_result_model_json
 
-class TestAnalyzer():
+class TestModel_Analyzer():
     """
     Test Class for Analyzer
     """
@@ -12003,7 +12726,7 @@ class TestAnalyzer():
         analyzer_model_json2 = analyzer_model.to_dict()
         assert analyzer_model_json2 == analyzer_model_json
 
-class TestAnalyzerConfiguration():
+class TestModel_AnalyzerConfiguration():
     """
     Test Class for AnalyzerConfiguration
     """
@@ -12040,7 +12763,7 @@ class TestAnalyzerConfiguration():
         analyzer_configuration_model_json2 = analyzer_configuration_model.to_dict()
         assert analyzer_configuration_model_json2 == analyzer_configuration_model_json
 
-class TestApiKeysResult():
+class TestModel_ApiKeysResult():
     """
     Test Class for ApiKeysResult
     """
@@ -12071,7 +12794,7 @@ class TestApiKeysResult():
         api_keys_result_model_json2 = api_keys_result_model.to_dict()
         assert api_keys_result_model_json2 == api_keys_result_model_json
 
-class TestAttachment():
+class TestModel_Attachment():
     """
     Test Class for Attachment
     """
@@ -12108,7 +12831,7 @@ class TestAttachment():
         attachment_model_json2 = attachment_model.to_dict()
         assert attachment_model_json2 == attachment_model_json
 
-class TestBulkDocs():
+class TestModel_BulkDocs():
     """
     Test Class for BulkDocs
     """
@@ -12149,7 +12872,7 @@ class TestBulkDocs():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         # Construct a json representation of a BulkDocs model
         bulk_docs_model_json = {}
@@ -12171,7 +12894,7 @@ class TestBulkDocs():
         bulk_docs_model_json2 = bulk_docs_model.to_dict()
         assert bulk_docs_model_json2 == bulk_docs_model_json
 
-class TestBulkGetQueryDocument():
+class TestModel_BulkGetQueryDocument():
     """
     Test Class for BulkGetQueryDocument
     """
@@ -12202,7 +12925,7 @@ class TestBulkGetQueryDocument():
         bulk_get_query_document_model_json2 = bulk_get_query_document_model.to_dict()
         assert bulk_get_query_document_model_json2 == bulk_get_query_document_model_json
 
-class TestBulkGetResult():
+class TestModel_BulkGetResult():
     """
     Test Class for BulkGetResult
     """
@@ -12251,7 +12974,7 @@ class TestBulkGetResult():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         bulk_get_result_document_model = {} # BulkGetResultDocument
         bulk_get_result_document_model['error'] = document_result_model
@@ -12280,7 +13003,7 @@ class TestBulkGetResult():
         bulk_get_result_model_json2 = bulk_get_result_model.to_dict()
         assert bulk_get_result_model_json2 == bulk_get_result_model_json
 
-class TestBulkGetResultDocument():
+class TestModel_BulkGetResultDocument():
     """
     Test Class for BulkGetResultDocument
     """
@@ -12329,7 +13052,7 @@ class TestBulkGetResultDocument():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         # Construct a json representation of a BulkGetResultDocument model
         bulk_get_result_document_model_json = {}
@@ -12351,7 +13074,7 @@ class TestBulkGetResultDocument():
         bulk_get_result_document_model_json2 = bulk_get_result_document_model.to_dict()
         assert bulk_get_result_document_model_json2 == bulk_get_result_document_model_json
 
-class TestBulkGetResultItem():
+class TestModel_BulkGetResultItem():
     """
     Test Class for BulkGetResultItem
     """
@@ -12400,7 +13123,7 @@ class TestBulkGetResultItem():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         bulk_get_result_document_model = {} # BulkGetResultDocument
         bulk_get_result_document_model['error'] = document_result_model
@@ -12426,7 +13149,7 @@ class TestBulkGetResultItem():
         bulk_get_result_item_model_json2 = bulk_get_result_item_model.to_dict()
         assert bulk_get_result_item_model_json2 == bulk_get_result_item_model_json
 
-class TestCapacityThroughputInformation():
+class TestModel_CapacityThroughputInformation():
     """
     Test Class for CapacityThroughputInformation
     """
@@ -12470,7 +13193,7 @@ class TestCapacityThroughputInformation():
         capacity_throughput_information_model_json2 = capacity_throughput_information_model.to_dict()
         assert capacity_throughput_information_model_json2 == capacity_throughput_information_model_json
 
-class TestCapacityThroughputInformationCurrent():
+class TestModel_CapacityThroughputInformationCurrent():
     """
     Test Class for CapacityThroughputInformationCurrent
     """
@@ -12507,7 +13230,7 @@ class TestCapacityThroughputInformationCurrent():
         capacity_throughput_information_current_model_json2 = capacity_throughput_information_current_model.to_dict()
         assert capacity_throughput_information_current_model_json2 == capacity_throughput_information_current_model_json
 
-class TestCapacityThroughputInformationTarget():
+class TestModel_CapacityThroughputInformationTarget():
     """
     Test Class for CapacityThroughputInformationTarget
     """
@@ -12544,7 +13267,7 @@ class TestCapacityThroughputInformationTarget():
         capacity_throughput_information_target_model_json2 = capacity_throughput_information_target_model.to_dict()
         assert capacity_throughput_information_target_model_json2 == capacity_throughput_information_target_model_json
 
-class TestChange():
+class TestModel_Change():
     """
     Test Class for Change
     """
@@ -12573,7 +13296,7 @@ class TestChange():
         change_model_json2 = change_model.to_dict()
         assert change_model_json2 == change_model_json
 
-class TestChangesResult():
+class TestModel_ChangesResult():
     """
     Test Class for ChangesResult
     """
@@ -12617,7 +13340,7 @@ class TestChangesResult():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         changes_result_item_model = {} # ChangesResultItem
         changes_result_item_model['changes'] = [change_model]
@@ -12647,7 +13370,7 @@ class TestChangesResult():
         changes_result_model_json2 = changes_result_model.to_dict()
         assert changes_result_model_json2 == changes_result_model_json
 
-class TestChangesResultItem():
+class TestModel_ChangesResultItem():
     """
     Test Class for ChangesResultItem
     """
@@ -12691,7 +13414,7 @@ class TestChangesResultItem():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         # Construct a json representation of a ChangesResultItem model
         changes_result_item_model_json = {}
@@ -12716,7 +13439,7 @@ class TestChangesResultItem():
         changes_result_item_model_json2 = changes_result_item_model.to_dict()
         assert changes_result_item_model_json2 == changes_result_item_model_json
 
-class TestContentInformationSizes():
+class TestModel_ContentInformationSizes():
     """
     Test Class for ContentInformationSizes
     """
@@ -12747,7 +13470,7 @@ class TestContentInformationSizes():
         content_information_sizes_model_json2 = content_information_sizes_model.to_dict()
         assert content_information_sizes_model_json2 == content_information_sizes_model_json
 
-class TestCorsInformation():
+class TestModel_CorsInformation():
     """
     Test Class for CorsInformation
     """
@@ -12778,7 +13501,7 @@ class TestCorsInformation():
         cors_information_model_json2 = cors_information_model.to_dict()
         assert cors_information_model_json2 == cors_information_model_json
 
-class TestCurrentThroughputInformation():
+class TestModel_CurrentThroughputInformation():
     """
     Test Class for CurrentThroughputInformation
     """
@@ -12814,7 +13537,7 @@ class TestCurrentThroughputInformation():
         current_throughput_information_model_json2 = current_throughput_information_model.to_dict()
         assert current_throughput_information_model_json2 == current_throughput_information_model_json
 
-class TestCurrentThroughputInformationThroughput():
+class TestModel_CurrentThroughputInformationThroughput():
     """
     Test Class for CurrentThroughputInformationThroughput
     """
@@ -12845,7 +13568,7 @@ class TestCurrentThroughputInformationThroughput():
         current_throughput_information_throughput_model_json2 = current_throughput_information_throughput_model.to_dict()
         assert current_throughput_information_throughput_model_json2 == current_throughput_information_throughput_model_json
 
-class TestDatabaseInformation():
+class TestModel_DatabaseInformation():
     """
     Test Class for DatabaseInformation
     """
@@ -12902,7 +13625,7 @@ class TestDatabaseInformation():
         database_information_model_json2 = database_information_model.to_dict()
         assert database_information_model_json2 == database_information_model_json
 
-class TestDatabaseInformationCluster():
+class TestModel_DatabaseInformationCluster():
     """
     Test Class for DatabaseInformationCluster
     """
@@ -12934,7 +13657,7 @@ class TestDatabaseInformationCluster():
         database_information_cluster_model_json2 = database_information_cluster_model.to_dict()
         assert database_information_cluster_model_json2 == database_information_cluster_model_json
 
-class TestDatabaseInformationProps():
+class TestModel_DatabaseInformationProps():
     """
     Test Class for DatabaseInformationProps
     """
@@ -12963,7 +13686,7 @@ class TestDatabaseInformationProps():
         database_information_props_model_json2 = database_information_props_model.to_dict()
         assert database_information_props_model_json2 == database_information_props_model_json
 
-class TestDbEvent():
+class TestModel_DbEvent():
     """
     Test Class for DbEvent
     """
@@ -12995,7 +13718,7 @@ class TestDbEvent():
         db_event_model_json2 = db_event_model.to_dict()
         assert db_event_model_json2 == db_event_model_json
 
-class TestDbUpdates():
+class TestModel_DbUpdates():
     """
     Test Class for DbUpdates
     """
@@ -13033,7 +13756,7 @@ class TestDbUpdates():
         db_updates_model_json2 = db_updates_model.to_dict()
         assert db_updates_model_json2 == db_updates_model_json
 
-class TestDbsInfoResult():
+class TestModel_DbsInfoResult():
     """
     Test Class for DbsInfoResult
     """
@@ -13094,7 +13817,7 @@ class TestDbsInfoResult():
         dbs_info_result_model_json2 = dbs_info_result_model.to_dict()
         assert dbs_info_result_model_json2 == dbs_info_result_model_json
 
-class TestDesignDocument():
+class TestModel_DesignDocument():
     """
     Test Class for DesignDocument
     """
@@ -13162,13 +13885,13 @@ class TestDesignDocument():
         design_document_model_json['autoupdate'] = True
         design_document_model_json['filters'] = {}
         design_document_model_json['indexes'] = {}
-        design_document_model_json['language'] = 'testString'
+        design_document_model_json['language'] = 'javascript'
         design_document_model_json['options'] = design_document_options_model
         design_document_model_json['updates'] = {}
         design_document_model_json['validate_doc_update'] = {}
         design_document_model_json['views'] = {}
         design_document_model_json['st_indexes'] = {}
-        design_document_model_json['foo'] = { 'foo': 'bar' }
+        design_document_model_json['foo'] = 'testString'
 
         # Construct a model instance of DesignDocument by calling from_dict on the json representation
         design_document_model = DesignDocument.from_dict(design_document_model_json)
@@ -13185,7 +13908,17 @@ class TestDesignDocument():
         design_document_model_json2 = design_document_model.to_dict()
         assert design_document_model_json2 == design_document_model_json
 
-class TestDesignDocumentInformation():
+        # Test get_properties and set_properties methods.
+        design_document_model.set_properties({})
+        actual_dict = design_document_model.get_properties()
+        assert actual_dict == {}
+
+        expected_dict = {'foo': 'testString'}
+        design_document_model.set_properties(expected_dict)
+        actual_dict = design_document_model.get_properties()
+        assert actual_dict == expected_dict
+
+class TestModel_DesignDocumentInformation():
     """
     Test Class for DesignDocumentInformation
     """
@@ -13232,7 +13965,7 @@ class TestDesignDocumentInformation():
         design_document_information_model_json2 = design_document_information_model.to_dict()
         assert design_document_information_model_json2 == design_document_information_model_json
 
-class TestDesignDocumentOptions():
+class TestModel_DesignDocumentOptions():
     """
     Test Class for DesignDocumentOptions
     """
@@ -13261,7 +13994,7 @@ class TestDesignDocumentOptions():
         design_document_options_model_json2 = design_document_options_model.to_dict()
         assert design_document_options_model_json2 == design_document_options_model_json
 
-class TestDesignDocumentViewIndex():
+class TestModel_DesignDocumentViewIndex():
     """
     Test Class for DesignDocumentViewIndex
     """
@@ -13304,7 +14037,7 @@ class TestDesignDocumentViewIndex():
         design_document_view_index_model_json2 = design_document_view_index_model.to_dict()
         assert design_document_view_index_model_json2 == design_document_view_index_model_json
 
-class TestDesignDocumentViewsMapReduce():
+class TestModel_DesignDocumentViewsMapReduce():
     """
     Test Class for DesignDocumentViewsMapReduce
     """
@@ -13334,7 +14067,7 @@ class TestDesignDocumentViewsMapReduce():
         design_document_views_map_reduce_model_json2 = design_document_views_map_reduce_model.to_dict()
         assert design_document_views_map_reduce_model_json2 == design_document_views_map_reduce_model_json
 
-class TestDocsResultRow():
+class TestModel_DocsResultRow():
     """
     Test Class for DocsResultRow
     """
@@ -13375,7 +14108,7 @@ class TestDocsResultRow():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         docs_result_row_value_model = {} # DocsResultRowValue
         docs_result_row_value_model['rev'] = 'testString'
@@ -13405,7 +14138,7 @@ class TestDocsResultRow():
         docs_result_row_model_json2 = docs_result_row_model.to_dict()
         assert docs_result_row_model_json2 == docs_result_row_model_json
 
-class TestDocsResultRowValue():
+class TestModel_DocsResultRowValue():
     """
     Test Class for DocsResultRowValue
     """
@@ -13434,7 +14167,7 @@ class TestDocsResultRowValue():
         docs_result_row_value_model_json2 = docs_result_row_value_model.to_dict()
         assert docs_result_row_value_model_json2 == docs_result_row_value_model_json
 
-class TestDocument():
+class TestModel_Document():
     """
     Test Class for Document
     """
@@ -13476,7 +14209,7 @@ class TestDocument():
         document_model_json['_rev'] = 'testString'
         document_model_json['_revisions'] = revisions_model
         document_model_json['_revs_info'] = [document_revision_status_model]
-        document_model_json['foo'] = { 'foo': 'bar' }
+        document_model_json['foo'] = 'testString'
 
         # Construct a model instance of Document by calling from_dict on the json representation
         document_model = Document.from_dict(document_model_json)
@@ -13493,7 +14226,17 @@ class TestDocument():
         document_model_json2 = document_model.to_dict()
         assert document_model_json2 == document_model_json
 
-class TestDocumentResult():
+        # Test get_properties and set_properties methods.
+        document_model.set_properties({})
+        actual_dict = document_model.get_properties()
+        assert actual_dict == {}
+
+        expected_dict = {'foo': 'testString'}
+        document_model.set_properties(expected_dict)
+        actual_dict = document_model.get_properties()
+        assert actual_dict == expected_dict
+
+class TestModel_DocumentResult():
     """
     Test Class for DocumentResult
     """
@@ -13527,7 +14270,7 @@ class TestDocumentResult():
         document_result_model_json2 = document_result_model.to_dict()
         assert document_result_model_json2 == document_result_model_json
 
-class TestDocumentRevisionStatus():
+class TestModel_DocumentRevisionStatus():
     """
     Test Class for DocumentRevisionStatus
     """
@@ -13557,7 +14300,7 @@ class TestDocumentRevisionStatus():
         document_revision_status_model_json2 = document_revision_status_model.to_dict()
         assert document_revision_status_model_json2 == document_revision_status_model_json
 
-class TestDocumentShardInfo():
+class TestModel_DocumentShardInfo():
     """
     Test Class for DocumentShardInfo
     """
@@ -13587,7 +14330,7 @@ class TestDocumentShardInfo():
         document_shard_info_model_json2 = document_shard_info_model.to_dict()
         assert document_shard_info_model_json2 == document_shard_info_model_json
 
-class TestExecutionStats():
+class TestModel_ExecutionStats():
     """
     Test Class for ExecutionStats
     """
@@ -13620,7 +14363,7 @@ class TestExecutionStats():
         execution_stats_model_json2 = execution_stats_model.to_dict()
         assert execution_stats_model_json2 == execution_stats_model_json
 
-class TestExplainResult():
+class TestModel_ExplainResult():
     """
     Test Class for ExplainResult
     """
@@ -13659,8 +14402,8 @@ class TestExplainResult():
         index_information_model['type'] = 'json'
 
         explain_result_range_model = {} # ExplainResultRange
-        explain_result_range_model['end_key'] = [{ 'foo': 'bar' }]
-        explain_result_range_model['start_key'] = [{ 'foo': 'bar' }]
+        explain_result_range_model['end_key'] = ['testString']
+        explain_result_range_model['start_key'] = ['testString']
 
         # Construct a json representation of a ExplainResult model
         explain_result_model_json = {}
@@ -13688,7 +14431,7 @@ class TestExplainResult():
         explain_result_model_json2 = explain_result_model.to_dict()
         assert explain_result_model_json2 == explain_result_model_json
 
-class TestExplainResultRange():
+class TestModel_ExplainResultRange():
     """
     Test Class for ExplainResultRange
     """
@@ -13700,8 +14443,8 @@ class TestExplainResultRange():
 
         # Construct a json representation of a ExplainResultRange model
         explain_result_range_model_json = {}
-        explain_result_range_model_json['end_key'] = [{ 'foo': 'bar' }]
-        explain_result_range_model_json['start_key'] = [{ 'foo': 'bar' }]
+        explain_result_range_model_json['end_key'] = ['testString']
+        explain_result_range_model_json['start_key'] = ['testString']
 
         # Construct a model instance of ExplainResultRange by calling from_dict on the json representation
         explain_result_range_model = ExplainResultRange.from_dict(explain_result_range_model_json)
@@ -13718,7 +14461,7 @@ class TestExplainResultRange():
         explain_result_range_model_json2 = explain_result_range_model.to_dict()
         assert explain_result_range_model_json2 == explain_result_range_model_json
 
-class TestFindResult():
+class TestModel_FindResult():
     """
     Test Class for FindResult
     """
@@ -13759,7 +14502,7 @@ class TestFindResult():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         execution_stats_model = {} # ExecutionStats
         execution_stats_model['execution_time_ms'] = 72.5
@@ -13790,7 +14533,7 @@ class TestFindResult():
         find_result_model_json2 = find_result_model.to_dict()
         assert find_result_model_json2 == find_result_model_json
 
-class TestGeoIndexDefinition():
+class TestModel_GeoIndexDefinition():
     """
     Test Class for GeoIndexDefinition
     """
@@ -13819,7 +14562,7 @@ class TestGeoIndexDefinition():
         geo_index_definition_model_json2 = geo_index_definition_model.to_dict()
         assert geo_index_definition_model_json2 == geo_index_definition_model_json
 
-class TestGeoIndexInformation():
+class TestModel_GeoIndexInformation():
     """
     Test Class for GeoIndexInformation
     """
@@ -13856,7 +14599,7 @@ class TestGeoIndexInformation():
         geo_index_information_model_json2 = geo_index_information_model.to_dict()
         assert geo_index_information_model_json2 == geo_index_information_model_json
 
-class TestGeoIndexStats():
+class TestModel_GeoIndexStats():
     """
     Test Class for GeoIndexStats
     """
@@ -13887,7 +14630,7 @@ class TestGeoIndexStats():
         geo_index_stats_model_json2 = geo_index_stats_model.to_dict()
         assert geo_index_stats_model_json2 == geo_index_stats_model_json
 
-class TestGeoJsonFeature():
+class TestModel_GeoJsonFeature():
     """
     Test Class for GeoJsonFeature
     """
@@ -13901,7 +14644,7 @@ class TestGeoJsonFeature():
 
         geo_json_geometry_object_model = {} # GeoJsonGeometry
         geo_json_geometry_object_model['type'] = 'Point'
-        geo_json_geometry_object_model['coordinates'] = [{ 'foo': 'bar' }]
+        geo_json_geometry_object_model['coordinates'] = ['testString']
 
         # Construct a json representation of a GeoJsonFeature model
         geo_json_feature_model_json = {}
@@ -13911,7 +14654,7 @@ class TestGeoJsonFeature():
         geo_json_feature_model_json['geometry'] = geo_json_geometry_object_model
         geo_json_feature_model_json['properties'] = {}
         geo_json_feature_model_json['type'] = 'Feature'
-        geo_json_feature_model_json['foo'] = { 'foo': 'bar' }
+        geo_json_feature_model_json['foo'] = 'testString'
 
         # Construct a model instance of GeoJsonFeature by calling from_dict on the json representation
         geo_json_feature_model = GeoJsonFeature.from_dict(geo_json_feature_model_json)
@@ -13928,7 +14671,17 @@ class TestGeoJsonFeature():
         geo_json_feature_model_json2 = geo_json_feature_model.to_dict()
         assert geo_json_feature_model_json2 == geo_json_feature_model_json
 
-class TestGeoResult():
+        # Test get_properties and set_properties methods.
+        geo_json_feature_model.set_properties({})
+        actual_dict = geo_json_feature_model.get_properties()
+        assert actual_dict == {}
+
+        expected_dict = {'foo': 'testString'}
+        geo_json_feature_model.set_properties(expected_dict)
+        actual_dict = geo_json_feature_model.get_properties()
+        assert actual_dict == expected_dict
+
+class TestModel_GeoResult():
     """
     Test Class for GeoResult
     """
@@ -13942,7 +14695,7 @@ class TestGeoResult():
 
         geo_json_geometry_object_model = {} # GeoJsonGeometry
         geo_json_geometry_object_model['type'] = 'Point'
-        geo_json_geometry_object_model['coordinates'] = [{ 'foo': 'bar' }]
+        geo_json_geometry_object_model['coordinates'] = ['testString']
 
         geo_json_feature_model = {} # GeoJsonFeature
         geo_json_feature_model['_id'] = 'testString'
@@ -13951,7 +14704,7 @@ class TestGeoResult():
         geo_json_feature_model['geometry'] = geo_json_geometry_object_model
         geo_json_feature_model['properties'] = {}
         geo_json_feature_model['type'] = 'Feature'
-        geo_json_feature_model['foo'] = { 'foo': 'bar' }
+        geo_json_feature_model['foo'] = 'testString'
 
         attachment_model = {} # Attachment
         attachment_model['content_type'] = 'testString'
@@ -13982,11 +14735,11 @@ class TestGeoResult():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         geo_json_geometry_model = {} # GeoJsonGeometry
         geo_json_geometry_model['type'] = 'Point'
-        geo_json_geometry_model['coordinates'] = [{ 'foo': 'bar' }]
+        geo_json_geometry_model['coordinates'] = ['testString']
 
         geo_result_row_model = {} # GeoResultRow
         geo_result_row_model['doc'] = document_model
@@ -14016,7 +14769,7 @@ class TestGeoResult():
         geo_result_model_json2 = geo_result_model.to_dict()
         assert geo_result_model_json2 == geo_result_model_json
 
-class TestGeoResultRow():
+class TestModel_GeoResultRow():
     """
     Test Class for GeoResultRow
     """
@@ -14057,11 +14810,11 @@ class TestGeoResultRow():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         geo_json_geometry_model = {} # GeoJsonGeometry
         geo_json_geometry_model['type'] = 'Point'
-        geo_json_geometry_model['coordinates'] = [{ 'foo': 'bar' }]
+        geo_json_geometry_model['coordinates'] = ['testString']
 
         # Construct a json representation of a GeoResultRow model
         geo_result_row_model_json = {}
@@ -14085,7 +14838,7 @@ class TestGeoResultRow():
         geo_result_row_model_json2 = geo_result_row_model.to_dict()
         assert geo_result_row_model_json2 == geo_result_row_model_json
 
-class TestIndexDefinition():
+class TestModel_IndexDefinition():
     """
     Test Class for IndexDefinition
     """
@@ -14133,7 +14886,7 @@ class TestIndexDefinition():
         index_definition_model_json2 = index_definition_model.to_dict()
         assert index_definition_model_json2 == index_definition_model_json
 
-class TestIndexField():
+class TestModel_IndexField():
     """
     Test Class for IndexField
     """
@@ -14164,7 +14917,17 @@ class TestIndexField():
         index_field_model_json2 = index_field_model.to_dict()
         assert index_field_model_json2 == index_field_model_json
 
-class TestIndexInformation():
+        # Test get_properties and set_properties methods.
+        index_field_model.set_properties({})
+        actual_dict = index_field_model.get_properties()
+        assert actual_dict == {}
+
+        expected_dict = {'foo': 'asc'}
+        index_field_model.set_properties(expected_dict)
+        actual_dict = index_field_model.get_properties()
+        assert actual_dict == expected_dict
+
+class TestModel_IndexInformation():
     """
     Test Class for IndexInformation
     """
@@ -14218,7 +14981,7 @@ class TestIndexInformation():
         index_information_model_json2 = index_information_model.to_dict()
         assert index_information_model_json2 == index_information_model_json
 
-class TestIndexResult():
+class TestModel_IndexResult():
     """
     Test Class for IndexResult
     """
@@ -14249,7 +15012,7 @@ class TestIndexResult():
         index_result_model_json2 = index_result_model.to_dict()
         assert index_result_model_json2 == index_result_model_json
 
-class TestIndexTextOperatorDefaultField():
+class TestModel_IndexTextOperatorDefaultField():
     """
     Test Class for IndexTextOperatorDefaultField
     """
@@ -14285,7 +15048,7 @@ class TestIndexTextOperatorDefaultField():
         index_text_operator_default_field_model_json2 = index_text_operator_default_field_model.to_dict()
         assert index_text_operator_default_field_model_json2 == index_text_operator_default_field_model_json
 
-class TestIndexesInformation():
+class TestModel_IndexesInformation():
     """
     Test Class for IndexesInformation
     """
@@ -14343,7 +15106,7 @@ class TestIndexesInformation():
         indexes_information_model_json2 = indexes_information_model.to_dict()
         assert indexes_information_model_json2 == indexes_information_model_json
 
-class TestMembershipInformation():
+class TestModel_MembershipInformation():
     """
     Test Class for MembershipInformation
     """
@@ -14373,7 +15136,7 @@ class TestMembershipInformation():
         membership_information_model_json2 = membership_information_model.to_dict()
         assert membership_information_model_json2 == membership_information_model_json
 
-class TestMissingRevsResult():
+class TestModel_MissingRevsResult():
     """
     Test Class for MissingRevsResult
     """
@@ -14402,7 +15165,7 @@ class TestMissingRevsResult():
         missing_revs_result_model_json2 = missing_revs_result_model.to_dict()
         assert missing_revs_result_model_json2 == missing_revs_result_model_json
 
-class TestOk():
+class TestModel_Ok():
     """
     Test Class for Ok
     """
@@ -14431,7 +15194,7 @@ class TestOk():
         ok_model_json2 = ok_model.to_dict()
         assert ok_model_json2 == ok_model_json
 
-class TestPartitionInformation():
+class TestModel_PartitionInformation():
     """
     Test Class for PartitionInformation
     """
@@ -14480,7 +15243,7 @@ class TestPartitionInformation():
         partition_information_model_json2 = partition_information_model.to_dict()
         assert partition_information_model_json2 == partition_information_model_json
 
-class TestPartitionInformationIndexes():
+class TestModel_PartitionInformationIndexes():
     """
     Test Class for PartitionInformationIndexes
     """
@@ -14517,7 +15280,7 @@ class TestPartitionInformationIndexes():
         partition_information_indexes_model_json2 = partition_information_indexes_model.to_dict()
         assert partition_information_indexes_model_json2 == partition_information_indexes_model_json
 
-class TestPartitionInformationIndexesIndexes():
+class TestModel_PartitionInformationIndexesIndexes():
     """
     Test Class for PartitionInformationIndexesIndexes
     """
@@ -14547,7 +15310,7 @@ class TestPartitionInformationIndexesIndexes():
         partition_information_indexes_indexes_model_json2 = partition_information_indexes_indexes_model.to_dict()
         assert partition_information_indexes_indexes_model_json2 == partition_information_indexes_indexes_model_json
 
-class TestPartitionInformationSizes():
+class TestModel_PartitionInformationSizes():
     """
     Test Class for PartitionInformationSizes
     """
@@ -14577,7 +15340,7 @@ class TestPartitionInformationSizes():
         partition_information_sizes_model_json2 = partition_information_sizes_model.to_dict()
         assert partition_information_sizes_model_json2 == partition_information_sizes_model_json
 
-class TestReplicationCreateTargetParameters():
+class TestModel_ReplicationCreateTargetParameters():
     """
     Test Class for ReplicationCreateTargetParameters
     """
@@ -14590,7 +15353,7 @@ class TestReplicationCreateTargetParameters():
         # Construct a json representation of a ReplicationCreateTargetParameters model
         replication_create_target_parameters_model_json = {}
         replication_create_target_parameters_model_json['n'] = 1
-        replication_create_target_parameters_model_json['partitioned'] = True
+        replication_create_target_parameters_model_json['partitioned'] = False
         replication_create_target_parameters_model_json['q'] = 1
 
         # Construct a model instance of ReplicationCreateTargetParameters by calling from_dict on the json representation
@@ -14608,7 +15371,7 @@ class TestReplicationCreateTargetParameters():
         replication_create_target_parameters_model_json2 = replication_create_target_parameters_model.to_dict()
         assert replication_create_target_parameters_model_json2 == replication_create_target_parameters_model_json
 
-class TestReplicationDatabase():
+class TestModel_ReplicationDatabase():
     """
     Test Class for ReplicationDatabase
     """
@@ -14647,7 +15410,7 @@ class TestReplicationDatabase():
         replication_database_model_json2 = replication_database_model.to_dict()
         assert replication_database_model_json2 == replication_database_model_json
 
-class TestReplicationDatabaseAuth():
+class TestModel_ReplicationDatabaseAuth():
     """
     Test Class for ReplicationDatabaseAuth
     """
@@ -14681,7 +15444,7 @@ class TestReplicationDatabaseAuth():
         replication_database_auth_model_json2 = replication_database_auth_model.to_dict()
         assert replication_database_auth_model_json2 == replication_database_auth_model_json
 
-class TestReplicationDatabaseAuthIam():
+class TestModel_ReplicationDatabaseAuthIam():
     """
     Test Class for ReplicationDatabaseAuthIam
     """
@@ -14710,7 +15473,7 @@ class TestReplicationDatabaseAuthIam():
         replication_database_auth_iam_model_json2 = replication_database_auth_iam_model.to_dict()
         assert replication_database_auth_iam_model_json2 == replication_database_auth_iam_model_json
 
-class TestReplicationDocument():
+class TestModel_ReplicationDocument():
     """
     Test Class for ReplicationDocument
     """
@@ -14743,7 +15506,7 @@ class TestReplicationDocument():
 
         replication_create_target_parameters_model = {} # ReplicationCreateTargetParameters
         replication_create_target_parameters_model['n'] = 1
-        replication_create_target_parameters_model['partitioned'] = True
+        replication_create_target_parameters_model['partitioned'] = False
         replication_create_target_parameters_model['q'] = 1
 
         replication_database_auth_iam_model = {} # ReplicationDatabaseAuthIam
@@ -14776,8 +15539,8 @@ class TestReplicationDocument():
         replication_document_model_json['cancel'] = True
         replication_document_model_json['checkpoint_interval'] = 0
         replication_document_model_json['connection_timeout'] = 0
-        replication_document_model_json['continuous'] = True
-        replication_document_model_json['create_target'] = True
+        replication_document_model_json['continuous'] = False
+        replication_document_model_json['create_target'] = False
         replication_document_model_json['create_target_params'] = replication_create_target_parameters_model
         replication_document_model_json['doc_ids'] = ['testString']
         replication_document_model_json['filter'] = 'testString'
@@ -14795,7 +15558,7 @@ class TestReplicationDocument():
         replication_document_model_json['user_ctx'] = user_context_model
         replication_document_model_json['worker_batch_size'] = 1
         replication_document_model_json['worker_processes'] = 1
-        replication_document_model_json['foo'] = { 'foo': 'bar' }
+        replication_document_model_json['foo'] = 'testString'
 
         # Construct a model instance of ReplicationDocument by calling from_dict on the json representation
         replication_document_model = ReplicationDocument.from_dict(replication_document_model_json)
@@ -14812,7 +15575,17 @@ class TestReplicationDocument():
         replication_document_model_json2 = replication_document_model.to_dict()
         assert replication_document_model_json2 == replication_document_model_json
 
-class TestRevisions():
+        # Test get_properties and set_properties methods.
+        replication_document_model.set_properties({})
+        actual_dict = replication_document_model.get_properties()
+        assert actual_dict == {}
+
+        expected_dict = {'foo': 'testString'}
+        replication_document_model.set_properties(expected_dict)
+        actual_dict = replication_document_model.get_properties()
+        assert actual_dict == expected_dict
+
+class TestModel_Revisions():
     """
     Test Class for Revisions
     """
@@ -14842,7 +15615,7 @@ class TestRevisions():
         revisions_model_json2 = revisions_model.to_dict()
         assert revisions_model_json2 == revisions_model_json
 
-class TestRevsDiff():
+class TestModel_RevsDiff():
     """
     Test Class for RevsDiff
     """
@@ -14872,7 +15645,7 @@ class TestRevsDiff():
         revs_diff_model_json2 = revs_diff_model.to_dict()
         assert revs_diff_model_json2 == revs_diff_model_json
 
-class TestSchedulerDocsResult():
+class TestModel_SchedulerDocsResult():
     """
     Test Class for SchedulerDocsResult
     """
@@ -14902,11 +15675,11 @@ class TestSchedulerDocsResult():
         scheduler_document_model['error_count'] = 0
         scheduler_document_model['id'] = 'testString'
         scheduler_document_model['info'] = scheduler_info_model
-        scheduler_document_model['last_updated'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
+        scheduler_document_model['last_updated'] = "2019-01-01T12:00:00Z"
         scheduler_document_model['node'] = 'testString'
         scheduler_document_model['source'] = 'testString'
         scheduler_document_model['source_proxy'] = 'testString'
-        scheduler_document_model['start_time'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
+        scheduler_document_model['start_time'] = "2019-01-01T12:00:00Z"
         scheduler_document_model['state'] = 'initializing'
         scheduler_document_model['target'] = 'testString'
         scheduler_document_model['target_proxy'] = 'testString'
@@ -14931,7 +15704,7 @@ class TestSchedulerDocsResult():
         scheduler_docs_result_model_json2 = scheduler_docs_result_model.to_dict()
         assert scheduler_docs_result_model_json2 == scheduler_docs_result_model_json
 
-class TestSchedulerDocument():
+class TestModel_SchedulerDocument():
     """
     Test Class for SchedulerDocument
     """
@@ -14962,11 +15735,11 @@ class TestSchedulerDocument():
         scheduler_document_model_json['error_count'] = 0
         scheduler_document_model_json['id'] = 'testString'
         scheduler_document_model_json['info'] = scheduler_info_model
-        scheduler_document_model_json['last_updated'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
+        scheduler_document_model_json['last_updated'] = "2019-01-01T12:00:00Z"
         scheduler_document_model_json['node'] = 'testString'
         scheduler_document_model_json['source'] = 'testString'
         scheduler_document_model_json['source_proxy'] = 'testString'
-        scheduler_document_model_json['start_time'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
+        scheduler_document_model_json['start_time'] = "2019-01-01T12:00:00Z"
         scheduler_document_model_json['state'] = 'initializing'
         scheduler_document_model_json['target'] = 'testString'
         scheduler_document_model_json['target_proxy'] = 'testString'
@@ -14986,7 +15759,7 @@ class TestSchedulerDocument():
         scheduler_document_model_json2 = scheduler_document_model.to_dict()
         assert scheduler_document_model_json2 == scheduler_document_model_json
 
-class TestSchedulerInfo():
+class TestModel_SchedulerInfo():
     """
     Test Class for SchedulerInfo
     """
@@ -15024,7 +15797,7 @@ class TestSchedulerInfo():
         scheduler_info_model_json2 = scheduler_info_model.to_dict()
         assert scheduler_info_model_json2 == scheduler_info_model_json
 
-class TestSchedulerJob():
+class TestModel_SchedulerJob():
     """
     Test Class for SchedulerJob
     """
@@ -15037,7 +15810,7 @@ class TestSchedulerJob():
         # Construct dict forms of any model objects needed in order to build this model.
 
         scheduler_job_event_model = {} # SchedulerJobEvent
-        scheduler_job_event_model['timestamp'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
+        scheduler_job_event_model['timestamp'] = "2019-01-01T12:00:00Z"
         scheduler_job_event_model['type'] = 'testString'
 
         scheduler_info_model = {} # SchedulerInfo
@@ -15062,7 +15835,7 @@ class TestSchedulerJob():
         scheduler_job_model_json['node'] = 'testString'
         scheduler_job_model_json['pid'] = 'testString'
         scheduler_job_model_json['source'] = 'testString'
-        scheduler_job_model_json['start_time'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
+        scheduler_job_model_json['start_time'] = "2019-01-01T12:00:00Z"
         scheduler_job_model_json['target'] = 'testString'
         scheduler_job_model_json['user'] = 'testString'
 
@@ -15081,7 +15854,7 @@ class TestSchedulerJob():
         scheduler_job_model_json2 = scheduler_job_model.to_dict()
         assert scheduler_job_model_json2 == scheduler_job_model_json
 
-class TestSchedulerJobEvent():
+class TestModel_SchedulerJobEvent():
     """
     Test Class for SchedulerJobEvent
     """
@@ -15093,7 +15866,7 @@ class TestSchedulerJobEvent():
 
         # Construct a json representation of a SchedulerJobEvent model
         scheduler_job_event_model_json = {}
-        scheduler_job_event_model_json['timestamp'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
+        scheduler_job_event_model_json['timestamp'] = "2019-01-01T12:00:00Z"
         scheduler_job_event_model_json['type'] = 'testString'
 
         # Construct a model instance of SchedulerJobEvent by calling from_dict on the json representation
@@ -15111,7 +15884,7 @@ class TestSchedulerJobEvent():
         scheduler_job_event_model_json2 = scheduler_job_event_model.to_dict()
         assert scheduler_job_event_model_json2 == scheduler_job_event_model_json
 
-class TestSchedulerJobsResult():
+class TestModel_SchedulerJobsResult():
     """
     Test Class for SchedulerJobsResult
     """
@@ -15124,7 +15897,7 @@ class TestSchedulerJobsResult():
         # Construct dict forms of any model objects needed in order to build this model.
 
         scheduler_job_event_model = {} # SchedulerJobEvent
-        scheduler_job_event_model['timestamp'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
+        scheduler_job_event_model['timestamp'] = "2019-01-01T12:00:00Z"
         scheduler_job_event_model['type'] = 'testString'
 
         scheduler_info_model = {} # SchedulerInfo
@@ -15148,7 +15921,7 @@ class TestSchedulerJobsResult():
         scheduler_job_model['node'] = 'testString'
         scheduler_job_model['pid'] = 'testString'
         scheduler_job_model['source'] = 'testString'
-        scheduler_job_model['start_time'] = datetime_to_string(string_to_datetime("2019-01-01T12:00:00.000Z"))
+        scheduler_job_model['start_time'] = "2019-01-01T12:00:00Z"
         scheduler_job_model['target'] = 'testString'
         scheduler_job_model['user'] = 'testString'
 
@@ -15172,7 +15945,7 @@ class TestSchedulerJobsResult():
         scheduler_jobs_result_model_json2 = scheduler_jobs_result_model.to_dict()
         assert scheduler_jobs_result_model_json2 == scheduler_jobs_result_model_json
 
-class TestSearchAnalyzeResult():
+class TestModel_SearchAnalyzeResult():
     """
     Test Class for SearchAnalyzeResult
     """
@@ -15201,7 +15974,7 @@ class TestSearchAnalyzeResult():
         search_analyze_result_model_json2 = search_analyze_result_model.to_dict()
         assert search_analyze_result_model_json2 == search_analyze_result_model_json
 
-class TestSearchIndexDefinition():
+class TestModel_SearchIndexDefinition():
     """
     Test Class for SearchIndexDefinition
     """
@@ -15242,7 +16015,7 @@ class TestSearchIndexDefinition():
         search_index_definition_model_json2 = search_index_definition_model.to_dict()
         assert search_index_definition_model_json2 == search_index_definition_model_json
 
-class TestSearchIndexInfo():
+class TestModel_SearchIndexInfo():
     """
     Test Class for SearchIndexInfo
     """
@@ -15275,7 +16048,7 @@ class TestSearchIndexInfo():
         search_index_info_model_json2 = search_index_info_model.to_dict()
         assert search_index_info_model_json2 == search_index_info_model_json
 
-class TestSearchInfoResult():
+class TestModel_SearchInfoResult():
     """
     Test Class for SearchInfoResult
     """
@@ -15314,7 +16087,7 @@ class TestSearchInfoResult():
         search_info_result_model_json2 = search_info_result_model.to_dict()
         assert search_info_result_model_json2 == search_info_result_model_json
 
-class TestSearchResult():
+class TestModel_SearchResult():
     """
     Test Class for SearchResult
     """
@@ -15355,7 +16128,7 @@ class TestSearchResult():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         search_result_row_model = {} # SearchResultRow
         search_result_row_model['doc'] = document_model
@@ -15396,7 +16169,7 @@ class TestSearchResult():
         search_result_model_json2 = search_result_model.to_dict()
         assert search_result_model_json2 == search_result_model_json
 
-class TestSearchResultProperties():
+class TestModel_SearchResultProperties():
     """
     Test Class for SearchResultProperties
     """
@@ -15437,7 +16210,7 @@ class TestSearchResultProperties():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         search_result_row_model = {} # SearchResultRow
         search_result_row_model['doc'] = document_model
@@ -15469,7 +16242,7 @@ class TestSearchResultProperties():
         search_result_properties_model_json2 = search_result_properties_model.to_dict()
         assert search_result_properties_model_json2 == search_result_properties_model_json
 
-class TestSearchResultRow():
+class TestModel_SearchResultRow():
     """
     Test Class for SearchResultRow
     """
@@ -15510,7 +16283,7 @@ class TestSearchResultRow():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         # Construct a json representation of a SearchResultRow model
         search_result_row_model_json = {}
@@ -15534,7 +16307,7 @@ class TestSearchResultRow():
         search_result_row_model_json2 = search_result_row_model.to_dict()
         assert search_result_row_model_json2 == search_result_row_model_json
 
-class TestSecurity():
+class TestModel_Security():
     """
     Test Class for Security
     """
@@ -15572,7 +16345,7 @@ class TestSecurity():
         security_model_json2 = security_model.to_dict()
         assert security_model_json2 == security_model_json
 
-class TestSecurityObject():
+class TestModel_SecurityObject():
     """
     Test Class for SecurityObject
     """
@@ -15602,7 +16375,7 @@ class TestSecurityObject():
         security_object_model_json2 = security_object_model.to_dict()
         assert security_object_model_json2 == security_object_model_json
 
-class TestServerInformation():
+class TestModel_ServerInformation():
     """
     Test Class for ServerInformation
     """
@@ -15642,7 +16415,7 @@ class TestServerInformation():
         server_information_model_json2 = server_information_model.to_dict()
         assert server_information_model_json2 == server_information_model_json
 
-class TestServerVendor():
+class TestModel_ServerVendor():
     """
     Test Class for ServerVendor
     """
@@ -15673,7 +16446,7 @@ class TestServerVendor():
         server_vendor_model_json2 = server_vendor_model.to_dict()
         assert server_vendor_model_json2 == server_vendor_model_json
 
-class TestSessionAuthentication():
+class TestModel_SessionAuthentication():
     """
     Test Class for SessionAuthentication
     """
@@ -15704,7 +16477,7 @@ class TestSessionAuthentication():
         session_authentication_model_json2 = session_authentication_model.to_dict()
         assert session_authentication_model_json2 == session_authentication_model_json
 
-class TestSessionInformation():
+class TestModel_SessionInformation():
     """
     Test Class for SessionInformation
     """
@@ -15747,7 +16520,7 @@ class TestSessionInformation():
         session_information_model_json2 = session_information_model.to_dict()
         assert session_information_model_json2 == session_information_model_json
 
-class TestShardsInformation():
+class TestModel_ShardsInformation():
     """
     Test Class for ShardsInformation
     """
@@ -15776,7 +16549,7 @@ class TestShardsInformation():
         shards_information_model_json2 = shards_information_model.to_dict()
         assert shards_information_model_json2 == shards_information_model_json
 
-class TestThroughputInformation():
+class TestModel_ThroughputInformation():
     """
     Test Class for ThroughputInformation
     """
@@ -15808,7 +16581,7 @@ class TestThroughputInformation():
         throughput_information_model_json2 = throughput_information_model.to_dict()
         assert throughput_information_model_json2 == throughput_information_model_json
 
-class TestUpInformation():
+class TestModel_UpInformation():
     """
     Test Class for UpInformation
     """
@@ -15838,7 +16611,7 @@ class TestUpInformation():
         up_information_model_json2 = up_information_model.to_dict()
         assert up_information_model_json2 == up_information_model_json
 
-class TestUserContext():
+class TestModel_UserContext():
     """
     Test Class for UserContext
     """
@@ -15869,7 +16642,7 @@ class TestUserContext():
         user_context_model_json2 = user_context_model.to_dict()
         assert user_context_model_json2 == user_context_model_json
 
-class TestUuidsResult():
+class TestModel_UuidsResult():
     """
     Test Class for UuidsResult
     """
@@ -15898,7 +16671,7 @@ class TestUuidsResult():
         uuids_result_model_json2 = uuids_result_model.to_dict()
         assert uuids_result_model_json2 == uuids_result_model_json
 
-class TestViewQueriesResult():
+class TestModel_ViewQueriesResult():
     """
     Test Class for ViewQueriesResult
     """
@@ -15939,7 +16712,7 @@ class TestViewQueriesResult():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         view_result_row_model = {} # ViewResultRow
         view_result_row_model['caused_by'] = 'testString'
@@ -15947,8 +16720,8 @@ class TestViewQueriesResult():
         view_result_row_model['reason'] = 'testString'
         view_result_row_model['doc'] = document_model
         view_result_row_model['id'] = 'testString'
-        view_result_row_model['key'] = { 'foo': 'bar' }
-        view_result_row_model['value'] = { 'foo': 'bar' }
+        view_result_row_model['key'] = 'testString'
+        view_result_row_model['value'] = 'testString'
 
         view_result_model = {} # ViewResult
         view_result_model['total_rows'] = 0
@@ -15974,7 +16747,7 @@ class TestViewQueriesResult():
         view_queries_result_model_json2 = view_queries_result_model.to_dict()
         assert view_queries_result_model_json2 == view_queries_result_model_json
 
-class TestViewQuery():
+class TestModel_ViewQuery():
     """
     Test Class for ViewQuery
     """
@@ -15986,24 +16759,24 @@ class TestViewQuery():
 
         # Construct a json representation of a ViewQuery model
         view_query_model_json = {}
-        view_query_model_json['att_encoding_info'] = True
-        view_query_model_json['attachments'] = True
-        view_query_model_json['conflicts'] = True
-        view_query_model_json['descending'] = True
-        view_query_model_json['include_docs'] = True
+        view_query_model_json['att_encoding_info'] = False
+        view_query_model_json['attachments'] = False
+        view_query_model_json['conflicts'] = False
+        view_query_model_json['descending'] = False
+        view_query_model_json['include_docs'] = False
         view_query_model_json['inclusive_end'] = True
         view_query_model_json['limit'] = 0
         view_query_model_json['skip'] = 0
-        view_query_model_json['update_seq'] = True
-        view_query_model_json['endkey'] = { 'foo': 'bar' }
+        view_query_model_json['update_seq'] = False
+        view_query_model_json['endkey'] = 'testString'
         view_query_model_json['endkey_docid'] = 'testString'
-        view_query_model_json['group'] = True
+        view_query_model_json['group'] = False
         view_query_model_json['group_level'] = 1
-        view_query_model_json['key'] = { 'foo': 'bar' }
-        view_query_model_json['keys'] = [{ 'foo': 'bar' }]
+        view_query_model_json['key'] = 'testString'
+        view_query_model_json['keys'] = ['testString']
         view_query_model_json['reduce'] = True
-        view_query_model_json['stable'] = True
-        view_query_model_json['startkey'] = { 'foo': 'bar' }
+        view_query_model_json['stable'] = False
+        view_query_model_json['startkey'] = 'testString'
         view_query_model_json['startkey_docid'] = 'testString'
         view_query_model_json['update'] = 'true'
 
@@ -16022,7 +16795,7 @@ class TestViewQuery():
         view_query_model_json2 = view_query_model.to_dict()
         assert view_query_model_json2 == view_query_model_json
 
-class TestViewResult():
+class TestModel_ViewResult():
     """
     Test Class for ViewResult
     """
@@ -16063,7 +16836,7 @@ class TestViewResult():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         view_result_row_model = {} # ViewResultRow
         view_result_row_model['caused_by'] = 'testString'
@@ -16071,8 +16844,8 @@ class TestViewResult():
         view_result_row_model['reason'] = 'testString'
         view_result_row_model['doc'] = document_model
         view_result_row_model['id'] = 'testString'
-        view_result_row_model['key'] = { 'foo': 'bar' }
-        view_result_row_model['value'] = { 'foo': 'bar' }
+        view_result_row_model['key'] = 'testString'
+        view_result_row_model['value'] = 'testString'
 
         # Construct a json representation of a ViewResult model
         view_result_model_json = {}
@@ -16095,7 +16868,7 @@ class TestViewResult():
         view_result_model_json2 = view_result_model.to_dict()
         assert view_result_model_json2 == view_result_model_json
 
-class TestViewResultRow():
+class TestModel_ViewResultRow():
     """
     Test Class for ViewResultRow
     """
@@ -16136,7 +16909,7 @@ class TestViewResultRow():
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = { 'foo': 'bar' }
+        document_model['foo'] = 'testString'
 
         # Construct a json representation of a ViewResultRow model
         view_result_row_model_json = {}
@@ -16145,8 +16918,8 @@ class TestViewResultRow():
         view_result_row_model_json['reason'] = 'testString'
         view_result_row_model_json['doc'] = document_model
         view_result_row_model_json['id'] = 'testString'
-        view_result_row_model_json['key'] = { 'foo': 'bar' }
-        view_result_row_model_json['value'] = { 'foo': 'bar' }
+        view_result_row_model_json['key'] = 'testString'
+        view_result_row_model_json['value'] = 'testString'
 
         # Construct a model instance of ViewResultRow by calling from_dict on the json representation
         view_result_row_model = ViewResultRow.from_dict(view_result_row_model_json)
@@ -16163,7 +16936,7 @@ class TestViewResultRow():
         view_result_row_model_json2 = view_result_row_model.to_dict()
         assert view_result_row_model_json2 == view_result_row_model_json
 
-class TestGeoJsonGeometry():
+class TestModel_GeoJsonGeometry():
     """
     Test Class for GeoJsonGeometry
     """
@@ -16176,7 +16949,7 @@ class TestGeoJsonGeometry():
         # Construct a json representation of a GeoJsonGeometry model
         geo_json_geometry_model_json = {}
         geo_json_geometry_model_json['type'] = 'Point'
-        geo_json_geometry_model_json['coordinates'] = [{ 'foo': 'bar' }]
+        geo_json_geometry_model_json['coordinates'] = ['testString']
 
         # Construct a model instance of GeoJsonGeometry by calling from_dict on the json representation
         geo_json_geometry_model = GeoJsonGeometry.from_dict(geo_json_geometry_model_json)
@@ -16193,7 +16966,7 @@ class TestGeoJsonGeometry():
         geo_json_geometry_model_json2 = geo_json_geometry_model.to_dict()
         assert geo_json_geometry_model_json2 == geo_json_geometry_model_json
 
-class TestGeoJsonGeometryCollection():
+class TestModel_GeoJsonGeometryCollection():
     """
     Test Class for GeoJsonGeometryCollection
     """
@@ -16207,7 +16980,7 @@ class TestGeoJsonGeometryCollection():
 
         geo_json_geometry_model = {} # GeoJsonGeometry
         geo_json_geometry_model['type'] = 'Point'
-        geo_json_geometry_model['coordinates'] = [{ 'foo': 'bar' }]
+        geo_json_geometry_model['coordinates'] = ['testString']
 
         # Construct a json representation of a GeoJsonGeometryCollection model
         geo_json_geometry_collection_model_json = {}
