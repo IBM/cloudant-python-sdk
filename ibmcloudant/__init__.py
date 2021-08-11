@@ -1,5 +1,5 @@
 # coding: utf-8
-# © Copyright IBM Corporation 2020.
+# © Copyright IBM Corporation 2020, 2021.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,10 +15,11 @@
 
 """Python client library for the IBM Cloudant"""
 
+# Ignore warnings about unaccesed imports in this block, they are needed for the core patches
 from ibm_cloud_sdk_core import IAMTokenManager, DetailedResponse, BaseService, ApiException, get_authenticator
 from .couchdb_session_authenticator import CouchDbSessionAuthenticator
 from .couchdb_session_get_authenticator_patch import new_construct_authenticator
-from .couchdb_session_base_service_patch import new_init, new_set_service_url, new_set_default_headers
+from .cloudant_base_service import new_init, new_set_service_url, new_set_default_headers
 from .couchdb_session_token_manager import CouchDbSessionTokenManager
 from .cloudant_v1 import CloudantV1
 
