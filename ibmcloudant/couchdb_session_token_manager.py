@@ -16,7 +16,7 @@
 """
 Module for managing session authentication token
 """
-from ibm_cloud_sdk_core.token_manager import TokenManager
+from ibm_cloud_sdk_core.token_managers.token_manager import TokenManager
 
 
 class CouchDbSessionTokenManager(TokenManager):
