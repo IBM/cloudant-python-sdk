@@ -10566,8 +10566,29 @@ class DesignDocument():
     :attr DesignDocumentOptions options: (optional) Schema for design document
           options.
     :attr dict updates: (optional) Schema for update function definitions.
-    :attr dict validate_doc_update: (optional) Schema for validate document update
-          functions definition.
+    :attr str validate_doc_update: (optional) Validate document update function can
+          be used to prevent invalid or unauthorized document update requests from being
+          stored. Validation functions typically examine the structure of the new document
+          to ensure that required fields are present and to verify that the requesting
+          user should be allowed to make changes to the document properties. When a write
+          request is received for a given database, the validation function in each design
+          document in that database is called in an unspecified order. If any of the
+          validation functions throw an error, the write will not succeed.
+          The validation function can abort the pending document write by throwing one of
+          two error objects:
+          ```
+          // user is not authorized to make the change but may re-authenticate throw({
+          unauthorized: 'Error message here.' });
+          // change is not allowed throw({ forbidden: 'Error message here.' });
+          ```
+          The function takes 4 parameters:
+            * `newDoc` - New version of document that will be stored
+              from the update request.
+            * `oldDoc` - Previous version of document that is already stored.
+            * `userCtx` - User Context Object, containing information about the
+              user writing the document (if present), see the `UserContext`.
+            * `secObj` - Security Object, with lists of database security roles,
+              see the `SecurityObject`.
     :attr dict views: (optional) Schema for design document views.
     :attr dict st_indexes: (optional) Schema for geospatial index function
           definitions.
@@ -10593,7 +10614,7 @@ class DesignDocument():
                  language: str = None,
                  options: 'DesignDocumentOptions' = None,
                  updates: dict = None,
-                 validate_doc_update: dict = None,
+                 validate_doc_update: str = None,
                  views: dict = None,
                  st_indexes: dict = None,
                  **kwargs) -> None:
@@ -10627,8 +10648,30 @@ class DesignDocument():
         :param DesignDocumentOptions options: (optional) Schema for design document
                options.
         :param dict updates: (optional) Schema for update function definitions.
-        :param dict validate_doc_update: (optional) Schema for validate document
-               update functions definition.
+        :param str validate_doc_update: (optional) Validate document update
+               function can be used to prevent invalid or unauthorized document update
+               requests from being stored. Validation functions typically examine the
+               structure of the new document to ensure that required fields are present
+               and to verify that the requesting user should be allowed to make changes to
+               the document properties. When a write request is received for a given
+               database, the validation function in each design document in that database
+               is called in an unspecified order. If any of the validation functions throw
+               an error, the write will not succeed.
+               The validation function can abort the pending document write by throwing
+               one of two error objects:
+               ```
+               // user is not authorized to make the change but may re-authenticate
+               throw({ unauthorized: 'Error message here.' });
+               // change is not allowed throw({ forbidden: 'Error message here.' });
+               ```
+               The function takes 4 parameters:
+                 * `newDoc` - New version of document that will be stored
+                   from the update request.
+                 * `oldDoc` - Previous version of document that is already stored.
+                 * `userCtx` - User Context Object, containing information about the
+                   user writing the document (if present), see the `UserContext`.
+                 * `secObj` - Security Object, with lists of database security roles,
+                   see the `SecurityObject`.
         :param dict views: (optional) Schema for design document views.
         :param dict st_indexes: (optional) Schema for geospatial index function
                definitions.
