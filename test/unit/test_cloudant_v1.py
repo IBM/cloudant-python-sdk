@@ -3997,7 +3997,7 @@ class TestGetDesignDocument():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "language", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": {"mapKey": "inner"}, "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "language", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -4062,7 +4062,7 @@ class TestGetDesignDocument():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "language", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": {"mapKey": "inner"}, "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "language", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -4092,7 +4092,7 @@ class TestGetDesignDocument():
         """
         # Set up mock
         url = self.preprocess_url(base_url + '/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "language", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": {"mapKey": "inner"}, "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "language", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -4211,7 +4211,7 @@ class TestPutDesignDocument():
         design_document_model['language'] = 'testString'
         design_document_model['options'] = design_document_options_model
         design_document_model['updates'] = {}
-        design_document_model['validate_doc_update'] = {}
+        design_document_model['validate_doc_update'] = 'testString'
         design_document_model['views'] = {}
         design_document_model['st_indexes'] = {}
         design_document_model['foo'] = { 'foo': 'bar' }
@@ -4336,7 +4336,7 @@ class TestPutDesignDocument():
         design_document_model['language'] = 'testString'
         design_document_model['options'] = design_document_options_model
         design_document_model['updates'] = {}
-        design_document_model['validate_doc_update'] = {}
+        design_document_model['validate_doc_update'] = 'testString'
         design_document_model['views'] = {}
         design_document_model['st_indexes'] = {}
         design_document_model['foo'] = { 'foo': 'bar' }
@@ -4447,7 +4447,7 @@ class TestPutDesignDocument():
         design_document_model['language'] = 'testString'
         design_document_model['options'] = design_document_options_model
         design_document_model['updates'] = {}
-        design_document_model['validate_doc_update'] = {}
+        design_document_model['validate_doc_update'] = 'testString'
         design_document_model['views'] = {}
         design_document_model['st_indexes'] = {}
         design_document_model['foo'] = { 'foo': 'bar' }
@@ -13165,7 +13165,7 @@ class TestDesignDocument():
         design_document_model_json['language'] = 'testString'
         design_document_model_json['options'] = design_document_options_model
         design_document_model_json['updates'] = {}
-        design_document_model_json['validate_doc_update'] = {}
+        design_document_model_json['validate_doc_update'] = 'testString'
         design_document_model_json['views'] = {}
         design_document_model_json['st_indexes'] = {}
         design_document_model_json['foo'] = { 'foo': 'bar' }
