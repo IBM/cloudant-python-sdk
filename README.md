@@ -7,8 +7,13 @@
 IBM Cloudant Python SDK is a client library that interacts with the
 [IBM Cloudant APIs](https://cloud.ibm.com/apidocs/cloudant?code=python).
 
-Disclaimer: This SDK is being released initially as a **pre-release** version.
-Changes might occur which impact applications that use this SDK.
+Disclaimer: This library is still a 0.x release. We do consider this
+library production-ready and capable, but there are still some
+limitations we’re working to resolve, and refinements we want to
+deliver. We are working really hard to minimise the disruption from
+now until the 1.0 release, but there may still be some changes that
+impact applications using this SDK. For now, be sure to pin versions
+to avoid surprises.
 
 <details>
 <summary>Table of Contents</summary>
