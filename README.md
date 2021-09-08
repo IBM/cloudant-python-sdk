@@ -40,6 +40,7 @@ to avoid surprises.
   * [Authentication with external configuration](#authentication-with-external-configuration)
   * [Programmatic authentication](#programmatic-authentication)
 - [Using the SDK](#using-the-sdk)
+  * [Request timeout configuration](#request-timeout-configuration)
   * [Code examples](#code-examples)
     + [1. Retrieve information from an existing database](#1-retrieve-information-from-an-existing-database)
     + [2. Create your own database and add a document](#2-create-your-own-database-and-add-a-document)
@@ -209,8 +210,12 @@ or in the
 
 ## Using the SDK
 
-For general IBM Cloud SDK usage information, please see
-[IBM Cloud SDK Common](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md).
+For fundamental SDK usage information and config options, please see the common [IBM Cloud SDK](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md) documentation. 
+
+### Request timeout configuration
+
+No request timeout is set, but a 60s read and a 60s connect timeout are set by default. Be sure to set a request timeout appropriate to your application usage and environment. 
+The [request timeout](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md) section contains details on how to change the value.
 
 ### Code examples
 
