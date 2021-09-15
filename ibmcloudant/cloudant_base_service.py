@@ -17,9 +17,10 @@
 Module to patch sdk core base service for session authentication
 """
 from collections import namedtuple
+from requests.cookies import RequestsCookieJar
 from typing import Dict, Optional, Union, Tuple, List
 from urllib.parse import urlsplit, unquote
-from requests.cookies import RequestsCookieJar
+from urllib3 import Timeout
 
 from ibm_cloud_sdk_core.authenticators import Authenticator
 from .common import get_sdk_headers
@@ -65,6 +66,9 @@ old_init = CloudantV1.__init__
 
 def new_init(self, authenticator: Authenticator = None):
     old_init(self, authenticator)
+    # Overwrite default read timeout to 2.5 minutes
+    if not ('timeout' in self.http_config):
+        self.set_http_config({'timeout':Timeout(connect=60, read=150)})
     # Custom actions for CouchDbSessionAuthenticator
     if isinstance(authenticator, CouchDbSessionAuthenticator):
         # Replacing BaseService's http.cookiejar.CookieJar as RequestsCookieJar supports update(CookieJar)
