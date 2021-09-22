@@ -29,6 +29,10 @@ from .couchdb_session_authenticator import CouchDbSessionAuthenticator
 
 # pylint: disable=missing-docstring
 
+# Define timeout values
+CONNECT_TIMEOUT=60
+READ_TIMEOUT=150
+
 # Define validations
 class ValidationRule(namedtuple('ValidationRule', ['path_segment_index', 'error_parameter_name', 'operation_ids'])):
     __slots__ = ()
@@ -68,7 +72,7 @@ def new_init(self, authenticator: Authenticator = None):
     old_init(self, authenticator)
     # Overwrite default read timeout to 2.5 minutes
     if not ('timeout' in self.http_config):
-        self.set_http_config({'timeout':Timeout(connect=60, read=150)})
+        self.set_http_config({'timeout':Timeout(connect=CONNECT_TIMEOUT, read=READ_TIMEOUT)})
     # Custom actions for CouchDbSessionAuthenticator
     if isinstance(authenticator, CouchDbSessionAuthenticator):
         # Replacing BaseService's http.cookiejar.CookieJar as RequestsCookieJar supports update(CookieJar)
