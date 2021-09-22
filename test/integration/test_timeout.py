@@ -79,7 +79,7 @@ class TestTimeout(unittest.TestCase):
 # ** CloudantV1
 # *************
 # Check every authenticator type
-    def test_timeout_CloudantV1_NoAuth(self):
+    def test_timeout_cloudantv1_noauth(self):
         noAuth_auth = NoAuthAuthenticator()
         self.cloudant = CloudantV1(
             authenticator=noAuth_auth
@@ -99,7 +99,7 @@ class TestTimeout(unittest.TestCase):
             req_args=self._get_request_arguments(i)
             tc['assert_func'](req_args)
 
-    def test_timeout_CloudantV1_BasicAuth(self):
+    def test_timeout_cloudantv1_basicauth(self):
         basic_auth = BasicAuthenticator('name', 'psw')
         self.cloudant = CloudantV1(
             authenticator=basic_auth
@@ -120,7 +120,7 @@ class TestTimeout(unittest.TestCase):
             req_args=self._get_request_arguments(i)
             tc['assert_func'](req_args)
 
-    def test_timeout_CloudantV1_SessionAuth(self, timeout_mock_response=_timeout_mock_response):
+    def test_timeout_cloudantv1_sessionauth(self, timeout_mock_response=_timeout_mock_response):
         session_auth = CouchDbSessionAuthenticator('name', 'psw')
         self.cloudant = CloudantV1(
             authenticator=session_auth,
@@ -153,7 +153,7 @@ class TestTimeout(unittest.TestCase):
         # Set back requests.request
         requests.request = orig_request
 
-    def test_timeout_CloudantV1_IAMAuth(self, timeout_mock_response=_timeout_mock_response):
+    def test_timeout_cloudantv1_iamauth(self, timeout_mock_response=_timeout_mock_response):
         authenticator = IAMAuthenticator('apikey')
         self.cloudant = CloudantV1(
             authenticator=authenticator
