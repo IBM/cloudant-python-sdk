@@ -90,14 +90,14 @@ class TestTimeout(unittest.TestCase):
 
         testcases = self._defineTestCases()
 
-        for i, tc in enumerate(testcases):
+        for idx, tc in enumerate(testcases):
             tc['set_timeout'](CUSTOM_TIMEOUT_CONFIG)
 
             # Call the server
             self.cloudant.get_server_information()
 
             # Assert timeout is set in the server request
-            req_args = self._get_request_arguments(i)
+            req_args = self._get_request_arguments(idx)
             tc['assert_func'](req_args)
 
     def test_timeout_cloudantv1_basicauth(self):
@@ -111,14 +111,14 @@ class TestTimeout(unittest.TestCase):
 
         testcases = self._defineTestCases()
 
-        for i, tc in enumerate(testcases):
+        for idx, tc in enumerate(testcases):
             tc['set_timeout'](CUSTOM_TIMEOUT_CONFIG)
 
             # Call the server
             self.cloudant.get_server_information()
 
             # Assert timeout is set in the server request
-            req_args = self._get_request_arguments(i)
+            req_args = self._get_request_arguments(idx)
             tc['assert_func'](req_args)
 
     def test_timeout_cloudantv1_sessionauth(self, timeout_mock_response=MOCK_RESPONSE):
@@ -137,7 +137,7 @@ class TestTimeout(unittest.TestCase):
 
         testcases = self._defineTestCases()
 
-        for i, tc in enumerate(testcases):
+        for idx, tc in enumerate(testcases):
             tc['set_timeout'](CUSTOM_TIMEOUT_CONFIG)
 
             # Call the server
@@ -148,7 +148,7 @@ class TestTimeout(unittest.TestCase):
             self._assert_default_timeout_setting(auth_args)
 
             # Assert timeout is set in the server request
-            req_args = self._get_request_arguments(i)
+            req_args = self._get_request_arguments(idx)
             tc['assert_func'](req_args)
 
         # Set back requests.request
@@ -171,7 +171,7 @@ class TestTimeout(unittest.TestCase):
 
         testcases = self._defineTestCases()
 
-        for i, tc in enumerate(testcases):
+        for idx, tc in enumerate(testcases):
             tc['set_timeout'](CUSTOM_TIMEOUT_CONFIG)
 
             # Call the server
@@ -182,7 +182,7 @@ class TestTimeout(unittest.TestCase):
             self._assert_default_timeout_setting(auth_args)
 
             # Assert timeout is set in the server request
-            req_args = self._get_request_arguments(i)
+            req_args = self._get_request_arguments(idx)
             tc['assert_func'](req_args)
 
             # Set expire time to not authenticate again
@@ -203,12 +203,12 @@ class TestTimeout(unittest.TestCase):
 
         testcases = self._defineTestCases()
 
-        for i, tc in enumerate(testcases):
+        for idx, tc in enumerate(testcases):
             tc['set_timeout'](CUSTOM_TIMEOUT_CONFIG)
 
             # Call the server
             self.cloudant.get_server_information()
 
             # Assert timeout is set in the server request
-            req_args = self._get_request_arguments(i)
+            req_args = self._get_request_arguments(idx)
             tc['assert_func'](req_args)
