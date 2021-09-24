@@ -28,165 +28,175 @@ DEFAULT_TIMEOUT = 150  # 2.5m (=150s)
 CUSTOM_TIMEOUT = 10    # 10s
 CUSTOM_TIMEOUT_CONFIG = {'timeout': CUSTOM_TIMEOUT}
 
+class Helpers():
 
-def get_current_time_plus_two_minute() -> int:
-    return int(time.time()) + 120
+    @staticmethod
+    def get_current_time_plus_two_minute() -> int:
+        return int(time.time()) + 120
 
-MOCK_RESPONSE = Response()
-MOCK_RESPONSE.status_code = 200
-MOCK_RESPONSE._content = '{"foo":"bar"}'.encode()
-MOCK_RESPONSE.cookies.set("AuthSession", "bar", expires=get_current_time_plus_two_minute())
+    @staticmethod
+    def get_mocked_response():
+        mock_response = Response()
+        mock_response.status_code = 200
+        mock_response._content = '{"foo":"bar"}'.encode()
+        mock_response.cookies.set("AuthSession", "bar", expires=Helpers.get_current_time_plus_two_minute())
+        return mock_response
 
-class TestTimeout(unittest.TestCase):
-    # ** Helpers
-    # *************
-    def _set_no_timeout(self, new_value: dict):
-        new_value['timeout']
+    @staticmethod
+    def mock_out_cloudant_request(srv):
+        srv.http_client.request = Mock(return_value=Helpers.get_mocked_response())
 
     # Every test case tests an authenticator and its default timeout value at first,
     # in the second iteration a custom overwrite possibility is checked.
-    def _defineTestCases(self):
+    @staticmethod
+    def defineTestCases(srv):
         return [
             {
-                'assert_func': self._assert_default_timeout_setting,
-                'set_timeout': self._set_no_timeout
+                'assert_func': Helpers.assert_default_timeout_setting,
+                'set_timeout': Helpers.set_no_timeout
             },
             {
-                'assert_func': self._assert_custom_timeout_setting,
-                'set_timeout': self.cloudant.set_http_config
+                'assert_func': Helpers.assert_custom_timeout_setting,
+                'set_timeout': srv.set_http_config
             }
         ]
 
-    def _mock_out_cloudant_request(self, _mock_response=MOCK_RESPONSE):
-        self.cloudant.http_client.request = Mock(return_value=_mock_response)
+    @staticmethod
+    def set_no_timeout(new_value: dict):
+        new_value['timeout']
 
-    def _get_authenticate_arguments(self):
-        requests.request.assert_called_once()
-        return requests.request.mock_calls[0]
-
-    def _get_request_arguments(self, idx):
-        self.assertEqual(self.cloudant.http_client.request.call_count, idx + 1)
-        return self.cloudant.http_client.request.mock_calls[idx]
-
-    def _assert_default_timeout_setting(self, call_args):
+    @staticmethod
+    def assert_default_timeout_setting(tci, call_args):
         _, _, kwargs = call_args
-        self.assertTrue(isinstance(kwargs['timeout'], Timeout))
-        self.assertEqual(kwargs['timeout'].read_timeout, DEFAULT_TIMEOUT)
+        tci.assertTrue(isinstance(kwargs['timeout'], Timeout))
+        tci.assertEqual(kwargs['timeout'].read_timeout, DEFAULT_TIMEOUT)
 
-    def _assert_custom_timeout_setting(self, call_args):
+    @staticmethod
+    def assert_custom_timeout_setting(tci, call_args):
         _, _, kwargs = call_args
-        self.assertEqual(kwargs['timeout'], CUSTOM_TIMEOUT)
+        tci.assertEqual(kwargs['timeout'], CUSTOM_TIMEOUT)
 
+    @staticmethod
+    def get_authenticate_arguments(req):
+        req.assert_called_once()
+        return req.mock_calls[0]
+
+    @staticmethod
+    def get_request_arguments(tci, srv, idx):
+        tci.assertEqual(srv.http_client.request.call_count, idx + 1)
+        return srv.http_client.request.mock_calls[idx]
+
+class TestTimeout(unittest.TestCase):
     # ** CloudantV1
     # *************
     # Check every authenticator type
     def test_timeout_cloudantv1_noauth(self):
         no_auth = NoAuthAuthenticator()
-        self.cloudant = CloudantV1(
+        my_service = CloudantV1(
             authenticator=no_auth
         )
 
-        self._mock_out_cloudant_request()
+        Helpers.mock_out_cloudant_request(my_service)
 
-        testcases = self._defineTestCases()
+        testcases = Helpers.defineTestCases(my_service)
 
         for tc_num, tc in enumerate(testcases):
             tc['set_timeout'](CUSTOM_TIMEOUT_CONFIG)
 
             # Call the server
-            self.cloudant.get_server_information()
+            my_service.get_server_information()
 
             # Assert timeout is set in the server request
-            req_args = self._get_request_arguments(tc_num)
-            tc['assert_func'](req_args)
+            req_args = Helpers.get_request_arguments(self, my_service, tc_num)
+            tc['assert_func'](self, req_args)
 
     def test_timeout_cloudantv1_basicauth(self):
         basic_auth = BasicAuthenticator('name', 'psw')
-        self.cloudant = CloudantV1(
+        my_service = CloudantV1(
             authenticator=basic_auth
         )
 
         # Mock out request response
-        self._mock_out_cloudant_request()
+        Helpers.mock_out_cloudant_request(my_service)
 
-        testcases = self._defineTestCases()
+        testcases = Helpers.defineTestCases(my_service)
 
         for tc_num, tc in enumerate(testcases):
             tc['set_timeout'](CUSTOM_TIMEOUT_CONFIG)
 
             # Call the server
-            self.cloudant.get_server_information()
+            my_service.get_server_information()
 
             # Assert timeout is set in the server request
-            req_args = self._get_request_arguments(tc_num)
-            tc['assert_func'](req_args)
+            req_args = Helpers.get_request_arguments(self, my_service, tc_num)
+            tc['assert_func'](self, req_args)
 
-    def test_timeout_cloudantv1_sessionauth(self, timeout_mock_response=MOCK_RESPONSE):
+    def test_timeout_cloudantv1_sessionauth(self):
         session_auth = CouchDbSessionAuthenticator('name', 'psw')
-        self.cloudant = CloudantV1(
+        my_service = CloudantV1(
             authenticator=session_auth,
         )
-        self.cloudant.set_service_url("http://cloudant.example")
+        my_service.set_service_url("http://cloudant.example")
 
         # Mock out authentication
         orig_request = requests.request
-        requests.request = Mock(return_value=timeout_mock_response)
+        requests.request = Mock(return_value=Helpers.get_mocked_response())
 
         # Mock out request response
-        self._mock_out_cloudant_request()
+        Helpers.mock_out_cloudant_request(my_service)
 
-        testcases = self._defineTestCases()
+        testcases = Helpers.defineTestCases(my_service)
 
         for tc_num, tc in enumerate(testcases):
             tc['set_timeout'](CUSTOM_TIMEOUT_CONFIG)
 
             # Call the server
-            self.cloudant.get_server_information()
+            my_service.get_server_information()
 
             # Assert timeout is set to the authenticator
-            auth_args = self._get_authenticate_arguments()
-            self._assert_default_timeout_setting(auth_args)
+            auth_args = Helpers.get_authenticate_arguments(requests.request)
+            Helpers.assert_default_timeout_setting(self, auth_args)
 
             # Assert timeout is set in the server request
-            req_args = self._get_request_arguments(tc_num)
-            tc['assert_func'](req_args)
+            req_args = Helpers.get_request_arguments(self, my_service, tc_num)
+            tc['assert_func'](self, req_args)
 
         # Set back requests.request
         requests.request = orig_request
 
-    def test_timeout_cloudantv1_iamauth(self, timeout_mock_response=MOCK_RESPONSE):
+    def test_timeout_cloudantv1_iamauth(self):
         authenticator = IAMAuthenticator('apikey')
-        self.cloudant = CloudantV1(
+        my_service = CloudantV1(
             authenticator=authenticator
         )
 
         # Mock out authentication
         orig_request = requests.request
-        requests.request = Mock(return_value=timeout_mock_response)
-        self.cloudant.authenticator.token_manager._save_token_info = Mock()
-        self.cloudant.authenticator.token_manager.refresh_time = get_current_time_plus_two_minute()
+        requests.request = Mock(return_value=Helpers.get_mocked_response())
+        my_service.authenticator.token_manager._save_token_info = Mock()
+        my_service.authenticator.token_manager.refresh_time = Helpers.get_current_time_plus_two_minute()
 
         # Mock out request response
-        self._mock_out_cloudant_request()
+        Helpers.mock_out_cloudant_request(my_service)
 
-        testcases = self._defineTestCases()
+        testcases = Helpers.defineTestCases(my_service)
 
         for tc_num, tc in enumerate(testcases):
             tc['set_timeout'](CUSTOM_TIMEOUT_CONFIG)
 
             # Call the server
-            self.cloudant.get_server_information()
+            my_service.get_server_information()
 
             # Assert timeout is set to the authenticator
-            auth_args = self._get_authenticate_arguments()
-            self._assert_default_timeout_setting(auth_args)
+            auth_args = Helpers.get_authenticate_arguments(requests.request)
+            Helpers.assert_default_timeout_setting(self, auth_args)
 
             # Assert timeout is set in the server request
-            req_args = self._get_request_arguments(tc_num)
-            tc['assert_func'](req_args)
+            req_args = Helpers.get_request_arguments(self, my_service, tc_num)
+            tc['assert_func'](self, req_args)
 
             # Set expire time to not authenticate again
-            self.cloudant.authenticator.token_manager.expire_time = get_current_time_plus_two_minute()
+            my_service.authenticator.token_manager.expire_time = Helpers.get_current_time_plus_two_minute()
 
         # Set back requests.request
         requests.request = orig_request
@@ -196,19 +206,19 @@ class TestTimeout(unittest.TestCase):
     # For this function no authenticator can be defined programmatically,
     # this way the `SERVER` service is used to check the timeout values.
     def test_timeout_new_instance(self):
-        self.cloudant = CloudantV1.new_instance(service_name='SERVER')
+        my_service = CloudantV1.new_instance(service_name='SERVER')
 
         # Mock out request response
-        self._mock_out_cloudant_request()
+        Helpers.mock_out_cloudant_request(my_service)
 
-        testcases = self._defineTestCases()
+        testcases = Helpers.defineTestCases(my_service)
 
         for tc_num, tc in enumerate(testcases):
             tc['set_timeout'](CUSTOM_TIMEOUT_CONFIG)
 
             # Call the server
-            self.cloudant.get_server_information()
+            my_service.get_server_information()
 
             # Assert timeout is set in the server request
-            req_args = self._get_request_arguments(tc_num)
-            tc['assert_func'](req_args)
+            req_args = Helpers.get_request_arguments(self, my_service, tc_num)
+            tc['assert_func'](self, req_args)
