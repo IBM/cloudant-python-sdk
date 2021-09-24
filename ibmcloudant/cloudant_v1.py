@@ -420,18 +420,17 @@ class CloudantV1(BaseService):
                type.
         :param str filter: (optional) Query parameter to specify a filter function
                from a design document that will filter the changes stream emitting only
-               filtered events. Additionally, several built-in filters are available:
-               - `_design`
-               - Returns only changes to design documents.
-               - `_doc_ids`
-               - Returns changes for documents whit an ID matching one specified in
-               `doc_ids` request body parameter.
-               - `_selector`
-               - Returns changes for documents that match the `selector` request body
-               parameter. The selector syntax is the same as used for `_find`.
-               - `_view`
-               - Returns changes for documents that match an existing map function in the
-               view specified by the query parameter `view`.
+               filtered events. For example: `design_doc/filtername`.
+               Additionally, some keywords are reserved for built-in filters:
+                 * `_design` - Returns only changes to design documents.
+                 * `_doc_ids` - Returns changes for documents with an ID matching one
+               specified in
+                     `doc_ids` request body parameter.
+                 * `_selector` - Returns changes for documents that match the `selector`
+                     request body parameter. The selector syntax is the same as used for
+                     `_find`.
+                 * `_view` - Returns changes for documents that match an existing map
+                     function in the view specified by the query parameter `view`.
         :param int heartbeat: (optional) Query parameter to specify the period in
                milliseconds after which an empty line is sent in the results. Only
                applicable for longpoll, continuous, and eventsource feeds. Overrides any
@@ -600,18 +599,17 @@ class CloudantV1(BaseService):
                type.
         :param str filter: (optional) Query parameter to specify a filter function
                from a design document that will filter the changes stream emitting only
-               filtered events. Additionally, several built-in filters are available:
-               - `_design`
-               - Returns only changes to design documents.
-               - `_doc_ids`
-               - Returns changes for documents whit an ID matching one specified in
-               `doc_ids` request body parameter.
-               - `_selector`
-               - Returns changes for documents that match the `selector` request body
-               parameter. The selector syntax is the same as used for `_find`.
-               - `_view`
-               - Returns changes for documents that match an existing map function in the
-               view specified by the query parameter `view`.
+               filtered events. For example: `design_doc/filtername`.
+               Additionally, some keywords are reserved for built-in filters:
+                 * `_design` - Returns only changes to design documents.
+                 * `_doc_ids` - Returns changes for documents with an ID matching one
+               specified in
+                     `doc_ids` request body parameter.
+                 * `_selector` - Returns changes for documents that match the `selector`
+                     request body parameter. The selector syntax is the same as used for
+                     `_find`.
+                 * `_view` - Returns changes for documents that match an existing map
+                     function in the view specified by the query parameter `view`.
         :param int heartbeat: (optional) Query parameter to specify the period in
                milliseconds after which an empty line is sent in the results. Only
                applicable for longpoll, continuous, and eventsource feeds. Overrides any
@@ -7171,55 +7169,6 @@ class CloudantV1(BaseService):
     #########################
 
 
-    def post_missing_revs(self,
-        db: str,
-        document_revisions: dict,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Query which document revisions are missing from the database.
-
-        Given a list of document revisions, returns the document revisions that do not
-        exist in the database.
-
-        :param str db: Path parameter to specify the database name.
-        :param dict document_revisions: HTTP request body for postMissingRevs and
-               postRevsDiff.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `MissingRevsResult` object
-        """
-
-        if db is None:
-            raise ValueError('db must be provided')
-        if document_revisions is None:
-            raise ValueError('document_revisions must be provided')
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_missing_revs')
-        headers.update(sdk_headers)
-
-        data = json.dumps(document_revisions)
-        headers['content-type'] = 'application/json'
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-        headers['Accept'] = 'application/json'
-
-        path_param_keys = ['db']
-        path_param_values = self.encode_path_vars(db)
-        path_param_dict = dict(zip(path_param_keys, path_param_values))
-        url = '/{db}/_missing_revs'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
-
-        response = self.send(request, **kwargs)
-        return response
-
-
     def post_revs_diff(self,
         db: str,
         document_revisions: dict,
@@ -10474,6 +10423,7 @@ class DbsInfoResult():
     """
     Schema for database information keyed by database name.
 
+    :attr str error: (optional) The name of the error.
     :attr DatabaseInformation info: (optional) Schema for information about a
           database.
     :attr str key: Database name.
@@ -10482,14 +10432,17 @@ class DbsInfoResult():
     def __init__(self,
                  key: str,
                  *,
+                 error: str = None,
                  info: 'DatabaseInformation' = None) -> None:
         """
         Initialize a DbsInfoResult object.
 
         :param str key: Database name.
+        :param str error: (optional) The name of the error.
         :param DatabaseInformation info: (optional) Schema for information about a
                database.
         """
+        self.error = error
         self.info = info
         self.key = key
 
@@ -10497,6 +10450,8 @@ class DbsInfoResult():
     def from_dict(cls, _dict: Dict) -> 'DbsInfoResult':
         """Initialize a DbsInfoResult object from a json dictionary."""
         args = {}
+        if 'error' in _dict:
+            args['error'] = _dict.get('error')
         if 'info' in _dict:
             args['info'] = DatabaseInformation.from_dict(_dict.get('info'))
         if 'key' in _dict:
@@ -10513,6 +10468,8 @@ class DbsInfoResult():
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
+        if hasattr(self, 'error') and self.error is not None:
+            _dict['error'] = self.error
         if hasattr(self, 'info') and self.info is not None:
             _dict['info'] = self.info.to_dict()
         if hasattr(self, 'key') and self.key is not None:
@@ -10565,7 +10522,6 @@ class DesignDocument():
           document functions.
     :attr DesignDocumentOptions options: (optional) Schema for design document
           options.
-    :attr dict updates: (optional) Schema for update function definitions.
     :attr str validate_doc_update: (optional) Validate document update function can
           be used to prevent invalid or unauthorized document update requests from being
           stored. Validation functions typically examine the structure of the new document
@@ -10595,7 +10551,7 @@ class DesignDocument():
     """
 
     # The set of defined properties for the class
-    _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info', 'autoupdate', 'filters', 'indexes', 'language', 'options', 'updates', 'validate_doc_update', 'views', 'st_indexes'])
+    _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info', 'autoupdate', 'filters', 'indexes', 'language', 'options', 'validate_doc_update', 'views', 'st_indexes'])
 
     def __init__(self,
                  *,
@@ -10613,7 +10569,6 @@ class DesignDocument():
                  indexes: dict = None,
                  language: str = None,
                  options: 'DesignDocumentOptions' = None,
-                 updates: dict = None,
                  validate_doc_update: str = None,
                  views: dict = None,
                  st_indexes: dict = None,
@@ -10647,7 +10602,6 @@ class DesignDocument():
                document functions.
         :param DesignDocumentOptions options: (optional) Schema for design document
                options.
-        :param dict updates: (optional) Schema for update function definitions.
         :param str validate_doc_update: (optional) Validate document update
                function can be used to prevent invalid or unauthorized document update
                requests from being stored. Validation functions typically examine the
@@ -10691,7 +10645,6 @@ class DesignDocument():
         self.indexes = indexes
         self.language = language
         self.options = options
-        self.updates = updates
         self.validate_doc_update = validate_doc_update
         self.views = views
         self.st_indexes = st_indexes
@@ -10730,8 +10683,6 @@ class DesignDocument():
             args['language'] = _dict.get('language')
         if 'options' in _dict:
             args['options'] = DesignDocumentOptions.from_dict(_dict.get('options'))
-        if 'updates' in _dict:
-            args['updates'] = _dict.get('updates')
         if 'validate_doc_update' in _dict:
             args['validate_doc_update'] = _dict.get('validate_doc_update')
         if 'views' in _dict:
@@ -10777,8 +10728,6 @@ class DesignDocument():
             _dict['language'] = self.language
         if hasattr(self, 'options') and self.options is not None:
             _dict['options'] = self.options.to_dict()
-        if hasattr(self, 'updates') and self.updates is not None:
-            _dict['updates'] = self.updates
         if hasattr(self, 'validate_doc_update') and self.validate_doc_update is not None:
             _dict['validate_doc_update'] = self.validate_doc_update
         if hasattr(self, 'views') and self.views is not None:
@@ -10957,8 +10906,6 @@ class DesignDocumentViewIndex():
     :attr str language: Language for the defined views.
     :attr str signature: MD5 signature of the views for the design document.
     :attr ContentInformationSizes sizes: Schema for size information of content.
-    :attr str update_seq: The update sequence of the corresponding database that has
-          been indexed.
     :attr bool updater_running: Indicates if the view is currently being updated.
     :attr int waiting_clients: Number of clients waiting on views from this design
           document.
@@ -10971,7 +10918,6 @@ class DesignDocumentViewIndex():
                  language: str,
                  signature: str,
                  sizes: 'ContentInformationSizes',
-                 update_seq: str,
                  updater_running: bool,
                  waiting_clients: int,
                  waiting_commit: bool) -> None:
@@ -10984,8 +10930,6 @@ class DesignDocumentViewIndex():
         :param str signature: MD5 signature of the views for the design document.
         :param ContentInformationSizes sizes: Schema for size information of
                content.
-        :param str update_seq: The update sequence of the corresponding database
-               that has been indexed.
         :param bool updater_running: Indicates if the view is currently being
                updated.
         :param int waiting_clients: Number of clients waiting on views from this
@@ -10997,7 +10941,6 @@ class DesignDocumentViewIndex():
         self.language = language
         self.signature = signature
         self.sizes = sizes
-        self.update_seq = update_seq
         self.updater_running = updater_running
         self.waiting_clients = waiting_clients
         self.waiting_commit = waiting_commit
@@ -11022,10 +10965,6 @@ class DesignDocumentViewIndex():
             args['sizes'] = ContentInformationSizes.from_dict(_dict.get('sizes'))
         else:
             raise ValueError('Required property \'sizes\' not present in DesignDocumentViewIndex JSON')
-        if 'update_seq' in _dict:
-            args['update_seq'] = _dict.get('update_seq')
-        else:
-            raise ValueError('Required property \'update_seq\' not present in DesignDocumentViewIndex JSON')
         if 'updater_running' in _dict:
             args['updater_running'] = _dict.get('updater_running')
         else:
@@ -11056,8 +10995,6 @@ class DesignDocumentViewIndex():
             _dict['signature'] = self.signature
         if hasattr(self, 'sizes') and self.sizes is not None:
             _dict['sizes'] = self.sizes.to_dict()
-        if hasattr(self, 'update_seq') and self.update_seq is not None:
-            _dict['update_seq'] = self.update_seq
         if hasattr(self, 'updater_running') and self.updater_running is not None:
             _dict['updater_running'] = self.updater_running
         if hasattr(self, 'waiting_clients') and self.waiting_clients is not None:
@@ -13322,63 +13259,6 @@ class MembershipInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class MissingRevsResult():
-    """
-    Schema for mapping document IDs to lists of missing revisions.
-
-    :attr dict missing_revs: Schema for mapping document IDs to lists of revisions.
-    """
-
-    def __init__(self,
-                 missing_revs: dict) -> None:
-        """
-        Initialize a MissingRevsResult object.
-
-        :param dict missing_revs: Schema for mapping document IDs to lists of
-               revisions.
-        """
-        self.missing_revs = missing_revs
-
-    @classmethod
-    def from_dict(cls, _dict: Dict) -> 'MissingRevsResult':
-        """Initialize a MissingRevsResult object from a json dictionary."""
-        args = {}
-        if 'missing_revs' in _dict:
-            args['missing_revs'] = _dict.get('missing_revs')
-        else:
-            raise ValueError('Required property \'missing_revs\' not present in MissingRevsResult JSON')
-        return cls(**args)
-
-    @classmethod
-    def _from_dict(cls, _dict):
-        """Initialize a MissingRevsResult object from a json dictionary."""
-        return cls.from_dict(_dict)
-
-    def to_dict(self) -> Dict:
-        """Return a json dictionary representing this model."""
-        _dict = {}
-        if hasattr(self, 'missing_revs') and self.missing_revs is not None:
-            _dict['missing_revs'] = self.missing_revs
-        return _dict
-
-    def _to_dict(self):
-        """Return a json dictionary representing this model."""
-        return self.to_dict()
-
-    def __str__(self) -> str:
-        """Return a `str` version of this MissingRevsResult object."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    def __eq__(self, other: 'MissingRevsResult') -> bool:
-        """Return `true` when self and other are equal, false otherwise."""
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other: 'MissingRevsResult') -> bool:
-        """Return `true` when self and other are not equal, false otherwise."""
-        return not self == other
-
 class Ok():
     """
     Schema for an OK result.
@@ -13904,25 +13784,33 @@ class ReplicationDatabaseAuth():
     """
     Schema for replication source or target database authentication.
 
+    :attr ReplicationDatabaseAuthBasic basic: (optional) Schema for basic
+          authentication of replication source or target database.
     :attr ReplicationDatabaseAuthIam iam: (optional) Schema for an IAM API key for
           replication database authentication.
     """
 
     def __init__(self,
                  *,
+                 basic: 'ReplicationDatabaseAuthBasic' = None,
                  iam: 'ReplicationDatabaseAuthIam' = None) -> None:
         """
         Initialize a ReplicationDatabaseAuth object.
 
+        :param ReplicationDatabaseAuthBasic basic: (optional) Schema for basic
+               authentication of replication source or target database.
         :param ReplicationDatabaseAuthIam iam: (optional) Schema for an IAM API key
                for replication database authentication.
         """
+        self.basic = basic
         self.iam = iam
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'ReplicationDatabaseAuth':
         """Initialize a ReplicationDatabaseAuth object from a json dictionary."""
         args = {}
+        if 'basic' in _dict:
+            args['basic'] = ReplicationDatabaseAuthBasic.from_dict(_dict.get('basic'))
         if 'iam' in _dict:
             args['iam'] = ReplicationDatabaseAuthIam.from_dict(_dict.get('iam'))
         return cls(**args)
@@ -13935,6 +13823,8 @@ class ReplicationDatabaseAuth():
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
+        if hasattr(self, 'basic') and self.basic is not None:
+            _dict['basic'] = self.basic.to_dict()
         if hasattr(self, 'iam') and self.iam is not None:
             _dict['iam'] = self.iam.to_dict()
         return _dict
@@ -13954,6 +13844,72 @@ class ReplicationDatabaseAuth():
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'ReplicationDatabaseAuth') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class ReplicationDatabaseAuthBasic():
+    """
+    Schema for basic authentication of replication source or target database.
+
+    :attr str password: The password associated with the username.
+    :attr str username: The username.
+    """
+
+    def __init__(self,
+                 password: str,
+                 username: str) -> None:
+        """
+        Initialize a ReplicationDatabaseAuthBasic object.
+
+        :param str password: The password associated with the username.
+        :param str username: The username.
+        """
+        self.password = password
+        self.username = username
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ReplicationDatabaseAuthBasic':
+        """Initialize a ReplicationDatabaseAuthBasic object from a json dictionary."""
+        args = {}
+        if 'password' in _dict:
+            args['password'] = _dict.get('password')
+        else:
+            raise ValueError('Required property \'password\' not present in ReplicationDatabaseAuthBasic JSON')
+        if 'username' in _dict:
+            args['username'] = _dict.get('username')
+        else:
+            raise ValueError('Required property \'username\' not present in ReplicationDatabaseAuthBasic JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ReplicationDatabaseAuthBasic object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'password') and self.password is not None:
+            _dict['password'] = self.password
+        if hasattr(self, 'username') and self.username is not None:
+            _dict['username'] = self.username
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ReplicationDatabaseAuthBasic object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ReplicationDatabaseAuthBasic') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ReplicationDatabaseAuthBasic') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
@@ -15161,19 +15117,24 @@ class SchedulerJobEvent():
     """
     Schema for a replication scheduler job event.
 
+    :attr str reason: (optional) Reason for current state of event.
     :attr datetime timestamp: Timestamp of the event.
     :attr str type: Type of the event.
     """
 
     def __init__(self,
                  timestamp: datetime,
-                 type: str) -> None:
+                 type: str,
+                 *,
+                 reason: str = None) -> None:
         """
         Initialize a SchedulerJobEvent object.
 
         :param datetime timestamp: Timestamp of the event.
         :param str type: Type of the event.
+        :param str reason: (optional) Reason for current state of event.
         """
+        self.reason = reason
         self.timestamp = timestamp
         self.type = type
 
@@ -15181,6 +15142,8 @@ class SchedulerJobEvent():
     def from_dict(cls, _dict: Dict) -> 'SchedulerJobEvent':
         """Initialize a SchedulerJobEvent object from a json dictionary."""
         args = {}
+        if 'reason' in _dict:
+            args['reason'] = _dict.get('reason')
         if 'timestamp' in _dict:
             args['timestamp'] = string_to_datetime(_dict.get('timestamp'))
         else:
@@ -15199,6 +15162,8 @@ class SchedulerJobEvent():
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
+        if hasattr(self, 'reason') and self.reason is not None:
+            _dict['reason'] = self.reason
         if hasattr(self, 'timestamp') and self.timestamp is not None:
             _dict['timestamp'] = datetime_to_string(self.timestamp)
         if hasattr(self, 'type') and self.type is not None:
