@@ -100,6 +100,8 @@ The workaround is to [disable request body compression](#disabling-request-body-
 The server (Cloudant (Classic) <= 8169) incorrectly processes gzip compressed request bodies for `_replicate` endpoint.
 The workaround is to [disable request body compression](#disabling-request-body-compression).
 
+The `basic` property of `ReplicationDatabaseAuth` is not available in CouchDB <=3.1.1 and Cloudant <= 8914. For those versions use the `headers` property to add a header with a key of `Authorization` and a value of `Basic <base64 encoded credentials>`.
+
 ### Cloudant on Transaction Engine
 
 Whilst most SDK methods will work with _Cloudant on Transaction Engine_ there are some limitations.
