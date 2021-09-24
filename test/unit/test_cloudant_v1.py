@@ -1032,7 +1032,7 @@ class TestPostDbsInfo():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/_dbs_info')
-        mock_response = '[{"info": {"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
+        mock_response = '[{"error": "error", "info": {"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -1066,7 +1066,7 @@ class TestPostDbsInfo():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/_dbs_info')
-        mock_response = '[{"info": {"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
+        mock_response = '[{"error": "error", "info": {"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -4223,7 +4223,7 @@ class TestGetDesignDocument():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -4288,7 +4288,7 @@ class TestGetDesignDocument():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -4318,7 +4318,7 @@ class TestGetDesignDocument():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "updates": {"mapKey": "inner"}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -4438,7 +4438,6 @@ class TestPutDesignDocument():
         design_document_model['indexes'] = {}
         design_document_model['language'] = 'javascript'
         design_document_model['options'] = design_document_options_model
-        design_document_model['updates'] = {}
         design_document_model['validate_doc_update'] = 'testString'
         design_document_model['views'] = {}
         design_document_model['st_indexes'] = {}
@@ -4563,7 +4562,6 @@ class TestPutDesignDocument():
         design_document_model['indexes'] = {}
         design_document_model['language'] = 'javascript'
         design_document_model['options'] = design_document_options_model
-        design_document_model['updates'] = {}
         design_document_model['validate_doc_update'] = 'testString'
         design_document_model['views'] = {}
         design_document_model['st_indexes'] = {}
@@ -4674,7 +4672,6 @@ class TestPutDesignDocument():
         design_document_model['indexes'] = {}
         design_document_model['language'] = 'javascript'
         design_document_model['options'] = design_document_options_model
-        design_document_model['updates'] = {}
         design_document_model['validate_doc_update'] = 'testString'
         design_document_model['views'] = {}
         design_document_model['st_indexes'] = {}
@@ -4721,7 +4718,7 @@ class TestGetDesignDocumentInformation():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/testString/_design/testString/_info')
-        mock_response = '{"name": "name", "view_index": {"compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
+        mock_response = '{"name": "name", "view_index": {"compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -4751,7 +4748,7 @@ class TestGetDesignDocumentInformation():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/testString/_design/testString/_info')
-        mock_response = '{"name": "name", "view_index": {"compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
+        mock_response = '{"name": "name", "view_index": {"compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9225,7 +9222,7 @@ class TestGetReplicationDocument():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9288,7 +9285,7 @@ class TestGetReplicationDocument():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9316,7 +9313,7 @@ class TestGetReplicationDocument():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9395,12 +9392,18 @@ class TestPutReplicationDocument():
         replication_create_target_parameters_model['partitioned'] = False
         replication_create_target_parameters_model['q'] = 1
 
+        # Construct a dict representation of a ReplicationDatabaseAuthBasic model
+        replication_database_auth_basic_model = {}
+        replication_database_auth_basic_model['password'] = 'testString'
+        replication_database_auth_basic_model['username'] = 'testString'
+
         # Construct a dict representation of a ReplicationDatabaseAuthIam model
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
+        replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
 
         # Construct a dict representation of a ReplicationDatabase model
@@ -9528,12 +9531,18 @@ class TestPutReplicationDocument():
         replication_create_target_parameters_model['partitioned'] = False
         replication_create_target_parameters_model['q'] = 1
 
+        # Construct a dict representation of a ReplicationDatabaseAuthBasic model
+        replication_database_auth_basic_model = {}
+        replication_database_auth_basic_model['password'] = 'testString'
+        replication_database_auth_basic_model['username'] = 'testString'
+
         # Construct a dict representation of a ReplicationDatabaseAuthIam model
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
+        replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
 
         # Construct a dict representation of a ReplicationDatabase model
@@ -9647,12 +9656,18 @@ class TestPutReplicationDocument():
         replication_create_target_parameters_model['partitioned'] = False
         replication_create_target_parameters_model['q'] = 1
 
+        # Construct a dict representation of a ReplicationDatabaseAuthBasic model
+        replication_database_auth_basic_model = {}
+        replication_database_auth_basic_model['password'] = 'testString'
+        replication_database_auth_basic_model['username'] = 'testString'
+
         # Construct a dict representation of a ReplicationDatabaseAuthIam model
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
+        replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
 
         # Construct a dict representation of a ReplicationDatabase model
@@ -9890,7 +9905,7 @@ class TestGetSchedulerJobs():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/_scheduler/jobs')
-        mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}]}'
+        mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"reason": "reason", "timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9925,7 +9940,7 @@ class TestGetSchedulerJobs():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/_scheduler/jobs')
-        mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}]}'
+        mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"reason": "reason", "timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9964,7 +9979,7 @@ class TestGetSchedulerJob():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/_scheduler/jobs/testString')
-        mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}'
+        mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"reason": "reason", "timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9992,7 +10007,7 @@ class TestGetSchedulerJob():
         """
         # Set up mock
         url = self.preprocess_url(_base_url + '/_scheduler/jobs/testString')
-        mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}'
+        mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"reason": "reason", "timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -11803,88 +11818,6 @@ class TestNewInstance():
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
             )
-
-class TestPostMissingRevs():
-    """
-    Test Class for post_missing_revs
-    """
-
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
-    @responses.activate
-    def test_post_missing_revs_all_params(self):
-        """
-        post_missing_revs()
-        """
-        # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_missing_revs')
-        mock_response = '{"missing_revs": {"mapKey": ["inner"]}}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        document_revisions = {}
-
-        # Invoke method
-        response = _service.post_missing_revs(
-            db,
-            document_revisions,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
-
-        # Validate body params
-        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body == document_revisions
-
-
-    @responses.activate
-    def test_post_missing_revs_value_error(self):
-        """
-        test_post_missing_revs_value_error()
-        """
-        # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_missing_revs')
-        mock_response = '{"missing_revs": {"mapKey": ["inner"]}}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        document_revisions = {}
-
-        # Pass in all but one required param and check for a ValueError
-        req_param_dict = {
-            "db": db,
-            "document_revisions": document_revisions,
-        }
-        for param in req_param_dict.keys():
-            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
-            with pytest.raises(ValueError):
-                _service.post_missing_revs(**req_copy)
-
-
 
 class TestPostRevsDiff():
     """
@@ -13799,6 +13732,7 @@ class TestModel_DbsInfoResult():
 
         # Construct a json representation of a DbsInfoResult model
         dbs_info_result_model_json = {}
+        dbs_info_result_model_json['error'] = 'testString'
         dbs_info_result_model_json['info'] = database_information_model
         dbs_info_result_model_json['key'] = 'testString'
 
@@ -13887,7 +13821,6 @@ class TestModel_DesignDocument():
         design_document_model_json['indexes'] = {}
         design_document_model_json['language'] = 'javascript'
         design_document_model_json['options'] = design_document_options_model
-        design_document_model_json['updates'] = {}
         design_document_model_json['validate_doc_update'] = 'testString'
         design_document_model_json['views'] = {}
         design_document_model_json['st_indexes'] = {}
@@ -13940,7 +13873,6 @@ class TestModel_DesignDocumentInformation():
         design_document_view_index_model['language'] = 'testString'
         design_document_view_index_model['signature'] = 'testString'
         design_document_view_index_model['sizes'] = content_information_sizes_model
-        design_document_view_index_model['update_seq'] = 'testString'
         design_document_view_index_model['updater_running'] = True
         design_document_view_index_model['waiting_clients'] = 0
         design_document_view_index_model['waiting_commit'] = True
@@ -14017,7 +13949,6 @@ class TestModel_DesignDocumentViewIndex():
         design_document_view_index_model_json['language'] = 'testString'
         design_document_view_index_model_json['signature'] = 'testString'
         design_document_view_index_model_json['sizes'] = content_information_sizes_model
-        design_document_view_index_model_json['update_seq'] = 'testString'
         design_document_view_index_model_json['updater_running'] = True
         design_document_view_index_model_json['waiting_clients'] = 0
         design_document_view_index_model_json['waiting_commit'] = True
@@ -15136,35 +15067,6 @@ class TestModel_MembershipInformation():
         membership_information_model_json2 = membership_information_model.to_dict()
         assert membership_information_model_json2 == membership_information_model_json
 
-class TestModel_MissingRevsResult():
-    """
-    Test Class for MissingRevsResult
-    """
-
-    def test_missing_revs_result_serialization(self):
-        """
-        Test serialization/deserialization for MissingRevsResult
-        """
-
-        # Construct a json representation of a MissingRevsResult model
-        missing_revs_result_model_json = {}
-        missing_revs_result_model_json['missing_revs'] = {}
-
-        # Construct a model instance of MissingRevsResult by calling from_dict on the json representation
-        missing_revs_result_model = MissingRevsResult.from_dict(missing_revs_result_model_json)
-        assert missing_revs_result_model != False
-
-        # Construct a model instance of MissingRevsResult by calling from_dict on the json representation
-        missing_revs_result_model_dict = MissingRevsResult.from_dict(missing_revs_result_model_json).__dict__
-        missing_revs_result_model2 = MissingRevsResult(**missing_revs_result_model_dict)
-
-        # Verify the model instances are equivalent
-        assert missing_revs_result_model == missing_revs_result_model2
-
-        # Convert model instance back to dict and verify no loss of data
-        missing_revs_result_model_json2 = missing_revs_result_model.to_dict()
-        assert missing_revs_result_model_json2 == missing_revs_result_model_json
-
 class TestModel_Ok():
     """
     Test Class for Ok
@@ -15383,10 +15285,15 @@ class TestModel_ReplicationDatabase():
 
         # Construct dict forms of any model objects needed in order to build this model.
 
+        replication_database_auth_basic_model = {} # ReplicationDatabaseAuthBasic
+        replication_database_auth_basic_model['password'] = 'testString'
+        replication_database_auth_basic_model['username'] = 'testString'
+
         replication_database_auth_iam_model = {} # ReplicationDatabaseAuthIam
         replication_database_auth_iam_model['api_key'] = 'testString'
 
         replication_database_auth_model = {} # ReplicationDatabaseAuth
+        replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
 
         # Construct a json representation of a ReplicationDatabase model
@@ -15422,11 +15329,16 @@ class TestModel_ReplicationDatabaseAuth():
 
         # Construct dict forms of any model objects needed in order to build this model.
 
+        replication_database_auth_basic_model = {} # ReplicationDatabaseAuthBasic
+        replication_database_auth_basic_model['password'] = 'testString'
+        replication_database_auth_basic_model['username'] = 'testString'
+
         replication_database_auth_iam_model = {} # ReplicationDatabaseAuthIam
         replication_database_auth_iam_model['api_key'] = 'testString'
 
         # Construct a json representation of a ReplicationDatabaseAuth model
         replication_database_auth_model_json = {}
+        replication_database_auth_model_json['basic'] = replication_database_auth_basic_model
         replication_database_auth_model_json['iam'] = replication_database_auth_iam_model
 
         # Construct a model instance of ReplicationDatabaseAuth by calling from_dict on the json representation
@@ -15443,6 +15355,36 @@ class TestModel_ReplicationDatabaseAuth():
         # Convert model instance back to dict and verify no loss of data
         replication_database_auth_model_json2 = replication_database_auth_model.to_dict()
         assert replication_database_auth_model_json2 == replication_database_auth_model_json
+
+class TestModel_ReplicationDatabaseAuthBasic():
+    """
+    Test Class for ReplicationDatabaseAuthBasic
+    """
+
+    def test_replication_database_auth_basic_serialization(self):
+        """
+        Test serialization/deserialization for ReplicationDatabaseAuthBasic
+        """
+
+        # Construct a json representation of a ReplicationDatabaseAuthBasic model
+        replication_database_auth_basic_model_json = {}
+        replication_database_auth_basic_model_json['password'] = 'testString'
+        replication_database_auth_basic_model_json['username'] = 'testString'
+
+        # Construct a model instance of ReplicationDatabaseAuthBasic by calling from_dict on the json representation
+        replication_database_auth_basic_model = ReplicationDatabaseAuthBasic.from_dict(replication_database_auth_basic_model_json)
+        assert replication_database_auth_basic_model != False
+
+        # Construct a model instance of ReplicationDatabaseAuthBasic by calling from_dict on the json representation
+        replication_database_auth_basic_model_dict = ReplicationDatabaseAuthBasic.from_dict(replication_database_auth_basic_model_json).__dict__
+        replication_database_auth_basic_model2 = ReplicationDatabaseAuthBasic(**replication_database_auth_basic_model_dict)
+
+        # Verify the model instances are equivalent
+        assert replication_database_auth_basic_model == replication_database_auth_basic_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        replication_database_auth_basic_model_json2 = replication_database_auth_basic_model.to_dict()
+        assert replication_database_auth_basic_model_json2 == replication_database_auth_basic_model_json
 
 class TestModel_ReplicationDatabaseAuthIam():
     """
@@ -15509,10 +15451,15 @@ class TestModel_ReplicationDocument():
         replication_create_target_parameters_model['partitioned'] = False
         replication_create_target_parameters_model['q'] = 1
 
+        replication_database_auth_basic_model = {} # ReplicationDatabaseAuthBasic
+        replication_database_auth_basic_model['password'] = 'testString'
+        replication_database_auth_basic_model['username'] = 'testString'
+
         replication_database_auth_iam_model = {} # ReplicationDatabaseAuthIam
         replication_database_auth_iam_model['api_key'] = 'testString'
 
         replication_database_auth_model = {} # ReplicationDatabaseAuth
+        replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
 
         replication_database_model = {} # ReplicationDatabase
@@ -15810,6 +15757,7 @@ class TestModel_SchedulerJob():
         # Construct dict forms of any model objects needed in order to build this model.
 
         scheduler_job_event_model = {} # SchedulerJobEvent
+        scheduler_job_event_model['reason'] = 'testString'
         scheduler_job_event_model['timestamp'] = "2019-01-01T12:00:00Z"
         scheduler_job_event_model['type'] = 'testString'
 
@@ -15866,6 +15814,7 @@ class TestModel_SchedulerJobEvent():
 
         # Construct a json representation of a SchedulerJobEvent model
         scheduler_job_event_model_json = {}
+        scheduler_job_event_model_json['reason'] = 'testString'
         scheduler_job_event_model_json['timestamp'] = "2019-01-01T12:00:00Z"
         scheduler_job_event_model_json['type'] = 'testString'
 
@@ -15897,6 +15846,7 @@ class TestModel_SchedulerJobsResult():
         # Construct dict forms of any model objects needed in order to build this model.
 
         scheduler_job_event_model = {} # SchedulerJobEvent
+        scheduler_job_event_model['reason'] = 'testString'
         scheduler_job_event_model['timestamp'] = "2019-01-01T12:00:00Z"
         scheduler_job_event_model['type'] = 'testString'
 
