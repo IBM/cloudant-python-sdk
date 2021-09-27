@@ -22,8 +22,13 @@ printf ">>>>> Finished cloning...\n"
 
 pushd gh-pages
 
+# Semantic version pattern is copied from Semantic Versioning Specification 2.0.0:
+# Author: Tom Preston-Werner
+# License: Creative Commons ― CC BY 3.0 https://creativecommons.org/licenses/by/3.0/
+# Source: https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
+# Change: Reduced the reg-exp to match only: <major>.<minor>.<patch>
+if [[ $TAG_NAME =~ ^(0|[1-9][[:digit:]]*)\.(0|[1-9][[:digit:]]*)\.(0|[1-9][[:digit:]]*)$ ]]; then
 # Create a new directory for this tag_name and copy the aggregated pydocs there, if it's a tagged release.
-if [ -n "TAG_NAME" ]; then
   printf "\n>>>>> Copying aggregated pydocs to new tagged-release directory: %s\n" ${BRANCH_NAME}
   rm -rf docs/${TAG_NAME}
   mkdir -p docs/${TAG_NAME}
@@ -49,5 +54,5 @@ if [ -n "TAG_NAME" ]; then
 
   printf "\n>>>>> Published pydoc for release build: repo=%s branch=%s build_num=%s job_name=%s\n" ${GIT_REPO} ${BRANCH_NAME} ${BUILD_NUMBER} ${JOB_NAME}
 else
-  printf "\n>>>>> Failed to publish pydoc for release build: TAG_NAME was empty\n"
+  printf "\n>>>>> Failed to publish pydoc for release build: TAG_NAME does not follow Semantic Version pattern\n"
 fi
