@@ -49,15 +49,16 @@ class Helpers():
     def mock_out_cloudant_request(srv):
         srv.http_client.request = Mock(return_value=Helpers.get_mocked_response())
 
-    # Every test case tests an authenticator and its default timeout value at first,
-    # in the second iteration a custom overwrite possibility is checked.
+    # Every test case tests a timeout settings.
     @staticmethod
     def defineTestCases(srv):
         return [
+            # 1. case: check default timeout value
             {
                 'assert_func': Helpers.assert_default_timeout_setting,
                 'set_timeout': Helpers.set_no_timeout
             },
+            # 2. case: check custom timeout overwrite
             {
                 'assert_func': Helpers.assert_custom_timeout_setting,
                 'set_timeout': srv.set_http_config
@@ -89,10 +90,10 @@ class Helpers():
         tci.assertEqual(srv.http_client.request.call_count, idx + 1)
         return srv.http_client.request.mock_calls[idx]
 
+# Every method tests an authenticator.
 class TestTimeout(unittest.TestCase):
     # ** CloudantV1
     # *************
-    # Check every authenticator type
     def test_timeout_cloudantv1_noauth(self):
         no_auth = NoAuthAuthenticator()
         my_service = CloudantV1(
