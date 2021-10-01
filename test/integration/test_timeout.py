@@ -1,4 +1,6 @@
-#  © Copyright IBM Corporation 2020.
+# coding: utf-8
+
+#  © Copyright IBM Corporation 2021.
 #  #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,17 +16,16 @@
 
 import time
 import unittest
-
-import requests
 from unittest.mock import Mock
+
+from ibm_cloud_sdk_core.authenticators import BasicAuthenticator, IAMAuthenticator, NoAuthAuthenticator
+import requests
 from requests import Response
-from urllib3 import Timeout
 
 from ibmcloudant.cloudant_v1 import CloudantV1
-from ibm_cloud_sdk_core.authenticators import BasicAuthenticator, IAMAuthenticator, NoAuthAuthenticator
 from ibmcloudant.couchdb_session_authenticator import CouchDbSessionAuthenticator
 
-DEFAULT_TIMEOUT = 150  # 2.5m (=150s)
+DEFAULT_TIMEOUT = (60, 150)  # 2.5m (=150s)
 CUSTOM_TIMEOUT = 10    # 10s
 CUSTOM_TIMEOUT_CONFIG = {'timeout': CUSTOM_TIMEOUT}
 
@@ -34,6 +35,8 @@ class Helpers():
     def get_current_time_plus_two_minute() -> int:
         return int(time.time()) + 120
 
+    # This mocked response has content that suitable for functionally test
+    # both authentication and service requests
     @staticmethod
     def get_mocked_response():
         mock_response = Response()
@@ -68,8 +71,8 @@ class Helpers():
     @staticmethod
     def assert_default_timeout_setting(tci, call_args):
         _, _, kwargs = call_args
-        tci.assertTrue(isinstance(kwargs['timeout'], Timeout))
-        tci.assertEqual(kwargs['timeout'].read_timeout, DEFAULT_TIMEOUT)
+        tci.assertTrue(isinstance(kwargs['timeout'], tuple))
+        tci.assertEqual(kwargs['timeout'], DEFAULT_TIMEOUT)
 
     @staticmethod
     def assert_custom_timeout_setting(tci, call_args):
