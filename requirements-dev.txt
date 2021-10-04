@@ -8,7 +8,7 @@ pytest-rerunfailures==10.2
 
 # code coverage
 coverage==5.5
-pytest-cov==2.12.1
+pytest-cov==3.0.0
 
 # documentation
 recommonmark==0.7.1
