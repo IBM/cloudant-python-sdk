@@ -14,10 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# IBM OpenAPI SDK Code Generator Version: 3.37.1-66e80f2e-20210813-202232
+# IBM OpenAPI SDK Code Generator Version: 3.40.0-910cf8c2-20211006-154754
  
 """
 NoSQL database based on Apache CouchDB
+
+API Version: 1.0.0-dev0.0.40
+See: https://cloud.ibm.com/docs/services/Cloudant/
 """
 
 from datetime import datetime
@@ -65,7 +68,7 @@ class CloudantV1(BaseService):
         Construct a new client for the Cloudant service.
 
         :param Authenticator authenticator: The authenticator specifies the authentication mechanism.
-               Get up to date information from https://github.com/IBM/python-sdk-core/blob/master/README.md
+               Get up to date information from https://github.com/IBM/python-sdk-core/blob/main/README.md
                about initializing the authenticator of your choice.
         """
         BaseService.__init__(self,
