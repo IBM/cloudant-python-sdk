@@ -54,5 +54,6 @@ if [[ $TAG_NAME =~ ^(0|[1-9][[:digit:]]*)\.(0|[1-9][[:digit:]]*)\.(0|[1-9][[:dig
 
   printf "\n>>>>> Published pydoc for release build: repo=%s branch=%s build_num=%s job_name=%s\n" ${GIT_REPO} ${BRANCH_NAME} ${BUILD_NUMBER} ${JOB_NAME}
 else
-  printf "\n>>>>> Failed to publish pydoc for release build: TAG_NAME does not follow Semantic Version pattern\n"
+  printf "\n>>>>> Failed to publish pydoc for release build: tag_name=%s does not follow Semantic Version pattern\n" ${TAG_NAME}
+  exit 1
 fi
