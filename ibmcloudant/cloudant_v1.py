@@ -14,12 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# IBM OpenAPI SDK Code Generator Version: 3.40.0-910cf8c2-20211006-154754
- 
 """
 NoSQL database based on Apache CouchDB
 
-API Version: 1.0.0-dev0.0.40
 See: https://cloud.ibm.com/docs/services/Cloudant/
 """
 
