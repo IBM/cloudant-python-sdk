@@ -113,13 +113,13 @@ class TestGetServerInformation():
         assert response.status_code == 200
 
     def test_get_server_information_all_params_with_retries(self):
-    	# Enable retries and run test_get_server_information_all_params.
-    	_service.enable_retries()
-    	self.test_get_server_information_all_params()
+        # Enable retries and run test_get_server_information_all_params.
+        _service.enable_retries()
+        self.test_get_server_information_all_params()
 
-    	# Disable retries and run test_get_server_information_all_params.
-    	_service.disable_retries()
-    	self.test_get_server_information_all_params()
+        # Disable retries and run test_get_server_information_all_params.
+        _service.disable_retries()
+        self.test_get_server_information_all_params()
 
 class TestGetMembershipInformation():
     """
@@ -160,13 +160,13 @@ class TestGetMembershipInformation():
         assert response.status_code == 200
 
     def test_get_membership_information_all_params_with_retries(self):
-    	# Enable retries and run test_get_membership_information_all_params.
-    	_service.enable_retries()
-    	self.test_get_membership_information_all_params()
+        # Enable retries and run test_get_membership_information_all_params.
+        _service.enable_retries()
+        self.test_get_membership_information_all_params()
 
-    	# Disable retries and run test_get_membership_information_all_params.
-    	_service.disable_retries()
-    	self.test_get_membership_information_all_params()
+        # Disable retries and run test_get_membership_information_all_params.
+        _service.disable_retries()
+        self.test_get_membership_information_all_params()
 
 class TestGetUuids():
     """
@@ -216,13 +216,13 @@ class TestGetUuids():
         assert 'count={}'.format(count) in query_string
 
     def test_get_uuids_all_params_with_retries(self):
-    	# Enable retries and run test_get_uuids_all_params.
-    	_service.enable_retries()
-    	self.test_get_uuids_all_params()
+        # Enable retries and run test_get_uuids_all_params.
+        _service.enable_retries()
+        self.test_get_uuids_all_params()
 
-    	# Disable retries and run test_get_uuids_all_params.
-    	_service.disable_retries()
-    	self.test_get_uuids_all_params()
+        # Disable retries and run test_get_uuids_all_params.
+        _service.disable_retries()
+        self.test_get_uuids_all_params()
 
     @responses.activate
     def test_get_uuids_required_params(self):
@@ -247,13 +247,13 @@ class TestGetUuids():
         assert response.status_code == 200
 
     def test_get_uuids_required_params_with_retries(self):
-    	# Enable retries and run test_get_uuids_required_params.
-    	_service.enable_retries()
-    	self.test_get_uuids_required_params()
+        # Enable retries and run test_get_uuids_required_params.
+        _service.enable_retries()
+        self.test_get_uuids_required_params()
 
-    	# Disable retries and run test_get_uuids_required_params.
-    	_service.disable_retries()
-    	self.test_get_uuids_required_params()
+        # Disable retries and run test_get_uuids_required_params.
+        _service.disable_retries()
+        self.test_get_uuids_required_params()
 
 class TestGetCapacityThroughputInformation():
     """
@@ -294,13 +294,13 @@ class TestGetCapacityThroughputInformation():
         assert response.status_code == 200
 
     def test_get_capacity_throughput_information_all_params_with_retries(self):
-    	# Enable retries and run test_get_capacity_throughput_information_all_params.
-    	_service.enable_retries()
-    	self.test_get_capacity_throughput_information_all_params()
+        # Enable retries and run test_get_capacity_throughput_information_all_params.
+        _service.enable_retries()
+        self.test_get_capacity_throughput_information_all_params()
 
-    	# Disable retries and run test_get_capacity_throughput_information_all_params.
-    	_service.disable_retries()
-    	self.test_get_capacity_throughput_information_all_params()
+        # Disable retries and run test_get_capacity_throughput_information_all_params.
+        _service.disable_retries()
+        self.test_get_capacity_throughput_information_all_params()
 
 class TestPutCapacityThroughputConfiguration():
     """
@@ -352,13 +352,13 @@ class TestPutCapacityThroughputConfiguration():
         assert req_body['blocks'] == 0
 
     def test_put_capacity_throughput_configuration_all_params_with_retries(self):
-    	# Enable retries and run test_put_capacity_throughput_configuration_all_params.
-    	_service.enable_retries()
-    	self.test_put_capacity_throughput_configuration_all_params()
+        # Enable retries and run test_put_capacity_throughput_configuration_all_params.
+        _service.enable_retries()
+        self.test_put_capacity_throughput_configuration_all_params()
 
-    	# Disable retries and run test_put_capacity_throughput_configuration_all_params.
-    	_service.disable_retries()
-    	self.test_put_capacity_throughput_configuration_all_params()
+        # Disable retries and run test_put_capacity_throughput_configuration_all_params.
+        _service.disable_retries()
+        self.test_put_capacity_throughput_configuration_all_params()
 
     @responses.activate
     def test_put_capacity_throughput_configuration_value_error(self):
@@ -388,13 +388,13 @@ class TestPutCapacityThroughputConfiguration():
 
 
     def test_put_capacity_throughput_configuration_value_error_with_retries(self):
-    	# Enable retries and run test_put_capacity_throughput_configuration_value_error.
-    	_service.enable_retries()
-    	self.test_put_capacity_throughput_configuration_value_error()
+        # Enable retries and run test_put_capacity_throughput_configuration_value_error.
+        _service.enable_retries()
+        self.test_put_capacity_throughput_configuration_value_error()
 
-    	# Disable retries and run test_put_capacity_throughput_configuration_value_error.
-    	_service.disable_retries()
-    	self.test_put_capacity_throughput_configuration_value_error()
+        # Disable retries and run test_put_capacity_throughput_configuration_value_error.
+        _service.disable_retries()
+        self.test_put_capacity_throughput_configuration_value_error()
 
 # endregion
 ##############################################################################
@@ -489,13 +489,13 @@ class TestGetDbUpdates():
         assert 'since={}'.format(since) in query_string
 
     def test_get_db_updates_all_params_with_retries(self):
-    	# Enable retries and run test_get_db_updates_all_params.
-    	_service.enable_retries()
-    	self.test_get_db_updates_all_params()
+        # Enable retries and run test_get_db_updates_all_params.
+        _service.enable_retries()
+        self.test_get_db_updates_all_params()
 
-    	# Disable retries and run test_get_db_updates_all_params.
-    	_service.disable_retries()
-    	self.test_get_db_updates_all_params()
+        # Disable retries and run test_get_db_updates_all_params.
+        _service.disable_retries()
+        self.test_get_db_updates_all_params()
 
     @responses.activate
     def test_get_db_updates_required_params(self):
@@ -520,13 +520,13 @@ class TestGetDbUpdates():
         assert response.status_code == 200
 
     def test_get_db_updates_required_params_with_retries(self):
-    	# Enable retries and run test_get_db_updates_required_params.
-    	_service.enable_retries()
-    	self.test_get_db_updates_required_params()
+        # Enable retries and run test_get_db_updates_required_params.
+        _service.enable_retries()
+        self.test_get_db_updates_required_params()
 
-    	# Disable retries and run test_get_db_updates_required_params.
-    	_service.disable_retries()
-    	self.test_get_db_updates_required_params()
+        # Disable retries and run test_get_db_updates_required_params.
+        _service.disable_retries()
+        self.test_get_db_updates_required_params()
 
 class TestPostChanges():
     """
@@ -633,13 +633,13 @@ class TestPostChanges():
         assert req_body['selector'] == {}
 
     def test_post_changes_all_params_with_retries(self):
-    	# Enable retries and run test_post_changes_all_params.
-    	_service.enable_retries()
-    	self.test_post_changes_all_params()
+        # Enable retries and run test_post_changes_all_params.
+        _service.enable_retries()
+        self.test_post_changes_all_params()
 
-    	# Disable retries and run test_post_changes_all_params.
-    	_service.disable_retries()
-    	self.test_post_changes_all_params()
+        # Disable retries and run test_post_changes_all_params.
+        _service.disable_retries()
+        self.test_post_changes_all_params()
 
     @responses.activate
     def test_post_changes_required_params(self):
@@ -683,13 +683,13 @@ class TestPostChanges():
         assert req_body['selector'] == {}
 
     def test_post_changes_required_params_with_retries(self):
-    	# Enable retries and run test_post_changes_required_params.
-    	_service.enable_retries()
-    	self.test_post_changes_required_params()
+        # Enable retries and run test_post_changes_required_params.
+        _service.enable_retries()
+        self.test_post_changes_required_params()
 
-    	# Disable retries and run test_post_changes_required_params.
-    	_service.disable_retries()
-    	self.test_post_changes_required_params()
+        # Disable retries and run test_post_changes_required_params.
+        _service.disable_retries()
+        self.test_post_changes_required_params()
 
     @responses.activate
     def test_post_changes_value_error(self):
@@ -722,13 +722,13 @@ class TestPostChanges():
 
 
     def test_post_changes_value_error_with_retries(self):
-    	# Enable retries and run test_post_changes_value_error.
-    	_service.enable_retries()
-    	self.test_post_changes_value_error()
+        # Enable retries and run test_post_changes_value_error.
+        _service.enable_retries()
+        self.test_post_changes_value_error()
 
-    	# Disable retries and run test_post_changes_value_error.
-    	_service.disable_retries()
-    	self.test_post_changes_value_error()
+        # Disable retries and run test_post_changes_value_error.
+        _service.disable_retries()
+        self.test_post_changes_value_error()
 
 class TestPostChangesAsStream():
     """
@@ -841,13 +841,13 @@ class TestPostChangesAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_changes_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_post_changes_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_post_changes_as_stream_all_params()
+        # Enable retries and run test_post_changes_as_stream_all_params.
+        _service.enable_retries()
+        self.test_post_changes_as_stream_all_params()
 
-    	# Disable retries and run test_post_changes_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_post_changes_as_stream_all_params()
+        # Disable retries and run test_post_changes_as_stream_all_params.
+        _service.disable_retries()
+        self.test_post_changes_as_stream_all_params()
 
     @responses.activate
     def test_post_changes_as_stream_required_params(self):
@@ -897,13 +897,13 @@ class TestPostChangesAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_changes_as_stream_required_params_with_retries(self):
-    	# Enable retries and run test_post_changes_as_stream_required_params.
-    	_service.enable_retries()
-    	self.test_post_changes_as_stream_required_params()
+        # Enable retries and run test_post_changes_as_stream_required_params.
+        _service.enable_retries()
+        self.test_post_changes_as_stream_required_params()
 
-    	# Disable retries and run test_post_changes_as_stream_required_params.
-    	_service.disable_retries()
-    	self.test_post_changes_as_stream_required_params()
+        # Disable retries and run test_post_changes_as_stream_required_params.
+        _service.disable_retries()
+        self.test_post_changes_as_stream_required_params()
 
     @responses.activate
     def test_post_changes_as_stream_value_error(self):
@@ -936,13 +936,13 @@ class TestPostChangesAsStream():
 
 
     def test_post_changes_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_post_changes_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_post_changes_as_stream_value_error()
+        # Enable retries and run test_post_changes_as_stream_value_error.
+        _service.enable_retries()
+        self.test_post_changes_as_stream_value_error()
 
-    	# Disable retries and run test_post_changes_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_post_changes_as_stream_value_error()
+        # Disable retries and run test_post_changes_as_stream_value_error.
+        _service.disable_retries()
+        self.test_post_changes_as_stream_value_error()
 
 # endregion
 ##############################################################################
@@ -1021,13 +1021,13 @@ class TestHeadDatabase():
         assert response.status_code == 200
 
     def test_head_database_all_params_with_retries(self):
-    	# Enable retries and run test_head_database_all_params.
-    	_service.enable_retries()
-    	self.test_head_database_all_params()
+        # Enable retries and run test_head_database_all_params.
+        _service.enable_retries()
+        self.test_head_database_all_params()
 
-    	# Disable retries and run test_head_database_all_params.
-    	_service.disable_retries()
-    	self.test_head_database_all_params()
+        # Disable retries and run test_head_database_all_params.
+        _service.disable_retries()
+        self.test_head_database_all_params()
 
     @responses.activate
     def test_head_database_value_error(self):
@@ -1054,13 +1054,13 @@ class TestHeadDatabase():
 
 
     def test_head_database_value_error_with_retries(self):
-    	# Enable retries and run test_head_database_value_error.
-    	_service.enable_retries()
-    	self.test_head_database_value_error()
+        # Enable retries and run test_head_database_value_error.
+        _service.enable_retries()
+        self.test_head_database_value_error()
 
-    	# Disable retries and run test_head_database_value_error.
-    	_service.disable_retries()
-    	self.test_head_database_value_error()
+        # Disable retries and run test_head_database_value_error.
+        _service.disable_retries()
+        self.test_head_database_value_error()
 
 class TestGetAllDbs():
     """
@@ -1122,13 +1122,13 @@ class TestGetAllDbs():
         assert 'startkey={}'.format(startkey) in query_string
 
     def test_get_all_dbs_all_params_with_retries(self):
-    	# Enable retries and run test_get_all_dbs_all_params.
-    	_service.enable_retries()
-    	self.test_get_all_dbs_all_params()
+        # Enable retries and run test_get_all_dbs_all_params.
+        _service.enable_retries()
+        self.test_get_all_dbs_all_params()
 
-    	# Disable retries and run test_get_all_dbs_all_params.
-    	_service.disable_retries()
-    	self.test_get_all_dbs_all_params()
+        # Disable retries and run test_get_all_dbs_all_params.
+        _service.disable_retries()
+        self.test_get_all_dbs_all_params()
 
     @responses.activate
     def test_get_all_dbs_required_params(self):
@@ -1153,13 +1153,13 @@ class TestGetAllDbs():
         assert response.status_code == 200
 
     def test_get_all_dbs_required_params_with_retries(self):
-    	# Enable retries and run test_get_all_dbs_required_params.
-    	_service.enable_retries()
-    	self.test_get_all_dbs_required_params()
+        # Enable retries and run test_get_all_dbs_required_params.
+        _service.enable_retries()
+        self.test_get_all_dbs_required_params()
 
-    	# Disable retries and run test_get_all_dbs_required_params.
-    	_service.disable_retries()
-    	self.test_get_all_dbs_required_params()
+        # Disable retries and run test_get_all_dbs_required_params.
+        _service.disable_retries()
+        self.test_get_all_dbs_required_params()
 
 class TestPostDbsInfo():
     """
@@ -1211,13 +1211,13 @@ class TestPostDbsInfo():
         assert req_body['keys'] == ['testString']
 
     def test_post_dbs_info_all_params_with_retries(self):
-    	# Enable retries and run test_post_dbs_info_all_params.
-    	_service.enable_retries()
-    	self.test_post_dbs_info_all_params()
+        # Enable retries and run test_post_dbs_info_all_params.
+        _service.enable_retries()
+        self.test_post_dbs_info_all_params()
 
-    	# Disable retries and run test_post_dbs_info_all_params.
-    	_service.disable_retries()
-    	self.test_post_dbs_info_all_params()
+        # Disable retries and run test_post_dbs_info_all_params.
+        _service.disable_retries()
+        self.test_post_dbs_info_all_params()
 
     @responses.activate
     def test_post_dbs_info_value_error(self):
@@ -1247,13 +1247,13 @@ class TestPostDbsInfo():
 
 
     def test_post_dbs_info_value_error_with_retries(self):
-    	# Enable retries and run test_post_dbs_info_value_error.
-    	_service.enable_retries()
-    	self.test_post_dbs_info_value_error()
+        # Enable retries and run test_post_dbs_info_value_error.
+        _service.enable_retries()
+        self.test_post_dbs_info_value_error()
 
-    	# Disable retries and run test_post_dbs_info_value_error.
-    	_service.disable_retries()
-    	self.test_post_dbs_info_value_error()
+        # Disable retries and run test_post_dbs_info_value_error.
+        _service.disable_retries()
+        self.test_post_dbs_info_value_error()
 
 class TestDeleteDatabase():
     """
@@ -1299,13 +1299,13 @@ class TestDeleteDatabase():
         assert response.status_code == 200
 
     def test_delete_database_all_params_with_retries(self):
-    	# Enable retries and run test_delete_database_all_params.
-    	_service.enable_retries()
-    	self.test_delete_database_all_params()
+        # Enable retries and run test_delete_database_all_params.
+        _service.enable_retries()
+        self.test_delete_database_all_params()
 
-    	# Disable retries and run test_delete_database_all_params.
-    	_service.disable_retries()
-    	self.test_delete_database_all_params()
+        # Disable retries and run test_delete_database_all_params.
+        _service.disable_retries()
+        self.test_delete_database_all_params()
 
     @responses.activate
     def test_delete_database_value_error(self):
@@ -1335,13 +1335,13 @@ class TestDeleteDatabase():
 
 
     def test_delete_database_value_error_with_retries(self):
-    	# Enable retries and run test_delete_database_value_error.
-    	_service.enable_retries()
-    	self.test_delete_database_value_error()
+        # Enable retries and run test_delete_database_value_error.
+        _service.enable_retries()
+        self.test_delete_database_value_error()
 
-    	# Disable retries and run test_delete_database_value_error.
-    	_service.disable_retries()
-    	self.test_delete_database_value_error()
+        # Disable retries and run test_delete_database_value_error.
+        _service.disable_retries()
+        self.test_delete_database_value_error()
 
 class TestGetDatabaseInformation():
     """
@@ -1387,13 +1387,13 @@ class TestGetDatabaseInformation():
         assert response.status_code == 200
 
     def test_get_database_information_all_params_with_retries(self):
-    	# Enable retries and run test_get_database_information_all_params.
-    	_service.enable_retries()
-    	self.test_get_database_information_all_params()
+        # Enable retries and run test_get_database_information_all_params.
+        _service.enable_retries()
+        self.test_get_database_information_all_params()
 
-    	# Disable retries and run test_get_database_information_all_params.
-    	_service.disable_retries()
-    	self.test_get_database_information_all_params()
+        # Disable retries and run test_get_database_information_all_params.
+        _service.disable_retries()
+        self.test_get_database_information_all_params()
 
     @responses.activate
     def test_get_database_information_value_error(self):
@@ -1423,13 +1423,13 @@ class TestGetDatabaseInformation():
 
 
     def test_get_database_information_value_error_with_retries(self):
-    	# Enable retries and run test_get_database_information_value_error.
-    	_service.enable_retries()
-    	self.test_get_database_information_value_error()
+        # Enable retries and run test_get_database_information_value_error.
+        _service.enable_retries()
+        self.test_get_database_information_value_error()
 
-    	# Disable retries and run test_get_database_information_value_error.
-    	_service.disable_retries()
-    	self.test_get_database_information_value_error()
+        # Disable retries and run test_get_database_information_value_error.
+        _service.disable_retries()
+        self.test_get_database_information_value_error()
 
 class TestPutDatabase():
     """
@@ -1484,13 +1484,13 @@ class TestPutDatabase():
         assert 'q={}'.format(q) in query_string
 
     def test_put_database_all_params_with_retries(self):
-    	# Enable retries and run test_put_database_all_params.
-    	_service.enable_retries()
-    	self.test_put_database_all_params()
+        # Enable retries and run test_put_database_all_params.
+        _service.enable_retries()
+        self.test_put_database_all_params()
 
-    	# Disable retries and run test_put_database_all_params.
-    	_service.disable_retries()
-    	self.test_put_database_all_params()
+        # Disable retries and run test_put_database_all_params.
+        _service.disable_retries()
+        self.test_put_database_all_params()
 
     @responses.activate
     def test_put_database_required_params(self):
@@ -1520,13 +1520,13 @@ class TestPutDatabase():
         assert response.status_code == 201
 
     def test_put_database_required_params_with_retries(self):
-    	# Enable retries and run test_put_database_required_params.
-    	_service.enable_retries()
-    	self.test_put_database_required_params()
+        # Enable retries and run test_put_database_required_params.
+        _service.enable_retries()
+        self.test_put_database_required_params()
 
-    	# Disable retries and run test_put_database_required_params.
-    	_service.disable_retries()
-    	self.test_put_database_required_params()
+        # Disable retries and run test_put_database_required_params.
+        _service.disable_retries()
+        self.test_put_database_required_params()
 
     @responses.activate
     def test_put_database_value_error(self):
@@ -1556,13 +1556,13 @@ class TestPutDatabase():
 
 
     def test_put_database_value_error_with_retries(self):
-    	# Enable retries and run test_put_database_value_error.
-    	_service.enable_retries()
-    	self.test_put_database_value_error()
+        # Enable retries and run test_put_database_value_error.
+        _service.enable_retries()
+        self.test_put_database_value_error()
 
-    	# Disable retries and run test_put_database_value_error.
-    	_service.disable_retries()
-    	self.test_put_database_value_error()
+        # Disable retries and run test_put_database_value_error.
+        _service.disable_retries()
+        self.test_put_database_value_error()
 
 # endregion
 ##############################################################################
@@ -1654,13 +1654,13 @@ class TestHeadDocument():
         assert 'rev={}'.format(rev) in query_string
 
     def test_head_document_all_params_with_retries(self):
-    	# Enable retries and run test_head_document_all_params.
-    	_service.enable_retries()
-    	self.test_head_document_all_params()
+        # Enable retries and run test_head_document_all_params.
+        _service.enable_retries()
+        self.test_head_document_all_params()
 
-    	# Disable retries and run test_head_document_all_params.
-    	_service.disable_retries()
-    	self.test_head_document_all_params()
+        # Disable retries and run test_head_document_all_params.
+        _service.disable_retries()
+        self.test_head_document_all_params()
 
     @responses.activate
     def test_head_document_required_params(self):
@@ -1689,13 +1689,13 @@ class TestHeadDocument():
         assert response.status_code == 200
 
     def test_head_document_required_params_with_retries(self):
-    	# Enable retries and run test_head_document_required_params.
-    	_service.enable_retries()
-    	self.test_head_document_required_params()
+        # Enable retries and run test_head_document_required_params.
+        _service.enable_retries()
+        self.test_head_document_required_params()
 
-    	# Disable retries and run test_head_document_required_params.
-    	_service.disable_retries()
-    	self.test_head_document_required_params()
+        # Disable retries and run test_head_document_required_params.
+        _service.disable_retries()
+        self.test_head_document_required_params()
 
     @responses.activate
     def test_head_document_value_error(self):
@@ -1724,13 +1724,13 @@ class TestHeadDocument():
 
 
     def test_head_document_value_error_with_retries(self):
-    	# Enable retries and run test_head_document_value_error.
-    	_service.enable_retries()
-    	self.test_head_document_value_error()
+        # Enable retries and run test_head_document_value_error.
+        _service.enable_retries()
+        self.test_head_document_value_error()
 
-    	# Disable retries and run test_head_document_value_error.
-    	_service.disable_retries()
-    	self.test_head_document_value_error()
+        # Disable retries and run test_head_document_value_error.
+        _service.disable_retries()
+        self.test_head_document_value_error()
 
 class TestPostDocument():
     """
@@ -1825,13 +1825,13 @@ class TestPostDocument():
         # Validate body params
 
     def test_post_document_all_params_with_retries(self):
-    	# Enable retries and run test_post_document_all_params.
-    	_service.enable_retries()
-    	self.test_post_document_all_params()
+        # Enable retries and run test_post_document_all_params.
+        _service.enable_retries()
+        self.test_post_document_all_params()
 
-    	# Disable retries and run test_post_document_all_params.
-    	_service.disable_retries()
-    	self.test_post_document_all_params()
+        # Disable retries and run test_post_document_all_params.
+        _service.disable_retries()
+        self.test_post_document_all_params()
 
     @responses.activate
     def test_post_document_required_params(self):
@@ -1902,13 +1902,13 @@ class TestPostDocument():
         # Validate body params
 
     def test_post_document_required_params_with_retries(self):
-    	# Enable retries and run test_post_document_required_params.
-    	_service.enable_retries()
-    	self.test_post_document_required_params()
+        # Enable retries and run test_post_document_required_params.
+        _service.enable_retries()
+        self.test_post_document_required_params()
 
-    	# Disable retries and run test_post_document_required_params.
-    	_service.disable_retries()
-    	self.test_post_document_required_params()
+        # Disable retries and run test_post_document_required_params.
+        _service.disable_retries()
+        self.test_post_document_required_params()
 
     @responses.activate
     def test_post_document_value_error(self):
@@ -1975,13 +1975,13 @@ class TestPostDocument():
 
 
     def test_post_document_value_error_with_retries(self):
-    	# Enable retries and run test_post_document_value_error.
-    	_service.enable_retries()
-    	self.test_post_document_value_error()
+        # Enable retries and run test_post_document_value_error.
+        _service.enable_retries()
+        self.test_post_document_value_error()
 
-    	# Disable retries and run test_post_document_value_error.
-    	_service.disable_retries()
-    	self.test_post_document_value_error()
+        # Disable retries and run test_post_document_value_error.
+        _service.disable_retries()
+        self.test_post_document_value_error()
 
 class TestPostAllDocs():
     """
@@ -2071,13 +2071,13 @@ class TestPostAllDocs():
         assert req_body['startkey'] == 'testString'
 
     def test_post_all_docs_all_params_with_retries(self):
-    	# Enable retries and run test_post_all_docs_all_params.
-    	_service.enable_retries()
-    	self.test_post_all_docs_all_params()
+        # Enable retries and run test_post_all_docs_all_params.
+        _service.enable_retries()
+        self.test_post_all_docs_all_params()
 
-    	# Disable retries and run test_post_all_docs_all_params.
-    	_service.disable_retries()
-    	self.test_post_all_docs_all_params()
+        # Disable retries and run test_post_all_docs_all_params.
+        _service.disable_retries()
+        self.test_post_all_docs_all_params()
 
     @responses.activate
     def test_post_all_docs_value_error(self):
@@ -2120,13 +2120,13 @@ class TestPostAllDocs():
 
 
     def test_post_all_docs_value_error_with_retries(self):
-    	# Enable retries and run test_post_all_docs_value_error.
-    	_service.enable_retries()
-    	self.test_post_all_docs_value_error()
+        # Enable retries and run test_post_all_docs_value_error.
+        _service.enable_retries()
+        self.test_post_all_docs_value_error()
 
-    	# Disable retries and run test_post_all_docs_value_error.
-    	_service.disable_retries()
-    	self.test_post_all_docs_value_error()
+        # Disable retries and run test_post_all_docs_value_error.
+        _service.disable_retries()
+        self.test_post_all_docs_value_error()
 
 class TestPostAllDocsAsStream():
     """
@@ -2222,13 +2222,13 @@ class TestPostAllDocsAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_all_docs_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_post_all_docs_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_post_all_docs_as_stream_all_params()
+        # Enable retries and run test_post_all_docs_as_stream_all_params.
+        _service.enable_retries()
+        self.test_post_all_docs_as_stream_all_params()
 
-    	# Disable retries and run test_post_all_docs_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_post_all_docs_as_stream_all_params()
+        # Disable retries and run test_post_all_docs_as_stream_all_params.
+        _service.disable_retries()
+        self.test_post_all_docs_as_stream_all_params()
 
     @responses.activate
     def test_post_all_docs_as_stream_value_error(self):
@@ -2271,13 +2271,13 @@ class TestPostAllDocsAsStream():
 
 
     def test_post_all_docs_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_post_all_docs_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_post_all_docs_as_stream_value_error()
+        # Enable retries and run test_post_all_docs_as_stream_value_error.
+        _service.enable_retries()
+        self.test_post_all_docs_as_stream_value_error()
 
-    	# Disable retries and run test_post_all_docs_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_post_all_docs_as_stream_value_error()
+        # Disable retries and run test_post_all_docs_as_stream_value_error.
+        _service.disable_retries()
+        self.test_post_all_docs_as_stream_value_error()
 
 class TestPostAllDocsQueries():
     """
@@ -2347,13 +2347,13 @@ class TestPostAllDocsQueries():
         assert req_body['queries'] == [all_docs_query_model]
 
     def test_post_all_docs_queries_all_params_with_retries(self):
-    	# Enable retries and run test_post_all_docs_queries_all_params.
-    	_service.enable_retries()
-    	self.test_post_all_docs_queries_all_params()
+        # Enable retries and run test_post_all_docs_queries_all_params.
+        _service.enable_retries()
+        self.test_post_all_docs_queries_all_params()
 
-    	# Disable retries and run test_post_all_docs_queries_all_params.
-    	_service.disable_retries()
-    	self.test_post_all_docs_queries_all_params()
+        # Disable retries and run test_post_all_docs_queries_all_params.
+        _service.disable_retries()
+        self.test_post_all_docs_queries_all_params()
 
     @responses.activate
     def test_post_all_docs_queries_value_error(self):
@@ -2401,13 +2401,13 @@ class TestPostAllDocsQueries():
 
 
     def test_post_all_docs_queries_value_error_with_retries(self):
-    	# Enable retries and run test_post_all_docs_queries_value_error.
-    	_service.enable_retries()
-    	self.test_post_all_docs_queries_value_error()
+        # Enable retries and run test_post_all_docs_queries_value_error.
+        _service.enable_retries()
+        self.test_post_all_docs_queries_value_error()
 
-    	# Disable retries and run test_post_all_docs_queries_value_error.
-    	_service.disable_retries()
-    	self.test_post_all_docs_queries_value_error()
+        # Disable retries and run test_post_all_docs_queries_value_error.
+        _service.disable_retries()
+        self.test_post_all_docs_queries_value_error()
 
 class TestPostAllDocsQueriesAsStream():
     """
@@ -2483,13 +2483,13 @@ class TestPostAllDocsQueriesAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_all_docs_queries_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_post_all_docs_queries_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_post_all_docs_queries_as_stream_all_params()
+        # Enable retries and run test_post_all_docs_queries_as_stream_all_params.
+        _service.enable_retries()
+        self.test_post_all_docs_queries_as_stream_all_params()
 
-    	# Disable retries and run test_post_all_docs_queries_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_post_all_docs_queries_as_stream_all_params()
+        # Disable retries and run test_post_all_docs_queries_as_stream_all_params.
+        _service.disable_retries()
+        self.test_post_all_docs_queries_as_stream_all_params()
 
     @responses.activate
     def test_post_all_docs_queries_as_stream_value_error(self):
@@ -2537,13 +2537,13 @@ class TestPostAllDocsQueriesAsStream():
 
 
     def test_post_all_docs_queries_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_post_all_docs_queries_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_post_all_docs_queries_as_stream_value_error()
+        # Enable retries and run test_post_all_docs_queries_as_stream_value_error.
+        _service.enable_retries()
+        self.test_post_all_docs_queries_as_stream_value_error()
 
-    	# Disable retries and run test_post_all_docs_queries_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_post_all_docs_queries_as_stream_value_error()
+        # Disable retries and run test_post_all_docs_queries_as_stream_value_error.
+        _service.disable_retries()
+        self.test_post_all_docs_queries_as_stream_value_error()
 
 class TestPostBulkDocs():
     """
@@ -2637,13 +2637,13 @@ class TestPostBulkDocs():
         assert req_body == bulk_docs
 
     def test_post_bulk_docs_all_params_with_retries(self):
-    	# Enable retries and run test_post_bulk_docs_all_params.
-    	_service.enable_retries()
-    	self.test_post_bulk_docs_all_params()
+        # Enable retries and run test_post_bulk_docs_all_params.
+        _service.enable_retries()
+        self.test_post_bulk_docs_all_params()
 
-    	# Disable retries and run test_post_bulk_docs_all_params.
-    	_service.disable_retries()
-    	self.test_post_bulk_docs_all_params()
+        # Disable retries and run test_post_bulk_docs_all_params.
+        _service.disable_retries()
+        self.test_post_bulk_docs_all_params()
 
     @responses.activate
     def test_post_bulk_docs_value_error(self):
@@ -2715,13 +2715,13 @@ class TestPostBulkDocs():
 
 
     def test_post_bulk_docs_value_error_with_retries(self):
-    	# Enable retries and run test_post_bulk_docs_value_error.
-    	_service.enable_retries()
-    	self.test_post_bulk_docs_value_error()
+        # Enable retries and run test_post_bulk_docs_value_error.
+        _service.enable_retries()
+        self.test_post_bulk_docs_value_error()
 
-    	# Disable retries and run test_post_bulk_docs_value_error.
-    	_service.disable_retries()
-    	self.test_post_bulk_docs_value_error()
+        # Disable retries and run test_post_bulk_docs_value_error.
+        _service.disable_retries()
+        self.test_post_bulk_docs_value_error()
 
 class TestPostBulkGet():
     """
@@ -2796,13 +2796,13 @@ class TestPostBulkGet():
         assert req_body['docs'] == [bulk_get_query_document_model]
 
     def test_post_bulk_get_all_params_with_retries(self):
-    	# Enable retries and run test_post_bulk_get_all_params.
-    	_service.enable_retries()
-    	self.test_post_bulk_get_all_params()
+        # Enable retries and run test_post_bulk_get_all_params.
+        _service.enable_retries()
+        self.test_post_bulk_get_all_params()
 
-    	# Disable retries and run test_post_bulk_get_all_params.
-    	_service.disable_retries()
-    	self.test_post_bulk_get_all_params()
+        # Disable retries and run test_post_bulk_get_all_params.
+        _service.disable_retries()
+        self.test_post_bulk_get_all_params()
 
     @responses.activate
     def test_post_bulk_get_required_params(self):
@@ -2846,13 +2846,13 @@ class TestPostBulkGet():
         assert req_body['docs'] == [bulk_get_query_document_model]
 
     def test_post_bulk_get_required_params_with_retries(self):
-    	# Enable retries and run test_post_bulk_get_required_params.
-    	_service.enable_retries()
-    	self.test_post_bulk_get_required_params()
+        # Enable retries and run test_post_bulk_get_required_params.
+        _service.enable_retries()
+        self.test_post_bulk_get_required_params()
 
-    	# Disable retries and run test_post_bulk_get_required_params.
-    	_service.disable_retries()
-    	self.test_post_bulk_get_required_params()
+        # Disable retries and run test_post_bulk_get_required_params.
+        _service.disable_retries()
+        self.test_post_bulk_get_required_params()
 
     @responses.activate
     def test_post_bulk_get_value_error(self):
@@ -2890,13 +2890,13 @@ class TestPostBulkGet():
 
 
     def test_post_bulk_get_value_error_with_retries(self):
-    	# Enable retries and run test_post_bulk_get_value_error.
-    	_service.enable_retries()
-    	self.test_post_bulk_get_value_error()
+        # Enable retries and run test_post_bulk_get_value_error.
+        _service.enable_retries()
+        self.test_post_bulk_get_value_error()
 
-    	# Disable retries and run test_post_bulk_get_value_error.
-    	_service.disable_retries()
-    	self.test_post_bulk_get_value_error()
+        # Disable retries and run test_post_bulk_get_value_error.
+        _service.disable_retries()
+        self.test_post_bulk_get_value_error()
 
 class TestPostBulkGetAsMixed():
     """
@@ -2971,13 +2971,13 @@ class TestPostBulkGetAsMixed():
         assert req_body['docs'] == [bulk_get_query_document_model]
 
     def test_post_bulk_get_as_mixed_all_params_with_retries(self):
-    	# Enable retries and run test_post_bulk_get_as_mixed_all_params.
-    	_service.enable_retries()
-    	self.test_post_bulk_get_as_mixed_all_params()
+        # Enable retries and run test_post_bulk_get_as_mixed_all_params.
+        _service.enable_retries()
+        self.test_post_bulk_get_as_mixed_all_params()
 
-    	# Disable retries and run test_post_bulk_get_as_mixed_all_params.
-    	_service.disable_retries()
-    	self.test_post_bulk_get_as_mixed_all_params()
+        # Disable retries and run test_post_bulk_get_as_mixed_all_params.
+        _service.disable_retries()
+        self.test_post_bulk_get_as_mixed_all_params()
 
     @responses.activate
     def test_post_bulk_get_as_mixed_required_params(self):
@@ -3021,13 +3021,13 @@ class TestPostBulkGetAsMixed():
         assert req_body['docs'] == [bulk_get_query_document_model]
 
     def test_post_bulk_get_as_mixed_required_params_with_retries(self):
-    	# Enable retries and run test_post_bulk_get_as_mixed_required_params.
-    	_service.enable_retries()
-    	self.test_post_bulk_get_as_mixed_required_params()
+        # Enable retries and run test_post_bulk_get_as_mixed_required_params.
+        _service.enable_retries()
+        self.test_post_bulk_get_as_mixed_required_params()
 
-    	# Disable retries and run test_post_bulk_get_as_mixed_required_params.
-    	_service.disable_retries()
-    	self.test_post_bulk_get_as_mixed_required_params()
+        # Disable retries and run test_post_bulk_get_as_mixed_required_params.
+        _service.disable_retries()
+        self.test_post_bulk_get_as_mixed_required_params()
 
     @responses.activate
     def test_post_bulk_get_as_mixed_value_error(self):
@@ -3065,13 +3065,13 @@ class TestPostBulkGetAsMixed():
 
 
     def test_post_bulk_get_as_mixed_value_error_with_retries(self):
-    	# Enable retries and run test_post_bulk_get_as_mixed_value_error.
-    	_service.enable_retries()
-    	self.test_post_bulk_get_as_mixed_value_error()
+        # Enable retries and run test_post_bulk_get_as_mixed_value_error.
+        _service.enable_retries()
+        self.test_post_bulk_get_as_mixed_value_error()
 
-    	# Disable retries and run test_post_bulk_get_as_mixed_value_error.
-    	_service.disable_retries()
-    	self.test_post_bulk_get_as_mixed_value_error()
+        # Disable retries and run test_post_bulk_get_as_mixed_value_error.
+        _service.disable_retries()
+        self.test_post_bulk_get_as_mixed_value_error()
 
 class TestPostBulkGetAsRelated():
     """
@@ -3146,13 +3146,13 @@ class TestPostBulkGetAsRelated():
         assert req_body['docs'] == [bulk_get_query_document_model]
 
     def test_post_bulk_get_as_related_all_params_with_retries(self):
-    	# Enable retries and run test_post_bulk_get_as_related_all_params.
-    	_service.enable_retries()
-    	self.test_post_bulk_get_as_related_all_params()
+        # Enable retries and run test_post_bulk_get_as_related_all_params.
+        _service.enable_retries()
+        self.test_post_bulk_get_as_related_all_params()
 
-    	# Disable retries and run test_post_bulk_get_as_related_all_params.
-    	_service.disable_retries()
-    	self.test_post_bulk_get_as_related_all_params()
+        # Disable retries and run test_post_bulk_get_as_related_all_params.
+        _service.disable_retries()
+        self.test_post_bulk_get_as_related_all_params()
 
     @responses.activate
     def test_post_bulk_get_as_related_required_params(self):
@@ -3196,13 +3196,13 @@ class TestPostBulkGetAsRelated():
         assert req_body['docs'] == [bulk_get_query_document_model]
 
     def test_post_bulk_get_as_related_required_params_with_retries(self):
-    	# Enable retries and run test_post_bulk_get_as_related_required_params.
-    	_service.enable_retries()
-    	self.test_post_bulk_get_as_related_required_params()
+        # Enable retries and run test_post_bulk_get_as_related_required_params.
+        _service.enable_retries()
+        self.test_post_bulk_get_as_related_required_params()
 
-    	# Disable retries and run test_post_bulk_get_as_related_required_params.
-    	_service.disable_retries()
-    	self.test_post_bulk_get_as_related_required_params()
+        # Disable retries and run test_post_bulk_get_as_related_required_params.
+        _service.disable_retries()
+        self.test_post_bulk_get_as_related_required_params()
 
     @responses.activate
     def test_post_bulk_get_as_related_value_error(self):
@@ -3240,13 +3240,13 @@ class TestPostBulkGetAsRelated():
 
 
     def test_post_bulk_get_as_related_value_error_with_retries(self):
-    	# Enable retries and run test_post_bulk_get_as_related_value_error.
-    	_service.enable_retries()
-    	self.test_post_bulk_get_as_related_value_error()
+        # Enable retries and run test_post_bulk_get_as_related_value_error.
+        _service.enable_retries()
+        self.test_post_bulk_get_as_related_value_error()
 
-    	# Disable retries and run test_post_bulk_get_as_related_value_error.
-    	_service.disable_retries()
-    	self.test_post_bulk_get_as_related_value_error()
+        # Disable retries and run test_post_bulk_get_as_related_value_error.
+        _service.disable_retries()
+        self.test_post_bulk_get_as_related_value_error()
 
 class TestPostBulkGetAsStream():
     """
@@ -3327,13 +3327,13 @@ class TestPostBulkGetAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_bulk_get_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_post_bulk_get_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_post_bulk_get_as_stream_all_params()
+        # Enable retries and run test_post_bulk_get_as_stream_all_params.
+        _service.enable_retries()
+        self.test_post_bulk_get_as_stream_all_params()
 
-    	# Disable retries and run test_post_bulk_get_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_post_bulk_get_as_stream_all_params()
+        # Disable retries and run test_post_bulk_get_as_stream_all_params.
+        _service.disable_retries()
+        self.test_post_bulk_get_as_stream_all_params()
 
     @responses.activate
     def test_post_bulk_get_as_stream_required_params(self):
@@ -3383,13 +3383,13 @@ class TestPostBulkGetAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_bulk_get_as_stream_required_params_with_retries(self):
-    	# Enable retries and run test_post_bulk_get_as_stream_required_params.
-    	_service.enable_retries()
-    	self.test_post_bulk_get_as_stream_required_params()
+        # Enable retries and run test_post_bulk_get_as_stream_required_params.
+        _service.enable_retries()
+        self.test_post_bulk_get_as_stream_required_params()
 
-    	# Disable retries and run test_post_bulk_get_as_stream_required_params.
-    	_service.disable_retries()
-    	self.test_post_bulk_get_as_stream_required_params()
+        # Disable retries and run test_post_bulk_get_as_stream_required_params.
+        _service.disable_retries()
+        self.test_post_bulk_get_as_stream_required_params()
 
     @responses.activate
     def test_post_bulk_get_as_stream_value_error(self):
@@ -3427,13 +3427,13 @@ class TestPostBulkGetAsStream():
 
 
     def test_post_bulk_get_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_post_bulk_get_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_post_bulk_get_as_stream_value_error()
+        # Enable retries and run test_post_bulk_get_as_stream_value_error.
+        _service.enable_retries()
+        self.test_post_bulk_get_as_stream_value_error()
 
-    	# Disable retries and run test_post_bulk_get_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_post_bulk_get_as_stream_value_error()
+        # Disable retries and run test_post_bulk_get_as_stream_value_error.
+        _service.disable_retries()
+        self.test_post_bulk_get_as_stream_value_error()
 
 class TestDeleteDocument():
     """
@@ -3492,13 +3492,13 @@ class TestDeleteDocument():
         assert 'rev={}'.format(rev) in query_string
 
     def test_delete_document_all_params_with_retries(self):
-    	# Enable retries and run test_delete_document_all_params.
-    	_service.enable_retries()
-    	self.test_delete_document_all_params()
+        # Enable retries and run test_delete_document_all_params.
+        _service.enable_retries()
+        self.test_delete_document_all_params()
 
-    	# Disable retries and run test_delete_document_all_params.
-    	_service.disable_retries()
-    	self.test_delete_document_all_params()
+        # Disable retries and run test_delete_document_all_params.
+        _service.disable_retries()
+        self.test_delete_document_all_params()
 
     @responses.activate
     def test_delete_document_required_params(self):
@@ -3530,13 +3530,13 @@ class TestDeleteDocument():
         assert response.status_code == 200
 
     def test_delete_document_required_params_with_retries(self):
-    	# Enable retries and run test_delete_document_required_params.
-    	_service.enable_retries()
-    	self.test_delete_document_required_params()
+        # Enable retries and run test_delete_document_required_params.
+        _service.enable_retries()
+        self.test_delete_document_required_params()
 
-    	# Disable retries and run test_delete_document_required_params.
-    	_service.disable_retries()
-    	self.test_delete_document_required_params()
+        # Disable retries and run test_delete_document_required_params.
+        _service.disable_retries()
+        self.test_delete_document_required_params()
 
     @responses.activate
     def test_delete_document_value_error(self):
@@ -3568,13 +3568,13 @@ class TestDeleteDocument():
 
 
     def test_delete_document_value_error_with_retries(self):
-    	# Enable retries and run test_delete_document_value_error.
-    	_service.enable_retries()
-    	self.test_delete_document_value_error()
+        # Enable retries and run test_delete_document_value_error.
+        _service.enable_retries()
+        self.test_delete_document_value_error()
 
-    	# Disable retries and run test_delete_document_value_error.
-    	_service.disable_retries()
-    	self.test_delete_document_value_error()
+        # Disable retries and run test_delete_document_value_error.
+        _service.disable_retries()
+        self.test_delete_document_value_error()
 
 class TestGetDocument():
     """
@@ -3657,13 +3657,13 @@ class TestGetDocument():
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
 
     def test_get_document_all_params_with_retries(self):
-    	# Enable retries and run test_get_document_all_params.
-    	_service.enable_retries()
-    	self.test_get_document_all_params()
+        # Enable retries and run test_get_document_all_params.
+        _service.enable_retries()
+        self.test_get_document_all_params()
 
-    	# Disable retries and run test_get_document_all_params.
-    	_service.disable_retries()
-    	self.test_get_document_all_params()
+        # Disable retries and run test_get_document_all_params.
+        _service.disable_retries()
+        self.test_get_document_all_params()
 
     @responses.activate
     def test_get_document_required_params(self):
@@ -3695,13 +3695,13 @@ class TestGetDocument():
         assert response.status_code == 200
 
     def test_get_document_required_params_with_retries(self):
-    	# Enable retries and run test_get_document_required_params.
-    	_service.enable_retries()
-    	self.test_get_document_required_params()
+        # Enable retries and run test_get_document_required_params.
+        _service.enable_retries()
+        self.test_get_document_required_params()
 
-    	# Disable retries and run test_get_document_required_params.
-    	_service.disable_retries()
-    	self.test_get_document_required_params()
+        # Disable retries and run test_get_document_required_params.
+        _service.disable_retries()
+        self.test_get_document_required_params()
 
     @responses.activate
     def test_get_document_value_error(self):
@@ -3733,13 +3733,13 @@ class TestGetDocument():
 
 
     def test_get_document_value_error_with_retries(self):
-    	# Enable retries and run test_get_document_value_error.
-    	_service.enable_retries()
-    	self.test_get_document_value_error()
+        # Enable retries and run test_get_document_value_error.
+        _service.enable_retries()
+        self.test_get_document_value_error()
 
-    	# Disable retries and run test_get_document_value_error.
-    	_service.disable_retries()
-    	self.test_get_document_value_error()
+        # Disable retries and run test_get_document_value_error.
+        _service.disable_retries()
+        self.test_get_document_value_error()
 
 class TestGetDocumentAsMixed():
     """
@@ -3822,13 +3822,13 @@ class TestGetDocumentAsMixed():
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
 
     def test_get_document_as_mixed_all_params_with_retries(self):
-    	# Enable retries and run test_get_document_as_mixed_all_params.
-    	_service.enable_retries()
-    	self.test_get_document_as_mixed_all_params()
+        # Enable retries and run test_get_document_as_mixed_all_params.
+        _service.enable_retries()
+        self.test_get_document_as_mixed_all_params()
 
-    	# Disable retries and run test_get_document_as_mixed_all_params.
-    	_service.disable_retries()
-    	self.test_get_document_as_mixed_all_params()
+        # Disable retries and run test_get_document_as_mixed_all_params.
+        _service.disable_retries()
+        self.test_get_document_as_mixed_all_params()
 
     @responses.activate
     def test_get_document_as_mixed_required_params(self):
@@ -3860,13 +3860,13 @@ class TestGetDocumentAsMixed():
         assert response.status_code == 200
 
     def test_get_document_as_mixed_required_params_with_retries(self):
-    	# Enable retries and run test_get_document_as_mixed_required_params.
-    	_service.enable_retries()
-    	self.test_get_document_as_mixed_required_params()
+        # Enable retries and run test_get_document_as_mixed_required_params.
+        _service.enable_retries()
+        self.test_get_document_as_mixed_required_params()
 
-    	# Disable retries and run test_get_document_as_mixed_required_params.
-    	_service.disable_retries()
-    	self.test_get_document_as_mixed_required_params()
+        # Disable retries and run test_get_document_as_mixed_required_params.
+        _service.disable_retries()
+        self.test_get_document_as_mixed_required_params()
 
     @responses.activate
     def test_get_document_as_mixed_value_error(self):
@@ -3898,13 +3898,13 @@ class TestGetDocumentAsMixed():
 
 
     def test_get_document_as_mixed_value_error_with_retries(self):
-    	# Enable retries and run test_get_document_as_mixed_value_error.
-    	_service.enable_retries()
-    	self.test_get_document_as_mixed_value_error()
+        # Enable retries and run test_get_document_as_mixed_value_error.
+        _service.enable_retries()
+        self.test_get_document_as_mixed_value_error()
 
-    	# Disable retries and run test_get_document_as_mixed_value_error.
-    	_service.disable_retries()
-    	self.test_get_document_as_mixed_value_error()
+        # Disable retries and run test_get_document_as_mixed_value_error.
+        _service.disable_retries()
+        self.test_get_document_as_mixed_value_error()
 
 class TestGetDocumentAsRelated():
     """
@@ -3987,13 +3987,13 @@ class TestGetDocumentAsRelated():
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
 
     def test_get_document_as_related_all_params_with_retries(self):
-    	# Enable retries and run test_get_document_as_related_all_params.
-    	_service.enable_retries()
-    	self.test_get_document_as_related_all_params()
+        # Enable retries and run test_get_document_as_related_all_params.
+        _service.enable_retries()
+        self.test_get_document_as_related_all_params()
 
-    	# Disable retries and run test_get_document_as_related_all_params.
-    	_service.disable_retries()
-    	self.test_get_document_as_related_all_params()
+        # Disable retries and run test_get_document_as_related_all_params.
+        _service.disable_retries()
+        self.test_get_document_as_related_all_params()
 
     @responses.activate
     def test_get_document_as_related_required_params(self):
@@ -4025,13 +4025,13 @@ class TestGetDocumentAsRelated():
         assert response.status_code == 200
 
     def test_get_document_as_related_required_params_with_retries(self):
-    	# Enable retries and run test_get_document_as_related_required_params.
-    	_service.enable_retries()
-    	self.test_get_document_as_related_required_params()
+        # Enable retries and run test_get_document_as_related_required_params.
+        _service.enable_retries()
+        self.test_get_document_as_related_required_params()
 
-    	# Disable retries and run test_get_document_as_related_required_params.
-    	_service.disable_retries()
-    	self.test_get_document_as_related_required_params()
+        # Disable retries and run test_get_document_as_related_required_params.
+        _service.disable_retries()
+        self.test_get_document_as_related_required_params()
 
     @responses.activate
     def test_get_document_as_related_value_error(self):
@@ -4063,13 +4063,13 @@ class TestGetDocumentAsRelated():
 
 
     def test_get_document_as_related_value_error_with_retries(self):
-    	# Enable retries and run test_get_document_as_related_value_error.
-    	_service.enable_retries()
-    	self.test_get_document_as_related_value_error()
+        # Enable retries and run test_get_document_as_related_value_error.
+        _service.enable_retries()
+        self.test_get_document_as_related_value_error()
 
-    	# Disable retries and run test_get_document_as_related_value_error.
-    	_service.disable_retries()
-    	self.test_get_document_as_related_value_error()
+        # Disable retries and run test_get_document_as_related_value_error.
+        _service.disable_retries()
+        self.test_get_document_as_related_value_error()
 
 class TestGetDocumentAsStream():
     """
@@ -4158,13 +4158,13 @@ class TestGetDocumentAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_get_document_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_get_document_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_get_document_as_stream_all_params()
+        # Enable retries and run test_get_document_as_stream_all_params.
+        _service.enable_retries()
+        self.test_get_document_as_stream_all_params()
 
-    	# Disable retries and run test_get_document_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_get_document_as_stream_all_params()
+        # Disable retries and run test_get_document_as_stream_all_params.
+        _service.disable_retries()
+        self.test_get_document_as_stream_all_params()
 
     @responses.activate
     def test_get_document_as_stream_required_params(self):
@@ -4202,13 +4202,13 @@ class TestGetDocumentAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_get_document_as_stream_required_params_with_retries(self):
-    	# Enable retries and run test_get_document_as_stream_required_params.
-    	_service.enable_retries()
-    	self.test_get_document_as_stream_required_params()
+        # Enable retries and run test_get_document_as_stream_required_params.
+        _service.enable_retries()
+        self.test_get_document_as_stream_required_params()
 
-    	# Disable retries and run test_get_document_as_stream_required_params.
-    	_service.disable_retries()
-    	self.test_get_document_as_stream_required_params()
+        # Disable retries and run test_get_document_as_stream_required_params.
+        _service.disable_retries()
+        self.test_get_document_as_stream_required_params()
 
     @responses.activate
     def test_get_document_as_stream_value_error(self):
@@ -4240,13 +4240,13 @@ class TestGetDocumentAsStream():
 
 
     def test_get_document_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_get_document_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_get_document_as_stream_value_error()
+        # Enable retries and run test_get_document_as_stream_value_error.
+        _service.enable_retries()
+        self.test_get_document_as_stream_value_error()
 
-    	# Disable retries and run test_get_document_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_get_document_as_stream_value_error()
+        # Disable retries and run test_get_document_as_stream_value_error.
+        _service.disable_retries()
+        self.test_get_document_as_stream_value_error()
 
 class TestPutDocument():
     """
@@ -4360,13 +4360,13 @@ class TestPutDocument():
         # Validate body params
 
     def test_put_document_all_params_with_retries(self):
-    	# Enable retries and run test_put_document_all_params.
-    	_service.enable_retries()
-    	self.test_put_document_all_params()
+        # Enable retries and run test_put_document_all_params.
+        _service.enable_retries()
+        self.test_put_document_all_params()
 
-    	# Disable retries and run test_put_document_all_params.
-    	_service.disable_retries()
-    	self.test_put_document_all_params()
+        # Disable retries and run test_put_document_all_params.
+        _service.disable_retries()
+        self.test_put_document_all_params()
 
     @responses.activate
     def test_put_document_required_params(self):
@@ -4448,13 +4448,13 @@ class TestPutDocument():
         # Validate body params
 
     def test_put_document_required_params_with_retries(self):
-    	# Enable retries and run test_put_document_required_params.
-    	_service.enable_retries()
-    	self.test_put_document_required_params()
+        # Enable retries and run test_put_document_required_params.
+        _service.enable_retries()
+        self.test_put_document_required_params()
 
-    	# Disable retries and run test_put_document_required_params.
-    	_service.disable_retries()
-    	self.test_put_document_required_params()
+        # Disable retries and run test_put_document_required_params.
+        _service.disable_retries()
+        self.test_put_document_required_params()
 
     @responses.activate
     def test_put_document_value_error(self):
@@ -4532,13 +4532,13 @@ class TestPutDocument():
 
 
     def test_put_document_value_error_with_retries(self):
-    	# Enable retries and run test_put_document_value_error.
-    	_service.enable_retries()
-    	self.test_put_document_value_error()
+        # Enable retries and run test_put_document_value_error.
+        _service.enable_retries()
+        self.test_put_document_value_error()
 
-    	# Disable retries and run test_put_document_value_error.
-    	_service.disable_retries()
-    	self.test_put_document_value_error()
+        # Disable retries and run test_put_document_value_error.
+        _service.disable_retries()
+        self.test_put_document_value_error()
 
 # endregion
 ##############################################################################
@@ -4621,13 +4621,13 @@ class TestHeadDesignDocument():
         assert response.status_code == 200
 
     def test_head_design_document_all_params_with_retries(self):
-    	# Enable retries and run test_head_design_document_all_params.
-    	_service.enable_retries()
-    	self.test_head_design_document_all_params()
+        # Enable retries and run test_head_design_document_all_params.
+        _service.enable_retries()
+        self.test_head_design_document_all_params()
 
-    	# Disable retries and run test_head_design_document_all_params.
-    	_service.disable_retries()
-    	self.test_head_design_document_all_params()
+        # Disable retries and run test_head_design_document_all_params.
+        _service.disable_retries()
+        self.test_head_design_document_all_params()
 
     @responses.activate
     def test_head_design_document_required_params(self):
@@ -4656,13 +4656,13 @@ class TestHeadDesignDocument():
         assert response.status_code == 200
 
     def test_head_design_document_required_params_with_retries(self):
-    	# Enable retries and run test_head_design_document_required_params.
-    	_service.enable_retries()
-    	self.test_head_design_document_required_params()
+        # Enable retries and run test_head_design_document_required_params.
+        _service.enable_retries()
+        self.test_head_design_document_required_params()
 
-    	# Disable retries and run test_head_design_document_required_params.
-    	_service.disable_retries()
-    	self.test_head_design_document_required_params()
+        # Disable retries and run test_head_design_document_required_params.
+        _service.disable_retries()
+        self.test_head_design_document_required_params()
 
     @responses.activate
     def test_head_design_document_value_error(self):
@@ -4691,13 +4691,13 @@ class TestHeadDesignDocument():
 
 
     def test_head_design_document_value_error_with_retries(self):
-    	# Enable retries and run test_head_design_document_value_error.
-    	_service.enable_retries()
-    	self.test_head_design_document_value_error()
+        # Enable retries and run test_head_design_document_value_error.
+        _service.enable_retries()
+        self.test_head_design_document_value_error()
 
-    	# Disable retries and run test_head_design_document_value_error.
-    	_service.disable_retries()
-    	self.test_head_design_document_value_error()
+        # Disable retries and run test_head_design_document_value_error.
+        _service.disable_retries()
+        self.test_head_design_document_value_error()
 
 class TestDeleteDesignDocument():
     """
@@ -4756,13 +4756,13 @@ class TestDeleteDesignDocument():
         assert 'rev={}'.format(rev) in query_string
 
     def test_delete_design_document_all_params_with_retries(self):
-    	# Enable retries and run test_delete_design_document_all_params.
-    	_service.enable_retries()
-    	self.test_delete_design_document_all_params()
+        # Enable retries and run test_delete_design_document_all_params.
+        _service.enable_retries()
+        self.test_delete_design_document_all_params()
 
-    	# Disable retries and run test_delete_design_document_all_params.
-    	_service.disable_retries()
-    	self.test_delete_design_document_all_params()
+        # Disable retries and run test_delete_design_document_all_params.
+        _service.disable_retries()
+        self.test_delete_design_document_all_params()
 
     @responses.activate
     def test_delete_design_document_required_params(self):
@@ -4794,13 +4794,13 @@ class TestDeleteDesignDocument():
         assert response.status_code == 200
 
     def test_delete_design_document_required_params_with_retries(self):
-    	# Enable retries and run test_delete_design_document_required_params.
-    	_service.enable_retries()
-    	self.test_delete_design_document_required_params()
+        # Enable retries and run test_delete_design_document_required_params.
+        _service.enable_retries()
+        self.test_delete_design_document_required_params()
 
-    	# Disable retries and run test_delete_design_document_required_params.
-    	_service.disable_retries()
-    	self.test_delete_design_document_required_params()
+        # Disable retries and run test_delete_design_document_required_params.
+        _service.disable_retries()
+        self.test_delete_design_document_required_params()
 
     @responses.activate
     def test_delete_design_document_value_error(self):
@@ -4832,13 +4832,13 @@ class TestDeleteDesignDocument():
 
 
     def test_delete_design_document_value_error_with_retries(self):
-    	# Enable retries and run test_delete_design_document_value_error.
-    	_service.enable_retries()
-    	self.test_delete_design_document_value_error()
+        # Enable retries and run test_delete_design_document_value_error.
+        _service.enable_retries()
+        self.test_delete_design_document_value_error()
 
-    	# Disable retries and run test_delete_design_document_value_error.
-    	_service.disable_retries()
-    	self.test_delete_design_document_value_error()
+        # Disable retries and run test_delete_design_document_value_error.
+        _service.disable_retries()
+        self.test_delete_design_document_value_error()
 
 class TestGetDesignDocument():
     """
@@ -4921,13 +4921,13 @@ class TestGetDesignDocument():
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
 
     def test_get_design_document_all_params_with_retries(self):
-    	# Enable retries and run test_get_design_document_all_params.
-    	_service.enable_retries()
-    	self.test_get_design_document_all_params()
+        # Enable retries and run test_get_design_document_all_params.
+        _service.enable_retries()
+        self.test_get_design_document_all_params()
 
-    	# Disable retries and run test_get_design_document_all_params.
-    	_service.disable_retries()
-    	self.test_get_design_document_all_params()
+        # Disable retries and run test_get_design_document_all_params.
+        _service.disable_retries()
+        self.test_get_design_document_all_params()
 
     @responses.activate
     def test_get_design_document_required_params(self):
@@ -4959,13 +4959,13 @@ class TestGetDesignDocument():
         assert response.status_code == 200
 
     def test_get_design_document_required_params_with_retries(self):
-    	# Enable retries and run test_get_design_document_required_params.
-    	_service.enable_retries()
-    	self.test_get_design_document_required_params()
+        # Enable retries and run test_get_design_document_required_params.
+        _service.enable_retries()
+        self.test_get_design_document_required_params()
 
-    	# Disable retries and run test_get_design_document_required_params.
-    	_service.disable_retries()
-    	self.test_get_design_document_required_params()
+        # Disable retries and run test_get_design_document_required_params.
+        _service.disable_retries()
+        self.test_get_design_document_required_params()
 
     @responses.activate
     def test_get_design_document_value_error(self):
@@ -4997,13 +4997,13 @@ class TestGetDesignDocument():
 
 
     def test_get_design_document_value_error_with_retries(self):
-    	# Enable retries and run test_get_design_document_value_error.
-    	_service.enable_retries()
-    	self.test_get_design_document_value_error()
+        # Enable retries and run test_get_design_document_value_error.
+        _service.enable_retries()
+        self.test_get_design_document_value_error()
 
-    	# Disable retries and run test_get_design_document_value_error.
-    	_service.disable_retries()
-    	self.test_get_design_document_value_error()
+        # Disable retries and run test_get_design_document_value_error.
+        _service.disable_retries()
+        self.test_get_design_document_value_error()
 
 class TestPutDesignDocument():
     """
@@ -5145,13 +5145,13 @@ class TestPutDesignDocument():
         assert req_body == design_document
 
     def test_put_design_document_all_params_with_retries(self):
-    	# Enable retries and run test_put_design_document_all_params.
-    	_service.enable_retries()
-    	self.test_put_design_document_all_params()
+        # Enable retries and run test_put_design_document_all_params.
+        _service.enable_retries()
+        self.test_put_design_document_all_params()
 
-    	# Disable retries and run test_put_design_document_all_params.
-    	_service.disable_retries()
-    	self.test_put_design_document_all_params()
+        # Disable retries and run test_put_design_document_all_params.
+        _service.disable_retries()
+        self.test_put_design_document_all_params()
 
     @responses.activate
     def test_put_design_document_required_params(self):
@@ -5263,13 +5263,13 @@ class TestPutDesignDocument():
         assert req_body == design_document
 
     def test_put_design_document_required_params_with_retries(self):
-    	# Enable retries and run test_put_design_document_required_params.
-    	_service.enable_retries()
-    	self.test_put_design_document_required_params()
+        # Enable retries and run test_put_design_document_required_params.
+        _service.enable_retries()
+        self.test_put_design_document_required_params()
 
-    	# Disable retries and run test_put_design_document_required_params.
-    	_service.disable_retries()
-    	self.test_put_design_document_required_params()
+        # Disable retries and run test_put_design_document_required_params.
+        _service.disable_retries()
+        self.test_put_design_document_required_params()
 
     @responses.activate
     def test_put_design_document_value_error(self):
@@ -5375,13 +5375,13 @@ class TestPutDesignDocument():
 
 
     def test_put_design_document_value_error_with_retries(self):
-    	# Enable retries and run test_put_design_document_value_error.
-    	_service.enable_retries()
-    	self.test_put_design_document_value_error()
+        # Enable retries and run test_put_design_document_value_error.
+        _service.enable_retries()
+        self.test_put_design_document_value_error()
 
-    	# Disable retries and run test_put_design_document_value_error.
-    	_service.disable_retries()
-    	self.test_put_design_document_value_error()
+        # Disable retries and run test_put_design_document_value_error.
+        _service.disable_retries()
+        self.test_put_design_document_value_error()
 
 class TestGetDesignDocumentInformation():
     """
@@ -5429,13 +5429,13 @@ class TestGetDesignDocumentInformation():
         assert response.status_code == 200
 
     def test_get_design_document_information_all_params_with_retries(self):
-    	# Enable retries and run test_get_design_document_information_all_params.
-    	_service.enable_retries()
-    	self.test_get_design_document_information_all_params()
+        # Enable retries and run test_get_design_document_information_all_params.
+        _service.enable_retries()
+        self.test_get_design_document_information_all_params()
 
-    	# Disable retries and run test_get_design_document_information_all_params.
-    	_service.disable_retries()
-    	self.test_get_design_document_information_all_params()
+        # Disable retries and run test_get_design_document_information_all_params.
+        _service.disable_retries()
+        self.test_get_design_document_information_all_params()
 
     @responses.activate
     def test_get_design_document_information_value_error(self):
@@ -5467,13 +5467,13 @@ class TestGetDesignDocumentInformation():
 
 
     def test_get_design_document_information_value_error_with_retries(self):
-    	# Enable retries and run test_get_design_document_information_value_error.
-    	_service.enable_retries()
-    	self.test_get_design_document_information_value_error()
+        # Enable retries and run test_get_design_document_information_value_error.
+        _service.enable_retries()
+        self.test_get_design_document_information_value_error()
 
-    	# Disable retries and run test_get_design_document_information_value_error.
-    	_service.disable_retries()
-    	self.test_get_design_document_information_value_error()
+        # Disable retries and run test_get_design_document_information_value_error.
+        _service.disable_retries()
+        self.test_get_design_document_information_value_error()
 
 class TestPostDesignDocs():
     """
@@ -5565,13 +5565,13 @@ class TestPostDesignDocs():
         assert req_body['startkey'] == '0007741142412418284'
 
     def test_post_design_docs_all_params_with_retries(self):
-    	# Enable retries and run test_post_design_docs_all_params.
-    	_service.enable_retries()
-    	self.test_post_design_docs_all_params()
+        # Enable retries and run test_post_design_docs_all_params.
+        _service.enable_retries()
+        self.test_post_design_docs_all_params()
 
-    	# Disable retries and run test_post_design_docs_all_params.
-    	_service.disable_retries()
-    	self.test_post_design_docs_all_params()
+        # Disable retries and run test_post_design_docs_all_params.
+        _service.disable_retries()
+        self.test_post_design_docs_all_params()
 
     @responses.activate
     def test_post_design_docs_required_params(self):
@@ -5645,13 +5645,13 @@ class TestPostDesignDocs():
         assert req_body['startkey'] == '0007741142412418284'
 
     def test_post_design_docs_required_params_with_retries(self):
-    	# Enable retries and run test_post_design_docs_required_params.
-    	_service.enable_retries()
-    	self.test_post_design_docs_required_params()
+        # Enable retries and run test_post_design_docs_required_params.
+        _service.enable_retries()
+        self.test_post_design_docs_required_params()
 
-    	# Disable retries and run test_post_design_docs_required_params.
-    	_service.disable_retries()
-    	self.test_post_design_docs_required_params()
+        # Disable retries and run test_post_design_docs_required_params.
+        _service.disable_retries()
+        self.test_post_design_docs_required_params()
 
     @responses.activate
     def test_post_design_docs_value_error(self):
@@ -5694,13 +5694,13 @@ class TestPostDesignDocs():
 
 
     def test_post_design_docs_value_error_with_retries(self):
-    	# Enable retries and run test_post_design_docs_value_error.
-    	_service.enable_retries()
-    	self.test_post_design_docs_value_error()
+        # Enable retries and run test_post_design_docs_value_error.
+        _service.enable_retries()
+        self.test_post_design_docs_value_error()
 
-    	# Disable retries and run test_post_design_docs_value_error.
-    	_service.disable_retries()
-    	self.test_post_design_docs_value_error()
+        # Disable retries and run test_post_design_docs_value_error.
+        _service.disable_retries()
+        self.test_post_design_docs_value_error()
 
 class TestPostDesignDocsQueries():
     """
@@ -5772,13 +5772,13 @@ class TestPostDesignDocsQueries():
         assert req_body['queries'] == [all_docs_query_model]
 
     def test_post_design_docs_queries_all_params_with_retries(self):
-    	# Enable retries and run test_post_design_docs_queries_all_params.
-    	_service.enable_retries()
-    	self.test_post_design_docs_queries_all_params()
+        # Enable retries and run test_post_design_docs_queries_all_params.
+        _service.enable_retries()
+        self.test_post_design_docs_queries_all_params()
 
-    	# Disable retries and run test_post_design_docs_queries_all_params.
-    	_service.disable_retries()
-    	self.test_post_design_docs_queries_all_params()
+        # Disable retries and run test_post_design_docs_queries_all_params.
+        _service.disable_retries()
+        self.test_post_design_docs_queries_all_params()
 
     @responses.activate
     def test_post_design_docs_queries_required_params(self):
@@ -5832,13 +5832,13 @@ class TestPostDesignDocsQueries():
         assert req_body['queries'] == [all_docs_query_model]
 
     def test_post_design_docs_queries_required_params_with_retries(self):
-    	# Enable retries and run test_post_design_docs_queries_required_params.
-    	_service.enable_retries()
-    	self.test_post_design_docs_queries_required_params()
+        # Enable retries and run test_post_design_docs_queries_required_params.
+        _service.enable_retries()
+        self.test_post_design_docs_queries_required_params()
 
-    	# Disable retries and run test_post_design_docs_queries_required_params.
-    	_service.disable_retries()
-    	self.test_post_design_docs_queries_required_params()
+        # Disable retries and run test_post_design_docs_queries_required_params.
+        _service.disable_retries()
+        self.test_post_design_docs_queries_required_params()
 
     @responses.activate
     def test_post_design_docs_queries_value_error(self):
@@ -5886,13 +5886,13 @@ class TestPostDesignDocsQueries():
 
 
     def test_post_design_docs_queries_value_error_with_retries(self):
-    	# Enable retries and run test_post_design_docs_queries_value_error.
-    	_service.enable_retries()
-    	self.test_post_design_docs_queries_value_error()
+        # Enable retries and run test_post_design_docs_queries_value_error.
+        _service.enable_retries()
+        self.test_post_design_docs_queries_value_error()
 
-    	# Disable retries and run test_post_design_docs_queries_value_error.
-    	_service.disable_retries()
-    	self.test_post_design_docs_queries_value_error()
+        # Disable retries and run test_post_design_docs_queries_value_error.
+        _service.disable_retries()
+        self.test_post_design_docs_queries_value_error()
 
 # endregion
 ##############################################################################
@@ -6043,13 +6043,13 @@ class TestPostView():
         assert req_body['update'] == 'true'
 
     def test_post_view_all_params_with_retries(self):
-    	# Enable retries and run test_post_view_all_params.
-    	_service.enable_retries()
-    	self.test_post_view_all_params()
+        # Enable retries and run test_post_view_all_params.
+        _service.enable_retries()
+        self.test_post_view_all_params()
 
-    	# Disable retries and run test_post_view_all_params.
-    	_service.disable_retries()
-    	self.test_post_view_all_params()
+        # Disable retries and run test_post_view_all_params.
+        _service.disable_retries()
+        self.test_post_view_all_params()
 
     @responses.activate
     def test_post_view_value_error(self):
@@ -6103,13 +6103,13 @@ class TestPostView():
 
 
     def test_post_view_value_error_with_retries(self):
-    	# Enable retries and run test_post_view_value_error.
-    	_service.enable_retries()
-    	self.test_post_view_value_error()
+        # Enable retries and run test_post_view_value_error.
+        _service.enable_retries()
+        self.test_post_view_value_error()
 
-    	# Disable retries and run test_post_view_value_error.
-    	_service.disable_retries()
-    	self.test_post_view_value_error()
+        # Disable retries and run test_post_view_value_error.
+        _service.disable_retries()
+        self.test_post_view_value_error()
 
 class TestPostViewAsStream():
     """
@@ -6230,13 +6230,13 @@ class TestPostViewAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_view_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_post_view_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_post_view_as_stream_all_params()
+        # Enable retries and run test_post_view_as_stream_all_params.
+        _service.enable_retries()
+        self.test_post_view_as_stream_all_params()
 
-    	# Disable retries and run test_post_view_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_post_view_as_stream_all_params()
+        # Disable retries and run test_post_view_as_stream_all_params.
+        _service.disable_retries()
+        self.test_post_view_as_stream_all_params()
 
     @responses.activate
     def test_post_view_as_stream_value_error(self):
@@ -6290,13 +6290,13 @@ class TestPostViewAsStream():
 
 
     def test_post_view_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_post_view_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_post_view_as_stream_value_error()
+        # Enable retries and run test_post_view_as_stream_value_error.
+        _service.enable_retries()
+        self.test_post_view_as_stream_value_error()
 
-    	# Disable retries and run test_post_view_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_post_view_as_stream_value_error()
+        # Disable retries and run test_post_view_as_stream_value_error.
+        _service.disable_retries()
+        self.test_post_view_as_stream_value_error()
 
 class TestPostViewQueries():
     """
@@ -6377,13 +6377,13 @@ class TestPostViewQueries():
         assert req_body['queries'] == [view_query_model]
 
     def test_post_view_queries_all_params_with_retries(self):
-    	# Enable retries and run test_post_view_queries_all_params.
-    	_service.enable_retries()
-    	self.test_post_view_queries_all_params()
+        # Enable retries and run test_post_view_queries_all_params.
+        _service.enable_retries()
+        self.test_post_view_queries_all_params()
 
-    	# Disable retries and run test_post_view_queries_all_params.
-    	_service.disable_retries()
-    	self.test_post_view_queries_all_params()
+        # Disable retries and run test_post_view_queries_all_params.
+        _service.disable_retries()
+        self.test_post_view_queries_all_params()
 
     @responses.activate
     def test_post_view_queries_value_error(self):
@@ -6442,13 +6442,13 @@ class TestPostViewQueries():
 
 
     def test_post_view_queries_value_error_with_retries(self):
-    	# Enable retries and run test_post_view_queries_value_error.
-    	_service.enable_retries()
-    	self.test_post_view_queries_value_error()
+        # Enable retries and run test_post_view_queries_value_error.
+        _service.enable_retries()
+        self.test_post_view_queries_value_error()
 
-    	# Disable retries and run test_post_view_queries_value_error.
-    	_service.disable_retries()
-    	self.test_post_view_queries_value_error()
+        # Disable retries and run test_post_view_queries_value_error.
+        _service.disable_retries()
+        self.test_post_view_queries_value_error()
 
 class TestPostViewQueriesAsStream():
     """
@@ -6535,13 +6535,13 @@ class TestPostViewQueriesAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_view_queries_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_post_view_queries_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_post_view_queries_as_stream_all_params()
+        # Enable retries and run test_post_view_queries_as_stream_all_params.
+        _service.enable_retries()
+        self.test_post_view_queries_as_stream_all_params()
 
-    	# Disable retries and run test_post_view_queries_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_post_view_queries_as_stream_all_params()
+        # Disable retries and run test_post_view_queries_as_stream_all_params.
+        _service.disable_retries()
+        self.test_post_view_queries_as_stream_all_params()
 
     @responses.activate
     def test_post_view_queries_as_stream_value_error(self):
@@ -6600,13 +6600,13 @@ class TestPostViewQueriesAsStream():
 
 
     def test_post_view_queries_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_post_view_queries_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_post_view_queries_as_stream_value_error()
+        # Enable retries and run test_post_view_queries_as_stream_value_error.
+        _service.enable_retries()
+        self.test_post_view_queries_as_stream_value_error()
 
-    	# Disable retries and run test_post_view_queries_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_post_view_queries_as_stream_value_error()
+        # Disable retries and run test_post_view_queries_as_stream_value_error.
+        _service.disable_retries()
+        self.test_post_view_queries_as_stream_value_error()
 
 # endregion
 ##############################################################################
@@ -6690,13 +6690,13 @@ class TestGetPartitionInformation():
         assert response.status_code == 200
 
     def test_get_partition_information_all_params_with_retries(self):
-    	# Enable retries and run test_get_partition_information_all_params.
-    	_service.enable_retries()
-    	self.test_get_partition_information_all_params()
+        # Enable retries and run test_get_partition_information_all_params.
+        _service.enable_retries()
+        self.test_get_partition_information_all_params()
 
-    	# Disable retries and run test_get_partition_information_all_params.
-    	_service.disable_retries()
-    	self.test_get_partition_information_all_params()
+        # Disable retries and run test_get_partition_information_all_params.
+        _service.disable_retries()
+        self.test_get_partition_information_all_params()
 
     @responses.activate
     def test_get_partition_information_value_error(self):
@@ -6728,13 +6728,13 @@ class TestGetPartitionInformation():
 
 
     def test_get_partition_information_value_error_with_retries(self):
-    	# Enable retries and run test_get_partition_information_value_error.
-    	_service.enable_retries()
-    	self.test_get_partition_information_value_error()
+        # Enable retries and run test_get_partition_information_value_error.
+        _service.enable_retries()
+        self.test_get_partition_information_value_error()
 
-    	# Disable retries and run test_get_partition_information_value_error.
-    	_service.disable_retries()
-    	self.test_get_partition_information_value_error()
+        # Disable retries and run test_get_partition_information_value_error.
+        _service.disable_retries()
+        self.test_get_partition_information_value_error()
 
 class TestPostPartitionAllDocs():
     """
@@ -6826,13 +6826,13 @@ class TestPostPartitionAllDocs():
         assert req_body['startkey'] == '0007741142412418284'
 
     def test_post_partition_all_docs_all_params_with_retries(self):
-    	# Enable retries and run test_post_partition_all_docs_all_params.
-    	_service.enable_retries()
-    	self.test_post_partition_all_docs_all_params()
+        # Enable retries and run test_post_partition_all_docs_all_params.
+        _service.enable_retries()
+        self.test_post_partition_all_docs_all_params()
 
-    	# Disable retries and run test_post_partition_all_docs_all_params.
-    	_service.disable_retries()
-    	self.test_post_partition_all_docs_all_params()
+        # Disable retries and run test_post_partition_all_docs_all_params.
+        _service.disable_retries()
+        self.test_post_partition_all_docs_all_params()
 
     @responses.activate
     def test_post_partition_all_docs_value_error(self):
@@ -6877,13 +6877,13 @@ class TestPostPartitionAllDocs():
 
 
     def test_post_partition_all_docs_value_error_with_retries(self):
-    	# Enable retries and run test_post_partition_all_docs_value_error.
-    	_service.enable_retries()
-    	self.test_post_partition_all_docs_value_error()
+        # Enable retries and run test_post_partition_all_docs_value_error.
+        _service.enable_retries()
+        self.test_post_partition_all_docs_value_error()
 
-    	# Disable retries and run test_post_partition_all_docs_value_error.
-    	_service.disable_retries()
-    	self.test_post_partition_all_docs_value_error()
+        # Disable retries and run test_post_partition_all_docs_value_error.
+        _service.disable_retries()
+        self.test_post_partition_all_docs_value_error()
 
 class TestPostPartitionAllDocsAsStream():
     """
@@ -6981,13 +6981,13 @@ class TestPostPartitionAllDocsAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_partition_all_docs_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_post_partition_all_docs_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_post_partition_all_docs_as_stream_all_params()
+        # Enable retries and run test_post_partition_all_docs_as_stream_all_params.
+        _service.enable_retries()
+        self.test_post_partition_all_docs_as_stream_all_params()
 
-    	# Disable retries and run test_post_partition_all_docs_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_post_partition_all_docs_as_stream_all_params()
+        # Disable retries and run test_post_partition_all_docs_as_stream_all_params.
+        _service.disable_retries()
+        self.test_post_partition_all_docs_as_stream_all_params()
 
     @responses.activate
     def test_post_partition_all_docs_as_stream_value_error(self):
@@ -7032,13 +7032,13 @@ class TestPostPartitionAllDocsAsStream():
 
 
     def test_post_partition_all_docs_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_post_partition_all_docs_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_post_partition_all_docs_as_stream_value_error()
+        # Enable retries and run test_post_partition_all_docs_as_stream_value_error.
+        _service.enable_retries()
+        self.test_post_partition_all_docs_as_stream_value_error()
 
-    	# Disable retries and run test_post_partition_all_docs_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_post_partition_all_docs_as_stream_value_error()
+        # Disable retries and run test_post_partition_all_docs_as_stream_value_error.
+        _service.disable_retries()
+        self.test_post_partition_all_docs_as_stream_value_error()
 
 class TestPostPartitionSearch():
     """
@@ -7131,13 +7131,13 @@ class TestPostPartitionSearch():
         assert req_body['stale'] == 'ok'
 
     def test_post_partition_search_all_params_with_retries(self):
-    	# Enable retries and run test_post_partition_search_all_params.
-    	_service.enable_retries()
-    	self.test_post_partition_search_all_params()
+        # Enable retries and run test_post_partition_search_all_params.
+        _service.enable_retries()
+        self.test_post_partition_search_all_params()
 
-    	# Disable retries and run test_post_partition_search_all_params.
-    	_service.disable_retries()
-    	self.test_post_partition_search_all_params()
+        # Disable retries and run test_post_partition_search_all_params.
+        _service.disable_retries()
+        self.test_post_partition_search_all_params()
 
     @responses.activate
     def test_post_partition_search_value_error(self):
@@ -7186,13 +7186,13 @@ class TestPostPartitionSearch():
 
 
     def test_post_partition_search_value_error_with_retries(self):
-    	# Enable retries and run test_post_partition_search_value_error.
-    	_service.enable_retries()
-    	self.test_post_partition_search_value_error()
+        # Enable retries and run test_post_partition_search_value_error.
+        _service.enable_retries()
+        self.test_post_partition_search_value_error()
 
-    	# Disable retries and run test_post_partition_search_value_error.
-    	_service.disable_retries()
-    	self.test_post_partition_search_value_error()
+        # Disable retries and run test_post_partition_search_value_error.
+        _service.disable_retries()
+        self.test_post_partition_search_value_error()
 
 class TestPostPartitionSearchAsStream():
     """
@@ -7291,13 +7291,13 @@ class TestPostPartitionSearchAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_partition_search_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_post_partition_search_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_post_partition_search_as_stream_all_params()
+        # Enable retries and run test_post_partition_search_as_stream_all_params.
+        _service.enable_retries()
+        self.test_post_partition_search_as_stream_all_params()
 
-    	# Disable retries and run test_post_partition_search_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_post_partition_search_as_stream_all_params()
+        # Disable retries and run test_post_partition_search_as_stream_all_params.
+        _service.disable_retries()
+        self.test_post_partition_search_as_stream_all_params()
 
     @responses.activate
     def test_post_partition_search_as_stream_value_error(self):
@@ -7346,13 +7346,13 @@ class TestPostPartitionSearchAsStream():
 
 
     def test_post_partition_search_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_post_partition_search_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_post_partition_search_as_stream_value_error()
+        # Enable retries and run test_post_partition_search_as_stream_value_error.
+        _service.enable_retries()
+        self.test_post_partition_search_as_stream_value_error()
 
-    	# Disable retries and run test_post_partition_search_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_post_partition_search_as_stream_value_error()
+        # Disable retries and run test_post_partition_search_as_stream_value_error.
+        _service.disable_retries()
+        self.test_post_partition_search_as_stream_value_error()
 
 class TestPostPartitionView():
     """
@@ -7469,13 +7469,13 @@ class TestPostPartitionView():
         assert req_body['update'] == 'true'
 
     def test_post_partition_view_all_params_with_retries(self):
-    	# Enable retries and run test_post_partition_view_all_params.
-    	_service.enable_retries()
-    	self.test_post_partition_view_all_params()
+        # Enable retries and run test_post_partition_view_all_params.
+        _service.enable_retries()
+        self.test_post_partition_view_all_params()
 
-    	# Disable retries and run test_post_partition_view_all_params.
-    	_service.disable_retries()
-    	self.test_post_partition_view_all_params()
+        # Disable retries and run test_post_partition_view_all_params.
+        _service.disable_retries()
+        self.test_post_partition_view_all_params()
 
     @responses.activate
     def test_post_partition_view_value_error(self):
@@ -7531,13 +7531,13 @@ class TestPostPartitionView():
 
 
     def test_post_partition_view_value_error_with_retries(self):
-    	# Enable retries and run test_post_partition_view_value_error.
-    	_service.enable_retries()
-    	self.test_post_partition_view_value_error()
+        # Enable retries and run test_post_partition_view_value_error.
+        _service.enable_retries()
+        self.test_post_partition_view_value_error()
 
-    	# Disable retries and run test_post_partition_view_value_error.
-    	_service.disable_retries()
-    	self.test_post_partition_view_value_error()
+        # Disable retries and run test_post_partition_view_value_error.
+        _service.disable_retries()
+        self.test_post_partition_view_value_error()
 
 class TestPostPartitionViewAsStream():
     """
@@ -7660,13 +7660,13 @@ class TestPostPartitionViewAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_partition_view_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_post_partition_view_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_post_partition_view_as_stream_all_params()
+        # Enable retries and run test_post_partition_view_as_stream_all_params.
+        _service.enable_retries()
+        self.test_post_partition_view_as_stream_all_params()
 
-    	# Disable retries and run test_post_partition_view_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_post_partition_view_as_stream_all_params()
+        # Disable retries and run test_post_partition_view_as_stream_all_params.
+        _service.disable_retries()
+        self.test_post_partition_view_as_stream_all_params()
 
     @responses.activate
     def test_post_partition_view_as_stream_value_error(self):
@@ -7722,13 +7722,13 @@ class TestPostPartitionViewAsStream():
 
 
     def test_post_partition_view_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_post_partition_view_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_post_partition_view_as_stream_value_error()
+        # Enable retries and run test_post_partition_view_as_stream_value_error.
+        _service.enable_retries()
+        self.test_post_partition_view_as_stream_value_error()
 
-    	# Disable retries and run test_post_partition_view_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_post_partition_view_as_stream_value_error()
+        # Disable retries and run test_post_partition_view_as_stream_value_error.
+        _service.disable_retries()
+        self.test_post_partition_view_as_stream_value_error()
 
 class TestPostPartitionFind():
     """
@@ -7814,13 +7814,13 @@ class TestPostPartitionFind():
         assert req_body['use_index'] == ['testString']
 
     def test_post_partition_find_all_params_with_retries(self):
-    	# Enable retries and run test_post_partition_find_all_params.
-    	_service.enable_retries()
-    	self.test_post_partition_find_all_params()
+        # Enable retries and run test_post_partition_find_all_params.
+        _service.enable_retries()
+        self.test_post_partition_find_all_params()
 
-    	# Disable retries and run test_post_partition_find_all_params.
-    	_service.disable_retries()
-    	self.test_post_partition_find_all_params()
+        # Disable retries and run test_post_partition_find_all_params.
+        _service.disable_retries()
+        self.test_post_partition_find_all_params()
 
     @responses.activate
     def test_post_partition_find_value_error(self):
@@ -7864,13 +7864,13 @@ class TestPostPartitionFind():
 
 
     def test_post_partition_find_value_error_with_retries(self):
-    	# Enable retries and run test_post_partition_find_value_error.
-    	_service.enable_retries()
-    	self.test_post_partition_find_value_error()
+        # Enable retries and run test_post_partition_find_value_error.
+        _service.enable_retries()
+        self.test_post_partition_find_value_error()
 
-    	# Disable retries and run test_post_partition_find_value_error.
-    	_service.disable_retries()
-    	self.test_post_partition_find_value_error()
+        # Disable retries and run test_post_partition_find_value_error.
+        _service.disable_retries()
+        self.test_post_partition_find_value_error()
 
 class TestPostPartitionFindAsStream():
     """
@@ -7962,13 +7962,13 @@ class TestPostPartitionFindAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_partition_find_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_post_partition_find_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_post_partition_find_as_stream_all_params()
+        # Enable retries and run test_post_partition_find_as_stream_all_params.
+        _service.enable_retries()
+        self.test_post_partition_find_as_stream_all_params()
 
-    	# Disable retries and run test_post_partition_find_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_post_partition_find_as_stream_all_params()
+        # Disable retries and run test_post_partition_find_as_stream_all_params.
+        _service.disable_retries()
+        self.test_post_partition_find_as_stream_all_params()
 
     @responses.activate
     def test_post_partition_find_as_stream_value_error(self):
@@ -8012,13 +8012,13 @@ class TestPostPartitionFindAsStream():
 
 
     def test_post_partition_find_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_post_partition_find_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_post_partition_find_as_stream_value_error()
+        # Enable retries and run test_post_partition_find_as_stream_value_error.
+        _service.enable_retries()
+        self.test_post_partition_find_as_stream_value_error()
 
-    	# Disable retries and run test_post_partition_find_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_post_partition_find_as_stream_value_error()
+        # Disable retries and run test_post_partition_find_as_stream_value_error.
+        _service.disable_retries()
+        self.test_post_partition_find_as_stream_value_error()
 
 # endregion
 ##############################################################################
@@ -8141,13 +8141,13 @@ class TestPostExplain():
         assert req_body['r'] == 1
 
     def test_post_explain_all_params_with_retries(self):
-    	# Enable retries and run test_post_explain_all_params.
-    	_service.enable_retries()
-    	self.test_post_explain_all_params()
+        # Enable retries and run test_post_explain_all_params.
+        _service.enable_retries()
+        self.test_post_explain_all_params()
 
-    	# Disable retries and run test_post_explain_all_params.
-    	_service.disable_retries()
-    	self.test_post_explain_all_params()
+        # Disable retries and run test_post_explain_all_params.
+        _service.disable_retries()
+        self.test_post_explain_all_params()
 
     @responses.activate
     def test_post_explain_value_error(self):
@@ -8190,13 +8190,13 @@ class TestPostExplain():
 
 
     def test_post_explain_value_error_with_retries(self):
-    	# Enable retries and run test_post_explain_value_error.
-    	_service.enable_retries()
-    	self.test_post_explain_value_error()
+        # Enable retries and run test_post_explain_value_error.
+        _service.enable_retries()
+        self.test_post_explain_value_error()
 
-    	# Disable retries and run test_post_explain_value_error.
-    	_service.disable_retries()
-    	self.test_post_explain_value_error()
+        # Disable retries and run test_post_explain_value_error.
+        _service.disable_retries()
+        self.test_post_explain_value_error()
 
 class TestPostFind():
     """
@@ -8283,13 +8283,13 @@ class TestPostFind():
         assert req_body['r'] == 1
 
     def test_post_find_all_params_with_retries(self):
-    	# Enable retries and run test_post_find_all_params.
-    	_service.enable_retries()
-    	self.test_post_find_all_params()
+        # Enable retries and run test_post_find_all_params.
+        _service.enable_retries()
+        self.test_post_find_all_params()
 
-    	# Disable retries and run test_post_find_all_params.
-    	_service.disable_retries()
-    	self.test_post_find_all_params()
+        # Disable retries and run test_post_find_all_params.
+        _service.disable_retries()
+        self.test_post_find_all_params()
 
     @responses.activate
     def test_post_find_value_error(self):
@@ -8332,13 +8332,13 @@ class TestPostFind():
 
 
     def test_post_find_value_error_with_retries(self):
-    	# Enable retries and run test_post_find_value_error.
-    	_service.enable_retries()
-    	self.test_post_find_value_error()
+        # Enable retries and run test_post_find_value_error.
+        _service.enable_retries()
+        self.test_post_find_value_error()
 
-    	# Disable retries and run test_post_find_value_error.
-    	_service.disable_retries()
-    	self.test_post_find_value_error()
+        # Disable retries and run test_post_find_value_error.
+        _service.disable_retries()
+        self.test_post_find_value_error()
 
 class TestPostFindAsStream():
     """
@@ -8431,13 +8431,13 @@ class TestPostFindAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_find_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_post_find_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_post_find_as_stream_all_params()
+        # Enable retries and run test_post_find_as_stream_all_params.
+        _service.enable_retries()
+        self.test_post_find_as_stream_all_params()
 
-    	# Disable retries and run test_post_find_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_post_find_as_stream_all_params()
+        # Disable retries and run test_post_find_as_stream_all_params.
+        _service.disable_retries()
+        self.test_post_find_as_stream_all_params()
 
     @responses.activate
     def test_post_find_as_stream_value_error(self):
@@ -8480,13 +8480,13 @@ class TestPostFindAsStream():
 
 
     def test_post_find_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_post_find_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_post_find_as_stream_value_error()
+        # Enable retries and run test_post_find_as_stream_value_error.
+        _service.enable_retries()
+        self.test_post_find_as_stream_value_error()
 
-    	# Disable retries and run test_post_find_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_post_find_as_stream_value_error()
+        # Disable retries and run test_post_find_as_stream_value_error.
+        _service.disable_retries()
+        self.test_post_find_as_stream_value_error()
 
 class TestGetIndexesInformation():
     """
@@ -8532,13 +8532,13 @@ class TestGetIndexesInformation():
         assert response.status_code == 200
 
     def test_get_indexes_information_all_params_with_retries(self):
-    	# Enable retries and run test_get_indexes_information_all_params.
-    	_service.enable_retries()
-    	self.test_get_indexes_information_all_params()
+        # Enable retries and run test_get_indexes_information_all_params.
+        _service.enable_retries()
+        self.test_get_indexes_information_all_params()
 
-    	# Disable retries and run test_get_indexes_information_all_params.
-    	_service.disable_retries()
-    	self.test_get_indexes_information_all_params()
+        # Disable retries and run test_get_indexes_information_all_params.
+        _service.disable_retries()
+        self.test_get_indexes_information_all_params()
 
     @responses.activate
     def test_get_indexes_information_value_error(self):
@@ -8568,13 +8568,13 @@ class TestGetIndexesInformation():
 
 
     def test_get_indexes_information_value_error_with_retries(self):
-    	# Enable retries and run test_get_indexes_information_value_error.
-    	_service.enable_retries()
-    	self.test_get_indexes_information_value_error()
+        # Enable retries and run test_get_indexes_information_value_error.
+        _service.enable_retries()
+        self.test_get_indexes_information_value_error()
 
-    	# Disable retries and run test_get_indexes_information_value_error.
-    	_service.disable_retries()
-    	self.test_get_indexes_information_value_error()
+        # Disable retries and run test_get_indexes_information_value_error.
+        _service.disable_retries()
+        self.test_get_indexes_information_value_error()
 
 class TestPostIndex():
     """
@@ -8667,13 +8667,13 @@ class TestPostIndex():
         assert req_body['type'] == 'json'
 
     def test_post_index_all_params_with_retries(self):
-    	# Enable retries and run test_post_index_all_params.
-    	_service.enable_retries()
-    	self.test_post_index_all_params()
+        # Enable retries and run test_post_index_all_params.
+        _service.enable_retries()
+        self.test_post_index_all_params()
 
-    	# Disable retries and run test_post_index_all_params.
-    	_service.disable_retries()
-    	self.test_post_index_all_params()
+        # Disable retries and run test_post_index_all_params.
+        _service.disable_retries()
+        self.test_post_index_all_params()
 
     @responses.activate
     def test_post_index_value_error(self):
@@ -8734,13 +8734,13 @@ class TestPostIndex():
 
 
     def test_post_index_value_error_with_retries(self):
-    	# Enable retries and run test_post_index_value_error.
-    	_service.enable_retries()
-    	self.test_post_index_value_error()
+        # Enable retries and run test_post_index_value_error.
+        _service.enable_retries()
+        self.test_post_index_value_error()
 
-    	# Disable retries and run test_post_index_value_error.
-    	_service.disable_retries()
-    	self.test_post_index_value_error()
+        # Disable retries and run test_post_index_value_error.
+        _service.disable_retries()
+        self.test_post_index_value_error()
 
 class TestDeleteIndex():
     """
@@ -8792,13 +8792,13 @@ class TestDeleteIndex():
         assert response.status_code == 200
 
     def test_delete_index_all_params_with_retries(self):
-    	# Enable retries and run test_delete_index_all_params.
-    	_service.enable_retries()
-    	self.test_delete_index_all_params()
+        # Enable retries and run test_delete_index_all_params.
+        _service.enable_retries()
+        self.test_delete_index_all_params()
 
-    	# Disable retries and run test_delete_index_all_params.
-    	_service.disable_retries()
-    	self.test_delete_index_all_params()
+        # Disable retries and run test_delete_index_all_params.
+        _service.disable_retries()
+        self.test_delete_index_all_params()
 
     @responses.activate
     def test_delete_index_value_error(self):
@@ -8834,13 +8834,13 @@ class TestDeleteIndex():
 
 
     def test_delete_index_value_error_with_retries(self):
-    	# Enable retries and run test_delete_index_value_error.
-    	_service.enable_retries()
-    	self.test_delete_index_value_error()
+        # Enable retries and run test_delete_index_value_error.
+        _service.enable_retries()
+        self.test_delete_index_value_error()
 
-    	# Disable retries and run test_delete_index_value_error.
-    	_service.disable_retries()
-    	self.test_delete_index_value_error()
+        # Disable retries and run test_delete_index_value_error.
+        _service.disable_retries()
+        self.test_delete_index_value_error()
 
 # endregion
 ##############################################################################
@@ -8931,13 +8931,13 @@ class TestPostSearchAnalyze():
         assert req_body['text'] == 'testString'
 
     def test_post_search_analyze_all_params_with_retries(self):
-    	# Enable retries and run test_post_search_analyze_all_params.
-    	_service.enable_retries()
-    	self.test_post_search_analyze_all_params()
+        # Enable retries and run test_post_search_analyze_all_params.
+        _service.enable_retries()
+        self.test_post_search_analyze_all_params()
 
-    	# Disable retries and run test_post_search_analyze_all_params.
-    	_service.disable_retries()
-    	self.test_post_search_analyze_all_params()
+        # Disable retries and run test_post_search_analyze_all_params.
+        _service.disable_retries()
+        self.test_post_search_analyze_all_params()
 
     @responses.activate
     def test_post_search_analyze_value_error(self):
@@ -8969,13 +8969,13 @@ class TestPostSearchAnalyze():
 
 
     def test_post_search_analyze_value_error_with_retries(self):
-    	# Enable retries and run test_post_search_analyze_value_error.
-    	_service.enable_retries()
-    	self.test_post_search_analyze_value_error()
+        # Enable retries and run test_post_search_analyze_value_error.
+        _service.enable_retries()
+        self.test_post_search_analyze_value_error()
 
-    	# Disable retries and run test_post_search_analyze_value_error.
-    	_service.disable_retries()
-    	self.test_post_search_analyze_value_error()
+        # Disable retries and run test_post_search_analyze_value_error.
+        _service.disable_retries()
+        self.test_post_search_analyze_value_error()
 
 class TestPostSearch():
     """
@@ -9084,13 +9084,13 @@ class TestPostSearch():
         assert req_body['ranges'] == {}
 
     def test_post_search_all_params_with_retries(self):
-    	# Enable retries and run test_post_search_all_params.
-    	_service.enable_retries()
-    	self.test_post_search_all_params()
+        # Enable retries and run test_post_search_all_params.
+        _service.enable_retries()
+        self.test_post_search_all_params()
 
-    	# Disable retries and run test_post_search_all_params.
-    	_service.disable_retries()
-    	self.test_post_search_all_params()
+        # Disable retries and run test_post_search_all_params.
+        _service.disable_retries()
+        self.test_post_search_all_params()
 
     @responses.activate
     def test_post_search_value_error(self):
@@ -9143,13 +9143,13 @@ class TestPostSearch():
 
 
     def test_post_search_value_error_with_retries(self):
-    	# Enable retries and run test_post_search_value_error.
-    	_service.enable_retries()
-    	self.test_post_search_value_error()
+        # Enable retries and run test_post_search_value_error.
+        _service.enable_retries()
+        self.test_post_search_value_error()
 
-    	# Disable retries and run test_post_search_value_error.
-    	_service.disable_retries()
-    	self.test_post_search_value_error()
+        # Disable retries and run test_post_search_value_error.
+        _service.disable_retries()
+        self.test_post_search_value_error()
 
 class TestPostSearchAsStream():
     """
@@ -9264,13 +9264,13 @@ class TestPostSearchAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_post_search_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_post_search_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_post_search_as_stream_all_params()
+        # Enable retries and run test_post_search_as_stream_all_params.
+        _service.enable_retries()
+        self.test_post_search_as_stream_all_params()
 
-    	# Disable retries and run test_post_search_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_post_search_as_stream_all_params()
+        # Disable retries and run test_post_search_as_stream_all_params.
+        _service.disable_retries()
+        self.test_post_search_as_stream_all_params()
 
     @responses.activate
     def test_post_search_as_stream_value_error(self):
@@ -9323,13 +9323,13 @@ class TestPostSearchAsStream():
 
 
     def test_post_search_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_post_search_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_post_search_as_stream_value_error()
+        # Enable retries and run test_post_search_as_stream_value_error.
+        _service.enable_retries()
+        self.test_post_search_as_stream_value_error()
 
-    	# Disable retries and run test_post_search_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_post_search_as_stream_value_error()
+        # Disable retries and run test_post_search_as_stream_value_error.
+        _service.disable_retries()
+        self.test_post_search_as_stream_value_error()
 
 class TestGetSearchInfo():
     """
@@ -9379,13 +9379,13 @@ class TestGetSearchInfo():
         assert response.status_code == 200
 
     def test_get_search_info_all_params_with_retries(self):
-    	# Enable retries and run test_get_search_info_all_params.
-    	_service.enable_retries()
-    	self.test_get_search_info_all_params()
+        # Enable retries and run test_get_search_info_all_params.
+        _service.enable_retries()
+        self.test_get_search_info_all_params()
 
-    	# Disable retries and run test_get_search_info_all_params.
-    	_service.disable_retries()
-    	self.test_get_search_info_all_params()
+        # Disable retries and run test_get_search_info_all_params.
+        _service.disable_retries()
+        self.test_get_search_info_all_params()
 
     @responses.activate
     def test_get_search_info_value_error(self):
@@ -9419,13 +9419,13 @@ class TestGetSearchInfo():
 
 
     def test_get_search_info_value_error_with_retries(self):
-    	# Enable retries and run test_get_search_info_value_error.
-    	_service.enable_retries()
-    	self.test_get_search_info_value_error()
+        # Enable retries and run test_get_search_info_value_error.
+        _service.enable_retries()
+        self.test_get_search_info_value_error()
 
-    	# Disable retries and run test_get_search_info_value_error.
-    	_service.disable_retries()
-    	self.test_get_search_info_value_error()
+        # Disable retries and run test_get_search_info_value_error.
+        _service.disable_retries()
+        self.test_get_search_info_value_error()
 
 # endregion
 ##############################################################################
@@ -9559,13 +9559,13 @@ class TestGetGeo():
         assert 'stale={}'.format(stale) in query_string
 
     def test_get_geo_all_params_with_retries(self):
-    	# Enable retries and run test_get_geo_all_params.
-    	_service.enable_retries()
-    	self.test_get_geo_all_params()
+        # Enable retries and run test_get_geo_all_params.
+        _service.enable_retries()
+        self.test_get_geo_all_params()
 
-    	# Disable retries and run test_get_geo_all_params.
-    	_service.disable_retries()
-    	self.test_get_geo_all_params()
+        # Disable retries and run test_get_geo_all_params.
+        _service.disable_retries()
+        self.test_get_geo_all_params()
 
     @responses.activate
     def test_get_geo_required_params(self):
@@ -9599,13 +9599,13 @@ class TestGetGeo():
         assert response.status_code == 200
 
     def test_get_geo_required_params_with_retries(self):
-    	# Enable retries and run test_get_geo_required_params.
-    	_service.enable_retries()
-    	self.test_get_geo_required_params()
+        # Enable retries and run test_get_geo_required_params.
+        _service.enable_retries()
+        self.test_get_geo_required_params()
 
-    	# Disable retries and run test_get_geo_required_params.
-    	_service.disable_retries()
-    	self.test_get_geo_required_params()
+        # Disable retries and run test_get_geo_required_params.
+        _service.disable_retries()
+        self.test_get_geo_required_params()
 
     @responses.activate
     def test_get_geo_value_error(self):
@@ -9639,13 +9639,13 @@ class TestGetGeo():
 
 
     def test_get_geo_value_error_with_retries(self):
-    	# Enable retries and run test_get_geo_value_error.
-    	_service.enable_retries()
-    	self.test_get_geo_value_error()
+        # Enable retries and run test_get_geo_value_error.
+        _service.enable_retries()
+        self.test_get_geo_value_error()
 
-    	# Disable retries and run test_get_geo_value_error.
-    	_service.disable_retries()
-    	self.test_get_geo_value_error()
+        # Disable retries and run test_get_geo_value_error.
+        _service.disable_retries()
+        self.test_get_geo_value_error()
 
 class TestGetGeoAsStream():
     """
@@ -9749,13 +9749,13 @@ class TestGetGeoAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_get_geo_as_stream_all_params_with_retries(self):
-    	# Enable retries and run test_get_geo_as_stream_all_params.
-    	_service.enable_retries()
-    	self.test_get_geo_as_stream_all_params()
+        # Enable retries and run test_get_geo_as_stream_all_params.
+        _service.enable_retries()
+        self.test_get_geo_as_stream_all_params()
 
-    	# Disable retries and run test_get_geo_as_stream_all_params.
-    	_service.disable_retries()
-    	self.test_get_geo_as_stream_all_params()
+        # Disable retries and run test_get_geo_as_stream_all_params.
+        _service.disable_retries()
+        self.test_get_geo_as_stream_all_params()
 
     @responses.activate
     def test_get_geo_as_stream_required_params(self):
@@ -9795,13 +9795,13 @@ class TestGetGeoAsStream():
         assert str(next(response_buf), "utf-8") == mock_response
 
     def test_get_geo_as_stream_required_params_with_retries(self):
-    	# Enable retries and run test_get_geo_as_stream_required_params.
-    	_service.enable_retries()
-    	self.test_get_geo_as_stream_required_params()
+        # Enable retries and run test_get_geo_as_stream_required_params.
+        _service.enable_retries()
+        self.test_get_geo_as_stream_required_params()
 
-    	# Disable retries and run test_get_geo_as_stream_required_params.
-    	_service.disable_retries()
-    	self.test_get_geo_as_stream_required_params()
+        # Disable retries and run test_get_geo_as_stream_required_params.
+        _service.disable_retries()
+        self.test_get_geo_as_stream_required_params()
 
     @responses.activate
     def test_get_geo_as_stream_value_error(self):
@@ -9835,13 +9835,13 @@ class TestGetGeoAsStream():
 
 
     def test_get_geo_as_stream_value_error_with_retries(self):
-    	# Enable retries and run test_get_geo_as_stream_value_error.
-    	_service.enable_retries()
-    	self.test_get_geo_as_stream_value_error()
+        # Enable retries and run test_get_geo_as_stream_value_error.
+        _service.enable_retries()
+        self.test_get_geo_as_stream_value_error()
 
-    	# Disable retries and run test_get_geo_as_stream_value_error.
-    	_service.disable_retries()
-    	self.test_get_geo_as_stream_value_error()
+        # Disable retries and run test_get_geo_as_stream_value_error.
+        _service.disable_retries()
+        self.test_get_geo_as_stream_value_error()
 
 class TestPostGeoCleanup():
     """
@@ -9887,13 +9887,13 @@ class TestPostGeoCleanup():
         assert response.status_code == 202
 
     def test_post_geo_cleanup_all_params_with_retries(self):
-    	# Enable retries and run test_post_geo_cleanup_all_params.
-    	_service.enable_retries()
-    	self.test_post_geo_cleanup_all_params()
+        # Enable retries and run test_post_geo_cleanup_all_params.
+        _service.enable_retries()
+        self.test_post_geo_cleanup_all_params()
 
-    	# Disable retries and run test_post_geo_cleanup_all_params.
-    	_service.disable_retries()
-    	self.test_post_geo_cleanup_all_params()
+        # Disable retries and run test_post_geo_cleanup_all_params.
+        _service.disable_retries()
+        self.test_post_geo_cleanup_all_params()
 
     @responses.activate
     def test_post_geo_cleanup_value_error(self):
@@ -9923,13 +9923,13 @@ class TestPostGeoCleanup():
 
 
     def test_post_geo_cleanup_value_error_with_retries(self):
-    	# Enable retries and run test_post_geo_cleanup_value_error.
-    	_service.enable_retries()
-    	self.test_post_geo_cleanup_value_error()
+        # Enable retries and run test_post_geo_cleanup_value_error.
+        _service.enable_retries()
+        self.test_post_geo_cleanup_value_error()
 
-    	# Disable retries and run test_post_geo_cleanup_value_error.
-    	_service.disable_retries()
-    	self.test_post_geo_cleanup_value_error()
+        # Disable retries and run test_post_geo_cleanup_value_error.
+        _service.disable_retries()
+        self.test_post_geo_cleanup_value_error()
 
 class TestGetGeoIndexInformation():
     """
@@ -9979,13 +9979,13 @@ class TestGetGeoIndexInformation():
         assert response.status_code == 200
 
     def test_get_geo_index_information_all_params_with_retries(self):
-    	# Enable retries and run test_get_geo_index_information_all_params.
-    	_service.enable_retries()
-    	self.test_get_geo_index_information_all_params()
+        # Enable retries and run test_get_geo_index_information_all_params.
+        _service.enable_retries()
+        self.test_get_geo_index_information_all_params()
 
-    	# Disable retries and run test_get_geo_index_information_all_params.
-    	_service.disable_retries()
-    	self.test_get_geo_index_information_all_params()
+        # Disable retries and run test_get_geo_index_information_all_params.
+        _service.disable_retries()
+        self.test_get_geo_index_information_all_params()
 
     @responses.activate
     def test_get_geo_index_information_value_error(self):
@@ -10019,13 +10019,13 @@ class TestGetGeoIndexInformation():
 
 
     def test_get_geo_index_information_value_error_with_retries(self):
-    	# Enable retries and run test_get_geo_index_information_value_error.
-    	_service.enable_retries()
-    	self.test_get_geo_index_information_value_error()
+        # Enable retries and run test_get_geo_index_information_value_error.
+        _service.enable_retries()
+        self.test_get_geo_index_information_value_error()
 
-    	# Disable retries and run test_get_geo_index_information_value_error.
-    	_service.disable_retries()
-    	self.test_get_geo_index_information_value_error()
+        # Disable retries and run test_get_geo_index_information_value_error.
+        _service.disable_retries()
+        self.test_get_geo_index_information_value_error()
 
 # endregion
 ##############################################################################
@@ -10106,13 +10106,13 @@ class TestHeadReplicationDocument():
         assert response.status_code == 200
 
     def test_head_replication_document_all_params_with_retries(self):
-    	# Enable retries and run test_head_replication_document_all_params.
-    	_service.enable_retries()
-    	self.test_head_replication_document_all_params()
+        # Enable retries and run test_head_replication_document_all_params.
+        _service.enable_retries()
+        self.test_head_replication_document_all_params()
 
-    	# Disable retries and run test_head_replication_document_all_params.
-    	_service.disable_retries()
-    	self.test_head_replication_document_all_params()
+        # Disable retries and run test_head_replication_document_all_params.
+        _service.disable_retries()
+        self.test_head_replication_document_all_params()
 
     @responses.activate
     def test_head_replication_document_required_params(self):
@@ -10139,13 +10139,13 @@ class TestHeadReplicationDocument():
         assert response.status_code == 200
 
     def test_head_replication_document_required_params_with_retries(self):
-    	# Enable retries and run test_head_replication_document_required_params.
-    	_service.enable_retries()
-    	self.test_head_replication_document_required_params()
+        # Enable retries and run test_head_replication_document_required_params.
+        _service.enable_retries()
+        self.test_head_replication_document_required_params()
 
-    	# Disable retries and run test_head_replication_document_required_params.
-    	_service.disable_retries()
-    	self.test_head_replication_document_required_params()
+        # Disable retries and run test_head_replication_document_required_params.
+        _service.disable_retries()
+        self.test_head_replication_document_required_params()
 
     @responses.activate
     def test_head_replication_document_value_error(self):
@@ -10172,13 +10172,13 @@ class TestHeadReplicationDocument():
 
 
     def test_head_replication_document_value_error_with_retries(self):
-    	# Enable retries and run test_head_replication_document_value_error.
-    	_service.enable_retries()
-    	self.test_head_replication_document_value_error()
+        # Enable retries and run test_head_replication_document_value_error.
+        _service.enable_retries()
+        self.test_head_replication_document_value_error()
 
-    	# Disable retries and run test_head_replication_document_value_error.
-    	_service.disable_retries()
-    	self.test_head_replication_document_value_error()
+        # Disable retries and run test_head_replication_document_value_error.
+        _service.disable_retries()
+        self.test_head_replication_document_value_error()
 
 class TestHeadSchedulerDocument():
     """
@@ -10221,13 +10221,13 @@ class TestHeadSchedulerDocument():
         assert response.status_code == 200
 
     def test_head_scheduler_document_all_params_with_retries(self):
-    	# Enable retries and run test_head_scheduler_document_all_params.
-    	_service.enable_retries()
-    	self.test_head_scheduler_document_all_params()
+        # Enable retries and run test_head_scheduler_document_all_params.
+        _service.enable_retries()
+        self.test_head_scheduler_document_all_params()
 
-    	# Disable retries and run test_head_scheduler_document_all_params.
-    	_service.disable_retries()
-    	self.test_head_scheduler_document_all_params()
+        # Disable retries and run test_head_scheduler_document_all_params.
+        _service.disable_retries()
+        self.test_head_scheduler_document_all_params()
 
     @responses.activate
     def test_head_scheduler_document_value_error(self):
@@ -10254,13 +10254,13 @@ class TestHeadSchedulerDocument():
 
 
     def test_head_scheduler_document_value_error_with_retries(self):
-    	# Enable retries and run test_head_scheduler_document_value_error.
-    	_service.enable_retries()
-    	self.test_head_scheduler_document_value_error()
+        # Enable retries and run test_head_scheduler_document_value_error.
+        _service.enable_retries()
+        self.test_head_scheduler_document_value_error()
 
-    	# Disable retries and run test_head_scheduler_document_value_error.
-    	_service.disable_retries()
-    	self.test_head_scheduler_document_value_error()
+        # Disable retries and run test_head_scheduler_document_value_error.
+        _service.disable_retries()
+        self.test_head_scheduler_document_value_error()
 
 class TestHeadSchedulerJob():
     """
@@ -10303,13 +10303,13 @@ class TestHeadSchedulerJob():
         assert response.status_code == 200
 
     def test_head_scheduler_job_all_params_with_retries(self):
-    	# Enable retries and run test_head_scheduler_job_all_params.
-    	_service.enable_retries()
-    	self.test_head_scheduler_job_all_params()
+        # Enable retries and run test_head_scheduler_job_all_params.
+        _service.enable_retries()
+        self.test_head_scheduler_job_all_params()
 
-    	# Disable retries and run test_head_scheduler_job_all_params.
-    	_service.disable_retries()
-    	self.test_head_scheduler_job_all_params()
+        # Disable retries and run test_head_scheduler_job_all_params.
+        _service.disable_retries()
+        self.test_head_scheduler_job_all_params()
 
     @responses.activate
     def test_head_scheduler_job_value_error(self):
@@ -10336,13 +10336,13 @@ class TestHeadSchedulerJob():
 
 
     def test_head_scheduler_job_value_error_with_retries(self):
-    	# Enable retries and run test_head_scheduler_job_value_error.
-    	_service.enable_retries()
-    	self.test_head_scheduler_job_value_error()
+        # Enable retries and run test_head_scheduler_job_value_error.
+        _service.enable_retries()
+        self.test_head_scheduler_job_value_error()
 
-    	# Disable retries and run test_head_scheduler_job_value_error.
-    	_service.disable_retries()
-    	self.test_head_scheduler_job_value_error()
+        # Disable retries and run test_head_scheduler_job_value_error.
+        _service.disable_retries()
+        self.test_head_scheduler_job_value_error()
 
 class TestDeleteReplicationDocument():
     """
@@ -10399,13 +10399,13 @@ class TestDeleteReplicationDocument():
         assert 'rev={}'.format(rev) in query_string
 
     def test_delete_replication_document_all_params_with_retries(self):
-    	# Enable retries and run test_delete_replication_document_all_params.
-    	_service.enable_retries()
-    	self.test_delete_replication_document_all_params()
+        # Enable retries and run test_delete_replication_document_all_params.
+        _service.enable_retries()
+        self.test_delete_replication_document_all_params()
 
-    	# Disable retries and run test_delete_replication_document_all_params.
-    	_service.disable_retries()
-    	self.test_delete_replication_document_all_params()
+        # Disable retries and run test_delete_replication_document_all_params.
+        _service.disable_retries()
+        self.test_delete_replication_document_all_params()
 
     @responses.activate
     def test_delete_replication_document_required_params(self):
@@ -10435,13 +10435,13 @@ class TestDeleteReplicationDocument():
         assert response.status_code == 201
 
     def test_delete_replication_document_required_params_with_retries(self):
-    	# Enable retries and run test_delete_replication_document_required_params.
-    	_service.enable_retries()
-    	self.test_delete_replication_document_required_params()
+        # Enable retries and run test_delete_replication_document_required_params.
+        _service.enable_retries()
+        self.test_delete_replication_document_required_params()
 
-    	# Disable retries and run test_delete_replication_document_required_params.
-    	_service.disable_retries()
-    	self.test_delete_replication_document_required_params()
+        # Disable retries and run test_delete_replication_document_required_params.
+        _service.disable_retries()
+        self.test_delete_replication_document_required_params()
 
     @responses.activate
     def test_delete_replication_document_value_error(self):
@@ -10471,13 +10471,13 @@ class TestDeleteReplicationDocument():
 
 
     def test_delete_replication_document_value_error_with_retries(self):
-    	# Enable retries and run test_delete_replication_document_value_error.
-    	_service.enable_retries()
-    	self.test_delete_replication_document_value_error()
+        # Enable retries and run test_delete_replication_document_value_error.
+        _service.enable_retries()
+        self.test_delete_replication_document_value_error()
 
-    	# Disable retries and run test_delete_replication_document_value_error.
-    	_service.disable_retries()
-    	self.test_delete_replication_document_value_error()
+        # Disable retries and run test_delete_replication_document_value_error.
+        _service.disable_retries()
+        self.test_delete_replication_document_value_error()
 
 class TestGetReplicationDocument():
     """
@@ -10558,13 +10558,13 @@ class TestGetReplicationDocument():
         assert 'revs_info={}'.format('true' if revs_info else 'false') in query_string
 
     def test_get_replication_document_all_params_with_retries(self):
-    	# Enable retries and run test_get_replication_document_all_params.
-    	_service.enable_retries()
-    	self.test_get_replication_document_all_params()
+        # Enable retries and run test_get_replication_document_all_params.
+        _service.enable_retries()
+        self.test_get_replication_document_all_params()
 
-    	# Disable retries and run test_get_replication_document_all_params.
-    	_service.disable_retries()
-    	self.test_get_replication_document_all_params()
+        # Disable retries and run test_get_replication_document_all_params.
+        _service.disable_retries()
+        self.test_get_replication_document_all_params()
 
     @responses.activate
     def test_get_replication_document_required_params(self):
@@ -10594,13 +10594,13 @@ class TestGetReplicationDocument():
         assert response.status_code == 200
 
     def test_get_replication_document_required_params_with_retries(self):
-    	# Enable retries and run test_get_replication_document_required_params.
-    	_service.enable_retries()
-    	self.test_get_replication_document_required_params()
+        # Enable retries and run test_get_replication_document_required_params.
+        _service.enable_retries()
+        self.test_get_replication_document_required_params()
 
-    	# Disable retries and run test_get_replication_document_required_params.
-    	_service.disable_retries()
-    	self.test_get_replication_document_required_params()
+        # Disable retries and run test_get_replication_document_required_params.
+        _service.disable_retries()
+        self.test_get_replication_document_required_params()
 
     @responses.activate
     def test_get_replication_document_value_error(self):
@@ -10630,13 +10630,13 @@ class TestGetReplicationDocument():
 
 
     def test_get_replication_document_value_error_with_retries(self):
-    	# Enable retries and run test_get_replication_document_value_error.
-    	_service.enable_retries()
-    	self.test_get_replication_document_value_error()
+        # Enable retries and run test_get_replication_document_value_error.
+        _service.enable_retries()
+        self.test_get_replication_document_value_error()
 
-    	# Disable retries and run test_get_replication_document_value_error.
-    	_service.disable_retries()
-    	self.test_get_replication_document_value_error()
+        # Disable retries and run test_get_replication_document_value_error.
+        _service.disable_retries()
+        self.test_get_replication_document_value_error()
 
 class TestPutReplicationDocument():
     """
@@ -10793,13 +10793,13 @@ class TestPutReplicationDocument():
         assert req_body == replication_document
 
     def test_put_replication_document_all_params_with_retries(self):
-    	# Enable retries and run test_put_replication_document_all_params.
-    	_service.enable_retries()
-    	self.test_put_replication_document_all_params()
+        # Enable retries and run test_put_replication_document_all_params.
+        _service.enable_retries()
+        self.test_put_replication_document_all_params()
 
-    	# Disable retries and run test_put_replication_document_all_params.
-    	_service.disable_retries()
-    	self.test_put_replication_document_all_params()
+        # Disable retries and run test_put_replication_document_all_params.
+        _service.disable_retries()
+        self.test_put_replication_document_all_params()
 
     @responses.activate
     def test_put_replication_document_required_params(self):
@@ -10926,13 +10926,13 @@ class TestPutReplicationDocument():
         assert req_body == replication_document
 
     def test_put_replication_document_required_params_with_retries(self):
-    	# Enable retries and run test_put_replication_document_required_params.
-    	_service.enable_retries()
-    	self.test_put_replication_document_required_params()
+        # Enable retries and run test_put_replication_document_required_params.
+        _service.enable_retries()
+        self.test_put_replication_document_required_params()
 
-    	# Disable retries and run test_put_replication_document_required_params.
-    	_service.disable_retries()
-    	self.test_put_replication_document_required_params()
+        # Disable retries and run test_put_replication_document_required_params.
+        _service.disable_retries()
+        self.test_put_replication_document_required_params()
 
     @responses.activate
     def test_put_replication_document_value_error(self):
@@ -11053,13 +11053,13 @@ class TestPutReplicationDocument():
 
 
     def test_put_replication_document_value_error_with_retries(self):
-    	# Enable retries and run test_put_replication_document_value_error.
-    	_service.enable_retries()
-    	self.test_put_replication_document_value_error()
+        # Enable retries and run test_put_replication_document_value_error.
+        _service.enable_retries()
+        self.test_put_replication_document_value_error()
 
-    	# Disable retries and run test_put_replication_document_value_error.
-    	_service.disable_retries()
-    	self.test_put_replication_document_value_error()
+        # Disable retries and run test_put_replication_document_value_error.
+        _service.disable_retries()
+        self.test_put_replication_document_value_error()
 
 class TestGetSchedulerDocs():
     """
@@ -11115,13 +11115,13 @@ class TestGetSchedulerDocs():
         assert 'states={}'.format(','.join(states)) in query_string
 
     def test_get_scheduler_docs_all_params_with_retries(self):
-    	# Enable retries and run test_get_scheduler_docs_all_params.
-    	_service.enable_retries()
-    	self.test_get_scheduler_docs_all_params()
+        # Enable retries and run test_get_scheduler_docs_all_params.
+        _service.enable_retries()
+        self.test_get_scheduler_docs_all_params()
 
-    	# Disable retries and run test_get_scheduler_docs_all_params.
-    	_service.disable_retries()
-    	self.test_get_scheduler_docs_all_params()
+        # Disable retries and run test_get_scheduler_docs_all_params.
+        _service.disable_retries()
+        self.test_get_scheduler_docs_all_params()
 
     @responses.activate
     def test_get_scheduler_docs_required_params(self):
@@ -11146,13 +11146,13 @@ class TestGetSchedulerDocs():
         assert response.status_code == 200
 
     def test_get_scheduler_docs_required_params_with_retries(self):
-    	# Enable retries and run test_get_scheduler_docs_required_params.
-    	_service.enable_retries()
-    	self.test_get_scheduler_docs_required_params()
+        # Enable retries and run test_get_scheduler_docs_required_params.
+        _service.enable_retries()
+        self.test_get_scheduler_docs_required_params()
 
-    	# Disable retries and run test_get_scheduler_docs_required_params.
-    	_service.disable_retries()
-    	self.test_get_scheduler_docs_required_params()
+        # Disable retries and run test_get_scheduler_docs_required_params.
+        _service.disable_retries()
+        self.test_get_scheduler_docs_required_params()
 
 class TestGetSchedulerDocument():
     """
@@ -11198,13 +11198,13 @@ class TestGetSchedulerDocument():
         assert response.status_code == 200
 
     def test_get_scheduler_document_all_params_with_retries(self):
-    	# Enable retries and run test_get_scheduler_document_all_params.
-    	_service.enable_retries()
-    	self.test_get_scheduler_document_all_params()
+        # Enable retries and run test_get_scheduler_document_all_params.
+        _service.enable_retries()
+        self.test_get_scheduler_document_all_params()
 
-    	# Disable retries and run test_get_scheduler_document_all_params.
-    	_service.disable_retries()
-    	self.test_get_scheduler_document_all_params()
+        # Disable retries and run test_get_scheduler_document_all_params.
+        _service.disable_retries()
+        self.test_get_scheduler_document_all_params()
 
     @responses.activate
     def test_get_scheduler_document_value_error(self):
@@ -11234,13 +11234,13 @@ class TestGetSchedulerDocument():
 
 
     def test_get_scheduler_document_value_error_with_retries(self):
-    	# Enable retries and run test_get_scheduler_document_value_error.
-    	_service.enable_retries()
-    	self.test_get_scheduler_document_value_error()
+        # Enable retries and run test_get_scheduler_document_value_error.
+        _service.enable_retries()
+        self.test_get_scheduler_document_value_error()
 
-    	# Disable retries and run test_get_scheduler_document_value_error.
-    	_service.disable_retries()
-    	self.test_get_scheduler_document_value_error()
+        # Disable retries and run test_get_scheduler_document_value_error.
+        _service.disable_retries()
+        self.test_get_scheduler_document_value_error()
 
 class TestGetSchedulerJobs():
     """
@@ -11293,13 +11293,13 @@ class TestGetSchedulerJobs():
         assert 'skip={}'.format(skip) in query_string
 
     def test_get_scheduler_jobs_all_params_with_retries(self):
-    	# Enable retries and run test_get_scheduler_jobs_all_params.
-    	_service.enable_retries()
-    	self.test_get_scheduler_jobs_all_params()
+        # Enable retries and run test_get_scheduler_jobs_all_params.
+        _service.enable_retries()
+        self.test_get_scheduler_jobs_all_params()
 
-    	# Disable retries and run test_get_scheduler_jobs_all_params.
-    	_service.disable_retries()
-    	self.test_get_scheduler_jobs_all_params()
+        # Disable retries and run test_get_scheduler_jobs_all_params.
+        _service.disable_retries()
+        self.test_get_scheduler_jobs_all_params()
 
     @responses.activate
     def test_get_scheduler_jobs_required_params(self):
@@ -11324,13 +11324,13 @@ class TestGetSchedulerJobs():
         assert response.status_code == 200
 
     def test_get_scheduler_jobs_required_params_with_retries(self):
-    	# Enable retries and run test_get_scheduler_jobs_required_params.
-    	_service.enable_retries()
-    	self.test_get_scheduler_jobs_required_params()
+        # Enable retries and run test_get_scheduler_jobs_required_params.
+        _service.enable_retries()
+        self.test_get_scheduler_jobs_required_params()
 
-    	# Disable retries and run test_get_scheduler_jobs_required_params.
-    	_service.disable_retries()
-    	self.test_get_scheduler_jobs_required_params()
+        # Disable retries and run test_get_scheduler_jobs_required_params.
+        _service.disable_retries()
+        self.test_get_scheduler_jobs_required_params()
 
 class TestGetSchedulerJob():
     """
@@ -11376,13 +11376,13 @@ class TestGetSchedulerJob():
         assert response.status_code == 200
 
     def test_get_scheduler_job_all_params_with_retries(self):
-    	# Enable retries and run test_get_scheduler_job_all_params.
-    	_service.enable_retries()
-    	self.test_get_scheduler_job_all_params()
+        # Enable retries and run test_get_scheduler_job_all_params.
+        _service.enable_retries()
+        self.test_get_scheduler_job_all_params()
 
-    	# Disable retries and run test_get_scheduler_job_all_params.
-    	_service.disable_retries()
-    	self.test_get_scheduler_job_all_params()
+        # Disable retries and run test_get_scheduler_job_all_params.
+        _service.disable_retries()
+        self.test_get_scheduler_job_all_params()
 
     @responses.activate
     def test_get_scheduler_job_value_error(self):
@@ -11412,13 +11412,13 @@ class TestGetSchedulerJob():
 
 
     def test_get_scheduler_job_value_error_with_retries(self):
-    	# Enable retries and run test_get_scheduler_job_value_error.
-    	_service.enable_retries()
-    	self.test_get_scheduler_job_value_error()
+        # Enable retries and run test_get_scheduler_job_value_error.
+        _service.enable_retries()
+        self.test_get_scheduler_job_value_error()
 
-    	# Disable retries and run test_get_scheduler_job_value_error.
-    	_service.disable_retries()
-    	self.test_get_scheduler_job_value_error()
+        # Disable retries and run test_get_scheduler_job_value_error.
+        _service.disable_retries()
+        self.test_get_scheduler_job_value_error()
 
 # endregion
 ##############################################################################
@@ -11495,13 +11495,13 @@ class TestGetSessionInformation():
         assert response.status_code == 200
 
     def test_get_session_information_all_params_with_retries(self):
-    	# Enable retries and run test_get_session_information_all_params.
-    	_service.enable_retries()
-    	self.test_get_session_information_all_params()
+        # Enable retries and run test_get_session_information_all_params.
+        _service.enable_retries()
+        self.test_get_session_information_all_params()
 
-    	# Disable retries and run test_get_session_information_all_params.
-    	_service.disable_retries()
-    	self.test_get_session_information_all_params()
+        # Disable retries and run test_get_session_information_all_params.
+        _service.disable_retries()
+        self.test_get_session_information_all_params()
 
 # endregion
 ##############################################################################
@@ -11583,13 +11583,13 @@ class TestGetSecurity():
         assert response.status_code == 200
 
     def test_get_security_all_params_with_retries(self):
-    	# Enable retries and run test_get_security_all_params.
-    	_service.enable_retries()
-    	self.test_get_security_all_params()
+        # Enable retries and run test_get_security_all_params.
+        _service.enable_retries()
+        self.test_get_security_all_params()
 
-    	# Disable retries and run test_get_security_all_params.
-    	_service.disable_retries()
-    	self.test_get_security_all_params()
+        # Disable retries and run test_get_security_all_params.
+        _service.disable_retries()
+        self.test_get_security_all_params()
 
     @responses.activate
     def test_get_security_value_error(self):
@@ -11619,13 +11619,13 @@ class TestGetSecurity():
 
 
     def test_get_security_value_error_with_retries(self):
-    	# Enable retries and run test_get_security_value_error.
-    	_service.enable_retries()
-    	self.test_get_security_value_error()
+        # Enable retries and run test_get_security_value_error.
+        _service.enable_retries()
+        self.test_get_security_value_error()
 
-    	# Disable retries and run test_get_security_value_error.
-    	_service.disable_retries()
-    	self.test_get_security_value_error()
+        # Disable retries and run test_get_security_value_error.
+        _service.disable_retries()
+        self.test_get_security_value_error()
 
 class TestPutSecurity():
     """
@@ -11693,13 +11693,13 @@ class TestPutSecurity():
         assert req_body['couchdb_auth_only'] == True
 
     def test_put_security_all_params_with_retries(self):
-    	# Enable retries and run test_put_security_all_params.
-    	_service.enable_retries()
-    	self.test_put_security_all_params()
+        # Enable retries and run test_put_security_all_params.
+        _service.enable_retries()
+        self.test_put_security_all_params()
 
-    	# Disable retries and run test_put_security_all_params.
-    	_service.disable_retries()
-    	self.test_put_security_all_params()
+        # Disable retries and run test_put_security_all_params.
+        _service.disable_retries()
+        self.test_put_security_all_params()
 
     @responses.activate
     def test_put_security_value_error(self):
@@ -11738,13 +11738,13 @@ class TestPutSecurity():
 
 
     def test_put_security_value_error_with_retries(self):
-    	# Enable retries and run test_put_security_value_error.
-    	_service.enable_retries()
-    	self.test_put_security_value_error()
+        # Enable retries and run test_put_security_value_error.
+        _service.enable_retries()
+        self.test_put_security_value_error()
 
-    	# Disable retries and run test_put_security_value_error.
-    	_service.disable_retries()
-    	self.test_put_security_value_error()
+        # Disable retries and run test_put_security_value_error.
+        _service.disable_retries()
+        self.test_put_security_value_error()
 
 class TestPostApiKeys():
     """
@@ -11785,13 +11785,13 @@ class TestPostApiKeys():
         assert response.status_code == 201
 
     def test_post_api_keys_all_params_with_retries(self):
-    	# Enable retries and run test_post_api_keys_all_params.
-    	_service.enable_retries()
-    	self.test_post_api_keys_all_params()
+        # Enable retries and run test_post_api_keys_all_params.
+        _service.enable_retries()
+        self.test_post_api_keys_all_params()
 
-    	# Disable retries and run test_post_api_keys_all_params.
-    	_service.disable_retries()
-    	self.test_post_api_keys_all_params()
+        # Disable retries and run test_post_api_keys_all_params.
+        _service.disable_retries()
+        self.test_post_api_keys_all_params()
 
 class TestPutCloudantSecurityConfiguration():
     """
@@ -11859,13 +11859,13 @@ class TestPutCloudantSecurityConfiguration():
         assert req_body['couchdb_auth_only'] == True
 
     def test_put_cloudant_security_configuration_all_params_with_retries(self):
-    	# Enable retries and run test_put_cloudant_security_configuration_all_params.
-    	_service.enable_retries()
-    	self.test_put_cloudant_security_configuration_all_params()
+        # Enable retries and run test_put_cloudant_security_configuration_all_params.
+        _service.enable_retries()
+        self.test_put_cloudant_security_configuration_all_params()
 
-    	# Disable retries and run test_put_cloudant_security_configuration_all_params.
-    	_service.disable_retries()
-    	self.test_put_cloudant_security_configuration_all_params()
+        # Disable retries and run test_put_cloudant_security_configuration_all_params.
+        _service.disable_retries()
+        self.test_put_cloudant_security_configuration_all_params()
 
     @responses.activate
     def test_put_cloudant_security_configuration_value_error(self):
@@ -11905,13 +11905,13 @@ class TestPutCloudantSecurityConfiguration():
 
 
     def test_put_cloudant_security_configuration_value_error_with_retries(self):
-    	# Enable retries and run test_put_cloudant_security_configuration_value_error.
-    	_service.enable_retries()
-    	self.test_put_cloudant_security_configuration_value_error()
+        # Enable retries and run test_put_cloudant_security_configuration_value_error.
+        _service.enable_retries()
+        self.test_put_cloudant_security_configuration_value_error()
 
-    	# Disable retries and run test_put_cloudant_security_configuration_value_error.
-    	_service.disable_retries()
-    	self.test_put_cloudant_security_configuration_value_error()
+        # Disable retries and run test_put_cloudant_security_configuration_value_error.
+        _service.disable_retries()
+        self.test_put_cloudant_security_configuration_value_error()
 
 # endregion
 ##############################################################################
@@ -11988,13 +11988,13 @@ class TestGetCorsInformation():
         assert response.status_code == 200
 
     def test_get_cors_information_all_params_with_retries(self):
-    	# Enable retries and run test_get_cors_information_all_params.
-    	_service.enable_retries()
-    	self.test_get_cors_information_all_params()
+        # Enable retries and run test_get_cors_information_all_params.
+        _service.enable_retries()
+        self.test_get_cors_information_all_params()
 
-    	# Disable retries and run test_get_cors_information_all_params.
-    	_service.disable_retries()
-    	self.test_get_cors_information_all_params()
+        # Disable retries and run test_get_cors_information_all_params.
+        _service.disable_retries()
+        self.test_get_cors_information_all_params()
 
 class TestPutCorsConfiguration():
     """
@@ -12052,13 +12052,13 @@ class TestPutCorsConfiguration():
         assert req_body['enable_cors'] == True
 
     def test_put_cors_configuration_all_params_with_retries(self):
-    	# Enable retries and run test_put_cors_configuration_all_params.
-    	_service.enable_retries()
-    	self.test_put_cors_configuration_all_params()
+        # Enable retries and run test_put_cors_configuration_all_params.
+        _service.enable_retries()
+        self.test_put_cors_configuration_all_params()
 
-    	# Disable retries and run test_put_cors_configuration_all_params.
-    	_service.disable_retries()
-    	self.test_put_cors_configuration_all_params()
+        # Disable retries and run test_put_cors_configuration_all_params.
+        _service.disable_retries()
+        self.test_put_cors_configuration_all_params()
 
     @responses.activate
     def test_put_cors_configuration_value_error(self):
@@ -12090,13 +12090,13 @@ class TestPutCorsConfiguration():
 
 
     def test_put_cors_configuration_value_error_with_retries(self):
-    	# Enable retries and run test_put_cors_configuration_value_error.
-    	_service.enable_retries()
-    	self.test_put_cors_configuration_value_error()
+        # Enable retries and run test_put_cors_configuration_value_error.
+        _service.enable_retries()
+        self.test_put_cors_configuration_value_error()
 
-    	# Disable retries and run test_put_cors_configuration_value_error.
-    	_service.disable_retries()
-    	self.test_put_cors_configuration_value_error()
+        # Disable retries and run test_put_cors_configuration_value_error.
+        _service.disable_retries()
+        self.test_put_cors_configuration_value_error()
 
 # endregion
 ##############################################################################
@@ -12189,13 +12189,13 @@ class TestHeadAttachment():
         assert 'rev={}'.format(rev) in query_string
 
     def test_head_attachment_all_params_with_retries(self):
-    	# Enable retries and run test_head_attachment_all_params.
-    	_service.enable_retries()
-    	self.test_head_attachment_all_params()
+        # Enable retries and run test_head_attachment_all_params.
+        _service.enable_retries()
+        self.test_head_attachment_all_params()
 
-    	# Disable retries and run test_head_attachment_all_params.
-    	_service.disable_retries()
-    	self.test_head_attachment_all_params()
+        # Disable retries and run test_head_attachment_all_params.
+        _service.disable_retries()
+        self.test_head_attachment_all_params()
 
     @responses.activate
     def test_head_attachment_required_params(self):
@@ -12226,13 +12226,13 @@ class TestHeadAttachment():
         assert response.status_code == 200
 
     def test_head_attachment_required_params_with_retries(self):
-    	# Enable retries and run test_head_attachment_required_params.
-    	_service.enable_retries()
-    	self.test_head_attachment_required_params()
+        # Enable retries and run test_head_attachment_required_params.
+        _service.enable_retries()
+        self.test_head_attachment_required_params()
 
-    	# Disable retries and run test_head_attachment_required_params.
-    	_service.disable_retries()
-    	self.test_head_attachment_required_params()
+        # Disable retries and run test_head_attachment_required_params.
+        _service.disable_retries()
+        self.test_head_attachment_required_params()
 
     @responses.activate
     def test_head_attachment_value_error(self):
@@ -12263,13 +12263,13 @@ class TestHeadAttachment():
 
 
     def test_head_attachment_value_error_with_retries(self):
-    	# Enable retries and run test_head_attachment_value_error.
-    	_service.enable_retries()
-    	self.test_head_attachment_value_error()
+        # Enable retries and run test_head_attachment_value_error.
+        _service.enable_retries()
+        self.test_head_attachment_value_error()
 
-    	# Disable retries and run test_head_attachment_value_error.
-    	_service.disable_retries()
-    	self.test_head_attachment_value_error()
+        # Disable retries and run test_head_attachment_value_error.
+        _service.disable_retries()
+        self.test_head_attachment_value_error()
 
 class TestDeleteAttachment():
     """
@@ -12330,13 +12330,13 @@ class TestDeleteAttachment():
         assert 'batch={}'.format(batch) in query_string
 
     def test_delete_attachment_all_params_with_retries(self):
-    	# Enable retries and run test_delete_attachment_all_params.
-    	_service.enable_retries()
-    	self.test_delete_attachment_all_params()
+        # Enable retries and run test_delete_attachment_all_params.
+        _service.enable_retries()
+        self.test_delete_attachment_all_params()
 
-    	# Disable retries and run test_delete_attachment_all_params.
-    	_service.disable_retries()
-    	self.test_delete_attachment_all_params()
+        # Disable retries and run test_delete_attachment_all_params.
+        _service.disable_retries()
+        self.test_delete_attachment_all_params()
 
     @responses.activate
     def test_delete_attachment_required_params(self):
@@ -12370,13 +12370,13 @@ class TestDeleteAttachment():
         assert response.status_code == 201
 
     def test_delete_attachment_required_params_with_retries(self):
-    	# Enable retries and run test_delete_attachment_required_params.
-    	_service.enable_retries()
-    	self.test_delete_attachment_required_params()
+        # Enable retries and run test_delete_attachment_required_params.
+        _service.enable_retries()
+        self.test_delete_attachment_required_params()
 
-    	# Disable retries and run test_delete_attachment_required_params.
-    	_service.disable_retries()
-    	self.test_delete_attachment_required_params()
+        # Disable retries and run test_delete_attachment_required_params.
+        _service.disable_retries()
+        self.test_delete_attachment_required_params()
 
     @responses.activate
     def test_delete_attachment_value_error(self):
@@ -12410,13 +12410,13 @@ class TestDeleteAttachment():
 
 
     def test_delete_attachment_value_error_with_retries(self):
-    	# Enable retries and run test_delete_attachment_value_error.
-    	_service.enable_retries()
-    	self.test_delete_attachment_value_error()
+        # Enable retries and run test_delete_attachment_value_error.
+        _service.enable_retries()
+        self.test_delete_attachment_value_error()
 
-    	# Disable retries and run test_delete_attachment_value_error.
-    	_service.disable_retries()
-    	self.test_delete_attachment_value_error()
+        # Disable retries and run test_delete_attachment_value_error.
+        _service.disable_retries()
+        self.test_delete_attachment_value_error()
 
 class TestGetAttachment():
     """
@@ -12478,13 +12478,13 @@ class TestGetAttachment():
         assert 'rev={}'.format(rev) in query_string
 
     def test_get_attachment_all_params_with_retries(self):
-    	# Enable retries and run test_get_attachment_all_params.
-    	_service.enable_retries()
-    	self.test_get_attachment_all_params()
+        # Enable retries and run test_get_attachment_all_params.
+        _service.enable_retries()
+        self.test_get_attachment_all_params()
 
-    	# Disable retries and run test_get_attachment_all_params.
-    	_service.disable_retries()
-    	self.test_get_attachment_all_params()
+        # Disable retries and run test_get_attachment_all_params.
+        _service.disable_retries()
+        self.test_get_attachment_all_params()
 
     @responses.activate
     def test_get_attachment_required_params(self):
@@ -12518,13 +12518,13 @@ class TestGetAttachment():
         assert response.status_code == 200
 
     def test_get_attachment_required_params_with_retries(self):
-    	# Enable retries and run test_get_attachment_required_params.
-    	_service.enable_retries()
-    	self.test_get_attachment_required_params()
+        # Enable retries and run test_get_attachment_required_params.
+        _service.enable_retries()
+        self.test_get_attachment_required_params()
 
-    	# Disable retries and run test_get_attachment_required_params.
-    	_service.disable_retries()
-    	self.test_get_attachment_required_params()
+        # Disable retries and run test_get_attachment_required_params.
+        _service.disable_retries()
+        self.test_get_attachment_required_params()
 
     @responses.activate
     def test_get_attachment_value_error(self):
@@ -12558,13 +12558,13 @@ class TestGetAttachment():
 
 
     def test_get_attachment_value_error_with_retries(self):
-    	# Enable retries and run test_get_attachment_value_error.
-    	_service.enable_retries()
-    	self.test_get_attachment_value_error()
+        # Enable retries and run test_get_attachment_value_error.
+        _service.enable_retries()
+        self.test_get_attachment_value_error()
 
-    	# Disable retries and run test_get_attachment_value_error.
-    	_service.disable_retries()
-    	self.test_get_attachment_value_error()
+        # Disable retries and run test_get_attachment_value_error.
+        _service.disable_retries()
+        self.test_get_attachment_value_error()
 
 class TestPutAttachment():
     """
@@ -12630,13 +12630,13 @@ class TestPutAttachment():
         # Validate body params
 
     def test_put_attachment_all_params_with_retries(self):
-    	# Enable retries and run test_put_attachment_all_params.
-    	_service.enable_retries()
-    	self.test_put_attachment_all_params()
+        # Enable retries and run test_put_attachment_all_params.
+        _service.enable_retries()
+        self.test_put_attachment_all_params()
 
-    	# Disable retries and run test_put_attachment_all_params.
-    	_service.disable_retries()
-    	self.test_put_attachment_all_params()
+        # Disable retries and run test_put_attachment_all_params.
+        _service.disable_retries()
+        self.test_put_attachment_all_params()
 
     @responses.activate
     def test_put_attachment_required_params(self):
@@ -12678,13 +12678,13 @@ class TestPutAttachment():
         # Validate body params
 
     def test_put_attachment_required_params_with_retries(self):
-    	# Enable retries and run test_put_attachment_required_params.
-    	_service.enable_retries()
-    	self.test_put_attachment_required_params()
+        # Enable retries and run test_put_attachment_required_params.
+        _service.enable_retries()
+        self.test_put_attachment_required_params()
 
-    	# Disable retries and run test_put_attachment_required_params.
-    	_service.disable_retries()
-    	self.test_put_attachment_required_params()
+        # Disable retries and run test_put_attachment_required_params.
+        _service.disable_retries()
+        self.test_put_attachment_required_params()
 
     @responses.activate
     def test_put_attachment_value_error(self):
@@ -12722,13 +12722,13 @@ class TestPutAttachment():
 
 
     def test_put_attachment_value_error_with_retries(self):
-    	# Enable retries and run test_put_attachment_value_error.
-    	_service.enable_retries()
-    	self.test_put_attachment_value_error()
+        # Enable retries and run test_put_attachment_value_error.
+        _service.enable_retries()
+        self.test_put_attachment_value_error()
 
-    	# Disable retries and run test_put_attachment_value_error.
-    	_service.disable_retries()
-    	self.test_put_attachment_value_error()
+        # Disable retries and run test_put_attachment_value_error.
+        _service.disable_retries()
+        self.test_put_attachment_value_error()
 
 # endregion
 ##############################################################################
@@ -12811,13 +12811,13 @@ class TestHeadLocalDocument():
         assert response.status_code == 200
 
     def test_head_local_document_all_params_with_retries(self):
-    	# Enable retries and run test_head_local_document_all_params.
-    	_service.enable_retries()
-    	self.test_head_local_document_all_params()
+        # Enable retries and run test_head_local_document_all_params.
+        _service.enable_retries()
+        self.test_head_local_document_all_params()
 
-    	# Disable retries and run test_head_local_document_all_params.
-    	_service.disable_retries()
-    	self.test_head_local_document_all_params()
+        # Disable retries and run test_head_local_document_all_params.
+        _service.disable_retries()
+        self.test_head_local_document_all_params()
 
     @responses.activate
     def test_head_local_document_required_params(self):
@@ -12846,13 +12846,13 @@ class TestHeadLocalDocument():
         assert response.status_code == 200
 
     def test_head_local_document_required_params_with_retries(self):
-    	# Enable retries and run test_head_local_document_required_params.
-    	_service.enable_retries()
-    	self.test_head_local_document_required_params()
+        # Enable retries and run test_head_local_document_required_params.
+        _service.enable_retries()
+        self.test_head_local_document_required_params()
 
-    	# Disable retries and run test_head_local_document_required_params.
-    	_service.disable_retries()
-    	self.test_head_local_document_required_params()
+        # Disable retries and run test_head_local_document_required_params.
+        _service.disable_retries()
+        self.test_head_local_document_required_params()
 
     @responses.activate
     def test_head_local_document_value_error(self):
@@ -12881,13 +12881,13 @@ class TestHeadLocalDocument():
 
 
     def test_head_local_document_value_error_with_retries(self):
-    	# Enable retries and run test_head_local_document_value_error.
-    	_service.enable_retries()
-    	self.test_head_local_document_value_error()
+        # Enable retries and run test_head_local_document_value_error.
+        _service.enable_retries()
+        self.test_head_local_document_value_error()
 
-    	# Disable retries and run test_head_local_document_value_error.
-    	_service.disable_retries()
-    	self.test_head_local_document_value_error()
+        # Disable retries and run test_head_local_document_value_error.
+        _service.disable_retries()
+        self.test_head_local_document_value_error()
 
 class TestDeleteLocalDocument():
     """
@@ -12941,13 +12941,13 @@ class TestDeleteLocalDocument():
         assert 'batch={}'.format(batch) in query_string
 
     def test_delete_local_document_all_params_with_retries(self):
-    	# Enable retries and run test_delete_local_document_all_params.
-    	_service.enable_retries()
-    	self.test_delete_local_document_all_params()
+        # Enable retries and run test_delete_local_document_all_params.
+        _service.enable_retries()
+        self.test_delete_local_document_all_params()
 
-    	# Disable retries and run test_delete_local_document_all_params.
-    	_service.disable_retries()
-    	self.test_delete_local_document_all_params()
+        # Disable retries and run test_delete_local_document_all_params.
+        _service.disable_retries()
+        self.test_delete_local_document_all_params()
 
     @responses.activate
     def test_delete_local_document_required_params(self):
@@ -12979,13 +12979,13 @@ class TestDeleteLocalDocument():
         assert response.status_code == 200
 
     def test_delete_local_document_required_params_with_retries(self):
-    	# Enable retries and run test_delete_local_document_required_params.
-    	_service.enable_retries()
-    	self.test_delete_local_document_required_params()
+        # Enable retries and run test_delete_local_document_required_params.
+        _service.enable_retries()
+        self.test_delete_local_document_required_params()
 
-    	# Disable retries and run test_delete_local_document_required_params.
-    	_service.disable_retries()
-    	self.test_delete_local_document_required_params()
+        # Disable retries and run test_delete_local_document_required_params.
+        _service.disable_retries()
+        self.test_delete_local_document_required_params()
 
     @responses.activate
     def test_delete_local_document_value_error(self):
@@ -13017,13 +13017,13 @@ class TestDeleteLocalDocument():
 
 
     def test_delete_local_document_value_error_with_retries(self):
-    	# Enable retries and run test_delete_local_document_value_error.
-    	_service.enable_retries()
-    	self.test_delete_local_document_value_error()
+        # Enable retries and run test_delete_local_document_value_error.
+        _service.enable_retries()
+        self.test_delete_local_document_value_error()
 
-    	# Disable retries and run test_delete_local_document_value_error.
-    	_service.disable_retries()
-    	self.test_delete_local_document_value_error()
+        # Disable retries and run test_delete_local_document_value_error.
+        _service.disable_retries()
+        self.test_delete_local_document_value_error()
 
 class TestGetLocalDocument():
     """
@@ -13087,13 +13087,13 @@ class TestGetLocalDocument():
         assert 'local_seq={}'.format('true' if local_seq else 'false') in query_string
 
     def test_get_local_document_all_params_with_retries(self):
-    	# Enable retries and run test_get_local_document_all_params.
-    	_service.enable_retries()
-    	self.test_get_local_document_all_params()
+        # Enable retries and run test_get_local_document_all_params.
+        _service.enable_retries()
+        self.test_get_local_document_all_params()
 
-    	# Disable retries and run test_get_local_document_all_params.
-    	_service.disable_retries()
-    	self.test_get_local_document_all_params()
+        # Disable retries and run test_get_local_document_all_params.
+        _service.disable_retries()
+        self.test_get_local_document_all_params()
 
     @responses.activate
     def test_get_local_document_required_params(self):
@@ -13125,13 +13125,13 @@ class TestGetLocalDocument():
         assert response.status_code == 200
 
     def test_get_local_document_required_params_with_retries(self):
-    	# Enable retries and run test_get_local_document_required_params.
-    	_service.enable_retries()
-    	self.test_get_local_document_required_params()
+        # Enable retries and run test_get_local_document_required_params.
+        _service.enable_retries()
+        self.test_get_local_document_required_params()
 
-    	# Disable retries and run test_get_local_document_required_params.
-    	_service.disable_retries()
-    	self.test_get_local_document_required_params()
+        # Disable retries and run test_get_local_document_required_params.
+        _service.disable_retries()
+        self.test_get_local_document_required_params()
 
     @responses.activate
     def test_get_local_document_value_error(self):
@@ -13163,13 +13163,13 @@ class TestGetLocalDocument():
 
 
     def test_get_local_document_value_error_with_retries(self):
-    	# Enable retries and run test_get_local_document_value_error.
-    	_service.enable_retries()
-    	self.test_get_local_document_value_error()
+        # Enable retries and run test_get_local_document_value_error.
+        _service.enable_retries()
+        self.test_get_local_document_value_error()
 
-    	# Disable retries and run test_get_local_document_value_error.
-    	_service.disable_retries()
-    	self.test_get_local_document_value_error()
+        # Disable retries and run test_get_local_document_value_error.
+        _service.disable_retries()
+        self.test_get_local_document_value_error()
 
 class TestPutLocalDocument():
     """
@@ -13275,13 +13275,13 @@ class TestPutLocalDocument():
         # Validate body params
 
     def test_put_local_document_all_params_with_retries(self):
-    	# Enable retries and run test_put_local_document_all_params.
-    	_service.enable_retries()
-    	self.test_put_local_document_all_params()
+        # Enable retries and run test_put_local_document_all_params.
+        _service.enable_retries()
+        self.test_put_local_document_all_params()
 
-    	# Disable retries and run test_put_local_document_all_params.
-    	_service.disable_retries()
-    	self.test_put_local_document_all_params()
+        # Disable retries and run test_put_local_document_all_params.
+        _service.disable_retries()
+        self.test_put_local_document_all_params()
 
     @responses.activate
     def test_put_local_document_required_params(self):
@@ -13363,13 +13363,13 @@ class TestPutLocalDocument():
         # Validate body params
 
     def test_put_local_document_required_params_with_retries(self):
-    	# Enable retries and run test_put_local_document_required_params.
-    	_service.enable_retries()
-    	self.test_put_local_document_required_params()
+        # Enable retries and run test_put_local_document_required_params.
+        _service.enable_retries()
+        self.test_put_local_document_required_params()
 
-    	# Disable retries and run test_put_local_document_required_params.
-    	_service.disable_retries()
-    	self.test_put_local_document_required_params()
+        # Disable retries and run test_put_local_document_required_params.
+        _service.disable_retries()
+        self.test_put_local_document_required_params()
 
     @responses.activate
     def test_put_local_document_value_error(self):
@@ -13447,13 +13447,13 @@ class TestPutLocalDocument():
 
 
     def test_put_local_document_value_error_with_retries(self):
-    	# Enable retries and run test_put_local_document_value_error.
-    	_service.enable_retries()
-    	self.test_put_local_document_value_error()
+        # Enable retries and run test_put_local_document_value_error.
+        _service.enable_retries()
+        self.test_put_local_document_value_error()
 
-    	# Disable retries and run test_put_local_document_value_error.
-    	_service.disable_retries()
-    	self.test_put_local_document_value_error()
+        # Disable retries and run test_put_local_document_value_error.
+        _service.disable_retries()
+        self.test_put_local_document_value_error()
 
 # endregion
 ##############################################################################
@@ -13543,13 +13543,13 @@ class TestPostRevsDiff():
         assert req_body == document_revisions
 
     def test_post_revs_diff_all_params_with_retries(self):
-    	# Enable retries and run test_post_revs_diff_all_params.
-    	_service.enable_retries()
-    	self.test_post_revs_diff_all_params()
+        # Enable retries and run test_post_revs_diff_all_params.
+        _service.enable_retries()
+        self.test_post_revs_diff_all_params()
 
-    	# Disable retries and run test_post_revs_diff_all_params.
-    	_service.disable_retries()
-    	self.test_post_revs_diff_all_params()
+        # Disable retries and run test_post_revs_diff_all_params.
+        _service.disable_retries()
+        self.test_post_revs_diff_all_params()
 
     @responses.activate
     def test_post_revs_diff_value_error(self):
@@ -13581,13 +13581,13 @@ class TestPostRevsDiff():
 
 
     def test_post_revs_diff_value_error_with_retries(self):
-    	# Enable retries and run test_post_revs_diff_value_error.
-    	_service.enable_retries()
-    	self.test_post_revs_diff_value_error()
+        # Enable retries and run test_post_revs_diff_value_error.
+        _service.enable_retries()
+        self.test_post_revs_diff_value_error()
 
-    	# Disable retries and run test_post_revs_diff_value_error.
-    	_service.disable_retries()
-    	self.test_post_revs_diff_value_error()
+        # Disable retries and run test_post_revs_diff_value_error.
+        _service.disable_retries()
+        self.test_post_revs_diff_value_error()
 
 class TestGetShardsInformation():
     """
@@ -13633,13 +13633,13 @@ class TestGetShardsInformation():
         assert response.status_code == 200
 
     def test_get_shards_information_all_params_with_retries(self):
-    	# Enable retries and run test_get_shards_information_all_params.
-    	_service.enable_retries()
-    	self.test_get_shards_information_all_params()
+        # Enable retries and run test_get_shards_information_all_params.
+        _service.enable_retries()
+        self.test_get_shards_information_all_params()
 
-    	# Disable retries and run test_get_shards_information_all_params.
-    	_service.disable_retries()
-    	self.test_get_shards_information_all_params()
+        # Disable retries and run test_get_shards_information_all_params.
+        _service.disable_retries()
+        self.test_get_shards_information_all_params()
 
     @responses.activate
     def test_get_shards_information_value_error(self):
@@ -13669,13 +13669,13 @@ class TestGetShardsInformation():
 
 
     def test_get_shards_information_value_error_with_retries(self):
-    	# Enable retries and run test_get_shards_information_value_error.
-    	_service.enable_retries()
-    	self.test_get_shards_information_value_error()
+        # Enable retries and run test_get_shards_information_value_error.
+        _service.enable_retries()
+        self.test_get_shards_information_value_error()
 
-    	# Disable retries and run test_get_shards_information_value_error.
-    	_service.disable_retries()
-    	self.test_get_shards_information_value_error()
+        # Disable retries and run test_get_shards_information_value_error.
+        _service.disable_retries()
+        self.test_get_shards_information_value_error()
 
 class TestGetDocumentShardsInfo():
     """
@@ -13723,13 +13723,13 @@ class TestGetDocumentShardsInfo():
         assert response.status_code == 200
 
     def test_get_document_shards_info_all_params_with_retries(self):
-    	# Enable retries and run test_get_document_shards_info_all_params.
-    	_service.enable_retries()
-    	self.test_get_document_shards_info_all_params()
+        # Enable retries and run test_get_document_shards_info_all_params.
+        _service.enable_retries()
+        self.test_get_document_shards_info_all_params()
 
-    	# Disable retries and run test_get_document_shards_info_all_params.
-    	_service.disable_retries()
-    	self.test_get_document_shards_info_all_params()
+        # Disable retries and run test_get_document_shards_info_all_params.
+        _service.disable_retries()
+        self.test_get_document_shards_info_all_params()
 
     @responses.activate
     def test_get_document_shards_info_value_error(self):
@@ -13761,13 +13761,13 @@ class TestGetDocumentShardsInfo():
 
 
     def test_get_document_shards_info_value_error_with_retries(self):
-    	# Enable retries and run test_get_document_shards_info_value_error.
-    	_service.enable_retries()
-    	self.test_get_document_shards_info_value_error()
+        # Enable retries and run test_get_document_shards_info_value_error.
+        _service.enable_retries()
+        self.test_get_document_shards_info_value_error()
 
-    	# Disable retries and run test_get_document_shards_info_value_error.
-    	_service.disable_retries()
-    	self.test_get_document_shards_info_value_error()
+        # Disable retries and run test_get_document_shards_info_value_error.
+        _service.disable_retries()
+        self.test_get_document_shards_info_value_error()
 
 # endregion
 ##############################################################################
@@ -13841,13 +13841,13 @@ class TestHeadUpInformation():
         assert response.status_code == 200
 
     def test_head_up_information_all_params_with_retries(self):
-    	# Enable retries and run test_head_up_information_all_params.
-    	_service.enable_retries()
-    	self.test_head_up_information_all_params()
+        # Enable retries and run test_head_up_information_all_params.
+        _service.enable_retries()
+        self.test_head_up_information_all_params()
 
-    	# Disable retries and run test_head_up_information_all_params.
-    	_service.disable_retries()
-    	self.test_head_up_information_all_params()
+        # Disable retries and run test_head_up_information_all_params.
+        _service.disable_retries()
+        self.test_head_up_information_all_params()
 
 class TestGetActiveTasks():
     """
@@ -13888,13 +13888,13 @@ class TestGetActiveTasks():
         assert response.status_code == 200
 
     def test_get_active_tasks_all_params_with_retries(self):
-    	# Enable retries and run test_get_active_tasks_all_params.
-    	_service.enable_retries()
-    	self.test_get_active_tasks_all_params()
+        # Enable retries and run test_get_active_tasks_all_params.
+        _service.enable_retries()
+        self.test_get_active_tasks_all_params()
 
-    	# Disable retries and run test_get_active_tasks_all_params.
-    	_service.disable_retries()
-    	self.test_get_active_tasks_all_params()
+        # Disable retries and run test_get_active_tasks_all_params.
+        _service.disable_retries()
+        self.test_get_active_tasks_all_params()
 
 class TestGetUpInformation():
     """
@@ -13935,13 +13935,13 @@ class TestGetUpInformation():
         assert response.status_code == 200
 
     def test_get_up_information_all_params_with_retries(self):
-    	# Enable retries and run test_get_up_information_all_params.
-    	_service.enable_retries()
-    	self.test_get_up_information_all_params()
+        # Enable retries and run test_get_up_information_all_params.
+        _service.enable_retries()
+        self.test_get_up_information_all_params()
 
-    	# Disable retries and run test_get_up_information_all_params.
-    	_service.disable_retries()
-    	self.test_get_up_information_all_params()
+        # Disable retries and run test_get_up_information_all_params.
+        _service.disable_retries()
+        self.test_get_up_information_all_params()
 
 class TestGetActivityTrackerEvents():
     """
@@ -13982,13 +13982,13 @@ class TestGetActivityTrackerEvents():
         assert response.status_code == 200
 
     def test_get_activity_tracker_events_all_params_with_retries(self):
-    	# Enable retries and run test_get_activity_tracker_events_all_params.
-    	_service.enable_retries()
-    	self.test_get_activity_tracker_events_all_params()
+        # Enable retries and run test_get_activity_tracker_events_all_params.
+        _service.enable_retries()
+        self.test_get_activity_tracker_events_all_params()
 
-    	# Disable retries and run test_get_activity_tracker_events_all_params.
-    	_service.disable_retries()
-    	self.test_get_activity_tracker_events_all_params()
+        # Disable retries and run test_get_activity_tracker_events_all_params.
+        _service.disable_retries()
+        self.test_get_activity_tracker_events_all_params()
 
 class TestPostActivityTrackerEvents():
     """
@@ -14040,13 +14040,13 @@ class TestPostActivityTrackerEvents():
         assert req_body['types'] == ['management']
 
     def test_post_activity_tracker_events_all_params_with_retries(self):
-    	# Enable retries and run test_post_activity_tracker_events_all_params.
-    	_service.enable_retries()
-    	self.test_post_activity_tracker_events_all_params()
+        # Enable retries and run test_post_activity_tracker_events_all_params.
+        _service.enable_retries()
+        self.test_post_activity_tracker_events_all_params()
 
-    	# Disable retries and run test_post_activity_tracker_events_all_params.
-    	_service.disable_retries()
-    	self.test_post_activity_tracker_events_all_params()
+        # Disable retries and run test_post_activity_tracker_events_all_params.
+        _service.disable_retries()
+        self.test_post_activity_tracker_events_all_params()
 
     @responses.activate
     def test_post_activity_tracker_events_value_error(self):
@@ -14076,13 +14076,13 @@ class TestPostActivityTrackerEvents():
 
 
     def test_post_activity_tracker_events_value_error_with_retries(self):
-    	# Enable retries and run test_post_activity_tracker_events_value_error.
-    	_service.enable_retries()
-    	self.test_post_activity_tracker_events_value_error()
+        # Enable retries and run test_post_activity_tracker_events_value_error.
+        _service.enable_retries()
+        self.test_post_activity_tracker_events_value_error()
 
-    	# Disable retries and run test_post_activity_tracker_events_value_error.
-    	_service.disable_retries()
-    	self.test_post_activity_tracker_events_value_error()
+        # Disable retries and run test_post_activity_tracker_events_value_error.
+        _service.disable_retries()
+        self.test_post_activity_tracker_events_value_error()
 
 class TestGetCurrentThroughputInformation():
     """
@@ -14123,13 +14123,13 @@ class TestGetCurrentThroughputInformation():
         assert response.status_code == 200
 
     def test_get_current_throughput_information_all_params_with_retries(self):
-    	# Enable retries and run test_get_current_throughput_information_all_params.
-    	_service.enable_retries()
-    	self.test_get_current_throughput_information_all_params()
+        # Enable retries and run test_get_current_throughput_information_all_params.
+        _service.enable_retries()
+        self.test_get_current_throughput_information_all_params()
 
-    	# Disable retries and run test_get_current_throughput_information_all_params.
-    	_service.disable_retries()
-    	self.test_get_current_throughput_information_all_params()
+        # Disable retries and run test_get_current_throughput_information_all_params.
+        _service.disable_retries()
+        self.test_get_current_throughput_information_all_params()
 
 # endregion
 ##############################################################################
