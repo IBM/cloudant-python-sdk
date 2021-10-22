@@ -27,7 +27,7 @@ object after serialization is not guaranteed.
 #### Cannot use `drilldown` parameters
 
 Drilldown parameters cannot be used for search queries with server versions:
-* CouchDB versions <= 3.1.0
+* CouchDB versions < 3.2.0
 * Cloudant (Classic) <= 8158
 
 ### Changes
@@ -36,7 +36,7 @@ Drilldown parameters cannot be used for search queries with server versions:
 
 When using the `post` changes operation the connection may intermittently terminate with an early `EOF` when using
 server versions:
-* CouchDB versions <= 3.1.1
+* CouchDB versions < 3.2.0
 * Cloudant (Classic) <= 8169
 
 ### Documents
@@ -100,7 +100,7 @@ The workaround is to [disable request body compression](#disabling-request-body-
 The server (Cloudant (Classic) <= 8169) incorrectly processes gzip compressed request bodies for `_replicate` endpoint.
 The workaround is to [disable request body compression](#disabling-request-body-compression).
 
-The `basic` property of `ReplicationDatabaseAuth` is not available in CouchDB <=3.1.1 and Cloudant <= 8914. For those versions use the `headers` property to add a header with a key of `Authorization` and a value of `Basic <base64 encoded credentials>`.
+The `basic` property of `ReplicationDatabaseAuth` is not available in CouchDB < 3.2.0 and Cloudant <= 8914. For those versions use the `headers` property to add a header with a key of `Authorization` and a value of `Basic <base64 encoded credentials>`.
 
 ### Cloudant on Transaction Engine
 
