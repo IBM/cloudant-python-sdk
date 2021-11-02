@@ -48,6 +48,7 @@ class TestCouchDbSessionAuth(unittest.TestCase):
         self.cookie_expire_time = "Tue, 26-May-2020 14:37:56 GMT"
 
         self.authenticator = CouchDbSessionAuthenticator("adm", "pass")
+        self.assertEqual('COUCHDB_SESSION', self.authenticator.authentication_type())
         self.client = CloudantV1(self.authenticator)
         self.prepare_for_url('http://cloudant.example')
 

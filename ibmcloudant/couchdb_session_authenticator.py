@@ -37,6 +37,8 @@ class CouchDbSessionAuthenticator(Authenticator):
         ValueError: The supplied username, and/or password are not valid.
     """
 
+    AUTHTYPE_COUCHDB_SESSION = 'COUCHDB_SESSION'
+
     def __init__(self, username: str, password: str):
         self.jar = None
 
@@ -75,3 +77,8 @@ class CouchDbSessionAuthenticator(Authenticator):
         # hard-coded to work with "regular" requests requests so updating
         # the jar manually is necessary
         self.jar.update(jar)
+
+    # pylint: disable=R0201
+    def authentication_type(self) -> str:
+        """Returns this authenticator's type ('COUCHDB_SESSION')."""
+        return CouchDbSessionAuthenticator.AUTHTYPE_COUCHDB_SESSION
