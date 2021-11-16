@@ -1,6 +1,6 @@
 # test dependencies
 pytest==6.2.5
-responses==0.15.0
+responses==0.16.0
 python_dotenv==0.19.2
 pylint==2.11.1
 tox==3.24.4
