@@ -7183,8 +7183,8 @@ class CloudantV1(BaseService):
         there. It can then avoid fetching and sending already-known document bodies.
 
         :param str db: Path parameter to specify the database name.
-        :param dict document_revisions: HTTP request body for postMissingRevs and
-               postRevsDiff.
+        :param dict document_revisions: HTTP request body for operations with
+               Document revisions.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `dict` object
@@ -10517,6 +10517,42 @@ class DesignDocument():
     :attr dict filters: (optional) Schema for filter functions definition. This
           schema is a map where keys are the names of the filter functions and values are
           the function definition in string format.
+          Filter function formats, or filters the changes feed that pass filter rules. The
+          function takes 2 parameters:
+            * `doc`: The document that is being processed.
+            * `req`: A Request JavaScript object with these properties:
+              * `body` - string, Request body data as string.
+                If the request method is GET this field contains the value
+                `"undefined"`.
+                If the method is DELETE or HEAD the value is `""` (empty string).
+              * `cookie` - Cookies object.
+              * `form` - Form Data object, contains the decoded body as key-value
+                pairs if the Content-Type header was
+                application/x-www-form-urlencoded.
+              * `headers` - Request Headers object.
+              * `id` - string, requested document id if it was specified
+                or null otherwise.
+              * `info` - Database Information object,
+                see `DatabaseInformation`.
+              * `method` - string or an array of chars, request method.
+                String value is a method as one of: HEAD, GET, POST, PUT,
+                DELETE, OPTIONS, TRACE, COPY. For not supported methods
+                it will be represented as an array of char codes e.g. for VIEW
+                it will be 86,73,69,87.
+              * `path` - array of strings, requested path sections.
+              * `peer` - string, request source IP address.
+              * `query` - string, URL query parameters object. Note that multiple
+                keys are not supported and the last key value suppresses others.
+              * `requested_path` - array of strings,
+                actual requested path section.
+              * `raw_path` - string, raw requested path.
+              * `userCtx`: User Context Object, containing information about the
+                user writing the document (if present), see the `UserContext`.
+              * `secObj`: Security Object, with lists of database security roles,
+                see the `SecurityObject`.
+              * `uuid` - string, generated UUID by a specified algorithm in the
+                config file.
+          Filter functions must return true if a document passed all the rules.
     :attr dict indexes: (optional) Search (text) index function definitions.
     :attr str language: (optional) Defines Query Server key to process design
           document functions.
@@ -10597,6 +10633,42 @@ class DesignDocument():
         :param dict filters: (optional) Schema for filter functions definition.
                This schema is a map where keys are the names of the filter functions and
                values are the function definition in string format.
+               Filter function formats, or filters the changes feed that pass filter
+               rules. The function takes 2 parameters:
+                 * `doc`: The document that is being processed.
+                 * `req`: A Request JavaScript object with these properties:
+                   * `body` - string, Request body data as string.
+                     If the request method is GET this field contains the value
+                     `"undefined"`.
+                     If the method is DELETE or HEAD the value is `""` (empty string).
+                   * `cookie` - Cookies object.
+                   * `form` - Form Data object, contains the decoded body as key-value
+                     pairs if the Content-Type header was
+                     application/x-www-form-urlencoded.
+                   * `headers` - Request Headers object.
+                   * `id` - string, requested document id if it was specified
+                     or null otherwise.
+                   * `info` - Database Information object,
+                     see `DatabaseInformation`.
+                   * `method` - string or an array of chars, request method.
+                     String value is a method as one of: HEAD, GET, POST, PUT,
+                     DELETE, OPTIONS, TRACE, COPY. For not supported methods
+                     it will be represented as an array of char codes e.g. for VIEW
+                     it will be 86,73,69,87.
+                   * `path` - array of strings, requested path sections.
+                   * `peer` - string, request source IP address.
+                   * `query` - string, URL query parameters object. Note that multiple
+                     keys are not supported and the last key value suppresses others.
+                   * `requested_path` - array of strings,
+                     actual requested path section.
+                   * `raw_path` - string, raw requested path.
+                   * `userCtx`: User Context Object, containing information about the
+                     user writing the document (if present), see the `UserContext`.
+                   * `secObj`: Security Object, with lists of database security roles,
+                     see the `SecurityObject`.
+                   * `uuid` - string, generated UUID by a specified algorithm in the
+                     config file.
+               Filter functions must return true if a document passed all the rules.
         :param dict indexes: (optional) Search (text) index function definitions.
         :param str language: (optional) Defines Query Server key to process design
                document functions.
