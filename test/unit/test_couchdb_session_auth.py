@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2020.
+# © Copyright IBM Corporation 2020, 2021.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ import datetime
 import json
 import unittest
 
+import os
 import requests
 import responses
 import time
@@ -163,3 +164,24 @@ class TestCouchDbSessionAuth(unittest.TestCase):
         self.assertEqual(responses.calls[-2].request.method, "POST")
         self.assertEqual(responses.calls[-1].request.url, "http://cloudant2.example/_session")
         self.assertEqual(responses.calls[-1].request.method, "GET")
+
+
+class TestCouchDbSessionAuthPatch(unittest.TestCase):
+
+    def test_new_instance(self):
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'couchdb_session'
+        os.environ['TEST_SERVICE_USERNAME'] = 'adm'
+        os.environ['TEST_SERVICE_PASSWORD'] = 'pass'
+        service = CloudantV1.new_instance(service_name='TEST_SERVICE')
+        self.assertIsNotNone(service)
+        self.assertIsInstance(service, CloudantV1)
+        self.assertEqual('COUCHDB_SESSION', service.authenticator.authentication_type())
+
+    def test_new_instance_auth_alias(self):
+        os.environ['TEST_SERVICE_AUTHTYPE'] = 'couchdb_session'
+        os.environ['TEST_SERVICE_USERNAME'] = 'adm'
+        os.environ['TEST_SERVICE_PASSWORD'] = 'pass'
+        service = CloudantV1.new_instance(service_name='TEST_SERVICE')
+        self.assertIsNotNone(service)
+        self.assertIsInstance(service, CloudantV1)
+        self.assertEqual('COUCHDB_SESSION', service.authenticator.authentication_type())

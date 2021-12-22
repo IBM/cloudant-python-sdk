@@ -23,7 +23,13 @@ old_construct_authenticator = get_authenticator.__construct_authenticator
 
 
 def new_construct_authenticator(config):  # pylint: disable=missing-docstring
-    auth_type = config.get('AUTH_TYPE').upper() if config.get('AUTH_TYPE') else ''
+    if config.get('AUTH_TYPE'):
+        auth_type = config.get('AUTH_TYPE').upper()
+    elif config.get('AUTHTYPE'):
+        auth_type = config.get('AUTHTYPE').upper()
+    else:
+        auth_type = ''
+
     if auth_type == 'COUCHDB_SESSION':
         return CouchDbSessionAuthenticator(
             username=config.get('USERNAME'),
