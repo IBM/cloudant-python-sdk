@@ -83,13 +83,15 @@ pipeline {
             buildResults = build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${env.BRANCH_NAME}", parameters: [
                 string(name: 'SDK_RUN_LANG', value: "$libName"),
                 string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "$prefixedSdkVersion")]
-          } catch (Exception e) {
+          } catch (hudson.AbortException ae) {
             // only run build in sdks-gauge master branch if BRANCH_NAME doesn't exist
-            if (buildResults == null) {
+            if (ae.getMessage().contains("No item named /${env.SDKS_GAUGE_PIPELINE_PROJECT}/${env.BRANCH_NAME} found")) {
               echo "No matching branch named '${env.BRANCH_NAME}' in sdks-gauge, building master branch"
               build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/master", parameters: [
                   string(name: 'SDK_RUN_LANG', value: "$libName"),
                   string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "$prefixedSdkVersion")]
+            } else {
+              throw ae
             }
           }
         }
