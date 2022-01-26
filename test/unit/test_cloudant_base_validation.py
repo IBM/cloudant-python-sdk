@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2021.
+# © Copyright IBM Corporation 2021, 2022.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -46,3 +46,10 @@ class TestValidation(unittest.TestCase):
         service.set_service_url('https://cloudant.example/some/proxy/path')
         with self.assertRaisesRegex(ValueError, '.+_testDocument.+') as cm:
             service.get_document('testDatabase', '_testDocument')
+
+    def test_validates_strip_trailing_slash(self):
+        service = CloudantV1(
+            authenticator=NoAuthAuthenticator()
+        )
+        service.set_service_url('https://cloudant.example/')
+        self.assertEqual(service.service_url, 'https://cloudant.example')
