@@ -43,6 +43,33 @@ _service = CloudantV1(
 _base_url = 'http://localhost:5984'
 _service.set_service_url(_base_url)
 
+
+def preprocess_url(operation_path: str):
+    """
+    Returns the request url associated with the specified operation path.
+    This will be base_url concatenated with a quoted version of operation_path.
+    The returned request URL is used to register the mock response so it needs
+    to match the request URL that is formed by the requests library.
+    """
+    # First, unquote the path since it might have some quoted/escaped characters in it
+    # due to how the generator inserts the operation paths into the unit test code.
+    operation_path = urllib.parse.unquote(operation_path)
+
+    # Next, quote the path using urllib so that we approximate what will
+    # happen during request processing.
+    operation_path = urllib.parse.quote(operation_path, safe='/')
+
+    # Finally, form the request URL from the base URL and operation path.
+    request_url = _base_url + operation_path
+
+    # If the request url does NOT end with a /, then just return it as-is.
+    # Otherwise, return a regular expression that matches one or more trailing /.
+    if re.fullmatch('.*/+', request_url) is None:
+        return request_url
+    else:
+        return re.compile(request_url.rstrip('/') + '/+')
+
+
 ##############################################################################
 # Start of Service: Server
 ##############################################################################
@@ -72,6 +99,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestGetServerInformation():
@@ -79,24 +107,13 @@ class TestGetServerInformation():
     Test Class for get_server_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_server_information_all_params(self):
         """
         get_server_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/')
+        url = preprocess_url('/')
         mock_response = '{"couchdb": "couchdb", "features": ["features"], "vendor": {"name": "name", "variant": "variant", "version": "version"}, "version": "version", "features_flags": ["features_flags"]}'
         responses.add(responses.GET,
                       url,
@@ -126,24 +143,13 @@ class TestGetMembershipInformation():
     Test Class for get_membership_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_membership_information_all_params(self):
         """
         get_membership_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_membership')
+        url = preprocess_url('/_membership')
         mock_response = '{"all_nodes": ["all_nodes"], "cluster_nodes": ["cluster_nodes"]}'
         responses.add(responses.GET,
                       url,
@@ -173,24 +179,13 @@ class TestGetUuids():
     Test Class for get_uuids
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_uuids_all_params(self):
         """
         get_uuids()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_uuids')
+        url = preprocess_url('/_uuids')
         mock_response = '{"uuids": ["uuids"]}'
         responses.add(responses.GET,
                       url,
@@ -230,7 +225,7 @@ class TestGetUuids():
         test_get_uuids_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_uuids')
+        url = preprocess_url('/_uuids')
         mock_response = '{"uuids": ["uuids"]}'
         responses.add(responses.GET,
                       url,
@@ -260,24 +255,13 @@ class TestGetCapacityThroughputInformation():
     Test Class for get_capacity_throughput_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_capacity_throughput_information_all_params(self):
         """
         get_capacity_throughput_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_api/v2/user/capacity/throughput')
+        url = preprocess_url('/_api/v2/user/capacity/throughput')
         mock_response = '{"current": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}, "target": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}}'
         responses.add(responses.GET,
                       url,
@@ -307,24 +291,13 @@ class TestPutCapacityThroughputConfiguration():
     Test Class for put_capacity_throughput_configuration
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_put_capacity_throughput_configuration_all_params(self):
         """
         put_capacity_throughput_configuration()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_api/v2/user/capacity/throughput')
+        url = preprocess_url('/_api/v2/user/capacity/throughput')
         mock_response = '{"current": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}, "target": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}}'
         responses.add(responses.PUT,
                       url,
@@ -366,7 +339,7 @@ class TestPutCapacityThroughputConfiguration():
         test_put_capacity_throughput_configuration_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_api/v2/user/capacity/throughput')
+        url = preprocess_url('/_api/v2/user/capacity/throughput')
         mock_response = '{"current": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}, "target": {"throughput": {"blocks": 0, "query": 0, "read": 0, "write": 0}}}'
         responses.add(responses.PUT,
                       url,
@@ -430,6 +403,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestGetDbUpdates():
@@ -437,24 +411,13 @@ class TestGetDbUpdates():
     Test Class for get_db_updates
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_db_updates_all_params(self):
         """
         get_db_updates()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_db_updates')
+        url = preprocess_url('/_db_updates')
         mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "db_name": "db_name", "seq": "seq", "type": "created"}]}'
         responses.add(responses.GET,
                       url,
@@ -503,7 +466,7 @@ class TestGetDbUpdates():
         test_get_db_updates_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_db_updates')
+        url = preprocess_url('/_db_updates')
         mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "db_name": "db_name", "seq": "seq", "type": "created"}]}'
         responses.add(responses.GET,
                       url,
@@ -533,24 +496,13 @@ class TestPostChanges():
     Test Class for post_changes
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_changes_all_params(self):
         """
         post_changes()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_changes')
+        url = preprocess_url('/testString/_changes')
         mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -647,7 +599,7 @@ class TestPostChanges():
         test_post_changes_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_changes')
+        url = preprocess_url('/testString/_changes')
         mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -697,7 +649,7 @@ class TestPostChanges():
         test_post_changes_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_changes')
+        url = preprocess_url('/testString/_changes')
         mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -735,24 +687,13 @@ class TestPostChangesAsStream():
     Test Class for post_changes_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_changes_as_stream_all_params(self):
         """
         post_changes_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_changes')
+        url = preprocess_url('/testString/_changes')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -855,7 +796,7 @@ class TestPostChangesAsStream():
         test_post_changes_as_stream_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_changes')
+        url = preprocess_url('/testString/_changes')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -911,7 +852,7 @@ class TestPostChangesAsStream():
         test_post_changes_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_changes')
+        url = preprocess_url('/testString/_changes')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -978,6 +919,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestHeadDatabase():
@@ -985,24 +927,13 @@ class TestHeadDatabase():
     Test Class for head_database
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_head_database_all_params(self):
         """
         head_database()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString')
+        url = preprocess_url('/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -1035,7 +966,7 @@ class TestHeadDatabase():
         test_head_database_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString')
+        url = preprocess_url('/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -1067,24 +998,13 @@ class TestGetAllDbs():
     Test Class for get_all_dbs
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_all_dbs_all_params(self):
         """
         get_all_dbs()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_all_dbs')
+        url = preprocess_url('/_all_dbs')
         mock_response = '["operation_response"]'
         responses.add(responses.GET,
                       url,
@@ -1136,7 +1056,7 @@ class TestGetAllDbs():
         test_get_all_dbs_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_all_dbs')
+        url = preprocess_url('/_all_dbs')
         mock_response = '["operation_response"]'
         responses.add(responses.GET,
                       url,
@@ -1166,24 +1086,13 @@ class TestPostDbsInfo():
     Test Class for post_dbs_info
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_dbs_info_all_params(self):
         """
         post_dbs_info()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_dbs_info')
+        url = preprocess_url('/_dbs_info')
         mock_response = '[{"error": "error", "info": {"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
         responses.add(responses.POST,
                       url,
@@ -1225,7 +1134,7 @@ class TestPostDbsInfo():
         test_post_dbs_info_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_dbs_info')
+        url = preprocess_url('/_dbs_info')
         mock_response = '[{"error": "error", "info": {"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
         responses.add(responses.POST,
                       url,
@@ -1260,24 +1169,13 @@ class TestDeleteDatabase():
     Test Class for delete_database
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_delete_database_all_params(self):
         """
         delete_database()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString')
+        url = preprocess_url('/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.DELETE,
                       url,
@@ -1313,7 +1211,7 @@ class TestDeleteDatabase():
         test_delete_database_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString')
+        url = preprocess_url('/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.DELETE,
                       url,
@@ -1348,24 +1246,13 @@ class TestGetDatabaseInformation():
     Test Class for get_database_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_database_information_all_params(self):
         """
         get_database_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString')
+        url = preprocess_url('/testString')
         mock_response = '{"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}'
         responses.add(responses.GET,
                       url,
@@ -1401,7 +1288,7 @@ class TestGetDatabaseInformation():
         test_get_database_information_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString')
+        url = preprocess_url('/testString')
         mock_response = '{"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}'
         responses.add(responses.GET,
                       url,
@@ -1436,24 +1323,13 @@ class TestPutDatabase():
     Test Class for put_database
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_put_database_all_params(self):
         """
         put_database()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString')
+        url = preprocess_url('/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -1498,7 +1374,7 @@ class TestPutDatabase():
         test_put_database_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString')
+        url = preprocess_url('/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -1534,7 +1410,7 @@ class TestPutDatabase():
         test_put_database_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString')
+        url = preprocess_url('/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -1598,6 +1474,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestHeadDocument():
@@ -1605,24 +1482,13 @@ class TestHeadDocument():
     Test Class for head_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_head_document_all_params(self):
         """
         head_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -1668,7 +1534,7 @@ class TestHeadDocument():
         test_head_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -1703,7 +1569,7 @@ class TestHeadDocument():
         test_head_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -1737,24 +1603,13 @@ class TestPostDocument():
     Test Class for post_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_document_all_params(self):
         """
         post_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString')
+        url = preprocess_url('/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.POST,
                       url,
@@ -1839,7 +1694,7 @@ class TestPostDocument():
         test_post_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString')
+        url = preprocess_url('/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.POST,
                       url,
@@ -1916,7 +1771,7 @@ class TestPostDocument():
         test_post_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString')
+        url = preprocess_url('/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.POST,
                       url,
@@ -1988,24 +1843,13 @@ class TestPostAllDocs():
     Test Class for post_all_docs
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_all_docs_all_params(self):
         """
         post_all_docs()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_all_docs')
+        url = preprocess_url('/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -2085,7 +1929,7 @@ class TestPostAllDocs():
         test_post_all_docs_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_all_docs')
+        url = preprocess_url('/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -2133,24 +1977,13 @@ class TestPostAllDocsAsStream():
     Test Class for post_all_docs_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_all_docs_as_stream_all_params(self):
         """
         post_all_docs_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_all_docs')
+        url = preprocess_url('/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -2236,7 +2069,7 @@ class TestPostAllDocsAsStream():
         test_post_all_docs_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_all_docs')
+        url = preprocess_url('/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -2284,24 +2117,13 @@ class TestPostAllDocsQueries():
     Test Class for post_all_docs_queries
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_all_docs_queries_all_params(self):
         """
         post_all_docs_queries()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_all_docs/queries')
+        url = preprocess_url('/testString/_all_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -2361,7 +2183,7 @@ class TestPostAllDocsQueries():
         test_post_all_docs_queries_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_all_docs/queries')
+        url = preprocess_url('/testString/_all_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -2414,24 +2236,13 @@ class TestPostAllDocsQueriesAsStream():
     Test Class for post_all_docs_queries_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_all_docs_queries_as_stream_all_params(self):
         """
         post_all_docs_queries_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_all_docs/queries')
+        url = preprocess_url('/testString/_all_docs/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -2497,7 +2308,7 @@ class TestPostAllDocsQueriesAsStream():
         test_post_all_docs_queries_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_all_docs/queries')
+        url = preprocess_url('/testString/_all_docs/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -2550,24 +2361,13 @@ class TestPostBulkDocs():
     Test Class for post_bulk_docs
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_bulk_docs_all_params(self):
         """
         post_bulk_docs()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_docs')
+        url = preprocess_url('/testString/_bulk_docs')
         mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}]'
         responses.add(responses.POST,
                       url,
@@ -2651,7 +2451,7 @@ class TestPostBulkDocs():
         test_post_bulk_docs_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_docs')
+        url = preprocess_url('/testString/_bulk_docs')
         mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}]'
         responses.add(responses.POST,
                       url,
@@ -2728,24 +2528,13 @@ class TestPostBulkGet():
     Test Class for post_bulk_get
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_bulk_get_all_params(self):
         """
         post_bulk_get()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
+        url = preprocess_url('/testString/_bulk_get')
         mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
         responses.add(responses.POST,
                       url,
@@ -2810,7 +2599,7 @@ class TestPostBulkGet():
         test_post_bulk_get_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
+        url = preprocess_url('/testString/_bulk_get')
         mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
         responses.add(responses.POST,
                       url,
@@ -2860,7 +2649,7 @@ class TestPostBulkGet():
         test_post_bulk_get_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
+        url = preprocess_url('/testString/_bulk_get')
         mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
         responses.add(responses.POST,
                       url,
@@ -2903,24 +2692,13 @@ class TestPostBulkGetAsMixed():
     Test Class for post_bulk_get_as_mixed
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_bulk_get_as_mixed_all_params(self):
         """
         post_bulk_get_as_mixed()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
+        url = preprocess_url('/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.POST,
                       url,
@@ -2985,7 +2763,7 @@ class TestPostBulkGetAsMixed():
         test_post_bulk_get_as_mixed_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
+        url = preprocess_url('/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.POST,
                       url,
@@ -3035,7 +2813,7 @@ class TestPostBulkGetAsMixed():
         test_post_bulk_get_as_mixed_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
+        url = preprocess_url('/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.POST,
                       url,
@@ -3078,24 +2856,13 @@ class TestPostBulkGetAsRelated():
     Test Class for post_bulk_get_as_related
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_bulk_get_as_related_all_params(self):
         """
         post_bulk_get_as_related()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
+        url = preprocess_url('/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.POST,
                       url,
@@ -3160,7 +2927,7 @@ class TestPostBulkGetAsRelated():
         test_post_bulk_get_as_related_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
+        url = preprocess_url('/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.POST,
                       url,
@@ -3210,7 +2977,7 @@ class TestPostBulkGetAsRelated():
         test_post_bulk_get_as_related_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
+        url = preprocess_url('/testString/_bulk_get')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.POST,
                       url,
@@ -3253,24 +3020,13 @@ class TestPostBulkGetAsStream():
     Test Class for post_bulk_get_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_bulk_get_as_stream_all_params(self):
         """
         post_bulk_get_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
+        url = preprocess_url('/testString/_bulk_get')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -3341,7 +3097,7 @@ class TestPostBulkGetAsStream():
         test_post_bulk_get_as_stream_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
+        url = preprocess_url('/testString/_bulk_get')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -3397,7 +3153,7 @@ class TestPostBulkGetAsStream():
         test_post_bulk_get_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_bulk_get')
+        url = preprocess_url('/testString/_bulk_get')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -3440,24 +3196,13 @@ class TestDeleteDocument():
     Test Class for delete_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_delete_document_all_params(self):
         """
         delete_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -3506,7 +3251,7 @@ class TestDeleteDocument():
         test_delete_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -3544,7 +3289,7 @@ class TestDeleteDocument():
         test_delete_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -3581,24 +3326,13 @@ class TestGetDocument():
     Test Class for get_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_document_all_params(self):
         """
         get_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
         responses.add(responses.GET,
                       url,
@@ -3671,7 +3405,7 @@ class TestGetDocument():
         test_get_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
         responses.add(responses.GET,
                       url,
@@ -3709,7 +3443,7 @@ class TestGetDocument():
         test_get_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
         responses.add(responses.GET,
                       url,
@@ -3746,24 +3480,13 @@ class TestGetDocumentAsMixed():
     Test Class for get_document_as_mixed
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_document_as_mixed_all_params(self):
         """
         get_document_as_mixed()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -3836,7 +3559,7 @@ class TestGetDocumentAsMixed():
         test_get_document_as_mixed_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -3874,7 +3597,7 @@ class TestGetDocumentAsMixed():
         test_get_document_as_mixed_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -3911,24 +3634,13 @@ class TestGetDocumentAsRelated():
     Test Class for get_document_as_related
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_document_as_related_all_params(self):
         """
         get_document_as_related()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -4001,7 +3713,7 @@ class TestGetDocumentAsRelated():
         test_get_document_as_related_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -4039,7 +3751,7 @@ class TestGetDocumentAsRelated():
         test_get_document_as_related_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -4076,24 +3788,13 @@ class TestGetDocumentAsStream():
     Test Class for get_document_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_document_as_stream_all_params(self):
         """
         get_document_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.GET,
                       url,
@@ -4172,7 +3873,7 @@ class TestGetDocumentAsStream():
         test_get_document_as_stream_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.GET,
                       url,
@@ -4216,7 +3917,7 @@ class TestGetDocumentAsStream():
         test_get_document_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.GET,
                       url,
@@ -4253,24 +3954,13 @@ class TestPutDocument():
     Test Class for put_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_put_document_all_params(self):
         """
         put_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -4374,7 +4064,7 @@ class TestPutDocument():
         test_put_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -4462,7 +4152,7 @@ class TestPutDocument():
         test_put_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString')
+        url = preprocess_url('/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -4574,6 +4264,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestHeadDesignDocument():
@@ -4581,24 +4272,13 @@ class TestHeadDesignDocument():
     Test Class for head_design_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_head_design_document_all_params(self):
         """
         head_design_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        url = preprocess_url('/testString/_design/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -4635,7 +4315,7 @@ class TestHeadDesignDocument():
         test_head_design_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        url = preprocess_url('/testString/_design/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -4670,7 +4350,7 @@ class TestHeadDesignDocument():
         test_head_design_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        url = preprocess_url('/testString/_design/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -4704,24 +4384,13 @@ class TestDeleteDesignDocument():
     Test Class for delete_design_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_delete_design_document_all_params(self):
         """
         delete_design_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        url = preprocess_url('/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -4770,7 +4439,7 @@ class TestDeleteDesignDocument():
         test_delete_design_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        url = preprocess_url('/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -4808,7 +4477,7 @@ class TestDeleteDesignDocument():
         test_delete_design_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        url = preprocess_url('/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -4845,24 +4514,13 @@ class TestGetDesignDocument():
     Test Class for get_design_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_design_document_all_params(self):
         """
         get_design_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        url = preprocess_url('/testString/_design/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
         responses.add(responses.GET,
                       url,
@@ -4935,7 +4593,7 @@ class TestGetDesignDocument():
         test_get_design_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        url = preprocess_url('/testString/_design/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
         responses.add(responses.GET,
                       url,
@@ -4973,7 +4631,7 @@ class TestGetDesignDocument():
         test_get_design_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        url = preprocess_url('/testString/_design/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
         responses.add(responses.GET,
                       url,
@@ -5010,24 +4668,13 @@ class TestPutDesignDocument():
     Test Class for put_design_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_put_design_document_all_params(self):
         """
         put_design_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        url = preprocess_url('/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -5159,7 +4806,7 @@ class TestPutDesignDocument():
         test_put_design_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        url = preprocess_url('/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -5277,7 +4924,7 @@ class TestPutDesignDocument():
         test_put_design_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString')
+        url = preprocess_url('/testString/_design/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -5388,24 +5035,13 @@ class TestGetDesignDocumentInformation():
     Test Class for get_design_document_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_design_document_information_all_params(self):
         """
         get_design_document_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_info')
+        url = preprocess_url('/testString/_design/testString/_info')
         mock_response = '{"name": "name", "view_index": {"compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(responses.GET,
                       url,
@@ -5443,7 +5079,7 @@ class TestGetDesignDocumentInformation():
         test_get_design_document_information_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_info')
+        url = preprocess_url('/testString/_design/testString/_info')
         mock_response = '{"name": "name", "view_index": {"compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(responses.GET,
                       url,
@@ -5480,24 +5116,13 @@ class TestPostDesignDocs():
     Test Class for post_design_docs
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_design_docs_all_params(self):
         """
         post_design_docs()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design_docs')
+        url = preprocess_url('/testString/_design_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -5579,7 +5204,7 @@ class TestPostDesignDocs():
         test_post_design_docs_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design_docs')
+        url = preprocess_url('/testString/_design_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -5659,7 +5284,7 @@ class TestPostDesignDocs():
         test_post_design_docs_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design_docs')
+        url = preprocess_url('/testString/_design_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -5707,24 +5332,13 @@ class TestPostDesignDocsQueries():
     Test Class for post_design_docs_queries
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_design_docs_queries_all_params(self):
         """
         post_design_docs_queries()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design_docs/queries')
+        url = preprocess_url('/testString/_design_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -5786,7 +5400,7 @@ class TestPostDesignDocsQueries():
         test_post_design_docs_queries_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design_docs/queries')
+        url = preprocess_url('/testString/_design_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -5846,7 +5460,7 @@ class TestPostDesignDocsQueries():
         test_post_design_docs_queries_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design_docs/queries')
+        url = preprocess_url('/testString/_design_docs/queries')
         mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(responses.POST,
                       url,
@@ -5928,6 +5542,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestPostView():
@@ -5935,24 +5550,13 @@ class TestPostView():
     Test Class for post_view
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_view_all_params(self):
         """
         post_view()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString')
+        url = preprocess_url('/testString/_design/testString/_view/testString')
         mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(responses.POST,
                       url,
@@ -6057,7 +5661,7 @@ class TestPostView():
         test_post_view_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString')
+        url = preprocess_url('/testString/_design/testString/_view/testString')
         mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(responses.POST,
                       url,
@@ -6116,24 +5720,13 @@ class TestPostViewAsStream():
     Test Class for post_view_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_view_as_stream_all_params(self):
         """
         post_view_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString')
+        url = preprocess_url('/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -6244,7 +5837,7 @@ class TestPostViewAsStream():
         test_post_view_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString')
+        url = preprocess_url('/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -6303,24 +5896,13 @@ class TestPostViewQueries():
     Test Class for post_view_queries
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_view_queries_all_params(self):
         """
         post_view_queries()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString/queries')
+        url = preprocess_url('/testString/_design/testString/_view/testString/queries')
         mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}]}'
         responses.add(responses.POST,
                       url,
@@ -6391,7 +5973,7 @@ class TestPostViewQueries():
         test_post_view_queries_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString/queries')
+        url = preprocess_url('/testString/_design/testString/_view/testString/queries')
         mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}]}'
         responses.add(responses.POST,
                       url,
@@ -6455,24 +6037,13 @@ class TestPostViewQueriesAsStream():
     Test Class for post_view_queries_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_view_queries_as_stream_all_params(self):
         """
         post_view_queries_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString/queries')
+        url = preprocess_url('/testString/_design/testString/_view/testString/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -6549,7 +6120,7 @@ class TestPostViewQueriesAsStream():
         test_post_view_queries_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_view/testString/queries')
+        url = preprocess_url('/testString/_design/testString/_view/testString/queries')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -6642,6 +6213,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestGetPartitionInformation():
@@ -6649,24 +6221,13 @@ class TestGetPartitionInformation():
     Test Class for get_partition_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_partition_information_all_params(self):
         """
         get_partition_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString')
+        url = preprocess_url('/testString/_partition/testString')
         mock_response = '{"db_name": "db_name", "doc_count": 0, "doc_del_count": 0, "partition": "partition", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 0}, "sizes": {"active": 0, "external": 0}}'
         responses.add(responses.GET,
                       url,
@@ -6704,7 +6265,7 @@ class TestGetPartitionInformation():
         test_get_partition_information_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString')
+        url = preprocess_url('/testString/_partition/testString')
         mock_response = '{"db_name": "db_name", "doc_count": 0, "doc_del_count": 0, "partition": "partition", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 0}, "sizes": {"active": 0, "external": 0}}'
         responses.add(responses.GET,
                       url,
@@ -6741,24 +6302,13 @@ class TestPostPartitionAllDocs():
     Test Class for post_partition_all_docs
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_partition_all_docs_all_params(self):
         """
         post_partition_all_docs()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_all_docs')
+        url = preprocess_url('/testString/_partition/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -6840,7 +6390,7 @@ class TestPostPartitionAllDocs():
         test_post_partition_all_docs_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_all_docs')
+        url = preprocess_url('/testString/_partition/testString/_all_docs')
         mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(responses.POST,
                       url,
@@ -6890,24 +6440,13 @@ class TestPostPartitionAllDocsAsStream():
     Test Class for post_partition_all_docs_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_partition_all_docs_as_stream_all_params(self):
         """
         post_partition_all_docs_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_all_docs')
+        url = preprocess_url('/testString/_partition/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -6995,7 +6534,7 @@ class TestPostPartitionAllDocsAsStream():
         test_post_partition_all_docs_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_all_docs')
+        url = preprocess_url('/testString/_partition/testString/_all_docs')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -7045,24 +6584,13 @@ class TestPostPartitionSearch():
     Test Class for post_partition_search
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_partition_search_all_params(self):
         """
         post_partition_search()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_search/testString')
+        url = preprocess_url('/testString/_partition/testString/_design/testString/_search/testString')
         mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
         responses.add(responses.POST,
                       url,
@@ -7145,7 +6673,7 @@ class TestPostPartitionSearch():
         test_post_partition_search_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_search/testString')
+        url = preprocess_url('/testString/_partition/testString/_design/testString/_search/testString')
         mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
         responses.add(responses.POST,
                       url,
@@ -7199,24 +6727,13 @@ class TestPostPartitionSearchAsStream():
     Test Class for post_partition_search_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_partition_search_as_stream_all_params(self):
         """
         post_partition_search_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_search/testString')
+        url = preprocess_url('/testString/_partition/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -7305,7 +6822,7 @@ class TestPostPartitionSearchAsStream():
         test_post_partition_search_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_search/testString')
+        url = preprocess_url('/testString/_partition/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -7359,24 +6876,13 @@ class TestPostPartitionView():
     Test Class for post_partition_view
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_partition_view_all_params(self):
         """
         post_partition_view()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_view/testString')
+        url = preprocess_url('/testString/_partition/testString/_design/testString/_view/testString')
         mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(responses.POST,
                       url,
@@ -7483,7 +6989,7 @@ class TestPostPartitionView():
         test_post_partition_view_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_view/testString')
+        url = preprocess_url('/testString/_partition/testString/_design/testString/_view/testString')
         mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(responses.POST,
                       url,
@@ -7544,24 +7050,13 @@ class TestPostPartitionViewAsStream():
     Test Class for post_partition_view_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_partition_view_as_stream_all_params(self):
         """
         post_partition_view_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_view/testString')
+        url = preprocess_url('/testString/_partition/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -7674,7 +7169,7 @@ class TestPostPartitionViewAsStream():
         test_post_partition_view_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_design/testString/_view/testString')
+        url = preprocess_url('/testString/_partition/testString/_design/testString/_view/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -7735,24 +7230,13 @@ class TestPostPartitionFind():
     Test Class for post_partition_find
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_partition_find_all_params(self):
         """
         post_partition_find()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_find')
+        url = preprocess_url('/testString/_partition/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
         responses.add(responses.POST,
                       url,
@@ -7828,7 +7312,7 @@ class TestPostPartitionFind():
         test_post_partition_find_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_find')
+        url = preprocess_url('/testString/_partition/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
         responses.add(responses.POST,
                       url,
@@ -7877,24 +7361,13 @@ class TestPostPartitionFindAsStream():
     Test Class for post_partition_find_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_partition_find_as_stream_all_params(self):
         """
         post_partition_find_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_find')
+        url = preprocess_url('/testString/_partition/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -7976,7 +7449,7 @@ class TestPostPartitionFindAsStream():
         test_post_partition_find_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_partition/testString/_find')
+        url = preprocess_url('/testString/_partition/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -8054,6 +7527,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestPostExplain():
@@ -8061,24 +7535,13 @@ class TestPostExplain():
     Test Class for post_explain
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_explain_all_params(self):
         """
         post_explain()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_explain')
+        url = preprocess_url('/testString/_explain')
         mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"mapKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"mapKey": "anyValue"}, "skip": 0}'
         responses.add(responses.POST,
                       url,
@@ -8155,7 +7618,7 @@ class TestPostExplain():
         test_post_explain_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_explain')
+        url = preprocess_url('/testString/_explain')
         mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"mapKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"mapKey": "anyValue"}, "skip": 0}'
         responses.add(responses.POST,
                       url,
@@ -8203,24 +7666,13 @@ class TestPostFind():
     Test Class for post_find
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_find_all_params(self):
         """
         post_find()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_find')
+        url = preprocess_url('/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
         responses.add(responses.POST,
                       url,
@@ -8297,7 +7749,7 @@ class TestPostFind():
         test_post_find_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_find')
+        url = preprocess_url('/testString/_find')
         mock_response = '{"bookmark": "bookmark", "docs": [{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}], "execution_stats": {"execution_time_ms": 17, "results_returned": 0, "total_docs_examined": 0, "total_keys_examined": 0, "total_quorum_docs_examined": 0}, "warning": "warning"}'
         responses.add(responses.POST,
                       url,
@@ -8345,24 +7797,13 @@ class TestPostFindAsStream():
     Test Class for post_find_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_find_as_stream_all_params(self):
         """
         post_find_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_find')
+        url = preprocess_url('/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -8445,7 +7886,7 @@ class TestPostFindAsStream():
         test_post_find_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_find')
+        url = preprocess_url('/testString/_find')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -8493,24 +7934,13 @@ class TestGetIndexesInformation():
     Test Class for get_indexes_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_indexes_information_all_params(self):
         """
         get_indexes_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_index')
+        url = preprocess_url('/testString/_index')
         mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"mapKey": "anyValue"}}, "name": "name", "type": "json"}]}'
         responses.add(responses.GET,
                       url,
@@ -8546,7 +7976,7 @@ class TestGetIndexesInformation():
         test_get_indexes_information_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_index')
+        url = preprocess_url('/testString/_index')
         mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"mapKey": "anyValue"}}, "name": "name", "type": "json"}]}'
         responses.add(responses.GET,
                       url,
@@ -8581,24 +8011,13 @@ class TestPostIndex():
     Test Class for post_index
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_index_all_params(self):
         """
         post_index()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_index')
+        url = preprocess_url('/testString/_index')
         mock_response = '{"id": "id", "name": "name", "result": "created"}'
         responses.add(responses.POST,
                       url,
@@ -8681,7 +8100,7 @@ class TestPostIndex():
         test_post_index_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_index')
+        url = preprocess_url('/testString/_index')
         mock_response = '{"id": "id", "name": "name", "result": "created"}'
         responses.add(responses.POST,
                       url,
@@ -8747,24 +8166,13 @@ class TestDeleteIndex():
     Test Class for delete_index
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_delete_index_all_params(self):
         """
         delete_index()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_index/_design/testString/json/testString')
+        url = preprocess_url('/testString/_index/_design/testString/json/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.DELETE,
                       url,
@@ -8806,7 +8214,7 @@ class TestDeleteIndex():
         test_delete_index_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_index/_design/testString/json/testString')
+        url = preprocess_url('/testString/_index/_design/testString/json/testString')
         mock_response = '{"ok": true}'
         responses.add(responses.DELETE,
                       url,
@@ -8876,6 +8284,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestPostSearchAnalyze():
@@ -8883,24 +8292,13 @@ class TestPostSearchAnalyze():
     Test Class for post_search_analyze
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_search_analyze_all_params(self):
         """
         post_search_analyze()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_search_analyze')
+        url = preprocess_url('/_search_analyze')
         mock_response = '{"tokens": ["tokens"]}'
         responses.add(responses.POST,
                       url,
@@ -8945,7 +8343,7 @@ class TestPostSearchAnalyze():
         test_post_search_analyze_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_search_analyze')
+        url = preprocess_url('/_search_analyze')
         mock_response = '{"tokens": ["tokens"]}'
         responses.add(responses.POST,
                       url,
@@ -8982,24 +8380,13 @@ class TestPostSearch():
     Test Class for post_search
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_search_all_params(self):
         """
         post_search()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_search/testString')
+        url = preprocess_url('/testString/_design/testString/_search/testString')
         mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
         responses.add(responses.POST,
                       url,
@@ -9098,7 +8485,7 @@ class TestPostSearch():
         test_post_search_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_search/testString')
+        url = preprocess_url('/testString/_design/testString/_search/testString')
         mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
         responses.add(responses.POST,
                       url,
@@ -9156,24 +8543,13 @@ class TestPostSearchAsStream():
     Test Class for post_search_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_search_as_stream_all_params(self):
         """
         post_search_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_search/testString')
+        url = preprocess_url('/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -9278,7 +8654,7 @@ class TestPostSearchAsStream():
         test_post_search_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_search/testString')
+        url = preprocess_url('/testString/_design/testString/_search/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.POST,
                       url,
@@ -9336,24 +8712,13 @@ class TestGetSearchInfo():
     Test Class for get_search_info
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_search_info_all_params(self):
         """
         get_search_info()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_search_info/testString')
+        url = preprocess_url('/testString/_design/testString/_search_info/testString')
         mock_response = '{"name": "name", "search_index": {"committed_seq": 13, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 11}}'
         responses.add(responses.GET,
                       url,
@@ -9393,7 +8758,7 @@ class TestGetSearchInfo():
         test_get_search_info_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_search_info/testString')
+        url = preprocess_url('/testString/_design/testString/_search_info/testString')
         mock_response = '{"name": "name", "search_index": {"committed_seq": 13, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 11}}'
         responses.add(responses.GET,
                       url,
@@ -9461,6 +8826,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestGetGeo():
@@ -9468,24 +8834,13 @@ class TestGetGeo():
     Test Class for get_geo
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_geo_all_params(self):
         """
         get_geo()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo/testString')
+        url = preprocess_url('/testString/_design/testString/_geo/testString')
         mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "properties": {"mapKey": "anyValue"}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
         responses.add(responses.GET,
                       url,
@@ -9573,7 +8928,7 @@ class TestGetGeo():
         test_get_geo_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo/testString')
+        url = preprocess_url('/testString/_design/testString/_geo/testString')
         mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "properties": {"mapKey": "anyValue"}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
         responses.add(responses.GET,
                       url,
@@ -9613,7 +8968,7 @@ class TestGetGeo():
         test_get_geo_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo/testString')
+        url = preprocess_url('/testString/_design/testString/_geo/testString')
         mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "properties": {"mapKey": "anyValue"}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
         responses.add(responses.GET,
                       url,
@@ -9652,24 +9007,13 @@ class TestGetGeoAsStream():
     Test Class for get_geo_as_stream
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_geo_as_stream_all_params(self):
         """
         get_geo_as_stream()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo/testString')
+        url = preprocess_url('/testString/_design/testString/_geo/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.GET,
                       url,
@@ -9763,7 +9107,7 @@ class TestGetGeoAsStream():
         test_get_geo_as_stream_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo/testString')
+        url = preprocess_url('/testString/_design/testString/_geo/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.GET,
                       url,
@@ -9809,7 +9153,7 @@ class TestGetGeoAsStream():
         test_get_geo_as_stream_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo/testString')
+        url = preprocess_url('/testString/_design/testString/_geo/testString')
         mock_response = '{"foo": "this is a mock response for JSON streaming"}'
         responses.add(responses.GET,
                       url,
@@ -9848,24 +9192,13 @@ class TestPostGeoCleanup():
     Test Class for post_geo_cleanup
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_geo_cleanup_all_params(self):
         """
         post_geo_cleanup()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_geo_cleanup')
+        url = preprocess_url('/testString/_geo_cleanup')
         mock_response = '{"ok": true}'
         responses.add(responses.POST,
                       url,
@@ -9901,7 +9234,7 @@ class TestPostGeoCleanup():
         test_post_geo_cleanup_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_geo_cleanup')
+        url = preprocess_url('/testString/_geo_cleanup')
         mock_response = '{"ok": true}'
         responses.add(responses.POST,
                       url,
@@ -9936,24 +9269,13 @@ class TestGetGeoIndexInformation():
     Test Class for get_geo_index_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_geo_index_information_all_params(self):
         """
         get_geo_index_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo_info/testString')
+        url = preprocess_url('/testString/_design/testString/_geo_info/testString')
         mock_response = '{"geo_index": {"data_size": 0, "disk_size": 0, "doc_count": 0}, "name": "name"}'
         responses.add(responses.GET,
                       url,
@@ -9993,7 +9315,7 @@ class TestGetGeoIndexInformation():
         test_get_geo_index_information_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_design/testString/_geo_info/testString')
+        url = preprocess_url('/testString/_design/testString/_geo_info/testString')
         mock_response = '{"geo_index": {"data_size": 0, "disk_size": 0, "doc_count": 0}, "name": "name"}'
         responses.add(responses.GET,
                       url,
@@ -10061,6 +9383,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestHeadReplicationDocument():
@@ -10068,24 +9391,13 @@ class TestHeadReplicationDocument():
     Test Class for head_replication_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_head_replication_document_all_params(self):
         """
         head_replication_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        url = preprocess_url('/_replicator/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -10120,7 +9432,7 @@ class TestHeadReplicationDocument():
         test_head_replication_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        url = preprocess_url('/_replicator/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -10153,7 +9465,7 @@ class TestHeadReplicationDocument():
         test_head_replication_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        url = preprocess_url('/_replicator/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -10185,24 +9497,13 @@ class TestHeadSchedulerDocument():
     Test Class for head_scheduler_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_head_scheduler_document_all_params(self):
         """
         head_scheduler_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_scheduler/docs/_replicator/testString')
+        url = preprocess_url('/_scheduler/docs/_replicator/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -10235,7 +9536,7 @@ class TestHeadSchedulerDocument():
         test_head_scheduler_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_scheduler/docs/_replicator/testString')
+        url = preprocess_url('/_scheduler/docs/_replicator/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -10267,24 +9568,13 @@ class TestHeadSchedulerJob():
     Test Class for head_scheduler_job
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_head_scheduler_job_all_params(self):
         """
         head_scheduler_job()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_scheduler/jobs/testString')
+        url = preprocess_url('/_scheduler/jobs/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -10317,7 +9607,7 @@ class TestHeadSchedulerJob():
         test_head_scheduler_job_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_scheduler/jobs/testString')
+        url = preprocess_url('/_scheduler/jobs/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -10349,24 +9639,13 @@ class TestDeleteReplicationDocument():
     Test Class for delete_replication_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_delete_replication_document_all_params(self):
         """
         delete_replication_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        url = preprocess_url('/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -10413,7 +9692,7 @@ class TestDeleteReplicationDocument():
         test_delete_replication_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        url = preprocess_url('/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -10449,7 +9728,7 @@ class TestDeleteReplicationDocument():
         test_delete_replication_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        url = preprocess_url('/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -10484,24 +9763,13 @@ class TestGetReplicationDocument():
     Test Class for get_replication_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_replication_document_all_params(self):
         """
         get_replication_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        url = preprocess_url('/_replicator/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
@@ -10572,7 +9840,7 @@ class TestGetReplicationDocument():
         test_get_replication_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        url = preprocess_url('/_replicator/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
@@ -10608,7 +9876,7 @@ class TestGetReplicationDocument():
         test_get_replication_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        url = preprocess_url('/_replicator/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
@@ -10643,24 +9911,13 @@ class TestPutReplicationDocument():
     Test Class for put_replication_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_put_replication_document_all_params(self):
         """
         put_replication_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        url = preprocess_url('/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -10807,7 +10064,7 @@ class TestPutReplicationDocument():
         test_put_replication_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        url = preprocess_url('/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -10940,7 +10197,7 @@ class TestPutReplicationDocument():
         test_put_replication_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_replicator/testString')
+        url = preprocess_url('/_replicator/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -11066,24 +10323,13 @@ class TestGetSchedulerDocs():
     Test Class for get_scheduler_docs
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_scheduler_docs_all_params(self):
         """
         get_scheduler_docs()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_scheduler/docs')
+        url = preprocess_url('/_scheduler/docs')
         mock_response = '{"total_rows": 0, "docs": [{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00.000Z", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00.000Z", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}]}'
         responses.add(responses.GET,
                       url,
@@ -11129,7 +10375,7 @@ class TestGetSchedulerDocs():
         test_get_scheduler_docs_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_scheduler/docs')
+        url = preprocess_url('/_scheduler/docs')
         mock_response = '{"total_rows": 0, "docs": [{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00.000Z", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00.000Z", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}]}'
         responses.add(responses.GET,
                       url,
@@ -11159,24 +10405,13 @@ class TestGetSchedulerDocument():
     Test Class for get_scheduler_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_scheduler_document_all_params(self):
         """
         get_scheduler_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_scheduler/docs/_replicator/testString')
+        url = preprocess_url('/_scheduler/docs/_replicator/testString')
         mock_response = '{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00.000Z", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00.000Z", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}'
         responses.add(responses.GET,
                       url,
@@ -11212,7 +10447,7 @@ class TestGetSchedulerDocument():
         test_get_scheduler_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_scheduler/docs/_replicator/testString')
+        url = preprocess_url('/_scheduler/docs/_replicator/testString')
         mock_response = '{"database": "database", "doc_id": "doc_id", "error_count": 0, "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "last_updated": "2019-01-01T12:00:00.000Z", "node": "node", "source": "source", "source_proxy": "source_proxy", "start_time": "2019-01-01T12:00:00.000Z", "state": "initializing", "target": "target", "target_proxy": "target_proxy"}'
         responses.add(responses.GET,
                       url,
@@ -11247,24 +10482,13 @@ class TestGetSchedulerJobs():
     Test Class for get_scheduler_jobs
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_scheduler_jobs_all_params(self):
         """
         get_scheduler_jobs()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_scheduler/jobs')
+        url = preprocess_url('/_scheduler/jobs')
         mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"reason": "reason", "timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}]}'
         responses.add(responses.GET,
                       url,
@@ -11307,7 +10531,7 @@ class TestGetSchedulerJobs():
         test_get_scheduler_jobs_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_scheduler/jobs')
+        url = preprocess_url('/_scheduler/jobs')
         mock_response = '{"total_rows": 0, "jobs": [{"database": "database", "doc_id": "doc_id", "history": [{"reason": "reason", "timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}]}'
         responses.add(responses.GET,
                       url,
@@ -11337,24 +10561,13 @@ class TestGetSchedulerJob():
     Test Class for get_scheduler_job
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_scheduler_job_all_params(self):
         """
         get_scheduler_job()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_scheduler/jobs/testString')
+        url = preprocess_url('/_scheduler/jobs/testString')
         mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"reason": "reason", "timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}'
         responses.add(responses.GET,
                       url,
@@ -11390,7 +10603,7 @@ class TestGetSchedulerJob():
         test_get_scheduler_job_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_scheduler/jobs/testString')
+        url = preprocess_url('/_scheduler/jobs/testString')
         mock_response = '{"database": "database", "doc_id": "doc_id", "history": [{"reason": "reason", "timestamp": "2019-01-01T12:00:00.000Z", "type": "type"}], "id": "id", "info": {"changes_pending": 0, "checkpointed_source_seq": "checkpointed_source_seq", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "error": "error", "missing_revisions_found": 0, "revisions_checked": 0, "source_seq": "source_seq", "through_seq": "through_seq"}, "node": "node", "pid": "pid", "source": "source", "start_time": "2019-01-01T12:00:00.000Z", "target": "target", "user": "user"}'
         responses.add(responses.GET,
                       url,
@@ -11454,6 +10667,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestGetSessionInformation():
@@ -11461,24 +10675,13 @@ class TestGetSessionInformation():
     Test Class for get_session_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_session_information_all_params(self):
         """
         get_session_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_session')
+        url = preprocess_url('/_session')
         mock_response = '{"ok": true, "info": {"authenticated": "authenticated", "authentication_db": "authentication_db", "authentication_handlers": ["authentication_handlers"]}, "userCtx": {"db": "db", "name": "name", "roles": ["_reader"]}}'
         responses.add(responses.GET,
                       url,
@@ -11537,6 +10740,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestGetSecurity():
@@ -11544,24 +10748,13 @@ class TestGetSecurity():
     Test Class for get_security
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_security_all_params(self):
         """
         get_security()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_security')
+        url = preprocess_url('/testString/_security')
         mock_response = '{"admins": {"names": ["names"], "roles": ["roles"]}, "members": {"names": ["names"], "roles": ["roles"]}, "cloudant": {"mapKey": ["_reader"]}, "couchdb_auth_only": false}'
         responses.add(responses.GET,
                       url,
@@ -11597,7 +10790,7 @@ class TestGetSecurity():
         test_get_security_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_security')
+        url = preprocess_url('/testString/_security')
         mock_response = '{"admins": {"names": ["names"], "roles": ["roles"]}, "members": {"names": ["names"], "roles": ["roles"]}, "cloudant": {"mapKey": ["_reader"]}, "couchdb_auth_only": false}'
         responses.add(responses.GET,
                       url,
@@ -11632,24 +10825,13 @@ class TestPutSecurity():
     Test Class for put_security
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_put_security_all_params(self):
         """
         put_security()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_security')
+        url = preprocess_url('/testString/_security')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -11707,7 +10889,7 @@ class TestPutSecurity():
         test_put_security_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_security')
+        url = preprocess_url('/testString/_security')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -11751,24 +10933,13 @@ class TestPostApiKeys():
     Test Class for post_api_keys
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_api_keys_all_params(self):
         """
         post_api_keys()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_api/v2/api_keys')
+        url = preprocess_url('/_api/v2/api_keys')
         mock_response = '{"ok": true, "key": "key", "password": "password"}'
         responses.add(responses.POST,
                       url,
@@ -11798,24 +10969,13 @@ class TestPutCloudantSecurityConfiguration():
     Test Class for put_cloudant_security_configuration
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_put_cloudant_security_configuration_all_params(self):
         """
         put_cloudant_security_configuration()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_api/v2/db/testString/_security')
+        url = preprocess_url('/_api/v2/db/testString/_security')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -11873,7 +11033,7 @@ class TestPutCloudantSecurityConfiguration():
         test_put_cloudant_security_configuration_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_api/v2/db/testString/_security')
+        url = preprocess_url('/_api/v2/db/testString/_security')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -11947,6 +11107,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestGetCorsInformation():
@@ -11954,24 +11115,13 @@ class TestGetCorsInformation():
     Test Class for get_cors_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_cors_information_all_params(self):
         """
         get_cors_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_api/v2/user/config/cors')
+        url = preprocess_url('/_api/v2/user/config/cors')
         mock_response = '{"allow_credentials": true, "enable_cors": true, "origins": ["origins"]}'
         responses.add(responses.GET,
                       url,
@@ -12001,24 +11151,13 @@ class TestPutCorsConfiguration():
     Test Class for put_cors_configuration
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_put_cors_configuration_all_params(self):
         """
         put_cors_configuration()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_api/v2/user/config/cors')
+        url = preprocess_url('/_api/v2/user/config/cors')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -12066,7 +11205,7 @@ class TestPutCorsConfiguration():
         test_put_cors_configuration_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_api/v2/user/config/cors')
+        url = preprocess_url('/_api/v2/user/config/cors')
         mock_response = '{"ok": true}'
         responses.add(responses.PUT,
                       url,
@@ -12132,6 +11271,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestHeadAttachment():
@@ -12139,24 +11279,13 @@ class TestHeadAttachment():
     Test Class for head_attachment
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_head_attachment_all_params(self):
         """
         head_attachment()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString/testString')
+        url = preprocess_url('/testString/testString/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -12203,7 +11332,7 @@ class TestHeadAttachment():
         test_head_attachment_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString/testString')
+        url = preprocess_url('/testString/testString/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -12240,7 +11369,7 @@ class TestHeadAttachment():
         test_head_attachment_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString/testString')
+        url = preprocess_url('/testString/testString/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -12276,24 +11405,13 @@ class TestDeleteAttachment():
     Test Class for delete_attachment
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_delete_attachment_all_params(self):
         """
         delete_attachment()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString/testString')
+        url = preprocess_url('/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -12344,7 +11462,7 @@ class TestDeleteAttachment():
         test_delete_attachment_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString/testString')
+        url = preprocess_url('/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -12384,7 +11502,7 @@ class TestDeleteAttachment():
         test_delete_attachment_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString/testString')
+        url = preprocess_url('/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -12423,24 +11541,13 @@ class TestGetAttachment():
     Test Class for get_attachment
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_attachment_all_params(self):
         """
         get_attachment()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString/testString')
+        url = preprocess_url('/testString/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -12492,7 +11599,7 @@ class TestGetAttachment():
         test_get_attachment_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString/testString')
+        url = preprocess_url('/testString/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -12532,7 +11639,7 @@ class TestGetAttachment():
         test_get_attachment_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString/testString')
+        url = preprocess_url('/testString/testString/testString')
         mock_response = 'This is a mock binary response.'
         responses.add(responses.GET,
                       url,
@@ -12571,24 +11678,13 @@ class TestPutAttachment():
     Test Class for put_attachment
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_put_attachment_all_params(self):
         """
         put_attachment()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString/testString')
+        url = preprocess_url('/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -12644,7 +11740,7 @@ class TestPutAttachment():
         test_put_attachment_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString/testString')
+        url = preprocess_url('/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -12692,7 +11788,7 @@ class TestPutAttachment():
         test_put_attachment_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/testString/testString')
+        url = preprocess_url('/testString/testString/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -12764,6 +11860,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestHeadLocalDocument():
@@ -12771,24 +11868,13 @@ class TestHeadLocalDocument():
     Test Class for head_local_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_head_local_document_all_params(self):
         """
         head_local_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_local/testString')
+        url = preprocess_url('/testString/_local/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -12825,7 +11911,7 @@ class TestHeadLocalDocument():
         test_head_local_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_local/testString')
+        url = preprocess_url('/testString/_local/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -12860,7 +11946,7 @@ class TestHeadLocalDocument():
         test_head_local_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_local/testString')
+        url = preprocess_url('/testString/_local/testString')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -12894,24 +11980,13 @@ class TestDeleteLocalDocument():
     Test Class for delete_local_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_delete_local_document_all_params(self):
         """
         delete_local_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_local/testString')
+        url = preprocess_url('/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -12955,7 +12030,7 @@ class TestDeleteLocalDocument():
         test_delete_local_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_local/testString')
+        url = preprocess_url('/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -12993,7 +12068,7 @@ class TestDeleteLocalDocument():
         test_delete_local_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_local/testString')
+        url = preprocess_url('/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.DELETE,
                       url,
@@ -13030,24 +12105,13 @@ class TestGetLocalDocument():
     Test Class for get_local_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_local_document_all_params(self):
         """
         get_local_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_local/testString')
+        url = preprocess_url('/testString/_local/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
         responses.add(responses.GET,
                       url,
@@ -13101,7 +12165,7 @@ class TestGetLocalDocument():
         test_get_local_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_local/testString')
+        url = preprocess_url('/testString/_local/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
         responses.add(responses.GET,
                       url,
@@ -13139,7 +12203,7 @@ class TestGetLocalDocument():
         test_get_local_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_local/testString')
+        url = preprocess_url('/testString/_local/testString')
         mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}'
         responses.add(responses.GET,
                       url,
@@ -13176,24 +12240,13 @@ class TestPutLocalDocument():
     Test Class for put_local_document
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_put_local_document_all_params(self):
         """
         put_local_document()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_local/testString')
+        url = preprocess_url('/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -13289,7 +12342,7 @@ class TestPutLocalDocument():
         test_put_local_document_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_local/testString')
+        url = preprocess_url('/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -13377,7 +12430,7 @@ class TestPutLocalDocument():
         test_put_local_document_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_local/testString')
+        url = preprocess_url('/testString/_local/testString')
         mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
         responses.add(responses.PUT,
                       url,
@@ -13489,6 +12542,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestPostRevsDiff():
@@ -13496,24 +12550,13 @@ class TestPostRevsDiff():
     Test Class for post_revs_diff
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_revs_diff_all_params(self):
         """
         post_revs_diff()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_revs_diff')
+        url = preprocess_url('/testString/_revs_diff')
         mock_response = '{"mapKey": {"missing": ["missing"], "possible_ancestors": ["possible_ancestors"]}}'
         responses.add(responses.POST,
                       url,
@@ -13557,7 +12600,7 @@ class TestPostRevsDiff():
         test_post_revs_diff_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_revs_diff')
+        url = preprocess_url('/testString/_revs_diff')
         mock_response = '{"mapKey": {"missing": ["missing"], "possible_ancestors": ["possible_ancestors"]}}'
         responses.add(responses.POST,
                       url,
@@ -13594,24 +12637,13 @@ class TestGetShardsInformation():
     Test Class for get_shards_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_shards_information_all_params(self):
         """
         get_shards_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_shards')
+        url = preprocess_url('/testString/_shards')
         mock_response = '{"shards": {"mapKey": ["inner"]}}'
         responses.add(responses.GET,
                       url,
@@ -13647,7 +12679,7 @@ class TestGetShardsInformation():
         test_get_shards_information_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_shards')
+        url = preprocess_url('/testString/_shards')
         mock_response = '{"shards": {"mapKey": ["inner"]}}'
         responses.add(responses.GET,
                       url,
@@ -13682,24 +12714,13 @@ class TestGetDocumentShardsInfo():
     Test Class for get_document_shards_info
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_document_shards_info_all_params(self):
         """
         get_document_shards_info()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_shards/testString')
+        url = preprocess_url('/testString/_shards/testString')
         mock_response = '{"nodes": ["nodes"], "range": "range"}'
         responses.add(responses.GET,
                       url,
@@ -13737,7 +12758,7 @@ class TestGetDocumentShardsInfo():
         test_get_document_shards_info_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/testString/_shards/testString')
+        url = preprocess_url('/testString/_shards/testString')
         mock_response = '{"nodes": ["nodes"], "range": "range"}'
         responses.add(responses.GET,
                       url,
@@ -13803,6 +12824,7 @@ class TestNewInstance():
         """
         with pytest.raises(ValueError, match='authenticator must be provided'):
             service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
             )
 
 class TestHeadUpInformation():
@@ -13810,24 +12832,13 @@ class TestHeadUpInformation():
     Test Class for head_up_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_head_up_information_all_params(self):
         """
         head_up_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_up')
+        url = preprocess_url('/_up')
         responses.add(responses.HEAD,
                       url,
                       status=200)
@@ -13854,24 +12865,13 @@ class TestGetActiveTasks():
     Test Class for get_active_tasks
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_active_tasks_all_params(self):
         """
         get_active_tasks()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_active_tasks')
+        url = preprocess_url('/_active_tasks')
         mock_response = '[{"changes_done": 0, "database": "database", "node": "node", "pid": "pid", "progress": 0, "started_on": 0, "status": "status", "task": "task", "total_changes": 0, "type": "type", "updated_on": 0}]'
         responses.add(responses.GET,
                       url,
@@ -13901,24 +12901,13 @@ class TestGetUpInformation():
     Test Class for get_up_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_up_information_all_params(self):
         """
         get_up_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_up')
+        url = preprocess_url('/_up')
         mock_response = '{"seeds": {"anyKey": "anyValue"}, "status": "maintenance_mode"}'
         responses.add(responses.GET,
                       url,
@@ -13948,24 +12937,13 @@ class TestGetActivityTrackerEvents():
     Test Class for get_activity_tracker_events
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_activity_tracker_events_all_params(self):
         """
         get_activity_tracker_events()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_api/v2/user/activity_tracker/events')
+        url = preprocess_url('/_api/v2/user/activity_tracker/events')
         mock_response = '{"types": ["management"]}'
         responses.add(responses.GET,
                       url,
@@ -13995,24 +12973,13 @@ class TestPostActivityTrackerEvents():
     Test Class for post_activity_tracker_events
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_post_activity_tracker_events_all_params(self):
         """
         post_activity_tracker_events()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_api/v2/user/activity_tracker/events')
+        url = preprocess_url('/_api/v2/user/activity_tracker/events')
         mock_response = '{"ok": true}'
         responses.add(responses.POST,
                       url,
@@ -14054,7 +13021,7 @@ class TestPostActivityTrackerEvents():
         test_post_activity_tracker_events_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_api/v2/user/activity_tracker/events')
+        url = preprocess_url('/_api/v2/user/activity_tracker/events')
         mock_response = '{"ok": true}'
         responses.add(responses.POST,
                       url,
@@ -14089,24 +13056,13 @@ class TestGetCurrentThroughputInformation():
     Test Class for get_current_throughput_information
     """
 
-    def preprocess_url(self, request_url: str):
-        """
-        Preprocess the request URL to ensure the mock response will be found.
-        """
-        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
-        request_url = urllib.parse.quote(request_url, safe=':/')
-        if re.fullmatch('.*/+', request_url) is None:
-            return request_url
-        else:
-            return re.compile(request_url.rstrip('/') + '/+')
-
     @responses.activate
     def test_get_current_throughput_information_all_params(self):
         """
         get_current_throughput_information()
         """
         # Set up mock
-        url = self.preprocess_url(_base_url + '/_api/v2/user/current/throughput')
+        url = preprocess_url('/_api/v2/user/current/throughput')
         mock_response = '{"throughput": {"query": 0, "read": 0, "write": 0}}'
         responses.add(responses.GET,
                       url,
