@@ -942,8 +942,9 @@ class CloudantV1(BaseService):
         :param bool partitioned: (optional) Query parameter to specify whether to
                enable database partitions when creating a database.
         :param int q: (optional) The number of shards in the database. Each shard
-               is a partition of the hash value range. Default is 8, unless overridden in
-               the `cluster config`.
+               is a partition of the hash value range. Its value is set by the service.
+               For more information about modifying database configuration, contact IBM
+               Cloudant support.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `Ok` object
@@ -4185,8 +4186,15 @@ class CloudantV1(BaseService):
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
                value that is specified.
-        :param List[dict] sort: (optional) JSON array of sort syntax elements to
-               determine the sort order of the results.
+        :param List[dict] sort: (optional) The sort field contains a list of pairs,
+               each mapping a field name to a sort direction (asc or desc). The first
+               field name and direction pair is the topmost level of sort. The second
+               pair, if provided, is the next level of sort. The field can be any field,
+               using dotted notation if desired for sub-document fields.
+               For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
+               "desc"}]`
+               When sorting with multiple fields they must use the same sort direction,
+               either all ascending or all descending.
         :param bool stable: (optional) Whether or not the view results should be
                returned from a "stable" set of shards.
         :param str update: (optional) Whether to update the index prior to
@@ -4312,8 +4320,15 @@ class CloudantV1(BaseService):
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
                value that is specified.
-        :param List[dict] sort: (optional) JSON array of sort syntax elements to
-               determine the sort order of the results.
+        :param List[dict] sort: (optional) The sort field contains a list of pairs,
+               each mapping a field name to a sort direction (asc or desc). The first
+               field name and direction pair is the topmost level of sort. The second
+               pair, if provided, is the next level of sort. The field can be any field,
+               using dotted notation if desired for sub-document fields.
+               For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
+               "desc"}]`
+               When sorting with multiple fields they must use the same sort direction,
+               either all ascending or all descending.
         :param bool stable: (optional) Whether or not the view results should be
                returned from a "stable" set of shards.
         :param str update: (optional) Whether to update the index prior to
@@ -4440,8 +4455,15 @@ class CloudantV1(BaseService):
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
                value that is specified.
-        :param List[dict] sort: (optional) JSON array of sort syntax elements to
-               determine the sort order of the results.
+        :param List[dict] sort: (optional) The sort field contains a list of pairs,
+               each mapping a field name to a sort direction (asc or desc). The first
+               field name and direction pair is the topmost level of sort. The second
+               pair, if provided, is the next level of sort. The field can be any field,
+               using dotted notation if desired for sub-document fields.
+               For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
+               "desc"}]`
+               When sorting with multiple fields they must use the same sort direction,
+               either all ascending or all descending.
         :param bool stable: (optional) Whether or not the view results should be
                returned from a "stable" set of shards.
         :param str update: (optional) Whether to update the index prior to
@@ -4570,8 +4592,15 @@ class CloudantV1(BaseService):
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
                value that is specified.
-        :param List[dict] sort: (optional) JSON array of sort syntax elements to
-               determine the sort order of the results.
+        :param List[dict] sort: (optional) The sort field contains a list of pairs,
+               each mapping a field name to a sort direction (asc or desc). The first
+               field name and direction pair is the topmost level of sort. The second
+               pair, if provided, is the next level of sort. The field can be any field,
+               using dotted notation if desired for sub-document fields.
+               For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
+               "desc"}]`
+               When sorting with multiple fields they must use the same sort direction,
+               either all ascending or all descending.
         :param bool stable: (optional) Whether or not the view results should be
                returned from a "stable" set of shards.
         :param str update: (optional) Whether to update the index prior to
@@ -4700,8 +4729,15 @@ class CloudantV1(BaseService):
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
                value that is specified.
-        :param List[dict] sort: (optional) JSON array of sort syntax elements to
-               determine the sort order of the results.
+        :param List[dict] sort: (optional) The sort field contains a list of pairs,
+               each mapping a field name to a sort direction (asc or desc). The first
+               field name and direction pair is the topmost level of sort. The second
+               pair, if provided, is the next level of sort. The field can be any field,
+               using dotted notation if desired for sub-document fields.
+               For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
+               "desc"}]`
+               When sorting with multiple fields they must use the same sort direction,
+               either all ascending or all descending.
         :param bool stable: (optional) Whether or not the view results should be
                returned from a "stable" set of shards.
         :param str update: (optional) Whether to update the index prior to
@@ -6367,6 +6403,11 @@ class CloudantV1(BaseService):
         removing a Cloudant API key, a member or an admin from the list of users that have
         access permissions, you remove it from the list of users that have access to the
         database.
+        ### Note about nobody role
+        The `nobody` username applies to all unauthenticated connection attempts. For
+        example, if an application tries to read data from a database, but did not
+        identify itself, the task can continue only if the `nobody` user has the role
+        `_reader`.
 
         :param str db: Path parameter to specify the database name.
         :param SecurityObject admins: (optional) Schema for names and roles to map
@@ -6471,6 +6512,11 @@ class CloudantV1(BaseService):
         Modify only Cloudant related permissions to database. Be careful: by removing an
         API key from the list, you remove the API key from the list of users that have
         access to the database.
+        ### Note about nobody role
+        The `nobody` username applies to all unauthenticated connection attempts. For
+        example, if an application tries to read data from a database, but did not
+        identify itself, the task can continue only if the `nobody` user has the role
+        `_reader`.
 
         :param str db: Path parameter to specify the database name.
         :param dict cloudant: Database permissions for Cloudant users and/or API
@@ -12695,7 +12741,12 @@ class IndexDefinition():
     :attr IndexTextOperatorDefaultField default_field: (optional) Schema for the
           text index default field configuration. The default field is used to index the
           text of all fields within a document for use with the `$text` operator.
-    :attr List[IndexField] fields: (optional) List of fields to index.
+    :attr List[IndexField] fields: (optional) List of field objects to index.
+          Nested fields are also allowed, e.g. `person.name`.
+          For "json" type indexes each object is a mapping of field name to sort direction
+          (asc or desc).
+          For "text" type indexes each object has a `name` property of the field name and
+          a `type` property of the field type (string, number, or boolean).
     :attr bool index_array_lengths: (optional) Whether to scan every document for
           arrays and store the length for each array found. Set the index_array_lengths
           field to false if:
@@ -12744,7 +12795,12 @@ class IndexDefinition():
                the text index default field configuration. The default field is used to
                index the text of all fields within a document for use with the `$text`
                operator.
-        :param List[IndexField] fields: (optional) List of fields to index.
+        :param List[IndexField] fields: (optional) List of field objects to index.
+               Nested fields are also allowed, e.g. `person.name`.
+               For "json" type indexes each object is a mapping of field name to sort
+               direction (asc or desc).
+               For "text" type indexes each object has a `name` property of the field name
+               and a `type` property of the field type (string, number, or boolean).
         :param bool index_array_lengths: (optional) Whether to scan every document
                for arrays and store the length for each array found. Set the
                index_array_lengths field to false if:
