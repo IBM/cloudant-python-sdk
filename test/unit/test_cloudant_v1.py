@@ -1340,7 +1340,7 @@ class TestPutDatabase():
         # Set up parameter values
         db = 'testString'
         partitioned = False
-        q = 1
+        q = 26
 
         # Invoke method
         response = _service.put_database(
@@ -9951,7 +9951,7 @@ class TestPutReplicationDocument():
         replication_create_target_parameters_model = {}
         replication_create_target_parameters_model['n'] = 1
         replication_create_target_parameters_model['partitioned'] = False
-        replication_create_target_parameters_model['q'] = 1
+        replication_create_target_parameters_model['q'] = 26
 
         # Construct a dict representation of a ReplicationDatabaseAuthBasic model
         replication_database_auth_basic_model = {}
@@ -10098,7 +10098,7 @@ class TestPutReplicationDocument():
         replication_create_target_parameters_model = {}
         replication_create_target_parameters_model['n'] = 1
         replication_create_target_parameters_model['partitioned'] = False
-        replication_create_target_parameters_model['q'] = 1
+        replication_create_target_parameters_model['q'] = 26
 
         # Construct a dict representation of a ReplicationDatabaseAuthBasic model
         replication_database_auth_basic_model = {}
@@ -10231,7 +10231,7 @@ class TestPutReplicationDocument():
         replication_create_target_parameters_model = {}
         replication_create_target_parameters_model['n'] = 1
         replication_create_target_parameters_model['partitioned'] = False
-        replication_create_target_parameters_model['q'] = 1
+        replication_create_target_parameters_model['q'] = 26
 
         # Construct a dict representation of a ReplicationDatabaseAuthBasic model
         replication_database_auth_basic_model = {}
@@ -14247,7 +14247,7 @@ class TestModel_DatabaseInformation():
 
         database_information_cluster_model = {} # DatabaseInformationCluster
         database_information_cluster_model['n'] = 1
-        database_information_cluster_model['q'] = 1
+        database_information_cluster_model['q'] = 26
         database_information_cluster_model['r'] = 1
         database_information_cluster_model['w'] = 1
 
@@ -14303,7 +14303,7 @@ class TestModel_DatabaseInformationCluster():
         # Construct a json representation of a DatabaseInformationCluster model
         database_information_cluster_model_json = {}
         database_information_cluster_model_json['n'] = 1
-        database_information_cluster_model_json['q'] = 1
+        database_information_cluster_model_json['q'] = 26
         database_information_cluster_model_json['r'] = 1
         database_information_cluster_model_json['w'] = 1
 
@@ -14435,7 +14435,7 @@ class TestModel_DbsInfoResult():
 
         database_information_cluster_model = {} # DatabaseInformationCluster
         database_information_cluster_model['n'] = 1
-        database_information_cluster_model['q'] = 1
+        database_information_cluster_model['q'] = 26
         database_information_cluster_model['r'] = 1
         database_information_cluster_model['w'] = 1
 
@@ -15988,7 +15988,7 @@ class TestModel_ReplicationCreateTargetParameters():
         replication_create_target_parameters_model_json = {}
         replication_create_target_parameters_model_json['n'] = 1
         replication_create_target_parameters_model_json['partitioned'] = False
-        replication_create_target_parameters_model_json['q'] = 1
+        replication_create_target_parameters_model_json['q'] = 26
 
         # Construct a model instance of ReplicationCreateTargetParameters by calling from_dict on the json representation
         replication_create_target_parameters_model = ReplicationCreateTargetParameters.from_dict(replication_create_target_parameters_model_json)
@@ -16181,7 +16181,7 @@ class TestModel_ReplicationDocument():
         replication_create_target_parameters_model = {} # ReplicationCreateTargetParameters
         replication_create_target_parameters_model['n'] = 1
         replication_create_target_parameters_model['partitioned'] = False
-        replication_create_target_parameters_model['q'] = 1
+        replication_create_target_parameters_model['q'] = 26
 
         replication_database_auth_basic_model = {} # ReplicationDatabaseAuthBasic
         replication_database_auth_basic_model['password'] = 'testString'
