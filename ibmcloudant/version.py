@@ -17,4 +17,4 @@
 """
 Version of ibmcloudant
 """
-__version__ = '0.0.42'
+__version__ = '0.0.43'
