@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2020.
+# © Copyright IBM Corporation 2020, 2022.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ Test methods in the common module
 import unittest
 from ibmcloudant import common
 
+
 class TestCommon(unittest.TestCase):
     """
     Test methods in the common module
@@ -34,6 +35,7 @@ class TestCommon(unittest.TestCase):
         self.assertIsNotNone(headers)
         self.assertIsNotNone(headers.get('User-Agent'))
         self.assertIn('cloudant-python-sdk', headers.get('User-Agent'))
+        self.assertRegex(headers.get('User-Agent'), r'^cloudant-python-sdk/[\d\.]* \(.*\)$')
 
     def test_get_system_info(self):
         """
