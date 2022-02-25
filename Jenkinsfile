@@ -7,6 +7,13 @@ pipeline {
   options {
     skipDefaultCheckout()
   }
+  parameters {
+    validatingString( name: 'TARGET_VERSION',
+                      defaultValue: 'NONE',
+                      description: 'Tag to create after successful QA',
+                      failedValidationMessage: 'Tag name must be NONE or a semantic version release or pre-release (i.e. no build metadata)',
+                      regex: /NONE|${SVRE_PRE_RELEASE}/)
+  }
   environment {
     GH_CREDS = credentials('gh-sdks-automation')
   }
@@ -97,23 +104,38 @@ pipeline {
         }
       }
     }
-    stage('Publish[repository]') {
+    stage('Update version and tag') {
       when {
         beforeAgent true
         allOf {
-          // Publish master branch, but not on the version update commit after just publishing
+          // We only bump the version and create a tag when building master with a TARGET_VERSION
           branch 'master'
           not {
-            changelog 'Update version.*'
+            equals expected: 'NONE', actual: "${params.TARGET_VERSION}"
           }
         }
       }
       steps {
         // Throw away any temporary version changes used for stage/test
         sh 'git reset --hard'
+        // bump the version
         bumpVersion(false)
         // Push the version bump and release tag
         sh 'git push --tags origin HEAD:master'
+      }
+    }
+    stage('Publish[repository]') {
+      // We publish only when building a tag that meets our semantic version release or pre-release tag format
+      when {
+        beforeAgent true
+        allOf {
+          buildingTag()
+          anyOf {
+            tag pattern: /${env.SVRE_PRE_RELEASE_TAG}/, comparator: "REGEXP"
+          }
+        }
+      }
+      steps {
         publishPublic()
         publishDocs()
       }
@@ -125,7 +147,7 @@ def libName
 def commitHash
 def bumpVersion
 def customizeVersion
-def prefixSdkVersion
+def getNewVersion
 // Default no-op, may be overridden
 def customizePublishingInfo = {}
 def publishArtifactoryBuildInfo
@@ -137,7 +159,7 @@ def buildType = ''
 void defaultInit() {
   // Default to using bump2version
   bumpVersion = { isDevRelease ->
-    newVersion = getNextVersion(isDevRelease)
+    newVersion = getNewVersion(isDevRelease, true)
     // Set an env var with the new version
     env.NEW_SDK_VERSION = newVersion
     doVersionBump(isDevRelease, newVersion)
@@ -147,11 +169,36 @@ void defaultInit() {
     sh "bump2version --new-version ${newVersion} ${allowDirty ? '--allow-dirty': ''} ${isDevRelease ? '--no-commit' : '--tag --tag-message "Release {new_version}"'} patch"
   }
 
-  getNextVersion = { isDevRelease ->
-    // Identify what the next patch version is
-    patchBumpedVersion = sh returnStdout: true, script: 'bump2version --list --dry-run patch | grep new_version=.* | cut -f2 -d='
-    // Now the customized new version
-    return getNewVersion(isDevRelease, patchBumpedVersion)
+  getNewVersion = { isDevRelease, includeBuildMeta ->
+    // Get a staging or target version and customize with lang specific requirements
+    return customizeVersion(isDevRelease ? getDevVersion(includeBuildMeta) : getTargetVersion())
+  }
+
+  getTargetVersion = {
+    version = ''
+    if ('NONE' != params.TARGET_VERSION) {
+      version = params.TARGET_VERSION
+    } else {
+      // If a target version is not provided default to a patch bump
+      version = sh returnStdout: true, script: 'bump2version --list --dry-run patch | grep new_version=.* | cut -f2 -d='
+    }
+    return version.trim()
+  }
+
+  getDevVersion = { includeBuildMeta ->
+    devVersion = getTargetVersion()
+    if (devVersion ==~ /${env.SVRE_RELEASE}/) {
+      // For a release (e.g. 1.0.0) make a -dev pre-release (e.g. 1.0.0-devTS)
+      devVersion += "-dev${currentBuild.startTimeInMillis}"
+    } else if (devVersion ==~ /${env.SVRE_PRE_RELEASE}/) {
+      // For a pre-release (e.g. 1.0.0-b7), add .dev identifier (e.g. 1.0.0-b7.devTS)
+      devVersion += ".dev${currentBuild.startTimeInMillis}"
+    }
+    if (includeBuildMeta) {
+      // Add uniqueness and build metadata when requested to dev build versions
+      devVersion += "+${commitHash}.${currentBuild.number}"
+    }
+    return devVersion
   }
 
   // Default no-op implementation to use semverFormatVersion
@@ -191,18 +238,6 @@ void defaultInit() {
   }
 }
 
-String getNewVersion(isDevRelease, version) {
-  wipVersion = ''
-  if (isDevRelease) {
-    // Add uniqueness and build metadata to dev build versions
-    wipVersion = "${version.trim()}-dev${currentBuild.startTimeInMillis}+${commitHash}.${currentBuild.number}"
-  } else {
-    wipVersion = "${version.trim()}"
-  }
-  // Customize with lang specific requirements
-  return customizeVersion(wipVersion)
-}
-
 // Language specific implementations of the methods:
 // applyCustomizations()
 // runTests()
@@ -214,7 +249,7 @@ void applyCustomizations() {
   libName = 'python'
   customizeVersion = { semverFormatVersion ->
     // Use a python format version
-    semverFormatVersion.replace('-a','a').replace('-b','b').replace('-','.')
+    semverFormatVersion.replace('-a','a').replace('-b','b').replace('-rc', 'rc').replace('-','.')
   }
   customizePublishingInfo = {
     // Set the publishing names and types
