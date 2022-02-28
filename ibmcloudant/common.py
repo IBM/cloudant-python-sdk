@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2020, 2021.
+# © Copyright IBM Corporation 2020, 2022.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,9 +25,11 @@ SDK_NAME = 'cloudant-python-sdk'
 
 
 def get_system_info():  # pylint: disable=missing-docstring
-    return '{0} {1} {2}'.format(platform.system(),  # OS
-                                platform.release(),  # OS version
-                                platform.python_version())  # Python version
+    return f'python.version={platform.python_version()}; ' \
+           f'python.vendor={platform.python_implementation()}; ' \
+           f'os.name={platform.system()}; ' \
+           f'os.version={platform.release()}; ' \
+           f'os.arch={platform.machine()}; lang=python;'
 
 
 def get_user_agent():  # pylint: disable=missing-docstring
@@ -39,7 +41,7 @@ def get_sdk_analytics(service_name, service_version, operation_id):  # pylint: d
         service_name, service_version, operation_id)
 
 
-user_agent = '{0}-{1} {2}'.format(SDK_NAME, __version__, get_system_info())
+user_agent = f'{SDK_NAME}/{__version__} ({get_system_info()})'
 
 
 def get_sdk_headers(service_name, service_version, operation_id):  # pylint: disable=missing-docstring
