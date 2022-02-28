@@ -564,6 +564,69 @@ Expand them to see examples of:
   - [Query a list of all documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=python#postalldocs)
   - [Query the database document changes feed](https://cloud.ibm.com/apidocs/cloudant?code=python#postchanges)
 
+### Model classes vs dictionaries
+
+This SDK supports 2 possible format to define an HTTP request. One approach uses only model classes, while the other only dictionaries.
+
+Here is an exmaple for the only model classes usage:
+
+```python
+price_index = SearchIndexDefinition(
+    index='function (doc) {  index(\"price\", doc.price);}',
+)
+
+design_document_options = DesignDocumentOptions(
+    partitioned=True
+)
+
+partitioned_design_doc = DesignDocument(
+    indexes={'findByPrice': price_index},
+    options=design_document_options
+)
+
+response = client.put_design_document(
+    db='products',
+    design_document=partitioned_design_doc,
+    ddoc='appliances'
+).get_result()
+```
+
+Here is the same example, but with all dictionaries format:
+```python
+price_index = {
+    'index': 'function (doc) {  index(\"price\", doc.price);}',
+}
+
+partitioned_design_doc = {
+    'indexes': {"findByPrice": price_index},
+    'options': {"partitioned": True},
+}
+
+response = client.put_design_document(
+    db='products',
+    design_document=partitioned_design_doc,
+    ddoc='appliances'
+).get_result()
+```
+
+They are completely different data representation, therefore cannot be combined. So this solution will be invalid:
+```python
+price_index = {
+    'index': 'function (doc) {  index(\"price\", doc.price);}',
+}
+
+partitioned_design_doc = DesignDocument(
+    indexes={'findByPrice': price_index},
+    options={"partitioned": True}
+)
+
+response = client.put_design_document(
+    db='products',
+    design_document=partitioned_design_doc,
+    ddoc='appliances'
+).get_result()
+```
+
 ### Further resources
 
 - [Cloudant API docs](https://cloud.ibm.com/apidocs/cloudant?code=python):
