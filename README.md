@@ -575,7 +575,7 @@ This SDK supports two possible formats to define an HTTP request. One approach u
 ```py
 from ibmcloudant.cloudant_v1 import DesignDocument, CloudantV1, DesignDocumentOptions, SearchIndexDefinition
 
-service = CloudantV1.new_instance()
+client = CloudantV1.new_instance()
 
 price_index = SearchIndexDefinition(
     index='function (doc) { index("price", doc.price); }',
@@ -590,7 +590,7 @@ partitioned_design_doc = DesignDocument(
     options=design_document_options
 )
 
-response = service.put_design_document(
+response = client.put_design_document(
     db='products',
     design_document=partitioned_design_doc,
     ddoc='appliances'
@@ -608,18 +608,18 @@ print(response)
 ```py
 from ibmcloudant.cloudant_v1 import CloudantV1
 
-service = CloudantV1.new_instance()
+client = CloudantV1.new_instance()
 
 price_index = {
-    'index': 'function (doc) { index("price", doc.price);}',
+    'index': 'function (doc) { index("price", doc.price); }',
 }
 
 partitioned_design_doc = {
-    'indexes': {"findByPrice": price_index},
-    'options': {"partitioned": True},
+    'indexes': {'findByPrice': price_index},
+    'options': {'partitioned': True},
 }
 
-response = service.put_design_document(
+response = client.put_design_document(
     db='products',
     design_document=partitioned_design_doc,
     ddoc='appliances'
@@ -639,7 +639,7 @@ Since model classes and dicts are different data structures, they cannot be comb
 ```py
 from ibmcloudant.cloudant_v1 import CloudantV1, DesignDocument
 
-service = CloudantV1.new_instance()
+client = CloudantV1.new_instance()
 
 price_index = {
     'index': 'function (doc) { index("price", doc.price); }',
@@ -650,7 +650,7 @@ partitioned_design_doc = DesignDocument(
     options={'partitioned': True}
 )
 
-response = service.put_design_document(
+response = client.put_design_document(
     db='products',
     design_document=partitioned_design_doc,
     ddoc='appliances'
