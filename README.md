@@ -568,9 +568,15 @@ Expand them to see examples of:
 
 This SDK supports two possible formats to define an HTTP request. One approach uses only model classes and the other only dictionaries.
 
-Example using model class structure:
+<details>
+<summary>Example using model class structure</summary>
 
-```python
+[embedmd]:# (test/examples/src/put_ddoc_class.py)
+```py
+from ibmcloudant.cloudant_v1 import DesignDocument, CloudantV1, DesignDocumentOptions, SearchIndexDefinition
+
+service = CloudantV1.new_instance()
+
 price_index = SearchIndexDefinition(
     index='function (doc) { index("price", doc.price); }',
 )
@@ -584,33 +590,57 @@ partitioned_design_doc = DesignDocument(
     options=design_document_options
 )
 
-response = client.put_design_document(
+response = service.put_design_document(
     db='products',
     design_document=partitioned_design_doc,
     ddoc='appliances'
 ).get_result()
+
+print(response)
 ```
 
-Same example using dictionary structure:
-```python
+</details>
+
+<details>
+<summary>Same example using dictionary structure</summary>
+
+[embedmd]:# (test/examples/src/put_ddoc_dict.py)
+```py
+from ibmcloudant.cloudant_v1 import CloudantV1
+
+service = CloudantV1.new_instance()
+
 price_index = {
-    'index': 'function (doc) { index("price", doc.price); }',
+    'index': 'function (doc) { index("price", doc.price);}',
 }
 
 partitioned_design_doc = {
-    'indexes': {'findByPrice': price_index},
-    'options': {'partitioned': True},
+    'indexes': {"findByPrice": price_index},
+    'options': {"partitioned": True},
 }
 
-response = client.put_design_document(
+response = service.put_design_document(
     db='products',
     design_document=partitioned_design_doc,
     ddoc='appliances'
 ).get_result()
+
+print(response)
 ```
 
-Since model classes and dicts are different data structures, they cannot be combined. This solution will be invalid:
-```python
+</details>
+
+Since model classes and dicts are different data structures, they cannot be combined.
+
+<details>
+<summary>This solution will be invalid</summary>
+
+[embedmd]:# (test/examples/src/put_ddoc_invalid.py)
+```py
+from ibmcloudant.cloudant_v1 import CloudantV1, DesignDocument
+
+service = CloudantV1.new_instance()
+
 price_index = {
     'index': 'function (doc) { index("price", doc.price); }',
 }
@@ -620,12 +650,16 @@ partitioned_design_doc = DesignDocument(
     options={'partitioned': True}
 )
 
-response = client.put_design_document(
+response = service.put_design_document(
     db='products',
     design_document=partitioned_design_doc,
     ddoc='appliances'
 ).get_result()
+
+print(response)
 ```
+
+</details>
 
 ### Further resources
 
