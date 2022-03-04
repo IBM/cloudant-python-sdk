@@ -1,17 +1,17 @@
 from ibmcloudant.cloudant_v1 import CloudantV1
 
-service = CloudantV1.new_instance()
+client = CloudantV1.new_instance()
 
 price_index = {
-    'index': 'function (doc) { index("price", doc.price);}',
+    'index': 'function (doc) { index("price", doc.price); }',
 }
 
 partitioned_design_doc = {
-    'indexes': {"findByPrice": price_index},
-    'options': {"partitioned": True},
+    'indexes': {'findByPrice': price_index},
+    'options': {'partitioned': True},
 }
 
-response = service.put_design_document(
+response = client.put_design_document(
     db='products',
     design_document=partitioned_design_doc,
     ddoc='appliances'
