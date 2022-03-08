@@ -50,7 +50,7 @@ example_document: Document = Document(id=example_doc_id)
 
 # Add "name" and "joined" fields to the document
 example_document.name = "Bob Smith"
-example_document.joined = "2019-01-24T10:42:99.000Z"
+example_document.joined = "2019-01-24T10:42:59.000Z"
 
 # Save the document in the database with "post_document" function
 create_document_response = client.post_document(
