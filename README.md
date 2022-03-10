@@ -252,6 +252,22 @@ Once the environment variables are set, you can try out the code examples.
 
 [embedmd]:# (test/examples/src/get_info_from_existing_database.py)
 ```py
+# coding: utf-8
+
+# © Copyright IBM Corporation 2020, 2022.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import json
 
 from ibmcloudant.cloudant_v1 import CloudantV1
@@ -320,6 +336,22 @@ Now comes the exciting part, you create your own `orders` database and add a doc
 
 [embedmd]:# (test/examples/src/create_db_and_doc.py)
 ```py
+# coding: utf-8
+
+# © Copyright IBM Corporation 2020, 2022.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import logging
 
 from ibm_cloud_sdk_core import ApiException
@@ -328,10 +360,10 @@ from ibmcloudant.cloudant_v1 import CloudantV1, Document
 # Set logging level to show only critical logs
 logging.basicConfig(level=logging.CRITICAL)
 
-# 1. Create a client with `CLOUDANT` default service name ============
+# 1. Create a client with `CLOUDANT` default service name =============
 client = CloudantV1.new_instance()
 
-# 2. Create a database ===============================================
+# 2. Create a database ================================================
 example_db_name = "orders"
 
 # Try to create database if it doesn't exist
@@ -346,22 +378,38 @@ except ApiException as ae:
         print(f'Cannot create "{example_db_name}" database, ' +
               'it already exists.')
 
-# 3. Create a document ===============================================
+# 3. Create a document ================================================
 # Create a document object with "example" id
 example_doc_id = "example"
+# Setting `id` for the document is optional when "post_document"
+# function is used for CREATE. When `id` is not provided the server
+# will generate one for your document.
 example_document: Document = Document(id=example_doc_id)
 
 # Add "name" and "joined" fields to the document
 example_document.name = "Bob Smith"
-example_document.joined = "2019-01-24T10:42:99.000Z"
+example_document.joined = "2019-01-24T10:42:59.000Z"
 
-# Save the document in the database
+# Save the document in the database with "post_document" function
 create_document_response = client.post_document(
     db=example_db_name,
     document=example_document
 ).get_result()
 
-# Keep track of the revision number from the `example` document object
+# =====================================================================
+# Note: saving the document can also be done with the "put_document"
+# function. In this case `doc_id` is required for a CREATE operation:
+"""
+create_document_response = client.put_document(
+    db=example_db_name,
+    doc_id=example_doc_id,
+    document=example_document
+).get_result()
+"""
+# =====================================================================
+
+# Keeping track of the revision number of the document object
+# is necessary for further UPDATE/DELETE operations:
 example_document.rev = create_document_response["rev"]
 print(f'You have created the document:\n{example_document}')
 ```
@@ -395,6 +443,22 @@ database or 'example' document was not found."
 
 [embedmd]:# (test/examples/src/update_doc.py)
 ```py
+# coding: utf-8
+
+# © Copyright IBM Corporation 2020, 2022.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import json
 import logging
 
@@ -404,10 +468,10 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 # Set logging level to show only critical logs
 logging.basicConfig(level=logging.CRITICAL)
 
-# 1. Create a client with `CLOUDANT` default service name ============
+# 1. Create a client with `CLOUDANT` default service name =============
 client = CloudantV1.new_instance()
 
-# 2. Update the document =============================================
+# 2. Update the document ==============================================
 example_db_name = "orders"
 example_doc_id = "example"
 
@@ -418,11 +482,15 @@ try:
         doc_id=example_doc_id
     ).get_result()
 
+    # =================================================================
     # Note: for response byte stream use:
-    # document_as_byte_stream = client.get_document_as_stream(
-    #     db=example_db_name,
-    #     doc_id=example_doc_id
-    # ).get_result()
+    """
+    document_as_byte_stream = client.get_document_as_stream(
+        db=example_db_name,
+        doc_id=example_doc_id
+    ).get_result()
+    """
+    # =================================================================
 
     #  Add Bob Smith's address to the document
     document["address"] = "19 Front Street, Darlington, DL5 1TY"
@@ -437,13 +505,33 @@ try:
         document=document
     ).get_result()
 
-    # Note: for request byte stream use:
-    # update_document_response = client.post_document(
-    #     db=example_db_name,
-    #     document=document_as_byte_stream
-    # ).get_result()
+    # =================================================================
+    # Note 1: for request byte stream use:
+    """
+    update_document_response = client.post_document(
+        db=example_db_name,
+        document=document_as_byte_stream
+    ).get_result()
+    """
+    # =================================================================
 
-    # Keep track with the revision number of the document object:
+    # =================================================================
+    # Note 2: updating the document can also be done with the
+    # "put_document" function. `doc_id` and `rev` are required for an
+    # UPDATE operation, but `rev` can be provided in the document
+    # object as `_rev` too:
+    """
+    update_document_response = client.put_document(
+        db=example_db_name,
+        doc_id=example_doc_id,  # doc_id is a required parameter
+        rev=document["_rev"],
+        document=document  # _rev in the document object CAN replace above `rev` parameter
+    ).get_result()
+    """
+    # =================================================================
+
+    # Keeping track of the latest revision number of the document
+    # object is necessary for further UPDATE/DELETE operations:
     document["_rev"] = update_document_response["rev"]
     print(f'You have updated the document:\n' +
           json.dumps(document, indent=2))
@@ -482,6 +570,22 @@ database or 'example' document was not found."
 
 [embedmd]:# (test/examples/src/delete_doc.py)
 ```py
+# coding: utf-8
+
+# © Copyright IBM Corporation 2020, 2022.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import logging
 
 from ibm_cloud_sdk_core import ApiException
@@ -490,10 +594,10 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 # Set logging level to show only critical logs
 logging.basicConfig(level=logging.CRITICAL)
 
-# 1. Create a client with `CLOUDANT` default service name ============
+# 1. Create a client with `CLOUDANT` default service name =============
 client = CloudantV1.new_instance()
 
-# 2. Delete the document =============================================
+# 2. Delete the document ==============================================
 example_db_name = "orders"
 example_doc_id = "example"
 
@@ -506,8 +610,8 @@ try:
 
     delete_document_response = client.delete_document(
         db=example_db_name,
-        doc_id=example_doc_id,
-        rev=document["_rev"]
+        doc_id=example_doc_id,  # `doc_id` is required for DELETE
+        rev=document["_rev"]    # `rev` is required for DELETE
     ).get_result()
 
     if delete_document_response["ok"]:

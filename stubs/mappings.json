@@ -185,7 +185,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"_id\":\"example\",\"_rev\":\"2-4e2178e85cffb32d38ba4e451f6ca376\",\"name\":\"Bob Smith\",\"joined\":\"2019-01-24T10:42:99.000Z\"}\n",
+    "body" : "{\"_id\":\"example\",\"_rev\":\"2-4e2178e85cffb32d38ba4e451f6ca376\",\"name\":\"Bob Smith\",\"joined\":\"2019-01-24T10:42:59.000Z\"}\n",
     "headers" : {
       "Cache-Control" : "must-revalidate",
       "Content-Type" : "application/json",
@@ -239,7 +239,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"_id\":\"example\",\"_rev\":\"1-1b403633540686aa32d013fda9041a5d\",\"name\":\"Bob Smith\",\"joined\":\"2019-01-24T10:42:99.000Z\"}\n",
+    "body" : "{\"_id\":\"example\",\"_rev\":\"1-1b403633540686aa32d013fda9041a5d\",\"name\":\"Bob Smith\",\"joined\":\"2019-01-24T10:42:59.000Z\"}\n",
     "headers" : {
       "Cache-Control" : "must-revalidate",
       "Content-Type" : "application/json",
@@ -287,7 +287,7 @@
     "url" : "/orders",
     "method" : "POST",
     "bodyPatterns" : [ {
-      "equalToJson" : "{\"_id\":\"example\",\"name\":\"Bob Smith\",\"joined\":\"2019-01-24T10:42:99.000Z\"}",
+      "equalToJson" : "{\"_id\":\"example\",\"name\":\"Bob Smith\",\"joined\":\"2019-01-24T10:42:59.000Z\"}",
       "ignoreArrayOrder" : true,
       "ignoreExtraElements" : true
     } ]
