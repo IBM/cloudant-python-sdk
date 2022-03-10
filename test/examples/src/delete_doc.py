@@ -1,3 +1,19 @@
+# coding: utf-8
+
+# © Copyright IBM Corporation 2020, 2022.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import logging
 
 from ibm_cloud_sdk_core import ApiException
@@ -6,10 +22,10 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 # Set logging level to show only critical logs
 logging.basicConfig(level=logging.CRITICAL)
 
-# 1. Create a client with `CLOUDANT` default service name ============
+# 1. Create a client with `CLOUDANT` default service name =============
 client = CloudantV1.new_instance()
 
-# 2. Delete the document =============================================
+# 2. Delete the document ==============================================
 example_db_name = "orders"
 example_doc_id = "example"
 
@@ -22,8 +38,8 @@ try:
 
     delete_document_response = client.delete_document(
         db=example_db_name,
-        doc_id=example_doc_id,
-        rev=document["_rev"]
+        doc_id=example_doc_id,  # `doc_id` is required for DELETE
+        rev=document["_rev"]    # `rev` is required for DELETE
     ).get_result()
 
     if delete_document_response["ok"]:
