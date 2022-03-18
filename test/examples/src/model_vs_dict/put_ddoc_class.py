@@ -19,7 +19,7 @@ from ibmcloudant.cloudant_v1 import DesignDocument, CloudantV1, DesignDocumentOp
 client = CloudantV1.new_instance()
 
 price_index = SearchIndexDefinition(
-    index='function (doc) { index("price", doc.price); }',
+    index='function (doc) { index("price", doc.price); }'
 )
 
 design_document_options = DesignDocumentOptions(
