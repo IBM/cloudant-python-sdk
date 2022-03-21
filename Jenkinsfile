@@ -86,15 +86,24 @@ pipeline {
             } else if (libName == 'java') {
               prefixedSdkVersion = "${env.NEW_SDK_VERSION}"
             }
+
+            gaugeBranchName = env.BRANCH_NAME
+
+            // When it's a tag build or the current branch name equals
+            // with the lib's default branch name (e.g. master)
+            // try to use the release sdks-gauge branch name as the sdks-gauge target
+            if (env.TAG_NAME || env.BRANCH_NAME == env.SDK_LANG_DEFAULT_BRANCH_NAME){
+                gaugeBranchName = env.TARGET_GAUGE_RELEASE_BRANCH_NAME
+            }
           try {
-            buildResults = build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${env.BRANCH_NAME}", parameters: [
+            buildResults = build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${gaugeBranchName}", parameters: [
                 string(name: 'SDK_RUN_LANG', value: "$libName"),
                 string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "$prefixedSdkVersion")]
           } catch (hudson.AbortException ae) {
             // only run build in sdks-gauge master branch if BRANCH_NAME doesn't exist
-            if (ae.getMessage().contains("No item named /${env.SDKS_GAUGE_PIPELINE_PROJECT}/${env.BRANCH_NAME} found")) {
-              echo "No matching branch named '${env.BRANCH_NAME}' in sdks-gauge, building master branch"
-              build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/master", parameters: [
+            if (ae.getMessage().contains("No item named /${env.SDKS_GAUGE_PIPELINE_PROJECT}/${gaugeBranchName} found")) {
+              echo "No matching branch named '${gaugeBranchName}' in sdks-gauge, building ${env.TARGET_GAUGE_DEFAULT_BRANCH_NAME} branch"
+              build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${env.TARGET_GAUGE_DEFAULT_BRANCH_NAME}", parameters: [
                   string(name: 'SDK_RUN_LANG', value: "$libName"),
                   string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "$prefixedSdkVersion")]
             } else {
