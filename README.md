@@ -48,6 +48,7 @@ to avoid surprises.
     + [4. Delete your previously created document](#4-delete-your-previously-created-document)
   * [Error handling](#error-handling)
   * [Raw IO](#raw-io)
+  * [Model classes vs dictionaries](#model-classes-vs-dictionaries)
   * [Further resources](#further-resources)
 - [Questions](#questions)
 - [Issues](#issues)
@@ -603,6 +604,103 @@ Expand them to see examples of:
 - Byte responses:
   - [Query a list of all documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=python#postalldocs)
   - [Query the database document changes feed](https://cloud.ibm.com/apidocs/cloudant?code=python#postchanges)
+
+### Model classes vs dictionaries
+
+This SDK supports two possible formats to define an HTTP request. One approach uses only model classes and the other only dictionaries.
+
+<details>
+<summary>Example using model class structure</summary>
+
+[embedmd]:# (test/examples/src/model_vs_dict/put_ddoc_class.py /from/ $)
+```py
+from ibmcloudant.cloudant_v1 import DesignDocument, CloudantV1, DesignDocumentOptions, SearchIndexDefinition
+
+client = CloudantV1.new_instance()
+
+price_index = SearchIndexDefinition(
+    index='function (doc) { index("price", doc.price); }'
+)
+
+design_document_options = DesignDocumentOptions(
+    partitioned=True
+)
+
+partitioned_design_doc = DesignDocument(
+    indexes={'findByPrice': price_index},
+    options=design_document_options
+)
+
+response = client.put_design_document(
+    db='products',
+    design_document=partitioned_design_doc,
+    ddoc='appliances'
+).get_result()
+
+print(response)
+```
+
+</details>
+
+<details>
+<summary>Same example using dictionary structure</summary>
+
+[embedmd]:# (test/examples/src/model_vs_dict/put_ddoc_dict.py /from/ $)
+```py
+from ibmcloudant.cloudant_v1 import CloudantV1
+
+client = CloudantV1.new_instance()
+
+price_index = {
+    'index': 'function (doc) { index("price", doc.price); }'
+}
+
+partitioned_design_doc = {
+    'indexes': {'findByPrice': price_index},
+    'options': {'partitioned': True},
+}
+
+response = client.put_design_document(
+    db='products',
+    design_document=partitioned_design_doc,
+    ddoc='appliances'
+).get_result()
+
+print(response)
+```
+
+</details>
+
+Since model classes and dicts are different data structures, they cannot be combined.
+
+<details>
+<summary>This solution will be invalid</summary>
+
+[embedmd]:# (test/examples/src/model_vs_dict/put_ddoc_invalid.py /from/ $)
+```py
+from ibmcloudant.cloudant_v1 import CloudantV1, DesignDocument
+
+client = CloudantV1.new_instance()
+
+price_index = {
+    'index': 'function (doc) { index("price", doc.price); }'
+}
+
+partitioned_design_doc = DesignDocument(
+    indexes={'findByPrice': price_index},
+    options={'partitioned': True}
+)
+
+response = client.put_design_document(
+    db='products',
+    design_document=partitioned_design_doc,
+    ddoc='appliances'
+).get_result()
+
+print(response)
+```
+
+</details>
 
 ### Further resources
 
