@@ -418,7 +418,7 @@ class TestGetDbUpdates():
         """
         # Set up mock
         url = preprocess_url('/_db_updates')
-        mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "db_name": "db_name", "seq": "seq", "type": "created"}]}'
+        mock_response = '{"last_seq": "last_seq", "results": [{"db_name": "db_name", "seq": "seq", "type": "created"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -467,7 +467,7 @@ class TestGetDbUpdates():
         """
         # Set up mock
         url = preprocess_url('/_db_updates')
-        mock_response = '{"last_seq": "last_seq", "results": [{"account": "account", "db_name": "db_name", "seq": "seq", "type": "created"}]}'
+        mock_response = '{"last_seq": "last_seq", "results": [{"db_name": "db_name", "seq": "seq", "type": "created"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -1014,18 +1014,18 @@ class TestGetAllDbs():
 
         # Set up parameter values
         descending = False
-        endkey = 'testString'
+        end_key = 'testString'
         limit = 0
         skip = 0
-        startkey = 'testString'
+        start_key = 'testString'
 
         # Invoke method
         response = _service.get_all_dbs(
             descending=descending,
-            endkey=endkey,
+            end_key=end_key,
             limit=limit,
             skip=skip,
-            startkey=startkey,
+            start_key=start_key,
             headers={}
         )
 
@@ -1036,10 +1036,10 @@ class TestGetAllDbs():
         query_string = responses.calls[0].request.url.split('?',1)[1]
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'descending={}'.format('true' if descending else 'false') in query_string
-        assert 'endkey={}'.format(endkey) in query_string
+        assert 'end_key={}'.format(end_key) in query_string
         assert 'limit={}'.format(limit) in query_string
         assert 'skip={}'.format(skip) in query_string
-        assert 'startkey={}'.format(startkey) in query_string
+        assert 'start_key={}'.format(start_key) in query_string
 
     def test_get_all_dbs_all_params_with_retries(self):
         # Enable retries and run test_get_all_dbs_all_params.
@@ -1868,10 +1868,10 @@ class TestPostAllDocs():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
+        end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        start_key = 'testString'
 
         # Invoke method
         response = _service.post_all_docs(
@@ -1885,10 +1885,10 @@ class TestPostAllDocs():
             limit=limit,
             skip=skip,
             update_seq=update_seq,
-            endkey=endkey,
+            end_key=end_key,
             key=key,
             keys=keys,
-            startkey=startkey,
+            start_key=start_key,
             headers={}
         )
 
@@ -1909,10 +1909,10 @@ class TestPostAllDocs():
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
-        assert req_body['endkey'] == 'testString'
+        assert req_body['end_key'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['startkey'] == 'testString'
+        assert req_body['start_key'] == 'testString'
 
     def test_post_all_docs_all_params_with_retries(self):
         # Enable retries and run test_post_all_docs_all_params.
@@ -1948,10 +1948,10 @@ class TestPostAllDocs():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
+        end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        start_key = 'testString'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -2002,10 +2002,10 @@ class TestPostAllDocsAsStream():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
+        end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        start_key = 'testString'
 
         # Invoke method
         response = _service.post_all_docs_as_stream(
@@ -2019,10 +2019,10 @@ class TestPostAllDocsAsStream():
             limit=limit,
             skip=skip,
             update_seq=update_seq,
-            endkey=endkey,
+            end_key=end_key,
             key=key,
             keys=keys,
-            startkey=startkey,
+            start_key=start_key,
             headers={}
         )
 
@@ -2043,10 +2043,10 @@ class TestPostAllDocsAsStream():
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
-        assert req_body['endkey'] == 'testString'
+        assert req_body['end_key'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['startkey'] == 'testString'
+        assert req_body['start_key'] == 'testString'
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -2088,10 +2088,10 @@ class TestPostAllDocsAsStream():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
+        end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        start_key = 'testString'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -2142,10 +2142,10 @@ class TestPostAllDocsQueries():
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
         all_docs_query_model['update_seq'] = False
-        all_docs_query_model['endkey'] = 'testString'
+        all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['testString']
-        all_docs_query_model['startkey'] = 'testString'
+        all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -2202,10 +2202,10 @@ class TestPostAllDocsQueries():
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
         all_docs_query_model['update_seq'] = False
-        all_docs_query_model['endkey'] = 'testString'
+        all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['testString']
-        all_docs_query_model['startkey'] = 'testString'
+        all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -2261,10 +2261,10 @@ class TestPostAllDocsQueriesAsStream():
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
         all_docs_query_model['update_seq'] = False
-        all_docs_query_model['endkey'] = 'testString'
+        all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['testString']
-        all_docs_query_model['startkey'] = 'testString'
+        all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -2327,10 +2327,10 @@ class TestPostAllDocsQueriesAsStream():
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
         all_docs_query_model['update_seq'] = False
-        all_docs_query_model['endkey'] = 'testString'
+        all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['testString']
-        all_docs_query_model['startkey'] = 'testString'
+        all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -5015,7 +5015,7 @@ class TestGetDesignDocumentInformation():
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_info')
-        mock_response = '{"name": "name", "view_index": {"compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
+        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -5053,7 +5053,7 @@ class TestGetDesignDocumentInformation():
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_info')
-        mock_response = '{"name": "name", "view_index": {"compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
+        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -5114,10 +5114,10 @@ class TestPostDesignDocs():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
+        end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        start_key = 'testString'
         accept = 'application/json'
 
         # Invoke method
@@ -5132,10 +5132,10 @@ class TestPostDesignDocs():
             limit=limit,
             skip=skip,
             update_seq=update_seq,
-            endkey=endkey,
+            end_key=end_key,
             key=key,
             keys=keys,
-            startkey=startkey,
+            start_key=start_key,
             accept=accept,
             headers={}
         )
@@ -5157,10 +5157,10 @@ class TestPostDesignDocs():
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
-        assert req_body['endkey'] == 'testString'
+        assert req_body['end_key'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['startkey'] == 'testString'
+        assert req_body['start_key'] == 'testString'
 
     def test_post_design_docs_all_params_with_retries(self):
         # Enable retries and run test_post_design_docs_all_params.
@@ -5196,10 +5196,10 @@ class TestPostDesignDocs():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
+        end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        start_key = 'testString'
 
         # Invoke method
         response = _service.post_design_docs(
@@ -5213,10 +5213,10 @@ class TestPostDesignDocs():
             limit=limit,
             skip=skip,
             update_seq=update_seq,
-            endkey=endkey,
+            end_key=end_key,
             key=key,
             keys=keys,
-            startkey=startkey,
+            start_key=start_key,
             headers={}
         )
 
@@ -5237,10 +5237,10 @@ class TestPostDesignDocs():
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
-        assert req_body['endkey'] == 'testString'
+        assert req_body['end_key'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['startkey'] == 'testString'
+        assert req_body['start_key'] == 'testString'
 
     def test_post_design_docs_required_params_with_retries(self):
         # Enable retries and run test_post_design_docs_required_params.
@@ -5276,10 +5276,10 @@ class TestPostDesignDocs():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
+        end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        start_key = 'testString'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -5330,10 +5330,10 @@ class TestPostDesignDocsQueries():
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
         all_docs_query_model['update_seq'] = False
-        all_docs_query_model['endkey'] = 'testString'
+        all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['testString']
-        all_docs_query_model['startkey'] = 'testString'
+        all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -5392,10 +5392,10 @@ class TestPostDesignDocsQueries():
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
         all_docs_query_model['update_seq'] = False
-        all_docs_query_model['endkey'] = 'testString'
+        all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['testString']
-        all_docs_query_model['startkey'] = 'testString'
+        all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -5452,10 +5452,10 @@ class TestPostDesignDocsQueries():
         all_docs_query_model['limit'] = 0
         all_docs_query_model['skip'] = 0
         all_docs_query_model['update_seq'] = False
-        all_docs_query_model['endkey'] = 'testString'
+        all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
         all_docs_query_model['keys'] = ['testString']
-        all_docs_query_model['startkey'] = 'testString'
+        all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
         db = 'testString'
@@ -5550,16 +5550,16 @@ class TestPostView():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
-        endkey_docid = 'testString'
+        end_key = 'testString'
+        end_key_doc_id = 'testString'
         group = False
         group_level = 1
         key = 'testString'
         keys = ['testString']
         reduce = True
         stable = False
-        startkey = 'testString'
-        startkey_docid = 'testString'
+        start_key = 'testString'
+        start_key_doc_id = 'testString'
         update = 'true'
 
         # Invoke method
@@ -5576,16 +5576,16 @@ class TestPostView():
             limit=limit,
             skip=skip,
             update_seq=update_seq,
-            endkey=endkey,
-            endkey_docid=endkey_docid,
+            end_key=end_key,
+            end_key_doc_id=end_key_doc_id,
             group=group,
             group_level=group_level,
             key=key,
             keys=keys,
             reduce=reduce,
             stable=stable,
-            startkey=startkey,
-            startkey_docid=startkey_docid,
+            start_key=start_key,
+            start_key_doc_id=start_key_doc_id,
             update=update,
             headers={}
         )
@@ -5607,16 +5607,16 @@ class TestPostView():
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
-        assert req_body['endkey'] == 'testString'
-        assert req_body['endkey_docid'] == 'testString'
+        assert req_body['end_key'] == 'testString'
+        assert req_body['end_key_doc_id'] == 'testString'
         assert req_body['group'] == False
         assert req_body['group_level'] == 1
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
         assert req_body['reduce'] == True
         assert req_body['stable'] == False
-        assert req_body['startkey'] == 'testString'
-        assert req_body['startkey_docid'] == 'testString'
+        assert req_body['start_key'] == 'testString'
+        assert req_body['start_key_doc_id'] == 'testString'
         assert req_body['update'] == 'true'
 
     def test_post_view_all_params_with_retries(self):
@@ -5655,16 +5655,16 @@ class TestPostView():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
-        endkey_docid = 'testString'
+        end_key = 'testString'
+        end_key_doc_id = 'testString'
         group = False
         group_level = 1
         key = 'testString'
         keys = ['testString']
         reduce = True
         stable = False
-        startkey = 'testString'
-        startkey_docid = 'testString'
+        start_key = 'testString'
+        start_key_doc_id = 'testString'
         update = 'true'
 
         # Pass in all but one required param and check for a ValueError
@@ -5720,16 +5720,16 @@ class TestPostViewAsStream():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
-        endkey_docid = 'testString'
+        end_key = 'testString'
+        end_key_doc_id = 'testString'
         group = False
         group_level = 1
         key = 'testString'
         keys = ['testString']
         reduce = True
         stable = False
-        startkey = 'testString'
-        startkey_docid = 'testString'
+        start_key = 'testString'
+        start_key_doc_id = 'testString'
         update = 'true'
 
         # Invoke method
@@ -5746,16 +5746,16 @@ class TestPostViewAsStream():
             limit=limit,
             skip=skip,
             update_seq=update_seq,
-            endkey=endkey,
-            endkey_docid=endkey_docid,
+            end_key=end_key,
+            end_key_doc_id=end_key_doc_id,
             group=group,
             group_level=group_level,
             key=key,
             keys=keys,
             reduce=reduce,
             stable=stable,
-            startkey=startkey,
-            startkey_docid=startkey_docid,
+            start_key=start_key,
+            start_key_doc_id=start_key_doc_id,
             update=update,
             headers={}
         )
@@ -5777,16 +5777,16 @@ class TestPostViewAsStream():
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
-        assert req_body['endkey'] == 'testString'
-        assert req_body['endkey_docid'] == 'testString'
+        assert req_body['end_key'] == 'testString'
+        assert req_body['end_key_doc_id'] == 'testString'
         assert req_body['group'] == False
         assert req_body['group_level'] == 1
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
         assert req_body['reduce'] == True
         assert req_body['stable'] == False
-        assert req_body['startkey'] == 'testString'
-        assert req_body['startkey_docid'] == 'testString'
+        assert req_body['start_key'] == 'testString'
+        assert req_body['start_key_doc_id'] == 'testString'
         assert req_body['update'] == 'true'
 
         # Verify streamed JSON response
@@ -5831,16 +5831,16 @@ class TestPostViewAsStream():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
-        endkey_docid = 'testString'
+        end_key = 'testString'
+        end_key_doc_id = 'testString'
         group = False
         group_level = 1
         key = 'testString'
         keys = ['testString']
         reduce = True
         stable = False
-        startkey = 'testString'
-        startkey_docid = 'testString'
+        start_key = 'testString'
+        start_key_doc_id = 'testString'
         update = 'true'
 
         # Pass in all but one required param and check for a ValueError
@@ -5894,16 +5894,16 @@ class TestPostViewQueries():
         view_query_model['limit'] = 0
         view_query_model['skip'] = 0
         view_query_model['update_seq'] = False
-        view_query_model['endkey'] = 'testString'
-        view_query_model['endkey_docid'] = 'testString'
+        view_query_model['end_key'] = 'testString'
+        view_query_model['end_key_doc_id'] = 'testString'
         view_query_model['group'] = False
         view_query_model['group_level'] = 1
         view_query_model['key'] = 'testString'
         view_query_model['keys'] = ['testString']
         view_query_model['reduce'] = True
         view_query_model['stable'] = False
-        view_query_model['startkey'] = 'testString'
-        view_query_model['startkey_docid'] = 'testString'
+        view_query_model['start_key'] = 'testString'
+        view_query_model['start_key_doc_id'] = 'testString'
         view_query_model['update'] = 'true'
 
         # Set up parameter values
@@ -5965,16 +5965,16 @@ class TestPostViewQueries():
         view_query_model['limit'] = 0
         view_query_model['skip'] = 0
         view_query_model['update_seq'] = False
-        view_query_model['endkey'] = 'testString'
-        view_query_model['endkey_docid'] = 'testString'
+        view_query_model['end_key'] = 'testString'
+        view_query_model['end_key_doc_id'] = 'testString'
         view_query_model['group'] = False
         view_query_model['group_level'] = 1
         view_query_model['key'] = 'testString'
         view_query_model['keys'] = ['testString']
         view_query_model['reduce'] = True
         view_query_model['stable'] = False
-        view_query_model['startkey'] = 'testString'
-        view_query_model['startkey_docid'] = 'testString'
+        view_query_model['start_key'] = 'testString'
+        view_query_model['start_key_doc_id'] = 'testString'
         view_query_model['update'] = 'true'
 
         # Set up parameter values
@@ -6035,16 +6035,16 @@ class TestPostViewQueriesAsStream():
         view_query_model['limit'] = 0
         view_query_model['skip'] = 0
         view_query_model['update_seq'] = False
-        view_query_model['endkey'] = 'testString'
-        view_query_model['endkey_docid'] = 'testString'
+        view_query_model['end_key'] = 'testString'
+        view_query_model['end_key_doc_id'] = 'testString'
         view_query_model['group'] = False
         view_query_model['group_level'] = 1
         view_query_model['key'] = 'testString'
         view_query_model['keys'] = ['testString']
         view_query_model['reduce'] = True
         view_query_model['stable'] = False
-        view_query_model['startkey'] = 'testString'
-        view_query_model['startkey_docid'] = 'testString'
+        view_query_model['start_key'] = 'testString'
+        view_query_model['start_key_doc_id'] = 'testString'
         view_query_model['update'] = 'true'
 
         # Set up parameter values
@@ -6112,16 +6112,16 @@ class TestPostViewQueriesAsStream():
         view_query_model['limit'] = 0
         view_query_model['skip'] = 0
         view_query_model['update_seq'] = False
-        view_query_model['endkey'] = 'testString'
-        view_query_model['endkey_docid'] = 'testString'
+        view_query_model['end_key'] = 'testString'
+        view_query_model['end_key_doc_id'] = 'testString'
         view_query_model['group'] = False
         view_query_model['group_level'] = 1
         view_query_model['key'] = 'testString'
         view_query_model['keys'] = ['testString']
         view_query_model['reduce'] = True
         view_query_model['stable'] = False
-        view_query_model['startkey'] = 'testString'
-        view_query_model['startkey_docid'] = 'testString'
+        view_query_model['start_key'] = 'testString'
+        view_query_model['start_key_doc_id'] = 'testString'
         view_query_model['update'] = 'true'
 
         # Set up parameter values
@@ -6301,10 +6301,10 @@ class TestPostPartitionAllDocs():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
+        end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        start_key = 'testString'
 
         # Invoke method
         response = _service.post_partition_all_docs(
@@ -6319,10 +6319,10 @@ class TestPostPartitionAllDocs():
             limit=limit,
             skip=skip,
             update_seq=update_seq,
-            endkey=endkey,
+            end_key=end_key,
             key=key,
             keys=keys,
-            startkey=startkey,
+            start_key=start_key,
             headers={}
         )
 
@@ -6343,10 +6343,10 @@ class TestPostPartitionAllDocs():
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
-        assert req_body['endkey'] == 'testString'
+        assert req_body['end_key'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['startkey'] == 'testString'
+        assert req_body['start_key'] == 'testString'
 
     def test_post_partition_all_docs_all_params_with_retries(self):
         # Enable retries and run test_post_partition_all_docs_all_params.
@@ -6383,10 +6383,10 @@ class TestPostPartitionAllDocs():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
+        end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        start_key = 'testString'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -6439,10 +6439,10 @@ class TestPostPartitionAllDocsAsStream():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
+        end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        start_key = 'testString'
 
         # Invoke method
         response = _service.post_partition_all_docs_as_stream(
@@ -6457,10 +6457,10 @@ class TestPostPartitionAllDocsAsStream():
             limit=limit,
             skip=skip,
             update_seq=update_seq,
-            endkey=endkey,
+            end_key=end_key,
             key=key,
             keys=keys,
-            startkey=startkey,
+            start_key=start_key,
             headers={}
         )
 
@@ -6481,10 +6481,10 @@ class TestPostPartitionAllDocsAsStream():
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
-        assert req_body['endkey'] == 'testString'
+        assert req_body['end_key'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['startkey'] == 'testString'
+        assert req_body['start_key'] == 'testString'
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -6527,10 +6527,10 @@ class TestPostPartitionAllDocsAsStream():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
+        end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        startkey = 'testString'
+        start_key = 'testString'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -6877,16 +6877,16 @@ class TestPostPartitionView():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
-        endkey_docid = 'testString'
+        end_key = 'testString'
+        end_key_doc_id = 'testString'
         group = False
         group_level = 1
         key = 'testString'
         keys = ['testString']
         reduce = True
         stable = False
-        startkey = 'testString'
-        startkey_docid = 'testString'
+        start_key = 'testString'
+        start_key_doc_id = 'testString'
         update = 'true'
 
         # Invoke method
@@ -6904,16 +6904,16 @@ class TestPostPartitionView():
             limit=limit,
             skip=skip,
             update_seq=update_seq,
-            endkey=endkey,
-            endkey_docid=endkey_docid,
+            end_key=end_key,
+            end_key_doc_id=end_key_doc_id,
             group=group,
             group_level=group_level,
             key=key,
             keys=keys,
             reduce=reduce,
             stable=stable,
-            startkey=startkey,
-            startkey_docid=startkey_docid,
+            start_key=start_key,
+            start_key_doc_id=start_key_doc_id,
             update=update,
             headers={}
         )
@@ -6935,16 +6935,16 @@ class TestPostPartitionView():
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
-        assert req_body['endkey'] == 'testString'
-        assert req_body['endkey_docid'] == 'testString'
+        assert req_body['end_key'] == 'testString'
+        assert req_body['end_key_doc_id'] == 'testString'
         assert req_body['group'] == False
         assert req_body['group_level'] == 1
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
         assert req_body['reduce'] == True
         assert req_body['stable'] == False
-        assert req_body['startkey'] == 'testString'
-        assert req_body['startkey_docid'] == 'testString'
+        assert req_body['start_key'] == 'testString'
+        assert req_body['start_key_doc_id'] == 'testString'
         assert req_body['update'] == 'true'
 
     def test_post_partition_view_all_params_with_retries(self):
@@ -6984,16 +6984,16 @@ class TestPostPartitionView():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
-        endkey_docid = 'testString'
+        end_key = 'testString'
+        end_key_doc_id = 'testString'
         group = False
         group_level = 1
         key = 'testString'
         keys = ['testString']
         reduce = True
         stable = False
-        startkey = 'testString'
-        startkey_docid = 'testString'
+        start_key = 'testString'
+        start_key_doc_id = 'testString'
         update = 'true'
 
         # Pass in all but one required param and check for a ValueError
@@ -7051,16 +7051,16 @@ class TestPostPartitionViewAsStream():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
-        endkey_docid = 'testString'
+        end_key = 'testString'
+        end_key_doc_id = 'testString'
         group = False
         group_level = 1
         key = 'testString'
         keys = ['testString']
         reduce = True
         stable = False
-        startkey = 'testString'
-        startkey_docid = 'testString'
+        start_key = 'testString'
+        start_key_doc_id = 'testString'
         update = 'true'
 
         # Invoke method
@@ -7078,16 +7078,16 @@ class TestPostPartitionViewAsStream():
             limit=limit,
             skip=skip,
             update_seq=update_seq,
-            endkey=endkey,
-            endkey_docid=endkey_docid,
+            end_key=end_key,
+            end_key_doc_id=end_key_doc_id,
             group=group,
             group_level=group_level,
             key=key,
             keys=keys,
             reduce=reduce,
             stable=stable,
-            startkey=startkey,
-            startkey_docid=startkey_docid,
+            start_key=start_key,
+            start_key_doc_id=start_key_doc_id,
             update=update,
             headers={}
         )
@@ -7109,16 +7109,16 @@ class TestPostPartitionViewAsStream():
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
-        assert req_body['endkey'] == 'testString'
-        assert req_body['endkey_docid'] == 'testString'
+        assert req_body['end_key'] == 'testString'
+        assert req_body['end_key_doc_id'] == 'testString'
         assert req_body['group'] == False
         assert req_body['group_level'] == 1
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
         assert req_body['reduce'] == True
         assert req_body['stable'] == False
-        assert req_body['startkey'] == 'testString'
-        assert req_body['startkey_docid'] == 'testString'
+        assert req_body['start_key'] == 'testString'
+        assert req_body['start_key_doc_id'] == 'testString'
         assert req_body['update'] == 'true'
 
         # Verify streamed JSON response
@@ -7164,16 +7164,16 @@ class TestPostPartitionViewAsStream():
         limit = 0
         skip = 0
         update_seq = False
-        endkey = 'testString'
-        endkey_docid = 'testString'
+        end_key = 'testString'
+        end_key_doc_id = 'testString'
         group = False
         group_level = 1
         key = 'testString'
         keys = ['testString']
         reduce = True
         stable = False
-        startkey = 'testString'
-        startkey_docid = 'testString'
+        start_key = 'testString'
+        start_key_doc_id = 'testString'
         update = 'true'
 
         # Pass in all but one required param and check for a ValueError
@@ -8692,7 +8692,7 @@ class TestGetSearchInfo():
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_search_info/testString')
-        mock_response = '{"name": "name", "search_index": {"committed_seq": 13, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 11}}'
+        mock_response = '{"name": "name", "search_index": {"committed_seq": 13, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 11, "signature": "signature"}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -8732,7 +8732,7 @@ class TestGetSearchInfo():
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_search_info/testString')
-        mock_response = '{"name": "name", "search_index": {"committed_seq": 13, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 11}}'
+        mock_response = '{"name": "name", "search_index": {"committed_seq": 13, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 11, "signature": "signature"}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -13211,10 +13211,10 @@ class TestModel_AllDocsQuery():
         all_docs_query_model_json['limit'] = 0
         all_docs_query_model_json['skip'] = 0
         all_docs_query_model_json['update_seq'] = False
-        all_docs_query_model_json['endkey'] = 'testString'
+        all_docs_query_model_json['end_key'] = 'testString'
         all_docs_query_model_json['key'] = 'testString'
         all_docs_query_model_json['keys'] = ['testString']
-        all_docs_query_model_json['startkey'] = 'testString'
+        all_docs_query_model_json['start_key'] = 'testString'
 
         # Construct a model instance of AllDocsQuery by calling from_dict on the json representation
         all_docs_query_model = AllDocsQuery.from_dict(all_docs_query_model_json)
@@ -14309,7 +14309,6 @@ class TestModel_DbEvent():
 
         # Construct a json representation of a DbEvent model
         db_event_model_json = {}
-        db_event_model_json['account'] = 'testString'
         db_event_model_json['db_name'] = 'testString'
         db_event_model_json['seq'] = 'testString'
         db_event_model_json['type'] = 'created'
@@ -14342,7 +14341,6 @@ class TestModel_DbUpdates():
         # Construct dict forms of any model objects needed in order to build this model.
 
         db_event_model = {} # DbEvent
-        db_event_model['account'] = 'testString'
         db_event_model['db_name'] = 'testString'
         db_event_model['seq'] = 'testString'
         db_event_model['type'] = 'created'
@@ -14547,6 +14545,7 @@ class TestModel_DesignDocumentInformation():
         content_information_sizes_model['file'] = 26
 
         design_document_view_index_model = {} # DesignDocumentViewIndex
+        design_document_view_index_model['collator_versions'] = ['testString']
         design_document_view_index_model['compact_running'] = True
         design_document_view_index_model['language'] = 'testString'
         design_document_view_index_model['signature'] = 'testString'
@@ -14623,6 +14622,7 @@ class TestModel_DesignDocumentViewIndex():
 
         # Construct a json representation of a DesignDocumentViewIndex model
         design_document_view_index_model_json = {}
+        design_document_view_index_model_json['collator_versions'] = ['testString']
         design_document_view_index_model_json['compact_running'] = True
         design_document_view_index_model_json['language'] = 'testString'
         design_document_view_index_model_json['signature'] = 'testString'
@@ -16660,6 +16660,7 @@ class TestModel_SearchIndexInfo():
         search_index_info_model_json['doc_count'] = 0
         search_index_info_model_json['doc_del_count'] = 0
         search_index_info_model_json['pending_seq'] = 26
+        search_index_info_model_json['signature'] = 'testString'
 
         # Construct a model instance of SearchIndexInfo by calling from_dict on the json representation
         search_index_info_model = SearchIndexInfo.from_dict(search_index_info_model_json)
@@ -16694,6 +16695,7 @@ class TestModel_SearchInfoResult():
         search_index_info_model['doc_count'] = 0
         search_index_info_model['doc_del_count'] = 0
         search_index_info_model['pending_seq'] = 26
+        search_index_info_model['signature'] = 'testString'
 
         # Construct a json representation of a SearchInfoResult model
         search_info_result_model_json = {}
@@ -17396,16 +17398,16 @@ class TestModel_ViewQuery():
         view_query_model_json['limit'] = 0
         view_query_model_json['skip'] = 0
         view_query_model_json['update_seq'] = False
-        view_query_model_json['endkey'] = 'testString'
-        view_query_model_json['endkey_docid'] = 'testString'
+        view_query_model_json['end_key'] = 'testString'
+        view_query_model_json['end_key_doc_id'] = 'testString'
         view_query_model_json['group'] = False
         view_query_model_json['group_level'] = 1
         view_query_model_json['key'] = 'testString'
         view_query_model_json['keys'] = ['testString']
         view_query_model_json['reduce'] = True
         view_query_model_json['stable'] = False
-        view_query_model_json['startkey'] = 'testString'
-        view_query_model_json['startkey_docid'] = 'testString'
+        view_query_model_json['start_key'] = 'testString'
+        view_query_model_json['start_key_doc_id'] = 'testString'
         view_query_model_json['update'] = 'true'
 
         # Construct a model instance of ViewQuery by calling from_dict on the json representation
