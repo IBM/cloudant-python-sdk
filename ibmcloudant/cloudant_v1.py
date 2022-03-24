@@ -372,6 +372,10 @@ class CloudantV1(BaseService):
         Requests the database changes feed in the same way as `GET /{db}/_changes` does.
         It is widely used with the `filter` query parameter because it allows one to pass
         more information to the filter.
+        ### Note
+        Before using the changes feed we recommend reading the
+        [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-faq-using-changes-feed)
+        to understand the limitations and appropriate use cases.".
 
         :param str db: Path parameter to specify the database name.
         :param List[str] doc_ids: (optional) Schema for a list of document IDs.
@@ -403,6 +407,12 @@ class CloudantV1(BaseService):
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
                supplied argument.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
+               (but not `$ne`) can be used as the basis of a query. You should include at
+               least one of these in a selector.
+               For further reference see
+               [selector
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
         :param str last_event_id: (optional) Header parameter to specify the ID of
                the last events received by the server on a previous connection. Overrides
                `since` query parameter.
@@ -551,6 +561,10 @@ class CloudantV1(BaseService):
         Requests the database changes feed in the same way as `GET /{db}/_changes` does.
         It is widely used with the `filter` query parameter because it allows one to pass
         more information to the filter.
+        ### Note
+        Before using the changes feed we recommend reading the
+        [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-faq-using-changes-feed)
+        to understand the limitations and appropriate use cases.".
 
         :param str db: Path parameter to specify the database name.
         :param List[str] doc_ids: (optional) Schema for a list of document IDs.
@@ -582,6 +596,12 @@ class CloudantV1(BaseService):
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
                supplied argument.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
+               (but not `$ne`) can be used as the basis of a query. You should include at
+               least one of these in a selector.
+               For further reference see
+               [selector
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
         :param str last_event_id: (optional) Header parameter to specify the ID of
                the last events received by the server on a previous connection. Overrides
                `since` query parameter.
@@ -748,10 +768,10 @@ class CloudantV1(BaseService):
     def get_all_dbs(self,
         *,
         descending: bool = None,
-        endkey: str = None,
+        end_key: str = None,
         limit: int = None,
         skip: int = None,
-        startkey: str = None,
+        start_key: str = None,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -759,14 +779,14 @@ class CloudantV1(BaseService):
 
         :param bool descending: (optional) Query parameter to specify whether to
                return the documents in descending by key order.
-        :param str endkey: (optional) Query parameter to specify to stop returning
+        :param str end_key: (optional) Query parameter to specify to stop returning
                records when the specified key is reached. String representation of any
                JSON type that matches the key type emitted by the view function.
         :param int limit: (optional) Query parameter to specify the number of
                returned documents to limit the result to.
         :param int skip: (optional) Query parameter to specify the number of
                records before starting to return the results.
-        :param str startkey: (optional) Query parameter to specify to start
+        :param str start_key: (optional) Query parameter to specify to start
                returning records from the specified key. String representation of any JSON
                type that matches the key type emitted by the view function.
         :param dict headers: A `dict` containing the request headers
@@ -782,10 +802,10 @@ class CloudantV1(BaseService):
 
         params = {
             'descending': descending,
-            'endkey': endkey,
+            'end_key': end_key,
             'limit': limit,
             'skip': skip,
-            'startkey': startkey
+            'start_key': start_key
         }
 
         if 'headers' in kwargs:
@@ -1060,13 +1080,14 @@ class CloudantV1(BaseService):
         Create or modify a document in a database.
 
         Creates or modifies a document in the specified database by using the supplied
-        JSON document. If the JSON document doesn't specify an `_id` field, then the
-        document is created with a new unique ID generated by the UUID algorithm that is
-        configured for the server. If the document includes the `_id` field, then it is
-        created with that `_id` or updated if the `_id` already exists, and an appropriate
-        `_rev` is included in the JSON document. If the `_id` includes the `_local` or
-        `_design` prefix, then this operation is used to create or modify local or design
-        documents respectively.
+        JSON document.
+        For creation, you may specify the document ID but you should not specify the
+        revision. If you don't specify the document ID, then the server generates an ID
+        for your document.
+        For modification, you must specify the document ID and a revision identifier in
+        the JSON document.
+        If your document ID includes the `_local/` or `_design/` prefix, then this
+        operation creates or modifies a local or a design document respectively.
 
         :param str db: Path parameter to specify the database name.
         :param Document document: HTTP request body for Document operations.
@@ -1135,10 +1156,10 @@ class CloudantV1(BaseService):
         limit: int = None,
         skip: int = None,
         update_seq: bool = None,
-        endkey: str = None,
+        end_key: str = None,
         key: str = None,
         keys: List[str] = None,
-        startkey: str = None,
+        start_key: str = None,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -1173,10 +1194,10 @@ class CloudantV1(BaseService):
         :param bool update_seq: (optional) Parameter to specify whether to include
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
-        :param str endkey: (optional) Schema for a document ID.
+        :param str end_key: (optional) Schema for a document ID.
         :param str key: (optional) Schema for a document ID.
         :param List[str] keys: (optional) Schema for a list of document IDs.
-        :param str startkey: (optional) Schema for a document ID.
+        :param str start_key: (optional) Schema for a document ID.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `AllDocsResult` object
@@ -1200,10 +1221,10 @@ class CloudantV1(BaseService):
             'limit': limit,
             'skip': skip,
             'update_seq': update_seq,
-            'endkey': endkey,
+            'end_key': end_key,
             'key': key,
             'keys': keys,
-            'startkey': startkey
+            'start_key': start_key
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -1238,10 +1259,10 @@ class CloudantV1(BaseService):
         limit: int = None,
         skip: int = None,
         update_seq: bool = None,
-        endkey: str = None,
+        end_key: str = None,
         key: str = None,
         keys: List[str] = None,
-        startkey: str = None,
+        start_key: str = None,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -1276,10 +1297,10 @@ class CloudantV1(BaseService):
         :param bool update_seq: (optional) Parameter to specify whether to include
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
-        :param str endkey: (optional) Schema for a document ID.
+        :param str end_key: (optional) Schema for a document ID.
         :param str key: (optional) Schema for a document ID.
         :param List[str] keys: (optional) Schema for a list of document IDs.
-        :param str startkey: (optional) Schema for a document ID.
+        :param str start_key: (optional) Schema for a document ID.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `BinaryIO` result
@@ -1303,10 +1324,10 @@ class CloudantV1(BaseService):
             'limit': limit,
             'skip': skip,
             'update_seq': update_seq,
-            'endkey': endkey,
+            'end_key': end_key,
             'key': key,
             'keys': keys,
-            'startkey': startkey
+            'start_key': start_key
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -1455,10 +1476,10 @@ class CloudantV1(BaseService):
         """
         Bulk modify multiple documents in a database.
 
-        The bulk document API allows you to create and update multiple documents at the
-        same time within a single request. The basic operation is similar to creating or
-        updating a single document, except that you batch the document structure and
-        information.
+        The bulk document API allows you to create, update, and delete multiple documents
+        at the same time within a single request. The basic operation is similar to
+        creating, updating, or deleting a single document, except that you batch the
+        document structure and information.
 
         :param str db: Path parameter to specify the database name.
         :param BulkDocs bulk_docs: HTTP request body for postBulkDocs.
@@ -2278,9 +2299,10 @@ class CloudantV1(BaseService):
         """
         Create or modify a document.
 
-        The PUT method creates a new named document, or creates a new revision of the
-        existing document. Unlike the `POST /{db}` request, you must specify the document
-        ID in the request URL.
+        Creates or modifies a document in the specified database.
+        For creation, you must specify the document ID but you should not specify the
+        revision.
+        For modification, you must specify the document ID and a revision  identifier.
 
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
@@ -2719,10 +2741,10 @@ class CloudantV1(BaseService):
         limit: int = None,
         skip: int = None,
         update_seq: bool = None,
-        endkey: str = None,
+        end_key: str = None,
         key: str = None,
         keys: List[str] = None,
-        startkey: str = None,
+        start_key: str = None,
         accept: str = None,
         **kwargs
     ) -> DetailedResponse:
@@ -2758,10 +2780,10 @@ class CloudantV1(BaseService):
         :param bool update_seq: (optional) Parameter to specify whether to include
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
-        :param str endkey: (optional) Schema for a document ID.
+        :param str end_key: (optional) Schema for a document ID.
         :param str key: (optional) Schema for a document ID.
         :param List[str] keys: (optional) Schema for a list of document IDs.
-        :param str startkey: (optional) Schema for a document ID.
+        :param str start_key: (optional) Schema for a document ID.
         :param str accept: (optional) The type of the response: application/json or
                application/octet-stream.
         :param dict headers: A `dict` containing the request headers
@@ -2789,10 +2811,10 @@ class CloudantV1(BaseService):
             'limit': limit,
             'skip': skip,
             'update_seq': update_seq,
-            'endkey': endkey,
+            'end_key': end_key,
             'key': key,
             'keys': keys,
-            'startkey': startkey
+            'start_key': start_key
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -2894,16 +2916,16 @@ class CloudantV1(BaseService):
         limit: int = None,
         skip: int = None,
         update_seq: bool = None,
-        endkey: object = None,
-        endkey_docid: str = None,
+        end_key: object = None,
+        end_key_doc_id: str = None,
         group: bool = None,
         group_level: int = None,
         key: object = None,
         keys: List[object] = None,
         reduce: bool = None,
         stable: bool = None,
-        startkey: object = None,
-        startkey_docid: str = None,
+        start_key: object = None,
+        start_key_doc_id: str = None,
         update: str = None,
         **kwargs
     ) -> DetailedResponse:
@@ -2944,8 +2966,8 @@ class CloudantV1(BaseService):
         :param bool update_seq: (optional) Parameter to specify whether to include
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
-        :param object endkey: (optional) Schema for any JSON type.
-        :param str endkey_docid: (optional) Schema for a document ID.
+        :param object end_key: (optional) Schema for any JSON type.
+        :param str end_key_doc_id: (optional) Schema for a document ID.
         :param bool group: (optional) Parameter to specify whether to group the
                results using the reduce function to a group rather than a single row.
                Implies reduce is true and the maximum group_level.
@@ -2961,8 +2983,8 @@ class CloudantV1(BaseService):
                function is defined.
         :param bool stable: (optional) Parameter to specify whether view results
                should be returned from a stable set of shards.
-        :param object startkey: (optional) Schema for any JSON type.
-        :param str startkey_docid: (optional) Schema for a document ID.
+        :param object start_key: (optional) Schema for any JSON type.
+        :param str start_key_doc_id: (optional) Schema for a document ID.
         :param str update: (optional) Parameter to specify whether or not the view
                in question should be updated prior to responding to the user.
         :param dict headers: A `dict` containing the request headers
@@ -2992,16 +3014,16 @@ class CloudantV1(BaseService):
             'limit': limit,
             'skip': skip,
             'update_seq': update_seq,
-            'endkey': endkey,
-            'endkey_docid': endkey_docid,
+            'end_key': end_key,
+            'end_key_doc_id': end_key_doc_id,
             'group': group,
             'group_level': group_level,
             'key': key,
             'keys': keys,
             'reduce': reduce,
             'stable': stable,
-            'startkey': startkey,
-            'startkey_docid': startkey_docid,
+            'start_key': start_key,
+            'start_key_doc_id': start_key_doc_id,
             'update': update
         }
         data = {k: v for (k, v) in data.items() if v is not None}
@@ -3039,16 +3061,16 @@ class CloudantV1(BaseService):
         limit: int = None,
         skip: int = None,
         update_seq: bool = None,
-        endkey: object = None,
-        endkey_docid: str = None,
+        end_key: object = None,
+        end_key_doc_id: str = None,
         group: bool = None,
         group_level: int = None,
         key: object = None,
         keys: List[object] = None,
         reduce: bool = None,
         stable: bool = None,
-        startkey: object = None,
-        startkey_docid: str = None,
+        start_key: object = None,
+        start_key_doc_id: str = None,
         update: str = None,
         **kwargs
     ) -> DetailedResponse:
@@ -3089,8 +3111,8 @@ class CloudantV1(BaseService):
         :param bool update_seq: (optional) Parameter to specify whether to include
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
-        :param object endkey: (optional) Schema for any JSON type.
-        :param str endkey_docid: (optional) Schema for a document ID.
+        :param object end_key: (optional) Schema for any JSON type.
+        :param str end_key_doc_id: (optional) Schema for a document ID.
         :param bool group: (optional) Parameter to specify whether to group the
                results using the reduce function to a group rather than a single row.
                Implies reduce is true and the maximum group_level.
@@ -3106,8 +3128,8 @@ class CloudantV1(BaseService):
                function is defined.
         :param bool stable: (optional) Parameter to specify whether view results
                should be returned from a stable set of shards.
-        :param object startkey: (optional) Schema for any JSON type.
-        :param str startkey_docid: (optional) Schema for a document ID.
+        :param object start_key: (optional) Schema for any JSON type.
+        :param str start_key_doc_id: (optional) Schema for a document ID.
         :param str update: (optional) Parameter to specify whether or not the view
                in question should be updated prior to responding to the user.
         :param dict headers: A `dict` containing the request headers
@@ -3137,16 +3159,16 @@ class CloudantV1(BaseService):
             'limit': limit,
             'skip': skip,
             'update_seq': update_seq,
-            'endkey': endkey,
-            'endkey_docid': endkey_docid,
+            'end_key': end_key,
+            'end_key_doc_id': end_key_doc_id,
             'group': group,
             'group_level': group_level,
             'key': key,
             'keys': keys,
             'reduce': reduce,
             'stable': stable,
-            'startkey': startkey,
-            'startkey_docid': startkey_docid,
+            'start_key': start_key,
+            'start_key_doc_id': start_key_doc_id,
             'update': update
         }
         data = {k: v for (k, v) in data.items() if v is not None}
@@ -3366,10 +3388,10 @@ class CloudantV1(BaseService):
         limit: int = None,
         skip: int = None,
         update_seq: bool = None,
-        endkey: str = None,
+        end_key: str = None,
         key: str = None,
         keys: List[str] = None,
-        startkey: str = None,
+        start_key: str = None,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -3406,10 +3428,10 @@ class CloudantV1(BaseService):
         :param bool update_seq: (optional) Parameter to specify whether to include
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
-        :param str endkey: (optional) Schema for a document ID.
+        :param str end_key: (optional) Schema for a document ID.
         :param str key: (optional) Schema for a document ID.
         :param List[str] keys: (optional) Schema for a list of document IDs.
-        :param str startkey: (optional) Schema for a document ID.
+        :param str start_key: (optional) Schema for a document ID.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `AllDocsResult` object
@@ -3435,10 +3457,10 @@ class CloudantV1(BaseService):
             'limit': limit,
             'skip': skip,
             'update_seq': update_seq,
-            'endkey': endkey,
+            'end_key': end_key,
             'key': key,
             'keys': keys,
-            'startkey': startkey
+            'start_key': start_key
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -3474,10 +3496,10 @@ class CloudantV1(BaseService):
         limit: int = None,
         skip: int = None,
         update_seq: bool = None,
-        endkey: str = None,
+        end_key: str = None,
         key: str = None,
         keys: List[str] = None,
-        startkey: str = None,
+        start_key: str = None,
         **kwargs
     ) -> DetailedResponse:
         """
@@ -3514,10 +3536,10 @@ class CloudantV1(BaseService):
         :param bool update_seq: (optional) Parameter to specify whether to include
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
-        :param str endkey: (optional) Schema for a document ID.
+        :param str end_key: (optional) Schema for a document ID.
         :param str key: (optional) Schema for a document ID.
         :param List[str] keys: (optional) Schema for a list of document IDs.
-        :param str startkey: (optional) Schema for a document ID.
+        :param str start_key: (optional) Schema for a document ID.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `BinaryIO` result
@@ -3543,10 +3565,10 @@ class CloudantV1(BaseService):
             'limit': limit,
             'skip': skip,
             'update_seq': update_seq,
-            'endkey': endkey,
+            'end_key': end_key,
             'key': key,
             'keys': keys,
-            'startkey': startkey
+            'start_key': start_key
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -3836,16 +3858,16 @@ class CloudantV1(BaseService):
         limit: int = None,
         skip: int = None,
         update_seq: bool = None,
-        endkey: object = None,
-        endkey_docid: str = None,
+        end_key: object = None,
+        end_key_doc_id: str = None,
         group: bool = None,
         group_level: int = None,
         key: object = None,
         keys: List[object] = None,
         reduce: bool = None,
         stable: bool = None,
-        startkey: object = None,
-        startkey_docid: str = None,
+        start_key: object = None,
+        start_key_doc_id: str = None,
         update: str = None,
         **kwargs
     ) -> DetailedResponse:
@@ -3887,8 +3909,8 @@ class CloudantV1(BaseService):
         :param bool update_seq: (optional) Parameter to specify whether to include
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
-        :param object endkey: (optional) Schema for any JSON type.
-        :param str endkey_docid: (optional) Schema for a document ID.
+        :param object end_key: (optional) Schema for any JSON type.
+        :param str end_key_doc_id: (optional) Schema for a document ID.
         :param bool group: (optional) Parameter to specify whether to group the
                results using the reduce function to a group rather than a single row.
                Implies reduce is true and the maximum group_level.
@@ -3904,8 +3926,8 @@ class CloudantV1(BaseService):
                function is defined.
         :param bool stable: (optional) Parameter to specify whether view results
                should be returned from a stable set of shards.
-        :param object startkey: (optional) Schema for any JSON type.
-        :param str startkey_docid: (optional) Schema for a document ID.
+        :param object start_key: (optional) Schema for any JSON type.
+        :param str start_key_doc_id: (optional) Schema for a document ID.
         :param str update: (optional) Parameter to specify whether or not the view
                in question should be updated prior to responding to the user.
         :param dict headers: A `dict` containing the request headers
@@ -3937,16 +3959,16 @@ class CloudantV1(BaseService):
             'limit': limit,
             'skip': skip,
             'update_seq': update_seq,
-            'endkey': endkey,
-            'endkey_docid': endkey_docid,
+            'end_key': end_key,
+            'end_key_doc_id': end_key_doc_id,
             'group': group,
             'group_level': group_level,
             'key': key,
             'keys': keys,
             'reduce': reduce,
             'stable': stable,
-            'startkey': startkey,
-            'startkey_docid': startkey_docid,
+            'start_key': start_key,
+            'start_key_doc_id': start_key_doc_id,
             'update': update
         }
         data = {k: v for (k, v) in data.items() if v is not None}
@@ -3985,16 +4007,16 @@ class CloudantV1(BaseService):
         limit: int = None,
         skip: int = None,
         update_seq: bool = None,
-        endkey: object = None,
-        endkey_docid: str = None,
+        end_key: object = None,
+        end_key_doc_id: str = None,
         group: bool = None,
         group_level: int = None,
         key: object = None,
         keys: List[object] = None,
         reduce: bool = None,
         stable: bool = None,
-        startkey: object = None,
-        startkey_docid: str = None,
+        start_key: object = None,
+        start_key_doc_id: str = None,
         update: str = None,
         **kwargs
     ) -> DetailedResponse:
@@ -4036,8 +4058,8 @@ class CloudantV1(BaseService):
         :param bool update_seq: (optional) Parameter to specify whether to include
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
-        :param object endkey: (optional) Schema for any JSON type.
-        :param str endkey_docid: (optional) Schema for a document ID.
+        :param object end_key: (optional) Schema for any JSON type.
+        :param str end_key_doc_id: (optional) Schema for a document ID.
         :param bool group: (optional) Parameter to specify whether to group the
                results using the reduce function to a group rather than a single row.
                Implies reduce is true and the maximum group_level.
@@ -4053,8 +4075,8 @@ class CloudantV1(BaseService):
                function is defined.
         :param bool stable: (optional) Parameter to specify whether view results
                should be returned from a stable set of shards.
-        :param object startkey: (optional) Schema for any JSON type.
-        :param str startkey_docid: (optional) Schema for a document ID.
+        :param object start_key: (optional) Schema for any JSON type.
+        :param str start_key_doc_id: (optional) Schema for a document ID.
         :param str update: (optional) Parameter to specify whether or not the view
                in question should be updated prior to responding to the user.
         :param dict headers: A `dict` containing the request headers
@@ -4086,16 +4108,16 @@ class CloudantV1(BaseService):
             'limit': limit,
             'skip': skip,
             'update_seq': update_seq,
-            'endkey': endkey,
-            'endkey_docid': endkey_docid,
+            'end_key': end_key,
+            'end_key_doc_id': end_key_doc_id,
             'group': group,
             'group_level': group_level,
             'key': key,
             'keys': keys,
             'reduce': reduce,
             'stable': stable,
-            'startkey': startkey,
-            'startkey_docid': startkey_docid,
+            'start_key': start_key,
+            'start_key_doc_id': start_key_doc_id,
             'update': update
         }
         data = {k: v for (k, v) in data.items() if v is not None}
@@ -4137,11 +4159,15 @@ class CloudantV1(BaseService):
         **kwargs
     ) -> DetailedResponse:
         """
-        Query a database partition index by using selector syntax (POST).
+        Query a database partition index by using selector syntax.
 
-        Query documents by using a declarative JSON querying syntax. Queries can use the
-        built-in `_all_docs` index or custom indices, specified by using the `_index`
+        Query documents by using a declarative JSON querying syntax. It's best practice to
+        create an appropriate index for all fields in selector by using the `_index`
         endpoint.
+        Queries without an appropriate backing index will fallback to using the built-in
+        `_all_docs` index. This is not recommended because it has a noticeable performance
+        impact causing a full scan of the partition with each request. In this case the
+        response body will include a warning field recommending that an index is created.
 
         :param str db: Path parameter to specify the database name.
         :param str partition_key: Path parameter to specify the database partition
@@ -4171,6 +4197,12 @@ class CloudantV1(BaseService):
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
                supplied argument.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
+               (but not `$ne`) can be used as the basis of a query. You should include at
+               least one of these in a selector.
+               For further reference see
+               [selector
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4193,7 +4225,10 @@ class CloudantV1(BaseService):
                using dotted notation if desired for sub-document fields.
                For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
                "desc"}]`
-               When sorting with multiple fields they must use the same sort direction,
+               When sorting with multiple fields, ensure that there is an index already
+               defined with all the sort fields in the same order and each object in the
+               sort array has a single key or at least one of the sort fields is included
+               in the selector. All sorting fields must use the same sort direction,
                either all ascending or all descending.
         :param bool stable: (optional) Whether or not the view results should be
                returned from a "stable" set of shards.
@@ -4271,11 +4306,15 @@ class CloudantV1(BaseService):
         **kwargs
     ) -> DetailedResponse:
         """
-        Query a database partition index by using selector syntax (POST) as stream.
+        Query a database partition index by using selector syntax as stream.
 
-        Query documents by using a declarative JSON querying syntax. Queries can use the
-        built-in `_all_docs` index or custom indices, specified by using the `_index`
+        Query documents by using a declarative JSON querying syntax. It's best practice to
+        create an appropriate index for all fields in selector by using the `_index`
         endpoint.
+        Queries without an appropriate backing index will fallback to using the built-in
+        `_all_docs` index. This is not recommended because it has a noticeable performance
+        impact causing a full scan of the partition with each request. In this case the
+        response body will include a warning field recommending that an index is created.
 
         :param str db: Path parameter to specify the database name.
         :param str partition_key: Path parameter to specify the database partition
@@ -4305,6 +4344,12 @@ class CloudantV1(BaseService):
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
                supplied argument.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
+               (but not `$ne`) can be used as the basis of a query. You should include at
+               least one of these in a selector.
+               For further reference see
+               [selector
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4327,7 +4372,10 @@ class CloudantV1(BaseService):
                using dotted notation if desired for sub-document fields.
                For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
                "desc"}]`
-               When sorting with multiple fields they must use the same sort direction,
+               When sorting with multiple fields, ensure that there is an index already
+               defined with all the sort fields in the same order and each object in the
+               sort array has a single key or at least one of the sort fields is included
+               in the selector. All sorting fields must use the same sort direction,
                either all ascending or all descending.
         :param bool stable: (optional) Whether or not the view results should be
                returned from a "stable" set of shards.
@@ -4440,6 +4488,12 @@ class CloudantV1(BaseService):
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
                supplied argument.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
+               (but not `$ne`) can be used as the basis of a query. You should include at
+               least one of these in a selector.
+               For further reference see
+               [selector
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4462,7 +4516,10 @@ class CloudantV1(BaseService):
                using dotted notation if desired for sub-document fields.
                For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
                "desc"}]`
-               When sorting with multiple fields they must use the same sort direction,
+               When sorting with multiple fields, ensure that there is an index already
+               defined with all the sort fields in the same order and each object in the
+               sort array has a single key or at least one of the sort fields is included
+               in the selector. All sorting fields must use the same sort direction,
                either all ascending or all descending.
         :param bool stable: (optional) Whether or not the view results should be
                returned from a "stable" set of shards.
@@ -4547,9 +4604,14 @@ class CloudantV1(BaseService):
         """
         Query an index by using selector syntax.
 
-        Query documents by using a declarative JSON querying syntax. Queries can use the
-        built-in `_all_docs` index or custom indices, specified by using the `_index`
+        Query documents by using a declarative JSON querying syntax. It's best practice to
+        create an appropriate index for all fields in selector by using the `_index`
         endpoint.
+        Queries without an appropriate backing index will fallback to using the built-in
+        `_all_docs` index. This is not recommended because it has a significant
+        performance impact causing a full scan of the database with each request. In this
+        case the response body will include a warning field recommending that an index is
+        created.
 
         :param str db: Path parameter to specify the database name.
         :param dict selector: JSON object describing criteria used to select
@@ -4577,6 +4639,12 @@ class CloudantV1(BaseService):
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
                supplied argument.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
+               (but not `$ne`) can be used as the basis of a query. You should include at
+               least one of these in a selector.
+               For further reference see
+               [selector
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4599,7 +4667,10 @@ class CloudantV1(BaseService):
                using dotted notation if desired for sub-document fields.
                For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
                "desc"}]`
-               When sorting with multiple fields they must use the same sort direction,
+               When sorting with multiple fields, ensure that there is an index already
+               defined with all the sort fields in the same order and each object in the
+               sort array has a single key or at least one of the sort fields is included
+               in the selector. All sorting fields must use the same sort direction,
                either all ascending or all descending.
         :param bool stable: (optional) Whether or not the view results should be
                returned from a "stable" set of shards.
@@ -4684,9 +4755,14 @@ class CloudantV1(BaseService):
         """
         Query an index by using selector syntax as stream.
 
-        Query documents by using a declarative JSON querying syntax. Queries can use the
-        built-in `_all_docs` index or custom indices, specified by using the `_index`
+        Query documents by using a declarative JSON querying syntax. It's best practice to
+        create an appropriate index for all fields in selector by using the `_index`
         endpoint.
+        Queries without an appropriate backing index will fallback to using the built-in
+        `_all_docs` index. This is not recommended because it has a significant
+        performance impact causing a full scan of the database with each request. In this
+        case the response body will include a warning field recommending that an index is
+        created.
 
         :param str db: Path parameter to specify the database name.
         :param dict selector: JSON object describing criteria used to select
@@ -4714,6 +4790,12 @@ class CloudantV1(BaseService):
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
                supplied argument.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
+               (but not `$ne`) can be used as the basis of a query. You should include at
+               least one of these in a selector.
+               For further reference see
+               [selector
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4736,7 +4818,10 @@ class CloudantV1(BaseService):
                using dotted notation if desired for sub-document fields.
                For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
                "desc"}]`
-               When sorting with multiple fields they must use the same sort direction,
+               When sorting with multiple fields, ensure that there is an index already
+               defined with all the sort fields in the same order and each object in the
+               sort array has a single key or at least one of the sort fields is included
+               in the selector. All sorting fields must use the same sort direction,
                either all ascending or all descending.
         :param bool stable: (optional) Whether or not the view results should be
                returned from a "stable" set of shards.
@@ -8219,10 +8304,10 @@ class AllDocsQuery():
     :attr bool update_seq: (optional) Parameter to specify whether to include in the
           response an update_seq value indicating the sequence id of the database the view
           reflects.
-    :attr str endkey: (optional) Schema for a document ID.
+    :attr str end_key: (optional) Schema for a document ID.
     :attr str key: (optional) Schema for a document ID.
     :attr List[str] keys: (optional) Schema for a list of document IDs.
-    :attr str startkey: (optional) Schema for a document ID.
+    :attr str start_key: (optional) Schema for a document ID.
     """
 
     def __init__(self,
@@ -8236,10 +8321,10 @@ class AllDocsQuery():
                  limit: int = None,
                  skip: int = None,
                  update_seq: bool = None,
-                 endkey: str = None,
+                 end_key: str = None,
                  key: str = None,
                  keys: List[str] = None,
-                 startkey: str = None) -> None:
+                 start_key: str = None) -> None:
         """
         Initialize a AllDocsQuery object.
 
@@ -8264,10 +8349,10 @@ class AllDocsQuery():
         :param bool update_seq: (optional) Parameter to specify whether to include
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
-        :param str endkey: (optional) Schema for a document ID.
+        :param str end_key: (optional) Schema for a document ID.
         :param str key: (optional) Schema for a document ID.
         :param List[str] keys: (optional) Schema for a list of document IDs.
-        :param str startkey: (optional) Schema for a document ID.
+        :param str start_key: (optional) Schema for a document ID.
         """
         self.att_encoding_info = att_encoding_info
         self.attachments = attachments
@@ -8278,10 +8363,10 @@ class AllDocsQuery():
         self.limit = limit
         self.skip = skip
         self.update_seq = update_seq
-        self.endkey = endkey
+        self.end_key = end_key
         self.key = key
         self.keys = keys
-        self.startkey = startkey
+        self.start_key = start_key
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'AllDocsQuery':
@@ -8305,14 +8390,14 @@ class AllDocsQuery():
             args['skip'] = _dict.get('skip')
         if 'update_seq' in _dict:
             args['update_seq'] = _dict.get('update_seq')
-        if 'endkey' in _dict:
-            args['endkey'] = _dict.get('endkey')
+        if 'end_key' in _dict:
+            args['end_key'] = _dict.get('end_key')
         if 'key' in _dict:
             args['key'] = _dict.get('key')
         if 'keys' in _dict:
             args['keys'] = _dict.get('keys')
-        if 'startkey' in _dict:
-            args['startkey'] = _dict.get('startkey')
+        if 'start_key' in _dict:
+            args['start_key'] = _dict.get('start_key')
         return cls(**args)
 
     @classmethod
@@ -8341,14 +8426,14 @@ class AllDocsQuery():
             _dict['skip'] = self.skip
         if hasattr(self, 'update_seq') and self.update_seq is not None:
             _dict['update_seq'] = self.update_seq
-        if hasattr(self, 'endkey') and self.endkey is not None:
-            _dict['endkey'] = self.endkey
+        if hasattr(self, 'end_key') and self.end_key is not None:
+            _dict['end_key'] = self.end_key
         if hasattr(self, 'key') and self.key is not None:
             _dict['key'] = self.key
         if hasattr(self, 'keys') and self.keys is not None:
             _dict['keys'] = self.keys
-        if hasattr(self, 'startkey') and self.startkey is not None:
-            _dict['startkey'] = self.startkey
+        if hasattr(self, 'start_key') and self.start_key is not None:
+            _dict['start_key'] = self.start_key
         return _dict
 
     def _to_dict(self):
@@ -10309,7 +10394,6 @@ class DbEvent():
     """
     Schema for a database change event.
 
-    :attr str account: (optional) Account name.
     :attr str db_name: Database name.
     :attr str seq: Sequence number.
     :attr str type: A database event.
@@ -10318,18 +10402,14 @@ class DbEvent():
     def __init__(self,
                  db_name: str,
                  seq: str,
-                 type: str,
-                 *,
-                 account: str = None) -> None:
+                 type: str) -> None:
         """
         Initialize a DbEvent object.
 
         :param str db_name: Database name.
         :param str seq: Sequence number.
         :param str type: A database event.
-        :param str account: (optional) Account name.
         """
-        self.account = account
         self.db_name = db_name
         self.seq = seq
         self.type = type
@@ -10338,8 +10418,6 @@ class DbEvent():
     def from_dict(cls, _dict: Dict) -> 'DbEvent':
         """Initialize a DbEvent object from a json dictionary."""
         args = {}
-        if 'account' in _dict:
-            args['account'] = _dict.get('account')
         if 'db_name' in _dict:
             args['db_name'] = _dict.get('db_name')
         else:
@@ -10362,8 +10440,6 @@ class DbEvent():
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
-        if hasattr(self, 'account') and self.account is not None:
-            _dict['account'] = self.account
         if hasattr(self, 'db_name') and self.db_name is not None:
             _dict['db_name'] = self.db_name
         if hasattr(self, 'seq') and self.seq is not None:
@@ -11019,6 +11095,9 @@ class DesignDocumentViewIndex():
     """
     View index information.
 
+    :attr List[str] collator_versions: List of collator versions. If there are
+          multiple entries this implies a libicu upgrade has occurred but compaction has
+          not run yet.
     :attr bool compact_running: Indicates whether a compaction routine is currently
           running on the view.
     :attr str language: Language for the defined views.
@@ -11032,6 +11111,7 @@ class DesignDocumentViewIndex():
     """
 
     def __init__(self,
+                 collator_versions: List[str],
                  compact_running: bool,
                  language: str,
                  signature: str,
@@ -11042,6 +11122,9 @@ class DesignDocumentViewIndex():
         """
         Initialize a DesignDocumentViewIndex object.
 
+        :param List[str] collator_versions: List of collator versions. If there are
+               multiple entries this implies a libicu upgrade has occurred but compaction
+               has not run yet.
         :param bool compact_running: Indicates whether a compaction routine is
                currently running on the view.
         :param str language: Language for the defined views.
@@ -11055,6 +11138,7 @@ class DesignDocumentViewIndex():
         :param bool waiting_commit: Indicates if there are outstanding commits to
                the underlying database that need to processed.
         """
+        self.collator_versions = collator_versions
         self.compact_running = compact_running
         self.language = language
         self.signature = signature
@@ -11067,6 +11151,10 @@ class DesignDocumentViewIndex():
     def from_dict(cls, _dict: Dict) -> 'DesignDocumentViewIndex':
         """Initialize a DesignDocumentViewIndex object from a json dictionary."""
         args = {}
+        if 'collator_versions' in _dict:
+            args['collator_versions'] = _dict.get('collator_versions')
+        else:
+            raise ValueError('Required property \'collator_versions\' not present in DesignDocumentViewIndex JSON')
         if 'compact_running' in _dict:
             args['compact_running'] = _dict.get('compact_running')
         else:
@@ -11105,6 +11193,8 @@ class DesignDocumentViewIndex():
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
+        if hasattr(self, 'collator_versions') and self.collator_versions is not None:
+            _dict['collator_versions'] = self.collator_versions
         if hasattr(self, 'compact_running') and self.compact_running is not None:
             _dict['compact_running'] = self.compact_running
         if hasattr(self, 'language') and self.language is not None:
@@ -11902,6 +11992,12 @@ class ExplainResult():
           * Condition operators: are specific to a field, and are used to evaluate the
           value stored in that field. For instance, the basic `$eq` operator matches when
           the specified field contains a value that is equal to the supplied argument.
+          * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but
+          not `$ne`) can be used as the basis of a query. You should include at least one
+          of these in a selector.
+          For further reference see
+          [selector
+          syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
     :attr int skip: skip.
     """
 
@@ -11948,6 +12044,12 @@ class ExplainResult():
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
                supplied argument.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
+               (but not `$ne`) can be used as the basis of a query. You should include at
+               least one of these in a selector.
+               For further reference see
+               [selector
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
         :param int skip: skip.
         :param ExplainResultRange range: (optional) range.
         """
@@ -12777,6 +12879,12 @@ class IndexDefinition():
           * Condition operators: are specific to a field, and are used to evaluate the
           value stored in that field. For instance, the basic `$eq` operator matches when
           the specified field contains a value that is equal to the supplied argument.
+          * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but
+          not `$ne`) can be used as the basis of a query. You should include at least one
+          of these in a selector.
+          For further reference see
+          [selector
+          syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
     """
 
     def __init__(self,
@@ -12835,6 +12943,12 @@ class IndexDefinition():
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
                supplied argument.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
+               (but not `$ne`) can be used as the basis of a query. You should include at
+               least one of these in a selector.
+               For further reference see
+               [selector
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
         """
         self.default_analyzer = default_analyzer
         self.default_field = default_field
@@ -14163,6 +14277,12 @@ class ReplicationDocument():
           * Condition operators: are specific to a field, and are used to evaluate the
           value stored in that field. For instance, the basic `$eq` operator matches when
           the specified field contains a value that is equal to the supplied argument.
+          * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but
+          not `$ne`) can be used as the basis of a query. You should include at least one
+          of these in a selector.
+          For further reference see
+          [selector
+          syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
     :attr str since_seq: (optional) Start the replication at a specific sequence
           value.
     :attr str socket_options: (optional) Replication socket options.
@@ -14296,6 +14416,12 @@ class ReplicationDocument():
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
                supplied argument.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
+               (but not `$ne`) can be used as the basis of a query. You should include at
+               least one of these in a selector.
+               For further reference see
+               [selector
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
         :param str since_seq: (optional) Start the replication at a specific
                sequence value.
         :param str socket_options: (optional) Replication socket options.
@@ -15549,6 +15675,7 @@ class SearchIndexInfo():
     :attr int doc_count: The count of the number of indexed documents.
     :attr int doc_del_count: The number of deleted documents.
     :attr int pending_seq: The pending sequence identifier.
+    :attr str signature: Unique signature of the search index.
     """
 
     def __init__(self,
@@ -15556,7 +15683,8 @@ class SearchIndexInfo():
                  disk_size: int,
                  doc_count: int,
                  doc_del_count: int,
-                 pending_seq: int) -> None:
+                 pending_seq: int,
+                 signature: str) -> None:
         """
         Initialize a SearchIndexInfo object.
 
@@ -15565,12 +15693,14 @@ class SearchIndexInfo():
         :param int doc_count: The count of the number of indexed documents.
         :param int doc_del_count: The number of deleted documents.
         :param int pending_seq: The pending sequence identifier.
+        :param str signature: Unique signature of the search index.
         """
         self.committed_seq = committed_seq
         self.disk_size = disk_size
         self.doc_count = doc_count
         self.doc_del_count = doc_del_count
         self.pending_seq = pending_seq
+        self.signature = signature
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'SearchIndexInfo':
@@ -15596,6 +15726,10 @@ class SearchIndexInfo():
             args['pending_seq'] = _dict.get('pending_seq')
         else:
             raise ValueError('Required property \'pending_seq\' not present in SearchIndexInfo JSON')
+        if 'signature' in _dict:
+            args['signature'] = _dict.get('signature')
+        else:
+            raise ValueError('Required property \'signature\' not present in SearchIndexInfo JSON')
         return cls(**args)
 
     @classmethod
@@ -15616,6 +15750,8 @@ class SearchIndexInfo():
             _dict['doc_del_count'] = self.doc_del_count
         if hasattr(self, 'pending_seq') and self.pending_seq is not None:
             _dict['pending_seq'] = self.pending_seq
+        if hasattr(self, 'signature') and self.signature is not None:
+            _dict['signature'] = self.signature
         return _dict
 
     def _to_dict(self):
@@ -16952,8 +17088,8 @@ class ViewQuery():
     :attr bool update_seq: (optional) Parameter to specify whether to include in the
           response an update_seq value indicating the sequence id of the database the view
           reflects.
-    :attr object endkey: (optional) Schema for any JSON type.
-    :attr str endkey_docid: (optional) Schema for a document ID.
+    :attr object end_key: (optional) Schema for any JSON type.
+    :attr str end_key_doc_id: (optional) Schema for a document ID.
     :attr bool group: (optional) Parameter to specify whether to group the results
           using the reduce function to a group rather than a single row. Implies reduce is
           true and the maximum group_level.
@@ -16968,8 +17104,8 @@ class ViewQuery():
           defined.
     :attr bool stable: (optional) Parameter to specify whether view results should
           be returned from a stable set of shards.
-    :attr object startkey: (optional) Schema for any JSON type.
-    :attr str startkey_docid: (optional) Schema for a document ID.
+    :attr object start_key: (optional) Schema for any JSON type.
+    :attr str start_key_doc_id: (optional) Schema for a document ID.
     :attr str update: (optional) Parameter to specify whether or not the view in
           question should be updated prior to responding to the user.
     """
@@ -16985,16 +17121,16 @@ class ViewQuery():
                  limit: int = None,
                  skip: int = None,
                  update_seq: bool = None,
-                 endkey: object = None,
-                 endkey_docid: str = None,
+                 end_key: object = None,
+                 end_key_doc_id: str = None,
                  group: bool = None,
                  group_level: int = None,
                  key: object = None,
                  keys: List[object] = None,
                  reduce: bool = None,
                  stable: bool = None,
-                 startkey: object = None,
-                 startkey_docid: str = None,
+                 start_key: object = None,
+                 start_key_doc_id: str = None,
                  update: str = None) -> None:
         """
         Initialize a ViewQuery object.
@@ -17020,8 +17156,8 @@ class ViewQuery():
         :param bool update_seq: (optional) Parameter to specify whether to include
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
-        :param object endkey: (optional) Schema for any JSON type.
-        :param str endkey_docid: (optional) Schema for a document ID.
+        :param object end_key: (optional) Schema for any JSON type.
+        :param str end_key_doc_id: (optional) Schema for a document ID.
         :param bool group: (optional) Parameter to specify whether to group the
                results using the reduce function to a group rather than a single row.
                Implies reduce is true and the maximum group_level.
@@ -17037,8 +17173,8 @@ class ViewQuery():
                function is defined.
         :param bool stable: (optional) Parameter to specify whether view results
                should be returned from a stable set of shards.
-        :param object startkey: (optional) Schema for any JSON type.
-        :param str startkey_docid: (optional) Schema for a document ID.
+        :param object start_key: (optional) Schema for any JSON type.
+        :param str start_key_doc_id: (optional) Schema for a document ID.
         :param str update: (optional) Parameter to specify whether or not the view
                in question should be updated prior to responding to the user.
         """
@@ -17051,16 +17187,16 @@ class ViewQuery():
         self.limit = limit
         self.skip = skip
         self.update_seq = update_seq
-        self.endkey = endkey
-        self.endkey_docid = endkey_docid
+        self.end_key = end_key
+        self.end_key_doc_id = end_key_doc_id
         self.group = group
         self.group_level = group_level
         self.key = key
         self.keys = keys
         self.reduce = reduce
         self.stable = stable
-        self.startkey = startkey
-        self.startkey_docid = startkey_docid
+        self.start_key = start_key
+        self.start_key_doc_id = start_key_doc_id
         self.update = update
 
     @classmethod
@@ -17085,10 +17221,10 @@ class ViewQuery():
             args['skip'] = _dict.get('skip')
         if 'update_seq' in _dict:
             args['update_seq'] = _dict.get('update_seq')
-        if 'endkey' in _dict:
-            args['endkey'] = _dict.get('endkey')
-        if 'endkey_docid' in _dict:
-            args['endkey_docid'] = _dict.get('endkey_docid')
+        if 'end_key' in _dict:
+            args['end_key'] = _dict.get('end_key')
+        if 'end_key_doc_id' in _dict:
+            args['end_key_doc_id'] = _dict.get('end_key_doc_id')
         if 'group' in _dict:
             args['group'] = _dict.get('group')
         if 'group_level' in _dict:
@@ -17101,10 +17237,10 @@ class ViewQuery():
             args['reduce'] = _dict.get('reduce')
         if 'stable' in _dict:
             args['stable'] = _dict.get('stable')
-        if 'startkey' in _dict:
-            args['startkey'] = _dict.get('startkey')
-        if 'startkey_docid' in _dict:
-            args['startkey_docid'] = _dict.get('startkey_docid')
+        if 'start_key' in _dict:
+            args['start_key'] = _dict.get('start_key')
+        if 'start_key_doc_id' in _dict:
+            args['start_key_doc_id'] = _dict.get('start_key_doc_id')
         if 'update' in _dict:
             args['update'] = _dict.get('update')
         return cls(**args)
@@ -17135,10 +17271,10 @@ class ViewQuery():
             _dict['skip'] = self.skip
         if hasattr(self, 'update_seq') and self.update_seq is not None:
             _dict['update_seq'] = self.update_seq
-        if hasattr(self, 'endkey') and self.endkey is not None:
-            _dict['endkey'] = self.endkey
-        if hasattr(self, 'endkey_docid') and self.endkey_docid is not None:
-            _dict['endkey_docid'] = self.endkey_docid
+        if hasattr(self, 'end_key') and self.end_key is not None:
+            _dict['end_key'] = self.end_key
+        if hasattr(self, 'end_key_doc_id') and self.end_key_doc_id is not None:
+            _dict['end_key_doc_id'] = self.end_key_doc_id
         if hasattr(self, 'group') and self.group is not None:
             _dict['group'] = self.group
         if hasattr(self, 'group_level') and self.group_level is not None:
@@ -17151,10 +17287,10 @@ class ViewQuery():
             _dict['reduce'] = self.reduce
         if hasattr(self, 'stable') and self.stable is not None:
             _dict['stable'] = self.stable
-        if hasattr(self, 'startkey') and self.startkey is not None:
-            _dict['startkey'] = self.startkey
-        if hasattr(self, 'startkey_docid') and self.startkey_docid is not None:
-            _dict['startkey_docid'] = self.startkey_docid
+        if hasattr(self, 'start_key') and self.start_key is not None:
+            _dict['start_key'] = self.start_key
+        if hasattr(self, 'start_key_doc_id') and self.start_key_doc_id is not None:
+            _dict['start_key_doc_id'] = self.start_key_doc_id
         if hasattr(self, 'update') and self.update is not None:
             _dict['update'] = self.update
         return _dict
