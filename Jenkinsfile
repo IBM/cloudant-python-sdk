@@ -87,16 +87,13 @@ pipeline {
               prefixedSdkVersion = "${env.NEW_SDK_VERSION}"
             }
 
-            // For standard builds attempt to run on a matching env.BRANCH_NAME branch first and if it doesn't exist
-            // then fallback to TARGET_GAUGE_RELEASE_BRANCH_NAME if set or env.TARGET_GAUGE_DEFAULT_BRANCH_NAME.
             gaugeBranchName = env.BRANCH_NAME
-            fallbackBranchName = env.TARGET_GAUGE_RELEASE_BRANCH_NAME ?: env.TARGET_GAUGE_DEFAULT_BRANCH_NAME
 
-            // For release builds (tag builds or the primary branch) do the reverse and attempt to run on the
-            // TARGET_GAUGE_RELEASE_BRANCH_NAME falling back to env.BRANCH_NAME or env.TAG_NAME if there is no match.
-            if (env.TAG_NAME || env.BRANCH_IS_PRIMARY){
-              gaugeBranchName = env.TARGET_GAUGE_RELEASE_BRANCH_NAME
-              fallbackBranchName = env.TAG_NAME ?: env.BRANCH_NAME
+            // When it's a tag build or the current branch name equals
+            // with the lib's default branch name (e.g. master)
+            // try to use the release sdks-gauge branch name as the sdks-gauge target
+            if (env.TAG_NAME || env.BRANCH_NAME == env.SDK_LANG_DEFAULT_BRANCH_NAME){
+                gaugeBranchName = env.TARGET_GAUGE_RELEASE_BRANCH_NAME
             }
           try {
             buildResults = build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${gaugeBranchName}", parameters: [
@@ -105,8 +102,8 @@ pipeline {
           } catch (hudson.AbortException ae) {
             // only run build in sdks-gauge master branch if BRANCH_NAME doesn't exist
             if (ae.getMessage().contains("No item named /${env.SDKS_GAUGE_PIPELINE_PROJECT}/${gaugeBranchName} found")) {
-              echo "No matching branch named '${gaugeBranchName}' in sdks-gauge, building ${fallbackBranchName} branch"
-              build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${fallbackBranchName}", parameters: [
+              echo "No matching branch named '${gaugeBranchName}' in sdks-gauge, building ${env.TARGET_GAUGE_DEFAULT_BRANCH_NAME} branch"
+              build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${env.TARGET_GAUGE_DEFAULT_BRANCH_NAME}", parameters: [
                   string(name: 'SDK_RUN_LANG', value: "$libName"),
                   string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "$prefixedSdkVersion")]
             } else {
