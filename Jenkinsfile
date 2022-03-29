@@ -7,13 +7,6 @@ pipeline {
   options {
     skipDefaultCheckout()
   }
-  parameters {
-    validatingString( name: 'TARGET_VERSION',
-                      defaultValue: 'NONE',
-                      description: 'Tag to create after successful QA',
-                      failedValidationMessage: 'Tag name must be NONE or a semantic version release or pre-release (i.e. no build metadata)',
-                      regex: /NONE|${SVRE_PRE_RELEASE}/)
-  }
   environment {
     GH_CREDS = credentials('gh-sdks-automation')
   }
@@ -116,26 +109,6 @@ pipeline {
         }
       }
     }
-    stage('Update version and tag') {
-      when {
-        beforeAgent true
-        allOf {
-          // We only bump the version and create a tag when building master with a TARGET_VERSION
-          branch 'master'
-          not {
-            equals expected: 'NONE', actual: "${params.TARGET_VERSION}"
-          }
-        }
-      }
-      steps {
-        // Throw away any temporary version changes used for stage/test
-        sh 'git reset --hard'
-        // bump the version
-        bumpVersion(false)
-        // Push the version bump and release tag
-        sh 'git push --tags origin HEAD:master'
-      }
-    }
     stage('Publish[repository]') {
       // We publish only when building a tag that meets our semantic version release or pre-release tag format
       when {
@@ -148,6 +121,10 @@ pipeline {
         }
       }
       steps {
+        // Throw away any temporary version changes used for stage/test
+        sh 'git reset --hard'
+        // bump the version
+        bumpVersion(false)
         publishPublic()
         publishDocs()
       }
@@ -178,7 +155,7 @@ void defaultInit() {
   }
 
   doVersionBump = { isDevRelease, newVersion, allowDirty ->
-    sh "bump2version --new-version ${newVersion} ${allowDirty ? '--allow-dirty': ''} ${isDevRelease ? '--no-commit' : '--tag --tag-message "Release {new_version}"'} patch"
+    sh "bump2version --new-version ${newVersion} ${allowDirty ? '--allow-dirty': ''} --no-commit patch"
   }
 
   getNewVersion = { isDevRelease, includeBuildMeta ->
@@ -188,12 +165,8 @@ void defaultInit() {
 
   getTargetVersion = {
     version = ''
-    if ('NONE' != params.TARGET_VERSION) {
-      version = params.TARGET_VERSION
-    } else {
-      // If a target version is not provided default to a patch bump
-      version = sh returnStdout: true, script: 'bump2version --list --dry-run patch | grep new_version=.* | cut -f2 -d='
-    }
+    // If a target version is not provided default to a patch bump
+    version = sh returnStdout: true, script: 'bump2version --list --dry-run patch | grep new_version=.* | cut -f2 -d='
     return version.trim()
   }
 
