@@ -71,6 +71,12 @@ pipeline {
         publishStaging()
         publishArtifactoryBuildInfo()
       }
+      // This post stage resets the temporary version bump used to publish to staging
+      post {
+        always {
+          sh 'git reset --hard'
+        }
+      }
     }
     stage('Run Gauge tests') {
       steps {
@@ -128,8 +134,6 @@ pipeline {
         }
       }
       steps {
-        // Throw away any temporary version changes used for stage/test
-        sh 'git reset --hard'
         // bump the version
         bumpVersion(false)
         // Push the version bump and release tag
