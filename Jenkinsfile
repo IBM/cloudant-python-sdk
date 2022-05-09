@@ -277,7 +277,7 @@ void applyCustomizations() {
 void runTests() {
   sh """
     pip3 install --upgrade pip tox
-    python3 -m tox -e py38
+    python3 -m tox -e py310
   """
 }
 
