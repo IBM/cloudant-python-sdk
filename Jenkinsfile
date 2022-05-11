@@ -276,8 +276,8 @@ void applyCustomizations() {
 
 void runTests() {
   sh """
-    pip3 install --upgrade pip tox
-    python3 -m tox -e py38
+    . /home/jenkins/pythonvenv/bin/activate
+    python3 -m tox -e py310
   """
 }
 
@@ -300,8 +300,8 @@ void publishTwine() {
     deleteDir()
   }
   sh """
+    . /home/jenkins/pythonvenv/bin/activate
     python3 --version
-    python3 -m pip install --upgrade pip setuptools twine
     python3 setup.py sdist
     python3 -m twine upload dist/*
   """
