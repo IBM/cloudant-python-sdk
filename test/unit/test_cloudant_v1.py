@@ -514,7 +514,7 @@ class TestPostChanges():
         db = 'testString'
         doc_ids = ['testString']
         fields = ['testString']
-        selector = {'key1': 'testString'}
+        selector = {}
         last_event_id = 'testString'
         att_encoding_info = False
         attachments = False
@@ -582,7 +582,7 @@ class TestPostChanges():
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['doc_ids'] == ['testString']
         assert req_body['fields'] == ['testString']
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {}
 
     def test_post_changes_all_params_with_retries(self):
         # Enable retries and run test_post_changes_all_params.
@@ -611,7 +611,7 @@ class TestPostChanges():
         db = 'testString'
         doc_ids = ['testString']
         fields = ['testString']
-        selector = {'key1': 'testString'}
+        selector = {}
 
         # Invoke method
         response = _service.post_changes(
@@ -632,7 +632,7 @@ class TestPostChanges():
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['doc_ids'] == ['testString']
         assert req_body['fields'] == ['testString']
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {}
 
     def test_post_changes_required_params_with_retries(self):
         # Enable retries and run test_post_changes_required_params.
@@ -661,7 +661,7 @@ class TestPostChanges():
         db = 'testString'
         doc_ids = ['testString']
         fields = ['testString']
-        selector = {'key1': 'testString'}
+        selector = {}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -705,7 +705,7 @@ class TestPostChangesAsStream():
         db = 'testString'
         doc_ids = ['testString']
         fields = ['testString']
-        selector = {'key1': 'testString'}
+        selector = {}
         last_event_id = 'testString'
         att_encoding_info = False
         attachments = False
@@ -773,7 +773,7 @@ class TestPostChangesAsStream():
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['doc_ids'] == ['testString']
         assert req_body['fields'] == ['testString']
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {}
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -808,7 +808,7 @@ class TestPostChangesAsStream():
         db = 'testString'
         doc_ids = ['testString']
         fields = ['testString']
-        selector = {'key1': 'testString'}
+        selector = {}
 
         # Invoke method
         response = _service.post_changes_as_stream(
@@ -829,7 +829,7 @@ class TestPostChangesAsStream():
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['doc_ids'] == ['testString']
         assert req_body['fields'] == ['testString']
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {}
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -864,7 +864,7 @@ class TestPostChangesAsStream():
         db = 'testString'
         doc_ids = ['testString']
         fields = ['testString']
-        selector = {'key1': 'testString'}
+        selector = {}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -1641,7 +1641,7 @@ class TestPostDocument():
 
         # Construct a dict representation of a Document model
         document_model = {}
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -1726,7 +1726,7 @@ class TestPostDocument():
 
         # Construct a dict representation of a Document model
         document_model = {}
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -1803,7 +1803,7 @@ class TestPostDocument():
 
         # Construct a dict representation of a Document model
         document_model = {}
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -2399,7 +2399,7 @@ class TestPostBulkDocs():
 
         # Construct a dict representation of a Document model
         document_model = {}
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -2483,7 +2483,7 @@ class TestPostBulkDocs():
 
         # Construct a dict representation of a Document model
         document_model = {}
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -3992,7 +3992,7 @@ class TestPutDocument():
 
         # Construct a dict representation of a Document model
         document_model = {}
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -4087,7 +4087,7 @@ class TestPutDocument():
 
         # Construct a dict representation of a Document model
         document_model = {}
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -4166,7 +4166,7 @@ class TestPutDocument():
 
         # Construct a dict representation of a Document model
         document_model = {}
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -4686,7 +4686,7 @@ class TestPutDesignDocument():
         analyzer_configuration_model = {}
         analyzer_configuration_model['name'] = 'classic'
         analyzer_configuration_model['stopwords'] = ['testString']
-        analyzer_configuration_model['fields'] = {'key1': analyzer_model}
+        analyzer_configuration_model['fields'] = {}
 
         # Construct a dict representation of a SearchIndexDefinition model
         search_index_definition_model = {}
@@ -4708,7 +4708,7 @@ class TestPutDesignDocument():
 
         # Construct a dict representation of a DesignDocument model
         design_document_model = {}
-        design_document_model['_attachments'] = {'key1': attachment_model}
+        design_document_model['_attachments'] = {}
         design_document_model['_conflicts'] = ['testString']
         design_document_model['_deleted'] = True
         design_document_model['_deleted_conflicts'] = ['testString']
@@ -4718,13 +4718,13 @@ class TestPutDesignDocument():
         design_document_model['_revisions'] = revisions_model
         design_document_model['_revs_info'] = [document_revision_status_model]
         design_document_model['autoupdate'] = True
-        design_document_model['filters'] = {'key1': 'testString'}
-        design_document_model['indexes'] = {'key1': search_index_definition_model}
+        design_document_model['filters'] = {}
+        design_document_model['indexes'] = {}
         design_document_model['language'] = 'javascript'
         design_document_model['options'] = design_document_options_model
         design_document_model['validate_doc_update'] = 'testString'
-        design_document_model['views'] = {'key1': design_document_views_map_reduce_model}
-        design_document_model['st_indexes'] = {'key1': geo_index_definition_model}
+        design_document_model['views'] = {}
+        design_document_model['st_indexes'] = {}
         design_document_model['foo'] = 'testString'
 
         # Set up parameter values
@@ -4818,7 +4818,7 @@ class TestPutDesignDocument():
         analyzer_configuration_model = {}
         analyzer_configuration_model['name'] = 'classic'
         analyzer_configuration_model['stopwords'] = ['testString']
-        analyzer_configuration_model['fields'] = {'key1': analyzer_model}
+        analyzer_configuration_model['fields'] = {}
 
         # Construct a dict representation of a SearchIndexDefinition model
         search_index_definition_model = {}
@@ -4840,7 +4840,7 @@ class TestPutDesignDocument():
 
         # Construct a dict representation of a DesignDocument model
         design_document_model = {}
-        design_document_model['_attachments'] = {'key1': attachment_model}
+        design_document_model['_attachments'] = {}
         design_document_model['_conflicts'] = ['testString']
         design_document_model['_deleted'] = True
         design_document_model['_deleted_conflicts'] = ['testString']
@@ -4850,13 +4850,13 @@ class TestPutDesignDocument():
         design_document_model['_revisions'] = revisions_model
         design_document_model['_revs_info'] = [document_revision_status_model]
         design_document_model['autoupdate'] = True
-        design_document_model['filters'] = {'key1': 'testString'}
-        design_document_model['indexes'] = {'key1': search_index_definition_model}
+        design_document_model['filters'] = {}
+        design_document_model['indexes'] = {}
         design_document_model['language'] = 'javascript'
         design_document_model['options'] = design_document_options_model
         design_document_model['validate_doc_update'] = 'testString'
-        design_document_model['views'] = {'key1': design_document_views_map_reduce_model}
-        design_document_model['st_indexes'] = {'key1': geo_index_definition_model}
+        design_document_model['views'] = {}
+        design_document_model['st_indexes'] = {}
         design_document_model['foo'] = 'testString'
 
         # Set up parameter values
@@ -4936,7 +4936,7 @@ class TestPutDesignDocument():
         analyzer_configuration_model = {}
         analyzer_configuration_model['name'] = 'classic'
         analyzer_configuration_model['stopwords'] = ['testString']
-        analyzer_configuration_model['fields'] = {'key1': analyzer_model}
+        analyzer_configuration_model['fields'] = {}
 
         # Construct a dict representation of a SearchIndexDefinition model
         search_index_definition_model = {}
@@ -4958,7 +4958,7 @@ class TestPutDesignDocument():
 
         # Construct a dict representation of a DesignDocument model
         design_document_model = {}
-        design_document_model['_attachments'] = {'key1': attachment_model}
+        design_document_model['_attachments'] = {}
         design_document_model['_conflicts'] = ['testString']
         design_document_model['_deleted'] = True
         design_document_model['_deleted_conflicts'] = ['testString']
@@ -4968,13 +4968,13 @@ class TestPutDesignDocument():
         design_document_model['_revisions'] = revisions_model
         design_document_model['_revs_info'] = [document_revision_status_model]
         design_document_model['autoupdate'] = True
-        design_document_model['filters'] = {'key1': 'testString'}
-        design_document_model['indexes'] = {'key1': search_index_definition_model}
+        design_document_model['filters'] = {}
+        design_document_model['indexes'] = {}
         design_document_model['language'] = 'javascript'
         design_document_model['options'] = design_document_options_model
         design_document_model['validate_doc_update'] = 'testString'
-        design_document_model['views'] = {'key1': design_document_views_map_reduce_model}
-        design_document_model['st_indexes'] = {'key1': geo_index_definition_model}
+        design_document_model['views'] = {}
+        design_document_model['st_indexes'] = {}
         design_document_model['foo'] = 'testString'
 
         # Set up parameter values
@@ -7220,14 +7220,14 @@ class TestPostPartitionFind():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
         fields = ['testString']
         limit = 0
         skip = 0
-        sort = [{'key1': 'asc'}]
+        sort = [{}]
         stable = True
         update = 'true'
         use_index = ['testString']
@@ -7258,14 +7258,14 @@ class TestPostPartitionFind():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
         assert req_body['fields'] == ['testString']
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
-        assert req_body['sort'] == [{'key1': 'asc'}]
+        assert req_body['sort'] == [{}]
         assert req_body['stable'] == True
         assert req_body['update'] == 'true'
         assert req_body['use_index'] == ['testString']
@@ -7296,14 +7296,14 @@ class TestPostPartitionFind():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
         fields = ['testString']
         limit = 0
         skip = 0
-        sort = [{'key1': 'asc'}]
+        sort = [{}]
         stable = True
         update = 'true'
         use_index = ['testString']
@@ -7351,14 +7351,14 @@ class TestPostPartitionFindAsStream():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
         fields = ['testString']
         limit = 0
         skip = 0
-        sort = [{'key1': 'asc'}]
+        sort = [{}]
         stable = True
         update = 'true'
         use_index = ['testString']
@@ -7389,14 +7389,14 @@ class TestPostPartitionFindAsStream():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
         assert req_body['fields'] == ['testString']
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
-        assert req_body['sort'] == [{'key1': 'asc'}]
+        assert req_body['sort'] == [{}]
         assert req_body['stable'] == True
         assert req_body['update'] == 'true'
         assert req_body['use_index'] == ['testString']
@@ -7433,14 +7433,14 @@ class TestPostPartitionFindAsStream():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
         fields = ['testString']
         limit = 0
         skip = 0
-        sort = [{'key1': 'asc'}]
+        sort = [{}]
         stable = True
         update = 'true'
         use_index = ['testString']
@@ -7524,14 +7524,14 @@ class TestPostExplain():
 
         # Set up parameter values
         db = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
         fields = ['testString']
         limit = 0
         skip = 0
-        sort = [{'key1': 'asc'}]
+        sort = [{}]
         stable = True
         update = 'true'
         use_index = ['testString']
@@ -7563,14 +7563,14 @@ class TestPostExplain():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
         assert req_body['fields'] == ['testString']
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
-        assert req_body['sort'] == [{'key1': 'asc'}]
+        assert req_body['sort'] == [{}]
         assert req_body['stable'] == True
         assert req_body['update'] == 'true'
         assert req_body['use_index'] == ['testString']
@@ -7601,14 +7601,14 @@ class TestPostExplain():
 
         # Set up parameter values
         db = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
         fields = ['testString']
         limit = 0
         skip = 0
-        sort = [{'key1': 'asc'}]
+        sort = [{}]
         stable = True
         update = 'true'
         use_index = ['testString']
@@ -7655,14 +7655,14 @@ class TestPostFind():
 
         # Set up parameter values
         db = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
         fields = ['testString']
         limit = 0
         skip = 0
-        sort = [{'key1': 'asc'}]
+        sort = [{}]
         stable = True
         update = 'true'
         use_index = ['testString']
@@ -7694,14 +7694,14 @@ class TestPostFind():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
         assert req_body['fields'] == ['testString']
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
-        assert req_body['sort'] == [{'key1': 'asc'}]
+        assert req_body['sort'] == [{}]
         assert req_body['stable'] == True
         assert req_body['update'] == 'true'
         assert req_body['use_index'] == ['testString']
@@ -7732,14 +7732,14 @@ class TestPostFind():
 
         # Set up parameter values
         db = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
         fields = ['testString']
         limit = 0
         skip = 0
-        sort = [{'key1': 'asc'}]
+        sort = [{}]
         stable = True
         update = 'true'
         use_index = ['testString']
@@ -7786,14 +7786,14 @@ class TestPostFindAsStream():
 
         # Set up parameter values
         db = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
         fields = ['testString']
         limit = 0
         skip = 0
-        sort = [{'key1': 'asc'}]
+        sort = [{}]
         stable = True
         update = 'true'
         use_index = ['testString']
@@ -7825,14 +7825,14 @@ class TestPostFindAsStream():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
         assert req_body['fields'] == ['testString']
         assert req_body['limit'] == 0
         assert req_body['skip'] == 0
-        assert req_body['sort'] == [{'key1': 'asc'}]
+        assert req_body['sort'] == [{}]
         assert req_body['stable'] == True
         assert req_body['update'] == 'true'
         assert req_body['use_index'] == ['testString']
@@ -7869,14 +7869,14 @@ class TestPostFindAsStream():
 
         # Set up parameter values
         db = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
         fields = ['testString']
         limit = 0
         skip = 0
-        sort = [{'key1': 'asc'}]
+        sort = [{}]
         stable = True
         update = 'true'
         use_index = ['testString']
@@ -8020,7 +8020,7 @@ class TestPostIndex():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
-        index_definition_model['partial_filter_selector'] = {'key1': 'testString'}
+        index_definition_model['partial_filter_selector'] = {}
 
         # Set up parameter values
         db = 'testString'
@@ -8103,7 +8103,7 @@ class TestPostIndex():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
-        index_definition_model['partial_filter_selector'] = {'key1': 'testString'}
+        index_definition_model['partial_filter_selector'] = {}
 
         # Set up parameter values
         db = 'testString'
@@ -8388,7 +8388,7 @@ class TestPostSearch():
         group_field = 'testString'
         group_limit = 1
         group_sort = ['testString']
-        ranges = {'key1': {'key1': {'key1': 'testString'}}}
+        ranges = {}
 
         # Invoke method
         response = _service.post_search(
@@ -8441,7 +8441,7 @@ class TestPostSearch():
         assert req_body['group_field'] == 'testString'
         assert req_body['group_limit'] == 1
         assert req_body['group_sort'] == ['testString']
-        assert req_body['ranges'] == {'key1': {'key1': {'key1': 'testString'}}}
+        assert req_body['ranges'] == {}
 
     def test_post_search_all_params_with_retries(self):
         # Enable retries and run test_post_search_all_params.
@@ -8487,7 +8487,7 @@ class TestPostSearch():
         group_field = 'testString'
         group_limit = 1
         group_sort = ['testString']
-        ranges = {'key1': {'key1': {'key1': 'testString'}}}
+        ranges = {}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -8551,7 +8551,7 @@ class TestPostSearchAsStream():
         group_field = 'testString'
         group_limit = 1
         group_sort = ['testString']
-        ranges = {'key1': {'key1': {'key1': 'testString'}}}
+        ranges = {}
 
         # Invoke method
         response = _service.post_search_as_stream(
@@ -8604,7 +8604,7 @@ class TestPostSearchAsStream():
         assert req_body['group_field'] == 'testString'
         assert req_body['group_limit'] == 1
         assert req_body['group_sort'] == ['testString']
-        assert req_body['ranges'] == {'key1': {'key1': {'key1': 'testString'}}}
+        assert req_body['ranges'] == {}
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -8656,7 +8656,7 @@ class TestPostSearchAsStream():
         group_field = 'testString'
         group_limit = 1
         group_sort = ['testString']
-        ranges = {'key1': {'key1': {'key1': 'testString'}}}
+        ranges = {}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -9943,7 +9943,7 @@ class TestPutReplicationDocument():
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
         replication_database_model['auth'] = replication_database_auth_model
-        replication_database_model['headers'] = {'key1': 'testString'}
+        replication_database_model['headers'] = {}
         replication_database_model['url'] = 'testString'
 
         # Construct a dict representation of a UserContext model
@@ -9954,7 +9954,7 @@ class TestPutReplicationDocument():
 
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {}
-        replication_document_model['_attachments'] = {'key1': attachment_model}
+        replication_document_model['_attachments'] = {}
         replication_document_model['_conflicts'] = ['testString']
         replication_document_model['_deleted'] = True
         replication_document_model['_deleted_conflicts'] = ['testString']
@@ -9972,9 +9972,9 @@ class TestPutReplicationDocument():
         replication_document_model['doc_ids'] = ['testString']
         replication_document_model['filter'] = 'testString'
         replication_document_model['http_connections'] = 1
-        replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['query_params'] = {}
         replication_document_model['retries_per_request'] = 0
-        replication_document_model['selector'] = {'key1': 'testString'}
+        replication_document_model['selector'] = {}
         replication_document_model['since_seq'] = 'testString'
         replication_document_model['socket_options'] = 'testString'
         replication_document_model['source'] = replication_database_model
@@ -10090,7 +10090,7 @@ class TestPutReplicationDocument():
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
         replication_database_model['auth'] = replication_database_auth_model
-        replication_database_model['headers'] = {'key1': 'testString'}
+        replication_database_model['headers'] = {}
         replication_database_model['url'] = 'testString'
 
         # Construct a dict representation of a UserContext model
@@ -10101,7 +10101,7 @@ class TestPutReplicationDocument():
 
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {}
-        replication_document_model['_attachments'] = {'key1': attachment_model}
+        replication_document_model['_attachments'] = {}
         replication_document_model['_conflicts'] = ['testString']
         replication_document_model['_deleted'] = True
         replication_document_model['_deleted_conflicts'] = ['testString']
@@ -10119,9 +10119,9 @@ class TestPutReplicationDocument():
         replication_document_model['doc_ids'] = ['testString']
         replication_document_model['filter'] = 'testString'
         replication_document_model['http_connections'] = 1
-        replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['query_params'] = {}
         replication_document_model['retries_per_request'] = 0
-        replication_document_model['selector'] = {'key1': 'testString'}
+        replication_document_model['selector'] = {}
         replication_document_model['since_seq'] = 'testString'
         replication_document_model['socket_options'] = 'testString'
         replication_document_model['source'] = replication_database_model
@@ -10223,7 +10223,7 @@ class TestPutReplicationDocument():
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
         replication_database_model['auth'] = replication_database_auth_model
-        replication_database_model['headers'] = {'key1': 'testString'}
+        replication_database_model['headers'] = {}
         replication_database_model['url'] = 'testString'
 
         # Construct a dict representation of a UserContext model
@@ -10234,7 +10234,7 @@ class TestPutReplicationDocument():
 
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {}
-        replication_document_model['_attachments'] = {'key1': attachment_model}
+        replication_document_model['_attachments'] = {}
         replication_document_model['_conflicts'] = ['testString']
         replication_document_model['_deleted'] = True
         replication_document_model['_deleted_conflicts'] = ['testString']
@@ -10252,9 +10252,9 @@ class TestPutReplicationDocument():
         replication_document_model['doc_ids'] = ['testString']
         replication_document_model['filter'] = 'testString'
         replication_document_model['http_connections'] = 1
-        replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['query_params'] = {}
         replication_document_model['retries_per_request'] = 0
-        replication_document_model['selector'] = {'key1': 'testString'}
+        replication_document_model['selector'] = {}
         replication_document_model['since_seq'] = 'testString'
         replication_document_model['socket_options'] = 'testString'
         replication_document_model['source'] = replication_database_model
@@ -10821,7 +10821,7 @@ class TestPutSecurity():
         db = 'testString'
         admins = security_object_model
         members = security_object_model
-        cloudant = {'key1': ['_reader']}
+        cloudant = {}
         couchdb_auth_only = True
 
         # Invoke method
@@ -10844,7 +10844,7 @@ class TestPutSecurity():
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['admins'] == security_object_model
         assert req_body['members'] == security_object_model
-        assert req_body['cloudant'] == {'key1': ['_reader']}
+        assert req_body['cloudant'] == {}
         assert req_body['couchdb_auth_only'] == True
 
     def test_put_security_all_params_with_retries(self):
@@ -10879,7 +10879,7 @@ class TestPutSecurity():
         db = 'testString'
         admins = security_object_model
         members = security_object_model
-        cloudant = {'key1': ['_reader']}
+        cloudant = {}
         couchdb_auth_only = True
 
         # Pass in all but one required param and check for a ValueError
@@ -10963,7 +10963,7 @@ class TestPutCloudantSecurityConfiguration():
 
         # Set up parameter values
         db = 'testString'
-        cloudant = {'key1': ['_reader']}
+        cloudant = {}
         admins = security_object_model
         members = security_object_model
         couchdb_auth_only = True
@@ -10986,7 +10986,7 @@ class TestPutCloudantSecurityConfiguration():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['cloudant'] == {'key1': ['_reader']}
+        assert req_body['cloudant'] == {}
         assert req_body['admins'] == security_object_model
         assert req_body['members'] == security_object_model
         assert req_body['couchdb_auth_only'] == True
@@ -11021,7 +11021,7 @@ class TestPutCloudantSecurityConfiguration():
 
         # Set up parameter values
         db = 'testString'
-        cloudant = {'key1': ['_reader']}
+        cloudant = {}
         admins = security_object_model
         members = security_object_model
         couchdb_auth_only = True
@@ -12251,7 +12251,7 @@ class TestPutLocalDocument():
 
         # Construct a dict representation of a Document model
         document_model = {}
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -12338,7 +12338,7 @@ class TestPutLocalDocument():
 
         # Construct a dict representation of a Document model
         document_model = {}
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -12417,7 +12417,7 @@ class TestPutLocalDocument():
 
         # Construct a dict representation of a Document model
         document_model = {}
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -12512,7 +12512,7 @@ class TestPostRevsDiff():
 
         # Set up parameter values
         db = 'testString'
-        document_revisions = {'key1': ['testString']}
+        document_revisions = {}
 
         # Invoke method
         response = _service.post_revs_diff(
@@ -12556,7 +12556,7 @@ class TestPostRevsDiff():
 
         # Set up parameter values
         db = 'testString'
-        document_revisions = {'key1': ['testString']}
+        document_revisions = {}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -13143,7 +13143,7 @@ class TestModel_AllDocsQueriesResult():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -13263,7 +13263,7 @@ class TestModel_AllDocsResult():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -13357,7 +13357,7 @@ class TestModel_AnalyzerConfiguration():
         analyzer_configuration_model_json = {}
         analyzer_configuration_model_json['name'] = 'classic'
         analyzer_configuration_model_json['stopwords'] = ['testString']
-        analyzer_configuration_model_json['fields'] = {'key1': analyzer_model}
+        analyzer_configuration_model_json['fields'] = {}
 
         # Construct a model instance of AnalyzerConfiguration by calling from_dict on the json representation
         analyzer_configuration_model = AnalyzerConfiguration.from_dict(analyzer_configuration_model_json)
@@ -13474,7 +13474,7 @@ class TestModel_BulkDocs():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -13576,7 +13576,7 @@ class TestModel_BulkGetResult():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -13654,7 +13654,7 @@ class TestModel_BulkGetResultDocument():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -13725,7 +13725,7 @@ class TestModel_BulkGetResultItem():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -13942,7 +13942,7 @@ class TestModel_ChangesResult():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -14016,7 +14016,7 @@ class TestModel_ChangesResultItem():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -14465,7 +14465,7 @@ class TestModel_DesignDocument():
         analyzer_configuration_model = {} # AnalyzerConfiguration
         analyzer_configuration_model['name'] = 'classic'
         analyzer_configuration_model['stopwords'] = ['testString']
-        analyzer_configuration_model['fields'] = {'key1': analyzer_model}
+        analyzer_configuration_model['fields'] = {}
 
         search_index_definition_model = {} # SearchIndexDefinition
         search_index_definition_model['analyzer'] = analyzer_configuration_model
@@ -14483,7 +14483,7 @@ class TestModel_DesignDocument():
 
         # Construct a json representation of a DesignDocument model
         design_document_model_json = {}
-        design_document_model_json['_attachments'] = {'key1': attachment_model}
+        design_document_model_json['_attachments'] = {}
         design_document_model_json['_conflicts'] = ['testString']
         design_document_model_json['_deleted'] = True
         design_document_model_json['_deleted_conflicts'] = ['testString']
@@ -14493,13 +14493,13 @@ class TestModel_DesignDocument():
         design_document_model_json['_revisions'] = revisions_model
         design_document_model_json['_revs_info'] = [document_revision_status_model]
         design_document_model_json['autoupdate'] = True
-        design_document_model_json['filters'] = {'key1': 'testString'}
-        design_document_model_json['indexes'] = {'key1': search_index_definition_model}
+        design_document_model_json['filters'] = {}
+        design_document_model_json['indexes'] = {}
         design_document_model_json['language'] = 'javascript'
         design_document_model_json['options'] = design_document_options_model
         design_document_model_json['validate_doc_update'] = 'testString'
-        design_document_model_json['views'] = {'key1': design_document_views_map_reduce_model}
-        design_document_model_json['st_indexes'] = {'key1': geo_index_definition_model}
+        design_document_model_json['views'] = {}
+        design_document_model_json['st_indexes'] = {}
         design_document_model_json['foo'] = 'testString'
 
         # Construct a model instance of DesignDocument by calling from_dict on the json representation
@@ -14708,7 +14708,7 @@ class TestModel_DocsResultRow():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -14809,7 +14809,7 @@ class TestModel_Document():
 
         # Construct a json representation of a Document model
         document_model_json = {}
-        document_model_json['_attachments'] = {'key1': attachment_model}
+        document_model_json['_attachments'] = {}
         document_model_json['_conflicts'] = ['testString']
         document_model_json['_deleted'] = True
         document_model_json['_deleted_conflicts'] = ['testString']
@@ -15002,7 +15002,7 @@ class TestModel_ExplainResult():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
-        index_definition_model['partial_filter_selector'] = {'key1': 'testString'}
+        index_definition_model['partial_filter_selector'] = {}
 
         index_information_model = {} # IndexInformation
         index_information_model['ddoc'] = 'testString'
@@ -15020,9 +15020,9 @@ class TestModel_ExplainResult():
         explain_result_model_json['fields'] = ['testString']
         explain_result_model_json['index'] = index_information_model
         explain_result_model_json['limit'] = 0
-        explain_result_model_json['opts'] = {'key1': 'testString'}
+        explain_result_model_json['opts'] = {}
         explain_result_model_json['range'] = explain_result_range_model
-        explain_result_model_json['selector'] = {'key1': 'testString'}
+        explain_result_model_json['selector'] = {}
         explain_result_model_json['skip'] = 0
 
         # Construct a model instance of ExplainResult by calling from_dict on the json representation
@@ -15102,7 +15102,7 @@ class TestModel_FindResult():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -15261,7 +15261,7 @@ class TestModel_GeoJsonFeature():
         geo_json_feature_model_json['_rev'] = 'testString'
         geo_json_feature_model_json['bbox'] = [72.5]
         geo_json_feature_model_json['geometry'] = geo_json_geometry_object_model
-        geo_json_feature_model_json['properties'] = {'key1': 'testString'}
+        geo_json_feature_model_json['properties'] = {}
         geo_json_feature_model_json['type'] = 'Feature'
         geo_json_feature_model_json['foo'] = 'testString'
 
@@ -15311,7 +15311,7 @@ class TestModel_GeoResult():
         geo_json_feature_model['_rev'] = 'testString'
         geo_json_feature_model['bbox'] = [72.5]
         geo_json_feature_model['geometry'] = geo_json_geometry_object_model
-        geo_json_feature_model['properties'] = {'key1': 'testString'}
+        geo_json_feature_model['properties'] = {}
         geo_json_feature_model['type'] = 'Feature'
         geo_json_feature_model['foo'] = 'testString'
 
@@ -15335,7 +15335,7 @@ class TestModel_GeoResult():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -15410,7 +15410,7 @@ class TestModel_GeoResultRow():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -15478,7 +15478,7 @@ class TestModel_IndexDefinition():
         index_definition_model_json['default_field'] = index_text_operator_default_field_model
         index_definition_model_json['fields'] = [index_field_model]
         index_definition_model_json['index_array_lengths'] = True
-        index_definition_model_json['partial_filter_selector'] = {'key1': 'testString'}
+        index_definition_model_json['partial_filter_selector'] = {}
 
         # Construct a model instance of IndexDefinition by calling from_dict on the json representation
         index_definition_model = IndexDefinition.from_dict(index_definition_model_json)
@@ -15566,7 +15566,7 @@ class TestModel_IndexInformation():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
-        index_definition_model['partial_filter_selector'] = {'key1': 'testString'}
+        index_definition_model['partial_filter_selector'] = {}
 
         # Construct a json representation of a IndexInformation model
         index_information_model_json = {}
@@ -15687,7 +15687,7 @@ class TestModel_IndexesInformation():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
-        index_definition_model['partial_filter_selector'] = {'key1': 'testString'}
+        index_definition_model['partial_filter_selector'] = {}
 
         index_information_model = {} # IndexInformation
         index_information_model['ddoc'] = 'testString'
@@ -15977,7 +15977,7 @@ class TestModel_ReplicationDatabase():
         # Construct a json representation of a ReplicationDatabase model
         replication_database_model_json = {}
         replication_database_model_json['auth'] = replication_database_auth_model
-        replication_database_model_json['headers'] = {'key1': 'testString'}
+        replication_database_model_json['headers'] = {}
         replication_database_model_json['url'] = 'testString'
 
         # Construct a model instance of ReplicationDatabase by calling from_dict on the json representation
@@ -16142,7 +16142,7 @@ class TestModel_ReplicationDocument():
 
         replication_database_model = {} # ReplicationDatabase
         replication_database_model['auth'] = replication_database_auth_model
-        replication_database_model['headers'] = {'key1': 'testString'}
+        replication_database_model['headers'] = {}
         replication_database_model['url'] = 'testString'
 
         user_context_model = {} # UserContext
@@ -16152,7 +16152,7 @@ class TestModel_ReplicationDocument():
 
         # Construct a json representation of a ReplicationDocument model
         replication_document_model_json = {}
-        replication_document_model_json['_attachments'] = {'key1': attachment_model}
+        replication_document_model_json['_attachments'] = {}
         replication_document_model_json['_conflicts'] = ['testString']
         replication_document_model_json['_deleted'] = True
         replication_document_model_json['_deleted_conflicts'] = ['testString']
@@ -16170,9 +16170,9 @@ class TestModel_ReplicationDocument():
         replication_document_model_json['doc_ids'] = ['testString']
         replication_document_model_json['filter'] = 'testString'
         replication_document_model_json['http_connections'] = 1
-        replication_document_model_json['query_params'] = {'key1': 'testString'}
+        replication_document_model_json['query_params'] = {}
         replication_document_model_json['retries_per_request'] = 0
-        replication_document_model_json['selector'] = {'key1': 'testString'}
+        replication_document_model_json['selector'] = {}
         replication_document_model_json['since_seq'] = 'testString'
         replication_document_model_json['socket_options'] = 'testString'
         replication_document_model_json['source'] = replication_database_model
@@ -16621,7 +16621,7 @@ class TestModel_SearchIndexDefinition():
         analyzer_configuration_model = {} # AnalyzerConfiguration
         analyzer_configuration_model['name'] = 'classic'
         analyzer_configuration_model['stopwords'] = ['testString']
-        analyzer_configuration_model['fields'] = {'key1': analyzer_model}
+        analyzer_configuration_model['fields'] = {}
 
         # Construct a json representation of a SearchIndexDefinition model
         search_index_definition_model_json = {}
@@ -16749,7 +16749,7 @@ class TestModel_SearchResult():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -16762,16 +16762,16 @@ class TestModel_SearchResult():
 
         search_result_row_model = {} # SearchResultRow
         search_result_row_model['doc'] = document_model
-        search_result_row_model['fields'] = {'key1': 'testString'}
-        search_result_row_model['highlights'] = {'key1': ['testString']}
+        search_result_row_model['fields'] = {}
+        search_result_row_model['highlights'] = {}
         search_result_row_model['id'] = 'testString'
 
         search_result_properties_model = {} # SearchResultProperties
         search_result_properties_model['total_rows'] = 0
         search_result_properties_model['bookmark'] = 'testString'
         search_result_properties_model['by'] = 'testString'
-        search_result_properties_model['counts'] = {'key1': {'key1': 0}}
-        search_result_properties_model['ranges'] = {'key1': {'key1': 0}}
+        search_result_properties_model['counts'] = {}
+        search_result_properties_model['ranges'] = {}
         search_result_properties_model['rows'] = [search_result_row_model]
 
         # Construct a json representation of a SearchResult model
@@ -16779,8 +16779,8 @@ class TestModel_SearchResult():
         search_result_model_json['total_rows'] = 0
         search_result_model_json['bookmark'] = 'testString'
         search_result_model_json['by'] = 'testString'
-        search_result_model_json['counts'] = {'key1': {'key1': 0}}
-        search_result_model_json['ranges'] = {'key1': {'key1': 0}}
+        search_result_model_json['counts'] = {}
+        search_result_model_json['ranges'] = {}
         search_result_model_json['rows'] = [search_result_row_model]
         search_result_model_json['groups'] = [search_result_properties_model]
 
@@ -16831,7 +16831,7 @@ class TestModel_SearchResultProperties():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -16844,8 +16844,8 @@ class TestModel_SearchResultProperties():
 
         search_result_row_model = {} # SearchResultRow
         search_result_row_model['doc'] = document_model
-        search_result_row_model['fields'] = {'key1': 'testString'}
-        search_result_row_model['highlights'] = {'key1': ['testString']}
+        search_result_row_model['fields'] = {}
+        search_result_row_model['highlights'] = {}
         search_result_row_model['id'] = 'testString'
 
         # Construct a json representation of a SearchResultProperties model
@@ -16853,8 +16853,8 @@ class TestModel_SearchResultProperties():
         search_result_properties_model_json['total_rows'] = 0
         search_result_properties_model_json['bookmark'] = 'testString'
         search_result_properties_model_json['by'] = 'testString'
-        search_result_properties_model_json['counts'] = {'key1': {'key1': 0}}
-        search_result_properties_model_json['ranges'] = {'key1': {'key1': 0}}
+        search_result_properties_model_json['counts'] = {}
+        search_result_properties_model_json['ranges'] = {}
         search_result_properties_model_json['rows'] = [search_result_row_model]
 
         # Construct a model instance of SearchResultProperties by calling from_dict on the json representation
@@ -16904,7 +16904,7 @@ class TestModel_SearchResultRow():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -16918,8 +16918,8 @@ class TestModel_SearchResultRow():
         # Construct a json representation of a SearchResultRow model
         search_result_row_model_json = {}
         search_result_row_model_json['doc'] = document_model
-        search_result_row_model_json['fields'] = {'key1': 'testString'}
-        search_result_row_model_json['highlights'] = {'key1': ['testString']}
+        search_result_row_model_json['fields'] = {}
+        search_result_row_model_json['highlights'] = {}
         search_result_row_model_json['id'] = 'testString'
 
         # Construct a model instance of SearchResultRow by calling from_dict on the json representation
@@ -16957,7 +16957,7 @@ class TestModel_Security():
         security_model_json = {}
         security_model_json['admins'] = security_object_model
         security_model_json['members'] = security_object_model
-        security_model_json['cloudant'] = {'key1': ['_reader']}
+        security_model_json['cloudant'] = {}
         security_model_json['couchdb_auth_only'] = True
 
         # Construct a model instance of Security by calling from_dict on the json representation
@@ -17162,7 +17162,7 @@ class TestModel_ShardsInformation():
 
         # Construct a json representation of a ShardsInformation model
         shards_information_model_json = {}
-        shards_information_model_json['shards'] = {'key1': ['testString']}
+        shards_information_model_json['shards'] = {}
 
         # Construct a model instance of ShardsInformation by calling from_dict on the json representation
         shards_information_model = ShardsInformation.from_dict(shards_information_model_json)
@@ -17223,7 +17223,7 @@ class TestModel_UpInformation():
 
         # Construct a json representation of a UpInformation model
         up_information_model_json = {}
-        up_information_model_json['seeds'] = {'foo': 'bar'}
+        up_information_model_json['seeds'] = { 'foo': 'bar' }
         up_information_model_json['status'] = 'maintenance_mode'
 
         # Construct a model instance of UpInformation by calling from_dict on the json representation
@@ -17333,7 +17333,7 @@ class TestModel_ViewQueriesResult():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -17457,7 +17457,7 @@ class TestModel_ViewResult():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
@@ -17530,7 +17530,7 @@ class TestModel_ViewResultRow():
         document_revision_status_model['status'] = 'available'
 
         document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
+        document_model['_attachments'] = {}
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
