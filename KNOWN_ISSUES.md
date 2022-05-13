@@ -118,45 +118,4 @@ consult the Cloudant documentation for further information.
 
 <!-- Template substitution for language specific content -->
 <!-- ## SPLIT MARKER ## -->
-## Cloudant SDK for Python
 
-### Request bodies containing the `headers` parameter
-
-The `headers` dict is always reserved for the API request headers.
-In order to avoid collision between the request headers and the `headers` parameter
-that is contained by the request body, use the `headers_` as
-the request body `headers` parameter.
-
-E.g. to set the `headers` parameter of your replication
-target database, use the following approach:
-
-```python
-...
-target_db = ReplicationDatabase(
-    headers_={"Authorization": "Basic <your-base64-encoded-auth-key>"},
-    url='http://localhost:5984/animaldb-target'
-)
-...
-```
-The example above represents this JSON body:
-```json
-{
-    ...
-    "target": {
-        "headers": {
-            "Authorization": "Basic <your-base64-encoded-auth-key>"
-        },
-        "url": "<your-service-url>/animaldb-target"
-    },
-    ...
-}
-```
-
-### Disabling request body compression
-
-```python
-from ibmcloudant.cloudant_v1 import CloudantV1
-client = CloudantV1.new_instance(service_name="YOUR_SERVICE_NAME")
-client.set_enable_gzip_compression(False)
-...
-```
