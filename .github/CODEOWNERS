@@ -28,4 +28,8 @@ test/unit/test_cloudant_v1.py @IBM/cloudant-sdks
 ibmcloudant/version.py @IBM/cloudant-sdks
 setup.py @IBM/cloudant-sdks
 
+# Examples files:
+
+/examples/ @IBM/cloudant-sdks
+
 .bumpversion.cfg @IBM/cloudant-sdks
