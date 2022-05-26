@@ -46,6 +46,7 @@ to avoid surprises.
     + [2. Create your own database and add a document](#2-create-your-own-database-and-add-a-document)
     + [3. Update your previously created document](#3-update-your-previously-created-document)
     + [4. Delete your previously created document](#4-delete-your-previously-created-document)
+    + [Further code examples](#further-code-examples)
   * [Error handling](#error-handling)
   * [Raw IO](#raw-io)
   * [Model classes vs dictionaries](#model-classes-vs-dictionaries)
@@ -569,6 +570,10 @@ When you run the code, you see the following output.
 ```txt
 You have deleted the document.
 ```
+
+#### Further code examples
+
+For a complete list of code examples, see the [examples directory](examples#examples-for-python).
 
 ### Error handling
 
