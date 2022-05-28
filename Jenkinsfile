@@ -275,10 +275,10 @@ void applyCustomizations() {
 }
 
 void runTests() {
-  sh """
+  sh '''
     . /home/jenkins/pythonvenv/bin/activate
     python3 -m tox -e py310
-  """
+  '''
 }
 
 void publishStaging() {
@@ -299,15 +299,18 @@ void publishTwine() {
   dir('dist') {
     deleteDir()
   }
-  sh """
+  sh '''
     . /home/jenkins/pythonvenv/bin/activate
     python3 --version
     python3 setup.py sdist
     python3 -m twine upload dist/*
-  """
+  '''
 }
 
 void publishDocs() {
-  sh './scripts/pydoc/publish-doc.sh'
+  sh '''
+    . /home/jenkins/pythonvenv/bin/activate
+    ./scripts/pydoc/publish-doc.sh
+  '''
 }
 
