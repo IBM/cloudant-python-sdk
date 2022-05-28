@@ -19,6 +19,9 @@ printf ">>>>> Finished cloning...\n"
 
 pushd gh-pages
 
+# Remove v prefix from TAG_NAME
+TAG_NAME=${TAG_NAME#'v'}
+
 # Semantic version pattern is copied from Semantic Versioning Specification 2.0.0:
 # Author: Tom Preston-Werner
 # License: Creative Commons ― CC BY 3.0 https://creativecommons.org/licenses/by/3.0/
