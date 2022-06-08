@@ -78,7 +78,6 @@ class CouchDbSessionAuthenticator(Authenticator):
         # the jar manually is necessary
         self.jar.update(jar)
 
-    # pylint: disable=R0201
     def authentication_type(self) -> str:
         """Returns this authenticator's type ('COUCHDB_SESSION')."""
         return CouchDbSessionAuthenticator.AUTHTYPE_COUCHDB_SESSION
