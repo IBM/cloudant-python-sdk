@@ -359,7 +359,6 @@ class TestPutCapacityThroughputConfiguration():
             with pytest.raises(ValueError):
                 _service.put_capacity_throughput_configuration(**req_copy)
 
-
     def test_put_capacity_throughput_configuration_value_error_with_retries(self):
         # Enable retries and run test_put_capacity_throughput_configuration_value_error.
         _service.enable_retries()
@@ -672,7 +671,6 @@ class TestPostChanges():
             with pytest.raises(ValueError):
                 _service.post_changes(**req_copy)
 
-
     def test_post_changes_value_error_with_retries(self):
         # Enable retries and run test_post_changes_value_error.
         _service.enable_retries()
@@ -875,7 +873,6 @@ class TestPostChangesAsStream():
             with pytest.raises(ValueError):
                 _service.post_changes_as_stream(**req_copy)
 
-
     def test_post_changes_as_stream_value_error_with_retries(self):
         # Enable retries and run test_post_changes_as_stream_value_error.
         _service.enable_retries()
@@ -982,7 +979,6 @@ class TestHeadDatabase():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.head_database(**req_copy)
-
 
     def test_head_database_value_error_with_retries(self):
         # Enable retries and run test_head_database_value_error.
@@ -1154,7 +1150,6 @@ class TestPostDbsInfo():
             with pytest.raises(ValueError):
                 _service.post_dbs_info(**req_copy)
 
-
     def test_post_dbs_info_value_error_with_retries(self):
         # Enable retries and run test_post_dbs_info_value_error.
         _service.enable_retries()
@@ -1231,7 +1226,6 @@ class TestDeleteDatabase():
             with pytest.raises(ValueError):
                 _service.delete_database(**req_copy)
 
-
     def test_delete_database_value_error_with_retries(self):
         # Enable retries and run test_delete_database_value_error.
         _service.enable_retries()
@@ -1307,7 +1301,6 @@ class TestGetDatabaseInformation():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_database_information(**req_copy)
-
 
     def test_get_database_information_value_error_with_retries(self):
         # Enable retries and run test_get_database_information_value_error.
@@ -1429,7 +1422,6 @@ class TestPutDatabase():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.put_database(**req_copy)
-
 
     def test_put_database_value_error_with_retries(self):
         # Enable retries and run test_put_database_value_error.
@@ -1587,7 +1579,6 @@ class TestHeadDocument():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.head_document(**req_copy)
-
 
     def test_head_document_value_error_with_retries(self):
         # Enable retries and run test_head_document_value_error.
@@ -1828,7 +1819,6 @@ class TestPostDocument():
             with pytest.raises(ValueError):
                 _service.post_document(**req_copy)
 
-
     def test_post_document_value_error_with_retries(self):
         # Enable retries and run test_post_document_value_error.
         _service.enable_retries()
@@ -1961,7 +1951,6 @@ class TestPostAllDocs():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_all_docs(**req_copy)
-
 
     def test_post_all_docs_value_error_with_retries(self):
         # Enable retries and run test_post_all_docs_value_error.
@@ -2102,7 +2091,6 @@ class TestPostAllDocsAsStream():
             with pytest.raises(ValueError):
                 _service.post_all_docs_as_stream(**req_copy)
 
-
     def test_post_all_docs_as_stream_value_error_with_retries(self):
         # Enable retries and run test_post_all_docs_as_stream_value_error.
         _service.enable_retries()
@@ -2220,7 +2208,6 @@ class TestPostAllDocsQueries():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_all_docs_queries(**req_copy)
-
 
     def test_post_all_docs_queries_value_error_with_retries(self):
         # Enable retries and run test_post_all_docs_queries_value_error.
@@ -2345,7 +2332,6 @@ class TestPostAllDocsQueriesAsStream():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_all_docs_queries_as_stream(**req_copy)
-
 
     def test_post_all_docs_queries_as_stream_value_error_with_retries(self):
         # Enable retries and run test_post_all_docs_queries_as_stream_value_error.
@@ -2513,7 +2499,6 @@ class TestPostBulkDocs():
             with pytest.raises(ValueError):
                 _service.post_bulk_docs(**req_copy)
 
-
     def test_post_bulk_docs_value_error_with_retries(self):
         # Enable retries and run test_post_bulk_docs_value_error.
         _service.enable_retries()
@@ -2676,7 +2661,6 @@ class TestPostBulkGet():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_bulk_get(**req_copy)
-
 
     def test_post_bulk_get_value_error_with_retries(self):
         # Enable retries and run test_post_bulk_get_value_error.
@@ -2841,7 +2825,6 @@ class TestPostBulkGetAsMixed():
             with pytest.raises(ValueError):
                 _service.post_bulk_get_as_mixed(**req_copy)
 
-
     def test_post_bulk_get_as_mixed_value_error_with_retries(self):
         # Enable retries and run test_post_bulk_get_as_mixed_value_error.
         _service.enable_retries()
@@ -3004,7 +2987,6 @@ class TestPostBulkGetAsRelated():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_bulk_get_as_related(**req_copy)
-
 
     def test_post_bulk_get_as_related_value_error_with_retries(self):
         # Enable retries and run test_post_bulk_get_as_related_value_error.
@@ -3181,7 +3163,6 @@ class TestPostBulkGetAsStream():
             with pytest.raises(ValueError):
                 _service.post_bulk_get_as_stream(**req_copy)
 
-
     def test_post_bulk_get_as_stream_value_error_with_retries(self):
         # Enable retries and run test_post_bulk_get_as_stream_value_error.
         _service.enable_retries()
@@ -3310,7 +3291,6 @@ class TestDeleteDocument():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.delete_document(**req_copy)
-
 
     def test_delete_document_value_error_with_retries(self):
         # Enable retries and run test_delete_document_value_error.
@@ -3465,7 +3445,6 @@ class TestGetDocument():
             with pytest.raises(ValueError):
                 _service.get_document(**req_copy)
 
-
     def test_get_document_value_error_with_retries(self):
         # Enable retries and run test_get_document_value_error.
         _service.enable_retries()
@@ -3619,7 +3598,6 @@ class TestGetDocumentAsMixed():
             with pytest.raises(ValueError):
                 _service.get_document_as_mixed(**req_copy)
 
-
     def test_get_document_as_mixed_value_error_with_retries(self):
         # Enable retries and run test_get_document_as_mixed_value_error.
         _service.enable_retries()
@@ -3772,7 +3750,6 @@ class TestGetDocumentAsRelated():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_document_as_related(**req_copy)
-
 
     def test_get_document_as_related_value_error_with_retries(self):
         # Enable retries and run test_get_document_as_related_value_error.
@@ -3938,7 +3915,6 @@ class TestGetDocumentAsStream():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_document_as_stream(**req_copy)
-
 
     def test_get_document_as_stream_value_error_with_retries(self):
         # Enable retries and run test_get_document_as_stream_value_error.
@@ -4193,7 +4169,6 @@ class TestPutDocument():
             with pytest.raises(ValueError):
                 _service.put_document(**req_copy)
 
-
     def test_put_document_value_error_with_retries(self):
         # Enable retries and run test_put_document_value_error.
         _service.enable_retries()
@@ -4342,7 +4317,6 @@ class TestHeadDesignDocument():
             with pytest.raises(ValueError):
                 _service.head_design_document(**req_copy)
 
-
     def test_head_design_document_value_error_with_retries(self):
         # Enable retries and run test_head_design_document_value_error.
         _service.enable_retries()
@@ -4471,7 +4445,6 @@ class TestDeleteDesignDocument():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.delete_design_document(**req_copy)
-
 
     def test_delete_design_document_value_error_with_retries(self):
         # Enable retries and run test_delete_design_document_value_error.
@@ -4625,7 +4598,6 @@ class TestGetDesignDocument():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_design_document(**req_copy)
-
 
     def test_get_design_document_value_error_with_retries(self):
         # Enable retries and run test_get_design_document_value_error.
@@ -4993,7 +4965,6 @@ class TestPutDesignDocument():
             with pytest.raises(ValueError):
                 _service.put_design_document(**req_copy)
 
-
     def test_put_design_document_value_error_with_retries(self):
         # Enable retries and run test_put_design_document_value_error.
         _service.enable_retries()
@@ -5073,7 +5044,6 @@ class TestGetDesignDocumentInformation():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_design_document_information(**req_copy)
-
 
     def test_get_design_document_information_value_error_with_retries(self):
         # Enable retries and run test_get_design_document_information_value_error.
@@ -5290,7 +5260,6 @@ class TestPostDesignDocs():
             with pytest.raises(ValueError):
                 _service.post_design_docs(**req_copy)
 
-
     def test_post_design_docs_value_error_with_retries(self):
         # Enable retries and run test_post_design_docs_value_error.
         _service.enable_retries()
@@ -5470,7 +5439,6 @@ class TestPostDesignDocsQueries():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_design_docs_queries(**req_copy)
-
 
     def test_post_design_docs_queries_value_error_with_retries(self):
         # Enable retries and run test_post_design_docs_queries_value_error.
@@ -5678,7 +5646,6 @@ class TestPostView():
             with pytest.raises(ValueError):
                 _service.post_view(**req_copy)
 
-
     def test_post_view_value_error_with_retries(self):
         # Enable retries and run test_post_view_value_error.
         _service.enable_retries()
@@ -5854,7 +5821,6 @@ class TestPostViewAsStream():
             with pytest.raises(ValueError):
                 _service.post_view_as_stream(**req_copy)
 
-
     def test_post_view_as_stream_value_error_with_retries(self):
         # Enable retries and run test_post_view_as_stream_value_error.
         _service.enable_retries()
@@ -5994,7 +5960,6 @@ class TestPostViewQueries():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_view_queries(**req_copy)
-
 
     def test_post_view_queries_value_error_with_retries(self):
         # Enable retries and run test_post_view_queries_value_error.
@@ -6142,7 +6107,6 @@ class TestPostViewQueriesAsStream():
             with pytest.raises(ValueError):
                 _service.post_view_queries_as_stream(**req_copy)
 
-
     def test_post_view_queries_as_stream_value_error_with_retries(self):
         # Enable retries and run test_post_view_queries_as_stream_value_error.
         _service.enable_retries()
@@ -6259,7 +6223,6 @@ class TestGetPartitionInformation():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_partition_information(**req_copy)
-
 
     def test_get_partition_information_value_error_with_retries(self):
         # Enable retries and run test_get_partition_information_value_error.
@@ -6397,7 +6360,6 @@ class TestPostPartitionAllDocs():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_partition_all_docs(**req_copy)
-
 
     def test_post_partition_all_docs_value_error_with_retries(self):
         # Enable retries and run test_post_partition_all_docs_value_error.
@@ -6542,7 +6504,6 @@ class TestPostPartitionAllDocsAsStream():
             with pytest.raises(ValueError):
                 _service.post_partition_all_docs_as_stream(**req_copy)
 
-
     def test_post_partition_all_docs_as_stream_value_error_with_retries(self):
         # Enable retries and run test_post_partition_all_docs_as_stream_value_error.
         _service.enable_retries()
@@ -6684,7 +6645,6 @@ class TestPostPartitionSearch():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_partition_search(**req_copy)
-
 
     def test_post_partition_search_value_error_with_retries(self):
         # Enable retries and run test_post_partition_search_value_error.
@@ -6833,7 +6793,6 @@ class TestPostPartitionSearchAsStream():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_partition_search_as_stream(**req_copy)
-
 
     def test_post_partition_search_as_stream_value_error_with_retries(self):
         # Enable retries and run test_post_partition_search_as_stream_value_error.
@@ -7007,7 +6966,6 @@ class TestPostPartitionView():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_partition_view(**req_copy)
-
 
     def test_post_partition_view_value_error_with_retries(self):
         # Enable retries and run test_post_partition_view_value_error.
@@ -7188,7 +7146,6 @@ class TestPostPartitionViewAsStream():
             with pytest.raises(ValueError):
                 _service.post_partition_view_as_stream(**req_copy)
 
-
     def test_post_partition_view_as_stream_value_error_with_retries(self):
         # Enable retries and run test_post_partition_view_as_stream_value_error.
         _service.enable_retries()
@@ -7318,7 +7275,6 @@ class TestPostPartitionFind():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_partition_find(**req_copy)
-
 
     def test_post_partition_find_value_error_with_retries(self):
         # Enable retries and run test_post_partition_find_value_error.
@@ -7455,7 +7411,6 @@ class TestPostPartitionFindAsStream():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_partition_find_as_stream(**req_copy)
-
 
     def test_post_partition_find_as_stream_value_error_with_retries(self):
         # Enable retries and run test_post_partition_find_as_stream_value_error.
@@ -7624,7 +7579,6 @@ class TestPostExplain():
             with pytest.raises(ValueError):
                 _service.post_explain(**req_copy)
 
-
     def test_post_explain_value_error_with_retries(self):
         # Enable retries and run test_post_explain_value_error.
         _service.enable_retries()
@@ -7754,7 +7708,6 @@ class TestPostFind():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_find(**req_copy)
-
 
     def test_post_find_value_error_with_retries(self):
         # Enable retries and run test_post_find_value_error.
@@ -7892,7 +7845,6 @@ class TestPostFindAsStream():
             with pytest.raises(ValueError):
                 _service.post_find_as_stream(**req_copy)
 
-
     def test_post_find_as_stream_value_error_with_retries(self):
         # Enable retries and run test_post_find_as_stream_value_error.
         _service.enable_retries()
@@ -7968,7 +7920,6 @@ class TestGetIndexesInformation():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_indexes_information(**req_copy)
-
 
     def test_get_indexes_information_value_error_with_retries(self):
         # Enable retries and run test_get_indexes_information_value_error.
@@ -8124,7 +8075,6 @@ class TestPostIndex():
             with pytest.raises(ValueError):
                 _service.post_index(**req_copy)
 
-
     def test_post_index_value_error_with_retries(self):
         # Enable retries and run test_post_index_value_error.
         _service.enable_retries()
@@ -8212,7 +8162,6 @@ class TestDeleteIndex():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.delete_index(**req_copy)
-
 
     def test_delete_index_value_error_with_retries(self):
         # Enable retries and run test_delete_index_value_error.
@@ -8337,7 +8286,6 @@ class TestPostSearchAnalyze():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_search_analyze(**req_copy)
-
 
     def test_post_search_analyze_value_error_with_retries(self):
         # Enable retries and run test_post_search_analyze_value_error.
@@ -8500,7 +8448,6 @@ class TestPostSearch():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_search(**req_copy)
-
 
     def test_post_search_value_error_with_retries(self):
         # Enable retries and run test_post_search_value_error.
@@ -8670,7 +8617,6 @@ class TestPostSearchAsStream():
             with pytest.raises(ValueError):
                 _service.post_search_as_stream(**req_copy)
 
-
     def test_post_search_as_stream_value_error_with_retries(self):
         # Enable retries and run test_post_search_as_stream_value_error.
         _service.enable_retries()
@@ -8754,7 +8700,6 @@ class TestGetSearchInfo():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_search_info(**req_copy)
-
 
     def test_get_search_info_value_error_with_retries(self):
         # Enable retries and run test_get_search_info_value_error.
@@ -8965,7 +8910,6 @@ class TestGetGeo():
             with pytest.raises(ValueError):
                 _service.get_geo(**req_copy)
 
-
     def test_get_geo_value_error_with_retries(self):
         # Enable retries and run test_get_geo_value_error.
         _service.enable_retries()
@@ -9150,7 +9094,6 @@ class TestGetGeoAsStream():
             with pytest.raises(ValueError):
                 _service.get_geo_as_stream(**req_copy)
 
-
     def test_get_geo_as_stream_value_error_with_retries(self):
         # Enable retries and run test_get_geo_as_stream_value_error.
         _service.enable_retries()
@@ -9226,7 +9169,6 @@ class TestPostGeoCleanup():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_geo_cleanup(**req_copy)
-
 
     def test_post_geo_cleanup_value_error_with_retries(self):
         # Enable retries and run test_post_geo_cleanup_value_error.
@@ -9311,7 +9253,6 @@ class TestGetGeoIndexInformation():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_geo_index_information(**req_copy)
-
 
     def test_get_geo_index_information_value_error_with_retries(self):
         # Enable retries and run test_get_geo_index_information_value_error.
@@ -9455,7 +9396,6 @@ class TestHeadReplicationDocument():
             with pytest.raises(ValueError):
                 _service.head_replication_document(**req_copy)
 
-
     def test_head_replication_document_value_error_with_retries(self):
         # Enable retries and run test_head_replication_document_value_error.
         _service.enable_retries()
@@ -9526,7 +9466,6 @@ class TestHeadSchedulerDocument():
             with pytest.raises(ValueError):
                 _service.head_scheduler_document(**req_copy)
 
-
     def test_head_scheduler_document_value_error_with_retries(self):
         # Enable retries and run test_head_scheduler_document_value_error.
         _service.enable_retries()
@@ -9596,7 +9535,6 @@ class TestHeadSchedulerJob():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.head_scheduler_job(**req_copy)
-
 
     def test_head_scheduler_job_value_error_with_retries(self):
         # Enable retries and run test_head_scheduler_job_value_error.
@@ -9720,7 +9658,6 @@ class TestDeleteReplicationDocument():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.delete_replication_document(**req_copy)
-
 
     def test_delete_replication_document_value_error_with_retries(self):
         # Enable retries and run test_delete_replication_document_value_error.
@@ -9868,7 +9805,6 @@ class TestGetReplicationDocument():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_replication_document(**req_copy)
-
 
     def test_get_replication_document_value_error_with_retries(self):
         # Enable retries and run test_get_replication_document_value_error.
@@ -10281,7 +10217,6 @@ class TestPutReplicationDocument():
             with pytest.raises(ValueError):
                 _service.put_replication_document(**req_copy)
 
-
     def test_put_replication_document_value_error_with_retries(self):
         # Enable retries and run test_put_replication_document_value_error.
         _service.enable_retries()
@@ -10440,7 +10375,6 @@ class TestGetSchedulerDocument():
             with pytest.raises(ValueError):
                 _service.get_scheduler_document(**req_copy)
 
-
     def test_get_scheduler_document_value_error_with_retries(self):
         # Enable retries and run test_get_scheduler_document_value_error.
         _service.enable_retries()
@@ -10595,7 +10529,6 @@ class TestGetSchedulerJob():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_scheduler_job(**req_copy)
-
 
     def test_get_scheduler_job_value_error_with_retries(self):
         # Enable retries and run test_get_scheduler_job_value_error.
@@ -10783,7 +10716,6 @@ class TestGetSecurity():
             with pytest.raises(ValueError):
                 _service.get_security(**req_copy)
 
-
     def test_get_security_value_error_with_retries(self):
         # Enable retries and run test_get_security_value_error.
         _service.enable_retries()
@@ -10890,7 +10822,6 @@ class TestPutSecurity():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.put_security(**req_copy)
-
 
     def test_put_security_value_error_with_retries(self):
         # Enable retries and run test_put_security_value_error.
@@ -11035,7 +10966,6 @@ class TestPutCloudantSecurityConfiguration():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.put_cloudant_security_configuration(**req_copy)
-
 
     def test_put_cloudant_security_configuration_value_error_with_retries(self):
         # Enable retries and run test_put_cloudant_security_configuration_value_error.
@@ -11200,7 +11130,6 @@ class TestPutCorsConfiguration():
             with pytest.raises(ValueError):
                 _service.put_cors_configuration(**req_copy)
 
-
     def test_put_cors_configuration_value_error_with_retries(self):
         # Enable retries and run test_put_cors_configuration_value_error.
         _service.enable_retries()
@@ -11363,7 +11292,6 @@ class TestHeadAttachment():
             with pytest.raises(ValueError):
                 _service.head_attachment(**req_copy)
 
-
     def test_head_attachment_value_error_with_retries(self):
         # Enable retries and run test_head_attachment_value_error.
         _service.enable_retries()
@@ -11498,7 +11426,6 @@ class TestDeleteAttachment():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.delete_attachment(**req_copy)
-
 
     def test_delete_attachment_value_error_with_retries(self):
         # Enable retries and run test_delete_attachment_value_error.
@@ -11635,7 +11562,6 @@ class TestGetAttachment():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_attachment(**req_copy)
-
 
     def test_get_attachment_value_error_with_retries(self):
         # Enable retries and run test_get_attachment_value_error.
@@ -11789,7 +11715,6 @@ class TestPutAttachment():
             with pytest.raises(ValueError):
                 _service.put_attachment(**req_copy)
 
-
     def test_put_attachment_value_error_with_retries(self):
         # Enable retries and run test_put_attachment_value_error.
         _service.enable_retries()
@@ -11938,7 +11863,6 @@ class TestHeadLocalDocument():
             with pytest.raises(ValueError):
                 _service.head_local_document(**req_copy)
 
-
     def test_head_local_document_value_error_with_retries(self):
         # Enable retries and run test_head_local_document_value_error.
         _service.enable_retries()
@@ -12062,7 +11986,6 @@ class TestDeleteLocalDocument():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.delete_local_document(**req_copy)
-
 
     def test_delete_local_document_value_error_with_retries(self):
         # Enable retries and run test_delete_local_document_value_error.
@@ -12197,7 +12120,6 @@ class TestGetLocalDocument():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_local_document(**req_copy)
-
 
     def test_get_local_document_value_error_with_retries(self):
         # Enable retries and run test_get_local_document_value_error.
@@ -12444,7 +12366,6 @@ class TestPutLocalDocument():
             with pytest.raises(ValueError):
                 _service.put_local_document(**req_copy)
 
-
     def test_put_local_document_value_error_with_retries(self):
         # Enable retries and run test_put_local_document_value_error.
         _service.enable_retries()
@@ -12568,7 +12489,6 @@ class TestPostRevsDiff():
             with pytest.raises(ValueError):
                 _service.post_revs_diff(**req_copy)
 
-
     def test_post_revs_diff_value_error_with_retries(self):
         # Enable retries and run test_post_revs_diff_value_error.
         _service.enable_retries()
@@ -12644,7 +12564,6 @@ class TestGetShardsInformation():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_shards_information(**req_copy)
-
 
     def test_get_shards_information_value_error_with_retries(self):
         # Enable retries and run test_get_shards_information_value_error.
@@ -12725,7 +12644,6 @@ class TestGetDocumentShardsInfo():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.get_document_shards_info(**req_copy)
-
 
     def test_get_document_shards_info_value_error_with_retries(self):
         # Enable retries and run test_get_document_shards_info_value_error.
@@ -12986,7 +12904,6 @@ class TestPostActivityTrackerEvents():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
                 _service.post_activity_tracker_events(**req_copy)
-
 
     def test_post_activity_tracker_events_value_error_with_retries(self):
         # Enable retries and run test_post_activity_tracker_events_value_error.

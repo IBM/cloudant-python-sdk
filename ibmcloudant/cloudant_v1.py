@@ -104,6 +104,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/'
@@ -138,6 +139,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_membership'
@@ -179,6 +181,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_uuids'
@@ -213,6 +216,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/capacity/throughput'
@@ -260,6 +264,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/capacity/throughput'
@@ -331,6 +336,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_db_updates'
@@ -516,6 +522,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -705,6 +712,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -752,6 +760,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
 
         path_param_keys = ['db']
         path_param_values = self.encode_path_vars(db)
@@ -810,6 +819,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_all_dbs'
@@ -857,6 +867,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_dbs_info'
@@ -897,6 +908,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -934,6 +946,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -985,6 +998,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -1054,6 +1068,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
 
         path_param_keys = ['db', 'doc_id']
         path_param_values = self.encode_path_vars(db, doc_id)
@@ -1128,6 +1143,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -1232,6 +1248,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -1335,6 +1352,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -1394,6 +1412,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -1453,6 +1472,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -1508,6 +1528,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -1583,6 +1604,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -1659,6 +1681,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'multipart/mixed'
 
         path_param_keys = ['db']
@@ -1735,6 +1758,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'multipart/related'
 
         path_param_keys = ['db']
@@ -1811,6 +1835,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -1877,6 +1902,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'doc_id']
@@ -1975,6 +2001,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'doc_id']
@@ -2073,6 +2100,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'multipart/mixed'
 
         path_param_keys = ['db', 'doc_id']
@@ -2171,6 +2199,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'multipart/related'
 
         path_param_keys = ['db', 'doc_id']
@@ -2269,6 +2298,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'doc_id']
@@ -2357,6 +2387,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'doc_id']
@@ -2420,6 +2451,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
 
         path_param_keys = ['db', 'ddoc']
         path_param_values = self.encode_path_vars(db, ddoc)
@@ -2485,6 +2517,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc']
@@ -2585,6 +2618,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc']
@@ -2666,6 +2700,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc']
@@ -2715,6 +2750,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc']
@@ -2822,6 +2858,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
 
         path_param_keys = ['db']
         path_param_values = self.encode_path_vars(db)
@@ -2884,6 +2921,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
 
         path_param_keys = ['db']
         path_param_values = self.encode_path_vars(db)
@@ -3032,6 +3070,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc', 'view']
@@ -3177,6 +3216,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc', 'view']
@@ -3244,6 +3284,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc', 'view']
@@ -3311,6 +3352,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc', 'view']
@@ -3361,6 +3403,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'partition_key']
@@ -3468,6 +3511,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'partition_key']
@@ -3576,6 +3620,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'partition_key']
@@ -3702,6 +3747,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'partition_key', 'ddoc', 'index']
@@ -3828,6 +3874,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'partition_key', 'ddoc', 'index']
@@ -3977,6 +4024,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'partition_key', 'ddoc', 'view']
@@ -4126,6 +4174,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'partition_key', 'ddoc', 'view']
@@ -4273,6 +4322,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'partition_key']
@@ -4420,6 +4470,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'partition_key']
@@ -4569,6 +4620,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -4720,6 +4772,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -4871,6 +4924,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -4914,6 +4968,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -4997,6 +5052,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -5049,6 +5105,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc', 'type', 'index']
@@ -5106,6 +5163,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_search_analyze'
@@ -5268,6 +5326,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc', 'index']
@@ -5433,6 +5492,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc', 'index']
@@ -5483,6 +5543,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc', 'index']
@@ -5616,6 +5677,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc', 'index']
@@ -5746,6 +5808,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc', 'index']
@@ -5787,6 +5850,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -5834,6 +5898,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'ddoc', 'index']
@@ -5886,6 +5951,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
 
         path_param_keys = ['doc_id']
         path_param_values = self.encode_path_vars(doc_id)
@@ -5927,6 +5993,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
 
         path_param_keys = ['doc_id']
         path_param_values = self.encode_path_vars(doc_id)
@@ -5966,6 +6033,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
 
         path_param_keys = ['job_id']
         path_param_values = self.encode_path_vars(job_id)
@@ -6022,6 +6090,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['doc_id']
@@ -6116,6 +6185,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['doc_id']
@@ -6191,6 +6261,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['doc_id']
@@ -6247,6 +6318,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_scheduler/docs'
@@ -6286,6 +6358,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['doc_id']
@@ -6337,6 +6410,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_scheduler/jobs'
@@ -6374,6 +6448,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['job_id']
@@ -6413,6 +6488,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_session'
@@ -6457,6 +6533,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -6532,6 +6609,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -6571,6 +6649,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/api_keys'
@@ -6643,6 +6722,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -6685,6 +6765,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/config/cors'
@@ -6741,6 +6822,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/config/cors'
@@ -6809,6 +6891,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
 
         path_param_keys = ['db', 'doc_id', 'attachment_name']
         path_param_values = self.encode_path_vars(db, doc_id, attachment_name)
@@ -6875,6 +6958,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'doc_id', 'attachment_name']
@@ -6947,6 +7031,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = '*/*'
 
         path_param_keys = ['db', 'doc_id', 'attachment_name']
@@ -7026,6 +7111,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'doc_id', 'attachment_name']
@@ -7083,6 +7169,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
 
         path_param_keys = ['db', 'doc_id']
         path_param_values = self.encode_path_vars(db, doc_id)
@@ -7136,6 +7223,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'doc_id']
@@ -7208,6 +7296,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
 
         path_param_keys = ['db', 'doc_id']
         path_param_values = self.encode_path_vars(db, doc_id)
@@ -7280,6 +7369,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'doc_id']
@@ -7336,6 +7426,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -7376,6 +7467,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
@@ -7420,6 +7512,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         path_param_keys = ['db', 'doc_id']
@@ -7459,6 +7552,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
 
         url = '/_up'
         request = self.prepare_request(method='HEAD',
@@ -7493,6 +7587,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_active_tasks'
@@ -7526,6 +7621,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_up'
@@ -7559,6 +7655,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/activity_tracker/events'
@@ -7605,6 +7702,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/activity_tracker/events'
@@ -7640,6 +7738,7 @@ class CloudantV1(BaseService):
 
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
+            del kwargs['headers']
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/current/throughput'
