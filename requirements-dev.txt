@@ -2,7 +2,7 @@
 pytest==7.1.2
 responses==0.21.0
 python_dotenv==0.20.0
-pylint==2.14.2
+pylint==2.14.3
 tox==3.25.0
 pytest-rerunfailures==10.2
 
