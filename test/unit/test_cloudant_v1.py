@@ -9562,7 +9562,7 @@ class TestDeleteReplicationDocument():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         doc_id = 'testString'
@@ -9581,7 +9581,7 @@ class TestDeleteReplicationDocument():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
         query_string = urllib.parse.unquote_plus(query_string)
@@ -9609,7 +9609,7 @@ class TestDeleteReplicationDocument():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         doc_id = 'testString'
@@ -9622,7 +9622,7 @@ class TestDeleteReplicationDocument():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
 
     def test_delete_replication_document_required_params_with_retries(self):
         # Enable retries and run test_delete_replication_document_required_params.
@@ -9645,7 +9645,7 @@ class TestDeleteReplicationDocument():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         doc_id = 'testString'
@@ -11318,7 +11318,7 @@ class TestDeleteAttachment():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -11341,7 +11341,7 @@ class TestDeleteAttachment():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
         # Validate query params
         query_string = responses.calls[0].request.url.split('?',1)[1]
         query_string = urllib.parse.unquote_plus(query_string)
@@ -11369,7 +11369,7 @@ class TestDeleteAttachment():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
@@ -11386,7 +11386,7 @@ class TestDeleteAttachment():
 
         # Check for correct operation
         assert len(responses.calls) == 1
-        assert response.status_code == 201
+        assert response.status_code == 200
 
     def test_delete_attachment_required_params_with_retries(self):
         # Enable retries and run test_delete_attachment_required_params.
@@ -11409,7 +11409,7 @@ class TestDeleteAttachment():
                       url,
                       body=mock_response,
                       content_type='application/json',
-                      status=201)
+                      status=200)
 
         # Set up parameter values
         db = 'testString'
