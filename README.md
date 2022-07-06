@@ -191,7 +191,8 @@ CLOUDANT_USERNAME=<username>
 CLOUDANT_PASSWORD=<password>
 ```
 
-**Note**: We recommend that you use [IAM](#iam-authentication) for Cloudant and
+**Note**: There are also additional [*Bearer token*](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#bearer-token-authentication), [*Container*](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#container-authentication) and [*VPC Instance*](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#vpc-instance-authentication) authentication methods. For more details, please follow the provided links.
+We recommend that you use [IAM](#iam-authentication) for Cloudant and
 [Session](#session-cookie-authentication) for CouchDB authentication.
 
 ### Authentication with external configuration
