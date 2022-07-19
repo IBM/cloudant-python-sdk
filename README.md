@@ -4,6 +4,8 @@
 
 # IBM Cloudant Python SDK Version 0.1.4
 
+Trigger an automatic pull request.
+
 IBM Cloudant Python SDK is a client library that interacts with the
 [IBM Cloudant APIs](https://cloud.ibm.com/apidocs/cloudant?code=python).
 
