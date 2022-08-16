@@ -4,9 +4,6 @@ pipeline {
   agent {
     label 'sdks-executor'
   }
-  options {
-    skipDefaultCheckout()
-  }
   parameters {
     validatingString( name: 'TARGET_VERSION',
                       defaultValue: 'NONE',
@@ -18,13 +15,12 @@ pipeline {
     GH_CREDS = credentials('gh-sdks-automation')
   }
   stages {
-    stage('Checkout') {
+    stage('Init') {
       steps {
         script {
           defaultInit()
           applyCustomizations()
-          checkoutResult = checkout scm
-          commitHash = "${checkoutResult.GIT_COMMIT[0..6]}"
+          commitHash = "${env.GIT_COMMIT.take(7)}"
           sh '''
             git config --global user.email $GH_SDKS_AUTOMATION_MAIL
             git config --global user.name $GH_CREDS_USR
