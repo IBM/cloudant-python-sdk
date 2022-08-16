@@ -109,7 +109,7 @@ pipeline {
                 string(name: 'SDK_RUN_LANG', value: "$libName"),
                 string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "$prefixedSdkVersion")]
           } catch (hudson.AbortException ae) {
-            // only run build in sdks-gauge master branch if BRANCH_NAME doesn't exist
+            // only run build in sdks-gauge default branch if BRANCH_NAME doesn't exist
             if (ae.getMessage().contains("No item named /${env.SDKS_GAUGE_PIPELINE_PROJECT}/${gaugeBranchName} found")) {
               echo "No matching branch named '${gaugeBranchName}' in sdks-gauge, building ${fallbackBranchName} branch"
               build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${fallbackBranchName}", parameters: [
@@ -126,8 +126,8 @@ pipeline {
       when {
         beforeAgent true
         allOf {
-          // We only bump the version and create a tag when building master with a TARGET_VERSION
-          branch 'master'
+          // We only bump the version and create a tag when building the default primary branch with a TARGET_VERSION
+          expression { env.BRANCH_IS_PRIMARY }
           not {
             equals expected: 'NONE', actual: "${params.TARGET_VERSION}"
           }
@@ -137,7 +137,7 @@ pipeline {
         // bump the version
         bumpVersion(false)
         // Push the version bump and release tag
-        sh 'git push --tags origin HEAD:master'
+        sh 'git push --tags origin HEAD:main'
       }
     }
     stage('Publish[repository]') {

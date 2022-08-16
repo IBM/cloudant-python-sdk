@@ -21,4 +21,4 @@ _should not_ be modified.
 
 # General Information
 For general guidance on contributing to this project, please see the
-[general guidance for contributing](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/CONTRIBUTING_python.md).
+[general guidance for contributing](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/CONTRIBUTING_python.md).
