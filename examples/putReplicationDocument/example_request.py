@@ -4,7 +4,7 @@ from ibmcloudant.cloudant_v1 import CloudantV1, ReplicationDocument, Replication
 service = CloudantV1.new_instance()
 
 source_db = ReplicationDatabase(
-  url='https://examples.cloudant.com/animaldb'
+  url='<your-source-service-url>/animaldb'
 )
 
 target_auth_iam = ReplicationDatabaseAuthIam(
@@ -15,7 +15,7 @@ target_auth = ReplicationDatabaseAuth(
 )
 target_db = ReplicationDatabase(
   auth=target_auth,
-  url='<your-service-url>/animaldb-target'
+  url='<your-target-service-url>/animaldb-target'
 )
 
 replication_document = ReplicationDocument(
