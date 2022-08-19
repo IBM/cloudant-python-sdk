@@ -4467,7 +4467,7 @@ class TestGetDesignDocument():
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -4540,7 +4540,7 @@ class TestGetDesignDocument():
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -4578,7 +4578,7 @@ class TestGetDesignDocument():
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}, "st_indexes": {"mapKey": {"index": "index"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -4674,10 +4674,6 @@ class TestPutDesignDocument():
         design_document_views_map_reduce_model['map'] = 'testString'
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
-        # Construct a dict representation of a GeoIndexDefinition model
-        geo_index_definition_model = {}
-        geo_index_definition_model['index'] = 'testString'
-
         # Construct a dict representation of a DesignDocument model
         design_document_model = {}
         design_document_model['_attachments'] = {'key1': attachment_model}
@@ -4696,7 +4692,6 @@ class TestPutDesignDocument():
         design_document_model['options'] = design_document_options_model
         design_document_model['validate_doc_update'] = 'testString'
         design_document_model['views'] = {'key1': design_document_views_map_reduce_model}
-        design_document_model['st_indexes'] = {'key1': geo_index_definition_model}
         design_document_model['foo'] = 'testString'
 
         # Set up parameter values
@@ -4806,10 +4801,6 @@ class TestPutDesignDocument():
         design_document_views_map_reduce_model['map'] = 'testString'
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
-        # Construct a dict representation of a GeoIndexDefinition model
-        geo_index_definition_model = {}
-        geo_index_definition_model['index'] = 'testString'
-
         # Construct a dict representation of a DesignDocument model
         design_document_model = {}
         design_document_model['_attachments'] = {'key1': attachment_model}
@@ -4828,7 +4819,6 @@ class TestPutDesignDocument():
         design_document_model['options'] = design_document_options_model
         design_document_model['validate_doc_update'] = 'testString'
         design_document_model['views'] = {'key1': design_document_views_map_reduce_model}
-        design_document_model['st_indexes'] = {'key1': geo_index_definition_model}
         design_document_model['foo'] = 'testString'
 
         # Set up parameter values
@@ -4924,10 +4914,6 @@ class TestPutDesignDocument():
         design_document_views_map_reduce_model['map'] = 'testString'
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
-        # Construct a dict representation of a GeoIndexDefinition model
-        geo_index_definition_model = {}
-        geo_index_definition_model['index'] = 'testString'
-
         # Construct a dict representation of a DesignDocument model
         design_document_model = {}
         design_document_model['_attachments'] = {'key1': attachment_model}
@@ -4946,7 +4932,6 @@ class TestPutDesignDocument():
         design_document_model['options'] = design_document_options_model
         design_document_model['validate_doc_update'] = 'testString'
         design_document_model['views'] = {'key1': design_document_views_map_reduce_model}
-        design_document_model['st_indexes'] = {'key1': geo_index_definition_model}
         design_document_model['foo'] = 'testString'
 
         # Set up parameter values
@@ -8716,559 +8701,6 @@ class TestGetSearchInfo():
 ##############################################################################
 
 ##############################################################################
-# Start of Service: Geospatial
-##############################################################################
-# region
-
-class TestNewInstance():
-    """
-    Test Class for new_instance
-    """
-
-    def test_new_instance(self):
-        """
-        new_instance()
-        """
-        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
-
-        service = CloudantV1.new_instance(
-            service_name='TEST_SERVICE',
-        )
-
-        assert service is not None
-        assert isinstance(service, CloudantV1)
-
-    def test_new_instance_without_authenticator(self):
-        """
-        new_instance_without_authenticator()
-        """
-        with pytest.raises(ValueError, match='authenticator must be provided'):
-            service = CloudantV1.new_instance(
-                service_name='TEST_SERVICE_NOT_FOUND',
-            )
-
-class TestGetGeo():
-    """
-    Test Class for get_geo
-    """
-
-    @responses.activate
-    def test_get_geo_all_params(self):
-        """
-        get_geo()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_design/testString/_geo/testString')
-        mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "properties": {"mapKey": "anyValue"}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
-        responses.add(responses.GET,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        index = 'testString'
-        bbox = 'testString'
-        bookmark = 'testString'
-        format = 'view'
-        g = 'testString'
-        include_docs = False
-        lat = -90
-        limit = 0
-        lon = -180
-        nearest = False
-        radius = 0
-        rangex = 0
-        rangey = 0
-        relation = 'intersects'
-        skip = 0
-        stale = 'ok'
-
-        # Invoke method
-        response = _service.get_geo(
-            db,
-            ddoc,
-            index,
-            bbox=bbox,
-            bookmark=bookmark,
-            format=format,
-            g=g,
-            include_docs=include_docs,
-            lat=lat,
-            limit=limit,
-            lon=lon,
-            nearest=nearest,
-            radius=radius,
-            rangex=rangex,
-            rangey=rangey,
-            relation=relation,
-            skip=skip,
-            stale=stale,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-        # Validate query params
-        query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = urllib.parse.unquote_plus(query_string)
-        assert 'bbox={}'.format(bbox) in query_string
-        assert 'bookmark={}'.format(bookmark) in query_string
-        assert 'format={}'.format(format) in query_string
-        assert 'g={}'.format(g) in query_string
-        assert 'include_docs={}'.format('true' if include_docs else 'false') in query_string
-        assert 'lat={}'.format(lat) in query_string
-        assert 'limit={}'.format(limit) in query_string
-        assert 'lon={}'.format(lon) in query_string
-        assert 'nearest={}'.format('true' if nearest else 'false') in query_string
-        assert 'radius={}'.format(radius) in query_string
-        assert 'rangex={}'.format(rangex) in query_string
-        assert 'rangey={}'.format(rangey) in query_string
-        assert 'relation={}'.format(relation) in query_string
-        assert 'skip={}'.format(skip) in query_string
-        assert 'stale={}'.format(stale) in query_string
-
-    def test_get_geo_all_params_with_retries(self):
-        # Enable retries and run test_get_geo_all_params.
-        _service.enable_retries()
-        self.test_get_geo_all_params()
-
-        # Disable retries and run test_get_geo_all_params.
-        _service.disable_retries()
-        self.test_get_geo_all_params()
-
-    @responses.activate
-    def test_get_geo_required_params(self):
-        """
-        test_get_geo_required_params()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_design/testString/_geo/testString')
-        mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "properties": {"mapKey": "anyValue"}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
-        responses.add(responses.GET,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        index = 'testString'
-
-        # Invoke method
-        response = _service.get_geo(
-            db,
-            ddoc,
-            index,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_get_geo_required_params_with_retries(self):
-        # Enable retries and run test_get_geo_required_params.
-        _service.enable_retries()
-        self.test_get_geo_required_params()
-
-        # Disable retries and run test_get_geo_required_params.
-        _service.disable_retries()
-        self.test_get_geo_required_params()
-
-    @responses.activate
-    def test_get_geo_value_error(self):
-        """
-        test_get_geo_value_error()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_design/testString/_geo/testString')
-        mock_response = '{"bookmark": "bookmark", "features": [{"_id": "id", "_rev": "rev", "bbox": [4], "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "properties": {"mapKey": "anyValue"}, "type": "Feature"}], "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "geometry": {"type": "Point", "coordinates": ["anyValue"]}, "id": "id", "rev": "rev"}], "type": "FeatureCollection"}'
-        responses.add(responses.GET,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        index = 'testString'
-
-        # Pass in all but one required param and check for a ValueError
-        req_param_dict = {
-            "db": db,
-            "ddoc": ddoc,
-            "index": index,
-        }
-        for param in req_param_dict.keys():
-            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
-            with pytest.raises(ValueError):
-                _service.get_geo(**req_copy)
-
-    def test_get_geo_value_error_with_retries(self):
-        # Enable retries and run test_get_geo_value_error.
-        _service.enable_retries()
-        self.test_get_geo_value_error()
-
-        # Disable retries and run test_get_geo_value_error.
-        _service.disable_retries()
-        self.test_get_geo_value_error()
-
-class TestGetGeoAsStream():
-    """
-    Test Class for get_geo_as_stream
-    """
-
-    @responses.activate
-    def test_get_geo_as_stream_all_params(self):
-        """
-        get_geo_as_stream()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_design/testString/_geo/testString')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.GET,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        index = 'testString'
-        bbox = 'testString'
-        bookmark = 'testString'
-        format = 'view'
-        g = 'testString'
-        include_docs = False
-        lat = -90
-        limit = 0
-        lon = -180
-        nearest = False
-        radius = 0
-        rangex = 0
-        rangey = 0
-        relation = 'intersects'
-        skip = 0
-        stale = 'ok'
-
-        # Invoke method
-        response = _service.get_geo_as_stream(
-            db,
-            ddoc,
-            index,
-            bbox=bbox,
-            bookmark=bookmark,
-            format=format,
-            g=g,
-            include_docs=include_docs,
-            lat=lat,
-            limit=limit,
-            lon=lon,
-            nearest=nearest,
-            radius=radius,
-            rangex=rangex,
-            rangey=rangey,
-            relation=relation,
-            skip=skip,
-            stale=stale,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-        # Validate query params
-        query_string = responses.calls[0].request.url.split('?',1)[1]
-        query_string = urllib.parse.unquote_plus(query_string)
-        assert 'bbox={}'.format(bbox) in query_string
-        assert 'bookmark={}'.format(bookmark) in query_string
-        assert 'format={}'.format(format) in query_string
-        assert 'g={}'.format(g) in query_string
-        assert 'include_docs={}'.format('true' if include_docs else 'false') in query_string
-        assert 'lat={}'.format(lat) in query_string
-        assert 'limit={}'.format(limit) in query_string
-        assert 'lon={}'.format(lon) in query_string
-        assert 'nearest={}'.format('true' if nearest else 'false') in query_string
-        assert 'radius={}'.format(radius) in query_string
-        assert 'rangex={}'.format(rangex) in query_string
-        assert 'rangey={}'.format(rangey) in query_string
-        assert 'relation={}'.format(relation) in query_string
-        assert 'skip={}'.format(skip) in query_string
-        assert 'stale={}'.format(stale) in query_string
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-    def test_get_geo_as_stream_all_params_with_retries(self):
-        # Enable retries and run test_get_geo_as_stream_all_params.
-        _service.enable_retries()
-        self.test_get_geo_as_stream_all_params()
-
-        # Disable retries and run test_get_geo_as_stream_all_params.
-        _service.disable_retries()
-        self.test_get_geo_as_stream_all_params()
-
-    @responses.activate
-    def test_get_geo_as_stream_required_params(self):
-        """
-        test_get_geo_as_stream_required_params()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_design/testString/_geo/testString')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.GET,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        index = 'testString'
-
-        # Invoke method
-        response = _service.get_geo_as_stream(
-            db,
-            ddoc,
-            index,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-        # Verify streamed JSON response
-        result = response.get_result()
-        assert isinstance(result, requests.models.Response)
-        response_buf = result.iter_content(chunk_size=1024)
-        assert str(next(response_buf), "utf-8") == mock_response
-
-    def test_get_geo_as_stream_required_params_with_retries(self):
-        # Enable retries and run test_get_geo_as_stream_required_params.
-        _service.enable_retries()
-        self.test_get_geo_as_stream_required_params()
-
-        # Disable retries and run test_get_geo_as_stream_required_params.
-        _service.disable_retries()
-        self.test_get_geo_as_stream_required_params()
-
-    @responses.activate
-    def test_get_geo_as_stream_value_error(self):
-        """
-        test_get_geo_as_stream_value_error()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_design/testString/_geo/testString')
-        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
-        responses.add(responses.GET,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        index = 'testString'
-
-        # Pass in all but one required param and check for a ValueError
-        req_param_dict = {
-            "db": db,
-            "ddoc": ddoc,
-            "index": index,
-        }
-        for param in req_param_dict.keys():
-            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
-            with pytest.raises(ValueError):
-                _service.get_geo_as_stream(**req_copy)
-
-    def test_get_geo_as_stream_value_error_with_retries(self):
-        # Enable retries and run test_get_geo_as_stream_value_error.
-        _service.enable_retries()
-        self.test_get_geo_as_stream_value_error()
-
-        # Disable retries and run test_get_geo_as_stream_value_error.
-        _service.disable_retries()
-        self.test_get_geo_as_stream_value_error()
-
-class TestPostGeoCleanup():
-    """
-    Test Class for post_geo_cleanup
-    """
-
-    @responses.activate
-    def test_post_geo_cleanup_all_params(self):
-        """
-        post_geo_cleanup()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_geo_cleanup')
-        mock_response = '{"ok": true}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=202)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = _service.post_geo_cleanup(
-            db,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 202
-
-    def test_post_geo_cleanup_all_params_with_retries(self):
-        # Enable retries and run test_post_geo_cleanup_all_params.
-        _service.enable_retries()
-        self.test_post_geo_cleanup_all_params()
-
-        # Disable retries and run test_post_geo_cleanup_all_params.
-        _service.disable_retries()
-        self.test_post_geo_cleanup_all_params()
-
-    @responses.activate
-    def test_post_geo_cleanup_value_error(self):
-        """
-        test_post_geo_cleanup_value_error()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_geo_cleanup')
-        mock_response = '{"ok": true}'
-        responses.add(responses.POST,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=202)
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Pass in all but one required param and check for a ValueError
-        req_param_dict = {
-            "db": db,
-        }
-        for param in req_param_dict.keys():
-            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
-            with pytest.raises(ValueError):
-                _service.post_geo_cleanup(**req_copy)
-
-    def test_post_geo_cleanup_value_error_with_retries(self):
-        # Enable retries and run test_post_geo_cleanup_value_error.
-        _service.enable_retries()
-        self.test_post_geo_cleanup_value_error()
-
-        # Disable retries and run test_post_geo_cleanup_value_error.
-        _service.disable_retries()
-        self.test_post_geo_cleanup_value_error()
-
-class TestGetGeoIndexInformation():
-    """
-    Test Class for get_geo_index_information
-    """
-
-    @responses.activate
-    def test_get_geo_index_information_all_params(self):
-        """
-        get_geo_index_information()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_design/testString/_geo_info/testString')
-        mock_response = '{"geo_index": {"data_size": 0, "disk_size": 0, "doc_count": 0}, "name": "name"}'
-        responses.add(responses.GET,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        index = 'testString'
-
-        # Invoke method
-        response = _service.get_geo_index_information(
-            db,
-            ddoc,
-            index,
-            headers={}
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_get_geo_index_information_all_params_with_retries(self):
-        # Enable retries and run test_get_geo_index_information_all_params.
-        _service.enable_retries()
-        self.test_get_geo_index_information_all_params()
-
-        # Disable retries and run test_get_geo_index_information_all_params.
-        _service.disable_retries()
-        self.test_get_geo_index_information_all_params()
-
-    @responses.activate
-    def test_get_geo_index_information_value_error(self):
-        """
-        test_get_geo_index_information_value_error()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_design/testString/_geo_info/testString')
-        mock_response = '{"geo_index": {"data_size": 0, "disk_size": 0, "doc_count": 0}, "name": "name"}'
-        responses.add(responses.GET,
-                      url,
-                      body=mock_response,
-                      content_type='application/json',
-                      status=200)
-
-        # Set up parameter values
-        db = 'testString'
-        ddoc = 'testString'
-        index = 'testString'
-
-        # Pass in all but one required param and check for a ValueError
-        req_param_dict = {
-            "db": db,
-            "ddoc": ddoc,
-            "index": index,
-        }
-        for param in req_param_dict.keys():
-            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
-            with pytest.raises(ValueError):
-                _service.get_geo_index_information(**req_copy)
-
-    def test_get_geo_index_information_value_error_with_retries(self):
-        # Enable retries and run test_get_geo_index_information_value_error.
-        _service.enable_retries()
-        self.test_get_geo_index_information_value_error()
-
-        # Disable retries and run test_get_geo_index_information_value_error.
-        _service.disable_retries()
-        self.test_get_geo_index_information_value_error()
-
-# endregion
-##############################################################################
-# End of Service: Geospatial
-##############################################################################
-
-##############################################################################
 # Start of Service: Replication
 ##############################################################################
 # region
@@ -9680,7 +9112,7 @@ class TestGetReplicationDocument():
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9751,7 +9183,7 @@ class TestGetReplicationDocument():
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9787,7 +9219,7 @@ class TestGetReplicationDocument():
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "worker_batch_size": 1, "worker_processes": 1}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9919,6 +9351,7 @@ class TestPutReplicationDocument():
         replication_document_model['target_proxy'] = 'testString'
         replication_document_model['use_checkpoints'] = True
         replication_document_model['user_ctx'] = user_context_model
+        replication_document_model['winning_revs_only'] = False
         replication_document_model['worker_batch_size'] = 1
         replication_document_model['worker_processes'] = 1
         replication_document_model['foo'] = 'testString'
@@ -10066,6 +9499,7 @@ class TestPutReplicationDocument():
         replication_document_model['target_proxy'] = 'testString'
         replication_document_model['use_checkpoints'] = True
         replication_document_model['user_ctx'] = user_context_model
+        replication_document_model['winning_revs_only'] = False
         replication_document_model['worker_batch_size'] = 1
         replication_document_model['worker_processes'] = 1
         replication_document_model['foo'] = 'testString'
@@ -10199,6 +9633,7 @@ class TestPutReplicationDocument():
         replication_document_model['target_proxy'] = 'testString'
         replication_document_model['use_checkpoints'] = True
         replication_document_model['user_ctx'] = user_context_model
+        replication_document_model['winning_revs_only'] = False
         replication_document_model['worker_batch_size'] = 1
         replication_document_model['worker_processes'] = 1
         replication_document_model['foo'] = 'testString'
@@ -14395,9 +13830,6 @@ class TestModel_DesignDocument():
         design_document_views_map_reduce_model['map'] = 'testString'
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
-        geo_index_definition_model = {} # GeoIndexDefinition
-        geo_index_definition_model['index'] = 'testString'
-
         # Construct a json representation of a DesignDocument model
         design_document_model_json = {}
         design_document_model_json['_attachments'] = {'key1': attachment_model}
@@ -14416,7 +13848,6 @@ class TestModel_DesignDocument():
         design_document_model_json['options'] = design_document_options_model
         design_document_model_json['validate_doc_update'] = 'testString'
         design_document_model_json['views'] = {'key1': design_document_views_map_reduce_model}
-        design_document_model_json['st_indexes'] = {'key1': geo_index_definition_model}
         design_document_model_json['foo'] = 'testString'
 
         # Construct a model instance of DesignDocument by calling from_dict on the json representation
@@ -15058,311 +14489,6 @@ class TestModel_FindResult():
         # Convert model instance back to dict and verify no loss of data
         find_result_model_json2 = find_result_model.to_dict()
         assert find_result_model_json2 == find_result_model_json
-
-class TestModel_GeoIndexDefinition():
-    """
-    Test Class for GeoIndexDefinition
-    """
-
-    def test_geo_index_definition_serialization(self):
-        """
-        Test serialization/deserialization for GeoIndexDefinition
-        """
-
-        # Construct a json representation of a GeoIndexDefinition model
-        geo_index_definition_model_json = {}
-        geo_index_definition_model_json['index'] = 'testString'
-
-        # Construct a model instance of GeoIndexDefinition by calling from_dict on the json representation
-        geo_index_definition_model = GeoIndexDefinition.from_dict(geo_index_definition_model_json)
-        assert geo_index_definition_model != False
-
-        # Construct a model instance of GeoIndexDefinition by calling from_dict on the json representation
-        geo_index_definition_model_dict = GeoIndexDefinition.from_dict(geo_index_definition_model_json).__dict__
-        geo_index_definition_model2 = GeoIndexDefinition(**geo_index_definition_model_dict)
-
-        # Verify the model instances are equivalent
-        assert geo_index_definition_model == geo_index_definition_model2
-
-        # Convert model instance back to dict and verify no loss of data
-        geo_index_definition_model_json2 = geo_index_definition_model.to_dict()
-        assert geo_index_definition_model_json2 == geo_index_definition_model_json
-
-class TestModel_GeoIndexInformation():
-    """
-    Test Class for GeoIndexInformation
-    """
-
-    def test_geo_index_information_serialization(self):
-        """
-        Test serialization/deserialization for GeoIndexInformation
-        """
-
-        # Construct dict forms of any model objects needed in order to build this model.
-
-        geo_index_stats_model = {} # GeoIndexStats
-        geo_index_stats_model['data_size'] = 0
-        geo_index_stats_model['disk_size'] = 0
-        geo_index_stats_model['doc_count'] = 0
-
-        # Construct a json representation of a GeoIndexInformation model
-        geo_index_information_model_json = {}
-        geo_index_information_model_json['geo_index'] = geo_index_stats_model
-        geo_index_information_model_json['name'] = 'testString'
-
-        # Construct a model instance of GeoIndexInformation by calling from_dict on the json representation
-        geo_index_information_model = GeoIndexInformation.from_dict(geo_index_information_model_json)
-        assert geo_index_information_model != False
-
-        # Construct a model instance of GeoIndexInformation by calling from_dict on the json representation
-        geo_index_information_model_dict = GeoIndexInformation.from_dict(geo_index_information_model_json).__dict__
-        geo_index_information_model2 = GeoIndexInformation(**geo_index_information_model_dict)
-
-        # Verify the model instances are equivalent
-        assert geo_index_information_model == geo_index_information_model2
-
-        # Convert model instance back to dict and verify no loss of data
-        geo_index_information_model_json2 = geo_index_information_model.to_dict()
-        assert geo_index_information_model_json2 == geo_index_information_model_json
-
-class TestModel_GeoIndexStats():
-    """
-    Test Class for GeoIndexStats
-    """
-
-    def test_geo_index_stats_serialization(self):
-        """
-        Test serialization/deserialization for GeoIndexStats
-        """
-
-        # Construct a json representation of a GeoIndexStats model
-        geo_index_stats_model_json = {}
-        geo_index_stats_model_json['data_size'] = 0
-        geo_index_stats_model_json['disk_size'] = 0
-        geo_index_stats_model_json['doc_count'] = 0
-
-        # Construct a model instance of GeoIndexStats by calling from_dict on the json representation
-        geo_index_stats_model = GeoIndexStats.from_dict(geo_index_stats_model_json)
-        assert geo_index_stats_model != False
-
-        # Construct a model instance of GeoIndexStats by calling from_dict on the json representation
-        geo_index_stats_model_dict = GeoIndexStats.from_dict(geo_index_stats_model_json).__dict__
-        geo_index_stats_model2 = GeoIndexStats(**geo_index_stats_model_dict)
-
-        # Verify the model instances are equivalent
-        assert geo_index_stats_model == geo_index_stats_model2
-
-        # Convert model instance back to dict and verify no loss of data
-        geo_index_stats_model_json2 = geo_index_stats_model.to_dict()
-        assert geo_index_stats_model_json2 == geo_index_stats_model_json
-
-class TestModel_GeoJsonFeature():
-    """
-    Test Class for GeoJsonFeature
-    """
-
-    def test_geo_json_feature_serialization(self):
-        """
-        Test serialization/deserialization for GeoJsonFeature
-        """
-
-        # Construct dict forms of any model objects needed in order to build this model.
-
-        geo_json_geometry_object_model = {} # GeoJsonGeometry
-        geo_json_geometry_object_model['type'] = 'Point'
-        geo_json_geometry_object_model['coordinates'] = ['testString']
-
-        # Construct a json representation of a GeoJsonFeature model
-        geo_json_feature_model_json = {}
-        geo_json_feature_model_json['_id'] = 'testString'
-        geo_json_feature_model_json['_rev'] = 'testString'
-        geo_json_feature_model_json['bbox'] = [72.5]
-        geo_json_feature_model_json['geometry'] = geo_json_geometry_object_model
-        geo_json_feature_model_json['properties'] = {'key1': 'testString'}
-        geo_json_feature_model_json['type'] = 'Feature'
-        geo_json_feature_model_json['foo'] = 'testString'
-
-        # Construct a model instance of GeoJsonFeature by calling from_dict on the json representation
-        geo_json_feature_model = GeoJsonFeature.from_dict(geo_json_feature_model_json)
-        assert geo_json_feature_model != False
-
-        # Construct a model instance of GeoJsonFeature by calling from_dict on the json representation
-        geo_json_feature_model_dict = GeoJsonFeature.from_dict(geo_json_feature_model_json).__dict__
-        geo_json_feature_model2 = GeoJsonFeature(**geo_json_feature_model_dict)
-
-        # Verify the model instances are equivalent
-        assert geo_json_feature_model == geo_json_feature_model2
-
-        # Convert model instance back to dict and verify no loss of data
-        geo_json_feature_model_json2 = geo_json_feature_model.to_dict()
-        assert geo_json_feature_model_json2 == geo_json_feature_model_json
-
-        # Test get_properties and set_properties methods.
-        geo_json_feature_model.set_properties({})
-        actual_dict = geo_json_feature_model.get_properties()
-        assert actual_dict == {}
-
-        expected_dict = {'foo': 'testString'}
-        geo_json_feature_model.set_properties(expected_dict)
-        actual_dict = geo_json_feature_model.get_properties()
-        assert actual_dict == expected_dict
-
-class TestModel_GeoResult():
-    """
-    Test Class for GeoResult
-    """
-
-    def test_geo_result_serialization(self):
-        """
-        Test serialization/deserialization for GeoResult
-        """
-
-        # Construct dict forms of any model objects needed in order to build this model.
-
-        geo_json_geometry_object_model = {} # GeoJsonGeometry
-        geo_json_geometry_object_model['type'] = 'Point'
-        geo_json_geometry_object_model['coordinates'] = ['testString']
-
-        geo_json_feature_model = {} # GeoJsonFeature
-        geo_json_feature_model['_id'] = 'testString'
-        geo_json_feature_model['_rev'] = 'testString'
-        geo_json_feature_model['bbox'] = [72.5]
-        geo_json_feature_model['geometry'] = geo_json_geometry_object_model
-        geo_json_feature_model['properties'] = {'key1': 'testString'}
-        geo_json_feature_model['type'] = 'Feature'
-        geo_json_feature_model['foo'] = 'testString'
-
-        attachment_model = {} # Attachment
-        attachment_model['content_type'] = 'testString'
-        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
-        attachment_model['digest'] = 'testString'
-        attachment_model['encoded_length'] = 0
-        attachment_model['encoding'] = 'testString'
-        attachment_model['follows'] = True
-        attachment_model['length'] = 0
-        attachment_model['revpos'] = 1
-        attachment_model['stub'] = True
-
-        revisions_model = {} # Revisions
-        revisions_model['ids'] = ['testString']
-        revisions_model['start'] = 1
-
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
-        document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
-        document_model['_conflicts'] = ['testString']
-        document_model['_deleted'] = True
-        document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
-        document_model['_local_seq'] = 'testString'
-        document_model['_rev'] = 'testString'
-        document_model['_revisions'] = revisions_model
-        document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = 'testString'
-
-        geo_json_geometry_model = {} # GeoJsonGeometry
-        geo_json_geometry_model['type'] = 'Point'
-        geo_json_geometry_model['coordinates'] = ['testString']
-
-        geo_result_row_model = {} # GeoResultRow
-        geo_result_row_model['doc'] = document_model
-        geo_result_row_model['geometry'] = geo_json_geometry_model
-        geo_result_row_model['id'] = 'testString'
-        geo_result_row_model['rev'] = 'testString'
-
-        # Construct a json representation of a GeoResult model
-        geo_result_model_json = {}
-        geo_result_model_json['bookmark'] = 'testString'
-        geo_result_model_json['features'] = [geo_json_feature_model]
-        geo_result_model_json['rows'] = [geo_result_row_model]
-        geo_result_model_json['type'] = 'FeatureCollection'
-
-        # Construct a model instance of GeoResult by calling from_dict on the json representation
-        geo_result_model = GeoResult.from_dict(geo_result_model_json)
-        assert geo_result_model != False
-
-        # Construct a model instance of GeoResult by calling from_dict on the json representation
-        geo_result_model_dict = GeoResult.from_dict(geo_result_model_json).__dict__
-        geo_result_model2 = GeoResult(**geo_result_model_dict)
-
-        # Verify the model instances are equivalent
-        assert geo_result_model == geo_result_model2
-
-        # Convert model instance back to dict and verify no loss of data
-        geo_result_model_json2 = geo_result_model.to_dict()
-        assert geo_result_model_json2 == geo_result_model_json
-
-class TestModel_GeoResultRow():
-    """
-    Test Class for GeoResultRow
-    """
-
-    def test_geo_result_row_serialization(self):
-        """
-        Test serialization/deserialization for GeoResultRow
-        """
-
-        # Construct dict forms of any model objects needed in order to build this model.
-
-        attachment_model = {} # Attachment
-        attachment_model['content_type'] = 'testString'
-        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
-        attachment_model['digest'] = 'testString'
-        attachment_model['encoded_length'] = 0
-        attachment_model['encoding'] = 'testString'
-        attachment_model['follows'] = True
-        attachment_model['length'] = 0
-        attachment_model['revpos'] = 1
-        attachment_model['stub'] = True
-
-        revisions_model = {} # Revisions
-        revisions_model['ids'] = ['testString']
-        revisions_model['start'] = 1
-
-        document_revision_status_model = {} # DocumentRevisionStatus
-        document_revision_status_model['rev'] = 'testString'
-        document_revision_status_model['status'] = 'available'
-
-        document_model = {} # Document
-        document_model['_attachments'] = {'key1': attachment_model}
-        document_model['_conflicts'] = ['testString']
-        document_model['_deleted'] = True
-        document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
-        document_model['_local_seq'] = 'testString'
-        document_model['_rev'] = 'testString'
-        document_model['_revisions'] = revisions_model
-        document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = 'testString'
-
-        geo_json_geometry_model = {} # GeoJsonGeometry
-        geo_json_geometry_model['type'] = 'Point'
-        geo_json_geometry_model['coordinates'] = ['testString']
-
-        # Construct a json representation of a GeoResultRow model
-        geo_result_row_model_json = {}
-        geo_result_row_model_json['doc'] = document_model
-        geo_result_row_model_json['geometry'] = geo_json_geometry_model
-        geo_result_row_model_json['id'] = 'testString'
-        geo_result_row_model_json['rev'] = 'testString'
-
-        # Construct a model instance of GeoResultRow by calling from_dict on the json representation
-        geo_result_row_model = GeoResultRow.from_dict(geo_result_row_model_json)
-        assert geo_result_row_model != False
-
-        # Construct a model instance of GeoResultRow by calling from_dict on the json representation
-        geo_result_row_model_dict = GeoResultRow.from_dict(geo_result_row_model_json).__dict__
-        geo_result_row_model2 = GeoResultRow(**geo_result_row_model_dict)
-
-        # Verify the model instances are equivalent
-        assert geo_result_row_model == geo_result_row_model2
-
-        # Convert model instance back to dict and verify no loss of data
-        geo_result_row_model_json2 = geo_result_row_model.to_dict()
-        assert geo_result_row_model_json2 == geo_result_row_model_json
 
 class TestModel_IndexDefinition():
     """
@@ -16098,6 +15224,7 @@ class TestModel_ReplicationDocument():
         replication_document_model_json['target_proxy'] = 'testString'
         replication_document_model_json['use_checkpoints'] = True
         replication_document_model_json['user_ctx'] = user_context_model
+        replication_document_model_json['winning_revs_only'] = False
         replication_document_model_json['worker_batch_size'] = 1
         replication_document_model_json['worker_processes'] = 1
         replication_document_model_json['foo'] = 'testString'
@@ -17482,72 +16609,6 @@ class TestModel_ViewResultRow():
         # Convert model instance back to dict and verify no loss of data
         view_result_row_model_json2 = view_result_row_model.to_dict()
         assert view_result_row_model_json2 == view_result_row_model_json
-
-class TestModel_GeoJsonGeometry():
-    """
-    Test Class for GeoJsonGeometry
-    """
-
-    def test_geo_json_geometry_serialization(self):
-        """
-        Test serialization/deserialization for GeoJsonGeometry
-        """
-
-        # Construct a json representation of a GeoJsonGeometry model
-        geo_json_geometry_model_json = {}
-        geo_json_geometry_model_json['type'] = 'Point'
-        geo_json_geometry_model_json['coordinates'] = ['testString']
-
-        # Construct a model instance of GeoJsonGeometry by calling from_dict on the json representation
-        geo_json_geometry_model = GeoJsonGeometry.from_dict(geo_json_geometry_model_json)
-        assert geo_json_geometry_model != False
-
-        # Construct a model instance of GeoJsonGeometry by calling from_dict on the json representation
-        geo_json_geometry_model_dict = GeoJsonGeometry.from_dict(geo_json_geometry_model_json).__dict__
-        geo_json_geometry_model2 = GeoJsonGeometry(**geo_json_geometry_model_dict)
-
-        # Verify the model instances are equivalent
-        assert geo_json_geometry_model == geo_json_geometry_model2
-
-        # Convert model instance back to dict and verify no loss of data
-        geo_json_geometry_model_json2 = geo_json_geometry_model.to_dict()
-        assert geo_json_geometry_model_json2 == geo_json_geometry_model_json
-
-class TestModel_GeoJsonGeometryCollection():
-    """
-    Test Class for GeoJsonGeometryCollection
-    """
-
-    def test_geo_json_geometry_collection_serialization(self):
-        """
-        Test serialization/deserialization for GeoJsonGeometryCollection
-        """
-
-        # Construct dict forms of any model objects needed in order to build this model.
-
-        geo_json_geometry_model = {} # GeoJsonGeometry
-        geo_json_geometry_model['type'] = 'Point'
-        geo_json_geometry_model['coordinates'] = ['testString']
-
-        # Construct a json representation of a GeoJsonGeometryCollection model
-        geo_json_geometry_collection_model_json = {}
-        geo_json_geometry_collection_model_json['type'] = 'Point'
-        geo_json_geometry_collection_model_json['geometries'] = [geo_json_geometry_model]
-
-        # Construct a model instance of GeoJsonGeometryCollection by calling from_dict on the json representation
-        geo_json_geometry_collection_model = GeoJsonGeometryCollection.from_dict(geo_json_geometry_collection_model_json)
-        assert geo_json_geometry_collection_model != False
-
-        # Construct a model instance of GeoJsonGeometryCollection by calling from_dict on the json representation
-        geo_json_geometry_collection_model_dict = GeoJsonGeometryCollection.from_dict(geo_json_geometry_collection_model_json).__dict__
-        geo_json_geometry_collection_model2 = GeoJsonGeometryCollection(**geo_json_geometry_collection_model_dict)
-
-        # Verify the model instances are equivalent
-        assert geo_json_geometry_collection_model == geo_json_geometry_collection_model2
-
-        # Convert model instance back to dict and verify no loss of data
-        geo_json_geometry_collection_model_json2 = geo_json_geometry_collection_model.to_dict()
-        assert geo_json_geometry_collection_model_json2 == geo_json_geometry_collection_model_json
 
 
 # endregion

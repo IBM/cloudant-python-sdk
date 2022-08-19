@@ -5618,361 +5618,6 @@ class CloudantV1(BaseService):
         return response
 
     #########################
-    # Geospatial
-    #########################
-
-
-    def get_geo(self,
-        db: str,
-        ddoc: str,
-        index: str,
-        *,
-        bbox: str = None,
-        bookmark: str = None,
-        format: str = None,
-        g: str = None,
-        include_docs: bool = None,
-        lat: float = None,
-        limit: int = None,
-        lon: float = None,
-        nearest: bool = None,
-        radius: float = None,
-        rangex: float = None,
-        rangey: float = None,
-        relation: str = None,
-        skip: int = None,
-        stale: str = None,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Query a geospatial index.
-
-        Executes a query against the requested geospatial index from the specified design
-        document.
-
-        :param str db: Path parameter to specify the database name.
-        :param str ddoc: Path parameter to specify the design document name. The
-               design document name is the design document ID excluding the `_design/`
-               prefix.
-        :param str index: Path parameter to specify the index name.
-        :param str bbox: (optional) Query parameter to specify a geospatial query
-               bounding box with two latitude,longitude coordinates for the lower-left and
-               upper-right corners. An example is
-               `-11.05987446,12.28339928,-101.05987446,62.28339928`.
-        :param str bookmark: (optional) Query parameter to specify a bookmark that
-               was received from a previous request. This parameter enables paging through
-               the results. If there are no more results after the bookmark, you get a
-               response containing no further results and the same bookmark, confirming
-               the end of the result list.
-        :param str format: (optional) Query parameter that causes the geospatial
-               query output to be returned in the specified format.
-        :param str g: (optional) Query parameter to specify a Well Known Text (WKT)
-               representation of a geospatial query geometry. The valid values for the WKT
-               parameter include `Point`, `LineString`, `Polygon`, `MultiPoint`,
-               `MultiLineString`, `MultiPolygon`, and `GeometryCollection`.
-        :param bool include_docs: (optional) Query parameter to specify whether to
-               include the full content of the documents in the response.
-        :param float lat: (optional) Query parameter to specify a latitude
-               coordinate for use with radius or ellipse geospatial queries.
-        :param int limit: (optional) Query parameter to specify the number of
-               returned documents to limit the result to.
-        :param float lon: (optional) Query parameter to specify a longitude
-               coordinate for use with radius or ellipse geospatial queries.
-        :param bool nearest: (optional) Query parameter to specify whether to
-               perform a nearest neighbour (NN) search. If provided, the `nearest=true`
-               search returns all results by sorting their distances to the center of the
-               query geometry. NN search can be used alone or with any of the supported
-               DE-9IM (Dimensionally Extended nine-Intersection Model) specification
-               geometric relations documented.
-        :param float radius: (optional) Query parameter to specify the radius, in
-               meters, to search from a lat,lon coordinate point in a circular geospatial
-               query.
-        :param float rangex: (optional) Query parameter to specify the first
-               radius, in meters, to search from a lat,lon coordinate point in an ellipse
-               geospatial query.
-        :param float rangey: (optional) Query parameter to specify the second
-               radius, in meters, to search from a lat,lon coordinate point in an ellipse
-               geospatial query.
-        :param str relation: (optional) Query parameter to specify the DE-9IM
-               (Dimensionally Extended nine-Intersection Model)geospatial relationship
-               between the query geometry and the result documents.
-        :param int skip: (optional) Query parameter to specify the number of
-               records before starting to return the results.
-        :param str stale: (optional) Query parameter to specify to not wait for the
-               index to finish building before returning results.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `GeoResult` object
-        """
-
-        if db is None:
-            raise ValueError('db must be provided')
-        if ddoc is None:
-            raise ValueError('ddoc must be provided')
-        if index is None:
-            raise ValueError('index must be provided')
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_geo')
-        headers.update(sdk_headers)
-
-        params = {
-            'bbox': bbox,
-            'bookmark': bookmark,
-            'format': format,
-            'g': g,
-            'include_docs': include_docs,
-            'lat': lat,
-            'limit': limit,
-            'lon': lon,
-            'nearest': nearest,
-            'radius': radius,
-            'rangex': rangex,
-            'rangey': rangey,
-            'relation': relation,
-            'skip': skip,
-            'stale': stale
-        }
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        path_param_keys = ['db', 'ddoc', 'index']
-        path_param_values = self.encode_path_vars(db, ddoc, index)
-        path_param_dict = dict(zip(path_param_keys, path_param_values))
-        url = '/{db}/_design/{ddoc}/_geo/{index}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
-
-        response = self.send(request, **kwargs)
-        return response
-
-
-    def get_geo_as_stream(self,
-        db: str,
-        ddoc: str,
-        index: str,
-        *,
-        bbox: str = None,
-        bookmark: str = None,
-        format: str = None,
-        g: str = None,
-        include_docs: bool = None,
-        lat: float = None,
-        limit: int = None,
-        lon: float = None,
-        nearest: bool = None,
-        radius: float = None,
-        rangex: float = None,
-        rangey: float = None,
-        relation: str = None,
-        skip: int = None,
-        stale: str = None,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Query a geospatial index as stream.
-
-        Executes a query against the requested geospatial index from the specified design
-        document.
-
-        :param str db: Path parameter to specify the database name.
-        :param str ddoc: Path parameter to specify the design document name. The
-               design document name is the design document ID excluding the `_design/`
-               prefix.
-        :param str index: Path parameter to specify the index name.
-        :param str bbox: (optional) Query parameter to specify a geospatial query
-               bounding box with two latitude,longitude coordinates for the lower-left and
-               upper-right corners. An example is
-               `-11.05987446,12.28339928,-101.05987446,62.28339928`.
-        :param str bookmark: (optional) Query parameter to specify a bookmark that
-               was received from a previous request. This parameter enables paging through
-               the results. If there are no more results after the bookmark, you get a
-               response containing no further results and the same bookmark, confirming
-               the end of the result list.
-        :param str format: (optional) Query parameter that causes the geospatial
-               query output to be returned in the specified format.
-        :param str g: (optional) Query parameter to specify a Well Known Text (WKT)
-               representation of a geospatial query geometry. The valid values for the WKT
-               parameter include `Point`, `LineString`, `Polygon`, `MultiPoint`,
-               `MultiLineString`, `MultiPolygon`, and `GeometryCollection`.
-        :param bool include_docs: (optional) Query parameter to specify whether to
-               include the full content of the documents in the response.
-        :param float lat: (optional) Query parameter to specify a latitude
-               coordinate for use with radius or ellipse geospatial queries.
-        :param int limit: (optional) Query parameter to specify the number of
-               returned documents to limit the result to.
-        :param float lon: (optional) Query parameter to specify a longitude
-               coordinate for use with radius or ellipse geospatial queries.
-        :param bool nearest: (optional) Query parameter to specify whether to
-               perform a nearest neighbour (NN) search. If provided, the `nearest=true`
-               search returns all results by sorting their distances to the center of the
-               query geometry. NN search can be used alone or with any of the supported
-               DE-9IM (Dimensionally Extended nine-Intersection Model) specification
-               geometric relations documented.
-        :param float radius: (optional) Query parameter to specify the radius, in
-               meters, to search from a lat,lon coordinate point in a circular geospatial
-               query.
-        :param float rangex: (optional) Query parameter to specify the first
-               radius, in meters, to search from a lat,lon coordinate point in an ellipse
-               geospatial query.
-        :param float rangey: (optional) Query parameter to specify the second
-               radius, in meters, to search from a lat,lon coordinate point in an ellipse
-               geospatial query.
-        :param str relation: (optional) Query parameter to specify the DE-9IM
-               (Dimensionally Extended nine-Intersection Model)geospatial relationship
-               between the query geometry and the result documents.
-        :param int skip: (optional) Query parameter to specify the number of
-               records before starting to return the results.
-        :param str stale: (optional) Query parameter to specify to not wait for the
-               index to finish building before returning results.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `BinaryIO` result
-        """
-
-        if db is None:
-            raise ValueError('db must be provided')
-        if ddoc is None:
-            raise ValueError('ddoc must be provided')
-        if index is None:
-            raise ValueError('index must be provided')
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_geo_as_stream')
-        headers.update(sdk_headers)
-
-        params = {
-            'bbox': bbox,
-            'bookmark': bookmark,
-            'format': format,
-            'g': g,
-            'include_docs': include_docs,
-            'lat': lat,
-            'limit': limit,
-            'lon': lon,
-            'nearest': nearest,
-            'radius': radius,
-            'rangex': rangex,
-            'rangey': rangey,
-            'relation': relation,
-            'skip': skip,
-            'stale': stale
-        }
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        path_param_keys = ['db', 'ddoc', 'index']
-        path_param_values = self.encode_path_vars(db, ddoc, index)
-        path_param_dict = dict(zip(path_param_keys, path_param_values))
-        url = '/{db}/_design/{ddoc}/_geo/{index}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
-
-        response = self.send(request, stream=True, **kwargs)
-        return response
-
-
-    def post_geo_cleanup(self,
-        db: str,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Cleanup old geospatial indexes.
-
-        Cleanup old geospatial indexes from disk that have been superseded by newer index
-        builds.
-
-        :param str db: Path parameter to specify the database name.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `Ok` object
-        """
-
-        if db is None:
-            raise ValueError('db must be provided')
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_geo_cleanup')
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        path_param_keys = ['db']
-        path_param_values = self.encode_path_vars(db)
-        path_param_dict = dict(zip(path_param_keys, path_param_values))
-        url = '/{db}/_geo_cleanup'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers)
-
-        response = self.send(request, **kwargs)
-        return response
-
-
-    def get_geo_index_information(self,
-        db: str,
-        ddoc: str,
-        index: str,
-        **kwargs
-    ) -> DetailedResponse:
-        """
-        Retrieve information about a geospatial index.
-
-        :param str db: Path parameter to specify the database name.
-        :param str ddoc: Path parameter to specify the design document name. The
-               design document name is the design document ID excluding the `_design/`
-               prefix.
-        :param str index: Path parameter to specify the index name.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `GeoIndexInformation` object
-        """
-
-        if db is None:
-            raise ValueError('db must be provided')
-        if ddoc is None:
-            raise ValueError('ddoc must be provided')
-        if index is None:
-            raise ValueError('index must be provided')
-        headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_geo_index_information')
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        path_param_keys = ['db', 'ddoc', 'index']
-        path_param_values = self.encode_path_vars(db, ddoc, index)
-        path_param_dict = dict(zip(path_param_keys, path_param_values))
-        url = '/{db}/_design/{ddoc}/_geo_info/{index}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
-
-        response = self.send(request, **kwargs)
-        return response
-
-    #########################
     # Replication
     #########################
 
@@ -7974,80 +7619,6 @@ class DeleteIndexEnums:
         JSON = 'json'
         SPECIAL = 'special'
         TEXT = 'text'
-
-
-class GetGeoEnums:
-    """
-    Enums for get_geo parameters.
-    """
-
-    class Format(str, Enum):
-        """
-        Query parameter that causes the geospatial query output to be returned in the
-        specified format.
-        """
-        LEGACY = 'legacy'
-        GEOJSON = 'geojson'
-        VIEW = 'view'
-        APPLICATION_VND_GEO_JSON = 'application/vnd.geo+json'
-    class Relation(str, Enum):
-        """
-        Query parameter to specify the DE-9IM (Dimensionally Extended nine-Intersection
-        Model)geospatial relationship between the query geometry and the result documents.
-        """
-        CONTAINS = 'contains'
-        CONTAINS_PROPERLY = 'contains_properly'
-        COVERED_BY = 'covered_by'
-        COVERS = 'covers'
-        CROSSES = 'crosses'
-        DISJOINT = 'disjoint'
-        INTERSECTS = 'intersects'
-        OVERLAPS = 'overlaps'
-        TOUCHES = 'touches'
-        WITHIN = 'within'
-    class Stale(str, Enum):
-        """
-        Query parameter to specify to not wait for the index to finish building before
-        returning results.
-        """
-        OK = 'ok'
-
-
-class GetGeoEnums:
-    """
-    Enums for get_geo_as_stream parameters.
-    """
-
-    class Format(str, Enum):
-        """
-        Query parameter that causes the geospatial query output to be returned in the
-        specified format.
-        """
-        LEGACY = 'legacy'
-        GEOJSON = 'geojson'
-        VIEW = 'view'
-        APPLICATION_VND_GEO_JSON = 'application/vnd.geo+json'
-    class Relation(str, Enum):
-        """
-        Query parameter to specify the DE-9IM (Dimensionally Extended nine-Intersection
-        Model)geospatial relationship between the query geometry and the result documents.
-        """
-        CONTAINS = 'contains'
-        CONTAINS_PROPERLY = 'contains_properly'
-        COVERED_BY = 'covered_by'
-        COVERS = 'covers'
-        CROSSES = 'crosses'
-        DISJOINT = 'disjoint'
-        INTERSECTS = 'intersects'
-        OVERLAPS = 'overlaps'
-        TOUCHES = 'touches'
-        WITHIN = 'within'
-    class Stale(str, Enum):
-        """
-        Query parameter to specify to not wait for the index to finish building before
-        returning results.
-        """
-        OK = 'ok'
 
 
 class DeleteReplicationDocumentEnums:
@@ -10863,12 +10434,10 @@ class DesignDocument():
             * `secObj` - Security Object, with lists of database security roles,
               see the `SecurityObject`.
     :attr dict views: (optional) Schema for design document views.
-    :attr dict st_indexes: (optional) Schema for geospatial index function
-          definitions.
     """
 
     # The set of defined properties for the class
-    _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info', 'autoupdate', 'filters', 'indexes', 'language', 'options', 'validate_doc_update', 'views', 'st_indexes'])
+    _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info', 'autoupdate', 'filters', 'indexes', 'language', 'options', 'validate_doc_update', 'views'])
 
     def __init__(self,
                  *,
@@ -10888,7 +10457,6 @@ class DesignDocument():
                  options: 'DesignDocumentOptions' = None,
                  validate_doc_update: str = None,
                  views: dict = None,
-                 st_indexes: dict = None,
                  **kwargs) -> None:
         """
         Initialize a DesignDocument object.
@@ -10980,8 +10548,6 @@ class DesignDocument():
                  * `secObj` - Security Object, with lists of database security roles,
                    see the `SecurityObject`.
         :param dict views: (optional) Schema for design document views.
-        :param dict st_indexes: (optional) Schema for geospatial index function
-               definitions.
         :param **kwargs: (optional) Any additional properties.
         """
         self.attachments = attachments
@@ -11000,7 +10566,6 @@ class DesignDocument():
         self.options = options
         self.validate_doc_update = validate_doc_update
         self.views = views
-        self.st_indexes = st_indexes
         for _key, _value in kwargs.items():
             setattr(self, _key, _value)
 
@@ -11040,8 +10605,6 @@ class DesignDocument():
             args['validate_doc_update'] = _dict.get('validate_doc_update')
         if 'views' in _dict:
             args['views'] = {k : DesignDocumentViewsMapReduce.from_dict(v) for k, v in _dict.get('views').items()}
-        if 'st_indexes' in _dict:
-            args['st_indexes'] = {k : GeoIndexDefinition.from_dict(v) for k, v in _dict.get('st_indexes').items()}
         args.update({k:v for (k, v) in _dict.items() if k not in cls._properties})
         return cls(**args)
 
@@ -11085,8 +10648,6 @@ class DesignDocument():
             _dict['validate_doc_update'] = self.validate_doc_update
         if hasattr(self, 'views') and self.views is not None:
             _dict['views'] = {k : v.to_dict() for k, v in self.views.items()}
-        if hasattr(self, 'st_indexes') and self.st_indexes is not None:
-            _dict['st_indexes'] = {k : v.to_dict() for k, v in self.st_indexes.items()}
         for _key in [k for k in vars(self).keys() if k not in DesignDocument._properties]:
             if getattr(self, _key, None) is not None:
                 _dict[_key] = getattr(self, _key)
@@ -12446,547 +12007,6 @@ class FindResult():
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'FindResult') -> bool:
-        """Return `true` when self and other are not equal, false otherwise."""
-        return not self == other
-
-class GeoIndexDefinition():
-    """
-    Schema for a geospatial index definition.
-
-    :attr str index: String form of a JavaScript function that is called for each
-          document in the database. The function takes the document as a parameter,
-          extracts some geospatial data from it, and then calls the `st_index` function to
-          index that data. The `st_index` takes a GeoJSON geometry as a parameter.
-    """
-
-    def __init__(self,
-                 index: str) -> None:
-        """
-        Initialize a GeoIndexDefinition object.
-
-        :param str index: String form of a JavaScript function that is called for
-               each document in the database. The function takes the document as a
-               parameter, extracts some geospatial data from it, and then calls the
-               `st_index` function to index that data. The `st_index` takes a GeoJSON
-               geometry as a parameter.
-        """
-        self.index = index
-
-    @classmethod
-    def from_dict(cls, _dict: Dict) -> 'GeoIndexDefinition':
-        """Initialize a GeoIndexDefinition object from a json dictionary."""
-        args = {}
-        if 'index' in _dict:
-            args['index'] = _dict.get('index')
-        else:
-            raise ValueError('Required property \'index\' not present in GeoIndexDefinition JSON')
-        return cls(**args)
-
-    @classmethod
-    def _from_dict(cls, _dict):
-        """Initialize a GeoIndexDefinition object from a json dictionary."""
-        return cls.from_dict(_dict)
-
-    def to_dict(self) -> Dict:
-        """Return a json dictionary representing this model."""
-        _dict = {}
-        if hasattr(self, 'index') and self.index is not None:
-            _dict['index'] = self.index
-        return _dict
-
-    def _to_dict(self):
-        """Return a json dictionary representing this model."""
-        return self.to_dict()
-
-    def __str__(self) -> str:
-        """Return a `str` version of this GeoIndexDefinition object."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    def __eq__(self, other: 'GeoIndexDefinition') -> bool:
-        """Return `true` when self and other are equal, false otherwise."""
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other: 'GeoIndexDefinition') -> bool:
-        """Return `true` when self and other are not equal, false otherwise."""
-        return not self == other
-
-class GeoIndexInformation():
-    """
-    Schema for information about a geospatial index.
-
-    :attr GeoIndexStats geo_index: Schema for geospatial index statistics.
-    :attr str name: The name of the geospatial index design document.
-    """
-
-    def __init__(self,
-                 geo_index: 'GeoIndexStats',
-                 name: str) -> None:
-        """
-        Initialize a GeoIndexInformation object.
-
-        :param GeoIndexStats geo_index: Schema for geospatial index statistics.
-        :param str name: The name of the geospatial index design document.
-        """
-        self.geo_index = geo_index
-        self.name = name
-
-    @classmethod
-    def from_dict(cls, _dict: Dict) -> 'GeoIndexInformation':
-        """Initialize a GeoIndexInformation object from a json dictionary."""
-        args = {}
-        if 'geo_index' in _dict:
-            args['geo_index'] = GeoIndexStats.from_dict(_dict.get('geo_index'))
-        else:
-            raise ValueError('Required property \'geo_index\' not present in GeoIndexInformation JSON')
-        if 'name' in _dict:
-            args['name'] = _dict.get('name')
-        else:
-            raise ValueError('Required property \'name\' not present in GeoIndexInformation JSON')
-        return cls(**args)
-
-    @classmethod
-    def _from_dict(cls, _dict):
-        """Initialize a GeoIndexInformation object from a json dictionary."""
-        return cls.from_dict(_dict)
-
-    def to_dict(self) -> Dict:
-        """Return a json dictionary representing this model."""
-        _dict = {}
-        if hasattr(self, 'geo_index') and self.geo_index is not None:
-            _dict['geo_index'] = self.geo_index.to_dict()
-        if hasattr(self, 'name') and self.name is not None:
-            _dict['name'] = self.name
-        return _dict
-
-    def _to_dict(self):
-        """Return a json dictionary representing this model."""
-        return self.to_dict()
-
-    def __str__(self) -> str:
-        """Return a `str` version of this GeoIndexInformation object."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    def __eq__(self, other: 'GeoIndexInformation') -> bool:
-        """Return `true` when self and other are equal, false otherwise."""
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other: 'GeoIndexInformation') -> bool:
-        """Return `true` when self and other are not equal, false otherwise."""
-        return not self == other
-
-class GeoIndexStats():
-    """
-    Schema for geospatial index statistics.
-
-    :attr int data_size: The size of the geospatial index, in bytes.
-    :attr int disk_size: The size of the geospatial index, as stored on disk, in
-          bytes.
-    :attr int doc_count: Number of documents in the geospatial index.
-    """
-
-    def __init__(self,
-                 data_size: int,
-                 disk_size: int,
-                 doc_count: int) -> None:
-        """
-        Initialize a GeoIndexStats object.
-
-        :param int data_size: The size of the geospatial index, in bytes.
-        :param int disk_size: The size of the geospatial index, as stored on disk,
-               in bytes.
-        :param int doc_count: Number of documents in the geospatial index.
-        """
-        self.data_size = data_size
-        self.disk_size = disk_size
-        self.doc_count = doc_count
-
-    @classmethod
-    def from_dict(cls, _dict: Dict) -> 'GeoIndexStats':
-        """Initialize a GeoIndexStats object from a json dictionary."""
-        args = {}
-        if 'data_size' in _dict:
-            args['data_size'] = _dict.get('data_size')
-        else:
-            raise ValueError('Required property \'data_size\' not present in GeoIndexStats JSON')
-        if 'disk_size' in _dict:
-            args['disk_size'] = _dict.get('disk_size')
-        else:
-            raise ValueError('Required property \'disk_size\' not present in GeoIndexStats JSON')
-        if 'doc_count' in _dict:
-            args['doc_count'] = _dict.get('doc_count')
-        else:
-            raise ValueError('Required property \'doc_count\' not present in GeoIndexStats JSON')
-        return cls(**args)
-
-    @classmethod
-    def _from_dict(cls, _dict):
-        """Initialize a GeoIndexStats object from a json dictionary."""
-        return cls.from_dict(_dict)
-
-    def to_dict(self) -> Dict:
-        """Return a json dictionary representing this model."""
-        _dict = {}
-        if hasattr(self, 'data_size') and self.data_size is not None:
-            _dict['data_size'] = self.data_size
-        if hasattr(self, 'disk_size') and self.disk_size is not None:
-            _dict['disk_size'] = self.disk_size
-        if hasattr(self, 'doc_count') and self.doc_count is not None:
-            _dict['doc_count'] = self.doc_count
-        return _dict
-
-    def _to_dict(self):
-        """Return a json dictionary representing this model."""
-        return self.to_dict()
-
-    def __str__(self) -> str:
-        """Return a `str` version of this GeoIndexStats object."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    def __eq__(self, other: 'GeoIndexStats') -> bool:
-        """Return `true` when self and other are equal, false otherwise."""
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other: 'GeoIndexStats') -> bool:
-        """Return `true` when self and other are not equal, false otherwise."""
-        return not self == other
-
-class GeoJsonFeature():
-    """
-    Schema for a GeoJSON feature object. Note that the content of the feature objects
-    varies depending on the response format chosen and whether the `include_docs`
-    parameter is `true`.
-
-    :attr str id: (optional) Schema for a document ID.
-    :attr str rev: (optional) Schema for a document revision identifier.
-    :attr List[float] bbox: (optional) Schema for a GeoJSON bounding box.
-    :attr GeoJsonGeometryObject geometry: Schema for a GeoJSON geometry object.
-    :attr dict properties: (optional) Schema for the properties of a GeoJSON feature
-          object.
-    :attr str type: Declaration of the GeoJSON type: Feature Object.
-    """
-
-    # The set of defined properties for the class
-    _properties = frozenset(['id', '_id', 'rev', '_rev', 'bbox', 'geometry', 'properties', 'type'])
-
-    def __init__(self,
-                 geometry: 'GeoJsonGeometryObject',
-                 type: str,
-                 *,
-                 id: str = None,
-                 rev: str = None,
-                 bbox: List[float] = None,
-                 properties: dict = None,
-                 **kwargs) -> None:
-        """
-        Initialize a GeoJsonFeature object.
-
-        :param GeoJsonGeometryObject geometry: Schema for a GeoJSON geometry
-               object.
-        :param str type: Declaration of the GeoJSON type: Feature Object.
-        :param str id: (optional) Schema for a document ID.
-        :param str rev: (optional) Schema for a document revision identifier.
-        :param List[float] bbox: (optional) Schema for a GeoJSON bounding box.
-        :param dict properties: (optional) Schema for the properties of a GeoJSON
-               feature object.
-        :param **kwargs: (optional) Any additional properties.
-        """
-        self.id = id
-        self.rev = rev
-        self.bbox = bbox
-        self.geometry = geometry
-        self.properties = properties
-        self.type = type
-        for _key, _value in kwargs.items():
-            setattr(self, _key, _value)
-
-    @classmethod
-    def from_dict(cls, _dict: Dict) -> 'GeoJsonFeature':
-        """Initialize a GeoJsonFeature object from a json dictionary."""
-        args = {}
-        if '_id' in _dict:
-            args['id'] = _dict.get('_id')
-        if '_rev' in _dict:
-            args['rev'] = _dict.get('_rev')
-        if 'bbox' in _dict:
-            args['bbox'] = _dict.get('bbox')
-        if 'geometry' in _dict:
-            args['geometry'] = _dict.get('geometry')
-        else:
-            raise ValueError('Required property \'geometry\' not present in GeoJsonFeature JSON')
-        if 'properties' in _dict:
-            args['properties'] = _dict.get('properties')
-        if 'type' in _dict:
-            args['type'] = _dict.get('type')
-        else:
-            raise ValueError('Required property \'type\' not present in GeoJsonFeature JSON')
-        args.update({k:v for (k, v) in _dict.items() if k not in cls._properties})
-        return cls(**args)
-
-    @classmethod
-    def _from_dict(cls, _dict):
-        """Initialize a GeoJsonFeature object from a json dictionary."""
-        return cls.from_dict(_dict)
-
-    def to_dict(self) -> Dict:
-        """Return a json dictionary representing this model."""
-        _dict = {}
-        if hasattr(self, 'id') and self.id is not None:
-            _dict['_id'] = self.id
-        if hasattr(self, 'rev') and self.rev is not None:
-            _dict['_rev'] = self.rev
-        if hasattr(self, 'bbox') and self.bbox is not None:
-            _dict['bbox'] = self.bbox
-        if hasattr(self, 'geometry') and self.geometry is not None:
-            if isinstance(self.geometry, dict):
-                _dict['geometry'] = self.geometry
-            else:
-                _dict['geometry'] = self.geometry.to_dict()
-        if hasattr(self, 'properties') and self.properties is not None:
-            _dict['properties'] = self.properties
-        if hasattr(self, 'type') and self.type is not None:
-            _dict['type'] = self.type
-        for _key in [k for k in vars(self).keys() if k not in GeoJsonFeature._properties]:
-            if getattr(self, _key, None) is not None:
-                _dict[_key] = getattr(self, _key)
-        return _dict
-
-    def _to_dict(self):
-        """Return a json dictionary representing this model."""
-        return self.to_dict()
-
-    def get_properties(self) -> Dict:
-        """Return a dictionary of arbitrary properties from this instance of GeoJsonFeature"""
-        _dict = {}
-
-        for _key in [k for k in vars(self).keys() if k not in GeoJsonFeature._properties]:
-            _dict[_key] = getattr(self, _key)
-        return _dict
-
-    def set_properties(self, _dict: dict):
-        """Set a dictionary of arbitrary properties to this instance of GeoJsonFeature"""
-        for _key in [k for k in vars(self).keys() if k not in GeoJsonFeature._properties]:
-            delattr(self, _key)
-
-        for _key, _value in _dict.items():
-            if _key not in GeoJsonFeature._properties:
-                setattr(self, _key, _value)
-
-    def __str__(self) -> str:
-        """Return a `str` version of this GeoJsonFeature object."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    def __eq__(self, other: 'GeoJsonFeature') -> bool:
-        """Return `true` when self and other are equal, false otherwise."""
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other: 'GeoJsonFeature') -> bool:
-        """Return `true` when self and other are not equal, false otherwise."""
-        return not self == other
-
-    class TypeEnum(str, Enum):
-        """
-        Declaration of the GeoJSON type: Feature Object.
-        """
-        FEATURE = 'Feature'
-
-
-class GeoJsonGeometryObject():
-    """
-    Schema for a GeoJSON geometry object.
-
-    """
-
-    def __init__(self) -> None:
-        """
-        Initialize a GeoJsonGeometryObject object.
-
-        """
-        msg = "Cannot instantiate base class. Instead, instantiate one of the defined subclasses: {0}".format(
-                  ", ".join(['GeoJsonGeometry', 'GeoJsonGeometryCollection']))
-        raise Exception(msg)
-
-class GeoResult():
-    """
-    Schema for the result of a geospatial query operation. For the `legacy`, `geojson`, or
-    `application/vnd.geo+json` format this is a GeoJson FeatureCollection with additional
-    metadata in foreign members.
-
-    :attr str bookmark: Opaque bookmark token used when paginating results.
-    :attr List[GeoJsonFeature] features: (optional) The array of GeoJSON Feature
-          Objects matching the geospatial query.
-    :attr List[GeoResultRow] rows: The array of rows matching the geospatial query.
-          Present only when using `view` format.
-    :attr str type: (optional) Declaration of the GeoJSON type: FeatureCollection
-          Object.
-    """
-
-    def __init__(self,
-                 bookmark: str,
-                 rows: List['GeoResultRow'],
-                 *,
-                 features: List['GeoJsonFeature'] = None,
-                 type: str = None) -> None:
-        """
-        Initialize a GeoResult object.
-
-        :param str bookmark: Opaque bookmark token used when paginating results.
-        :param List[GeoResultRow] rows: The array of rows matching the geospatial
-               query. Present only when using `view` format.
-        :param List[GeoJsonFeature] features: (optional) The array of GeoJSON
-               Feature Objects matching the geospatial query.
-        :param str type: (optional) Declaration of the GeoJSON type:
-               FeatureCollection Object.
-        """
-        self.bookmark = bookmark
-        self.features = features
-        self.rows = rows
-        self.type = type
-
-    @classmethod
-    def from_dict(cls, _dict: Dict) -> 'GeoResult':
-        """Initialize a GeoResult object from a json dictionary."""
-        args = {}
-        if 'bookmark' in _dict:
-            args['bookmark'] = _dict.get('bookmark')
-        else:
-            raise ValueError('Required property \'bookmark\' not present in GeoResult JSON')
-        if 'features' in _dict:
-            args['features'] = [GeoJsonFeature.from_dict(x) for x in _dict.get('features')]
-        if 'rows' in _dict:
-            args['rows'] = [GeoResultRow.from_dict(x) for x in _dict.get('rows')]
-        else:
-            raise ValueError('Required property \'rows\' not present in GeoResult JSON')
-        if 'type' in _dict:
-            args['type'] = _dict.get('type')
-        return cls(**args)
-
-    @classmethod
-    def _from_dict(cls, _dict):
-        """Initialize a GeoResult object from a json dictionary."""
-        return cls.from_dict(_dict)
-
-    def to_dict(self) -> Dict:
-        """Return a json dictionary representing this model."""
-        _dict = {}
-        if hasattr(self, 'bookmark') and self.bookmark is not None:
-            _dict['bookmark'] = self.bookmark
-        if hasattr(self, 'features') and self.features is not None:
-            _dict['features'] = [x.to_dict() for x in self.features]
-        if hasattr(self, 'rows') and self.rows is not None:
-            _dict['rows'] = [x.to_dict() for x in self.rows]
-        if hasattr(self, 'type') and self.type is not None:
-            _dict['type'] = self.type
-        return _dict
-
-    def _to_dict(self):
-        """Return a json dictionary representing this model."""
-        return self.to_dict()
-
-    def __str__(self) -> str:
-        """Return a `str` version of this GeoResult object."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    def __eq__(self, other: 'GeoResult') -> bool:
-        """Return `true` when self and other are equal, false otherwise."""
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other: 'GeoResult') -> bool:
-        """Return `true` when self and other are not equal, false otherwise."""
-        return not self == other
-
-    class TypeEnum(str, Enum):
-        """
-        Declaration of the GeoJSON type: FeatureCollection Object.
-        """
-        FEATURECOLLECTION = 'FeatureCollection'
-
-
-class GeoResultRow():
-    """
-    Schema for a row of a geospatial result using view format.
-
-    :attr Document doc: (optional) Schema for a document.
-    :attr GeoJsonGeometry geometry: (optional) Schema for a GeoJSON geometry.
-    :attr str id: (optional) Schema for a document ID.
-    :attr str rev: (optional) Schema for a document revision identifier.
-    """
-
-    def __init__(self,
-                 *,
-                 doc: 'Document' = None,
-                 geometry: 'GeoJsonGeometry' = None,
-                 id: str = None,
-                 rev: str = None) -> None:
-        """
-        Initialize a GeoResultRow object.
-
-        :param Document doc: (optional) Schema for a document.
-        :param GeoJsonGeometry geometry: (optional) Schema for a GeoJSON geometry.
-        :param str id: (optional) Schema for a document ID.
-        :param str rev: (optional) Schema for a document revision identifier.
-        """
-        self.doc = doc
-        self.geometry = geometry
-        self.id = id
-        self.rev = rev
-
-    @classmethod
-    def from_dict(cls, _dict: Dict) -> 'GeoResultRow':
-        """Initialize a GeoResultRow object from a json dictionary."""
-        args = {}
-        if 'doc' in _dict:
-            args['doc'] = Document.from_dict(_dict.get('doc'))
-        if 'geometry' in _dict:
-            args['geometry'] = GeoJsonGeometry.from_dict(_dict.get('geometry'))
-        if 'id' in _dict:
-            args['id'] = _dict.get('id')
-        if 'rev' in _dict:
-            args['rev'] = _dict.get('rev')
-        return cls(**args)
-
-    @classmethod
-    def _from_dict(cls, _dict):
-        """Initialize a GeoResultRow object from a json dictionary."""
-        return cls.from_dict(_dict)
-
-    def to_dict(self) -> Dict:
-        """Return a json dictionary representing this model."""
-        _dict = {}
-        if hasattr(self, 'doc') and self.doc is not None:
-            _dict['doc'] = self.doc.to_dict()
-        if hasattr(self, 'geometry') and self.geometry is not None:
-            _dict['geometry'] = self.geometry.to_dict()
-        if hasattr(self, 'id') and self.id is not None:
-            _dict['id'] = self.id
-        if hasattr(self, 'rev') and self.rev is not None:
-            _dict['rev'] = self.rev
-        return _dict
-
-    def _to_dict(self):
-        """Return a json dictionary representing this model."""
-        return self.to_dict()
-
-    def __str__(self) -> str:
-        """Return a `str` version of this GeoResultRow object."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    def __eq__(self, other: 'GeoResultRow') -> bool:
-        """Return `true` when self and other are equal, false otherwise."""
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other: 'GeoResultRow') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
@@ -14457,6 +13477,11 @@ class ReplicationDocument():
           during replication. Using checkpoints means a replication can be efficiently
           resumed.
     :attr UserContext user_ctx: (optional) Schema for the user context of a session.
+    :attr bool winning_revs_only: (optional) Replicate only the winning revisions.
+          Replication with this mode discards conflicting revisions. Replication IDs and
+          checkpoints generated by this mode are different to those generated by default,
+          so it is possible to first replicate the winning revisions then later backfill
+          remaining revisions with a regular replication job.
     :attr int worker_batch_size: (optional) Controls how many documents are
           processed. After each batch a checkpoint is written so this controls how
           frequently checkpointing occurs.
@@ -14466,7 +13491,7 @@ class ReplicationDocument():
     """
 
     # The set of defined properties for the class
-    _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info', 'cancel', 'checkpoint_interval', 'connection_timeout', 'continuous', 'create_target', 'create_target_params', 'doc_ids', 'filter', 'http_connections', 'query_params', 'retries_per_request', 'selector', 'since_seq', 'socket_options', 'source', 'source_proxy', 'target', 'target_proxy', 'use_checkpoints', 'user_ctx', 'worker_batch_size', 'worker_processes'])
+    _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info', 'cancel', 'checkpoint_interval', 'connection_timeout', 'continuous', 'create_target', 'create_target_params', 'doc_ids', 'filter', 'http_connections', 'query_params', 'retries_per_request', 'selector', 'since_seq', 'socket_options', 'source', 'source_proxy', 'target', 'target_proxy', 'use_checkpoints', 'user_ctx', 'winning_revs_only', 'worker_batch_size', 'worker_processes'])
 
     def __init__(self,
                  source: 'ReplicationDatabase',
@@ -14499,6 +13524,7 @@ class ReplicationDocument():
                  target_proxy: str = None,
                  use_checkpoints: bool = None,
                  user_ctx: 'UserContext' = None,
+                 winning_revs_only: bool = None,
                  worker_batch_size: int = None,
                  worker_processes: int = None,
                  **kwargs) -> None:
@@ -14595,6 +13621,12 @@ class ReplicationDocument():
                efficiently resumed.
         :param UserContext user_ctx: (optional) Schema for the user context of a
                session.
+        :param bool winning_revs_only: (optional) Replicate only the winning
+               revisions. Replication with this mode discards conflicting revisions.
+               Replication IDs and checkpoints generated by this mode are different to
+               those generated by default, so it is possible to first replicate the
+               winning revisions then later backfill remaining revisions with a regular
+               replication job.
         :param int worker_batch_size: (optional) Controls how many documents are
                processed. After each batch a checkpoint is written so this controls how
                frequently checkpointing occurs.
@@ -14632,6 +13664,7 @@ class ReplicationDocument():
         self.target_proxy = target_proxy
         self.use_checkpoints = use_checkpoints
         self.user_ctx = user_ctx
+        self.winning_revs_only = winning_revs_only
         self.worker_batch_size = worker_batch_size
         self.worker_processes = worker_processes
         for _key, _value in kwargs.items():
@@ -14703,6 +13736,8 @@ class ReplicationDocument():
             args['use_checkpoints'] = _dict.get('use_checkpoints')
         if 'user_ctx' in _dict:
             args['user_ctx'] = UserContext.from_dict(_dict.get('user_ctx'))
+        if 'winning_revs_only' in _dict:
+            args['winning_revs_only'] = _dict.get('winning_revs_only')
         if 'worker_batch_size' in _dict:
             args['worker_batch_size'] = _dict.get('worker_batch_size')
         if 'worker_processes' in _dict:
@@ -14776,6 +13811,8 @@ class ReplicationDocument():
             _dict['use_checkpoints'] = self.use_checkpoints
         if hasattr(self, 'user_ctx') and self.user_ctx is not None:
             _dict['user_ctx'] = self.user_ctx.to_dict()
+        if hasattr(self, 'winning_revs_only') and self.winning_revs_only is not None:
+            _dict['winning_revs_only'] = self.winning_revs_only
         if hasattr(self, 'worker_batch_size') and self.worker_batch_size is not None:
             _dict['worker_batch_size'] = self.worker_batch_size
         if hasattr(self, 'worker_processes') and self.worker_processes is not None:
@@ -17694,168 +16731,3 @@ class ViewResultRow():
     def __ne__(self, other: 'ViewResultRow') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
-
-class GeoJsonGeometry(GeoJsonGeometryObject):
-    """
-    Schema for a GeoJSON geometry.
-
-    :attr str type: The type of GeoJSON Geometry.
-    :attr List[object] coordinates: Used for all geometry types except
-          `GeometryCollection`. The structure of the elements in the array varies by
-          geometry type.
-    """
-
-    def __init__(self,
-                 type: str,
-                 coordinates: List[object]) -> None:
-        """
-        Initialize a GeoJsonGeometry object.
-
-        :param str type: The type of GeoJSON Geometry.
-        :param List[object] coordinates: Used for all geometry types except
-               `GeometryCollection`. The structure of the elements in the array varies by
-               geometry type.
-        """
-        # pylint: disable=super-init-not-called
-        self.type = type
-        self.coordinates = coordinates
-
-    @classmethod
-    def from_dict(cls, _dict: Dict) -> 'GeoJsonGeometry':
-        """Initialize a GeoJsonGeometry object from a json dictionary."""
-        args = {}
-        if 'type' in _dict:
-            args['type'] = _dict.get('type')
-        else:
-            raise ValueError('Required property \'type\' not present in GeoJsonGeometry JSON')
-        if 'coordinates' in _dict:
-            args['coordinates'] = _dict.get('coordinates')
-        else:
-            raise ValueError('Required property \'coordinates\' not present in GeoJsonGeometry JSON')
-        return cls(**args)
-
-    @classmethod
-    def _from_dict(cls, _dict):
-        """Initialize a GeoJsonGeometry object from a json dictionary."""
-        return cls.from_dict(_dict)
-
-    def to_dict(self) -> Dict:
-        """Return a json dictionary representing this model."""
-        _dict = {}
-        if hasattr(self, 'type') and self.type is not None:
-            _dict['type'] = self.type
-        if hasattr(self, 'coordinates') and self.coordinates is not None:
-            _dict['coordinates'] = self.coordinates
-        return _dict
-
-    def _to_dict(self):
-        """Return a json dictionary representing this model."""
-        return self.to_dict()
-
-    def __str__(self) -> str:
-        """Return a `str` version of this GeoJsonGeometry object."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    def __eq__(self, other: 'GeoJsonGeometry') -> bool:
-        """Return `true` when self and other are equal, false otherwise."""
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other: 'GeoJsonGeometry') -> bool:
-        """Return `true` when self and other are not equal, false otherwise."""
-        return not self == other
-
-    class TypeEnum(str, Enum):
-        """
-        The type of GeoJSON Geometry.
-        """
-        POINT = 'Point'
-        MULTIPOINT = 'MultiPoint'
-        LINESTRING = 'LineString'
-        MULTILINESTRING = 'MultiLineString'
-        POLYGON = 'Polygon'
-        MULTIPOLYGON = 'MultiPolygon'
-        GEOMETRYCOLLECTION = 'GeometryCollection'
-
-
-class GeoJsonGeometryCollection(GeoJsonGeometryObject):
-    """
-    Schema for a GeoJSON GeometryCollection type geometry.
-
-    :attr str type: The type of GeoJSON Geometry.
-    :attr List[GeoJsonGeometry] geometries: Used for the `GeometryCollection` type.
-    """
-
-    def __init__(self,
-                 type: str,
-                 geometries: List['GeoJsonGeometry']) -> None:
-        """
-        Initialize a GeoJsonGeometryCollection object.
-
-        :param str type: The type of GeoJSON Geometry.
-        :param List[GeoJsonGeometry] geometries: Used for the `GeometryCollection`
-               type.
-        """
-        # pylint: disable=super-init-not-called
-        self.type = type
-        self.geometries = geometries
-
-    @classmethod
-    def from_dict(cls, _dict: Dict) -> 'GeoJsonGeometryCollection':
-        """Initialize a GeoJsonGeometryCollection object from a json dictionary."""
-        args = {}
-        if 'type' in _dict:
-            args['type'] = _dict.get('type')
-        else:
-            raise ValueError('Required property \'type\' not present in GeoJsonGeometryCollection JSON')
-        if 'geometries' in _dict:
-            args['geometries'] = [GeoJsonGeometry.from_dict(x) for x in _dict.get('geometries')]
-        else:
-            raise ValueError('Required property \'geometries\' not present in GeoJsonGeometryCollection JSON')
-        return cls(**args)
-
-    @classmethod
-    def _from_dict(cls, _dict):
-        """Initialize a GeoJsonGeometryCollection object from a json dictionary."""
-        return cls.from_dict(_dict)
-
-    def to_dict(self) -> Dict:
-        """Return a json dictionary representing this model."""
-        _dict = {}
-        if hasattr(self, 'type') and self.type is not None:
-            _dict['type'] = self.type
-        if hasattr(self, 'geometries') and self.geometries is not None:
-            _dict['geometries'] = [x.to_dict() for x in self.geometries]
-        return _dict
-
-    def _to_dict(self):
-        """Return a json dictionary representing this model."""
-        return self.to_dict()
-
-    def __str__(self) -> str:
-        """Return a `str` version of this GeoJsonGeometryCollection object."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    def __eq__(self, other: 'GeoJsonGeometryCollection') -> bool:
-        """Return `true` when self and other are equal, false otherwise."""
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other: 'GeoJsonGeometryCollection') -> bool:
-        """Return `true` when self and other are not equal, false otherwise."""
-        return not self == other
-
-    class TypeEnum(str, Enum):
-        """
-        The type of GeoJSON Geometry.
-        """
-        POINT = 'Point'
-        MULTIPOINT = 'MultiPoint'
-        LINESTRING = 'LineString'
-        MULTILINESTRING = 'MultiLineString'
-        POLYGON = 'Polygon'
-        MULTIPOLYGON = 'MultiPolygon'
-        GEOMETRYCOLLECTION = 'GeometryCollection'
-
