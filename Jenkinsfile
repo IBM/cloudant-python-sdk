@@ -123,7 +123,7 @@ pipeline {
         beforeAgent true
         allOf {
           // We only bump the version and create a tag when building the default primary branch with a TARGET_VERSION
-          expression { env.BRANCH_IS_PRIMARY }
+          branch 'main'
           not {
             equals expected: 'NONE', actual: "${params.TARGET_VERSION}"
           }
