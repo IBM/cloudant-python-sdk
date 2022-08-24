@@ -42,8 +42,8 @@ to avoid surprises.
 - [Using the SDK](#using-the-sdk)
   * [Request timeout configuration](#request-timeout-configuration)
   * [Code examples](#code-examples)
-    + [1. Retrieve information from an existing database](#1-retrieve-information-from-an-existing-database)
-    + [2. Create your own database and add a document](#2-create-your-own-database-and-add-a-document)
+    + [1. Create a database and add a document](#1-create-a-database-and-add-a-document)
+    + [2. Retrieve information from an existing database](#2-retrieve-information-from-an-existing-database)
     + [3. Update your previously created document](#3-update-your-previously-created-document)
     + [4. Delete your previously created document](#4-delete-your-previously-created-document)
     + [Further code examples](#further-code-examples)
@@ -227,16 +227,14 @@ The [request timeout](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/READ
 The following code examples
 [authenticate with the environment variables](#authenticate-with-environment-variables).
 
-#### 1. Retrieve information from an existing database
+#### 1. Create a database and add a document
 
-**Note:** This example code assumes that `animaldb` database does not exist in your account.
+**Note:** This example code assumes that `orders` database does not exist in your account.
 
-This example code gathers information about an existing database hosted on
-the https://examples.cloudant.com/ service `url`. To connect, you must
-extend your environment variables with the *service url* and *authentication
-type* to use `NOAUTH` authentication while you connect to the `animaldb` database.
-This step is necessary for the SDK to distinguish the `EXAMPLES` custom service
-name from the default service name which is `CLOUDANT`.
+This example code creates `orders` database and adds a new document "example"
+into it. To connect, you must set your environment variables with 
+the *service url*, *authentication type* and *authentication credentials*
+of your Cloudant service. 
 
 Cloudant environment variable naming starts with a *service name* prefix that identifies your service.
 By default this is `CLOUDANT`, see the settings in the
@@ -244,82 +242,8 @@ By default this is `CLOUDANT`, see the settings in the
 
 If you would like to rename your Cloudant service from `CLOUDANT`,
 you must use your defined service name as the prefix for all Cloudant related environment variables.
-The code block below provides an example of instantiating a user-defined `EXAMPLES` service name.
-
-```bash
-EXAMPLES_URL=https://examples.cloudant.com
-EXAMPLES_AUTH_TYPE=NOAUTH
-```
 
 Once the environment variables are set, you can try out the code examples.
-
-[embedmd]:# (test/examples/src/get_info_from_existing_database.py /import/ $)
-```py
-import json
-
-from ibmcloudant.cloudant_v1 import CloudantV1
-
-# 1. Create a Cloudant client with "EXAMPLES" service name ============
-client = CloudantV1.new_instance(service_name="EXAMPLES")
-
-# 2. Get server information ===========================================
-server_information = client.get_server_information(
-).get_result()
-
-print(f'Server Version: {server_information["version"]}')
-
-# 3. Get database information for "animaldb" ==========================
-db_name = "animaldb"
-
-db_information = client.get_database_information(
-    db=db_name
-).get_result()
-
-# 4. Show document count in database ==================================
-document_count = db_information["doc_count"]
-
-print(f'Document count in \"{db_information["db_name"]}\" '
-      f'database is {document_count}.')
-
-# 5. Get zebra document out of the database by document id ============
-document_about_zebra = client.get_document(
-    db=db_name,
-    doc_id="zebra"
-).get_result()
-
-print(f'Document retrieved from database:\n'
-      f'{json.dumps(document_about_zebra, indent=2)}')
-```
-
-When you run the code, you see a result similar to the following output.
-
-[embedmd]:# (test/examples/output/get_info_from_existing_database.txt)
-```txt
-Server Version: 2.1.1
-Document count in "animaldb" database is 11.
-Document retrieved from database:
-{
-  "_id": "zebra",
-  "_rev": "3-750dac460a6cc41e6999f8943b8e603e",
-  "wiki_page": "http://en.wikipedia.org/wiki/Plains_zebra",
-  "min_length": 2,
-  "max_length": 2.5,
-  "min_weight": 175,
-  "max_weight": 387,
-  "class": "mammal",
-  "diet": "herbivore"
-}
-```
-
-#### 2. Create your own database and add a document
-
-**Note:** This example code assumes that `orders` database does not exist in your account.
-
-Now comes the exciting part, you create your own `orders` database and add a document about *Bob Smith* with your own [IAM](#iam-authentication) or
-[Basic](#basic-authentication) service credentials.
-
-<details>
-<summary>Create code example</summary>
 
 [embedmd]:# (test/examples/src/create_db_and_doc.py /import/ $)
 ```py
@@ -385,8 +309,6 @@ example_document.rev = create_document_response["rev"]
 print(f'You have created the document:\n{example_document}')
 ```
 
-
-</details>
 When you run the code, you see a result similar to the following output.
 
 [embedmd]:# (test/examples/output/create_db_and_doc.txt)
@@ -401,11 +323,77 @@ You have created the document:
 }
 ```
 
+#### 2. Retrieve information from an existing database
+
+**Note**: This example code assumes that you have created both the `orders`
+database and the `example` document by
+[running the previous example code](#1-create-a-database-and-add-a-document)
+successfully. Otherwise, the following error message occurs, "Cannot delete document because either 'orders'
+database or 'example' document was not found."
+
+<details>
+<summary>Gather database information example</summary>
+
+[embedmd]:# (test/examples/src/get_info_from_existing_database.py /import/ $)
+```py
+import json
+
+from ibmcloudant.cloudant_v1 import CloudantV1
+
+# 1. Create a client with `CLOUDANT` default service name ============
+client = CloudantV1.new_instance()
+
+# 2. Get server information ===========================================
+server_information = client.get_server_information(
+).get_result()
+
+print(f'Server Version: {server_information["version"]}')
+
+# 3. Get database information for "orders" ==========================
+db_name = "orders"
+
+db_information = client.get_database_information(
+    db=db_name
+).get_result()
+
+# 4. Show document count in database ==================================
+document_count = db_information["doc_count"]
+
+print(f'Document count in \"{db_information["db_name"]}\" '
+      f'database is {document_count}.')
+
+# 5. Get "example" document out of the database by document id ============
+document_example = client.get_document(
+    db=db_name,
+    doc_id="example"
+).get_result()
+
+print(f'Document retrieved from database:\n'
+      f'{json.dumps(document_example, indent=2)}')
+```
+
+
+</details>
+When you run the code, you see a result similar to the following output.
+
+[embedmd]:# (test/examples/output/get_info_from_existing_database.txt)
+```txt
+Server Version: 2.1.1
+Document count in "orders" database is 1.
+Document retrieved from database:
+{
+  "_id": "example",
+  "_rev": "1-1b403633540686aa32d013fda9041a5d",
+  "name": "Bob Smith",
+  "joined": "2019-01-24T10:42:99.000Z"
+}
+```
+
 #### 3. Update your previously created document
 
 **Note**: This example code assumes that you have created both the `orders`
 database and the `example` document by
-[running the previous example code](#2-create-your-own-database-and-add-a-document)
+[running the previous example code](#1-create-a-database-and-add-a-document)
 successfully. Otherwise, the following error message occurs, "Cannot update document because either 'orders'
 database or 'example' document was not found."
 
@@ -516,7 +504,7 @@ When you run the code, you see a result similar to the following output.
 
 **Note**: This example code assumes that you have created both the `orders`
 database and the `example` document by
-[running the previous example code](#2-create-your-own-database-and-add-a-document)
+[running the previous example code](#1-create-a-database-and-add-a-document)
 successfully. Otherwise, the following error message occurs, "Cannot delete document because either 'orders'
 database or 'example' document was not found."
 
