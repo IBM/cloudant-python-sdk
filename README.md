@@ -259,8 +259,8 @@ import json
 
 from ibmcloudant.cloudant_v1 import CloudantV1
 
-# 1. Create a Cloudant client with "EXAMPLES" service name ============
-client = CloudantV1.new_instance(service_name="EXAMPLES")
+# 1. Create a client with `CLOUDANT` default service name ============
+client = CloudantV1.new_instance()
 
 # 2. Get server information ===========================================
 server_information = client.get_server_information(
@@ -268,8 +268,8 @@ server_information = client.get_server_information(
 
 print(f'Server Version: {server_information["version"]}')
 
-# 3. Get database information for "animaldb" ==========================
-db_name = "animaldb"
+# 3. Get database information for "orders" ==========================
+db_name = "orders"
 
 db_information = client.get_database_information(
     db=db_name
@@ -281,14 +281,14 @@ document_count = db_information["doc_count"]
 print(f'Document count in \"{db_information["db_name"]}\" '
       f'database is {document_count}.')
 
-# 5. Get zebra document out of the database by document id ============
-document_about_zebra = client.get_document(
+# 5. Get "example" document out of the database by document id ============
+document_example = client.get_document(
     db=db_name,
-    doc_id="zebra"
+    doc_id="example"
 ).get_result()
 
 print(f'Document retrieved from database:\n'
-      f'{json.dumps(document_about_zebra, indent=2)}')
+      f'{json.dumps(document_example, indent=2)}')
 ```
 
 When you run the code, you see a result similar to the following output.
@@ -296,18 +296,13 @@ When you run the code, you see a result similar to the following output.
 [embedmd]:# (test/examples/output/get_info_from_existing_database.txt)
 ```txt
 Server Version: 2.1.1
-Document count in "animaldb" database is 11.
+Document count in "orders" database is 1.
 Document retrieved from database:
 {
-  "_id": "zebra",
-  "_rev": "3-750dac460a6cc41e6999f8943b8e603e",
-  "wiki_page": "http://en.wikipedia.org/wiki/Plains_zebra",
-  "min_length": 2,
-  "max_length": 2.5,
-  "min_weight": 175,
-  "max_weight": 387,
-  "class": "mammal",
-  "diet": "herbivore"
+  "_id": "example",
+  "_rev": "1-1b403633540686aa32d013fda9041a5d",
+  "name": "Bob Smith",
+  "joined": "2019-01-24T10:42:99.000Z"
 }
 ```
 
