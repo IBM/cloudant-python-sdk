@@ -16,6 +16,7 @@ scripts/pydoc/generate-index-html.sh @IBM/cloudant-sdks
 scripts/pydoc/publish-doc.sh @IBM/cloudant-sdks
 scripts/setup_couch.sh @IBM/cloudant-sdks
 scripts/setup_wiremock.sh @IBM/cloudant-sdks
+stubs/gen-its-mappings.json @IBM/cloudant-sdks
 stubs/mappings.json @IBM/cloudant-sdks
 
 # Generated code files:
