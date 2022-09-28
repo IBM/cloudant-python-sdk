@@ -513,7 +513,7 @@ class TestPostChanges():
         db = 'testString'
         doc_ids = ['testString']
         fields = ['testString']
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
         last_event_id = 'testString'
         att_encoding_info = False
         attachments = False
@@ -581,7 +581,7 @@ class TestPostChanges():
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['doc_ids'] == ['testString']
         assert req_body['fields'] == ['testString']
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {'foo': 'bar'}
 
     def test_post_changes_all_params_with_retries(self):
         # Enable retries and run test_post_changes_all_params.
@@ -610,7 +610,7 @@ class TestPostChanges():
         db = 'testString'
         doc_ids = ['testString']
         fields = ['testString']
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
 
         # Invoke method
         response = _service.post_changes(
@@ -631,7 +631,7 @@ class TestPostChanges():
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['doc_ids'] == ['testString']
         assert req_body['fields'] == ['testString']
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {'foo': 'bar'}
 
     def test_post_changes_required_params_with_retries(self):
         # Enable retries and run test_post_changes_required_params.
@@ -660,7 +660,7 @@ class TestPostChanges():
         db = 'testString'
         doc_ids = ['testString']
         fields = ['testString']
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -703,7 +703,7 @@ class TestPostChangesAsStream():
         db = 'testString'
         doc_ids = ['testString']
         fields = ['testString']
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
         last_event_id = 'testString'
         att_encoding_info = False
         attachments = False
@@ -771,7 +771,7 @@ class TestPostChangesAsStream():
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['doc_ids'] == ['testString']
         assert req_body['fields'] == ['testString']
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {'foo': 'bar'}
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -806,7 +806,7 @@ class TestPostChangesAsStream():
         db = 'testString'
         doc_ids = ['testString']
         fields = ['testString']
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
 
         # Invoke method
         response = _service.post_changes_as_stream(
@@ -827,7 +827,7 @@ class TestPostChangesAsStream():
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['doc_ids'] == ['testString']
         assert req_body['fields'] == ['testString']
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {'foo': 'bar'}
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -862,7 +862,7 @@ class TestPostChangesAsStream():
         db = 'testString'
         doc_ids = ['testString']
         fields = ['testString']
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -6510,7 +6510,7 @@ class TestPostPartitionSearch():
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_design/testString/_search/testString')
-        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
+        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"anyKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"anyKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -6593,7 +6593,7 @@ class TestPostPartitionSearch():
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_design/testString/_search/testString')
-        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
+        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"anyKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"anyKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -7162,7 +7162,7 @@ class TestPostPartitionFind():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7200,7 +7200,7 @@ class TestPostPartitionFind():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {'foo': 'bar'}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
@@ -7238,7 +7238,7 @@ class TestPostPartitionFind():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7292,7 +7292,7 @@ class TestPostPartitionFindAsStream():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7330,7 +7330,7 @@ class TestPostPartitionFindAsStream():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {'foo': 'bar'}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
@@ -7374,7 +7374,7 @@ class TestPostPartitionFindAsStream():
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7455,7 +7455,7 @@ class TestPostExplain():
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"mapKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"mapKey": "anyValue"}, "skip": 0}'
+        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"anyKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"anyKey": "anyValue"}, "skip": 0}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -7464,7 +7464,7 @@ class TestPostExplain():
 
         # Set up parameter values
         db = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7503,7 +7503,7 @@ class TestPostExplain():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {'foo': 'bar'}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
@@ -7532,7 +7532,7 @@ class TestPostExplain():
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"mapKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"mapKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"mapKey": "anyValue"}, "skip": 0}'
+        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"anyKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"anyKey": "anyValue"}, "skip": 0}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -7541,7 +7541,7 @@ class TestPostExplain():
 
         # Set up parameter values
         db = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7594,7 +7594,7 @@ class TestPostFind():
 
         # Set up parameter values
         db = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7633,7 +7633,7 @@ class TestPostFind():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {'foo': 'bar'}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
@@ -7671,7 +7671,7 @@ class TestPostFind():
 
         # Set up parameter values
         db = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7724,7 +7724,7 @@ class TestPostFindAsStream():
 
         # Set up parameter values
         db = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7763,7 +7763,7 @@ class TestPostFindAsStream():
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'key1': 'testString'}
+        assert req_body['selector'] == {'foo': 'bar'}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
@@ -7807,7 +7807,7 @@ class TestPostFindAsStream():
 
         # Set up parameter values
         db = 'testString'
-        selector = {'key1': 'testString'}
+        selector = {'foo': 'bar'}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7851,7 +7851,7 @@ class TestGetIndexesInformation():
         """
         # Set up mock
         url = preprocess_url('/testString/_index')
-        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"mapKey": "anyValue"}}, "name": "name", "type": "json"}]}'
+        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -7887,7 +7887,7 @@ class TestGetIndexesInformation():
         """
         # Set up mock
         url = preprocess_url('/testString/_index')
-        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"mapKey": "anyValue"}}, "name": "name", "type": "json"}]}'
+        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}]}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -7956,7 +7956,7 @@ class TestPostIndex():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
-        index_definition_model['partial_filter_selector'] = {'key1': 'testString'}
+        index_definition_model['partial_filter_selector'] = {'foo': 'bar'}
 
         # Set up parameter values
         db = 'testString'
@@ -8039,7 +8039,7 @@ class TestPostIndex():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
-        index_definition_model['partial_filter_selector'] = {'key1': 'testString'}
+        index_definition_model['partial_filter_selector'] = {'foo': 'bar'}
 
         # Set up parameter values
         db = 'testString'
@@ -8293,7 +8293,7 @@ class TestPostSearch():
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_search/testString')
-        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
+        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"anyKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"anyKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -8392,7 +8392,7 @@ class TestPostSearch():
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_search/testString')
-        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"mapKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
+        mock_response = '{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"anyKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}], "groups": [{"total_rows": 0, "bookmark": "bookmark", "by": "by", "counts": {"mapKey": {"mapKey": 0}}, "ranges": {"mapKey": {"mapKey": 0}}, "rows": [{"doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "fields": {"anyKey": "anyValue"}, "highlights": {"mapKey": ["inner"]}, "id": "id"}]}]}'
         responses.add(responses.POST,
                       url,
                       body=mock_response,
@@ -9112,7 +9112,7 @@ class TestGetReplicationDocument():
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 1, "worker_processes": 1}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9183,7 +9183,7 @@ class TestGetReplicationDocument():
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 1, "worker_processes": 1}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9219,7 +9219,7 @@ class TestGetReplicationDocument():
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"mapKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 1, "worker_processes": 1}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 1, "worker_processes": 1}'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -9342,7 +9342,7 @@ class TestPutReplicationDocument():
         replication_document_model['http_connections'] = 1
         replication_document_model['query_params'] = {'key1': 'testString'}
         replication_document_model['retries_per_request'] = 0
-        replication_document_model['selector'] = {'key1': 'testString'}
+        replication_document_model['selector'] = {'foo': 'bar'}
         replication_document_model['since_seq'] = 'testString'
         replication_document_model['socket_options'] = 'testString'
         replication_document_model['source'] = replication_database_model
@@ -9490,7 +9490,7 @@ class TestPutReplicationDocument():
         replication_document_model['http_connections'] = 1
         replication_document_model['query_params'] = {'key1': 'testString'}
         replication_document_model['retries_per_request'] = 0
-        replication_document_model['selector'] = {'key1': 'testString'}
+        replication_document_model['selector'] = {'foo': 'bar'}
         replication_document_model['since_seq'] = 'testString'
         replication_document_model['socket_options'] = 'testString'
         replication_document_model['source'] = replication_database_model
@@ -9624,7 +9624,7 @@ class TestPutReplicationDocument():
         replication_document_model['http_connections'] = 1
         replication_document_model['query_params'] = {'key1': 'testString'}
         replication_document_model['retries_per_request'] = 0
-        replication_document_model['selector'] = {'key1': 'testString'}
+        replication_document_model['selector'] = {'foo': 'bar'}
         replication_document_model['since_seq'] = 'testString'
         replication_document_model['socket_options'] = 'testString'
         replication_document_model['source'] = replication_database_model
@@ -14350,7 +14350,7 @@ class TestModel_ExplainResult():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
-        index_definition_model['partial_filter_selector'] = {'key1': 'testString'}
+        index_definition_model['partial_filter_selector'] = {'foo': 'bar'}
 
         index_information_model = {} # IndexInformation
         index_information_model['ddoc'] = 'testString'
@@ -14368,9 +14368,9 @@ class TestModel_ExplainResult():
         explain_result_model_json['fields'] = ['testString']
         explain_result_model_json['index'] = index_information_model
         explain_result_model_json['limit'] = 0
-        explain_result_model_json['opts'] = {'key1': 'testString'}
+        explain_result_model_json['opts'] = {'foo': 'bar'}
         explain_result_model_json['range'] = explain_result_range_model
-        explain_result_model_json['selector'] = {'key1': 'testString'}
+        explain_result_model_json['selector'] = {'foo': 'bar'}
         explain_result_model_json['skip'] = 0
 
         # Construct a model instance of ExplainResult by calling from_dict on the json representation
@@ -14521,7 +14521,7 @@ class TestModel_IndexDefinition():
         index_definition_model_json['default_field'] = index_text_operator_default_field_model
         index_definition_model_json['fields'] = [index_field_model]
         index_definition_model_json['index_array_lengths'] = True
-        index_definition_model_json['partial_filter_selector'] = {'key1': 'testString'}
+        index_definition_model_json['partial_filter_selector'] = {'foo': 'bar'}
 
         # Construct a model instance of IndexDefinition by calling from_dict on the json representation
         index_definition_model = IndexDefinition.from_dict(index_definition_model_json)
@@ -14609,7 +14609,7 @@ class TestModel_IndexInformation():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
-        index_definition_model['partial_filter_selector'] = {'key1': 'testString'}
+        index_definition_model['partial_filter_selector'] = {'foo': 'bar'}
 
         # Construct a json representation of a IndexInformation model
         index_information_model_json = {}
@@ -14730,7 +14730,7 @@ class TestModel_IndexesInformation():
         index_definition_model['default_field'] = index_text_operator_default_field_model
         index_definition_model['fields'] = [index_field_model]
         index_definition_model['index_array_lengths'] = True
-        index_definition_model['partial_filter_selector'] = {'key1': 'testString'}
+        index_definition_model['partial_filter_selector'] = {'foo': 'bar'}
 
         index_information_model = {} # IndexInformation
         index_information_model['ddoc'] = 'testString'
@@ -15215,7 +15215,7 @@ class TestModel_ReplicationDocument():
         replication_document_model_json['http_connections'] = 1
         replication_document_model_json['query_params'] = {'key1': 'testString'}
         replication_document_model_json['retries_per_request'] = 0
-        replication_document_model_json['selector'] = {'key1': 'testString'}
+        replication_document_model_json['selector'] = {'foo': 'bar'}
         replication_document_model_json['since_seq'] = 'testString'
         replication_document_model_json['socket_options'] = 'testString'
         replication_document_model_json['source'] = replication_database_model
@@ -15806,7 +15806,7 @@ class TestModel_SearchResult():
 
         search_result_row_model = {} # SearchResultRow
         search_result_row_model['doc'] = document_model
-        search_result_row_model['fields'] = {'key1': 'testString'}
+        search_result_row_model['fields'] = {'foo': 'bar'}
         search_result_row_model['highlights'] = {'key1': ['testString']}
         search_result_row_model['id'] = 'testString'
 
@@ -15888,7 +15888,7 @@ class TestModel_SearchResultProperties():
 
         search_result_row_model = {} # SearchResultRow
         search_result_row_model['doc'] = document_model
-        search_result_row_model['fields'] = {'key1': 'testString'}
+        search_result_row_model['fields'] = {'foo': 'bar'}
         search_result_row_model['highlights'] = {'key1': ['testString']}
         search_result_row_model['id'] = 'testString'
 
@@ -15962,7 +15962,7 @@ class TestModel_SearchResultRow():
         # Construct a json representation of a SearchResultRow model
         search_result_row_model_json = {}
         search_result_row_model_json['doc'] = document_model
-        search_result_row_model_json['fields'] = {'key1': 'testString'}
+        search_result_row_model_json['fields'] = {'foo': 'bar'}
         search_result_row_model_json['highlights'] = {'key1': ['testString']}
         search_result_row_model_json['id'] = 'testString'
 
