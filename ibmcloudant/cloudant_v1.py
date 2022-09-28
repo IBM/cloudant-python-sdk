@@ -484,7 +484,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `ChangesResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         headers = {
             'Last-Event-ID': last_event_id
@@ -674,7 +674,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         headers = {
             'Last-Event-ID': last_event_id
@@ -750,7 +750,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -898,7 +898,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `Ok` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -936,7 +936,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DatabaseInformation` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -983,7 +983,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `Ok` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -1049,9 +1049,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
             'If-None-Match': if_none_match
@@ -1115,7 +1115,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DocumentResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if document is None:
             raise ValueError('document must be provided')
@@ -1219,7 +1219,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `AllDocsResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -1323,7 +1323,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -1392,7 +1392,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `AllDocsQueriesResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if queries is None:
             raise ValueError('queries must be provided')
@@ -1452,7 +1452,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if queries is None:
             raise ValueError('queries must be provided')
@@ -1508,7 +1508,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `List[DocumentResult]` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if bulk_docs is None:
             raise ValueError('bulk_docs must be provided')
@@ -1577,7 +1577,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `BulkGetResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if docs is None:
             raise ValueError('docs must be provided')
@@ -1654,7 +1654,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if docs is None:
             raise ValueError('docs must be provided')
@@ -1731,7 +1731,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if docs is None:
             raise ValueError('docs must be provided')
@@ -1808,7 +1808,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if docs is None:
             raise ValueError('docs must be provided')
@@ -1883,9 +1883,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DocumentResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
             'If-Match': if_match
@@ -1974,9 +1974,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `Document` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
             'If-None-Match': if_none_match
@@ -2073,9 +2073,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
             'If-None-Match': if_none_match
@@ -2172,9 +2172,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
             'If-None-Match': if_none_match
@@ -2271,9 +2271,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
             'If-None-Match': if_none_match
@@ -2354,9 +2354,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DocumentResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         if document is None:
             raise ValueError('document must be provided')
@@ -2437,9 +2437,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
         headers = {
             'If-None-Match': if_none_match
@@ -2498,9 +2498,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DocumentResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
         headers = {
             'If-Match': if_match
@@ -2591,9 +2591,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DesignDocument` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
         headers = {
             'If-None-Match': if_none_match
@@ -2673,9 +2673,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DocumentResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
         if design_document is None:
             raise ValueError('design_document must be provided')
@@ -2738,9 +2738,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DesignDocumentInformation` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -2827,7 +2827,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `AllDocsResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         headers = {
             'Accept': accept
@@ -2899,7 +2899,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `AllDocsQueriesResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if queries is None:
             raise ValueError('queries must be provided')
@@ -3045,11 +3045,11 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `ViewResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
-        if view is None:
+        if not view:
             raise ValueError('view must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -3206,11 +3206,11 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
-        if view is None:
+        if not view:
             raise ValueError('view must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -3290,11 +3290,11 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `ViewQueriesResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
-        if view is None:
+        if not view:
             raise ValueError('view must be provided')
         if queries is None:
             raise ValueError('queries must be provided')
@@ -3358,11 +3358,11 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
-        if view is None:
+        if not view:
             raise ValueError('view must be provided')
         if queries is None:
             raise ValueError('queries must be provided')
@@ -3421,9 +3421,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `PartitionInformation` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if partition_key is None:
+        if not partition_key:
             raise ValueError('partition_key must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -3510,9 +3510,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `AllDocsResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if partition_key is None:
+        if not partition_key:
             raise ValueError('partition_key must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -3619,9 +3619,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if partition_key is None:
+        if not partition_key:
             raise ValueError('partition_key must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -3741,13 +3741,13 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `SearchResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if partition_key is None:
+        if not partition_key:
             raise ValueError('partition_key must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
-        if index is None:
+        if not index:
             raise ValueError('index must be provided')
         if query is None:
             raise ValueError('query must be provided')
@@ -3868,13 +3868,13 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if partition_key is None:
+        if not partition_key:
             raise ValueError('partition_key must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
-        if index is None:
+        if not index:
             raise ValueError('index must be provided')
         if query is None:
             raise ValueError('query must be provided')
@@ -4027,13 +4027,13 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `ViewResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if partition_key is None:
+        if not partition_key:
             raise ValueError('partition_key must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
-        if view is None:
+        if not view:
             raise ValueError('view must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -4192,13 +4192,13 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if partition_key is None:
+        if not partition_key:
             raise ValueError('partition_key must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
-        if view is None:
+        if not view:
             raise ValueError('view must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -4351,9 +4351,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `FindResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if partition_key is None:
+        if not partition_key:
             raise ValueError('partition_key must be provided')
         if selector is None:
             raise ValueError('selector must be provided')
@@ -4499,9 +4499,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if partition_key is None:
+        if not partition_key:
             raise ValueError('partition_key must be provided')
         if selector is None:
             raise ValueError('selector must be provided')
@@ -4650,7 +4650,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `ExplainResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if selector is None:
             raise ValueError('selector must be provided')
@@ -4802,7 +4802,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `FindResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if selector is None:
             raise ValueError('selector must be provided')
@@ -4954,7 +4954,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if selector is None:
             raise ValueError('selector must be provided')
@@ -5018,7 +5018,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `IndexesInformation` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -5085,7 +5085,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `IndexResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if index is None:
             raise ValueError('index must be provided')
@@ -5149,13 +5149,13 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `Ok` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
-        if type is None:
+        if not type:
             raise ValueError('type must be provided')
-        if index is None:
+        if not index:
             raise ValueError('index must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -5346,11 +5346,11 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `SearchResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
-        if index is None:
+        if not index:
             raise ValueError('index must be provided')
         if query is None:
             raise ValueError('query must be provided')
@@ -5512,11 +5512,11 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
-        if index is None:
+        if not index:
             raise ValueError('index must be provided')
         if query is None:
             raise ValueError('query must be provided')
@@ -5589,11 +5589,11 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `SearchInfoResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if ddoc is None:
+        if not ddoc:
             raise ValueError('ddoc must be provided')
-        if index is None:
+        if not index:
             raise ValueError('index must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -5644,7 +5644,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse
         """
 
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
             'If-None-Match': if_none_match
@@ -5688,7 +5688,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse
         """
 
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -5728,7 +5728,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse
         """
 
-        if job_id is None:
+        if not job_id:
             raise ValueError('job_id must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -5778,7 +5778,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DocumentResult` object
         """
 
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
             'If-Match': if_match
@@ -5865,7 +5865,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `ReplicationDocument` object
         """
 
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
             'If-None-Match': if_none_match
@@ -5941,7 +5941,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DocumentResult` object
         """
 
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         if replication_document is None:
             raise ValueError('replication_document must be provided')
@@ -6053,7 +6053,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `SchedulerDocument` object
         """
 
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -6143,7 +6143,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `SchedulerJob` object
         """
 
-        if job_id is None:
+        if not job_id:
             raise ValueError('job_id must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -6228,7 +6228,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `Security` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -6290,7 +6290,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `Ok` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if admins is not None:
             admins = convert_model(admins)
@@ -6401,7 +6401,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `Ok` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if cloudant is None:
             raise ValueError('cloudant must be provided')
@@ -6575,11 +6575,11 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
-        if attachment_name is None:
+        if not attachment_name:
             raise ValueError('attachment_name must be provided')
         headers = {
             'If-Match': if_match,
@@ -6642,11 +6642,11 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DocumentResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
-        if attachment_name is None:
+        if not attachment_name:
             raise ValueError('attachment_name must be provided')
         headers = {
             'If-Match': if_match
@@ -6714,11 +6714,11 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `BinaryIO` result
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
-        if attachment_name is None:
+        if not attachment_name:
             raise ValueError('attachment_name must be provided')
         headers = {
             'If-Match': if_match,
@@ -6789,15 +6789,15 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DocumentResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
-        if attachment_name is None:
+        if not attachment_name:
             raise ValueError('attachment_name must be provided')
         if attachment is None:
             raise ValueError('attachment must be provided')
-        if content_type is None:
+        if not content_type:
             raise ValueError('content_type must be provided')
         headers = {
             'Content-Type': content_type,
@@ -6860,9 +6860,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
             'If-None-Match': if_none_match
@@ -6912,9 +6912,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DocumentResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -6980,9 +6980,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `Document` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
             'Accept': accept,
@@ -7044,9 +7044,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DocumentResult` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         if document is None:
             raise ValueError('document must be provided')
@@ -7116,7 +7116,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `dict` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         if document_revisions is None:
             raise ValueError('document_revisions must be provided')
@@ -7162,7 +7162,7 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `ShardsInformation` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -7205,9 +7205,9 @@ class CloudantV1(BaseService):
         :rtype: DetailedResponse with `dict` result representing a `DocumentShardInfo` object
         """
 
-        if db is None:
+        if not db:
             raise ValueError('db must be provided')
-        if doc_id is None:
+        if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {}
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
@@ -7485,7 +7485,7 @@ class PostChangesEnums:
         NORMAL = 'normal'
 
 
-class PostChangesEnums:
+class PostChangesAsStreamEnums:
     """
     Enums for post_changes_as_stream parameters.
     """
@@ -10649,8 +10649,7 @@ class DesignDocument():
         if hasattr(self, 'views') and self.views is not None:
             _dict['views'] = {k : v.to_dict() for k, v in self.views.items()}
         for _key in [k for k in vars(self).keys() if k not in DesignDocument._properties]:
-            if getattr(self, _key, None) is not None:
-                _dict[_key] = getattr(self, _key)
+            _dict[_key] = getattr(self, _key)
         return _dict
 
     def _to_dict(self):
@@ -11297,8 +11296,7 @@ class Document():
         if hasattr(self, 'revs_info') and self.revs_info is not None:
             _dict['_revs_info'] = [x.to_dict() for x in self.revs_info]
         for _key in [k for k in vars(self).keys() if k not in Document._properties]:
-            if getattr(self, _key, None) is not None:
-                _dict[_key] = getattr(self, _key)
+            _dict[_key] = getattr(self, _key)
         return _dict
 
     def _to_dict(self):
@@ -12241,8 +12239,7 @@ class IndexField():
         if hasattr(self, 'type') and self.type is not None:
             _dict['type'] = self.type
         for _key in [k for k in vars(self).keys() if k not in IndexField._properties]:
-            if getattr(self, _key, None) is not None:
-                _dict[_key] = getattr(self, _key)
+            _dict[_key] = getattr(self, _key)
         return _dict
 
     def _to_dict(self):
@@ -13818,8 +13815,7 @@ class ReplicationDocument():
         if hasattr(self, 'worker_processes') and self.worker_processes is not None:
             _dict['worker_processes'] = self.worker_processes
         for _key in [k for k in vars(self).keys() if k not in ReplicationDocument._properties]:
-            if getattr(self, _key, None) is not None:
-                _dict[_key] = getattr(self, _key)
+            _dict[_key] = getattr(self, _key)
         return _dict
 
     def _to_dict(self):
@@ -15982,17 +15978,17 @@ class UpInformation():
     """
     Schema for information about the up state of the server.
 
-    :attr object seeds: seeds.
+    :attr dict seeds: seeds.
     :attr str status: status.
     """
 
     def __init__(self,
-                 seeds: object,
+                 seeds: dict,
                  status: str) -> None:
         """
         Initialize a UpInformation object.
 
-        :param object seeds: seeds.
+        :param dict seeds: seeds.
         :param str status: status.
         """
         self.seeds = seeds
