@@ -6094,7 +6094,7 @@ class CloudantV1(BaseService):
         replication ID, history of recent events, and other information.
 
         :param int limit: (optional) Query parameter to specify the number of
-               returned documents to limit the result to.
+               returned jobs to limit the result to.
         :param int skip: (optional) Query parameter to specify the number of
                records before starting to return the results.
         :param dict headers: A `dict` containing the request headers
