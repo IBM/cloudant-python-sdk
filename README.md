@@ -79,8 +79,7 @@ project:
 
 - Supported by IBM Cloudant.
 - Server compatibility with:
-    - IBM Cloudant "Classic".
-    - [Cloudant "Standard on Transaction Engine"](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-overview-te) for APIs compatible with Cloudant "Classic". For more information, see the [Feature Parity](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-overview-te#feature-parity-between-ibm-cloudant-on-the-transaction-engine-vs-classic-architecture) page.
+    - IBM Cloudant.
     - [Apache CouchDB 3.x](https://docs.couchdb.org/en/stable/) for data operations.
 - Includes all the most popular and latest supported endpoints for
   applications.
