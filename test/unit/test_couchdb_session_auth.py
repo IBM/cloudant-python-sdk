@@ -108,6 +108,16 @@ class TestCouchDbSessionAuth(unittest.TestCase):
         finally:
             self.client.set_http_client(original_http_client)
 
+    def test_invalid_disable_ssl_verification_type(self):
+        with self.assertRaisesRegex(
+            TypeError, 'disable_ssl_verification must be a bool'
+        ):
+            CouchDbSessionAuthenticator(
+                "adm",
+                "pass",
+                disable_ssl_verification='True'
+            )
+
     @responses.activate
     def test_cookie_refresh(self):
         self.client.get_session_information()
@@ -168,6 +178,10 @@ class TestCouchDbSessionAuth(unittest.TestCase):
 
 class TestCouchDbSessionAuthPatch(unittest.TestCase):
 
+    def setUp(self) -> None:
+        for key in os.environ:
+            del os.environ[key]
+
     def test_new_instance(self):
         os.environ['TEST_SERVICE_AUTH_TYPE'] = 'couchdb_session'
         os.environ['TEST_SERVICE_USERNAME'] = 'adm'
@@ -176,6 +190,9 @@ class TestCouchDbSessionAuthPatch(unittest.TestCase):
         self.assertIsNotNone(service)
         self.assertIsInstance(service, CloudantV1)
         self.assertEqual('COUCHDB_SESSION', service.authenticator.authentication_type())
+        self.assertFalse(service.disable_ssl_verification)
+        self.assertFalse(
+            service.authenticator.token_manager.disable_ssl_verification)
 
     def test_new_instance_auth_alias(self):
         os.environ['TEST_SERVICE_AUTHTYPE'] = 'couchdb_session'
@@ -185,3 +202,43 @@ class TestCouchDbSessionAuthPatch(unittest.TestCase):
         self.assertIsNotNone(service)
         self.assertIsInstance(service, CloudantV1)
         self.assertEqual('COUCHDB_SESSION', service.authenticator.authentication_type())
+
+    def test_disable_ssl(self):
+        os.environ['TEST_SERVICE_AUTHTYPE'] = 'couchdb_session'
+        os.environ['TEST_SERVICE_USERNAME'] = 'adm'
+        os.environ['TEST_SERVICE_PASSWORD'] = 'pass'
+        os.environ['TEST_SERVICE_DISABLE_SSL'] = 'true'
+        service = CloudantV1.new_instance(service_name='TEST_SERVICE')
+        self.assertIsNotNone(service)
+        self.assertIsInstance(service, CloudantV1)
+        self.assertEqual('COUCHDB_SESSION', service.authenticator.authentication_type())
+        self.assertTrue(service.disable_ssl_verification)
+        self.assertTrue(
+            service.authenticator.token_manager.disable_ssl_verification)
+
+    def test_auth_disable_ssl(self):
+        os.environ['TEST_SERVICE_AUTHTYPE'] = 'couchdb_session'
+        os.environ['TEST_SERVICE_USERNAME'] = 'adm'
+        os.environ['TEST_SERVICE_PASSWORD'] = 'pass'
+        os.environ['TEST_SERVICE_AUTH_DISABLE_SSL'] = 'true'
+        service = CloudantV1.new_instance(service_name='TEST_SERVICE')
+        self.assertIsNotNone(service)
+        self.assertIsInstance(service, CloudantV1)
+        self.assertEqual('COUCHDB_SESSION', service.authenticator.authentication_type())
+        self.assertFalse(service.disable_ssl_verification)
+        self.assertTrue(
+            service.authenticator.token_manager.disable_ssl_verification)
+
+    def test_auth_disable_ssl_only(self):
+        os.environ['TEST_SERVICE_AUTHTYPE'] = 'couchdb_session'
+        os.environ['TEST_SERVICE_USERNAME'] = 'adm'
+        os.environ['TEST_SERVICE_PASSWORD'] = 'pass'
+        os.environ['TEST_SERVICE_DISABLE_SSL'] = 'false'
+        os.environ['TEST_SERVICE_AUTH_DISABLE_SSL'] = 'true'
+        service = CloudantV1.new_instance(service_name='TEST_SERVICE')
+        self.assertIsNotNone(service)
+        self.assertIsInstance(service, CloudantV1)
+        self.assertEqual('COUCHDB_SESSION', service.authenticator.authentication_type())
+        self.assertFalse(service.disable_ssl_verification)
+        self.assertTrue(
+            service.authenticator.token_manager.disable_ssl_verification)

@@ -41,8 +41,12 @@ class CouchDbSessionTokenManager(TokenManager):
 
     def __init__(self, username: str, password: str,
                  url: str = None,
+                 disable_ssl_verification: bool = False,
                  ):
-        super().__init__(url)
+        super().__init__(
+            url,
+            disable_ssl_verification=disable_ssl_verification,
+        )
         self.username = username
         self.password = password
 
