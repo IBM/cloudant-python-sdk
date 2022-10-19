@@ -113,7 +113,7 @@ def new_set_default_headers(self, headers: Dict[str, str]):
 old_set_disable_ssl_verification = CloudantV1.set_disable_ssl_verification
 
 
-def new_set_disable_ssl_verification(self, status: bool = False) -> None:  
+def new_set_disable_ssl_verification(self, status: bool = False) -> None:
     old_set_disable_ssl_verification(self, status)
     if isinstance(self.authenticator, CouchDbSessionAuthenticator):
         self.authenticator.token_manager.set_disable_ssl_verification(status)
@@ -154,6 +154,6 @@ def new_prepare_request(self,
             if len(request_url_path_segments) > rule.path_segment_index:
                 segment_to_validate = request_url_path_segments[rule.path_segment_index]
                 if segment_to_validate.startswith('_'):
-                    raise ValueError('{0} {1} starts with the invalid _ character.'.format(rule.error_parameter_name, 
+                    raise ValueError('{0} {1} starts with the invalid _ character.'.format(rule.error_parameter_name,
                         unquote(segment_to_validate)))
     return old_prepare_request(self, method, url, *args, headers=headers, params=params, data=data, files=files, **kwargs)
