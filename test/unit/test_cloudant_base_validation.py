@@ -28,6 +28,14 @@ class TestValidation(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, '.+_testDocument.+') as cm:
             service.get_document('testDatabase', '_testDocument')
 
+    def test_validates_doc_id_with_as_stream_operation(self):
+        service = CloudantV1(
+            authenticator=NoAuthAuthenticator()
+        )
+        service.set_service_url('https://cloudant.example')
+        with self.assertRaisesRegex(ValueError, '.+_testDocument.+') as cm:
+            service.get_document_as_stream('testDatabase', '_testDocument')
+
     def test_validates_doc_id_at_long_service_path(self):
         service = CloudantV1(
             authenticator=NoAuthAuthenticator()
