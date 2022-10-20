@@ -22,6 +22,7 @@ from .couchdb_session_get_authenticator_patch import new_construct_authenticator
 from .cloudant_base_service import new_init, new_prepare_request, new_set_service_url, new_set_default_headers
 from .couchdb_session_token_manager import CouchDbSessionTokenManager
 from .cloudant_v1 import CloudantV1
+from .features.changes_follower import ChangesFollower
 
 # sdk-core's __construct_authenticator works with a long switch-case so monkey-patching is required
 get_authenticator.__construct_authenticator = new_construct_authenticator
