@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2020, 2021.
+# © Copyright IBM Corporation 2020, 2022.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,6 +43,9 @@ class ValidationRule(namedtuple('ValidationRule', ['path_segment_index', 'error_
 doc_id_rule = ValidationRule(path_segment_index=1, error_parameter_name='Document ID', operation_ids= [
     'delete_document',
     'get_document',
+    'get_document_as_mixed',
+    'get_document_as_related',
+    'get_document_as_stream',
     'head_document',
     'put_document',
     'delete_attachment',
