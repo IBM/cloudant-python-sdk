@@ -108,6 +108,22 @@ class TestCouchDbSessionAuth(unittest.TestCase):
         finally:
             self.client.set_http_client(original_http_client)
 
+    def test_valid_disable_ssl_verification_type(self):
+        authenticator = CouchDbSessionAuthenticator("adm", "pass")
+        self.assertFalse(authenticator.token_manager.disable_ssl_verification)
+        authenticator = CouchDbSessionAuthenticator(
+            "adm",
+            "pass",
+            disable_ssl_verification=False
+        )
+        self.assertFalse(authenticator.token_manager.disable_ssl_verification)
+        authenticator = CouchDbSessionAuthenticator(
+            "adm",
+            "pass",
+            disable_ssl_verification=True
+        )
+        self.assertTrue(authenticator.token_manager.disable_ssl_verification)
+
     def test_invalid_disable_ssl_verification_type(self):
         with self.assertRaisesRegex(
             TypeError, 'disable_ssl_verification must be a bool'
