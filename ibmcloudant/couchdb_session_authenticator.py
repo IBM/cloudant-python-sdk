@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2020.
+# © Copyright IBM Corporation 2020, 2022.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,10 +39,20 @@ class CouchDbSessionAuthenticator(Authenticator):
 
     AUTHTYPE_COUCHDB_SESSION = 'COUCHDB_SESSION'
 
-    def __init__(self, username: str, password: str):
+    def __init__(self,
+                 username: str,
+                 password: str,
+                 disable_ssl_verification: bool = False) -> None:
+        if not isinstance(disable_ssl_verification, bool):
+            raise TypeError('disable_ssl_verification must be a bool')
+
         self.jar = None
 
-        self.token_manager = CouchDbSessionTokenManager(username, password)
+        self.token_manager = CouchDbSessionTokenManager(
+            username,
+            password,
+            disable_ssl_verification=disable_ssl_verification
+        )
         self.validate()
 
     def set_jar(self, jar):

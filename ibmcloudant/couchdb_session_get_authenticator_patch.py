@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2020, 2021.
+# © Copyright IBM Corporation 2020, 2022.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,6 +33,9 @@ def new_construct_authenticator(config):  # pylint: disable=missing-docstring
     if auth_type == 'COUCHDB_SESSION':
         return CouchDbSessionAuthenticator(
             username=config.get('USERNAME'),
-            password=config.get('PASSWORD')
+            password=config.get('PASSWORD'),
+            disable_ssl_verification=config.get(
+                'AUTH_DISABLE_SSL',
+                config.get('DISABLE_SSL', 'false')).lower() == 'true'
         )
     return old_construct_authenticator(config)
