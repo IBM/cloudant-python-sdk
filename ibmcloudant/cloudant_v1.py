@@ -381,7 +381,7 @@ class CloudantV1(BaseService):
         ### Note
         Before using the changes feed we recommend reading the
         [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-faq-using-changes-feed)
-        to understand the limitations and appropriate use cases.".
+        to understand the limitations and appropriate use cases.
 
         :param str db: Path parameter to specify the database name.
         :param List[str] doc_ids: (optional) Schema for a list of document IDs.
@@ -571,7 +571,7 @@ class CloudantV1(BaseService):
         ### Note
         Before using the changes feed we recommend reading the
         [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-faq-using-changes-feed)
-        to understand the limitations and appropriate use cases.".
+        to understand the limitations and appropriate use cases.
 
         :param str db: Path parameter to specify the database name.
         :param List[str] doc_ids: (optional) Schema for a list of document IDs.
@@ -11124,22 +11124,31 @@ class DocsResultRowValue():
     """
     Value of built-in `/_all_docs` style view.
 
+    :attr bool deleted: (optional) If `true` then the document is deleted. Not
+          present for undeleted documents.
     :attr str rev: Schema for a document revision identifier.
     """
 
     def __init__(self,
-                 rev: str) -> None:
+                 rev: str,
+                 *,
+                 deleted: bool = None) -> None:
         """
         Initialize a DocsResultRowValue object.
 
         :param str rev: Schema for a document revision identifier.
+        :param bool deleted: (optional) If `true` then the document is deleted. Not
+               present for undeleted documents.
         """
+        self.deleted = deleted
         self.rev = rev
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'DocsResultRowValue':
         """Initialize a DocsResultRowValue object from a json dictionary."""
         args = {}
+        if 'deleted' in _dict:
+            args['deleted'] = _dict.get('deleted')
         if 'rev' in _dict:
             args['rev'] = _dict.get('rev')
         else:
@@ -11154,6 +11163,8 @@ class DocsResultRowValue():
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
+        if hasattr(self, 'deleted') and self.deleted is not None:
+            _dict['deleted'] = self.deleted
         if hasattr(self, 'rev') and self.rev is not None:
             _dict['rev'] = self.rev
         return _dict
@@ -13470,6 +13481,9 @@ class ReplicationDocument():
           database.
     :attr str target_proxy: (optional) Address of a (http or socks5 protocol) proxy
           server through which replication with the target database should occur.
+    :attr bool use_bulk_get: (optional) Specify whether to use _bulk_get for
+          fetching documents from the source. If unset, the server configured default will
+          be used.
     :attr bool use_checkpoints: (optional) Specify if checkpoints should be saved
           during replication. Using checkpoints means a replication can be efficiently
           resumed.
@@ -13488,7 +13502,7 @@ class ReplicationDocument():
     """
 
     # The set of defined properties for the class
-    _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info', 'cancel', 'checkpoint_interval', 'connection_timeout', 'continuous', 'create_target', 'create_target_params', 'doc_ids', 'filter', 'http_connections', 'query_params', 'retries_per_request', 'selector', 'since_seq', 'socket_options', 'source', 'source_proxy', 'target', 'target_proxy', 'use_checkpoints', 'user_ctx', 'winning_revs_only', 'worker_batch_size', 'worker_processes'])
+    _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info', 'cancel', 'checkpoint_interval', 'connection_timeout', 'continuous', 'create_target', 'create_target_params', 'doc_ids', 'filter', 'http_connections', 'query_params', 'retries_per_request', 'selector', 'since_seq', 'socket_options', 'source', 'source_proxy', 'target', 'target_proxy', 'use_bulk_get', 'use_checkpoints', 'user_ctx', 'winning_revs_only', 'worker_batch_size', 'worker_processes'])
 
     def __init__(self,
                  source: 'ReplicationDatabase',
@@ -13519,6 +13533,7 @@ class ReplicationDocument():
                  socket_options: str = None,
                  source_proxy: str = None,
                  target_proxy: str = None,
+                 use_bulk_get: bool = None,
                  use_checkpoints: bool = None,
                  user_ctx: 'UserContext' = None,
                  winning_revs_only: bool = None,
@@ -13613,6 +13628,9 @@ class ReplicationDocument():
         :param str target_proxy: (optional) Address of a (http or socks5 protocol)
                proxy server through which replication with the target database should
                occur.
+        :param bool use_bulk_get: (optional) Specify whether to use _bulk_get for
+               fetching documents from the source. If unset, the server configured default
+               will be used.
         :param bool use_checkpoints: (optional) Specify if checkpoints should be
                saved during replication. Using checkpoints means a replication can be
                efficiently resumed.
@@ -13659,6 +13677,7 @@ class ReplicationDocument():
         self.source_proxy = source_proxy
         self.target = target
         self.target_proxy = target_proxy
+        self.use_bulk_get = use_bulk_get
         self.use_checkpoints = use_checkpoints
         self.user_ctx = user_ctx
         self.winning_revs_only = winning_revs_only
@@ -13729,6 +13748,8 @@ class ReplicationDocument():
             raise ValueError('Required property \'target\' not present in ReplicationDocument JSON')
         if 'target_proxy' in _dict:
             args['target_proxy'] = _dict.get('target_proxy')
+        if 'use_bulk_get' in _dict:
+            args['use_bulk_get'] = _dict.get('use_bulk_get')
         if 'use_checkpoints' in _dict:
             args['use_checkpoints'] = _dict.get('use_checkpoints')
         if 'user_ctx' in _dict:
@@ -13804,6 +13825,8 @@ class ReplicationDocument():
             _dict['target'] = self.target.to_dict()
         if hasattr(self, 'target_proxy') and self.target_proxy is not None:
             _dict['target_proxy'] = self.target_proxy
+        if hasattr(self, 'use_bulk_get') and self.use_bulk_get is not None:
+            _dict['use_bulk_get'] = self.use_bulk_get
         if hasattr(self, 'use_checkpoints') and self.use_checkpoints is not None:
             _dict['use_checkpoints'] = self.use_checkpoints
         if hasattr(self, 'user_ctx') and self.user_ctx is not None:
