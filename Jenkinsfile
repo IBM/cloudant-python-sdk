@@ -13,6 +13,9 @@ pipeline {
   }
   environment {
     GH_CREDS = credentials('gh-sdks-automation')
+    ARTIFACTORY_CREDS = credentials('artifactory')
+    ARTIFACTORY_URL_UP = "${Artifactory.server('taas-artifactory-upload').getUrl()}"
+    ARTIFACTORY_URL_DOWN = "${Artifactory.server('taas-artifactory').getUrl()}"
   }
   stages {
     stage('Init') {
@@ -60,7 +63,7 @@ pipeline {
     }
     stage('Publish[staging]') {
       environment {
-        STAGE_ROOT = 'https://na.artifactory.swg-devops.com/artifactory/api/'
+        STAGE_ROOT = "${ARTIFACTORY_URL_UP}/api/"
       }
       steps {
         bumpVersion(true)
@@ -228,24 +231,22 @@ void defaultInit() {
       "ARTIFACT_URL=${artifactUrl}",
       "MODULE_ID=${moduleId}",
       "BUILD_NAME=${buildName}"]) {
-      withCredentials([usernamePassword(credentialsId: 'artifactory', passwordVariable: 'ARTIFACTORY_APIKEY', usernameVariable: 'ARTIFACTORY_USER')]) {
-        // create base build info
-        rtBuildInfo (
-          buildName: "${env.BUILD_NAME}",
-          buildNumber: "${env.BUILD_NUMBER}",
-          includeEnvPatterns: ['BRANCH_NAME'],
-          maxDays: 90,
-          deleteBuildArtifacts: true,
-          asyncBuildRetention: true
-        )
-        rtPublishBuildInfo (
-          buildName: "${env.BUILD_NAME}",
-          buildNumber: "${env.BUILD_NUMBER}",
-          serverId: 'taas-artifactory-upload'
-        )
-        // put build info on module/artifacts then overwrite and publish artifactory build
-        sh './scripts/publish_buildinfo.sh'
-      }
+      // create base build info
+      rtBuildInfo (
+        buildName: "${env.BUILD_NAME}",
+        buildNumber: "${env.BUILD_NUMBER}",
+        includeEnvPatterns: ['BRANCH_NAME'],
+        maxDays: 90,
+        deleteBuildArtifacts: true,
+        asyncBuildRetention: true
+      )
+      rtPublishBuildInfo (
+        buildName: "${env.BUILD_NAME}",
+        buildNumber: "${env.BUILD_NUMBER}",
+        serverId: 'taas-artifactory-upload'
+      )
+      // put build info on module/artifacts then overwrite and publish artifactory build
+      sh './scripts/publish_buildinfo.sh'
     }
   }
 }
@@ -278,10 +279,8 @@ void runTests() {
 }
 
 void publishStaging() {
-  withCredentials([usernamePassword(credentialsId: 'artifactory', passwordVariable: 'TWINE_PASSWORD', usernameVariable: 'TWINE_USERNAME')]) {
-    withEnv(["TWINE_REPOSITORY_URL=${env.STAGE_ROOT}pypi/cloudant-sdks-pypi-local"]) {
-      publishTwine()
-    }
+  withEnv(["TWINE_REPOSITORY_URL=${env.STAGE_ROOT}pypi/cloudant-sdks-pypi-local", 'TWINE_USERNAME=' + env.ARTIFACTORY_CREDS_USR, 'TWINE_PASSWORD=' + env.ARTIFACTORY_CREDS_PSW]) {
+    publishTwine()
   }
 }
 
