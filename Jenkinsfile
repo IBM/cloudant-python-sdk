@@ -14,6 +14,7 @@ pipeline {
   environment {
     GH_CREDS = credentials('gh-sdks-automation')
     ARTIFACTORY_CREDS = credentials('artifactory')
+    ARTIFACTORY_TOKEN = credentials('artifactory-id-token')
     ARTIFACTORY_URL_UP = "${Artifactory.server('taas-artifactory-upload').getUrl()}"
     ARTIFACTORY_URL_DOWN = "${Artifactory.server('taas-artifactory').getUrl()}"
   }
