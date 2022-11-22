@@ -4,7 +4,7 @@ responses==0.22.0
 python_dotenv==0.21.0
 pylint==2.15.6
 tox==3.27.1
-pytest-rerunfailures==10.2
+pytest-rerunfailures==10.3
 
 # code coverage
 coverage==6.5.0
