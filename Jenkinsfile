@@ -271,11 +271,23 @@ void applyCustomizations() {
   }
 }
 
+def getPypiArtifactoryDown() {
+  return "${env.ARTIFACTORY_URL_DOWN}/pypi/cloudant-sdks-pypi-virtual"
+}
+
+// with creds, in a form which PIP_INDEX_URL can use
+def getPypiArtifactoryDownWithCreds() {
+  def parts = pypiArtifactoryDown.split("://");
+  return "${parts[0]}://${env.ARTIFACTORY_CREDS_USR}:${env.ARTIFACTORY_CREDS_PSW}@${parts[1]}"
+}
+
 void runTests() {
-  sh '''
-    . /home/jenkins/pythonvenv/bin/activate
-    python3 -m tox -e py310
-  '''
+  withEnv(["PIP_INDEX_URL", pypiArtifactoryDownWithCreds]) {
+    sh '''
+      . /home/jenkins/pythonvenv/bin/activate
+      python3 -m tox -e py310
+    '''
+  }
 }
 
 void publishStaging() {
