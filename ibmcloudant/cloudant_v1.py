@@ -7974,7 +7974,7 @@ class AllDocsQueriesResult():
         """Initialize a AllDocsQueriesResult object from a json dictionary."""
         args = {}
         if 'results' in _dict:
-            args['results'] = [AllDocsResult.from_dict(x) for x in _dict.get('results')]
+            args['results'] = [AllDocsResult.from_dict(v) for v in _dict.get('results')]
         else:
             raise ValueError('Required property \'results\' not present in AllDocsQueriesResult JSON')
         return cls(**args)
@@ -7988,7 +7988,13 @@ class AllDocsQueriesResult():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'results') and self.results is not None:
-            _dict['results'] = [x.to_dict() for x in self.results]
+            results_list = []
+            for v in self.results:
+                if isinstance(v, dict):
+                    results_list.append(v)
+                else:
+                    results_list.append(v.to_dict())
+            _dict['results'] = results_list
         return _dict
 
     def _to_dict(self):
@@ -8218,7 +8224,7 @@ class AllDocsResult():
         else:
             raise ValueError('Required property \'total_rows\' not present in AllDocsResult JSON')
         if 'rows' in _dict:
-            args['rows'] = [DocsResultRow.from_dict(x) for x in _dict.get('rows')]
+            args['rows'] = [DocsResultRow.from_dict(v) for v in _dict.get('rows')]
         else:
             raise ValueError('Required property \'rows\' not present in AllDocsResult JSON')
         if 'update_seq' in _dict:
@@ -8236,7 +8242,13 @@ class AllDocsResult():
         if hasattr(self, 'total_rows') and self.total_rows is not None:
             _dict['total_rows'] = self.total_rows
         if hasattr(self, 'rows') and self.rows is not None:
-            _dict['rows'] = [x.to_dict() for x in self.rows]
+            rows_list = []
+            for v in self.rows:
+                if isinstance(v, dict):
+                    rows_list.append(v)
+                else:
+                    rows_list.append(v.to_dict())
+            _dict['rows'] = rows_list
         if hasattr(self, 'update_seq') and self.update_seq is not None:
             _dict['update_seq'] = self.update_seq
         return _dict
@@ -8447,7 +8459,13 @@ class AnalyzerConfiguration():
         if hasattr(self, 'stopwords') and self.stopwords is not None:
             _dict['stopwords'] = self.stopwords
         if hasattr(self, 'fields') and self.fields is not None:
-            _dict['fields'] = {k : v.to_dict() for k, v in self.fields.items()}
+            fields_map = {}
+            for k, v in self.fields.items():
+                if isinstance(v, dict):
+                    fields_map[k] = v
+                else:
+                    fields_map[k] = v.to_dict()
+            _dict['fields'] = fields_map
         return _dict
 
     def _to_dict(self):
@@ -8771,7 +8789,7 @@ class BulkDocs():
         """Initialize a BulkDocs object from a json dictionary."""
         args = {}
         if 'docs' in _dict:
-            args['docs'] = [Document.from_dict(x) for x in _dict.get('docs')]
+            args['docs'] = [Document.from_dict(v) for v in _dict.get('docs')]
         else:
             raise ValueError('Required property \'docs\' not present in BulkDocs JSON')
         if 'new_edits' in _dict:
@@ -8787,7 +8805,13 @@ class BulkDocs():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'docs') and self.docs is not None:
-            _dict['docs'] = [x.to_dict() for x in self.docs]
+            docs_list = []
+            for v in self.docs:
+                if isinstance(v, dict):
+                    docs_list.append(v)
+                else:
+                    docs_list.append(v.to_dict())
+            _dict['docs'] = docs_list
         if hasattr(self, 'new_edits') and self.new_edits is not None:
             _dict['new_edits'] = self.new_edits
         return _dict
@@ -8906,7 +8930,7 @@ class BulkGetResult():
         """Initialize a BulkGetResult object from a json dictionary."""
         args = {}
         if 'results' in _dict:
-            args['results'] = [BulkGetResultItem.from_dict(x) for x in _dict.get('results')]
+            args['results'] = [BulkGetResultItem.from_dict(v) for v in _dict.get('results')]
         else:
             raise ValueError('Required property \'results\' not present in BulkGetResult JSON')
         return cls(**args)
@@ -8920,7 +8944,13 @@ class BulkGetResult():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'results') and self.results is not None:
-            _dict['results'] = [x.to_dict() for x in self.results]
+            results_list = []
+            for v in self.results:
+                if isinstance(v, dict):
+                    results_list.append(v)
+                else:
+                    results_list.append(v.to_dict())
+            _dict['results'] = results_list
         return _dict
 
     def _to_dict(self):
@@ -8984,9 +9014,15 @@ class BulkGetResultDocument():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'error') and self.error is not None:
-            _dict['error'] = self.error.to_dict()
+            if isinstance(self.error, dict):
+                _dict['error'] = self.error
+            else:
+                _dict['error'] = self.error.to_dict()
         if hasattr(self, 'ok') and self.ok is not None:
-            _dict['ok'] = self.ok.to_dict()
+            if isinstance(self.ok, dict):
+                _dict['ok'] = self.ok
+            else:
+                _dict['ok'] = self.ok.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -9034,7 +9070,7 @@ class BulkGetResultItem():
         """Initialize a BulkGetResultItem object from a json dictionary."""
         args = {}
         if 'docs' in _dict:
-            args['docs'] = [BulkGetResultDocument.from_dict(x) for x in _dict.get('docs')]
+            args['docs'] = [BulkGetResultDocument.from_dict(v) for v in _dict.get('docs')]
         else:
             raise ValueError('Required property \'docs\' not present in BulkGetResultItem JSON')
         if 'id' in _dict:
@@ -9052,7 +9088,13 @@ class BulkGetResultItem():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'docs') and self.docs is not None:
-            _dict['docs'] = [x.to_dict() for x in self.docs]
+            docs_list = []
+            for v in self.docs:
+                if isinstance(v, dict):
+                    docs_list.append(v)
+                else:
+                    docs_list.append(v.to_dict())
+            _dict['docs'] = docs_list
         if hasattr(self, 'id') and self.id is not None:
             _dict['id'] = self.id
         return _dict
@@ -9121,9 +9163,15 @@ class CapacityThroughputInformation():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'current') and self.current is not None:
-            _dict['current'] = self.current.to_dict()
+            if isinstance(self.current, dict):
+                _dict['current'] = self.current
+            else:
+                _dict['current'] = self.current.to_dict()
         if hasattr(self, 'target') and self.target is not None:
-            _dict['target'] = self.target.to_dict()
+            if isinstance(self.target, dict):
+                _dict['target'] = self.target
+            else:
+                _dict['target'] = self.target.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -9182,7 +9230,10 @@ class CapacityThroughputInformationCurrent():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'throughput') and self.throughput is not None:
-            _dict['throughput'] = self.throughput.to_dict()
+            if isinstance(self.throughput, dict):
+                _dict['throughput'] = self.throughput
+            else:
+                _dict['throughput'] = self.throughput.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -9241,7 +9292,10 @@ class CapacityThroughputInformationTarget():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'throughput') and self.throughput is not None:
-            _dict['throughput'] = self.throughput.to_dict()
+            if isinstance(self.throughput, dict):
+                _dict['throughput'] = self.throughput
+            else:
+                _dict['throughput'] = self.throughput.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -9355,7 +9409,7 @@ class ChangesResult():
         else:
             raise ValueError('Required property \'pending\' not present in ChangesResult JSON')
         if 'results' in _dict:
-            args['results'] = [ChangesResultItem.from_dict(x) for x in _dict.get('results')]
+            args['results'] = [ChangesResultItem.from_dict(v) for v in _dict.get('results')]
         else:
             raise ValueError('Required property \'results\' not present in ChangesResult JSON')
         return cls(**args)
@@ -9373,7 +9427,13 @@ class ChangesResult():
         if hasattr(self, 'pending') and self.pending is not None:
             _dict['pending'] = self.pending
         if hasattr(self, 'results') and self.results is not None:
-            _dict['results'] = [x.to_dict() for x in self.results]
+            results_list = []
+            for v in self.results:
+                if isinstance(v, dict):
+                    results_list.append(v)
+                else:
+                    results_list.append(v.to_dict())
+            _dict['results'] = results_list
         return _dict
 
     def _to_dict(self):
@@ -9433,7 +9493,7 @@ class ChangesResultItem():
         """Initialize a ChangesResultItem object from a json dictionary."""
         args = {}
         if 'changes' in _dict:
-            args['changes'] = [Change.from_dict(x) for x in _dict.get('changes')]
+            args['changes'] = [Change.from_dict(v) for v in _dict.get('changes')]
         else:
             raise ValueError('Required property \'changes\' not present in ChangesResultItem JSON')
         if 'deleted' in _dict:
@@ -9459,11 +9519,20 @@ class ChangesResultItem():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'changes') and self.changes is not None:
-            _dict['changes'] = [x.to_dict() for x in self.changes]
+            changes_list = []
+            for v in self.changes:
+                if isinstance(v, dict):
+                    changes_list.append(v)
+                else:
+                    changes_list.append(v.to_dict())
+            _dict['changes'] = changes_list
         if hasattr(self, 'deleted') and self.deleted is not None:
             _dict['deleted'] = self.deleted
         if hasattr(self, 'doc') and self.doc is not None:
-            _dict['doc'] = self.doc.to_dict()
+            if isinstance(self.doc, dict):
+                _dict['doc'] = self.doc
+            else:
+                _dict['doc'] = self.doc.to_dict()
         if hasattr(self, 'id') and self.id is not None:
             _dict['id'] = self.id
         if hasattr(self, 'seq') and self.seq is not None:
@@ -9686,7 +9755,10 @@ class CurrentThroughputInformation():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'throughput') and self.throughput is not None:
-            _dict['throughput'] = self.throughput.to_dict()
+            if isinstance(self.throughput, dict):
+                _dict['throughput'] = self.throughput
+            else:
+                _dict['throughput'] = self.throughput.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -9926,7 +9998,10 @@ class DatabaseInformation():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'cluster') and self.cluster is not None:
-            _dict['cluster'] = self.cluster.to_dict()
+            if isinstance(self.cluster, dict):
+                _dict['cluster'] = self.cluster
+            else:
+                _dict['cluster'] = self.cluster.to_dict()
         if hasattr(self, 'committed_update_seq') and self.committed_update_seq is not None:
             _dict['committed_update_seq'] = self.committed_update_seq
         if hasattr(self, 'compact_running') and self.compact_running is not None:
@@ -9944,9 +10019,15 @@ class DatabaseInformation():
         if hasattr(self, 'engine') and self.engine is not None:
             _dict['engine'] = self.engine
         if hasattr(self, 'props') and self.props is not None:
-            _dict['props'] = self.props.to_dict()
+            if isinstance(self.props, dict):
+                _dict['props'] = self.props
+            else:
+                _dict['props'] = self.props.to_dict()
         if hasattr(self, 'sizes') and self.sizes is not None:
-            _dict['sizes'] = self.sizes.to_dict()
+            if isinstance(self.sizes, dict):
+                _dict['sizes'] = self.sizes
+            else:
+                _dict['sizes'] = self.sizes.to_dict()
         if hasattr(self, 'update_seq') and self.update_seq is not None:
             _dict['update_seq'] = self.update_seq
         if hasattr(self, 'uuid') and self.uuid is not None:
@@ -10234,7 +10315,7 @@ class DbUpdates():
         else:
             raise ValueError('Required property \'last_seq\' not present in DbUpdates JSON')
         if 'results' in _dict:
-            args['results'] = [DbEvent.from_dict(x) for x in _dict.get('results')]
+            args['results'] = [DbEvent.from_dict(v) for v in _dict.get('results')]
         else:
             raise ValueError('Required property \'results\' not present in DbUpdates JSON')
         return cls(**args)
@@ -10250,7 +10331,13 @@ class DbUpdates():
         if hasattr(self, 'last_seq') and self.last_seq is not None:
             _dict['last_seq'] = self.last_seq
         if hasattr(self, 'results') and self.results is not None:
-            _dict['results'] = [x.to_dict() for x in self.results]
+            results_list = []
+            for v in self.results:
+                if isinstance(v, dict):
+                    results_list.append(v)
+                else:
+                    results_list.append(v.to_dict())
+            _dict['results'] = results_list
         return _dict
 
     def _to_dict(self):
@@ -10323,7 +10410,10 @@ class DbsInfoResult():
         if hasattr(self, 'error') and self.error is not None:
             _dict['error'] = self.error
         if hasattr(self, 'info') and self.info is not None:
-            _dict['info'] = self.info.to_dict()
+            if isinstance(self.info, dict):
+                _dict['info'] = self.info
+            else:
+                _dict['info'] = self.info.to_dict()
         if hasattr(self, 'key') and self.key is not None:
             _dict['key'] = self.key
         return _dict
@@ -10590,7 +10680,7 @@ class DesignDocument():
         if '_revisions' in _dict:
             args['revisions'] = Revisions.from_dict(_dict.get('_revisions'))
         if '_revs_info' in _dict:
-            args['revs_info'] = [DocumentRevisionStatus.from_dict(x) for x in _dict.get('_revs_info')]
+            args['revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in _dict.get('_revs_info')]
         if 'autoupdate' in _dict:
             args['autoupdate'] = _dict.get('autoupdate')
         if 'filters' in _dict:
@@ -10617,7 +10707,13 @@ class DesignDocument():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'attachments') and self.attachments is not None:
-            _dict['_attachments'] = {k : v.to_dict() for k, v in self.attachments.items()}
+            _attachments_map = {}
+            for k, v in self.attachments.items():
+                if isinstance(v, dict):
+                    _attachments_map[k] = v
+                else:
+                    _attachments_map[k] = v.to_dict()
+            _dict['_attachments'] = _attachments_map
         if hasattr(self, 'conflicts') and self.conflicts is not None:
             _dict['_conflicts'] = self.conflicts
         if hasattr(self, 'deleted') and self.deleted is not None:
@@ -10631,23 +10727,47 @@ class DesignDocument():
         if hasattr(self, 'rev') and self.rev is not None:
             _dict['_rev'] = self.rev
         if hasattr(self, 'revisions') and self.revisions is not None:
-            _dict['_revisions'] = self.revisions.to_dict()
+            if isinstance(self.revisions, dict):
+                _dict['_revisions'] = self.revisions
+            else:
+                _dict['_revisions'] = self.revisions.to_dict()
         if hasattr(self, 'revs_info') and self.revs_info is not None:
-            _dict['_revs_info'] = [x.to_dict() for x in self.revs_info]
+            _revs_info_list = []
+            for v in self.revs_info:
+                if isinstance(v, dict):
+                    _revs_info_list.append(v)
+                else:
+                    _revs_info_list.append(v.to_dict())
+            _dict['_revs_info'] = _revs_info_list
         if hasattr(self, 'autoupdate') and self.autoupdate is not None:
             _dict['autoupdate'] = self.autoupdate
         if hasattr(self, 'filters') and self.filters is not None:
             _dict['filters'] = self.filters
         if hasattr(self, 'indexes') and self.indexes is not None:
-            _dict['indexes'] = {k : v.to_dict() for k, v in self.indexes.items()}
+            indexes_map = {}
+            for k, v in self.indexes.items():
+                if isinstance(v, dict):
+                    indexes_map[k] = v
+                else:
+                    indexes_map[k] = v.to_dict()
+            _dict['indexes'] = indexes_map
         if hasattr(self, 'language') and self.language is not None:
             _dict['language'] = self.language
         if hasattr(self, 'options') and self.options is not None:
-            _dict['options'] = self.options.to_dict()
+            if isinstance(self.options, dict):
+                _dict['options'] = self.options
+            else:
+                _dict['options'] = self.options.to_dict()
         if hasattr(self, 'validate_doc_update') and self.validate_doc_update is not None:
             _dict['validate_doc_update'] = self.validate_doc_update
         if hasattr(self, 'views') and self.views is not None:
-            _dict['views'] = {k : v.to_dict() for k, v in self.views.items()}
+            views_map = {}
+            for k, v in self.views.items():
+                if isinstance(v, dict):
+                    views_map[k] = v
+                else:
+                    views_map[k] = v.to_dict()
+            _dict['views'] = views_map
         for _key in [k for k in vars(self).keys() if k not in DesignDocument._properties]:
             _dict[_key] = getattr(self, _key)
         return _dict
@@ -10732,7 +10852,10 @@ class DesignDocumentInformation():
         if hasattr(self, 'name') and self.name is not None:
             _dict['name'] = self.name
         if hasattr(self, 'view_index') and self.view_index is not None:
-            _dict['view_index'] = self.view_index.to_dict()
+            if isinstance(self.view_index, dict):
+                _dict['view_index'] = self.view_index
+            else:
+                _dict['view_index'] = self.view_index.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -10921,7 +11044,10 @@ class DesignDocumentViewIndex():
         if hasattr(self, 'signature') and self.signature is not None:
             _dict['signature'] = self.signature
         if hasattr(self, 'sizes') and self.sizes is not None:
-            _dict['sizes'] = self.sizes.to_dict()
+            if isinstance(self.sizes, dict):
+                _dict['sizes'] = self.sizes
+            else:
+                _dict['sizes'] = self.sizes.to_dict()
         if hasattr(self, 'updater_running') and self.updater_running is not None:
             _dict['updater_running'] = self.updater_running
         if hasattr(self, 'waiting_clients') and self.waiting_clients is not None:
@@ -11093,13 +11219,19 @@ class DocsResultRow():
         if hasattr(self, 'reason') and self.reason is not None:
             _dict['reason'] = self.reason
         if hasattr(self, 'doc') and self.doc is not None:
-            _dict['doc'] = self.doc.to_dict()
+            if isinstance(self.doc, dict):
+                _dict['doc'] = self.doc
+            else:
+                _dict['doc'] = self.doc.to_dict()
         if hasattr(self, 'id') and self.id is not None:
             _dict['id'] = self.id
         if hasattr(self, 'key') and self.key is not None:
             _dict['key'] = self.key
         if hasattr(self, 'value') and self.value is not None:
-            _dict['value'] = self.value.to_dict()
+            if isinstance(self.value, dict):
+                _dict['value'] = self.value
+            else:
+                _dict['value'] = self.value.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -11276,7 +11408,7 @@ class Document():
         if '_revisions' in _dict:
             args['revisions'] = Revisions.from_dict(_dict.get('_revisions'))
         if '_revs_info' in _dict:
-            args['revs_info'] = [DocumentRevisionStatus.from_dict(x) for x in _dict.get('_revs_info')]
+            args['revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in _dict.get('_revs_info')]
         args.update({k:v for (k, v) in _dict.items() if k not in cls._properties})
         return cls(**args)
 
@@ -11289,7 +11421,13 @@ class Document():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'attachments') and self.attachments is not None:
-            _dict['_attachments'] = {k : v.to_dict() for k, v in self.attachments.items()}
+            _attachments_map = {}
+            for k, v in self.attachments.items():
+                if isinstance(v, dict):
+                    _attachments_map[k] = v
+                else:
+                    _attachments_map[k] = v.to_dict()
+            _dict['_attachments'] = _attachments_map
         if hasattr(self, 'conflicts') and self.conflicts is not None:
             _dict['_conflicts'] = self.conflicts
         if hasattr(self, 'deleted') and self.deleted is not None:
@@ -11303,9 +11441,18 @@ class Document():
         if hasattr(self, 'rev') and self.rev is not None:
             _dict['_rev'] = self.rev
         if hasattr(self, 'revisions') and self.revisions is not None:
-            _dict['_revisions'] = self.revisions.to_dict()
+            if isinstance(self.revisions, dict):
+                _dict['_revisions'] = self.revisions
+            else:
+                _dict['_revisions'] = self.revisions.to_dict()
         if hasattr(self, 'revs_info') and self.revs_info is not None:
-            _dict['_revs_info'] = [x.to_dict() for x in self.revs_info]
+            _revs_info_list = []
+            for v in self.revs_info:
+                if isinstance(v, dict):
+                    _revs_info_list.append(v)
+                else:
+                    _revs_info_list.append(v.to_dict())
+            _dict['_revs_info'] = _revs_info_list
         for _key in [k for k in vars(self).keys() if k not in Document._properties]:
             _dict[_key] = getattr(self, _key)
         return _dict
@@ -11840,13 +11987,19 @@ class ExplainResult():
         if hasattr(self, 'fields') and self.fields is not None:
             _dict['fields'] = self.fields
         if hasattr(self, 'index') and self.index is not None:
-            _dict['index'] = self.index.to_dict()
+            if isinstance(self.index, dict):
+                _dict['index'] = self.index
+            else:
+                _dict['index'] = self.index.to_dict()
         if hasattr(self, 'limit') and self.limit is not None:
             _dict['limit'] = self.limit
         if hasattr(self, 'opts') and self.opts is not None:
             _dict['opts'] = self.opts
         if hasattr(self, 'range') and self.range is not None:
-            _dict['range'] = self.range.to_dict()
+            if isinstance(self.range, dict):
+                _dict['range'] = self.range
+            else:
+                _dict['range'] = self.range.to_dict()
         if hasattr(self, 'selector') and self.selector is not None:
             _dict['selector'] = self.selector
         if hasattr(self, 'skip') and self.skip is not None:
@@ -11974,7 +12127,7 @@ class FindResult():
         else:
             raise ValueError('Required property \'bookmark\' not present in FindResult JSON')
         if 'docs' in _dict:
-            args['docs'] = [Document.from_dict(x) for x in _dict.get('docs')]
+            args['docs'] = [Document.from_dict(v) for v in _dict.get('docs')]
         else:
             raise ValueError('Required property \'docs\' not present in FindResult JSON')
         if 'execution_stats' in _dict:
@@ -11994,9 +12147,18 @@ class FindResult():
         if hasattr(self, 'bookmark') and self.bookmark is not None:
             _dict['bookmark'] = self.bookmark
         if hasattr(self, 'docs') and self.docs is not None:
-            _dict['docs'] = [x.to_dict() for x in self.docs]
+            docs_list = []
+            for v in self.docs:
+                if isinstance(v, dict):
+                    docs_list.append(v)
+                else:
+                    docs_list.append(v.to_dict())
+            _dict['docs'] = docs_list
         if hasattr(self, 'execution_stats') and self.execution_stats is not None:
-            _dict['execution_stats'] = self.execution_stats.to_dict()
+            if isinstance(self.execution_stats, dict):
+                _dict['execution_stats'] = self.execution_stats
+            else:
+                _dict['execution_stats'] = self.execution_stats.to_dict()
         if hasattr(self, 'warning') and self.warning is not None:
             _dict['warning'] = self.warning
         return _dict
@@ -12153,7 +12315,7 @@ class IndexDefinition():
         if 'default_field' in _dict:
             args['default_field'] = IndexTextOperatorDefaultField.from_dict(_dict.get('default_field'))
         if 'fields' in _dict:
-            args['fields'] = [IndexField.from_dict(x) for x in _dict.get('fields')]
+            args['fields'] = [IndexField.from_dict(v) for v in _dict.get('fields')]
         if 'index_array_lengths' in _dict:
             args['index_array_lengths'] = _dict.get('index_array_lengths')
         if 'partial_filter_selector' in _dict:
@@ -12169,11 +12331,23 @@ class IndexDefinition():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'default_analyzer') and self.default_analyzer is not None:
-            _dict['default_analyzer'] = self.default_analyzer.to_dict()
+            if isinstance(self.default_analyzer, dict):
+                _dict['default_analyzer'] = self.default_analyzer
+            else:
+                _dict['default_analyzer'] = self.default_analyzer.to_dict()
         if hasattr(self, 'default_field') and self.default_field is not None:
-            _dict['default_field'] = self.default_field.to_dict()
+            if isinstance(self.default_field, dict):
+                _dict['default_field'] = self.default_field
+            else:
+                _dict['default_field'] = self.default_field.to_dict()
         if hasattr(self, 'fields') and self.fields is not None:
-            _dict['fields'] = [x.to_dict() for x in self.fields]
+            fields_list = []
+            for v in self.fields:
+                if isinstance(v, dict):
+                    fields_list.append(v)
+                else:
+                    fields_list.append(v.to_dict())
+            _dict['fields'] = fields_list
         if hasattr(self, 'index_array_lengths') and self.index_array_lengths is not None:
             _dict['index_array_lengths'] = self.index_array_lengths
         if hasattr(self, 'partial_filter_selector') and self.partial_filter_selector is not None:
@@ -12368,7 +12542,10 @@ class IndexInformation():
         if hasattr(self, 'ddoc') and self.ddoc is not None:
             _dict['ddoc'] = self.ddoc
         if hasattr(self, 'def_') and self.def_ is not None:
-            _dict['def'] = self.def_.to_dict()
+            if isinstance(self.def_, dict):
+                _dict['def'] = self.def_
+            else:
+                _dict['def'] = self.def_.to_dict()
         if hasattr(self, 'name') and self.name is not None:
             _dict['name'] = self.name
         if hasattr(self, 'type') and self.type is not None:
@@ -12531,7 +12708,10 @@ class IndexTextOperatorDefaultField():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'analyzer') and self.analyzer is not None:
-            _dict['analyzer'] = self.analyzer.to_dict()
+            if isinstance(self.analyzer, dict):
+                _dict['analyzer'] = self.analyzer
+            else:
+                _dict['analyzer'] = self.analyzer.to_dict()
         if hasattr(self, 'enabled') and self.enabled is not None:
             _dict['enabled'] = self.enabled
         return _dict
@@ -12583,7 +12763,7 @@ class IndexesInformation():
         else:
             raise ValueError('Required property \'total_rows\' not present in IndexesInformation JSON')
         if 'indexes' in _dict:
-            args['indexes'] = [IndexInformation.from_dict(x) for x in _dict.get('indexes')]
+            args['indexes'] = [IndexInformation.from_dict(v) for v in _dict.get('indexes')]
         else:
             raise ValueError('Required property \'indexes\' not present in IndexesInformation JSON')
         return cls(**args)
@@ -12599,7 +12779,13 @@ class IndexesInformation():
         if hasattr(self, 'total_rows') and self.total_rows is not None:
             _dict['total_rows'] = self.total_rows
         if hasattr(self, 'indexes') and self.indexes is not None:
-            _dict['indexes'] = [x.to_dict() for x in self.indexes]
+            indexes_list = []
+            for v in self.indexes:
+                if isinstance(v, dict):
+                    indexes_list.append(v)
+                else:
+                    indexes_list.append(v.to_dict())
+            _dict['indexes'] = indexes_list
         return _dict
 
     def _to_dict(self):
@@ -12831,9 +13017,15 @@ class PartitionInformation():
         if hasattr(self, 'partition') and self.partition is not None:
             _dict['partition'] = self.partition
         if hasattr(self, 'partitioned_indexes') and self.partitioned_indexes is not None:
-            _dict['partitioned_indexes'] = self.partitioned_indexes.to_dict()
+            if isinstance(self.partitioned_indexes, dict):
+                _dict['partitioned_indexes'] = self.partitioned_indexes
+            else:
+                _dict['partitioned_indexes'] = self.partitioned_indexes.to_dict()
         if hasattr(self, 'sizes') and self.sizes is not None:
-            _dict['sizes'] = self.sizes.to_dict()
+            if isinstance(self.sizes, dict):
+                _dict['sizes'] = self.sizes
+            else:
+                _dict['sizes'] = self.sizes.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -12904,7 +13096,10 @@ class PartitionInformationIndexes():
         if hasattr(self, 'count') and self.count is not None:
             _dict['count'] = self.count
         if hasattr(self, 'indexes') and self.indexes is not None:
-            _dict['indexes'] = self.indexes.to_dict()
+            if isinstance(self.indexes, dict):
+                _dict['indexes'] = self.indexes
+            else:
+                _dict['indexes'] = self.indexes.to_dict()
         if hasattr(self, 'limit') and self.limit is not None:
             _dict['limit'] = self.limit
         return _dict
@@ -13184,7 +13379,10 @@ class ReplicationDatabase():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'auth') and self.auth is not None:
-            _dict['auth'] = self.auth.to_dict()
+            if isinstance(self.auth, dict):
+                _dict['auth'] = self.auth
+            else:
+                _dict['auth'] = self.auth.to_dict()
         if hasattr(self, 'headers_') and self.headers_ is not None:
             _dict['headers'] = self.headers_
         if hasattr(self, 'url') and self.url is not None:
@@ -13253,9 +13451,15 @@ class ReplicationDatabaseAuth():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'basic') and self.basic is not None:
-            _dict['basic'] = self.basic.to_dict()
+            if isinstance(self.basic, dict):
+                _dict['basic'] = self.basic
+            else:
+                _dict['basic'] = self.basic.to_dict()
         if hasattr(self, 'iam') and self.iam is not None:
-            _dict['iam'] = self.iam.to_dict()
+            if isinstance(self.iam, dict):
+                _dict['iam'] = self.iam
+            else:
+                _dict['iam'] = self.iam.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -13707,7 +13911,7 @@ class ReplicationDocument():
         if '_revisions' in _dict:
             args['revisions'] = Revisions.from_dict(_dict.get('_revisions'))
         if '_revs_info' in _dict:
-            args['revs_info'] = [DocumentRevisionStatus.from_dict(x) for x in _dict.get('_revs_info')]
+            args['revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in _dict.get('_revs_info')]
         if 'cancel' in _dict:
             args['cancel'] = _dict.get('cancel')
         if 'checkpoint_interval' in _dict:
@@ -13772,7 +13976,13 @@ class ReplicationDocument():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'attachments') and self.attachments is not None:
-            _dict['_attachments'] = {k : v.to_dict() for k, v in self.attachments.items()}
+            _attachments_map = {}
+            for k, v in self.attachments.items():
+                if isinstance(v, dict):
+                    _attachments_map[k] = v
+                else:
+                    _attachments_map[k] = v.to_dict()
+            _dict['_attachments'] = _attachments_map
         if hasattr(self, 'conflicts') and self.conflicts is not None:
             _dict['_conflicts'] = self.conflicts
         if hasattr(self, 'deleted') and self.deleted is not None:
@@ -13786,9 +13996,18 @@ class ReplicationDocument():
         if hasattr(self, 'rev') and self.rev is not None:
             _dict['_rev'] = self.rev
         if hasattr(self, 'revisions') and self.revisions is not None:
-            _dict['_revisions'] = self.revisions.to_dict()
+            if isinstance(self.revisions, dict):
+                _dict['_revisions'] = self.revisions
+            else:
+                _dict['_revisions'] = self.revisions.to_dict()
         if hasattr(self, 'revs_info') and self.revs_info is not None:
-            _dict['_revs_info'] = [x.to_dict() for x in self.revs_info]
+            _revs_info_list = []
+            for v in self.revs_info:
+                if isinstance(v, dict):
+                    _revs_info_list.append(v)
+                else:
+                    _revs_info_list.append(v.to_dict())
+            _dict['_revs_info'] = _revs_info_list
         if hasattr(self, 'cancel') and self.cancel is not None:
             _dict['cancel'] = self.cancel
         if hasattr(self, 'checkpoint_interval') and self.checkpoint_interval is not None:
@@ -13800,7 +14019,10 @@ class ReplicationDocument():
         if hasattr(self, 'create_target') and self.create_target is not None:
             _dict['create_target'] = self.create_target
         if hasattr(self, 'create_target_params') and self.create_target_params is not None:
-            _dict['create_target_params'] = self.create_target_params.to_dict()
+            if isinstance(self.create_target_params, dict):
+                _dict['create_target_params'] = self.create_target_params
+            else:
+                _dict['create_target_params'] = self.create_target_params.to_dict()
         if hasattr(self, 'doc_ids') and self.doc_ids is not None:
             _dict['doc_ids'] = self.doc_ids
         if hasattr(self, 'filter') and self.filter is not None:
@@ -13818,11 +14040,17 @@ class ReplicationDocument():
         if hasattr(self, 'socket_options') and self.socket_options is not None:
             _dict['socket_options'] = self.socket_options
         if hasattr(self, 'source') and self.source is not None:
-            _dict['source'] = self.source.to_dict()
+            if isinstance(self.source, dict):
+                _dict['source'] = self.source
+            else:
+                _dict['source'] = self.source.to_dict()
         if hasattr(self, 'source_proxy') and self.source_proxy is not None:
             _dict['source_proxy'] = self.source_proxy
         if hasattr(self, 'target') and self.target is not None:
-            _dict['target'] = self.target.to_dict()
+            if isinstance(self.target, dict):
+                _dict['target'] = self.target
+            else:
+                _dict['target'] = self.target.to_dict()
         if hasattr(self, 'target_proxy') and self.target_proxy is not None:
             _dict['target_proxy'] = self.target_proxy
         if hasattr(self, 'use_bulk_get') and self.use_bulk_get is not None:
@@ -13830,7 +14058,10 @@ class ReplicationDocument():
         if hasattr(self, 'use_checkpoints') and self.use_checkpoints is not None:
             _dict['use_checkpoints'] = self.use_checkpoints
         if hasattr(self, 'user_ctx') and self.user_ctx is not None:
-            _dict['user_ctx'] = self.user_ctx.to_dict()
+            if isinstance(self.user_ctx, dict):
+                _dict['user_ctx'] = self.user_ctx
+            else:
+                _dict['user_ctx'] = self.user_ctx.to_dict()
         if hasattr(self, 'winning_revs_only') and self.winning_revs_only is not None:
             _dict['winning_revs_only'] = self.winning_revs_only
         if hasattr(self, 'worker_batch_size') and self.worker_batch_size is not None:
@@ -14039,7 +14270,7 @@ class SchedulerDocsResult():
         else:
             raise ValueError('Required property \'total_rows\' not present in SchedulerDocsResult JSON')
         if 'docs' in _dict:
-            args['docs'] = [SchedulerDocument.from_dict(x) for x in _dict.get('docs')]
+            args['docs'] = [SchedulerDocument.from_dict(v) for v in _dict.get('docs')]
         else:
             raise ValueError('Required property \'docs\' not present in SchedulerDocsResult JSON')
         return cls(**args)
@@ -14055,7 +14286,13 @@ class SchedulerDocsResult():
         if hasattr(self, 'total_rows') and self.total_rows is not None:
             _dict['total_rows'] = self.total_rows
         if hasattr(self, 'docs') and self.docs is not None:
-            _dict['docs'] = [x.to_dict() for x in self.docs]
+            docs_list = []
+            for v in self.docs:
+                if isinstance(v, dict):
+                    docs_list.append(v)
+                else:
+                    docs_list.append(v.to_dict())
+            _dict['docs'] = docs_list
         return _dict
 
     def _to_dict(self):
@@ -14224,7 +14461,10 @@ class SchedulerDocument():
         if hasattr(self, 'id') and self.id is not None:
             _dict['id'] = self.id
         if hasattr(self, 'info') and self.info is not None:
-            _dict['info'] = self.info.to_dict()
+            if isinstance(self.info, dict):
+                _dict['info'] = self.info
+            else:
+                _dict['info'] = self.info.to_dict()
         if hasattr(self, 'last_updated') and self.last_updated is not None:
             _dict['last_updated'] = datetime_to_string(self.last_updated)
         if hasattr(self, 'node') and self.node is not None:
@@ -14495,7 +14735,7 @@ class SchedulerJob():
         else:
             raise ValueError('Required property \'doc_id\' not present in SchedulerJob JSON')
         if 'history' in _dict:
-            args['history'] = [SchedulerJobEvent.from_dict(x) for x in _dict.get('history')]
+            args['history'] = [SchedulerJobEvent.from_dict(v) for v in _dict.get('history')]
         else:
             raise ValueError('Required property \'history\' not present in SchedulerJob JSON')
         if 'id' in _dict:
@@ -14545,11 +14785,20 @@ class SchedulerJob():
         if hasattr(self, 'doc_id') and self.doc_id is not None:
             _dict['doc_id'] = self.doc_id
         if hasattr(self, 'history') and self.history is not None:
-            _dict['history'] = [x.to_dict() for x in self.history]
+            history_list = []
+            for v in self.history:
+                if isinstance(v, dict):
+                    history_list.append(v)
+                else:
+                    history_list.append(v.to_dict())
+            _dict['history'] = history_list
         if hasattr(self, 'id') and self.id is not None:
             _dict['id'] = self.id
         if hasattr(self, 'info') and self.info is not None:
-            _dict['info'] = self.info.to_dict()
+            if isinstance(self.info, dict):
+                _dict['info'] = self.info
+            else:
+                _dict['info'] = self.info.to_dict()
         if hasattr(self, 'node') and self.node is not None:
             _dict['node'] = self.node
         if hasattr(self, 'pid') and self.pid is not None:
@@ -14686,7 +14935,7 @@ class SchedulerJobsResult():
         else:
             raise ValueError('Required property \'total_rows\' not present in SchedulerJobsResult JSON')
         if 'jobs' in _dict:
-            args['jobs'] = [SchedulerJob.from_dict(x) for x in _dict.get('jobs')]
+            args['jobs'] = [SchedulerJob.from_dict(v) for v in _dict.get('jobs')]
         else:
             raise ValueError('Required property \'jobs\' not present in SchedulerJobsResult JSON')
         return cls(**args)
@@ -14702,7 +14951,13 @@ class SchedulerJobsResult():
         if hasattr(self, 'total_rows') and self.total_rows is not None:
             _dict['total_rows'] = self.total_rows
         if hasattr(self, 'jobs') and self.jobs is not None:
-            _dict['jobs'] = [x.to_dict() for x in self.jobs]
+            jobs_list = []
+            for v in self.jobs:
+                if isinstance(v, dict):
+                    jobs_list.append(v)
+                else:
+                    jobs_list.append(v.to_dict())
+            _dict['jobs'] = jobs_list
         return _dict
 
     def _to_dict(self):
@@ -14858,7 +15113,10 @@ class SearchIndexDefinition():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'analyzer') and self.analyzer is not None:
-            _dict['analyzer'] = self.analyzer.to_dict()
+            if isinstance(self.analyzer, dict):
+                _dict['analyzer'] = self.analyzer
+            else:
+                _dict['analyzer'] = self.analyzer.to_dict()
         if hasattr(self, 'index') and self.index is not None:
             _dict['index'] = self.index
         return _dict
@@ -15036,7 +15294,10 @@ class SearchInfoResult():
         if hasattr(self, 'name') and self.name is not None:
             _dict['name'] = self.name
         if hasattr(self, 'search_index') and self.search_index is not None:
-            _dict['search_index'] = self.search_index.to_dict()
+            if isinstance(self.search_index, dict):
+                _dict['search_index'] = self.search_index
+            else:
+                _dict['search_index'] = self.search_index.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -15125,9 +15386,9 @@ class SearchResult():
         if 'ranges' in _dict:
             args['ranges'] = _dict.get('ranges')
         if 'rows' in _dict:
-            args['rows'] = [SearchResultRow.from_dict(x) for x in _dict.get('rows')]
+            args['rows'] = [SearchResultRow.from_dict(v) for v in _dict.get('rows')]
         if 'groups' in _dict:
-            args['groups'] = [SearchResultProperties.from_dict(x) for x in _dict.get('groups')]
+            args['groups'] = [SearchResultProperties.from_dict(v) for v in _dict.get('groups')]
         return cls(**args)
 
     @classmethod
@@ -15149,9 +15410,21 @@ class SearchResult():
         if hasattr(self, 'ranges') and self.ranges is not None:
             _dict['ranges'] = self.ranges
         if hasattr(self, 'rows') and self.rows is not None:
-            _dict['rows'] = [x.to_dict() for x in self.rows]
+            rows_list = []
+            for v in self.rows:
+                if isinstance(v, dict):
+                    rows_list.append(v)
+                else:
+                    rows_list.append(v.to_dict())
+            _dict['rows'] = rows_list
         if hasattr(self, 'groups') and self.groups is not None:
-            _dict['groups'] = [x.to_dict() for x in self.groups]
+            groups_list = []
+            for v in self.groups:
+                if isinstance(v, dict):
+                    groups_list.append(v)
+                else:
+                    groups_list.append(v.to_dict())
+            _dict['groups'] = groups_list
         return _dict
 
     def _to_dict(self):
@@ -15234,7 +15507,7 @@ class SearchResultProperties():
         if 'ranges' in _dict:
             args['ranges'] = _dict.get('ranges')
         if 'rows' in _dict:
-            args['rows'] = [SearchResultRow.from_dict(x) for x in _dict.get('rows')]
+            args['rows'] = [SearchResultRow.from_dict(v) for v in _dict.get('rows')]
         return cls(**args)
 
     @classmethod
@@ -15256,7 +15529,13 @@ class SearchResultProperties():
         if hasattr(self, 'ranges') and self.ranges is not None:
             _dict['ranges'] = self.ranges
         if hasattr(self, 'rows') and self.rows is not None:
-            _dict['rows'] = [x.to_dict() for x in self.rows]
+            rows_list = []
+            for v in self.rows:
+                if isinstance(v, dict):
+                    rows_list.append(v)
+                else:
+                    rows_list.append(v.to_dict())
+            _dict['rows'] = rows_list
         return _dict
 
     def _to_dict(self):
@@ -15338,7 +15617,10 @@ class SearchResultRow():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'doc') and self.doc is not None:
-            _dict['doc'] = self.doc.to_dict()
+            if isinstance(self.doc, dict):
+                _dict['doc'] = self.doc
+            else:
+                _dict['doc'] = self.doc.to_dict()
         if hasattr(self, 'fields') and self.fields is not None:
             _dict['fields'] = self.fields
         if hasattr(self, 'highlights') and self.highlights is not None:
@@ -15425,9 +15707,15 @@ class Security():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'admins') and self.admins is not None:
-            _dict['admins'] = self.admins.to_dict()
+            if isinstance(self.admins, dict):
+                _dict['admins'] = self.admins
+            else:
+                _dict['admins'] = self.admins.to_dict()
         if hasattr(self, 'members') and self.members is not None:
-            _dict['members'] = self.members.to_dict()
+            if isinstance(self.members, dict):
+                _dict['members'] = self.members
+            else:
+                _dict['members'] = self.members.to_dict()
         if hasattr(self, 'cloudant') and self.cloudant is not None:
             _dict['cloudant'] = self.cloudant
         if hasattr(self, 'couchdb_auth_only') and self.couchdb_auth_only is not None:
@@ -15600,7 +15888,10 @@ class ServerInformation():
         if hasattr(self, 'features') and self.features is not None:
             _dict['features'] = self.features
         if hasattr(self, 'vendor') and self.vendor is not None:
-            _dict['vendor'] = self.vendor.to_dict()
+            if isinstance(self.vendor, dict):
+                _dict['vendor'] = self.vendor
+            else:
+                _dict['vendor'] = self.vendor.to_dict()
         if hasattr(self, 'version') and self.version is not None:
             _dict['version'] = self.version
         if hasattr(self, 'features_flags') and self.features_flags is not None:
@@ -15825,9 +16116,15 @@ class SessionInformation():
         if hasattr(self, 'ok') and self.ok is not None:
             _dict['ok'] = self.ok
         if hasattr(self, 'info') and self.info is not None:
-            _dict['info'] = self.info.to_dict()
+            if isinstance(self.info, dict):
+                _dict['info'] = self.info
+            else:
+                _dict['info'] = self.info.to_dict()
         if hasattr(self, 'user_ctx') and self.user_ctx is not None:
-            _dict['userCtx'] = self.user_ctx.to_dict()
+            if isinstance(self.user_ctx, dict):
+                _dict['userCtx'] = self.user_ctx
+            else:
+                _dict['userCtx'] = self.user_ctx.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -16243,7 +16540,7 @@ class ViewQueriesResult():
         """Initialize a ViewQueriesResult object from a json dictionary."""
         args = {}
         if 'results' in _dict:
-            args['results'] = [ViewResult.from_dict(x) for x in _dict.get('results')]
+            args['results'] = [ViewResult.from_dict(v) for v in _dict.get('results')]
         else:
             raise ValueError('Required property \'results\' not present in ViewQueriesResult JSON')
         return cls(**args)
@@ -16257,7 +16554,13 @@ class ViewQueriesResult():
         """Return a json dictionary representing this model."""
         _dict = {}
         if hasattr(self, 'results') and self.results is not None:
-            _dict['results'] = [x.to_dict() for x in self.results]
+            results_list = []
+            for v in self.results:
+                if isinstance(v, dict):
+                    results_list.append(v)
+                else:
+                    results_list.append(v.to_dict())
+            _dict['results'] = results_list
         return _dict
 
     def _to_dict(self):
@@ -16605,7 +16908,7 @@ class ViewResult():
         if 'update_seq' in _dict:
             args['update_seq'] = _dict.get('update_seq')
         if 'rows' in _dict:
-            args['rows'] = [ViewResultRow.from_dict(x) for x in _dict.get('rows')]
+            args['rows'] = [ViewResultRow.from_dict(v) for v in _dict.get('rows')]
         else:
             raise ValueError('Required property \'rows\' not present in ViewResult JSON')
         return cls(**args)
@@ -16623,7 +16926,13 @@ class ViewResult():
         if hasattr(self, 'update_seq') and self.update_seq is not None:
             _dict['update_seq'] = self.update_seq
         if hasattr(self, 'rows') and self.rows is not None:
-            _dict['rows'] = [x.to_dict() for x in self.rows]
+            rows_list = []
+            for v in self.rows:
+                if isinstance(v, dict):
+                    rows_list.append(v)
+                else:
+                    rows_list.append(v.to_dict())
+            _dict['rows'] = rows_list
         return _dict
 
     def _to_dict(self):
@@ -16724,7 +17033,10 @@ class ViewResultRow():
         if hasattr(self, 'reason') and self.reason is not None:
             _dict['reason'] = self.reason
         if hasattr(self, 'doc') and self.doc is not None:
-            _dict['doc'] = self.doc.to_dict()
+            if isinstance(self.doc, dict):
+                _dict['doc'] = self.doc
+            else:
+                _dict['doc'] = self.doc.to_dict()
         if hasattr(self, 'id') and self.id is not None:
             _dict['id'] = self.id
         if hasattr(self, 'key') and self.key is not None:
