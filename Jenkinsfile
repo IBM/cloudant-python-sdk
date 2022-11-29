@@ -268,7 +268,6 @@ void applyCustomizations() {
 
 void runTests() {
   sh '''
-    export PIP_INDEX_URL=https://${ARTIFACTORY_CREDS_USR}:${ARTIFACTORY_CREDS_PSW}@${ARTIFACTORY_URL_DOWN##'https://'}/api/pypi/cloudant-sdks-pypi-virtual/simple
     . /home/jenkins/pythonvenv/bin/activate
     python3 -m tox -e py310
   '''
