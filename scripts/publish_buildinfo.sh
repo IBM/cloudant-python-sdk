@@ -5,12 +5,12 @@ file="/tmp/build.json"
 tmpfile="/tmp/build.json.tmp"
 printf "Current values set:\n Module ID: $MODULE_ID\nBuild name: $BUILD_NAME\nBuild URL: $BUILD_URL\nBuild timestamp: $BUILD_TIMESTAMP\nBuild number: $BUILD_NUMBER\n"
 printf "Artifactory URL: $ARTIFACT_URL\n"
-ARTIFACTS=$(curl -H "X-JFrog-Art-Api:$ARTIFACTORY_CREDS_PSW" "$ARTIFACT_URL")
+ARTIFACTS=$(curl -H "Authorization: Bearer $ARTIFACTORY_CREDS_PSW" "$ARTIFACT_URL")
 HAS_CHILDREN_RESULT=$(echo $ARTIFACTS | jq 'has("children")')
 # if 'children' array exists then grab all aritfact uris, else grab parent uri
 if [[ "$HAS_CHILDREN_RESULT" == "false" ]]; then
   ARTIFACTS_URI=$(echo $ARTIFACTS | jq -r '.uri' | sed 's:.*/:/:')
-else 
+else
   ARTIFACTS_URI=$(echo $ARTIFACTS | jq -r '.children[] | .uri')
 fi
 
@@ -22,14 +22,14 @@ fi
 # create new (or write over existing) build.json file
 echo -n "" > $file
 # get current published build
-CURRENT_BUILD=$(curl -H "X-JFrog-Art-Api:$ARTIFACTORY_CREDS_PSW" "$STAGE_ROOT"build/"$BUILD_NAME"/"$BUILD_NUMBER")
+CURRENT_BUILD=$(curl -H "Authorization: Bearer $ARTIFACTORY_CREDS_PSW" "$STAGE_ROOT"build/"$BUILD_NAME"/"$BUILD_NUMBER")
 echo $CURRENT_BUILD
 CURRENT_BUILD_INFO=$(echo "$CURRENT_BUILD" | jq -r '.buildInfo')
 echo $CURRENT_BUILD_INFO | tee $file
 
 # put build name, number, and url on published artifacts
 URL_WITH_PROPS="$ARTIFACT_URL?properties=build.name=$BUILD_NAME;build.number=$BUILD_NUMBER;build.url=$BUILD_URL"
-curl -i -X PUT -H "X-JFrog-Art-Api:$ARTIFACTORY_CREDS_PSW" "$URL_WITH_PROPS"
+curl -i -X PUT -H "Authorization: Bearer $ARTIFACTORY_CREDS_PSW" "$URL_WITH_PROPS"
 
 # add artifact type and module id to build info file
 jq --arg type "$TYPE" '.type = $type' $file > $tmpfile && mv $tmpfile $file
@@ -40,10 +40,10 @@ for artifact in $ARTIFACTS_URI; do
   # node does not have 'children' artifacts
   if [[ "$HAS_CHILDREN_RESULT" == "false" ]]; then
     ARTIFACT_INFO_URL="$ARTIFACT_URL"
-  else 
+  else
     ARTIFACT_INFO_URL="$ARTIFACT_URL$artifact"
   fi
-  GET_ARTIFACT=$(curl -H "X-JFrog-Art-Api:$ARTIFACTORY_CREDS_PSW" $ARTIFACT_INFO_URL | jq -r .checksums)
+  GET_ARTIFACT=$(curl -H "Authorization: Bearer $ARTIFACTORY_CREDS_PSW" $ARTIFACT_INFO_URL | jq -r .checksums)
   MD5=$(echo $GET_ARTIFACT | jq -r .md5)
   SHA1=$(echo $GET_ARTIFACT | jq -r .sha1)
   NAME="${artifact#*/}"
@@ -57,4 +57,4 @@ else
   exit 1
 fi
 
-curl -i -X PUT -H "X-JFrog-Art-Api:$ARTIFACTORY_CREDS_PSW" -H "Content-Type: application/json"  "$STAGE_ROOT"build  --upload-file $file
+curl -i -X PUT -H "Authorization: Bearer $ARTIFACTORY_CREDS_PSW" -H "Content-Type: application/json"  "$STAGE_ROOT"build  --upload-file $file
