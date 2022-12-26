@@ -722,7 +722,7 @@ Before you submit a bug report, search for
 
 ## Open source at IBM
 
-Find more open source projects on the [IBM Github](http://ibm.github.io/) page.
+Find more open source projects on the [IBM GitHub](http://ibm.github.io/) page.
 
 ## Contributing
 
