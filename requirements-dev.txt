@@ -3,7 +3,7 @@ pytest==7.2.0
 responses==0.22.0
 python_dotenv==0.21.0
 pylint==2.15.9
-tox==4.0.16
+tox==4.0.18
 pytest-rerunfailures==10.3
 
 # code coverage
