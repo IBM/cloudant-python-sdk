@@ -231,9 +231,9 @@ The following code examples
 **Note:** This example code assumes that `orders` database does not exist in your account.
 
 This example code creates `orders` database and adds a new document "example"
-into it. To connect, you must set your environment variables with 
+into it. To connect, you must set your environment variables with
 the *service url*, *authentication type* and *authentication credentials*
-of your Cloudant service. 
+of your Cloudant service.
 
 Cloudant environment variable naming starts with a *service name* prefix that identifies your service.
 By default this is `CLOUDANT`, see the settings in the
@@ -722,7 +722,7 @@ Before you submit a bug report, search for
 
 ## Open source at IBM
 
-Find more open source projects on the [IBM Github](http://ibm.github.io/) page.
+Find more open source projects on the [IBM GitHub](http://ibm.github.io/) page.
 
 ## Contributing
 
