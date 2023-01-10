@@ -716,9 +716,12 @@ IBM Cloud services, ask a question on
 
 If you encounter an issue with the project, you are welcome to submit a
 [bug report](https://github.com/IBM/cloudant-python-sdk/issues).
+
 Before you submit a bug report, search for
 [similar issues](https://github.com/IBM/cloudant-python-sdk/issues?q=is%3Aissue) and review the
 [KNOWN_ISSUES file](KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
+
+Please consult the [security policy](https://github.com/IBM/cloudant-python-sdk/security/policy) before opening security related issues.
 
 ## Open source at IBM
 
