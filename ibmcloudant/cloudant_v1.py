@@ -176,7 +176,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         params = {
-            'count': count
+            'count': count,
         }
 
         if 'headers' in kwargs:
@@ -256,7 +256,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         data = {
-            'blocks': blocks
+            'blocks': blocks,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -331,7 +331,7 @@ class CloudantV1(BaseService):
             'feed': feed,
             'heartbeat': heartbeat,
             'timeout': timeout,
-            'since': since
+            'since': since,
         }
 
         if 'headers' in kwargs:
@@ -487,7 +487,7 @@ class CloudantV1(BaseService):
         if not db:
             raise ValueError('db must be provided')
         headers = {
-            'Last-Event-ID': last_event_id
+            'Last-Event-ID': last_event_id,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -508,13 +508,13 @@ class CloudantV1(BaseService):
             'since': since,
             'style': style,
             'timeout': timeout,
-            'view': view
+            'view': view,
         }
 
         data = {
             'doc_ids': doc_ids,
             'fields': fields,
-            'selector': selector
+            'selector': selector,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -677,7 +677,7 @@ class CloudantV1(BaseService):
         if not db:
             raise ValueError('db must be provided')
         headers = {
-            'Last-Event-ID': last_event_id
+            'Last-Event-ID': last_event_id,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -698,13 +698,13 @@ class CloudantV1(BaseService):
             'since': since,
             'style': style,
             'timeout': timeout,
-            'view': view
+            'view': view,
         }
 
         data = {
             'doc_ids': doc_ids,
             'fields': fields,
-            'selector': selector
+            'selector': selector,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -814,7 +814,7 @@ class CloudantV1(BaseService):
             'end_key': end_key,
             'limit': limit,
             'skip': skip,
-            'start_key': start_key
+            'start_key': start_key,
         }
 
         if 'headers' in kwargs:
@@ -859,7 +859,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         data = {
-            'keys': keys
+            'keys': keys,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -993,7 +993,7 @@ class CloudantV1(BaseService):
 
         params = {
             'partitioned': partitioned,
-            'q': q
+            'q': q,
         }
 
         if 'headers' in kwargs:
@@ -1054,7 +1054,7 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
-            'If-None-Match': if_none_match
+            'If-None-Match': if_none_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -1063,7 +1063,7 @@ class CloudantV1(BaseService):
 
         params = {
             'latest': latest,
-            'rev': rev
+            'rev': rev,
         }
 
         if 'headers' in kwargs:
@@ -1123,7 +1123,7 @@ class CloudantV1(BaseService):
             document = convert_model(document)
             content_type = content_type or 'application/json'
         headers = {
-            'Content-Type': content_type
+            'Content-Type': content_type,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -1131,7 +1131,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         params = {
-            'batch': batch
+            'batch': batch,
         }
 
         if isinstance(document, dict):
@@ -1240,7 +1240,7 @@ class CloudantV1(BaseService):
             'end_key': end_key,
             'key': key,
             'keys': keys,
-            'start_key': start_key
+            'start_key': start_key,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -1344,7 +1344,7 @@ class CloudantV1(BaseService):
             'end_key': end_key,
             'key': key,
             'keys': keys,
-            'start_key': start_key
+            'start_key': start_key,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -1404,7 +1404,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         data = {
-            'queries': queries
+            'queries': queries,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -1464,7 +1464,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         data = {
-            'queries': queries
+            'queries': queries,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -1592,11 +1592,11 @@ class CloudantV1(BaseService):
             'attachments': attachments,
             'att_encoding_info': att_encoding_info,
             'latest': latest,
-            'revs': revs
+            'revs': revs,
         }
 
         data = {
-            'docs': docs
+            'docs': docs,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -1669,11 +1669,11 @@ class CloudantV1(BaseService):
             'attachments': attachments,
             'att_encoding_info': att_encoding_info,
             'latest': latest,
-            'revs': revs
+            'revs': revs,
         }
 
         data = {
-            'docs': docs
+            'docs': docs,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -1746,11 +1746,11 @@ class CloudantV1(BaseService):
             'attachments': attachments,
             'att_encoding_info': att_encoding_info,
             'latest': latest,
-            'revs': revs
+            'revs': revs,
         }
 
         data = {
-            'docs': docs
+            'docs': docs,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -1823,11 +1823,11 @@ class CloudantV1(BaseService):
             'attachments': attachments,
             'att_encoding_info': att_encoding_info,
             'latest': latest,
-            'revs': revs
+            'revs': revs,
         }
 
         data = {
-            'docs': docs
+            'docs': docs,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -1888,7 +1888,7 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
-            'If-Match': if_match
+            'If-Match': if_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -1897,7 +1897,7 @@ class CloudantV1(BaseService):
 
         params = {
             'batch': batch,
-            'rev': rev
+            'rev': rev,
         }
 
         if 'headers' in kwargs:
@@ -1979,7 +1979,7 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
-            'If-None-Match': if_none_match
+            'If-None-Match': if_none_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -1996,7 +1996,7 @@ class CloudantV1(BaseService):
             'meta': meta,
             'rev': rev,
             'revs': revs,
-            'revs_info': revs_info
+            'revs_info': revs_info,
         }
 
         if 'headers' in kwargs:
@@ -2078,7 +2078,7 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
-            'If-None-Match': if_none_match
+            'If-None-Match': if_none_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -2095,7 +2095,7 @@ class CloudantV1(BaseService):
             'meta': meta,
             'rev': rev,
             'revs': revs,
-            'revs_info': revs_info
+            'revs_info': revs_info,
         }
 
         if 'headers' in kwargs:
@@ -2177,7 +2177,7 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
-            'If-None-Match': if_none_match
+            'If-None-Match': if_none_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -2194,7 +2194,7 @@ class CloudantV1(BaseService):
             'meta': meta,
             'rev': rev,
             'revs': revs,
-            'revs_info': revs_info
+            'revs_info': revs_info,
         }
 
         if 'headers' in kwargs:
@@ -2276,7 +2276,7 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
-            'If-None-Match': if_none_match
+            'If-None-Match': if_none_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -2293,7 +2293,7 @@ class CloudantV1(BaseService):
             'meta': meta,
             'rev': rev,
             'revs': revs,
-            'revs_info': revs_info
+            'revs_info': revs_info,
         }
 
         if 'headers' in kwargs:
@@ -2365,7 +2365,7 @@ class CloudantV1(BaseService):
             content_type = content_type or 'application/json'
         headers = {
             'Content-Type': content_type,
-            'If-Match': if_match
+            'If-Match': if_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -2375,7 +2375,7 @@ class CloudantV1(BaseService):
         params = {
             'batch': batch,
             'new_edits': new_edits,
-            'rev': rev
+            'rev': rev,
         }
 
         if isinstance(document, dict):
@@ -2442,7 +2442,7 @@ class CloudantV1(BaseService):
         if not ddoc:
             raise ValueError('ddoc must be provided')
         headers = {
-            'If-None-Match': if_none_match
+            'If-None-Match': if_none_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -2503,7 +2503,7 @@ class CloudantV1(BaseService):
         if not ddoc:
             raise ValueError('ddoc must be provided')
         headers = {
-            'If-Match': if_match
+            'If-Match': if_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -2512,7 +2512,7 @@ class CloudantV1(BaseService):
 
         params = {
             'batch': batch,
-            'rev': rev
+            'rev': rev,
         }
 
         if 'headers' in kwargs:
@@ -2596,7 +2596,7 @@ class CloudantV1(BaseService):
         if not ddoc:
             raise ValueError('ddoc must be provided')
         headers = {
-            'If-None-Match': if_none_match
+            'If-None-Match': if_none_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -2613,7 +2613,7 @@ class CloudantV1(BaseService):
             'meta': meta,
             'rev': rev,
             'revs': revs,
-            'revs_info': revs_info
+            'revs_info': revs_info,
         }
 
         if 'headers' in kwargs:
@@ -2682,7 +2682,7 @@ class CloudantV1(BaseService):
         if isinstance(design_document, DesignDocument):
             design_document = convert_model(design_document)
         headers = {
-            'If-Match': if_match
+            'If-Match': if_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -2692,7 +2692,7 @@ class CloudantV1(BaseService):
         params = {
             'batch': batch,
             'new_edits': new_edits,
-            'rev': rev
+            'rev': rev,
         }
 
         data = json.dumps(design_document)
@@ -2830,7 +2830,7 @@ class CloudantV1(BaseService):
         if not db:
             raise ValueError('db must be provided')
         headers = {
-            'Accept': accept
+            'Accept': accept,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -2850,7 +2850,7 @@ class CloudantV1(BaseService):
             'end_key': end_key,
             'key': key,
             'keys': keys,
-            'start_key': start_key
+            'start_key': start_key,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -2905,7 +2905,7 @@ class CloudantV1(BaseService):
             raise ValueError('queries must be provided')
         queries = [convert_model(x) for x in queries]
         headers = {
-            'Accept': accept
+            'Accept': accept,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -2913,7 +2913,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         data = {
-            'queries': queries
+            'queries': queries,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -3077,7 +3077,7 @@ class CloudantV1(BaseService):
             'stable': stable,
             'start_key': start_key,
             'start_key_doc_id': start_key_doc_id,
-            'update': update
+            'update': update,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -3238,7 +3238,7 @@ class CloudantV1(BaseService):
             'stable': stable,
             'start_key': start_key,
             'start_key_doc_id': start_key_doc_id,
-            'update': update
+            'update': update,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -3306,7 +3306,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         data = {
-            'queries': queries
+            'queries': queries,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -3374,7 +3374,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         data = {
-            'queries': queries
+            'queries': queries,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -3533,7 +3533,7 @@ class CloudantV1(BaseService):
             'end_key': end_key,
             'key': key,
             'keys': keys,
-            'start_key': start_key
+            'start_key': start_key,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -3642,7 +3642,7 @@ class CloudantV1(BaseService):
             'end_key': end_key,
             'key': key,
             'keys': keys,
-            'start_key': start_key
+            'start_key': start_key,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -3769,7 +3769,7 @@ class CloudantV1(BaseService):
             'include_fields': include_fields,
             'limit': limit,
             'sort': sort,
-            'stale': stale
+            'stale': stale,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -3896,7 +3896,7 @@ class CloudantV1(BaseService):
             'include_fields': include_fields,
             'limit': limit,
             'sort': sort,
-            'stale': stale
+            'stale': stale,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -4061,7 +4061,7 @@ class CloudantV1(BaseService):
             'stable': stable,
             'start_key': start_key,
             'start_key_doc_id': start_key_doc_id,
-            'update': update
+            'update': update,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -4226,7 +4226,7 @@ class CloudantV1(BaseService):
             'stable': stable,
             'start_key': start_key,
             'start_key_doc_id': start_key_doc_id,
-            'update': update
+            'update': update,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -4374,7 +4374,7 @@ class CloudantV1(BaseService):
             'sort': sort,
             'stable': stable,
             'update': update,
-            'use_index': use_index
+            'use_index': use_index,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -4522,7 +4522,7 @@ class CloudantV1(BaseService):
             'sort': sort,
             'stable': stable,
             'update': update,
-            'use_index': use_index
+            'use_index': use_index,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -4672,7 +4672,7 @@ class CloudantV1(BaseService):
             'stable': stable,
             'update': update,
             'use_index': use_index,
-            'r': r
+            'r': r,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -4824,7 +4824,7 @@ class CloudantV1(BaseService):
             'stable': stable,
             'update': update,
             'use_index': use_index,
-            'r': r
+            'r': r,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -4976,7 +4976,7 @@ class CloudantV1(BaseService):
             'stable': stable,
             'update': update,
             'use_index': use_index,
-            'r': r
+            'r': r,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -5104,7 +5104,7 @@ class CloudantV1(BaseService):
             'def': def_,
             'name': name,
             'partitioned': partitioned,
-            'type': type
+            'type': type,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -5215,7 +5215,7 @@ class CloudantV1(BaseService):
 
         data = {
             'analyzer': analyzer,
-            'text': text
+            'text': text,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -5378,7 +5378,7 @@ class CloudantV1(BaseService):
             'group_field': group_field,
             'group_limit': group_limit,
             'group_sort': group_sort,
-            'ranges': ranges
+            'ranges': ranges,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -5544,7 +5544,7 @@ class CloudantV1(BaseService):
             'group_field': group_field,
             'group_limit': group_limit,
             'group_sort': group_sort,
-            'ranges': ranges
+            'ranges': ranges,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -5647,7 +5647,7 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
-            'If-None-Match': if_none_match
+            'If-None-Match': if_none_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -5781,7 +5781,7 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
-            'If-Match': if_match
+            'If-Match': if_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -5790,7 +5790,7 @@ class CloudantV1(BaseService):
 
         params = {
             'batch': batch,
-            'rev': rev
+            'rev': rev,
         }
 
         if 'headers' in kwargs:
@@ -5868,7 +5868,7 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
-            'If-None-Match': if_none_match
+            'If-None-Match': if_none_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -5885,7 +5885,7 @@ class CloudantV1(BaseService):
             'meta': meta,
             'rev': rev,
             'revs': revs,
-            'revs_info': revs_info
+            'revs_info': revs_info,
         }
 
         if 'headers' in kwargs:
@@ -5948,7 +5948,7 @@ class CloudantV1(BaseService):
         if isinstance(replication_document, ReplicationDocument):
             replication_document = convert_model(replication_document)
         headers = {
-            'If-Match': if_match
+            'If-Match': if_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -5958,7 +5958,7 @@ class CloudantV1(BaseService):
         params = {
             'batch': batch,
             'new_edits': new_edits,
-            'rev': rev
+            'rev': rev,
         }
 
         data = json.dumps(replication_document)
@@ -6018,7 +6018,7 @@ class CloudantV1(BaseService):
         params = {
             'limit': limit,
             'skip': skip,
-            'states': convert_list(states)
+            'states': convert_list(states),
         }
 
         if 'headers' in kwargs:
@@ -6110,7 +6110,7 @@ class CloudantV1(BaseService):
 
         params = {
             'limit': limit,
-            'skip': skip
+            'skip': skip,
         }
 
         if 'headers' in kwargs:
@@ -6306,7 +6306,7 @@ class CloudantV1(BaseService):
             'admins': admins,
             'members': members,
             'cloudant': cloudant,
-            'couchdb_auth_only': couchdb_auth_only
+            'couchdb_auth_only': couchdb_auth_only,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -6419,7 +6419,7 @@ class CloudantV1(BaseService):
             'cloudant': cloudant,
             'admins': admins,
             'members': members,
-            'couchdb_auth_only': couchdb_auth_only
+            'couchdb_auth_only': couchdb_auth_only,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -6519,7 +6519,7 @@ class CloudantV1(BaseService):
         data = {
             'origins': origins,
             'allow_credentials': allow_credentials,
-            'enable_cors': enable_cors
+            'enable_cors': enable_cors,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -6583,7 +6583,7 @@ class CloudantV1(BaseService):
             raise ValueError('attachment_name must be provided')
         headers = {
             'If-Match': if_match,
-            'If-None-Match': if_none_match
+            'If-None-Match': if_none_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -6591,7 +6591,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         params = {
-            'rev': rev
+            'rev': rev,
         }
 
         if 'headers' in kwargs:
@@ -6649,7 +6649,7 @@ class CloudantV1(BaseService):
         if not attachment_name:
             raise ValueError('attachment_name must be provided')
         headers = {
-            'If-Match': if_match
+            'If-Match': if_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -6658,7 +6658,7 @@ class CloudantV1(BaseService):
 
         params = {
             'rev': rev,
-            'batch': batch
+            'batch': batch,
         }
 
         if 'headers' in kwargs:
@@ -6723,7 +6723,7 @@ class CloudantV1(BaseService):
         headers = {
             'If-Match': if_match,
             'If-None-Match': if_none_match,
-            'Range': range
+            'Range': range,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -6731,7 +6731,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         params = {
-            'rev': rev
+            'rev': rev,
         }
 
         if 'headers' in kwargs:
@@ -6801,7 +6801,7 @@ class CloudantV1(BaseService):
             raise ValueError('content_type must be provided')
         headers = {
             'Content-Type': content_type,
-            'If-Match': if_match
+            'If-Match': if_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -6809,7 +6809,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         params = {
-            'rev': rev
+            'rev': rev,
         }
 
         data = attachment
@@ -6865,7 +6865,7 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {
-            'If-None-Match': if_none_match
+            'If-None-Match': if_none_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -6923,7 +6923,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         params = {
-            'batch': batch
+            'batch': batch,
         }
 
         if 'headers' in kwargs:
@@ -6986,7 +6986,7 @@ class CloudantV1(BaseService):
             raise ValueError('doc_id must be provided')
         headers = {
             'Accept': accept,
-            'If-None-Match': if_none_match
+            'If-None-Match': if_none_match,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -6996,7 +6996,7 @@ class CloudantV1(BaseService):
         params = {
             'attachments': attachments,
             'att_encoding_info': att_encoding_info,
-            'local_seq': local_seq
+            'local_seq': local_seq,
         }
 
         if 'headers' in kwargs:
@@ -7054,7 +7054,7 @@ class CloudantV1(BaseService):
             document = convert_model(document)
             content_type = content_type or 'application/json'
         headers = {
-            'Content-Type': content_type
+            'Content-Type': content_type,
         }
         sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
                                       service_version='V1',
@@ -7062,7 +7062,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         params = {
-            'batch': batch
+            'batch': batch,
         }
 
         if isinstance(document, dict):
@@ -7399,7 +7399,7 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         data = {
-            'types': types
+            'types': types,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
