@@ -90,6 +90,7 @@ class CloudantV1(BaseService):
         about the instance. The response includes a JSON structure that contains
         information about the server, including a welcome message and the server's
         version.
+        **Tip:**  The authentication for this endpoint is only enforced when using IAM.
 
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
@@ -161,6 +162,7 @@ class CloudantV1(BaseService):
 
         Requests one or more Universally Unique Identifiers (UUIDs) from the instance. The
         response is a JSON object that provides a list of UUIDs.
+        **Tip:**  The authentication for this endpoint is only enforced when using IAM.
 
         :param int count: (optional) Query parameter to specify the number of UUIDs
                to return.
@@ -7312,6 +7314,7 @@ class CloudantV1(BaseService):
 
         Confirms that the server is up, running, and ready to respond to requests. If
         `maintenance_mode` is `true` or `nolb`, the endpoint returns a 404 response.
+        **Tip:**  The authentication for this endpoint is only enforced when using IAM.
 
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
