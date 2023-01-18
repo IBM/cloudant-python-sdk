@@ -46,8 +46,12 @@ pipeline {
                              usernameVariable: 'SERVER_USERNAME',
                              passwordVariable: 'SERVER_PASSWORD')
             ]) {
-              sh './scripts/setup_couch.sh'
-              sh './scripts/setup_wiremock.sh'
+              script {
+                docker.withRegistry(env.ARTIFACTORY_DOCKER_REGISTRY,'artifactory') {
+                  sh './scripts/setup_couch.sh'
+                  sh './scripts/setup_wiremock.sh'
+                }
+              }
               runTests()
           }
         }
