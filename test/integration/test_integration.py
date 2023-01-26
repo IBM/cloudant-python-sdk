@@ -3,7 +3,7 @@ import os
 import unittest
 
 # Read config file
-configFile = 'cloudant.env'
+configFile = 'cloudant_v1.env'
 configLoaded = None
 
 if os.path.exists(configFile):
