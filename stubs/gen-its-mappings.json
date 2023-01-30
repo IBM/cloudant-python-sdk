@@ -1,0 +1,2742 @@
+{"mappings": [
+  {
+    "id": "3afba80c-759a-3356-acf2-93866111665b",
+    "request": {
+      "url": "/",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"couchdb\":\"Welcome\",\"version\":\"3.2.1\",\"vendor\":{\"name\":\"IBM Cloudant\",\"version\":\"8287\",\"variant\":\"paas\"},\"features\":[\"geo\",\"search\",\"access-ready\",\"iam\",\"partitioned\",\"pluggable-storage-engines\",\"scheduler\"],\"features_flags\":[\"partitioned\"]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:31 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "95afae62f0ea5c9f26c869d9d00e2b8a",
+        "X-Cloudant-Action": "cloudantnosqldb.account-meta-info.read",
+        "X-Couch-Request-ID": "95afae62f0",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "3afba80c-759a-3356-acf2-93866111665b"
+  },
+  {
+    "id": "082f68f8-c053-36d3-9eb1-cb8686d296aa",
+    "request": {
+      "url": "/_active_tasks",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "[]",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:09:00 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "249fc0a91bbf42406f8d93f1e20e401f",
+        "X-Cloudant-Action": "cloudantnosqldb.account-active-tasks.read",
+        "X-Couch-Request-ID": "249fc0a91b",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "082f68f8-c053-36d3-9eb1-cb8686d296aa"
+  },
+  {
+    "id": "ad18e9e4-40a9-3cda-afe4-28217cbd04f5",
+    "request": {
+      "url": "/_all_dbs?descending=false&end_key=testString&limit=0&skip=0&start_key=testString",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "[\"testString\"]",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:34 GMT",
+        "ETag": "W/\"8I1PKGO1BVSLINUMI3N4GOJTG\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "3153310816b744a750175766d6c3c436",
+        "X-Cloudant-Action": "cloudantnosqldb.account-all-dbs.read",
+        "X-Couch-Request-ID": "3153310816",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "ad18e9e4-40a9-3cda-afe4-28217cbd04f5"
+  },
+  {
+    "id": "544965f4-c99a-38ac-8b9d-b8ae4eafc952",
+    "request": {
+      "url": "/_api/v2/api_keys",
+      "method": "POST"
+    },
+    "response": {
+      "status": 201,
+      "body": "{\"ok\": true, \"key\": \"apikey-98d494672e2c47beaec43f4633411189\", \"password\": \"54fcd98b4bb1206afb7d9be049e81234c768ab4d\"}",
+      "headers": {
+        "Date": "Mon, 16 May 2022 21:08:53 GMT",
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Vary": "Accept-Encoding",
+        "X-Cloudant-Action": "cloudantnosqldb.sapi.apikeys",
+        "x-envoy-upstream-service-time": "1075",
+        "cf-cache-status": "DYNAMIC",
+        "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+        "Server": "cloudflare",
+        "cf-ray": "70c717515d76586c-IAD",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "sapi.lb2.bm-cc-us-east-05.cloudant.net",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)"
+      }
+    },
+    "uuid": "544965f4-c99a-38ac-8b9d-b8ae4eafc952"
+  },
+  {
+    "id": "cf012f70-bff3-3596-bc47-c1f4cf97212d",
+    "request": {
+      "url": "/_api/v2/db/testString/_security",
+      "method": "PUT",
+      "bodyPatterns": [
+        {
+          "matchesJsonPath": "$.[?(@.cloudant == null || @.cloudant.key1 != null)]",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"ok\":true}",
+      "headers": {
+        "Date": "Mon, 16 May 2022 21:08:54 GMT",
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Vary": "Accept-Encoding",
+        "X-Cloudant-Action": "cloudantnosqldb.sapi.db-security",
+        "x-envoy-upstream-service-time": "1461",
+        "cf-cache-status": "DYNAMIC",
+        "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+        "Server": "cloudflare",
+        "cf-ray": "70c717591f00822a-IAD",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "sapi.lb2.bm-cc-us-east-05.cloudant.net",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)"
+      }
+    },
+    "uuid": "cf012f70-bff3-3596-bc47-c1f4cf97212d"
+  },
+  {
+    "id": "44f68031-9fad-3ed6-9871-d9e7c5fd396a",
+    "request": {
+      "url": "/_api/v2/user/activity_tracker/events",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"types\": [\"data\", \"management\"]}",
+      "headers": {
+        "Date": "Mon, 16 May 2022 21:09:05 GMT",
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Vary": "Accept-Encoding",
+        "X-Cloudant-Action": "cloudantnosqldb.activity-tracker-event-types.read",
+        "x-envoy-upstream-service-time": "5165",
+        "cf-cache-status": "DYNAMIC",
+        "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+        "Server": "cloudflare",
+        "cf-ray": "70c71787be096fd7-IAD",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "sapi.lb2.bm-cc-us-east-05.cloudant.net",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)"
+      }
+    },
+    "uuid": "44f68031-9fad-3ed6-9871-d9e7c5fd396a"
+  },
+  {
+    "id": "e42d0204-7e2b-3850-bab6-3188dad08068",
+    "request": {
+      "url": "/_api/v2/user/activity_tracker/events",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"types\": [\"management\"]}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"ok\": true}",
+      "headers": {
+        "Date": "Mon, 16 May 2022 21:09:07 GMT",
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Vary": "Accept-Encoding",
+        "X-Cloudant-Action": "cloudantnosqldb.activity-tracker-event-types.write",
+        "x-envoy-upstream-service-time": "1396",
+        "cf-cache-status": "DYNAMIC",
+        "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+        "Server": "cloudflare",
+        "cf-ray": "70c717a998cb5d80-IAD",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "sapi.lb1.bm-cc-us-east-05.cloudant.net",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.101.5)"
+      }
+    },
+    "uuid": "e42d0204-7e2b-3850-bab6-3188dad08068"
+  },
+  {
+    "id": "f3eef08d-1cac-3c95-90bb-e1d95690c74b",
+    "request": {
+      "url": "/_api/v2/user/capacity/throughput",
+      "method": "PUT",
+      "bodyPatterns": [
+        {
+          "matchesJsonPath": "$.blocks",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"current\":{\"throughput\":{\"blocks\":5,\"query\":25,\"read\":500,\"write\":250}},\"target\":{\"throughput\":{\"blocks\":10,\"query\":50,\"read\":1000,\"write\":500}}}",
+      "headers": {
+        "Date": "Mon, 16 May 2022 21:08:34 GMT",
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Vary": "Accept-Encoding",
+        "X-Cloudant-Action": "cloudantnosqldb.capacity-throughput.write",
+        "x-envoy-upstream-service-time": "838",
+        "cf-cache-status": "DYNAMIC",
+        "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+        "Server": "cloudflare",
+        "cf-ray": "70c716dc9fa05a2e-IAD",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "sapi.lb2.bm-cc-us-east-05.cloudant.net",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)"
+      }
+    },
+    "uuid": "f3eef08d-1cac-3c95-90bb-e1d95690c74b"
+  },
+  {
+    "id": "472c4134-a11c-3c72-980c-85518316a338",
+    "request": {
+      "url": "/_api/v2/user/capacity/throughput",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"current\": {\"throughput\": {\"read\": 20, \"write\": 10, \"query\": 5}}}",
+      "headers": {
+        "Date": "Mon, 16 May 2022 21:08:33 GMT",
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Vary": "Accept-Encoding",
+        "X-Cloudant-Action": "cloudantnosqldb.capacity-throughput.read",
+        "x-envoy-upstream-service-time": "1135",
+        "cf-cache-status": "DYNAMIC",
+        "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+        "Server": "cloudflare",
+        "cf-ray": "70c716d47ab17ffd-IAD",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "sapi.lb2.bm-cc-us-east-05.cloudant.net",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)"
+      }
+    },
+    "uuid": "472c4134-a11c-3c72-980c-85518316a338"
+  },
+  {
+    "id": "620fd692-b6a6-3b64-967c-ffee174c2cff",
+    "request": {
+      "url": "/_api/v2/user/config/cors",
+      "method": "PUT",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"allow_credentials\": true, \"enable_cors\": true, \"origins\": [\"testString\"]}",
+          "ignoreArrayOrder": false,
+          "ignoreExtraElements": false
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"ok\": true}",
+      "headers": {
+        "Date": "Fri, 20 May 2022 18:04:13 GMT",
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Vary": "Accept-Encoding",
+        "X-Cloudant-Action": "cloudantnosqldb.sapi.usercors",
+        "x-envoy-upstream-service-time": "2487",
+        "cf-cache-status": "DYNAMIC",
+        "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+        "Server": "cloudflare",
+        "cf-ray": "70e6fe465b125962-IAD",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "sapi.lb2.bm-cc-us-east-05.cloudant.net",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)"
+      }
+    },
+    "uuid": "620fd692-b6a6-3b64-967c-ffee174c2cff"
+  },
+  {
+    "id": "a2e4e696-e631-33f8-b168-5015048cdad8",
+    "request": {
+      "url": "/_api/v2/user/config/cors",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"enable_cors\": true, \"origins\": [\"https://example.com\"], \"allow_credentials\": false}",
+      "headers": {
+        "Date": "Mon, 16 May 2022 21:08:56 GMT",
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Vary": "Accept-Encoding",
+        "X-Cloudant-Action": "cloudantnosqldb.sapi.usercors",
+        "x-envoy-upstream-service-time": "1371",
+        "cf-cache-status": "DYNAMIC",
+        "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+        "Server": "cloudflare",
+        "cf-ray": "70c717635b6d82ea-IAD",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "sapi.lb2.bm-cc-us-east-05.cloudant.net",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)"
+      }
+    },
+    "uuid": "a2e4e696-e631-33f8-b168-5015048cdad8"
+  },
+  {
+    "id": "8c38b725-a6ac-3f63-a723-9f4925ae23fd",
+    "request": {
+      "url": "/_api/v2/user/current/throughput",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"throughput\": {\"read\": 0, \"write\": 0, \"query\": 0}}",
+      "headers": {
+        "Date": "Mon, 16 May 2022 21:09:09 GMT",
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Vary": "Accept-Encoding",
+        "X-Cloudant-Action": "cloudantnosqldb.current-throughput.read",
+        "x-envoy-upstream-service-time": "1269",
+        "cf-cache-status": "DYNAMIC",
+        "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+        "Server": "cloudflare",
+        "cf-ray": "70c717b35e550660-IAD",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "sapi.lb1.bm-cc-us-east-05.cloudant.net",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.101.5)"
+      }
+    },
+    "uuid": "8c38b725-a6ac-3f63-a723-9f4925ae23fd"
+  },
+  {
+    "id": "1caf7257-c094-3a41-92ad-a6e49a376615",
+    "request": {
+      "urlPath": "/_db_updates",
+      "method": "GET",
+      "queryParameters": {
+        "feed": {
+          "equalTo": "normal"
+        },
+        "heartbeat": {
+          "equalTo": "0"
+        },
+        "since": {
+          "equalTo": "0"
+        },
+        "timeout": {
+          "equalTo": "0"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"last_seq\":\"1-g1AAAAMFeJydkcENgjAUhquYePHqBN48EEBj4klXUOgAbSExDUJi8OwUrqDQJZyCJZhBqD8XE0Iiwulvmvf1e68vJITMToZPFj4X8SXY-3xjijC--ixKLMv-ns0oSEIUjxnhc0o9yUgTW_3GaojypVKZPBlsdMbdVFhbW6yd_15p2pwOG0SK77SuevcJSHP06rbILicgj0ul0t5OQBm_aV22yI5l1FAVTciR0ntfKzAXGOKJz-prBpYCQ7y1fg1wl8AQB0rzAW4MnCMeShUD3Bi4QGDTGrT8AMkPBk0\",\"results\":[{\"dbname\":\"events\",\"seq\":\"1-g1AAAAMFeJydkcENgjAUhquYePHqBN48EEBj4klXUOgAbSExDUJi8OwUrqDQJZyCJZhBqD8XE0Iiwulvmvf1e68vJITMToZPFj4X8SXY-3xjijC--ixKLMv-ns0oSEIUjxnhc0o9yUgTW_3GaojypVKZPBlsdMbdVFhbW6yd_15p2pwOG0SK77SuevcJSHP06rbILicgj0ul0t5OQBm_aV22yI5l1FAVTciR0ntfKzAXGOKJz-prBpYCQ7y1fg1wl8AQB0rzAW4MnCMeShUD3Bi4QGDTGrT8AMkPBk0\",\"type\":\"created\"}]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:34 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "2d4a268c250238deeff1fe847741aca0",
+        "X-Cloudant-Action": "cloudantnosqldb.account-db-updates.read",
+        "X-Couch-Request-ID": "2d4a268c25",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)"
+      }
+    },
+    "uuid": "1caf7257-c094-3a41-92ad-a6e49a376615"
+  },
+  {
+    "id": "0e3d6794-25ed-3bf2-90ea-34410b429c76",
+    "request": {
+      "url": "/_dbs_info",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"keys\": [\"testString\"]}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "[{\"key\":\"testdb\",\"info\":{\"db_name\":\"testdb\",\"instance_start_time\":\"1652999321\",\"purge_seq\":\"0-g1AAAAQXeJzLYWBgEMhgTmHQSElKzi9KdUhJMtRLytVNTtYtLdZNTSwu0TUw1UvOyS9NScwr0ctLLckB6mDKYwGSDB-A1H8gyEpkABmhiTCCeDMeQMx4DzUD4QwToo24ADHiPoYR5kQbcQBixHkMI4j3yAaIEfspCYwFEDPWUxAYEyBGzKcgMBogRvSTFRhJBUAyqZ7sVJGUANKfj9BPWiAkBYC0x2PTTkwAJDmAtPtj006U4w1A2u3J97wCSL8-2Z4XAGmXJ9fziQxJ_BC9WQB5BlMh\",\"update_seq\":\"14-g1AAAAereJy908tNwzAYwHHT8jjSDeAIhxTbiWPnRDeADcCfH6qqPhBtz7ABbAAbwAawAWxAN4ANwI4jpbk1SG4OjhQl30_OPxkjhHrDrkYnGtTs1gw0kD5MEqWS5Twxcr5IMOur8Wyp5XTRn5rF2D3Rme66Ff240687RsOu7EzchQPLcJpp1mKct0_rmzfHVwH_9jgqcYazlGeizbzmzrON8c-Af9U4yWXGqGgxrmnzje33YH_UtmDCgCYtxv23-Guw32qbG4u5Ntso_hzwlxpXime8YNso_hjwp7XPrbAU22ILxe-D_bC2cWA5FjZqcbhxK9xV_3dVmyrCDI1bG649PGvAqSo01TJuabj08FUDNnmusSFRK8PAuxeVuxMKE0ssp3ELY--eN_Zrtdug4pELH3v4rIL3ShhEqhk1kQv3PHxUwfslTAtgTEDUwhLBYeM1C4GNkdBizugP-uNrDA\",\"sizes\":{\"file\":666707,\"external\":304,\"active\":12758},\"props\":{},\"doc_del_count\":1,\"doc_count\":3,\"disk_format_version\":8,\"compact_running\":false,\"cluster\":{\"q\":16,\"n\":3,\"w\":2,\"r\":2}}}]",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:34 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "20e0a09fd367bbb1463ff32d6616f4e6",
+        "X-Cloudant-Action": "cloudantnosqldb.account-dbs-info.read",
+        "X-Couch-Request-ID": "20e0a09fd3",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "0e3d6794-25ed-3bf2-90ea-34410b429c76"
+  },
+  {
+    "id": "2da72265-1cef-3bc6-bb1b-2cdeb811ceba",
+    "request": {
+      "url": "/_membership",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"all_nodes\":[\"dbcore@db1.bm-cc-us-east-05.cloudant.net\",\"dbcore@db10.bm-cc-us-east-05.cloudant.net\",\"dbcore@db11.bm-cc-us-east-05.cloudant.net\",\"dbcore@db12.bm-cc-us-east-05.cloudant.net\",\"dbcore@db2.bm-cc-us-east-05.cloudant.net\",\"dbcore@db3.bm-cc-us-east-05.cloudant.net\",\"dbcore@db4.bm-cc-us-east-05.cloudant.net\",\"dbcore@db5.bm-cc-us-east-05.cloudant.net\",\"dbcore@db6.bm-cc-us-east-05.cloudant.net\",\"dbcore@db7.bm-cc-us-east-05.cloudant.net\",\"dbcore@db8.bm-cc-us-east-05.cloudant.net\",\"dbcore@db9.bm-cc-us-east-05.cloudant.net\"],\"cluster_nodes\":[\"dbcore@db1.bm-cc-us-east-05.cloudant.net\",\"dbcore@db10.bm-cc-us-east-05.cloudant.net\",\"dbcore@db11.bm-cc-us-east-05.cloudant.net\",\"dbcore@db12.bm-cc-us-east-05.cloudant.net\",\"dbcore@db2.bm-cc-us-east-05.cloudant.net\",\"dbcore@db3.bm-cc-us-east-05.cloudant.net\",\"dbcore@db4.bm-cc-us-east-05.cloudant.net\",\"dbcore@db5.bm-cc-us-east-05.cloudant.net\",\"dbcore@db6.bm-cc-us-east-05.cloudant.net\",\"dbcore@db7.bm-cc-us-east-05.cloudant.net\",\"dbcore@db8.bm-cc-us-east-05.cloudant.net\",\"dbcore@db9.bm-cc-us-east-05.cloudant.net\"]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:31 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "fa692f7cfd6a091210084696d74c9e78",
+        "X-Cloudant-Action": "cloudantnosqldb.cluster-membership.read",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "2da72265-1cef-3bc6-bb1b-2cdeb811ceba"
+  },
+  {
+    "id": "ea621c78-5215-34ac-94ce-95e13e1182bd",
+    "request": {
+      "url": "/_replicator/testString",
+      "method": "HEAD"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 16:18:40 GMT",
+        "ETag": "\"2-2eb76179e2608844d7fab7a4ab67c5bf\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "a957f9a0e94e5cc392c318ddfd9530a1",
+        "X-Cloudant-Action": "cloudantnosqldb.replication.read",
+        "X-Couch-Request-ID": "a957f9a0e9",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.7)"
+      }
+    },
+    "uuid": "ea621c78-5215-34ac-94ce-95e13e1182bd"
+  },
+  {
+    "id": "ee208ab6-a73d-3325-b9b0-afcdaaaccab3",
+    "request": {
+      "urlPath": "/_replicator/testString",
+      "method": "DELETE",
+      "queryParameters": {
+        "batch": {
+          "equalTo": "ok"
+        },
+        "rev": {
+          "equalTo": "testString"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"ok\":true,\"id\":\"testString\",\"rev\":\"3-364238f68a4eb90d4e10ad0ca5ad7772\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 23 May 2022 19:04:39 GMT",
+        "ETag": "W/\"27-364238f68a4eb90d4e10ad0ca5ad7772\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "68250b09c2b37af95a2b3507bd887d90",
+        "X-Cloudant-Action": "cloudantnosqldb.replication.write",
+        "X-Couch-Request-ID": "68250b09c2",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "ee208ab6-a73d-3325-b9b0-afcdaaaccab3"
+  },
+  {
+    "id": "109ff4b5-4d2a-32b8-890d-f15cfe54173a",
+    "request": {
+      "urlPath": "/_replicator/testString",
+      "method": "PUT",
+      "queryParameters": {
+        "batch": {
+          "equalTo": "ok"
+        },
+        "rev": {
+          "equalTo": "testString"
+        },
+        "new_edits": {
+          "equalTo": "false"
+        }
+      },
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"source\": {\"url\": \"testString\"}, \"target\": {\"url\": \"testString\"}}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 201,
+      "body": "{\"ok\":true,\"id\":\"testString\",\"rev\":\"1-257d246167d34fcc2ca07926ba0213d1\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 16:54:50 GMT",
+        "ETag": "W/\"22-257d246167d34fcc2ca07926ba0213d1\"",
+        "Location": "https://84ab8038-d8f1-450c-9645-4d16b448eb31-bluemix.cloudant.com/_replicator/testString",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "ce157aeb0e62a81f05c0e8c9e4d24c55",
+        "X-Cloudant-Action": "cloudantnosqldb.replication.write",
+        "X-Couch-Request-ID": "ce157aeb0e",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "109ff4b5-4d2a-32b8-890d-f15cfe54173a"
+  },
+  {
+    "id": "44eb7118-b9d0-38ee-8ada-9097415e6950",
+    "request": {
+      "urlPath": "/_replicator/testString",
+      "method": "GET",
+      "queryParameters": {
+        "att_encoding_info": {
+          "equalTo": "false"
+        },
+        "attachments": {
+          "equalTo": "false"
+        },
+        "deleted_conflicts": {
+          "equalTo": "false"
+        },
+        "conflicts": {
+          "equalTo": "false"
+        },
+        "latest": {
+          "equalTo": "false"
+        },
+        "local_seq": {
+          "equalTo": "false"
+        },
+        "meta": {
+          "equalTo": "false"
+        },
+        "rev": {
+          "equalTo": "testString"
+        },
+        "revs": {
+          "equalTo": "false"
+        },
+        "revs_info": {
+          "equalTo": "false"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"_id\":\"testString\",\"_rev\":\"2-2eb76179e2608844d7fab7a4ab67c5bf\",\"source\":{\"url\":\"testString\"},\"target\":{\"url\":\"testString\"},\"owner\":\"iam-ServiceId-d3730bc8-88fb-4a35-9f1d-6e17f6cf369e\",\"_replication_state\":\"failed\",\"_replication_state_time\":\"2022-05-16T21:08:50Z\",\"_replication_state_reason\":\"{error,{case_clause,{error,invalid_uri}}}\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 16:20:06 GMT",
+        "ETag": "W/\"2-2eb76179e2608844d7fab7a4ab67c5bf\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "2211e195b24b7597aa72a5b7aa9bb756",
+        "X-Cloudant-Action": "cloudantnosqldb.replication.read",
+        "X-Couch-Request-ID": "2211e195b2",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.7)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "44eb7118-b9d0-38ee-8ada-9097415e6950"
+  },
+  {
+    "id": "13d8a8e0-e54e-3e8f-9649-d902a9950f31",
+    "request": {
+      "url": "/_scheduler/docs?limit=0&skip=0&states=initializing",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"total_rows\":1,\"offset\":0,\"docs\":[\r\n{\"database\":\"84ab8038-d8f1-450c-9645-4d16b448eb31-bluemix/_replicator\",\"doc_id\":\"e945ba14464aef7dd519ba36ae6f9466\",\"id\":null,\"source\":\"https://84ab8038-d8f1-450c-9645-4d16b448eb31-bluemix.cloudant.com/animaldb-target/\",\"target\":\"https://84ab8038-d8f1-450c-9645-4d16b448eb31-bluemix.cloudant.com/animaldb/\",\"state\":\"completed\",\"error_count\":0,\"info\":{\"revisions_checked\":15,\"missing_revisions_found\":15,\"docs_read\":15,\"docs_written\":15,\"changes_pending\":null,\"doc_write_failures\":0,\"checkpointed_source_seq\":\"15-g1AAAAcaeJyt1MFNwzAUgGHTIiFOdAM4wiHFdmPHOdENYAPwsx2Vqk0Rbc-wAWwAG8AGsAFsQDeADYpTVyQ50CZuL4kUJf-nxM8ZIIRavaZGJxrU6NZ0NRDWhmGgVDAdB0aOJwEmbTUYTbVMJ-3UTAb2kYZEcDCfz_u9pmwM7YU9iIgxgDU6_gt1Vnc8VGjZIxwu4Z0FHCkBRIlSi25fPsrk05JsGAUFUHzlePswzuCzEiy5lFrSIhzWgnkVuJvB5yUYFOYCS_9FrgRfZPDlEkYLOCEmDIWF96epNsl1arRP-Sorj0pl2qGMJnjT8k1WviuVcRhzJfWK8pppWZTTXXtE9_Zk4w_5fpMMKGPKfymq448OfyoMYGSiiJsN9lx1_dnpL7muGO2EOPHfd9XxV4e_5d89hAg4Ft57j665u4C_O_wjxzmNRSi496LXwD8d_pXPc0woSUD8P8816jNX_87rSsSJYWQr9R9XL_4xATBwVWPV-r9_cTjG\"},\"start_time\":\"2021-11-07T23:54:45Z\",\"last_updated\":\"2021-11-07T23:54:49Z\"}\r\n]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "content-security-policy": "sandbox",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:50 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "95a00aef1c8f1b5d2ccd575501f38e8a",
+        "X-Cloudant-Action": "cloudantnosqldb.replication-scheduler.read",
+        "X-Couch-Request-ID": "95a00aef1c",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "13d8a8e0-e54e-3e8f-9649-d902a9950f31"
+  },
+  {
+    "id": "775f4f0a-3b8a-37e2-aa47-140285fb2b1c",
+    "request": {
+      "url": "/_scheduler/docs/_replicator/testString",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"database\":\"_replicator\",\"doc_id\":\"testString\",\"id\":null,\"source\":null,\"target\":null,\"state\":\"failed\",\"error_count\":1,\"info\":{\"error\":\"{error,{case_clause,{error,invalid_uri}}}\"},\"start_time\":\"2022-05-16T21:08:50Z\",\"last_updated\":\"2022-05-16T21:08:50Z\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:50 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "2dd32790877ffef6279a3f9fe908836f",
+        "X-Cloudant-Action": "cloudantnosqldb.replication-scheduler.read",
+        "X-Couch-Request-ID": "2dd3279087",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "775f4f0a-3b8a-37e2-aa47-140285fb2b1c"
+  },
+  {
+    "id": "266af994-f5f5-31d5-bcda-15a9ea3c86b5",
+    "request": {
+      "url": "/_scheduler/docs/_replicator/testString",
+      "method": "HEAD"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 16:22:17 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "da1acdc1a05b5d5bbaca269dca53b94d",
+        "X-Cloudant-Action": "cloudantnosqldb.replication-scheduler.read",
+        "X-Couch-Request-ID": "da1acdc1a0",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.7)"
+      }
+    },
+    "uuid": "266af994-f5f5-31d5-bcda-15a9ea3c86b5"
+  },
+  {
+    "id": "5c158d49-97e6-3f2b-99ec-2f6629a13c77",
+    "request": {
+      "url": "/_scheduler/jobs?limit=0&skip=0",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "jsonBody": {
+        "total_rows":1,
+        "offset":0,
+        "jobs":[
+          {
+            "database":"_replicator",
+            "doc_id":"testString",
+            "history":[
+              {"timestamp":"2022-05-16T21:08:50Z","type":"started"},
+              {"timestamp":"2022-05-16T21:08:50Z","type":"error"}
+            ],
+            "id":"testString",
+            "info":{
+              "changes_pending":null,
+              "checkpointed_source_seq":"113-g1AAAACTeJzLYWBgYMpgTmHgz8tPSTV0MDQy1zMAQsMckEQiQ1L9____szKYE01ygQLsZsYGqcamiZjKcRqRxwIkGRqA1H-oSbZgk1KMLCzTDE0wdWUBAF6HJIQ",
+              "doc_write_failures":0,
+              "docs_read":2,
+              "docs_written":2,
+              "missing_revisions_found":0,
+              "revisions_checked":2,
+              "source_seq":"2-g1AAAACTeJzLYWBgYMpgTmHgz8tPSTV0MDQy1zMAQsMckEQiQ1L9____szKYE1lzgQLsBsZm5pZJJpjKcRqRxwIkGRqA1H-oSexgk4yMkhITjS0wdWUBADfEJBg",
+              "through_seq":"2-g1AAAACTeJzLYWBgYMpgTmHgz8tPSTV0MDQy1zMAQsMckEQiQ1L9____szKYE1lzgQLsBsZm5pZJJpjKcRqRxwIkGRqA1H-oSexgk4yMkhITjS0wdWUBADfEJBg"
+            },
+            "node":"node1@127.0.0.1",
+            "pid":"<0.1850.0>",
+            "source":"http://test.com/testString",
+            "start_time":"2022-05-16T21:08:50Z",
+            "target":"http://adm:*****@localhost:15984/testString/",
+            "user":null
+          }
+        ]
+      },
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 16:54:51 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "d97a5d3526ee45e215450a0abea76caf",
+        "X-Cloudant-Action": "cloudantnosqldb.replication-scheduler.read",
+        "X-Couch-Request-ID": "d97a5d3526",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "5c158d49-97e6-3f2b-99ec-2f6629a13c77"
+  },
+  {
+    "id": "e9f68b82-7693-38ea-bd6a-66227a0086bf",
+    "request": {
+      "url": "/_scheduler/jobs/testString",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "jsonBody": {
+        "database":"_replicator",
+        "doc_id":"testString",
+        "history":[
+          {"timestamp":"2022-05-16T21:08:50Z","type":"started"},
+          {"timestamp":"2022-05-16T21:08:50Z","type":"error"}
+        ],
+        "id":"testString",
+        "info":{
+          "changes_pending":null,
+          "checkpointed_source_seq":"113-g1AAAACTeJzLYWBgYMpgTmHgz8tPSTV0MDQy1zMAQsMckEQiQ1L9____szKYE01ygQLsZsYGqcamiZjKcRqRxwIkGRqA1H-oSbZgk1KMLCzTDE0wdWUBAF6HJIQ",
+          "doc_write_failures":0,
+          "docs_read":2,
+          "docs_written":2,
+          "missing_revisions_found":0,
+          "revisions_checked":2,
+          "source_seq":"2-g1AAAACTeJzLYWBgYMpgTmHgz8tPSTV0MDQy1zMAQsMckEQiQ1L9____szKYE1lzgQLsBsZm5pZJJpjKcRqRxwIkGRqA1H-oSexgk4yMkhITjS0wdWUBADfEJBg",
+          "through_seq":"2-g1AAAACTeJzLYWBgYMpgTmHgz8tPSTV0MDQy1zMAQsMckEQiQ1L9____szKYE1lzgQLsBsZm5pZJJpjKcRqRxwIkGRqA1H-oSexgk4yMkhITjS0wdWUBADfEJBg"
+        },
+        "node":"node1@127.0.0.1",
+        "pid":"<0.1850.0>",
+        "source":"http://test.com/testString",
+        "start_time":"2022-05-16T21:08:50Z",
+        "target":"http://adm:*****@localhost:15984/testString/",
+        "user":null
+      },
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "content-security-policy": "sandbox",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 17:07:47 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "7842b56965a4f079106b35134a6e7e7d",
+        "X-Cloudant-Action": "cloudantnosqldb.replication-scheduler.read",
+        "X-Couch-Request-ID": "7842b56965",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)"
+      }
+    },
+    "uuid": "e9f68b82-7693-38ea-bd6a-66227a0086bf"
+  },
+  {
+    "id": "e1623757-bf89-30e0-b209-1f5601bc039a",
+    "request": {
+      "url": "/_scheduler/jobs/testString",
+      "method": "HEAD"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "content-security-policy": "sandbox",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 17:06:24 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "397edf40473b25285c6c9048a9159f5d",
+        "X-Cloudant-Action": "cloudantnosqldb.replication-scheduler.read",
+        "X-Couch-Request-ID": "397edf4047",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)"
+      }
+    },
+    "uuid": "e1623757-bf89-30e0-b209-1f5601bc039a"
+  },
+  {
+    "id": "1244a623-9af3-3200-b5cf-72605afcbcdc",
+    "request": {
+      "url": "/_search_analyze",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"analyzer\": \"arabic\", \"text\": \"testString\"}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"tokens\":[\"teststring\"]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:45 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "752119aa13519496f4b8ca931ac9805d",
+        "X-Cloudant-Action": "cloudantnosqldb.account-search-analyze.execute",
+        "X-Couch-Request-ID": "752119aa13",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "query",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "1244a623-9af3-3200-b5cf-72605afcbcdc"
+  },
+  {
+    "id": "7d66f494-6c33-3ad6-a9fb-478a37bdddb1",
+    "request": {
+      "url": "/_session",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"userCtx\":{\"roles\":[\"_reader\",\"_writer\",\"_admin\"],\"name\":\"iam-ServiceId-d3730bf4-80fx-4a35-9f1d-6e17f6cf369e\"},\"ok\":true,\"info\":{\"authentication_handlers\":[\"iam\",\"cookie\",\"default\",\"local\"],\"authenticated\":\"iam\",\"authentication_db\":\"bm-cc-us-east-05/users\"}}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:51 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "09b190ce0497173c7cd117d33f0cbce0",
+        "X-Cloudant-Action": "cloudantnosqldb.session.read",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "7d66f494-6c33-3ad6-a9fb-478a37bdddb1"
+  },
+  {
+    "id": "2dbb122f-e2d2-37ba-948d-dfb542bed417",
+    "request": {
+      "url": "/_up",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"status\":\"ok\",\"seeds\":{}}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:09:00 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "54aa03b6b2f86864aeb66bb8880a7410",
+        "X-Cloudant-Action": "cloudantnosqldb.account-up.read",
+        "X-Couch-Request-ID": "54aa03b6b2",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "2dbb122f-e2d2-37ba-948d-dfb542bed417"
+  },
+  {
+    "id": "327b6531-390c-3921-8fa8-2d3a15a5c354",
+    "request": {
+      "url": "/_up",
+      "method": "HEAD"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:59 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "a3174645ff67c7323413c124304c3120",
+        "X-Cloudant-Action": "cloudantnosqldb.account-up.read",
+        "X-Couch-Request-ID": "a3174645ff",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)"
+      }
+    },
+    "uuid": "327b6531-390c-3921-8fa8-2d3a15a5c354"
+  },
+  {
+    "id": "ff71d02c-9458-3cc5-8bda-10ef97e619e0",
+    "request": {
+      "url": "/_uuids?count=1",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"uuids\":[\"4cf311226d91632bf1480e4edeac069e\"]}",
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:31 GMT",
+        "ETag": "W/\"6QFC7LLFUJMXCK2CLNVW17C9T\"",
+        "Expires": "Mon, 01 Jan 1990 00:00:00 GMT",
+        "Pragma": "no-cache",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "7b3d88210d51e4558a56f0a18a17a185",
+        "X-Cloudant-Action": "cloudantnosqldb.account-uuids.read",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "ff71d02c-9458-3cc5-8bda-10ef97e619e0"
+  },
+  {
+    "id": "32a541c3-6915-3b1d-a8d8-26df21c8e3b4",
+    "request": {
+      "url": "/testString",
+      "method": "HEAD"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:34 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "5129cddfb161533246b92249c36bf908",
+        "X-Cloudant-Action": "cloudantnosqldb.database-info.read",
+        "X-Couch-Request-ID": "5129cddfb1",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)"
+      }
+    },
+    "uuid": "32a541c3-6915-3b1d-a8d8-26df21c8e3b4"
+  },
+  {
+    "id": "28948775-8ce7-3d39-88ba-16ef4e7bf6f4",
+    "request": {
+      "url": "/testString/_all_docs/queries",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"queries\": [{}]}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"results\":[\n{\"total_rows\":2,\"offset\":0,\"rows\":[\n{\"id\":\"_design/testString\",\"key\":\"_design/testString\",\"value\":{\"rev\":\"5-be9ac99e964a971214f795dacceba0fe\"}},\n{\"id\":\"testString\",\"key\":\"testString\",\"value\":{\"rev\":\"6-80028e69ea6e259eba0b419c3750128b\"}}\n]}\n]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "content-security-policy": "sandbox",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:36 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "1aa1063b6a539c0dfdc6fdc223e0e30e",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "1aa1063b6a",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "query",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "28948775-8ce7-3d39-88ba-16ef4e7bf6f4"
+  },
+  {
+    "id": "7be40bd0-8e36-3edd-a7b5-e45656e2e5ad",
+    "request": {
+      "url": "/testString/_all_docs",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"total_rows\":2,\"offset\":0,\"rows\":[\n{\"id\":\"_design/testString\",\"key\":\"_design/testString\",\"value\":{\"rev\":\"5-be9ac99e964a971214f795dacceba0fe\"}},\n{\"id\":\"testString\",\"key\":\"testString\",\"value\":{\"rev\":\"6-80028e69ea6e259eba0b419c3750128b\"}}\n]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:35 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "aeee0214122f14bdb09aaca920bfb854",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "aeee021412",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "query",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "7be40bd0-8e36-3edd-a7b5-e45656e2e5ad"
+  },
+  {
+    "id": "28b9ab32-ea1f-3dad-b95b-a7a4d85577a8",
+    "request": {
+      "url": "/testString/_bulk_docs",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "matchesJsonPath": "$.[?(@ == null || @.key1 != null)]",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 201,
+      "body": "[{\"ok\":true,\"id\":\"a40deaed41325036f37b18a5c48e5c5c\",\"rev\":\"1-967a00dff5e02add41819138abb3284d\"}]",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:37 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "3e01e9903d1dc1d839031298207d4698",
+        "X-Cloudant-Action": "cloudantnosqldb.data-document.write",
+        "x-cloudant-cost-write": "1",
+        "X-Couch-Request-ID": "3e01e9903d",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "28b9ab32-ea1f-3dad-b95b-a7a4d85577a8"
+  },
+  {
+    "id": "74cf16a4-75b1-3914-a50d-014650c7140a",
+    "request": {
+      "urlPath": "/testString/_bulk_get",
+      "method": "POST",
+      "queryParameters": {
+        "attachments": {
+          "equalTo": "false"
+        },
+        "latest": {
+          "equalTo": "false"
+        },
+        "revs": {
+          "equalTo": "false"
+        }
+      },
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"docs\": [{\"atts_since\": [\"1-99b02e08da151943c2dcb40090160bb8\"], \"id\": \"testString\"}]}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"results\": [{\"id\": \"testString\", \"docs\": [{\"error\":{\"id\":\"testString\",\"rev\":\"undefined\",\"error\":\"not_found\",\"reason\":\"missing\"}}]}]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:37 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "e007ac087f2f353b5deac55d745bf37d",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "x-cloudant-cost-lookup": "1",
+        "X-Couch-Request-ID": "e007ac087f",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "74cf16a4-75b1-3914-a50d-014650c7140a"
+  },
+  {
+    "id": "020940d2-536c-36f7-9bf8-67b3b3fce208",
+    "request": {
+      "urlPath": "/testString/_changes",
+      "method": "POST",
+      "queryParameters": {
+        "att_encoding_info": {
+            "equalTo": "false"
+        },
+        "attachments": {
+          "equalTo": "false"
+        },
+        "conflicts": {
+          "equalTo": "false"
+        },
+        "descending": {
+          "equalTo": "false"
+        },
+        "feed": {
+          "equalTo": "normal"
+        },
+        "filter": {
+          "equalTo": "testString"
+        },
+        "heartbeat": {
+          "equalTo": "0"
+        },
+        "include_docs": {
+          "equalTo": "false"
+        },
+        "limit": {
+          "equalTo": "0"
+        },
+        "seq_interval": {
+          "equalTo": "1"
+        },
+        "since": {
+          "equalTo": "0"
+        },
+        "style": {
+          "equalTo": "main_only"
+        },
+        "timeout": {
+          "equalTo": "0"
+        },
+        "view": {
+          "equalTo": "testString"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "jsonBody": {
+        "results":[
+          {"seq":"1-g1AAAAT7eJzLYWBgEMhgTmHQTElKzi9KdUhJMjTSS8rVTU7WLS3WTU0sLtE1MNVLzskvTUnMK9HLSy3JAWphSmRI4v___39WIgNIswZcsyURepMEgGSSPDbtZsRoVwBp1wdpz2BOZMgF8tiTks1NU9OMSDAK1V5ivJxkALLXHuFsEoMsyQGk35_sUAsAaY8nO9QSQNrzUUItNTEl1dLAkrahVgCyt57sUMtjAZIMDUAKaEQ_WSEHMWICxIj5ZIUexIgFECPWg0KQERyCholmaUlpqTQNQYjdGyB276ckFA9AzDhPQShegBhxn4JQfAAx4j0iHSZbmAETYhIdQvEDxG5QWswCAAkkmjk","id":"testString","changes":[{"rev":"1-967a00dff5e02add41819138abb3284d"}]},
+          {"seq":"2-g1AAAAZVeJy9lM9NwzAYxQ1F4kg3gCMcEtz8c3yiG8AG4M_-oqpKE0TTM2wAG8AGsAFsABvABnSDYGOJ1LckKL04kpX3fk_fs50TQsazkSInCmR5g1MFk8CHhSelt1p6KJaVR2Nf5uVKiaLyC6xyLdkVBA7qup7PRoIs9MZ-lFBOFetiZLDHf3_zFlQY6xUODVgQV560kR8Z-amTGySLMQs6WLncNsMCarhnTeyOw4ap0Z87uVWKEiQMPO8LA750wGHMMGDYwapHUVeGWzpcFAo55cMWdW24t72LKvb0Su70R1vcN9klywIeZMOWZeEPFv64cVIYC6NUDVqYZT9Z9rNh7_yyJyLJIMNBS7PsF8t-_U9xb9bjvckf80ghhNso7sPCP3u9bNbiy1p8bxy8NNG3BrYw_7Vlm4sz_wEJbgPy","id":"_design/testString","changes":[{"rev":"1-7a60109c85ab05898824bb73aef71884"}]}
+        ],
+        "last_seq":"2-g1AAAAZVeJy9lM9NwzAYxQ1F4kg3gCMcEtz8c3yiG8AG4M_-oqpKE0TTM2wAG8AGsAFsABvABnSDYGOJ1LckKL04kpX3fk_fs50TQsazkSInCmR5g1MFk8CHhSelt1p6KJaVR2Nf5uVKiaLyC6xyLdkVBA7qup7PRoIs9MZ-lFBOFetiZLDHf3_zFlQY6xUODVgQV560kR8Z-amTGySLMQs6WLncNsMCarhnTeyOw4ap0Z87uVWKEiQMPO8LA750wGHMMGDYwapHUVeGWzpcFAo55cMWdW24t72LKvb0Su70R1vcN9klywIeZMOWZeEPFv64cVIYC6NUDVqYZT9Z9rNh7_yyJyLJIMNBS7PsF8t-_U9xb9bjvckf80ghhNso7sPCP3u9bNbiy1p8bxy8NNG3BrYw_7Vlm4sz_wEJbgPy",
+        "pending":0
+      }, 
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:34 GMT",
+        "ETag": "W/\"8DLU1VJV4CEKAI17LB0GT0N6O\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "404db768c41f8545f254f1dfd0ea5629",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "404db768c4",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "020940d2-536c-36f7-9bf8-67b3b3fce208"
+  },
+  {
+    "id": "461288f0-48dd-3060-9313-54cbccd47cad",
+    "request": {
+      "urlPath": "/testString/_design/testString",
+      "method": "PUT",
+      "queryParameters": {
+        "batch": {
+          "equalTo": "ok"
+        },
+        "rev": {
+          "equalTo": "testString"
+        },
+        "new_edits": {
+          "equalTo": "false"
+        }
+      },
+      "bodyPatterns": [
+        {
+          "equalToJson": "{}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 201,
+      "body": "{\"ok\":true,\"id\":\"_design/testString\",\"rev\":\"3-7144018200809db9cf3c818ad73db361\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Wed, 18 May 2022 21:27:49 GMT",
+        "ETag": "W/\"3-7144018200809db9cf3c818ad73db361\"",
+        "Location": "https://84ab8038-d8f1-450c-9645-4d16b448eb31-bluemix.cloudant.com/testString/_design%2FtestString",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "e124a1c51ad9305dc6b7d0c9b221b4e9",
+        "X-Cloudant-Action": "cloudantnosqldb.design-document.write",
+        "X-Couch-Request-ID": "e124a1c51a",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "461288f0-48dd-3060-9313-54cbccd47cad"
+  },
+  {
+    "id": "b03a36c9-109f-32af-a3ce-fe7116672291",
+    "request": {
+      "url": "/testString/_design/testString",
+      "method": "HEAD"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Wed, 18 May 2022 20:45:03 GMT",
+        "ETag": "\"1-967a00dff5e02add41819138abb3284d\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "c44b096c253fb87b996ae27d08075657",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "c44b096c25",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)"
+      }
+    },
+    "uuid": "b03a36c9-109f-32af-a3ce-fe7116672291"
+  },
+  {
+    "id": "fff55e78-260e-3b17-a8cf-1934e090287e",
+    "request": {
+      "urlPath": "/testString/_design/testString",
+      "method": "GET",
+      "queryParameters": {
+        "att_encoding_info": {
+          "equalTo": "false"
+        },
+        "attachments": {
+          "equalTo": "false"
+        },
+        "deleted_conflicts": {
+          "equalTo": "false"
+        },
+        "conflicts": {
+          "equalTo": "false"
+        },
+        "latest": {
+          "equalTo": "false"
+        },
+        "local_seq": {
+          "equalTo": "false"
+        },
+        "meta": {
+          "equalTo": "false"
+        },
+        "rev": {
+          "equalTo": "testString"
+        },
+        "revs": {
+          "equalTo": "false"
+        },
+        "revs_info": {
+          "equalTo": "false"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"_id\":\"_design/testString\",\"_rev\":\"1-967a00dff5e02add41819138abb3284d\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Wed, 18 May 2022 21:14:31 GMT",
+        "ETag": "W/\"1-967a00dff5e02add41819138abb3284d\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "c7fa2320139c35e187a736e478811ae0",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "c7fa232013",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "fff55e78-260e-3b17-a8cf-1934e090287e"
+  },
+  {
+    "id": "720ca71a-295f-3d91-aa44-a7dddf28f915",
+    "request": {
+      "url": "/testString/_design/testString/_info",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"name\":\"testString\",\"view_index\":{\"updates_pending\":{\"minimum\":9,\"preferred\":7,\"total\":9},\"waiting_commit\":false,\"waiting_clients\":0,\"updater_running\":false,\"update_seq\":0,\"sizes\":{\"file\":816,\"external\":0,\"active\":0},\"signature\":\"3e823c2a4383ac0c18d4e574135a5b08\",\"purge_seq\":0,\"language\":\"javascript\",\"compact_running\":false,\"collator_versions\":[\"58.0.6.48\"]}}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "content-security-policy": "sandbox",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:39 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "fd54336e518033cf53162cba352a86bb",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "fd54336e51",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "720ca71a-295f-3d91-aa44-a7dddf28f915"
+  },
+  {
+    "id": "8e817ede-8647-3ada-ab72-58dfc263fc30",
+    "request": {
+      "url": "/testString/_design/testString/_search/testString",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"query\": \"testString\"}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"total_rows\":0,\"bookmark\":\"g2o\",\"rows\":[]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 15:49:53 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "9b54ed06009bf95d8137e21ebc705792",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "9b54ed0600",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "query",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.101.7)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "8e817ede-8647-3ada-ab72-58dfc263fc30"
+  },
+  {
+    "id": "e6c0db1b-cd2e-379e-b7a6-27ec75049831",
+    "request": {
+      "url": "/testString/_design/testString/_search_info/testString",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"name\":\"_design/testString/testString\",\"search_index\":{\"signature\":\"61f0b78b3e5e995c781fdf4314be424d\",\"pending_seq\":2,\"doc_del_count\":0,\"doc_count\":2,\"disk_size\":2919,\"committed_seq\":2}}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 15:53:44 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "3404cc7ff86fd35a4b20916886f83157",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "3404cc7ff8",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.101.7)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "e6c0db1b-cd2e-379e-b7a6-27ec75049831"
+  },
+  {
+    "id": "d3c833ba-4501-3b32-b148-5bd28a803971",
+    "request": {
+      "url": "/testString/_design/testString/_view/testString",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"total_rows\":1,\"offset\":0,\"rows\":[\r\n{\"id\":\"testString\",\"key\":\"testString\",\"value\":1}\r\n]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Wed, 18 May 2022 21:36:38 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "32896eea2831f2fd3e9a395511d1ad9d",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "32896eea28",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "query",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "d3c833ba-4501-3b32-b148-5bd28a803971"
+  },
+  {
+    "id": "c3486bd0-042f-355e-8981-2660f426fc78",
+    "request": {
+      "url": "/testString/_design/testString/_view/testString/queries",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"queries\": [{}]}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"results\":[\r\n{\"total_rows\":1,\"offset\":0,\"rows\":[\r\n{\"id\":\"testString\",\"key\":\"testString\",\"value\":1}\r\n]}\r\n]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Thu, 19 May 2022 21:34:23 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "3dcd8e06f37f2c9447847b215a34c7bc",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "3dcd8e06f3",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "query",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.101.6)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "c3486bd0-042f-355e-8981-2660f426fc78"
+  },
+  {
+    "id": "4620004f-c409-3896-a6a9-8a2dacfa5356",
+    "request": {
+      "urlPath": "/testString/_design/testString",
+      "method": "DELETE",
+      "queryParameters": {
+        "batch": {
+          "equalTo": "ok"
+        },
+        "rev": {
+          "equalTo": "testString"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"ok\":true,\"id\":\"_design/testString\",\"rev\":\"2-111f03850e4f2067647dcc724ded6355\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 23 May 2022 20:45:39 GMT",
+        "ETag": "W/\"4-111f03850e4f2067647dcc724ded6355\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "30bea87f8ef003389fe71c1bdcd9d60c",
+        "X-Cloudant-Action": "cloudantnosqldb.design-document.write",
+        "X-Couch-Request-ID": "30bea87f8e",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "4620004f-c409-3896-a6a9-8a2dacfa5356"
+  },
+  {
+    "id": "e0812d78-e939-3d3b-b4d7-c0ec30388f56",
+    "request": {
+      "url": "/testString/_design_docs",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"total_rows\":1,\"offset\":0,\"rows\":[\r\n{\"id\":\"_design/testString\",\"key\":\"_design/testString\",\"value\":{\"rev\":\"5-be9ac99e964a971214f795dacceba0fe\"}}\r\n]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Tue, 24 May 2022 20:50:44 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "90a04990685e86a438d58f8341c53fbd",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "90a0499068",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "query",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "e0812d78-e939-3d3b-b4d7-c0ec30388f56"
+  },
+  {
+    "id": "30c2e356-94cd-3c5a-b5a0-2396b5bc4eaf",
+    "request": {
+      "url": "/testString/_design_docs/queries",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"queries\": [{}]}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"results\":[\r\n{\"total_rows\":1,\"offset\":0,\"rows\":[\r\n{\"id\":\"_design/testString\",\"key\":\"_design/testString\",\"value\":{\"rev\":\"5-be9ac99e964a971214f795dacceba0fe\"}}\r\n]}\r\n]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "content-security-policy": "sandbox",
+        "Content-Type": "application/json",
+        "Date": "Tue, 24 May 2022 20:53:32 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "abf1f943184e48e3667be3cc7bfecd92",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "abf1f94318",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "query",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "30c2e356-94cd-3c5a-b5a0-2396b5bc4eaf"
+  },
+  {
+    "id": "83a8375b-20e0-36b2-ba07-cbc994140f3e",
+    "request": {
+      "url": "/testString/_explain",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"bookmark\" : \"testString\", \"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"testString\" ], \"limit\" : 0, \"r\" : 1, \"selector\" : { }, \"skip\" : 0, \"sort\" : [ { } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"dbname\":\"account-bluemix/testString\",\"index\":{\"ddoc\":null,\"name\":\"_all_docs\",\"type\":\"special\",\"def\":{\"fields\":[{\"_id\":\"asc\"}]}},\"partitioned\":\"undefined\",\"selector\":{\"key1\":{\"$eq\":\"testString\"}},\"opts\":{\"use_index\":[],\"bookmark\":\"nil\",\"limit\":10000000000,\"skip\":0,\"sort\":{},\"fields\":[\"testString\"],\"partition\":\"\",\"r\":[49],\"conflicts\":false,\"stale\":false,\"update\":true,\"stable\":false,\"execution_stats\":false},\"limit\":10000000000,\"skip\":0,\"fields\":[\"testString\"],\"mrargs\":{\"include_docs\":true,\"view_type\":\"map\",\"reduce\":false,\"partition\":null,\"start_key\":null,\"end_key\":\"<MAX>\",\"direction\":\"fwd\",\"stable\":false,\"update\":true,\"conflicts\":\"undefined\"}}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:45 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "5db5f421aa87d09bf677dab0df8b409b",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "5db5f421aa",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "query",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "83a8375b-20e0-36b2-ba07-cbc994140f3e"
+  },
+  {
+    "id": "e63e760d-4bad-31e3-865c-4d4e2c3ab28a",
+    "request": {
+      "url": "/testString/_find",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"bookmark\" : \"testString\", \"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"testString\" ], \"limit\" : 0, \"r\" : 1, \"selector\" : { }, \"skip\" : 0, \"sort\" : [ { } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"docs\":[\r\n],\r\n\"bookmark\": \"nil\",\r\n\"warning\": \"No matching index found, create an index to optimize query time.\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:44 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "131553237ddf5d488049455ff3c78c24",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "131553237d",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "query",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "e63e760d-4bad-31e3-865c-4d4e2c3ab28a"
+  },
+  {
+    "id": "0aae4e1b-4552-3154-8b80-76bd1e4fe0a4",
+    "request": {
+      "urlPattern": "/testString/_index/_design/(.*)/json/(.*)",
+      "method": "DELETE"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"ok\":true}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 23 May 2022 20:26:34 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "bdcc11a6e2426df69ea7f0dedeb61dc4",
+        "X-Cloudant-Action": "cloudantnosqldb.design-document.write",
+        "X-Couch-Request-ID": "bdcc11a6e2",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "query",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "0aae4e1b-4552-3154-8b80-76bd1e4fe0a4"
+  },
+  {
+    "id": "8a7e9c07-5c90-37ff-a9ed-4374e25145ea",
+    "request": {
+      "url": "/testString/_index",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"total_rows\":2,\"indexes\":[{\"ddoc\":null,\"name\":\"_all_docs\",\"type\":\"special\",\"def\":{\"fields\":[{\"_id\":\"asc\"}]}},{\"ddoc\":\"_design/3fa64f0768edfd1dd7ec862c7415b3fe8138b393\",\"name\":\"3fa64f0768edfd1dd7ec862c7415b3fe8138b393\",\"type\":\"json\",\"partitioned\":false,\"def\":{\"fields\":[{\"_id\":\"asc\"}]}}]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 23 May 2022 20:24:06 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "fb5312b548be009f9658ad7343f24efb",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "fb5312b548",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "query",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "8a7e9c07-5c90-37ff-a9ed-4374e25145ea"
+  },
+  {
+    "id": "6026c807-3ad5-3944-a4cc-6a4906aaefd3",
+    "request": {
+      "url": "/testString/_index",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"index\": {}}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"result\":\"created\",\"id\":\"_design/3fa64f0768edfd1dd7ec862c7415b3fe8138b393\",\"name\":\"3fa64f0768edfd1dd7ec862c7415b3fe8138b393\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 15:42:53 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "b4c0baceee481be0eb2174c4a9962c58",
+        "X-Cloudant-Action": "cloudantnosqldb.design-document.write",
+        "X-Couch-Request-ID": "b4c0baceee",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "query",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.7)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "6026c807-3ad5-3944-a4cc-6a4906aaefd3"
+  },
+  {
+    "id": "c8bd56cb-8f5b-3521-80a9-75231b5a5069",
+    "request": {
+      "urlPath": "/testString/_local/testString",
+      "method": "PUT",
+      "queryParameters": {
+        "batch": {
+          "equalTo": "ok"
+        }
+      },
+      "bodyPatterns": [
+        {
+          "equalToJson": "{}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 201,
+      "body": "{\"ok\":true,\"id\":\"_local/testString\",\"rev\":\"0-1\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 18:32:13 GMT",
+        "ETag": "W/\"5ZVXQYO7VLEOU0TL9VXDNP5PV\"",
+        "Location": "https://84ab8038-d8f1-450c-9645-4d16b448eb31-bluemix.cloudant.com/testString/_local%2FtestString",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "6cb9599b2c12bc8ca784be001ad71f92",
+        "X-Cloudant-Action": "cloudantnosqldb.local-document.write",
+        "X-Couch-Request-ID": "6cb9599b2c",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "c8bd56cb-8f5b-3521-80a9-75231b5a5069"
+  },
+  {
+    "id": "e2fa7386-36e2-36f0-ad24-0b3e7ebd3585",
+    "request": {
+      "url": "/testString/_local/testString",
+      "method": "HEAD"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 18:34:22 GMT",
+        "ETag": "\"5ZVXQYO7VLEOU0TL9VXDNP5PV\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "0acbffcb1d8029d190789dddd3521397",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "0acbffcb1d",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)"
+      }
+    },
+    "uuid": "e2fa7386-36e2-36f0-ad24-0b3e7ebd3585"
+  },
+  {
+    "id": "825527a5-47ec-355d-b00a-0877fbb0a29e",
+    "request": {
+      "urlPath": "/testString/_local/testString",
+      "method": "DELETE",
+      "queryParameters": {
+        "batch": {
+          "equalTo": "ok"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"ok\":true,\"id\":\"_local/testString\",\"rev\":\"0-0\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:09:08 GMT",
+        "ETag": "W/\"DKGUB9HWEX2KQNSCSMV0JG1KK\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "758b33bb54b870dde75c57382a6bc1b6",
+        "X-Cloudant-Action": "cloudantnosqldb.local-document.write",
+        "X-Couch-Request-ID": "758b33bb54",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "825527a5-47ec-355d-b00a-0877fbb0a29e"
+  },
+  {
+    "id": "a169db5c-1dd0-3bd6-a373-5422ecfd1509",
+    "request": {
+      "urlPath": "/testString/_local/testString",
+      "method": "GET",
+      "queryParameters": {
+        "att_encoding_info": {
+          "equalTo": "false"
+        },
+        "attachments": {
+          "equalTo": "false"
+        },
+        "local_seq": {
+          "equalTo": "false"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"_id\":\"_local/testString\",\"_rev\":\"0-1\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 18:34:22 GMT",
+        "ETag": "W/\"5ZVXQYO7VLEOU0TL9VXDNP5PV\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "eb9e1ce6c4a1d44b41dea28aa5136d02",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "eb9e1ce6c4",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "a169db5c-1dd0-3bd6-a373-5422ecfd1509"
+  },
+  {
+    "id": "af6271d1-4985-3dc8-9662-501d6a81d30d",
+    "request": {
+      "url": "/testString/_partition/testString",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"db_name\":\"account-bluemix/testString\",\"sizes\":{\"active\":39,\"external\":2},\"partition\":\"testString\",\"doc_count\":1,\"doc_del_count\":0}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "content-security-policy": "sandbox",
+        "Content-Type": "application/json",
+        "Date": "Thu, 19 May 2022 22:19:26 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "9a31e19b4ed0ae92c12fdae6b2cfd5da",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "9a31e19b4e",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.101.6)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "af6271d1-4985-3dc8-9662-501d6a81d30d"
+  },
+  {
+    "id": "2c580fc6-7377-38e3-8356-c7f2a36cad84",
+    "request": {
+      "url": "/testString/_partition/testString/_all_docs",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"total_rows\":1,\"offset\":0,\"rows\":[\r\n{\"id\":\"testString:testString\",\"key\":\"testString:testString\",\"value\":{\"rev\":\"1-967a00dff5e02add41819138abb3284d\"}}\r\n]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Thu, 19 May 2022 22:20:22 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "3a686f700406d04e7fb1ace02dc471bc",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "3a686f7004",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.101.6)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "2c580fc6-7377-38e3-8356-c7f2a36cad84"
+  },
+  {
+    "id": "7d36c625-d941-34ba-99bb-519bd6ca923f",
+    "request": {
+      "url": "/testString/_partition/testString/_design/testString/_search/testString",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"query\": \"testString\"}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"total_rows\":0,\"bookmark\":\"g2o\",\"rows\":[]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Thu, 19 May 2022 22:15:39 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "17165e96850d9d0e13b1278163366b94",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "17165e9685",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.6)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "7d36c625-d941-34ba-99bb-519bd6ca923f"
+  },
+  {
+    "id": "ecaf4992-8865-3623-86d5-9181c46ed721",
+    "request": {
+      "url": "/testString/_partition/testString/_design/testString/_view/testString",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"total_rows\":1,\"offset\":0,\"rows\":[\r\n{\"id\":\"testString:testString\",\"key\":\"testString:testString\",\"value\":1}\r\n]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Thu, 19 May 2022 22:23:18 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "690674ef064cae7a0cd532056e85622c",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "690674ef06",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.101.6)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "ecaf4992-8865-3623-86d5-9181c46ed721"
+  },
+  {
+    "id": "337c4338-3094-3c88-a44e-981e449b1d7a",
+    "request": {
+      "url": "/testString/_partition/testString/_find",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"bookmark\" : \"testString\",\"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"testString\" ], \"limit\" : 0, \"selector\" : { }, \"skip\" : 0, \"sort\" : [ { } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"docs\":[\r\n],\r\n\"bookmark\": \"nil\",\r\n\"warning\": \"No matching index found, create an index to optimize query time.\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Thu, 19 May 2022 22:26:19 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "5ebc08e24c058f8a9d9793c32c226bf3",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "5ebc08e24c",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.6)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "337c4338-3094-3c88-a44e-981e449b1d7a"
+  },
+  {
+    "id": "acadaa2a-bebd-3daf-987b-a8eacc2227e0",
+    "request": {
+      "url": "/testString/_revs_diff",
+      "method": "POST",
+      "bodyPatterns": [
+        {
+          "matchesJsonPath": "$.[?(@ == null || @.key1 != null)]",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"key1\":{\"missing\":[\"1-testString\"]}}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 18:40:13 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "295ee11482f22ffa973e81daf2613898",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "295ee11482",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "acadaa2a-bebd-3daf-987b-a8eacc2227e0"
+  },
+  {
+    "id": "60056468-bcb5-3b3f-9815-bf4c95c623b4",
+    "request": {
+      "url": "/testString/_security",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:51 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "5d8b354c95486f5a0f06200096ca5612",
+        "X-Cloudant-Action": "cloudantnosqldb.database-security.read",
+        "X-Couch-Request-ID": "5d8b354c95",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "60056468-bcb5-3b3f-9815-bf4c95c623b4"
+  },
+  {
+    "id": "28ac8e52-0af2-37e5-b22e-558da950be34",
+    "request": {
+      "url": "/testString/_security",
+      "method": "PUT",
+      "bodyPatterns": [
+        {
+          "equalToJson": "{}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"ok\":true}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:51 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "a3973a0f6fe6cba29ecb9647fae801f3",
+        "X-Cloudant-Action": "cloudantnosqldb.database-security.write",
+        "X-Couch-Request-ID": "a3973a0f6f",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "28ac8e52-0af2-37e5-b22e-558da950be34"
+  },
+  {
+    "id": "b8c0e06d-17c2-3810-9377-7c219ebe3dd9",
+    "request": {
+      "url": "/testString/_shards",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"shards\":{\"00000000-0fffffff\":[\"dbcore@db1.bm-cc-us-east-05.cloudant.net\",\"dbcore@db10.bm-cc-us-east-05.cloudant.net\",\"dbcore@db12.bm-cc-us-east-05.cloudant.net\"],\"10000000-1fffffff\":[\"dbcore@db7.bm-cc-us-east-05.cloudant.net\",\"dbcore@db8.bm-cc-us-east-05.cloudant.net\",\"dbcore@db9.bm-cc-us-east-05.cloudant.net\"],\"20000000-2fffffff\":[\"dbcore@db4.bm-cc-us-east-05.cloudant.net\",\"dbcore@db5.bm-cc-us-east-05.cloudant.net\",\"dbcore@db6.bm-cc-us-east-05.cloudant.net\"],\"30000000-3fffffff\":[\"dbcore@db11.bm-cc-us-east-05.cloudant.net\",\"dbcore@db2.bm-cc-us-east-05.cloudant.net\",\"dbcore@db3.bm-cc-us-east-05.cloudant.net\"],\"40000000-4fffffff\":[\"dbcore@db1.bm-cc-us-east-05.cloudant.net\",\"dbcore@db10.bm-cc-us-east-05.cloudant.net\",\"dbcore@db12.bm-cc-us-east-05.cloudant.net\"],\"50000000-5fffffff\":[\"dbcore@db7.bm-cc-us-east-05.cloudant.net\",\"dbcore@db8.bm-cc-us-east-05.cloudant.net\",\"dbcore@db9.bm-cc-us-east-05.cloudant.net\"],\"60000000-6fffffff\":[\"dbcore@db4.bm-cc-us-east-05.cloudant.net\",\"dbcore@db5.bm-cc-us-east-05.cloudant.net\",\"dbcore@db6.bm-cc-us-east-05.cloudant.net\"],\"70000000-7fffffff\":[\"dbcore@db11.bm-cc-us-east-05.cloudant.net\",\"dbcore@db2.bm-cc-us-east-05.cloudant.net\",\"dbcore@db3.bm-cc-us-east-05.cloudant.net\"],\"80000000-8fffffff\":[\"dbcore@db1.bm-cc-us-east-05.cloudant.net\",\"dbcore@db10.bm-cc-us-east-05.cloudant.net\",\"dbcore@db12.bm-cc-us-east-05.cloudant.net\"],\"90000000-9fffffff\":[\"dbcore@db7.bm-cc-us-east-05.cloudant.net\",\"dbcore@db8.bm-cc-us-east-05.cloudant.net\",\"dbcore@db9.bm-cc-us-east-05.cloudant.net\"],\"a0000000-afffffff\":[\"dbcore@db4.bm-cc-us-east-05.cloudant.net\",\"dbcore@db5.bm-cc-us-east-05.cloudant.net\",\"dbcore@db6.bm-cc-us-east-05.cloudant.net\"],\"b0000000-bfffffff\":[\"dbcore@db11.bm-cc-us-east-05.cloudant.net\",\"dbcore@db2.bm-cc-us-east-05.cloudant.net\",\"dbcore@db3.bm-cc-us-east-05.cloudant.net\"],\"c0000000-cfffffff\":[\"dbcore@db1.bm-cc-us-east-05.cloudant.net\",\"dbcore@db10.bm-cc-us-east-05.cloudant.net\",\"dbcore@db12.bm-cc-us-east-05.cloudant.net\"],\"d0000000-dfffffff\":[\"dbcore@db7.bm-cc-us-east-05.cloudant.net\",\"dbcore@db8.bm-cc-us-east-05.cloudant.net\",\"dbcore@db9.bm-cc-us-east-05.cloudant.net\"],\"e0000000-efffffff\":[\"dbcore@db4.bm-cc-us-east-05.cloudant.net\",\"dbcore@db5.bm-cc-us-east-05.cloudant.net\",\"dbcore@db6.bm-cc-us-east-05.cloudant.net\"],\"f0000000-ffffffff\":[\"dbcore@db11.bm-cc-us-east-05.cloudant.net\",\"dbcore@db2.bm-cc-us-east-05.cloudant.net\",\"dbcore@db3.bm-cc-us-east-05.cloudant.net\"]}}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:59 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "c7a84aa69921ef4072d42ec31b0d3db3",
+        "X-Cloudant-Action": "cloudantnosqldb.database-shards.read",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "b8c0e06d-17c2-3810-9377-7c219ebe3dd9"
+  },
+  {
+    "id": "d20bae36-5d48-3bf4-b14d-e954b7869d55",
+    "request": {
+      "url": "/testString/_shards/testString",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"range\":\"10000000-1fffffff\",\"nodes\":[\"dbcore@db7.bm-cc-us-east-05.cloudant.net\",\"dbcore@db8.bm-cc-us-east-05.cloudant.net\",\"dbcore@db9.bm-cc-us-east-05.cloudant.net\"]}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "content-security-policy": "sandbox",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:59 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "b2f00c238f9bd4ffa701399e34d9bf54",
+        "X-Cloudant-Action": "cloudantnosqldb.database-shards.read",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "d20bae36-5d48-3bf4-b14d-e954b7869d55"
+  },
+  {
+    "id": "d317807f-250c-3abd-804d-34e98eebdad8",
+    "request": {
+      "urlPath": "/testString",
+      "method": "POST",
+      "queryParameters": {
+        "batch": {
+          "equalTo": "ok"
+        }
+      }
+    },
+    "response": {
+      "status": 201,
+      "body": "{\"ok\":true,\"id\":\"a27fe29f38cf3cf647d8575585706955\",\"rev\":\"1-967a00dff5e02add41819138abb3284d\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Wed, 18 May 2022 17:07:57 GMT",
+        "Location": "https://ACCOUNT.cloudant.com/testString/a27fe29f38cf3cf647d8575585706955",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "efbd92438c668c8d821a454cf4e27223",
+        "X-Cloudant-Action": "cloudantnosqldb.data-document.write",
+        "X-Couch-Request-ID": "efbd92438c",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "d317807f-250c-3abd-804d-34e98eebdad8"
+  },
+  {
+    "id": "a2bd99a8-d38d-3c23-8e98-40d6cd029ff1",
+    "request": {
+      "url": "/testString",
+      "method": "DELETE"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"ok\":true}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:09:10 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "992526e30a13656ec4e93001efa2eb7c",
+        "X-Cloudant-Action": "cloudantnosqldb.database.delete",
+        "X-Couch-Request-ID": "992526e30a",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "a2bd99a8-d38d-3c23-8e98-40d6cd029ff1"
+  },
+  {
+    "id": "660a0142-29dd-3918-a4aa-f77527e358c2",
+    "request": {
+      "url": "/testString",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"update_seq\":\"5-g1AAAAereJy91M1NwzAYgGFDkTjSDeAIhwTHSfxzohvABuDPdlRVbYNoeoYNYAPYADaADWAD2AA2ABtXpL4lSG4OiRQl36PkjTNFCA3HA40ONaj6yow0kBRmiVLJcpEYuWgSXKZqWi-1nDfp3DRTe8f2fMfu0Zc9fNttMh5INLMndnNpqNJlj3GhTTvbH97-bG3FqTYCeowLbdHZfvP2e2sTJQpamB7jnH30d3HW_aW_ePzV4Vu_eCkKbSDvM--_xZ88_ryG84xkQm6g-IO3H1s7k7SCymyg-J2379vimrG84HoTxW88frv2qbOKCFLFLQ6Xdg_Xq_W9qo1pmQsetTZcOLcO_itG2qWNRdTScObc8_B_VjJDWOR1DSMHnwaw5kaBgsiFsYNPgsKEcsI1i1v4wLnHwQODYqWpSNzCQ-fuBy7DojBExS0sEewFakGxwO4tdx80-QEwjmuB\",\"instance_start_time\":\"1637834313\",\"db_name\":\"testdb\",\"purge_seq\":0,\"sizes\":{\"file\":240670,\"external\":79,\"active\":7240},\"props\":{},\"doc_del_count\":0,\"doc_count\":5,\"disk_format_version\":8,\"compact_running\":false,\"cluster\":{\"q\":16,\"n\":3,\"w\":2,\"r\":2}}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:34 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "09ea19385a69e38e5ee30e9e87cb6062",
+        "X-Cloudant-Action": "cloudantnosqldb.database-info.read",
+        "X-Couch-Request-ID": "09ea19385a",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "unlimited",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "660a0142-29dd-3918-a4aa-f77527e358c2"
+  },
+  {
+    "id": "939b8665-cf55-3a05-a46d-c208bcc4ada6",
+    "request": {
+      "urlPath": "/testString",
+      "method": "PUT",
+      "queryParameters": {
+        "partitioned": {
+          "equalTo": "false"
+        },
+        "q": {
+          "equalTo": "26"
+        }
+      }
+    },
+    "response": {
+      "status": 201,
+      "body": "{\"ok\":true}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Wed, 18 May 2022 16:56:10 GMT",
+        "Location": "https://account-bluemix.cloudant.com/testString",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "06ec2ee90406a602224231b8ab7d19aa",
+        "X-Cloudant-Action": "cloudantnosqldb.database.create",
+        "X-Couch-Request-ID": "06ec2ee904",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "939b8665-cf55-3a05-a46d-c208bcc4ada6"
+  },
+  {
+    "id": "33f0d8ac-56f3-3a18-9366-761dcb30158f",
+    "request": {
+      "urlPath": "/testString/testString",
+      "method": "DELETE",
+      "queryParameters": {
+        "batch": {
+          "equalTo": "ok"
+        },
+        "rev": {
+          "equalTo": "testString"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"ok\":true,\"id\":\"testString\",\"rev\":\"2-49754e12a5d2cbe03c4118bad6709779\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 23 May 2022 20:31:45 GMT",
+        "ETag": "W/\"2-49754e12a5d2cbe03c4118bad6709779\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "6beab9bf70a274822c5bcf7dee330078",
+        "X-Cloudant-Action": "cloudantnosqldb.data-document.write",
+        "X-Couch-Request-ID": "6beab9bf70",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "33f0d8ac-56f3-3a18-9366-761dcb30158f"
+  },
+  {
+    "id": "ae2f6256-c33c-3e1a-9ed6-d16762069a0c",
+    "request": {
+      "urlPath": "/testString/testString",
+      "method": "GET",
+      "queryParameters": {
+        "att_encoding_info": {
+          "equalTo": "false"
+        },
+        "attachments": {
+          "equalTo": "false"
+        },
+        "local_seq": {
+          "equalTo": "false"
+        },
+        "deleted_conflicts": {
+          "equalTo": "false"
+        },
+        "conflicts": {
+          "equalTo": "false"
+        },
+        "latest": {
+          "equalTo": "false"
+        },
+        "meta": {
+          "equalTo": "false"
+        },
+        "rev": {
+          "equalTo": "testString"
+        },
+        "revs": {
+          "equalTo": "false"
+        },
+        "revs_info": {
+          "equalTo": "false"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"_id\":\"testString\",\"_rev\":\"3-5570e8bbb34412db757c2df4bfa1099b\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Wed, 18 May 2022 17:09:08 GMT",
+        "ETag": "W/\"3-5570e8bbb34412db757c2df4bfa1099b\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "bb234d40f358cc0ee3e8317890e8f065",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "bb234d40f3",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "ae2f6256-c33c-3e1a-9ed6-d16762069a0c"
+  },
+  {
+    "id": "559c7479-f8d9-3c89-a91d-6f34122908ed",
+    "request": {
+      "url": "/testString/testString?latest=false&rev=testString",
+      "method": "HEAD"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 16 May 2022 21:08:35 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "845550d983dcdb781e95385d4f92d4af",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "845550d983",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.101.5)"
+      }
+    },
+    "uuid": "559c7479-f8d9-3c89-a91d-6f34122908ed"
+  },
+  {
+    "id": "aed0b4bd-1c80-35b2-b8f9-7da76c4cda69",
+    "request": {
+      "url": "/testString/testString/testString?rev=testString",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "body": "This is a mock file.",
+      "headers": {
+        "Accept-Ranges": "none",
+        "Cache-Control": "must-revalidate",
+        "Content-MD5": "Vtnbf/a1yLJ4pm/eEB6fHA==",
+        "content-security-policy": "sandbox",
+        "Content-Type": "application/octet-stream",
+        "Date": "Fri, 20 May 2022 18:27:25 GMT",
+        "ETag": "\"Vtnbf/a1yLJ4pm/eEB6fHA==\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "ecd7339c8a26c3ed107b5284eb15a76b",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "ecd7339c8a",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)"
+      }
+    },
+    "uuid": "aed0b4bd-1c80-35b2-b8f9-7da76c4cda69"
+  },
+  {
+    "id": "efe03f6b-9784-3cd8-a4d3-ba2020661353",
+    "request": {
+      "url": "/testString/testString/testString?rev=testString",
+      "method": "PUT",
+      "bodyPatterns": [
+        {
+          "equalTo": "This is a mock file."
+        }
+      ]
+    },
+    "response": {
+      "status": 201,
+      "body": "{\"ok\":true,\"id\":\"testString\",\"rev\":\"1-23085a965a5e50b32b00e57deb062932\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 18:25:16 GMT",
+        "Location": "https://84ab8038-d8f1-450c-9645-4d16b448eb31-bluemix.cloudant.com/testString/testString/testString",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "4326af6ec28e12fcf8eca683ba57da8e",
+        "X-Cloudant-Action": "cloudantnosqldb.data-document.write",
+        "X-Couch-Request-ID": "4326af6ec2",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "efe03f6b-9784-3cd8-a4d3-ba2020661353"
+  },
+  {
+    "id": "ecfbef48-33ff-30fe-b848-d09c6c472eac",
+    "request": {
+      "url": "/testString/testString/testString?rev=testString",
+      "method": "HEAD"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Accept-Ranges": "none",
+        "Cache-Control": "must-revalidate",
+        "Content-MD5": "Vtnbf/a1yLJ4pm/eEB6fHA==",
+        "content-security-policy": "sandbox",
+        "Content-Type": "application/octet-stream",
+        "Date": "Fri, 20 May 2022 18:26:53 GMT",
+        "ETag": "\"Vtnbf/a1yLJ4pm/eEB6fHA==\"",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "4e77768c5d87bc873bbcc11961504516",
+        "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+        "X-Couch-Request-ID": "4e77768c5d",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "lookup",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)"
+      }
+    },
+    "uuid": "ecfbef48-33ff-30fe-b848-d09c6c472eac"
+  },
+  {
+    "id": "bf49e660-6802-3a7c-9975-5e451f4e1204",
+    "request": {
+      "urlPath": "/testString/testString/testString",
+      "method": "DELETE",
+      "queryParameters": {
+        "batch": {
+          "equalTo": "ok"
+        },
+        "rev": {
+          "equalTo": "testString"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"ok\":true,\"id\":\"testString\",\"rev\":\"4-6705bb55c13a40bb465ab96fd810d996\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Mon, 23 May 2022 20:59:10 GMT",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "b00e9dd9c3835c3ca04049cc2c3deaeb",
+        "X-Cloudant-Action": "cloudantnosqldb.data-document.write",
+        "X-Couch-Request-ID": "b00e9dd9c3",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "bf49e660-6802-3a7c-9975-5e451f4e1204"
+  },
+  {
+    "id": "5a60a196-eed3-33f2-9507-d6276639e89e",
+    "request": {
+      "urlPath": "/testString/testString",
+      "method": "PUT",
+      "queryParameters": {
+        "batch": {
+          "equalTo": "ok"
+        },
+        "rev": {
+          "equalTo": "testString"
+        },
+        "new_edits": {
+          "equalTo": "false"
+        }
+      },
+      "bodyPatterns": [
+        {
+          "equalToJson": "{}",
+          "ignoreArrayOrder": true,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 201,
+      "body": "{\"ok\":true,\"id\":\"testString\",\"rev\":\"2-80028e69ea6e259eba0b419c3750128b\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Wed, 25 May 2022 19:15:19 GMT",
+        "ETag": "W/\"6-80028e69ea6e259eba0b419c3750128b\"",
+        "Location": "https://84ab8038-d8f1-450c-9645-4d16b448eb31-bluemix.cloudant.com/testString/testString",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "0d39f720ff6eca60e344f22d000060c5",
+        "X-Cloudant-Action": "cloudantnosqldb.data-document.write",
+        "X-Couch-Request-ID": "0d39f720ff",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb2.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "5a60a196-eed3-33f2-9507-d6276639e89e"
+  }
+]}
