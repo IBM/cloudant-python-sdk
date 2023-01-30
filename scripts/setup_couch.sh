@@ -2,7 +2,7 @@
 
 set -ev
 
-printenv | grep "^SERVER_" > cloudant.env
+printenv | grep "^SERVER_" >> cloudant_v1.env
 # if you change the image version please regenerate example output captures
 # use image at ARTIFACTORY_DOCKER_REPO_VIRTUAL registry if set, otherwise use default registry
 docker start couchdb || docker run --name couchdb --rm -e COUCHDB_USER="$SERVER_USERNAME" -e COUCHDB_PASSWORD="$SERVER_PASSWORD" -p 5984:5984 -d ${ARTIFACTORY_DOCKER_REPO_VIRTUAL:+${ARTIFACTORY_DOCKER_REPO_VIRTUAL}/}apache/couchdb:3
