@@ -1,0 +1,37 @@
+ibmcloudant package
+===================
+
+Submodules
+----------
+
+ibmcloudant.cloudant\_v1 module
+-------------------------------
+
+.. automodule:: ibmcloudant.cloudant_v1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ibmcloudant.couchdb\_session\_authenticator module
+--------------------------------------------------
+
+.. automodule:: ibmcloudant.couchdb_session_authenticator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ibmcloudant.couchdb\_session\_token\_manager module
+---------------------------------------------------
+
+.. automodule:: ibmcloudant.couchdb_session_token_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: ibmcloudant
+   :members:
+   :undoc-members:
+   :show-inheritance:
