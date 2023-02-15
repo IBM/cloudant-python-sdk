@@ -65,6 +65,20 @@ pipeline {
         }
       }
     }
+    stage('SonarQube analysis') {
+      environment {
+        scannerHome = tool 'SonarQubeScanner'
+      }
+      // Scanning runs only on non-dependabot branches
+      when {
+        not {
+          branch 'dependabot/*'
+        }
+      }
+      steps {
+        scanCode()
+      }
+    }
     stage('Publish[staging]') {
       environment {
         STAGE_ROOT = "${ARTIFACTORY_URL_UP}/api/"
@@ -173,6 +187,7 @@ def publishArtifactoryBuildInfoScript
 def artifactUrl
 def moduleId
 def buildType
+def scanCode
 
 void defaultInit() {
   // Default to using bump2version
@@ -245,6 +260,12 @@ void defaultInit() {
       serverId: 'taas-artifactory-upload'
     )
     publishArtifactoryBuildInfoScript()
+  }
+
+  scanCode = {
+    withSonarQubeEnv(installationName: 'SonarQubeServer') {
+      sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.projectKey=cloudant-${libName}-sdk -Dsonar.branch.name=${env.BRANCH_NAME}"
+    }
   }
 }
 
