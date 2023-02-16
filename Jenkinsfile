@@ -9,7 +9,7 @@ pipeline {
                       defaultValue: 'NONE',
                       description: 'Tag to create after successful QA',
                       failedValidationMessage: 'Tag name must be NONE or a semantic version release or pre-release (i.e. no build metadata)',
-                      regex: /NONE|${SVRE_PRE_RELEASE}/)
+                      regex: /NONE|${globals.SVRE_PRE_RELEASE}/)
   }
   environment {
     GH_CREDS = credentials('gh-sdks-automation')
