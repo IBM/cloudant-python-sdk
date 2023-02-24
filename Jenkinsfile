@@ -264,7 +264,7 @@ void defaultInit() {
 
   scanCode = {
     withSonarQubeEnv(installationName: 'SonarQubeServer') {
-      sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.projectKey=cloudant-${libName}-sdk -Dsonar.branch.name=${env.BRANCH_NAME} -Dsonar.exclusions=examples/**"
+      sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.qualitygate.wait=true -Dsonar.projectKey=cloudant-${libName}-sdk -Dsonar.branch.name=${env.BRANCH_NAME} -Dsonar.exclusions=examples/**"
     }
   }
 }
