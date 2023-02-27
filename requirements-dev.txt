@@ -7,7 +7,7 @@ tox==4.4.6
 pytest-rerunfailures==11.1.1
 
 # code coverage
-coverage==7.2.0
+coverage==7.2.1
 pytest-cov==4.0.0
 
 # documentation
