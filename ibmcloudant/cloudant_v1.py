@@ -3944,7 +3944,6 @@ class CloudantV1(BaseService):
         key: object = None,
         keys: List[object] = None,
         reduce: bool = None,
-        stable: bool = None,
         start_key: object = None,
         start_key_doc_id: str = None,
         update: str = None,
@@ -4007,15 +4006,6 @@ class CloudantV1(BaseService):
         :param bool reduce: (optional) Parameter to specify whether to use the
                reduce function in a map-reduce view. Default is true when a reduce
                function is defined.
-        :param bool stable: (optional) Query parameter to specify whether use the
-               same replica of  the index on each request. The default value `false`
-               contacts all  replicas and returns the result from the first, fastest,
-               responder. Setting it to `true` when used in conjunction with
-               `update=false`  may improve consistency at the expense of increased latency
-               and decreased throughput if the selected replica is not the fastest of the
-               available  replicas.
-               **Note:** In general setting `true` is discouraged and is strictly not
-               recommended when using `update=true`.
         :param object start_key: (optional) Schema for any JSON type.
         :param str start_key_doc_id: (optional) Schema for a document ID.
         :param str update: (optional) Parameter to specify whether or not the view
@@ -4060,7 +4050,6 @@ class CloudantV1(BaseService):
             'key': key,
             'keys': keys,
             'reduce': reduce,
-            'stable': stable,
             'start_key': start_key,
             'start_key_doc_id': start_key_doc_id,
             'update': update,
@@ -4109,7 +4098,6 @@ class CloudantV1(BaseService):
         key: object = None,
         keys: List[object] = None,
         reduce: bool = None,
-        stable: bool = None,
         start_key: object = None,
         start_key_doc_id: str = None,
         update: str = None,
@@ -4172,15 +4160,6 @@ class CloudantV1(BaseService):
         :param bool reduce: (optional) Parameter to specify whether to use the
                reduce function in a map-reduce view. Default is true when a reduce
                function is defined.
-        :param bool stable: (optional) Query parameter to specify whether use the
-               same replica of  the index on each request. The default value `false`
-               contacts all  replicas and returns the result from the first, fastest,
-               responder. Setting it to `true` when used in conjunction with
-               `update=false`  may improve consistency at the expense of increased latency
-               and decreased throughput if the selected replica is not the fastest of the
-               available  replicas.
-               **Note:** In general setting `true` is discouraged and is strictly not
-               recommended when using `update=true`.
         :param object start_key: (optional) Schema for any JSON type.
         :param str start_key_doc_id: (optional) Schema for a document ID.
         :param str update: (optional) Parameter to specify whether or not the view
@@ -4225,7 +4204,6 @@ class CloudantV1(BaseService):
             'key': key,
             'keys': keys,
             'reduce': reduce,
-            'stable': stable,
             'start_key': start_key,
             'start_key_doc_id': start_key_doc_id,
             'update': update,
@@ -7741,17 +7719,71 @@ class ActiveTask():
     """
     Schema for information about a running task.
 
-    :attr int changes_done: (optional) Processed changes.
+    :attr int bulk_get_attempts: (optional) The total count of attempted doc
+          revisions fetched with `_bulk_get`. Available for `replication` type tasks.
+    :attr int bulk_get_docs: (optional) The total count of successful docs fetched
+          with `_bulk_get`. Available for `replication` type tasks.
+    :attr int changes_done: (optional) Processed changes. Available for
+          `database_compaction`, `indexer`, `search_indexer`, `view_compaction` type
+          tasks.
+    :attr int changes_pending: (optional) The count of changes not yet replicated.
+          Available for `replication` type tasks.
+    :attr int checkpoint_interval: (optional) Specifies the checkpoint interval in
+          ms. Available for `replication` type tasks.
+    :attr str checkpointed_source_seq: (optional) The source sequence id which was
+          last successfully replicated. Available for `replication` type tasks.
+    :attr bool continuous: (optional) The replication configured to be continuous.
+          Available for `replication` type tasks.
     :attr str database: Source database.
+    :attr str design_document: (optional) The design document that belongs to this
+          task. Available for `indexer`, `search_indexer`, `view_compaction` type tasks.
+    :attr str doc_id: (optional) Replication document ID. Available for
+          `replication` type tasks.
+    :attr int doc_write_failures: (optional) Number of document write failures.
+          Available for `replication` type tasks.
+    :attr int docs_read: (optional) Number of documents read. Available for
+          `replication` type tasks.
+    :attr int docs_written: (optional) Number of documents written to target.
+          Available for `replication` type tasks.
+    :attr str index: (optional) The search index that belongs to this task.
+          Available for `search_indexer` type tasks.
+    :attr str indexer_pid: (optional) Indexer process ID. Available for `indexer`
+          type tasks.
+    :attr int missing_revisions_found: (optional) The count of docs which have been
+          read from the source. Available for `replication` type tasks.
     :attr str node: Cluster node where the task is running.
+    :attr str phase: (optional) The phase the active task is in. `docid_sort`,
+          `docid_copy`, `document_copy` phases are available for `database_compaction`,
+          while `ids` and `view` phases are available for `view_compaction` type tasks.
     :attr str pid: Process ID.
-    :attr int progress: (optional) Current percentage progress.
+    :attr str process_status: (optional) Process status.
+    :attr int progress: (optional) Current percentage progress. Available for
+          `database_compaction`, `indexer`, `search_indexer`, `view_compaction` type
+          tasks.
+    :attr str replication_id: (optional) Replication ID. Available for `replication`
+          type tasks.
+    :attr bool retry: (optional) Indicates whether a compaction retry is currently
+          running on the database. Available for `database_compaction` type tasks.
+    :attr int revisions_checked: (optional) The count of revisions which have been
+          checked since this replication began. Available for `replication` type tasks.
+    :attr str source: (optional) Replication source. Available for `replication`
+          type tasks.
+    :attr str source_seq: (optional) The last sequence number obtained from the
+          source database changes feed. Available for `replication` type tasks.
     :attr int started_on: Schema for a Unix epoch timestamp.
-    :attr str status: (optional) Task status message.
-    :attr str task: (optional) Task name.
-    :attr int total_changes: (optional) Total changes to process.
+    :attr str target: (optional) Replication target. Available for `replication`
+          type tasks.
+    :attr str through_seq: (optional) The last sequence number processed by the
+          replicator. Available for `replication` type tasks.
+    :attr int total_changes: (optional) Total changes to process. Available for
+          `database_compaction`, `indexer`, `search_indexer`, `view_compaction` type
+          tasks.
     :attr str type: Operation type.
     :attr int updated_on: Schema for a Unix epoch timestamp.
+    :attr str user: (optional) Name of user running replication or owning the
+          indexer. Available for `indexer`, `replication` type tasks.
+    :attr int view: (optional) Number of view indexes. Available for
+          `view_compaction` type tasks.
     """
 
     def __init__(self,
@@ -7762,11 +7794,34 @@ class ActiveTask():
                  type: str,
                  updated_on: int,
                  *,
+                 bulk_get_attempts: int = None,
+                 bulk_get_docs: int = None,
                  changes_done: int = None,
+                 changes_pending: int = None,
+                 checkpoint_interval: int = None,
+                 checkpointed_source_seq: str = None,
+                 continuous: bool = None,
+                 design_document: str = None,
+                 doc_id: str = None,
+                 doc_write_failures: int = None,
+                 docs_read: int = None,
+                 docs_written: int = None,
+                 index: str = None,
+                 indexer_pid: str = None,
+                 missing_revisions_found: int = None,
+                 phase: str = None,
+                 process_status: str = None,
                  progress: int = None,
-                 status: str = None,
-                 task: str = None,
-                 total_changes: int = None) -> None:
+                 replication_id: str = None,
+                 retry: bool = None,
+                 revisions_checked: int = None,
+                 source: str = None,
+                 source_seq: str = None,
+                 target: str = None,
+                 through_seq: str = None,
+                 total_changes: int = None,
+                 user: str = None,
+                 view: int = None) -> None:
         """
         Initialize a ActiveTask object.
 
@@ -7776,52 +7831,175 @@ class ActiveTask():
         :param int started_on: Schema for a Unix epoch timestamp.
         :param str type: Operation type.
         :param int updated_on: Schema for a Unix epoch timestamp.
-        :param int changes_done: (optional) Processed changes.
-        :param int progress: (optional) Current percentage progress.
-        :param str status: (optional) Task status message.
-        :param str task: (optional) Task name.
-        :param int total_changes: (optional) Total changes to process.
+        :param int bulk_get_attempts: (optional) The total count of attempted doc
+               revisions fetched with `_bulk_get`. Available for `replication` type tasks.
+        :param int bulk_get_docs: (optional) The total count of successful docs
+               fetched with `_bulk_get`. Available for `replication` type tasks.
+        :param int changes_done: (optional) Processed changes. Available for
+               `database_compaction`, `indexer`, `search_indexer`, `view_compaction` type
+               tasks.
+        :param int changes_pending: (optional) The count of changes not yet
+               replicated. Available for `replication` type tasks.
+        :param int checkpoint_interval: (optional) Specifies the checkpoint
+               interval in ms. Available for `replication` type tasks.
+        :param str checkpointed_source_seq: (optional) The source sequence id which
+               was last successfully replicated. Available for `replication` type tasks.
+        :param bool continuous: (optional) The replication configured to be
+               continuous. Available for `replication` type tasks.
+        :param str design_document: (optional) The design document that belongs to
+               this task. Available for `indexer`, `search_indexer`, `view_compaction`
+               type tasks.
+        :param str doc_id: (optional) Replication document ID. Available for
+               `replication` type tasks.
+        :param int doc_write_failures: (optional) Number of document write
+               failures. Available for `replication` type tasks.
+        :param int docs_read: (optional) Number of documents read. Available for
+               `replication` type tasks.
+        :param int docs_written: (optional) Number of documents written to target.
+               Available for `replication` type tasks.
+        :param str index: (optional) The search index that belongs to this task.
+               Available for `search_indexer` type tasks.
+        :param str indexer_pid: (optional) Indexer process ID. Available for
+               `indexer` type tasks.
+        :param int missing_revisions_found: (optional) The count of docs which have
+               been read from the source. Available for `replication` type tasks.
+        :param str phase: (optional) The phase the active task is in. `docid_sort`,
+               `docid_copy`, `document_copy` phases are available for
+               `database_compaction`, while `ids` and `view` phases are available for
+               `view_compaction` type tasks.
+        :param str process_status: (optional) Process status.
+        :param int progress: (optional) Current percentage progress. Available for
+               `database_compaction`, `indexer`, `search_indexer`, `view_compaction` type
+               tasks.
+        :param str replication_id: (optional) Replication ID. Available for
+               `replication` type tasks.
+        :param bool retry: (optional) Indicates whether a compaction retry is
+               currently running on the database. Available for `database_compaction` type
+               tasks.
+        :param int revisions_checked: (optional) The count of revisions which have
+               been checked since this replication began. Available for `replication` type
+               tasks.
+        :param str source: (optional) Replication source. Available for
+               `replication` type tasks.
+        :param str source_seq: (optional) The last sequence number obtained from
+               the source database changes feed. Available for `replication` type tasks.
+        :param str target: (optional) Replication target. Available for
+               `replication` type tasks.
+        :param str through_seq: (optional) The last sequence number processed by
+               the replicator. Available for `replication` type tasks.
+        :param int total_changes: (optional) Total changes to process. Available
+               for `database_compaction`, `indexer`, `search_indexer`, `view_compaction`
+               type tasks.
+        :param str user: (optional) Name of user running replication or owning the
+               indexer. Available for `indexer`, `replication` type tasks.
+        :param int view: (optional) Number of view indexes. Available for
+               `view_compaction` type tasks.
         """
+        self.bulk_get_attempts = bulk_get_attempts
+        self.bulk_get_docs = bulk_get_docs
         self.changes_done = changes_done
+        self.changes_pending = changes_pending
+        self.checkpoint_interval = checkpoint_interval
+        self.checkpointed_source_seq = checkpointed_source_seq
+        self.continuous = continuous
         self.database = database
+        self.design_document = design_document
+        self.doc_id = doc_id
+        self.doc_write_failures = doc_write_failures
+        self.docs_read = docs_read
+        self.docs_written = docs_written
+        self.index = index
+        self.indexer_pid = indexer_pid
+        self.missing_revisions_found = missing_revisions_found
         self.node = node
+        self.phase = phase
         self.pid = pid
+        self.process_status = process_status
         self.progress = progress
+        self.replication_id = replication_id
+        self.retry = retry
+        self.revisions_checked = revisions_checked
+        self.source = source
+        self.source_seq = source_seq
         self.started_on = started_on
-        self.status = status
-        self.task = task
+        self.target = target
+        self.through_seq = through_seq
         self.total_changes = total_changes
         self.type = type
         self.updated_on = updated_on
+        self.user = user
+        self.view = view
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'ActiveTask':
         """Initialize a ActiveTask object from a json dictionary."""
         args = {}
+        if 'bulk_get_attempts' in _dict:
+            args['bulk_get_attempts'] = _dict.get('bulk_get_attempts')
+        if 'bulk_get_docs' in _dict:
+            args['bulk_get_docs'] = _dict.get('bulk_get_docs')
         if 'changes_done' in _dict:
             args['changes_done'] = _dict.get('changes_done')
+        if 'changes_pending' in _dict:
+            args['changes_pending'] = _dict.get('changes_pending')
+        if 'checkpoint_interval' in _dict:
+            args['checkpoint_interval'] = _dict.get('checkpoint_interval')
+        if 'checkpointed_source_seq' in _dict:
+            args['checkpointed_source_seq'] = _dict.get('checkpointed_source_seq')
+        if 'continuous' in _dict:
+            args['continuous'] = _dict.get('continuous')
         if 'database' in _dict:
             args['database'] = _dict.get('database')
         else:
             raise ValueError('Required property \'database\' not present in ActiveTask JSON')
+        if 'design_document' in _dict:
+            args['design_document'] = _dict.get('design_document')
+        if 'doc_id' in _dict:
+            args['doc_id'] = _dict.get('doc_id')
+        if 'doc_write_failures' in _dict:
+            args['doc_write_failures'] = _dict.get('doc_write_failures')
+        if 'docs_read' in _dict:
+            args['docs_read'] = _dict.get('docs_read')
+        if 'docs_written' in _dict:
+            args['docs_written'] = _dict.get('docs_written')
+        if 'index' in _dict:
+            args['index'] = _dict.get('index')
+        if 'indexer_pid' in _dict:
+            args['indexer_pid'] = _dict.get('indexer_pid')
+        if 'missing_revisions_found' in _dict:
+            args['missing_revisions_found'] = _dict.get('missing_revisions_found')
         if 'node' in _dict:
             args['node'] = _dict.get('node')
         else:
             raise ValueError('Required property \'node\' not present in ActiveTask JSON')
+        if 'phase' in _dict:
+            args['phase'] = _dict.get('phase')
         if 'pid' in _dict:
             args['pid'] = _dict.get('pid')
         else:
             raise ValueError('Required property \'pid\' not present in ActiveTask JSON')
+        if 'process_status' in _dict:
+            args['process_status'] = _dict.get('process_status')
         if 'progress' in _dict:
             args['progress'] = _dict.get('progress')
+        if 'replication_id' in _dict:
+            args['replication_id'] = _dict.get('replication_id')
+        if 'retry' in _dict:
+            args['retry'] = _dict.get('retry')
+        if 'revisions_checked' in _dict:
+            args['revisions_checked'] = _dict.get('revisions_checked')
+        if 'source' in _dict:
+            args['source'] = _dict.get('source')
+        if 'source_seq' in _dict:
+            args['source_seq'] = _dict.get('source_seq')
         if 'started_on' in _dict:
             args['started_on'] = _dict.get('started_on')
         else:
             raise ValueError('Required property \'started_on\' not present in ActiveTask JSON')
-        if 'status' in _dict:
-            args['status'] = _dict.get('status')
-        if 'task' in _dict:
-            args['task'] = _dict.get('task')
+        if 'target' in _dict:
+            args['target'] = _dict.get('target')
+        if 'through_seq' in _dict:
+            args['through_seq'] = _dict.get('through_seq')
         if 'total_changes' in _dict:
             args['total_changes'] = _dict.get('total_changes')
         if 'type' in _dict:
@@ -7832,6 +8010,10 @@ class ActiveTask():
             args['updated_on'] = _dict.get('updated_on')
         else:
             raise ValueError('Required property \'updated_on\' not present in ActiveTask JSON')
+        if 'user' in _dict:
+            args['user'] = _dict.get('user')
+        if 'view' in _dict:
+            args['view'] = _dict.get('view')
         return cls(**args)
 
     @classmethod
@@ -7842,28 +8024,74 @@ class ActiveTask():
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
+        if hasattr(self, 'bulk_get_attempts') and self.bulk_get_attempts is not None:
+            _dict['bulk_get_attempts'] = self.bulk_get_attempts
+        if hasattr(self, 'bulk_get_docs') and self.bulk_get_docs is not None:
+            _dict['bulk_get_docs'] = self.bulk_get_docs
         if hasattr(self, 'changes_done') and self.changes_done is not None:
             _dict['changes_done'] = self.changes_done
+        if hasattr(self, 'changes_pending') and self.changes_pending is not None:
+            _dict['changes_pending'] = self.changes_pending
+        if hasattr(self, 'checkpoint_interval') and self.checkpoint_interval is not None:
+            _dict['checkpoint_interval'] = self.checkpoint_interval
+        if hasattr(self, 'checkpointed_source_seq') and self.checkpointed_source_seq is not None:
+            _dict['checkpointed_source_seq'] = self.checkpointed_source_seq
+        if hasattr(self, 'continuous') and self.continuous is not None:
+            _dict['continuous'] = self.continuous
         if hasattr(self, 'database') and self.database is not None:
             _dict['database'] = self.database
+        if hasattr(self, 'design_document') and self.design_document is not None:
+            _dict['design_document'] = self.design_document
+        if hasattr(self, 'doc_id') and self.doc_id is not None:
+            _dict['doc_id'] = self.doc_id
+        if hasattr(self, 'doc_write_failures') and self.doc_write_failures is not None:
+            _dict['doc_write_failures'] = self.doc_write_failures
+        if hasattr(self, 'docs_read') and self.docs_read is not None:
+            _dict['docs_read'] = self.docs_read
+        if hasattr(self, 'docs_written') and self.docs_written is not None:
+            _dict['docs_written'] = self.docs_written
+        if hasattr(self, 'index') and self.index is not None:
+            _dict['index'] = self.index
+        if hasattr(self, 'indexer_pid') and self.indexer_pid is not None:
+            _dict['indexer_pid'] = self.indexer_pid
+        if hasattr(self, 'missing_revisions_found') and self.missing_revisions_found is not None:
+            _dict['missing_revisions_found'] = self.missing_revisions_found
         if hasattr(self, 'node') and self.node is not None:
             _dict['node'] = self.node
+        if hasattr(self, 'phase') and self.phase is not None:
+            _dict['phase'] = self.phase
         if hasattr(self, 'pid') and self.pid is not None:
             _dict['pid'] = self.pid
+        if hasattr(self, 'process_status') and self.process_status is not None:
+            _dict['process_status'] = self.process_status
         if hasattr(self, 'progress') and self.progress is not None:
             _dict['progress'] = self.progress
+        if hasattr(self, 'replication_id') and self.replication_id is not None:
+            _dict['replication_id'] = self.replication_id
+        if hasattr(self, 'retry') and self.retry is not None:
+            _dict['retry'] = self.retry
+        if hasattr(self, 'revisions_checked') and self.revisions_checked is not None:
+            _dict['revisions_checked'] = self.revisions_checked
+        if hasattr(self, 'source') and self.source is not None:
+            _dict['source'] = self.source
+        if hasattr(self, 'source_seq') and self.source_seq is not None:
+            _dict['source_seq'] = self.source_seq
         if hasattr(self, 'started_on') and self.started_on is not None:
             _dict['started_on'] = self.started_on
-        if hasattr(self, 'status') and self.status is not None:
-            _dict['status'] = self.status
-        if hasattr(self, 'task') and self.task is not None:
-            _dict['task'] = self.task
+        if hasattr(self, 'target') and self.target is not None:
+            _dict['target'] = self.target
+        if hasattr(self, 'through_seq') and self.through_seq is not None:
+            _dict['through_seq'] = self.through_seq
         if hasattr(self, 'total_changes') and self.total_changes is not None:
             _dict['total_changes'] = self.total_changes
         if hasattr(self, 'type') and self.type is not None:
             _dict['type'] = self.type
         if hasattr(self, 'updated_on') and self.updated_on is not None:
             _dict['updated_on'] = self.updated_on
+        if hasattr(self, 'user') and self.user is not None:
+            _dict['user'] = self.user
+        if hasattr(self, 'view') and self.view is not None:
+            _dict['view'] = self.view
         return _dict
 
     def _to_dict(self):
@@ -7883,6 +8111,42 @@ class ActiveTask():
     def __ne__(self, other: 'ActiveTask') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
+
+    class PhaseEnum(str, Enum):
+        """
+        The phase the active task is in. `docid_sort`, `docid_copy`, `document_copy`
+        phases are available for `database_compaction`, while `ids` and `view` phases are
+        available for `view_compaction` type tasks.
+        """
+        DOCID_SORT = 'docid_sort'
+        DOCID_COPY = 'docid_copy'
+        DOCUMENT_COPY = 'document_copy'
+        IDS = 'ids'
+        VIEW = 'view'
+
+
+    class ProcessStatusEnum(str, Enum):
+        """
+        Process status.
+        """
+        EXITING = 'exiting'
+        GARBAGE_COLLECTING = 'garbage_collecting'
+        RUNNABLE = 'runnable'
+        RUNNING = 'running'
+        SUSPENDED = 'suspended'
+        WAITING = 'waiting'
+
+
+    class TypeEnum(str, Enum):
+        """
+        Operation type.
+        """
+        DATABASE_COMPACTION = 'database_compaction'
+        INDEXER = 'indexer'
+        REPLICATION = 'replication'
+        SEARCH_INDEXER = 'search_indexer'
+        VIEW_COMPACTION = 'view_compaction'
+
 
 class ActivityTrackerEvents():
     """
