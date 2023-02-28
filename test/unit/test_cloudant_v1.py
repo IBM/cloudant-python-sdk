@@ -6828,7 +6828,6 @@ class TestPostPartitionView():
         key = 'testString'
         keys = ['testString']
         reduce = True
-        stable = False
         start_key = 'testString'
         start_key_doc_id = 'testString'
         update = 'true'
@@ -6855,7 +6854,6 @@ class TestPostPartitionView():
             key=key,
             keys=keys,
             reduce=reduce,
-            stable=stable,
             start_key=start_key,
             start_key_doc_id=start_key_doc_id,
             update=update,
@@ -6886,7 +6884,6 @@ class TestPostPartitionView():
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
         assert req_body['reduce'] == True
-        assert req_body['stable'] == False
         assert req_body['start_key'] == 'testString'
         assert req_body['start_key_doc_id'] == 'testString'
         assert req_body['update'] == 'true'
@@ -6935,7 +6932,6 @@ class TestPostPartitionView():
         key = 'testString'
         keys = ['testString']
         reduce = True
-        stable = False
         start_key = 'testString'
         start_key_doc_id = 'testString'
         update = 'true'
@@ -7001,7 +6997,6 @@ class TestPostPartitionViewAsStream():
         key = 'testString'
         keys = ['testString']
         reduce = True
-        stable = False
         start_key = 'testString'
         start_key_doc_id = 'testString'
         update = 'true'
@@ -7028,7 +7023,6 @@ class TestPostPartitionViewAsStream():
             key=key,
             keys=keys,
             reduce=reduce,
-            stable=stable,
             start_key=start_key,
             start_key_doc_id=start_key_doc_id,
             update=update,
@@ -7059,7 +7053,6 @@ class TestPostPartitionViewAsStream():
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
         assert req_body['reduce'] == True
-        assert req_body['stable'] == False
         assert req_body['start_key'] == 'testString'
         assert req_body['start_key_doc_id'] == 'testString'
         assert req_body['update'] == 'true'
@@ -7114,7 +7107,6 @@ class TestPostPartitionViewAsStream():
         key = 'testString'
         keys = ['testString']
         reduce = True
-        stable = False
         start_key = 'testString'
         start_key_doc_id = 'testString'
         update = 'true'
@@ -12174,7 +12166,7 @@ class TestGetActiveTasks():
         """
         # Set up mock
         url = preprocess_url('/_active_tasks')
-        mock_response = '[{"changes_done": 0, "database": "database", "node": "node", "pid": "pid", "progress": 0, "started_on": 0, "status": "status", "task": "task", "total_changes": 0, "type": "type", "updated_on": 0}]'
+        mock_response = '[{"bulk_get_attempts": 0, "bulk_get_docs": 0, "changes_done": 0, "changes_pending": 0, "checkpoint_interval": 0, "checkpointed_source_seq": "checkpointed_source_seq", "continuous": false, "database": "database", "design_document": "design_document", "doc_id": "doc_id", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "index": "index", "indexer_pid": "indexer_pid", "missing_revisions_found": 0, "node": "node", "phase": "docid_sort", "pid": "pid", "process_status": "exiting", "progress": 0, "replication_id": "replication_id", "retry": false, "revisions_checked": 0, "source": "source", "source_seq": "source_seq", "started_on": 0, "target": "target", "through_seq": "through_seq", "total_changes": 0, "type": "database_compaction", "updated_on": 0, "user": "user", "view": 0}]'
         responses.add(responses.GET,
                       url,
                       body=mock_response,
@@ -12410,17 +12402,40 @@ class TestModel_ActiveTask():
 
         # Construct a json representation of a ActiveTask model
         active_task_model_json = {}
+        active_task_model_json['bulk_get_attempts'] = 0
+        active_task_model_json['bulk_get_docs'] = 0
         active_task_model_json['changes_done'] = 0
+        active_task_model_json['changes_pending'] = 0
+        active_task_model_json['checkpoint_interval'] = 0
+        active_task_model_json['checkpointed_source_seq'] = 'testString'
+        active_task_model_json['continuous'] = False
         active_task_model_json['database'] = 'testString'
+        active_task_model_json['design_document'] = 'testString'
+        active_task_model_json['doc_id'] = 'testString'
+        active_task_model_json['doc_write_failures'] = 0
+        active_task_model_json['docs_read'] = 0
+        active_task_model_json['docs_written'] = 0
+        active_task_model_json['index'] = 'testString'
+        active_task_model_json['indexer_pid'] = 'testString'
+        active_task_model_json['missing_revisions_found'] = 0
         active_task_model_json['node'] = 'testString'
+        active_task_model_json['phase'] = 'docid_sort'
         active_task_model_json['pid'] = 'testString'
+        active_task_model_json['process_status'] = 'exiting'
         active_task_model_json['progress'] = 0
+        active_task_model_json['replication_id'] = 'testString'
+        active_task_model_json['retry'] = True
+        active_task_model_json['revisions_checked'] = 0
+        active_task_model_json['source'] = 'testString'
+        active_task_model_json['source_seq'] = 'testString'
         active_task_model_json['started_on'] = 0
-        active_task_model_json['status'] = 'testString'
-        active_task_model_json['task'] = 'testString'
+        active_task_model_json['target'] = 'testString'
+        active_task_model_json['through_seq'] = 'testString'
         active_task_model_json['total_changes'] = 0
-        active_task_model_json['type'] = 'testString'
+        active_task_model_json['type'] = 'database_compaction'
         active_task_model_json['updated_on'] = 0
+        active_task_model_json['user'] = 'testString'
+        active_task_model_json['view'] = 0
 
         # Construct a model instance of ActiveTask by calling from_dict on the json representation
         active_task_model = ActiveTask.from_dict(active_task_model_json)
