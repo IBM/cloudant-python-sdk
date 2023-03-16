@@ -2,7 +2,9 @@
 
 pipeline {
   agent {
-    label 'sdks-executor'
+    kubernetes {
+      yaml kubePodTemplate(name: 'gauge.yaml')
+    }
   }
   parameters {
     validatingString( name: 'TARGET_VERSION',
@@ -47,10 +49,8 @@ pipeline {
                              passwordVariable: 'SERVER_PASSWORD')
             ]) {
               script {
-                docker.withRegistry(env.ARTIFACTORY_DOCKER_REGISTRY,'artifactory') {
                   sh './scripts/setup_couch.sh'
                   sh './scripts/setup_wiremock.sh'
-                }
               }
               runTests()
           }
@@ -294,8 +294,7 @@ void applyCustomizations() {
 void runTests() {
   sh '''
     export PIP_INDEX_URL=https://${ARTIFACTORY_CREDS_USR}:${ARTIFACTORY_CREDS_PSW}@${ARTIFACTORY_URL_DOWN##'https://'}/api/pypi/cloudant-sdks-pypi-virtual/simple
-    . /home/jenkins/pythonvenv/bin/activate
-    python3 -m tox -e py310
+    python3 -m tox -e py311
   '''
 }
 
@@ -316,7 +315,6 @@ void publishTwine() {
     deleteDir()
   }
   sh '''
-    . /home/jenkins/pythonvenv/bin/activate
     python3 --version
     python3 setup.py sdist
     python3 -m twine upload dist/*
@@ -325,7 +323,6 @@ void publishTwine() {
 
 void publishDocs() {
   sh '''
-    . /home/jenkins/pythonvenv/bin/activate
     ./scripts/pydoc/publish-doc.sh
   '''
 }
