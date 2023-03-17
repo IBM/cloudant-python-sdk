@@ -102,13 +102,6 @@ The workaround is to [disable request body compression](#disabling-request-body-
 
 The `basic` property of `ReplicationDatabaseAuth` is not available in CouchDB < 3.2.0 and Cloudant <= 8914. For those versions use the `headers` property to add a header with a key of `Authorization` and a value of `Basic <base64 encoded credentials>`.
 
-### Cloudant on Transaction Engine
-
-Whilst most SDK methods will work with _Cloudant on Transaction Engine_ there are some limitations.
-It should be noted that not all existing API options are applicable to _Cloudant on Transaction Engine_
-and new API options added in _Cloudant on Transaction Engine_ are not yet available in the SDKs. Please
-consult the Cloudant documentation for further information.
-
 ### Compression
 
 * Manually setting an `Accept-Encoding` header on requests will disable the transparent gzip decompression of response bodies from the server.
