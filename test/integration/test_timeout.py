@@ -43,6 +43,7 @@ class Helpers():
         mock_response.status_code = 200
         mock_response._content = '{"foo":"bar"}'.encode()
         mock_response.cookies.set("AuthSession", "bar", expires=Helpers.get_current_time_plus_two_minute())
+        mock_response.headers.setdefault("Content-Type", "application/json")
         return mock_response
 
     @staticmethod
