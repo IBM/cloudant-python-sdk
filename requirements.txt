@@ -1,5 +1,4 @@
-#ibm_cloud_sdk_core==3.16.1
-ibm_cloud_sdk_core @ git+https://github.com/IBM/python-sdk-core@json-response-errors#egg=ibm_cloud_sdk_core
+ibm_cloud_sdk_core @ git+https://github.com/IBM/python-sdk-core.git@9b85f37d82f5788fc31ed1045979091125b08488#egg=ibm_cloud_sdk_core
 # dependencies of ibm_cloud_sdk_core:
 requests>=2.20,<3.0
 python_dateutil>=2.5.3,<3.0.0
