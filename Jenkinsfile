@@ -72,7 +72,7 @@ pipeline {
       // Scanning runs only on non-dependabot branches
       when {
         not {
-          branch 'dependabot/*'
+          branch 'dependabot*'
         }
       }
       steps {
