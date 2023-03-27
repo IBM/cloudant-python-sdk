@@ -20,7 +20,7 @@ import os
 import sys
 import pkg_resources
 
-__version__ = '0.3.3'
+__version__ = '0.4.0'
 PACKAGE_NAME = 'ibmcloudant'
 PACKAGE_DESC = 'Python client library for IBM Cloudant'
 
