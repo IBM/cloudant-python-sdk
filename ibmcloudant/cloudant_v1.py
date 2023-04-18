@@ -37,6 +37,7 @@ from .common import get_sdk_headers
 # Service
 ##############################################################################
 
+
 class CloudantV1(BaseService):
     """The Cloudant V1 service."""
 
@@ -44,9 +45,10 @@ class CloudantV1(BaseService):
     DEFAULT_SERVICE_NAME = 'cloudant'
 
     @classmethod
-    def new_instance(cls,
-                     service_name: str = DEFAULT_SERVICE_NAME,
-                    ) -> 'CloudantV1':
+    def new_instance(
+        cls,
+        service_name: str = DEFAULT_SERVICE_NAME,
+    ) -> 'CloudantV1':
         """
         Return a new client for the Cloudant service using the specified parameters
                and external configuration.
@@ -58,9 +60,10 @@ class CloudantV1(BaseService):
         service.configure_service(service_name)
         return service
 
-    def __init__(self,
-                 authenticator: Authenticator = None,
-                ) -> None:
+    def __init__(
+        self,
+        authenticator: Authenticator = None,
+    ) -> None:
         """
         Construct a new client for the Cloudant service.
 
@@ -68,20 +71,17 @@ class CloudantV1(BaseService):
                Get up to date information from https://github.com/IBM/python-sdk-core/blob/main/README.md
                about initializing the authenticator of your choice.
         """
-        BaseService.__init__(self,
-                             service_url=self.DEFAULT_SERVICE_URL,
-                             authenticator=authenticator)
+        BaseService.__init__(self, service_url=self.DEFAULT_SERVICE_URL, authenticator=authenticator)
         # enable gzip compression of request bodies
         self.set_enable_gzip_compression(True)
-
 
     #########################
     # Server
     #########################
 
-
-    def get_server_information(self,
-        **kwargs
+    def get_server_information(
+        self,
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve server instance information.
@@ -98,9 +98,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_server_information')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_server_information',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -109,16 +111,18 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_membership_information(self,
-        **kwargs
+    def get_membership_information(
+        self,
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve cluster membership information.
@@ -133,9 +137,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_membership_information')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_membership_information',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -144,18 +150,20 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_membership'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_uuids(self,
+    def get_uuids(
+        self,
         *,
         count: int = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve one or more UUIDs.
@@ -172,9 +180,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_uuids')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_uuids',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -187,17 +197,19 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_uuids'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_capacity_throughput_information(self,
-        **kwargs
+    def get_capacity_throughput_information(
+        self,
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve provisioned throughput capacity information.
@@ -211,9 +223,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_capacity_throughput_information')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_capacity_throughput_information',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -222,17 +236,19 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/capacity/throughput'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def put_capacity_throughput_configuration(self,
+    def put_capacity_throughput_configuration(
+        self,
         blocks: int,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Update the target provisioned throughput capacity.
@@ -252,9 +268,11 @@ class CloudantV1(BaseService):
         if blocks is None:
             raise ValueError('blocks must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='put_capacity_throughput_configuration')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='put_capacity_throughput_configuration',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -270,10 +288,12 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/capacity/throughput'
-        request = self.prepare_request(method='PUT',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='PUT',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -282,14 +302,14 @@ class CloudantV1(BaseService):
     # Databases
     #########################
 
-
-    def get_db_updates(self,
+    def get_db_updates(
+        self,
         *,
         feed: str = None,
         heartbeat: int = None,
         timeout: int = None,
         since: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve change events for all databases.
@@ -324,9 +344,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_db_updates')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_db_updates',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -342,16 +364,18 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_db_updates'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_changes(self,
+    def post_changes(
+        self,
         db: str,
         *,
         doc_ids: List[str] = None,
@@ -372,7 +396,7 @@ class CloudantV1(BaseService):
         style: str = None,
         timeout: int = None,
         view: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query the database document changes feed.
@@ -491,9 +515,11 @@ class CloudantV1(BaseService):
         headers = {
             'Last-Event-ID': last_event_id,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_changes')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_changes',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -531,17 +557,19 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_changes'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       params=params,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_changes_as_stream(self,
+    def post_changes_as_stream(
+        self,
         db: str,
         *,
         doc_ids: List[str] = None,
@@ -562,7 +590,7 @@ class CloudantV1(BaseService):
         style: str = None,
         timeout: int = None,
         view: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query the database document changes feed as stream.
@@ -681,9 +709,11 @@ class CloudantV1(BaseService):
         headers = {
             'Last-Event-ID': last_event_id,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_changes_as_stream')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_changes_as_stream',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -721,11 +751,13 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_changes'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       params=params,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
 
         response = self.send(request, stream=True, **kwargs)
         return response
@@ -734,10 +766,10 @@ class CloudantV1(BaseService):
     # Databases
     #########################
 
-
-    def head_database(self,
+    def head_database(
+        self,
         db: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve the HTTP headers for a database.
@@ -755,9 +787,11 @@ class CloudantV1(BaseService):
         if not db:
             raise ValueError('db must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='head_database')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='head_database',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -768,22 +802,24 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}'.format(**path_param_dict)
-        request = self.prepare_request(method='HEAD',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='HEAD',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_all_dbs(self,
+    def get_all_dbs(
+        self,
         *,
         descending: bool = None,
         end_key: str = None,
         limit: int = None,
         skip: int = None,
         start_key: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a list of all database names in the instance.
@@ -806,9 +842,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_all_dbs')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_all_dbs',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -825,18 +863,20 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_all_dbs'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_dbs_info(self,
+    def post_dbs_info(
+        self,
         keys: List[str],
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query information about multiple databases.
@@ -855,9 +895,11 @@ class CloudantV1(BaseService):
         if keys is None:
             raise ValueError('keys must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_dbs_info')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_dbs_info',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -873,18 +915,20 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_dbs_info'
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def delete_database(self,
+    def delete_database(
+        self,
         db: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Delete a database.
@@ -903,9 +947,11 @@ class CloudantV1(BaseService):
         if not db:
             raise ValueError('db must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='delete_database')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='delete_database',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -917,17 +963,19 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}'.format(**path_param_dict)
-        request = self.prepare_request(method='DELETE',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='DELETE',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_database_information(self,
+    def get_database_information(
+        self,
         db: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve information about a database.
@@ -941,9 +989,11 @@ class CloudantV1(BaseService):
         if not db:
             raise ValueError('db must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_database_information')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_database_information',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -955,20 +1005,22 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def put_database(self,
+    def put_database(
+        self,
         db: str,
         *,
         partitioned: bool = None,
         q: int = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Create a database.
@@ -988,9 +1040,11 @@ class CloudantV1(BaseService):
         if not db:
             raise ValueError('db must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='put_database')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='put_database',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -1007,10 +1061,12 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}'.format(**path_param_dict)
-        request = self.prepare_request(method='PUT',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='PUT',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -1019,15 +1075,15 @@ class CloudantV1(BaseService):
     # Documents
     #########################
 
-
-    def head_document(self,
+    def head_document(
+        self,
         db: str,
         doc_id: str,
         *,
         if_none_match: str = None,
         latest: bool = None,
         rev: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve the HTTP headers for the document.
@@ -1058,9 +1114,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-None-Match': if_none_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='head_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='head_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -1076,22 +1134,24 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='HEAD',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='HEAD',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_document(self,
+    def post_document(
+        self,
         db: str,
         document: Union['Document', BinaryIO],
         *,
         content_type: str = None,
         batch: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Create or modify a document in a database.
@@ -1127,9 +1187,11 @@ class CloudantV1(BaseService):
         headers = {
             'Content-Type': content_type,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -1152,17 +1214,19 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       params=params,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_all_docs(self,
+    def post_all_docs(
+        self,
         db: str,
         *,
         att_encoding_info: bool = None,
@@ -1178,7 +1242,7 @@ class CloudantV1(BaseService):
         key: str = None,
         keys: List[str] = None,
         start_key: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a list of all documents in a database.
@@ -1224,9 +1288,11 @@ class CloudantV1(BaseService):
         if not db:
             raise ValueError('db must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_all_docs')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_all_docs',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -1257,16 +1323,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_all_docs'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_all_docs_as_stream(self,
+    def post_all_docs_as_stream(
+        self,
         db: str,
         *,
         att_encoding_info: bool = None,
@@ -1282,7 +1350,7 @@ class CloudantV1(BaseService):
         key: str = None,
         keys: List[str] = None,
         start_key: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a list of all documents in a database as stream.
@@ -1328,9 +1396,11 @@ class CloudantV1(BaseService):
         if not db:
             raise ValueError('db must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_all_docs_as_stream')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_all_docs_as_stream',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -1361,19 +1431,21 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_all_docs'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, stream=True, **kwargs)
         return response
 
-
-    def post_all_docs_queries(self,
+    def post_all_docs_queries(
+        self,
         db: str,
         queries: List['AllDocsQuery'],
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Multi-query the list of all documents in a database.
@@ -1400,9 +1472,11 @@ class CloudantV1(BaseService):
             raise ValueError('queries must be provided')
         queries = [convert_model(x) for x in queries]
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_all_docs_queries')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_all_docs_queries',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -1421,19 +1495,21 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_all_docs/queries'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_all_docs_queries_as_stream(self,
+    def post_all_docs_queries_as_stream(
+        self,
         db: str,
         queries: List['AllDocsQuery'],
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Multi-query the list of all documents in a database as stream.
@@ -1460,9 +1536,11 @@ class CloudantV1(BaseService):
             raise ValueError('queries must be provided')
         queries = [convert_model(x) for x in queries]
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_all_docs_queries_as_stream')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_all_docs_queries_as_stream',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -1481,19 +1559,21 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_all_docs/queries'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, stream=True, **kwargs)
         return response
 
-
-    def post_bulk_docs(self,
+    def post_bulk_docs(
+        self,
         db: str,
         bulk_docs: Union['BulkDocs', BinaryIO],
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Bulk modify multiple documents in a database.
@@ -1517,9 +1597,11 @@ class CloudantV1(BaseService):
         if isinstance(bulk_docs, BulkDocs):
             bulk_docs = convert_model(bulk_docs)
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_bulk_docs')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_bulk_docs',
+        )
         headers.update(sdk_headers)
 
         if isinstance(bulk_docs, dict):
@@ -1537,16 +1619,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_bulk_docs'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_bulk_get(self,
+    def post_bulk_get(
+        self,
         db: str,
         docs: List['BulkGetQueryDocument'],
         *,
@@ -1554,7 +1638,7 @@ class CloudantV1(BaseService):
         att_encoding_info: bool = None,
         latest: bool = None,
         revs: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Bulk query revision information for multiple documents.
@@ -1585,9 +1669,11 @@ class CloudantV1(BaseService):
             raise ValueError('docs must be provided')
         docs = [convert_model(x) for x in docs]
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_bulk_get')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_bulk_get',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -1613,17 +1699,19 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_bulk_get'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       params=params,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_bulk_get_as_mixed(self,
+    def post_bulk_get_as_mixed(
+        self,
         db: str,
         docs: List['BulkGetQueryDocument'],
         *,
@@ -1631,7 +1719,7 @@ class CloudantV1(BaseService):
         att_encoding_info: bool = None,
         latest: bool = None,
         revs: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Bulk query revision information for multiple documents as mixed.
@@ -1662,9 +1750,11 @@ class CloudantV1(BaseService):
             raise ValueError('docs must be provided')
         docs = [convert_model(x) for x in docs]
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_bulk_get_as_mixed')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_bulk_get_as_mixed',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -1690,17 +1780,19 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_bulk_get'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       params=params,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_bulk_get_as_related(self,
+    def post_bulk_get_as_related(
+        self,
         db: str,
         docs: List['BulkGetQueryDocument'],
         *,
@@ -1708,7 +1800,7 @@ class CloudantV1(BaseService):
         att_encoding_info: bool = None,
         latest: bool = None,
         revs: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Bulk query revision information for multiple documents as related.
@@ -1739,9 +1831,11 @@ class CloudantV1(BaseService):
             raise ValueError('docs must be provided')
         docs = [convert_model(x) for x in docs]
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_bulk_get_as_related')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_bulk_get_as_related',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -1767,17 +1861,19 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_bulk_get'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       params=params,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_bulk_get_as_stream(self,
+    def post_bulk_get_as_stream(
+        self,
         db: str,
         docs: List['BulkGetQueryDocument'],
         *,
@@ -1785,7 +1881,7 @@ class CloudantV1(BaseService):
         att_encoding_info: bool = None,
         latest: bool = None,
         revs: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Bulk query revision information for multiple documents as stream.
@@ -1816,9 +1912,11 @@ class CloudantV1(BaseService):
             raise ValueError('docs must be provided')
         docs = [convert_model(x) for x in docs]
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_bulk_get_as_stream')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_bulk_get_as_stream',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -1844,24 +1942,26 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_bulk_get'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       params=params,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
 
         response = self.send(request, stream=True, **kwargs)
         return response
 
-
-    def delete_document(self,
+    def delete_document(
+        self,
         db: str,
         doc_id: str,
         *,
         if_match: str = None,
         batch: str = None,
         rev: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Delete a document.
@@ -1892,9 +1992,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-Match': if_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='delete_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='delete_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -1911,16 +2013,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='DELETE',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='DELETE',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_document(self,
+    def get_document(
+        self,
         db: str,
         doc_id: str,
         *,
@@ -1935,7 +2039,7 @@ class CloudantV1(BaseService):
         rev: str = None,
         revs: bool = None,
         revs_info: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve a document.
@@ -1983,9 +2087,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-None-Match': if_none_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -2010,16 +2116,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_document_as_mixed(self,
+    def get_document_as_mixed(
+        self,
         db: str,
         doc_id: str,
         *,
@@ -2034,7 +2142,7 @@ class CloudantV1(BaseService):
         rev: str = None,
         revs: bool = None,
         revs_info: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve a document as mixed.
@@ -2082,9 +2190,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-None-Match': if_none_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_document_as_mixed')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_document_as_mixed',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -2109,16 +2219,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_document_as_related(self,
+    def get_document_as_related(
+        self,
         db: str,
         doc_id: str,
         *,
@@ -2133,7 +2245,7 @@ class CloudantV1(BaseService):
         rev: str = None,
         revs: bool = None,
         revs_info: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve a document as related.
@@ -2181,9 +2293,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-None-Match': if_none_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_document_as_related')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_document_as_related',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -2208,16 +2322,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_document_as_stream(self,
+    def get_document_as_stream(
+        self,
         db: str,
         doc_id: str,
         *,
@@ -2232,7 +2348,7 @@ class CloudantV1(BaseService):
         rev: str = None,
         revs: bool = None,
         revs_info: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve a document as stream.
@@ -2280,9 +2396,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-None-Match': if_none_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_document_as_stream')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_document_as_stream',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -2307,16 +2425,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, stream=True, **kwargs)
         return response
 
-
-    def put_document(self,
+    def put_document(
+        self,
         db: str,
         doc_id: str,
         document: Union['Document', BinaryIO],
@@ -2326,7 +2446,7 @@ class CloudantV1(BaseService):
         batch: str = None,
         new_edits: bool = None,
         rev: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Create or modify a document.
@@ -2369,9 +2489,11 @@ class CloudantV1(BaseService):
             'Content-Type': content_type,
             'If-Match': if_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='put_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='put_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -2396,11 +2518,13 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='PUT',
-                                       url=url,
-                                       headers=headers,
-                                       params=params,
-                                       data=data)
+        request = self.prepare_request(
+            method='PUT',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -2409,13 +2533,13 @@ class CloudantV1(BaseService):
     # Design Documents
     #########################
 
-
-    def head_design_document(self,
+    def head_design_document(
+        self,
         db: str,
         ddoc: str,
         *,
         if_none_match: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve the HTTP headers for a design document.
@@ -2446,9 +2570,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-None-Match': if_none_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='head_design_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='head_design_document',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -2459,22 +2585,24 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, ddoc)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design/{ddoc}'.format(**path_param_dict)
-        request = self.prepare_request(method='HEAD',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='HEAD',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def delete_design_document(self,
+    def delete_design_document(
+        self,
         db: str,
         ddoc: str,
         *,
         if_match: str = None,
         batch: str = None,
         rev: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Delete a design document.
@@ -2507,9 +2635,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-Match': if_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='delete_design_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='delete_design_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -2526,16 +2656,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, ddoc)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design/{ddoc}'.format(**path_param_dict)
-        request = self.prepare_request(method='DELETE',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='DELETE',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_design_document(self,
+    def get_design_document(
+        self,
         db: str,
         ddoc: str,
         *,
@@ -2550,7 +2682,7 @@ class CloudantV1(BaseService):
         rev: str = None,
         revs: bool = None,
         revs_info: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve a design document.
@@ -2600,9 +2732,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-None-Match': if_none_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_design_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_design_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -2627,16 +2761,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, ddoc)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design/{ddoc}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def put_design_document(self,
+    def put_design_document(
+        self,
         db: str,
         ddoc: str,
         design_document: 'DesignDocument',
@@ -2645,7 +2781,7 @@ class CloudantV1(BaseService):
         batch: str = None,
         new_edits: bool = None,
         rev: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Create or modify a design document.
@@ -2686,9 +2822,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-Match': if_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='put_design_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='put_design_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -2709,20 +2847,22 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, ddoc)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design/{ddoc}'.format(**path_param_dict)
-        request = self.prepare_request(method='PUT',
-                                       url=url,
-                                       headers=headers,
-                                       params=params,
-                                       data=data)
+        request = self.prepare_request(
+            method='PUT',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_design_document_information(self,
+    def get_design_document_information(
+        self,
         db: str,
         ddoc: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve information about a design document.
@@ -2745,9 +2885,11 @@ class CloudantV1(BaseService):
         if not ddoc:
             raise ValueError('ddoc must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_design_document_information')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_design_document_information',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -2759,15 +2901,17 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, ddoc)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design/{ddoc}/_info'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_design_docs(self,
+    def post_design_docs(
+        self,
         db: str,
         *,
         att_encoding_info: bool = None,
@@ -2784,7 +2928,7 @@ class CloudantV1(BaseService):
         keys: List[str] = None,
         start_key: str = None,
         accept: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a list of all design documents in a database.
@@ -2834,9 +2978,11 @@ class CloudantV1(BaseService):
         headers = {
             'Accept': accept,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_design_docs')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_design_docs',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -2866,21 +3012,23 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design_docs'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_design_docs_queries(self,
+    def post_design_docs_queries(
+        self,
         db: str,
         queries: List['AllDocsQuery'],
         *,
         accept: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Multi-query the list of all design documents.
@@ -2909,9 +3057,11 @@ class CloudantV1(BaseService):
         headers = {
             'Accept': accept,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_design_docs_queries')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_design_docs_queries',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -2929,10 +3079,12 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design_docs/queries'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -2941,8 +3093,8 @@ class CloudantV1(BaseService):
     # Views
     #########################
 
-
-    def post_view(self,
+    def post_view(
+        self,
         db: str,
         ddoc: str,
         view: str,
@@ -2967,7 +3119,7 @@ class CloudantV1(BaseService):
         start_key: object = None,
         start_key_doc_id: str = None,
         update: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a MapReduce view.
@@ -3054,9 +3206,11 @@ class CloudantV1(BaseService):
         if not view:
             raise ValueError('view must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_view')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_view',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -3094,16 +3248,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, ddoc, view)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design/{ddoc}/_view/{view}'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_view_as_stream(self,
+    def post_view_as_stream(
+        self,
         db: str,
         ddoc: str,
         view: str,
@@ -3128,7 +3284,7 @@ class CloudantV1(BaseService):
         start_key: object = None,
         start_key_doc_id: str = None,
         update: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a MapReduce view as stream.
@@ -3215,9 +3371,11 @@ class CloudantV1(BaseService):
         if not view:
             raise ValueError('view must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_view_as_stream')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_view_as_stream',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -3255,21 +3413,23 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, ddoc, view)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design/{ddoc}/_view/{view}'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, stream=True, **kwargs)
         return response
 
-
-    def post_view_queries(self,
+    def post_view_queries(
+        self,
         db: str,
         ddoc: str,
         view: str,
         queries: List['ViewQuery'],
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Multi-query a MapReduce view.
@@ -3302,9 +3462,11 @@ class CloudantV1(BaseService):
             raise ValueError('queries must be provided')
         queries = [convert_model(x) for x in queries]
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_view_queries')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_view_queries',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -3323,21 +3485,23 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, ddoc, view)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design/{ddoc}/_view/{view}/queries'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_view_queries_as_stream(self,
+    def post_view_queries_as_stream(
+        self,
         db: str,
         ddoc: str,
         view: str,
         queries: List['ViewQuery'],
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Multi-query a MapReduce view as stream.
@@ -3370,9 +3534,11 @@ class CloudantV1(BaseService):
             raise ValueError('queries must be provided')
         queries = [convert_model(x) for x in queries]
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_view_queries_as_stream')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_view_queries_as_stream',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -3391,10 +3557,12 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, ddoc, view)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design/{ddoc}/_view/{view}/queries'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, stream=True, **kwargs)
         return response
@@ -3403,11 +3571,11 @@ class CloudantV1(BaseService):
     # Queries
     #########################
 
-
-    def get_partition_information(self,
+    def get_partition_information(
+        self,
         db: str,
         partition_key: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve information about a database partition.
@@ -3428,9 +3596,11 @@ class CloudantV1(BaseService):
         if not partition_key:
             raise ValueError('partition_key must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_partition_information')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_partition_information',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -3442,15 +3612,17 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, partition_key)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_partition/{partition_key}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_partition_all_docs(self,
+    def post_partition_all_docs(
+        self,
         db: str,
         partition_key: str,
         *,
@@ -3467,7 +3639,7 @@ class CloudantV1(BaseService):
         key: str = None,
         keys: List[str] = None,
         start_key: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a list of all documents in a database partition.
@@ -3517,9 +3689,11 @@ class CloudantV1(BaseService):
         if not partition_key:
             raise ValueError('partition_key must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_partition_all_docs')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_partition_all_docs',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -3550,16 +3724,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, partition_key)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_partition/{partition_key}/_all_docs'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_partition_all_docs_as_stream(self,
+    def post_partition_all_docs_as_stream(
+        self,
         db: str,
         partition_key: str,
         *,
@@ -3576,7 +3752,7 @@ class CloudantV1(BaseService):
         key: str = None,
         keys: List[str] = None,
         start_key: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a list of all documents in a database partition as stream.
@@ -3626,9 +3802,11 @@ class CloudantV1(BaseService):
         if not partition_key:
             raise ValueError('partition_key must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_partition_all_docs_as_stream')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_partition_all_docs_as_stream',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -3659,16 +3837,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, partition_key)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_partition/{partition_key}/_all_docs'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, stream=True, **kwargs)
         return response
 
-
-    def post_partition_search(self,
+    def post_partition_search(
+        self,
         db: str,
         partition_key: str,
         ddoc: str,
@@ -3686,7 +3866,7 @@ class CloudantV1(BaseService):
         limit: int = None,
         sort: List[str] = None,
         stale: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a database partition search index.
@@ -3754,9 +3934,11 @@ class CloudantV1(BaseService):
         if query is None:
             raise ValueError('query must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_partition_search')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_partition_search',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -3786,16 +3968,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, partition_key, ddoc, index)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_partition/{partition_key}/_design/{ddoc}/_search/{index}'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_partition_search_as_stream(self,
+    def post_partition_search_as_stream(
+        self,
         db: str,
         partition_key: str,
         ddoc: str,
@@ -3813,7 +3997,7 @@ class CloudantV1(BaseService):
         limit: int = None,
         sort: List[str] = None,
         stale: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a database partition search index as stream.
@@ -3881,9 +4065,11 @@ class CloudantV1(BaseService):
         if query is None:
             raise ValueError('query must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_partition_search_as_stream')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_partition_search_as_stream',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -3913,16 +4099,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, partition_key, ddoc, index)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_partition/{partition_key}/_design/{ddoc}/_search/{index}'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, stream=True, **kwargs)
         return response
 
-
-    def post_partition_view(self,
+    def post_partition_view(
+        self,
         db: str,
         partition_key: str,
         ddoc: str,
@@ -3947,7 +4135,7 @@ class CloudantV1(BaseService):
         start_key: object = None,
         start_key_doc_id: str = None,
         update: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a database partition MapReduce view function.
@@ -4028,9 +4216,11 @@ class CloudantV1(BaseService):
         if not view:
             raise ValueError('view must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_partition_view')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_partition_view',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -4067,16 +4257,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, partition_key, ddoc, view)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_partition/{partition_key}/_design/{ddoc}/_view/{view}'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_partition_view_as_stream(self,
+    def post_partition_view_as_stream(
+        self,
         db: str,
         partition_key: str,
         ddoc: str,
@@ -4101,7 +4293,7 @@ class CloudantV1(BaseService):
         start_key: object = None,
         start_key_doc_id: str = None,
         update: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a database partition MapReduce view function as stream.
@@ -4182,9 +4374,11 @@ class CloudantV1(BaseService):
         if not view:
             raise ValueError('view must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_partition_view_as_stream')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_partition_view_as_stream',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -4221,16 +4415,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, partition_key, ddoc, view)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_partition/{partition_key}/_design/{ddoc}/_view/{view}'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, stream=True, **kwargs)
         return response
 
-
-    def post_partition_find(self,
+    def post_partition_find(
+        self,
         db: str,
         partition_key: str,
         selector: dict,
@@ -4245,7 +4441,7 @@ class CloudantV1(BaseService):
         stable: bool = None,
         update: str = None,
         use_index: List[str] = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a database partition index by using selector syntax.
@@ -4338,9 +4534,11 @@ class CloudantV1(BaseService):
         if selector is None:
             raise ValueError('selector must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_partition_find')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_partition_find',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -4369,16 +4567,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, partition_key)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_partition/{partition_key}/_find'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_partition_find_as_stream(self,
+    def post_partition_find_as_stream(
+        self,
         db: str,
         partition_key: str,
         selector: dict,
@@ -4393,7 +4593,7 @@ class CloudantV1(BaseService):
         stable: bool = None,
         update: str = None,
         use_index: List[str] = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a database partition index by using selector syntax as stream.
@@ -4486,9 +4686,11 @@ class CloudantV1(BaseService):
         if selector is None:
             raise ValueError('selector must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_partition_find_as_stream')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_partition_find_as_stream',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -4517,10 +4719,12 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, partition_key)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_partition/{partition_key}/_find'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, stream=True, **kwargs)
         return response
@@ -4529,8 +4733,8 @@ class CloudantV1(BaseService):
     # Queries
     #########################
 
-
-    def post_explain(self,
+    def post_explain(
+        self,
         db: str,
         selector: dict,
         *,
@@ -4545,7 +4749,7 @@ class CloudantV1(BaseService):
         update: str = None,
         use_index: List[str] = None,
         r: int = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve information about which index is used for a query.
@@ -4635,9 +4839,11 @@ class CloudantV1(BaseService):
         if selector is None:
             raise ValueError('selector must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_explain')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_explain',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -4667,16 +4873,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_explain'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_find(self,
+    def post_find(
+        self,
         db: str,
         selector: dict,
         *,
@@ -4691,7 +4899,7 @@ class CloudantV1(BaseService):
         update: str = None,
         use_index: List[str] = None,
         r: int = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query an index by using selector syntax.
@@ -4787,9 +4995,11 @@ class CloudantV1(BaseService):
         if selector is None:
             raise ValueError('selector must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_find')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_find',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -4819,16 +5029,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_find'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_find_as_stream(self,
+    def post_find_as_stream(
+        self,
         db: str,
         selector: dict,
         *,
@@ -4843,7 +5055,7 @@ class CloudantV1(BaseService):
         update: str = None,
         use_index: List[str] = None,
         r: int = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query an index by using selector syntax as stream.
@@ -4939,9 +5151,11 @@ class CloudantV1(BaseService):
         if selector is None:
             raise ValueError('selector must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_find_as_stream')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_find_as_stream',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -4971,18 +5185,20 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_find'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, stream=True, **kwargs)
         return response
 
-
-    def get_indexes_information(self,
+    def get_indexes_information(
+        self,
         db: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve information about all indexes.
@@ -5001,9 +5217,11 @@ class CloudantV1(BaseService):
         if not db:
             raise ValueError('db must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_indexes_information')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_indexes_information',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -5015,15 +5233,17 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_index'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_index(self,
+    def post_index(
+        self,
         db: str,
         index: 'IndexDefinition',
         *,
@@ -5032,7 +5252,7 @@ class CloudantV1(BaseService):
         name: str = None,
         partitioned: bool = None,
         type: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Create a new index on a database.
@@ -5073,9 +5293,11 @@ class CloudantV1(BaseService):
         if def_ is not None:
             def_ = convert_model(def_)
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_index')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_index',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -5099,21 +5321,23 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_index'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def delete_index(self,
+    def delete_index(
+        self,
         db: str,
         ddoc: str,
         type: str,
         index: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Delete an index.
@@ -5138,9 +5362,11 @@ class CloudantV1(BaseService):
         if not index:
             raise ValueError('index must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='delete_index')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='delete_index',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -5152,9 +5378,11 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, ddoc, type, index)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_index/_design/{ddoc}/{type}/{index}'.format(**path_param_dict)
-        request = self.prepare_request(method='DELETE',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='DELETE',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -5163,11 +5391,11 @@ class CloudantV1(BaseService):
     # Searches
     #########################
 
-
-    def post_search_analyze(self,
+    def post_search_analyze(
+        self,
         analyzer: str,
         text: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query tokenization of sample text.
@@ -5188,9 +5416,11 @@ class CloudantV1(BaseService):
         if text is None:
             raise ValueError('text must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_search_analyze')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_search_analyze',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -5207,16 +5437,18 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_search_analyze'
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_search(self,
+    def post_search(
+        self,
         db: str,
         ddoc: str,
         index: str,
@@ -5239,7 +5471,7 @@ class CloudantV1(BaseService):
         group_limit: int = None,
         group_sort: List[str] = None,
         ranges: dict = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a search index.
@@ -5335,9 +5567,11 @@ class CloudantV1(BaseService):
         if query is None:
             raise ValueError('query must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_search')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_search',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -5373,16 +5607,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, ddoc, index)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design/{ddoc}/_search/{index}'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_search_as_stream(self,
+    def post_search_as_stream(
+        self,
         db: str,
         ddoc: str,
         index: str,
@@ -5405,7 +5641,7 @@ class CloudantV1(BaseService):
         group_limit: int = None,
         group_sort: List[str] = None,
         ranges: dict = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query a search index as stream.
@@ -5501,9 +5737,11 @@ class CloudantV1(BaseService):
         if query is None:
             raise ValueError('query must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_search_as_stream')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_search_as_stream',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -5539,20 +5777,22 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, ddoc, index)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design/{ddoc}/_search/{index}'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, stream=True, **kwargs)
         return response
 
-
-    def get_search_info(self,
+    def get_search_info(
+        self,
         db: str,
         ddoc: str,
         index: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve information about a search index.
@@ -5576,9 +5816,11 @@ class CloudantV1(BaseService):
         if not index:
             raise ValueError('index must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_search_info')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_search_info',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -5590,9 +5832,11 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, ddoc, index)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_design/{ddoc}/_search_info/{index}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -5601,12 +5845,12 @@ class CloudantV1(BaseService):
     # Replication
     #########################
 
-
-    def head_replication_document(self,
+    def head_replication_document(
+        self,
         doc_id: str,
         *,
         if_none_match: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve the HTTP headers for a replication document.
@@ -5629,9 +5873,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-None-Match': if_none_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='head_replication_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='head_replication_document',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -5642,17 +5888,19 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/_replicator/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='HEAD',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='HEAD',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def head_scheduler_document(self,
+    def head_scheduler_document(
+        self,
         doc_id: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve HTTP headers for a replication scheduler document.
@@ -5671,9 +5919,11 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='head_scheduler_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='head_scheduler_document',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -5684,17 +5934,19 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/_scheduler/docs/_replicator/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='HEAD',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='HEAD',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def head_scheduler_job(self,
+    def head_scheduler_job(
+        self,
         job_id: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve the HTTP headers for a replication scheduler job.
@@ -5711,9 +5963,11 @@ class CloudantV1(BaseService):
         if not job_id:
             raise ValueError('job_id must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='head_scheduler_job')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='head_scheduler_job',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -5724,21 +5978,23 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(job_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/_scheduler/jobs/{job_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='HEAD',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='HEAD',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def delete_replication_document(self,
+    def delete_replication_document(
+        self,
         doc_id: str,
         *,
         if_match: str = None,
         batch: str = None,
         rev: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Cancel a replication.
@@ -5763,9 +6019,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-Match': if_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='delete_replication_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='delete_replication_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -5782,16 +6040,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/_replicator/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='DELETE',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='DELETE',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_replication_document(self,
+    def get_replication_document(
+        self,
         doc_id: str,
         *,
         if_none_match: str = None,
@@ -5805,7 +6065,7 @@ class CloudantV1(BaseService):
         rev: str = None,
         revs: bool = None,
         revs_info: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve a replication document.
@@ -5850,9 +6110,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-None-Match': if_none_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_replication_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_replication_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -5877,16 +6139,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/_replicator/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def put_replication_document(self,
+    def put_replication_document(
+        self,
         doc_id: str,
         replication_document: 'ReplicationDocument',
         *,
@@ -5894,7 +6158,7 @@ class CloudantV1(BaseService):
         batch: str = None,
         new_edits: bool = None,
         rev: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Create or modify a replication using a replication document.
@@ -5930,9 +6194,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-Match': if_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='put_replication_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='put_replication_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -5953,22 +6219,24 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/_replicator/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='PUT',
-                                       url=url,
-                                       headers=headers,
-                                       params=params,
-                                       data=data)
+        request = self.prepare_request(
+            method='PUT',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_scheduler_docs(self,
+    def get_scheduler_docs(
+        self,
         *,
         limit: int = None,
         skip: int = None,
         states: List[str] = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve replication scheduler documents.
@@ -5990,9 +6258,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_scheduler_docs')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_scheduler_docs',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -6007,18 +6277,20 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_scheduler/docs'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_scheduler_document(self,
+    def get_scheduler_document(
+        self,
         doc_id: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve a replication scheduler document.
@@ -6036,9 +6308,11 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_scheduler_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_scheduler_document',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -6050,19 +6324,21 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/_scheduler/docs/_replicator/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_scheduler_jobs(self,
+    def get_scheduler_jobs(
+        self,
         *,
         limit: int = None,
         skip: int = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve replication scheduler jobs.
@@ -6083,9 +6359,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_scheduler_jobs')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_scheduler_jobs',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -6099,18 +6377,20 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_scheduler/jobs'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_scheduler_job(self,
+    def get_scheduler_job(
+        self,
         job_id: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve a replication scheduler job.
@@ -6126,9 +6406,11 @@ class CloudantV1(BaseService):
         if not job_id:
             raise ValueError('job_id must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_scheduler_job')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_scheduler_job',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -6140,9 +6422,11 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(job_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/_scheduler/jobs/{job_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -6151,9 +6435,9 @@ class CloudantV1(BaseService):
     # Authentication
     #########################
 
-
-    def get_session_information(self,
-        **kwargs
+    def get_session_information(
+        self,
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve current session cookie information.
@@ -6166,9 +6450,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_session_information')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_session_information',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -6177,9 +6463,11 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_session'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -6188,10 +6476,10 @@ class CloudantV1(BaseService):
     # Authorization
     #########################
 
-
-    def get_security(self,
+    def get_security(
+        self,
         db: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve database permissions information.
@@ -6211,9 +6499,11 @@ class CloudantV1(BaseService):
         if not db:
             raise ValueError('db must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_security')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_security',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -6225,22 +6515,24 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_security'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def put_security(self,
+    def put_security(
+        self,
         db: str,
         *,
         admins: 'SecurityObject' = None,
         members: 'SecurityObject' = None,
         cloudant: dict = None,
         couchdb_auth_only: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Modify database permissions.
@@ -6277,9 +6569,11 @@ class CloudantV1(BaseService):
         if members is not None:
             members = convert_model(members)
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='put_security')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='put_security',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -6301,17 +6595,19 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_security'.format(**path_param_dict)
-        request = self.prepare_request(method='PUT',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='PUT',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_api_keys(self,
-        **kwargs
+    def post_api_keys(
+        self,
+        **kwargs,
     ) -> DetailedResponse:
         """
         Generates API keys for apps or persons to enable database access.
@@ -6327,9 +6623,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_api_keys')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_api_keys',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -6338,22 +6636,24 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/api_keys'
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def put_cloudant_security_configuration(self,
+    def put_cloudant_security_configuration(
+        self,
         db: str,
         cloudant: dict,
         *,
         admins: 'SecurityObject' = None,
         members: 'SecurityObject' = None,
         couchdb_auth_only: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Modify only Cloudant related database permissions.
@@ -6390,9 +6690,11 @@ class CloudantV1(BaseService):
         if members is not None:
             members = convert_model(members)
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='put_cloudant_security_configuration')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='put_cloudant_security_configuration',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -6414,10 +6716,12 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/_api/v2/db/{db}/_security'.format(**path_param_dict)
-        request = self.prepare_request(method='PUT',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='PUT',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -6426,9 +6730,9 @@ class CloudantV1(BaseService):
     # CORS
     #########################
 
-
-    def get_cors_information(self,
-        **kwargs
+    def get_cors_information(
+        self,
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve CORS configuration information.
@@ -6443,9 +6747,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_cors_information')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_cors_information',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -6454,20 +6760,22 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/config/cors'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def put_cors_configuration(self,
+    def put_cors_configuration(
+        self,
         origins: List[str],
         *,
         allow_credentials: bool = None,
         enable_cors: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Modify CORS configuration.
@@ -6491,9 +6799,11 @@ class CloudantV1(BaseService):
         if origins is None:
             raise ValueError('origins must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='put_cors_configuration')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='put_cors_configuration',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -6511,10 +6821,12 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/config/cors'
-        request = self.prepare_request(method='PUT',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='PUT',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -6523,8 +6835,8 @@ class CloudantV1(BaseService):
     # Attachments
     #########################
 
-
-    def head_attachment(self,
+    def head_attachment(
+        self,
         db: str,
         doc_id: str,
         attachment_name: str,
@@ -6532,7 +6844,7 @@ class CloudantV1(BaseService):
         if_match: str = None,
         if_none_match: str = None,
         rev: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve the HTTP headers for an attachment.
@@ -6565,9 +6877,11 @@ class CloudantV1(BaseService):
             'If-Match': if_match,
             'If-None-Match': if_none_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='head_attachment')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='head_attachment',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -6582,16 +6896,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id, attachment_name)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/{doc_id}/{attachment_name}'.format(**path_param_dict)
-        request = self.prepare_request(method='HEAD',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='HEAD',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def delete_attachment(self,
+    def delete_attachment(
+        self,
         db: str,
         doc_id: str,
         attachment_name: str,
@@ -6599,7 +6915,7 @@ class CloudantV1(BaseService):
         if_match: str = None,
         rev: str = None,
         batch: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Delete an attachment.
@@ -6631,9 +6947,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-Match': if_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='delete_attachment')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='delete_attachment',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -6650,16 +6968,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id, attachment_name)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/{doc_id}/{attachment_name}'.format(**path_param_dict)
-        request = self.prepare_request(method='DELETE',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='DELETE',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_attachment(self,
+    def get_attachment(
+        self,
         db: str,
         doc_id: str,
         attachment_name: str,
@@ -6668,7 +6988,7 @@ class CloudantV1(BaseService):
         if_none_match: str = None,
         range: str = None,
         rev: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve an attachment.
@@ -6705,9 +7025,11 @@ class CloudantV1(BaseService):
             'If-None-Match': if_none_match,
             'Range': range,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_attachment')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_attachment',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -6723,16 +7045,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id, attachment_name)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/{doc_id}/{attachment_name}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def put_attachment(self,
+    def put_attachment(
+        self,
         db: str,
         doc_id: str,
         attachment_name: str,
@@ -6741,7 +7065,7 @@ class CloudantV1(BaseService):
         *,
         if_match: str = None,
         rev: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Create or modify an attachment.
@@ -6783,9 +7107,11 @@ class CloudantV1(BaseService):
             'Content-Type': content_type,
             'If-Match': if_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='put_attachment')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='put_attachment',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -6803,11 +7129,13 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id, attachment_name)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/{doc_id}/{attachment_name}'.format(**path_param_dict)
-        request = self.prepare_request(method='PUT',
-                                       url=url,
-                                       headers=headers,
-                                       params=params,
-                                       data=data)
+        request = self.prepare_request(
+            method='PUT',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -6816,13 +7144,13 @@ class CloudantV1(BaseService):
     # Local Documents
     #########################
 
-
-    def head_local_document(self,
+    def head_local_document(
+        self,
         db: str,
         doc_id: str,
         *,
         if_none_match: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve HTTP headers for a local document.
@@ -6847,9 +7175,11 @@ class CloudantV1(BaseService):
         headers = {
             'If-None-Match': if_none_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='head_local_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='head_local_document',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -6860,20 +7190,22 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_local/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='HEAD',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='HEAD',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def delete_local_document(self,
+    def delete_local_document(
+        self,
         db: str,
         doc_id: str,
         *,
         batch: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Delete a local document.
@@ -6897,9 +7229,11 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='delete_local_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='delete_local_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -6915,16 +7249,18 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_local/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='DELETE',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='DELETE',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_local_document(self,
+    def get_local_document(
+        self,
         db: str,
         doc_id: str,
         *,
@@ -6933,7 +7269,7 @@ class CloudantV1(BaseService):
         attachments: bool = None,
         att_encoding_info: bool = None,
         local_seq: bool = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve a local document.
@@ -6968,9 +7304,11 @@ class CloudantV1(BaseService):
             'Accept': accept,
             'If-None-Match': if_none_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_local_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_local_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -6987,23 +7325,25 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_local/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers,
-                                       params=params)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def put_local_document(self,
+    def put_local_document(
+        self,
         db: str,
         doc_id: str,
         document: Union['Document', BinaryIO],
         *,
         content_type: str = None,
         batch: str = None,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Create or modify a local document.
@@ -7036,9 +7376,11 @@ class CloudantV1(BaseService):
         headers = {
             'Content-Type': content_type,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='put_local_document')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='put_local_document',
+        )
         headers.update(sdk_headers)
 
         params = {
@@ -7061,11 +7403,13 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_local/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='PUT',
-                                       url=url,
-                                       headers=headers,
-                                       params=params,
-                                       data=data)
+        request = self.prepare_request(
+            method='PUT',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -7074,11 +7418,11 @@ class CloudantV1(BaseService):
     # Database Details
     #########################
 
-
-    def post_revs_diff(self,
+    def post_revs_diff(
+        self,
         db: str,
         document_revisions: dict,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Query the document revisions and possible ancestors missing from the database.
@@ -7101,9 +7445,11 @@ class CloudantV1(BaseService):
         if document_revisions is None:
             raise ValueError('document_revisions must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_revs_diff')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_revs_diff',
+        )
         headers.update(sdk_headers)
 
         data = json.dumps(document_revisions)
@@ -7118,18 +7464,20 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_revs_diff'.format(**path_param_dict)
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_shards_information(self,
+    def get_shards_information(
+        self,
         db: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve shard information.
@@ -7145,9 +7493,11 @@ class CloudantV1(BaseService):
         if not db:
             raise ValueError('db must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_shards_information')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_shards_information',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -7159,18 +7509,20 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_shards'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_document_shards_info(self,
+    def get_document_shards_info(
+        self,
         db: str,
         doc_id: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve shard information for a specific document.
@@ -7190,9 +7542,11 @@ class CloudantV1(BaseService):
         if not doc_id:
             raise ValueError('doc_id must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_document_shards_info')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_document_shards_info',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -7204,9 +7558,11 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db, doc_id)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_shards/{doc_id}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -7215,9 +7571,9 @@ class CloudantV1(BaseService):
     # Monitoring
     #########################
 
-
-    def head_up_information(self,
-        **kwargs
+    def head_up_information(
+        self,
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve HTTP headers about whether the server is up.
@@ -7230,9 +7586,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='head_up_information')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='head_up_information',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -7240,16 +7598,18 @@ class CloudantV1(BaseService):
             del kwargs['headers']
 
         url = '/_up'
-        request = self.prepare_request(method='HEAD',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='HEAD',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_active_tasks(self,
-        **kwargs
+    def get_active_tasks(
+        self,
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve list of running tasks.
@@ -7265,9 +7625,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_active_tasks')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_active_tasks',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -7276,16 +7638,18 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_active_tasks'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_up_information(self,
-        **kwargs
+    def get_up_information(
+        self,
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve information about whether the server is up.
@@ -7300,9 +7664,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_up_information')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_up_information',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -7311,16 +7677,18 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_up'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_activity_tracker_events(self,
-        **kwargs
+    def get_activity_tracker_events(
+        self,
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve Activity Tracker events information.
@@ -7334,9 +7702,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_activity_tracker_events')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_activity_tracker_events',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -7345,17 +7715,19 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/activity_tracker/events'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def post_activity_tracker_events(self,
+    def post_activity_tracker_events(
+        self,
         types: List[str],
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Modify Activity Tracker events configuration.
@@ -7374,9 +7746,11 @@ class CloudantV1(BaseService):
         if types is None:
             raise ValueError('types must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='post_activity_tracker_events')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_activity_tracker_events',
+        )
         headers.update(sdk_headers)
 
         data = {
@@ -7392,17 +7766,19 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/activity_tracker/events'
-        request = self.prepare_request(method='POST',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def get_current_throughput_information(self,
-        **kwargs
+    def get_current_throughput_information(
+        self,
+        **kwargs,
     ) -> DetailedResponse:
         """
         Retrieve the current provisioned throughput capacity consumption.
@@ -7417,9 +7793,11 @@ class CloudantV1(BaseService):
         """
 
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_current_throughput_information')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_current_throughput_information',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -7428,9 +7806,11 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_api/v2/user/current/throughput'
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -7445,6 +7825,7 @@ class GetDbUpdatesEnums:
         """
         Query parameter to specify the changes feed type.
         """
+
         CONTINUOUS = 'continuous'
         EVENTSOURCE = 'eventsource'
         LONGPOLL = 'longpoll'
@@ -7460,6 +7841,7 @@ class PostChangesEnums:
         """
         Query parameter to specify the changes feed type.
         """
+
         CONTINUOUS = 'continuous'
         EVENTSOURCE = 'eventsource'
         LONGPOLL = 'longpoll'
@@ -7475,6 +7857,7 @@ class PostChangesAsStreamEnums:
         """
         Query parameter to specify the changes feed type.
         """
+
         CONTINUOUS = 'continuous'
         EVENTSOURCE = 'eventsource'
         LONGPOLL = 'longpoll'
@@ -7490,6 +7873,7 @@ class PostDocumentEnums:
         """
         The type of the input.
         """
+
         APPLICATION_JSON = 'application/json'
         MULTIPART_MIXED = 'multipart/mixed'
         MULTIPART_RELATED = 'multipart/related'
@@ -7499,6 +7883,7 @@ class PostDocumentEnums:
         Query parameter to specify whether to store in batch mode. The server will respond
         with a HTTP 202 Accepted response code immediately.
         """
+
         OK = 'ok'
 
 
@@ -7512,6 +7897,7 @@ class DeleteDocumentEnums:
         Query parameter to specify whether to store in batch mode. The server will respond
         with a HTTP 202 Accepted response code immediately.
         """
+
         OK = 'ok'
 
 
@@ -7524,6 +7910,7 @@ class PutDocumentEnums:
         """
         The type of the input.
         """
+
         APPLICATION_JSON = 'application/json'
         MULTIPART_MIXED = 'multipart/mixed'
         MULTIPART_RELATED = 'multipart/related'
@@ -7533,6 +7920,7 @@ class PutDocumentEnums:
         Query parameter to specify whether to store in batch mode. The server will respond
         with a HTTP 202 Accepted response code immediately.
         """
+
         OK = 'ok'
 
 
@@ -7546,6 +7934,7 @@ class DeleteDesignDocumentEnums:
         Query parameter to specify whether to store in batch mode. The server will respond
         with a HTTP 202 Accepted response code immediately.
         """
+
         OK = 'ok'
 
 
@@ -7559,6 +7948,7 @@ class PutDesignDocumentEnums:
         Query parameter to specify whether to store in batch mode. The server will respond
         with a HTTP 202 Accepted response code immediately.
         """
+
         OK = 'ok'
 
 
@@ -7571,6 +7961,7 @@ class PostDesignDocsEnums:
         """
         The type of the response: application/json or application/octet-stream.
         """
+
         APPLICATION_JSON = 'application/json'
         APPLICATION_OCTET_STREAM = 'application/octet-stream'
 
@@ -7584,6 +7975,7 @@ class PostDesignDocsQueriesEnums:
         """
         The type of the response: application/json or application/octet-stream.
         """
+
         APPLICATION_JSON = 'application/json'
         APPLICATION_OCTET_STREAM = 'application/octet-stream'
 
@@ -7597,6 +7989,7 @@ class DeleteIndexEnums:
         """
         Path parameter to specify the index type.
         """
+
         JSON = 'json'
         SPECIAL = 'special'
         TEXT = 'text'
@@ -7612,6 +8005,7 @@ class DeleteReplicationDocumentEnums:
         Query parameter to specify whether to store in batch mode. The server will respond
         with a HTTP 202 Accepted response code immediately.
         """
+
         OK = 'ok'
 
 
@@ -7625,6 +8019,7 @@ class PutReplicationDocumentEnums:
         Query parameter to specify whether to store in batch mode. The server will respond
         with a HTTP 202 Accepted response code immediately.
         """
+
         OK = 'ok'
 
 
@@ -7638,6 +8033,7 @@ class GetSchedulerDocsEnums:
         Query parameter to include only replication documents in the specified states.
         String must be a comma-delimited string.
         """
+
         INITIALIZING = 'initializing'
         ERROR = 'error'
         PENDING = 'pending'
@@ -7657,6 +8053,7 @@ class DeleteAttachmentEnums:
         Query parameter to specify whether to store in batch mode. The server will respond
         with a HTTP 202 Accepted response code immediately.
         """
+
         OK = 'ok'
 
 
@@ -7670,6 +8067,7 @@ class DeleteLocalDocumentEnums:
         Query parameter to specify whether to store in batch mode. The server will respond
         with a HTTP 202 Accepted response code immediately.
         """
+
         OK = 'ok'
 
 
@@ -7683,6 +8081,7 @@ class GetLocalDocumentEnums:
         The type of the response: application/json, multipart/mixed, multipart/related, or
         application/octet-stream.
         """
+
         APPLICATION_JSON = 'application/json'
         MULTIPART_MIXED = 'multipart/mixed'
         MULTIPART_RELATED = 'multipart/related'
@@ -7698,6 +8097,7 @@ class PutLocalDocumentEnums:
         """
         The type of the input.
         """
+
         APPLICATION_JSON = 'application/json'
         MULTIPART_MIXED = 'multipart/mixed'
         MULTIPART_RELATED = 'multipart/related'
@@ -7707,6 +8107,7 @@ class PutLocalDocumentEnums:
         Query parameter to specify whether to store in batch mode. The server will respond
         with a HTTP 202 Accepted response code immediately.
         """
+
         OK = 'ok'
 
 
@@ -7715,7 +8116,7 @@ class PutLocalDocumentEnums:
 ##############################################################################
 
 
-class ActiveTask():
+class ActiveTask:
     """
     Schema for information about a running task.
 
@@ -7786,42 +8187,44 @@ class ActiveTask():
           `view_compaction` type tasks.
     """
 
-    def __init__(self,
-                 database: str,
-                 node: str,
-                 pid: str,
-                 started_on: int,
-                 type: str,
-                 updated_on: int,
-                 *,
-                 bulk_get_attempts: int = None,
-                 bulk_get_docs: int = None,
-                 changes_done: int = None,
-                 changes_pending: int = None,
-                 checkpoint_interval: int = None,
-                 checkpointed_source_seq: str = None,
-                 continuous: bool = None,
-                 design_document: str = None,
-                 doc_id: str = None,
-                 doc_write_failures: int = None,
-                 docs_read: int = None,
-                 docs_written: int = None,
-                 index: str = None,
-                 indexer_pid: str = None,
-                 missing_revisions_found: int = None,
-                 phase: str = None,
-                 process_status: str = None,
-                 progress: int = None,
-                 replication_id: str = None,
-                 retry: bool = None,
-                 revisions_checked: int = None,
-                 source: str = None,
-                 source_seq: str = None,
-                 target: str = None,
-                 through_seq: str = None,
-                 total_changes: int = None,
-                 user: str = None,
-                 view: int = None) -> None:
+    def __init__(
+        self,
+        database: str,
+        node: str,
+        pid: str,
+        started_on: int,
+        type: str,
+        updated_on: int,
+        *,
+        bulk_get_attempts: int = None,
+        bulk_get_docs: int = None,
+        changes_done: int = None,
+        changes_pending: int = None,
+        checkpoint_interval: int = None,
+        checkpointed_source_seq: str = None,
+        continuous: bool = None,
+        design_document: str = None,
+        doc_id: str = None,
+        doc_write_failures: int = None,
+        docs_read: int = None,
+        docs_written: int = None,
+        index: str = None,
+        indexer_pid: str = None,
+        missing_revisions_found: int = None,
+        phase: str = None,
+        process_status: str = None,
+        progress: int = None,
+        replication_id: str = None,
+        retry: bool = None,
+        revisions_checked: int = None,
+        source: str = None,
+        source_seq: str = None,
+        target: str = None,
+        through_seq: str = None,
+        total_changes: int = None,
+        user: str = None,
+        view: int = None,
+    ) -> None:
         """
         Initialize a ActiveTask object.
 
@@ -8118,6 +8521,7 @@ class ActiveTask():
         phases are available for `database_compaction`, while `ids` and `view` phases are
         available for `view_compaction` type tasks.
         """
+
         DOCID_SORT = 'docid_sort'
         DOCID_COPY = 'docid_copy'
         DOCUMENT_COPY = 'document_copy'
@@ -8129,6 +8533,7 @@ class ActiveTask():
         """
         Process status.
         """
+
         EXITING = 'exiting'
         GARBAGE_COLLECTING = 'garbage_collecting'
         RUNNABLE = 'runnable'
@@ -8141,6 +8546,7 @@ class ActiveTask():
         """
         Operation type.
         """
+
         DATABASE_COMPACTION = 'database_compaction'
         INDEXER = 'indexer'
         REPLICATION = 'replication'
@@ -8148,7 +8554,8 @@ class ActiveTask():
         VIEW_COMPACTION = 'view_compaction'
 
 
-class ActivityTrackerEvents():
+
+class ActivityTrackerEvents:
     """
     Schema for Activity Tracker events.
 
@@ -8157,8 +8564,10 @@ class ActivityTrackerEvents():
           element of this array.
     """
 
-    def __init__(self,
-                 types: List[str]) -> None:
+    def __init__(
+        self,
+        types: List[str],
+    ) -> None:
         """
         Initialize a ActivityTrackerEvents object.
 
@@ -8212,11 +8621,13 @@ class ActivityTrackerEvents():
         """
         types.
         """
+
         MANAGEMENT = 'management'
         DATA = 'data'
 
 
-class AllDocsQueriesResult():
+
+class AllDocsQueriesResult:
     """
     Schema for the result of an all documents queries operation.
 
@@ -8225,8 +8636,10 @@ class AllDocsQueriesResult():
           `/_all_docs` request.
     """
 
-    def __init__(self,
-                 results: List['AllDocsResult']) -> None:
+    def __init__(
+        self,
+        results: List['AllDocsResult'],
+    ) -> None:
         """
         Initialize a AllDocsQueriesResult object.
 
@@ -8282,7 +8695,8 @@ class AllDocsQueriesResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class AllDocsQuery():
+
+class AllDocsQuery:
     """
     Schema for an all documents query operation.
 
@@ -8313,21 +8727,23 @@ class AllDocsQuery():
     :attr str start_key: (optional) Schema for a document ID.
     """
 
-    def __init__(self,
-                 *,
-                 att_encoding_info: bool = None,
-                 attachments: bool = None,
-                 conflicts: bool = None,
-                 descending: bool = None,
-                 include_docs: bool = None,
-                 inclusive_end: bool = None,
-                 limit: int = None,
-                 skip: int = None,
-                 update_seq: bool = None,
-                 end_key: str = None,
-                 key: str = None,
-                 keys: List[str] = None,
-                 start_key: str = None) -> None:
+    def __init__(
+        self,
+        *,
+        att_encoding_info: bool = None,
+        attachments: bool = None,
+        conflicts: bool = None,
+        descending: bool = None,
+        include_docs: bool = None,
+        inclusive_end: bool = None,
+        limit: int = None,
+        skip: int = None,
+        update_seq: bool = None,
+        end_key: str = None,
+        key: str = None,
+        keys: List[str] = None,
+        start_key: str = None,
+    ) -> None:
         """
         Initialize a AllDocsQuery object.
 
@@ -8457,7 +8873,8 @@ class AllDocsQuery():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class AllDocsResult():
+
+class AllDocsResult:
     """
     Schema for the result of an all documents operation.
 
@@ -8466,11 +8883,13 @@ class AllDocsResult():
     :attr str update_seq: (optional) Current update sequence for the database.
     """
 
-    def __init__(self,
-                 total_rows: int,
-                 rows: List['DocsResultRow'],
-                 *,
-                 update_seq: str = None) -> None:
+    def __init__(
+        self,
+        total_rows: int,
+        rows: List['DocsResultRow'],
+        *,
+        update_seq: str = None,
+    ) -> None:
         """
         Initialize a AllDocsResult object.
 
@@ -8538,7 +8957,8 @@ class AllDocsResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class Analyzer():
+
+class Analyzer:
     """
     Schema for a full text search analyzer.
 
@@ -8551,10 +8971,12 @@ class Analyzer():
           analyzer.
     """
 
-    def __init__(self,
-                 *,
-                 name: str = None,
-                 stopwords: List[str] = None) -> None:
+    def __init__(
+        self,
+        *,
+        name: str = None,
+        stopwords: List[str] = None,
+    ) -> None:
         """
         Initialize a Analyzer object.
 
@@ -8620,6 +9042,7 @@ class Analyzer():
         default is `keyword` * For a query text index default_field the default is
         `standard`.
         """
+
         CLASSIC = 'classic'
         EMAIL = 'email'
         KEYWORD = 'keyword'
@@ -8663,7 +9086,8 @@ class Analyzer():
         PERFIELD = 'perfield'
 
 
-class AnalyzerConfiguration():
+
+class AnalyzerConfiguration:
     """
     Schema for a search analyzer configuration.
 
@@ -8678,11 +9102,13 @@ class AnalyzerConfiguration():
           analyzer.
     """
 
-    def __init__(self,
-                 *,
-                 name: str = None,
-                 stopwords: List[str] = None,
-                 fields: dict = None) -> None:
+    def __init__(
+        self,
+        *,
+        name: str = None,
+        stopwords: List[str] = None,
+        fields: dict = None,
+    ) -> None:
         """
         Initialize a AnalyzerConfiguration object.
 
@@ -8710,7 +9136,7 @@ class AnalyzerConfiguration():
         if 'stopwords' in _dict:
             args['stopwords'] = _dict.get('stopwords')
         if 'fields' in _dict:
-            args['fields'] = {k : Analyzer.from_dict(v) for k, v in _dict.get('fields').items()}
+            args['fields'] = {k: Analyzer.from_dict(v) for k, v in _dict.get('fields').items()}
         return cls(**args)
 
     @classmethod
@@ -8761,6 +9187,7 @@ class AnalyzerConfiguration():
         default is `keyword` * For a query text index default_field the default is
         `standard`.
         """
+
         CLASSIC = 'classic'
         EMAIL = 'email'
         KEYWORD = 'keyword'
@@ -8804,7 +9231,8 @@ class AnalyzerConfiguration():
         PERFIELD = 'perfield'
 
 
-class ApiKeysResult():
+
+class ApiKeysResult:
     """
     Schema for api keys.
 
@@ -8813,10 +9241,12 @@ class ApiKeysResult():
     :attr str password: The password associated with the api key.
     """
 
-    def __init__(self,
-                 ok: bool,
-                 key: str,
-                 password: str) -> None:
+    def __init__(
+        self,
+        ok: bool,
+        key: str,
+        password: str,
+    ) -> None:
         """
         Initialize a ApiKeysResult object.
 
@@ -8880,7 +9310,8 @@ class ApiKeysResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class Attachment():
+
+class Attachment:
     """
     Schema for an attachment.
 
@@ -8908,17 +9339,19 @@ class Attachment():
           content. Otherwise omitted in response.
     """
 
-    def __init__(self,
-                 *,
-                 content_type: str = None,
-                 data: bytes = None,
-                 digest: str = None,
-                 encoded_length: int = None,
-                 encoding: str = None,
-                 follows: bool = None,
-                 length: int = None,
-                 revpos: int = None,
-                 stub: bool = None) -> None:
+    def __init__(
+        self,
+        *,
+        content_type: str = None,
+        data: bytes = None,
+        digest: str = None,
+        encoded_length: int = None,
+        encoding: str = None,
+        follows: bool = None,
+        length: int = None,
+        revpos: int = None,
+        stub: bool = None,
+    ) -> None:
         """
         Initialize a Attachment object.
 
@@ -9028,7 +9461,8 @@ class Attachment():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class BulkDocs():
+
+class BulkDocs:
     """
     Schema for submitting documents for bulk modifications.
 
@@ -9037,10 +9471,12 @@ class BulkDocs():
           assigning them new revision IDs. Default is `true`.
     """
 
-    def __init__(self,
-                 docs: List['Document'],
-                 *,
-                 new_edits: bool = None) -> None:
+    def __init__(
+        self,
+        docs: List['Document'],
+        *,
+        new_edits: bool = None,
+    ) -> None:
         """
         Initialize a BulkDocs object.
 
@@ -9101,7 +9537,8 @@ class BulkDocs():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class BulkGetQueryDocument():
+
+class BulkGetQueryDocument:
     """
     Schema for a document item in a bulk get query.
 
@@ -9111,11 +9548,13 @@ class BulkGetQueryDocument():
     :attr str rev: (optional) Schema for a document revision identifier.
     """
 
-    def __init__(self,
-                 id: str,
-                 *,
-                 atts_since: List[str] = None,
-                 rev: str = None) -> None:
+    def __init__(
+        self,
+        id: str,
+        *,
+        atts_since: List[str] = None,
+        rev: str = None,
+    ) -> None:
         """
         Initialize a BulkGetQueryDocument object.
 
@@ -9176,15 +9615,18 @@ class BulkGetQueryDocument():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class BulkGetResult():
+
+class BulkGetResult:
     """
     Schema for the results object of a bulk get operation.
 
     :attr List[BulkGetResultItem] results: Results.
     """
 
-    def __init__(self,
-                 results: List['BulkGetResultItem']) -> None:
+    def __init__(
+        self,
+        results: List['BulkGetResultItem'],
+    ) -> None:
         """
         Initialize a BulkGetResult object.
 
@@ -9238,7 +9680,8 @@ class BulkGetResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class BulkGetResultDocument():
+
+class BulkGetResultDocument:
     """
     Schema for BulkGetResult object containing a successfully retrieved document or error
     information.
@@ -9248,10 +9691,12 @@ class BulkGetResultDocument():
     :attr Document ok: (optional) Schema for a document.
     """
 
-    def __init__(self,
-                 *,
-                 error: 'DocumentResult' = None,
-                 ok: 'Document' = None) -> None:
+    def __init__(
+        self,
+        *,
+        error: 'DocumentResult' = None,
+        ok: 'Document' = None,
+    ) -> None:
         """
         Initialize a BulkGetResultDocument object.
 
@@ -9310,7 +9755,8 @@ class BulkGetResultDocument():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class BulkGetResultItem():
+
+class BulkGetResultItem:
     """
     Schema for the document revisions information from a bulk get operation.
 
@@ -9319,9 +9765,11 @@ class BulkGetResultItem():
     :attr str id: Schema for a document ID.
     """
 
-    def __init__(self,
-                 docs: List['BulkGetResultDocument'],
-                 id: str) -> None:
+    def __init__(
+        self,
+        docs: List['BulkGetResultDocument'],
+        id: str,
+    ) -> None:
         """
         Initialize a BulkGetResultItem object.
 
@@ -9384,7 +9832,8 @@ class BulkGetResultItem():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class CapacityThroughputInformation():
+
+class CapacityThroughputInformation:
     """
     Schema for information about the currently provisioned and target throughput capacity.
 
@@ -9394,10 +9843,12 @@ class CapacityThroughputInformation():
           information about target throughput capacity.
     """
 
-    def __init__(self,
-                 current: 'CapacityThroughputInformationCurrent',
-                 *,
-                 target: 'CapacityThroughputInformationTarget' = None) -> None:
+    def __init__(
+        self,
+        current: 'CapacityThroughputInformationCurrent',
+        *,
+        target: 'CapacityThroughputInformationTarget' = None,
+    ) -> None:
         """
         Initialize a CapacityThroughputInformation object.
 
@@ -9459,7 +9910,8 @@ class CapacityThroughputInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class CapacityThroughputInformationCurrent():
+
+class CapacityThroughputInformationCurrent:
     """
     Detailed information about provisioned throughput capacity.
 
@@ -9467,8 +9919,10 @@ class CapacityThroughputInformationCurrent():
           throughput capacity with breakdown by specific throughput requests classes.
     """
 
-    def __init__(self,
-                 throughput: 'ThroughputInformation') -> None:
+    def __init__(
+        self,
+        throughput: 'ThroughputInformation',
+    ) -> None:
         """
         Initialize a CapacityThroughputInformationCurrent object.
 
@@ -9521,7 +9975,8 @@ class CapacityThroughputInformationCurrent():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class CapacityThroughputInformationTarget():
+
+class CapacityThroughputInformationTarget:
     """
     Detailed information about target throughput capacity.
 
@@ -9529,8 +9984,10 @@ class CapacityThroughputInformationTarget():
           throughput capacity with breakdown by specific throughput requests classes.
     """
 
-    def __init__(self,
-                 throughput: 'ThroughputInformation') -> None:
+    def __init__(
+        self,
+        throughput: 'ThroughputInformation',
+    ) -> None:
         """
         Initialize a CapacityThroughputInformationTarget object.
 
@@ -9583,15 +10040,18 @@ class CapacityThroughputInformationTarget():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class Change():
+
+class Change:
     """
     Schema for a document leaf with single field rev.
 
     :attr str rev: Schema for a document revision identifier.
     """
 
-    def __init__(self,
-                 rev: str) -> None:
+    def __init__(
+        self,
+        rev: str,
+    ) -> None:
         """
         Initialize a Change object.
 
@@ -9639,7 +10099,8 @@ class Change():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ChangesResult():
+
+class ChangesResult:
     """
     Schema for normal changes feed result.
 
@@ -9648,10 +10109,12 @@ class ChangesResult():
     :attr List[ChangesResultItem] results: results.
     """
 
-    def __init__(self,
-                 last_seq: str,
-                 pending: int,
-                 results: List['ChangesResultItem']) -> None:
+    def __init__(
+        self,
+        last_seq: str,
+        pending: int,
+        results: List['ChangesResultItem'],
+    ) -> None:
         """
         Initialize a ChangesResult object.
 
@@ -9721,7 +10184,8 @@ class ChangesResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ChangesResultItem():
+
+class ChangesResultItem:
     """
     Schema for an item in the changes results array.
 
@@ -9732,13 +10196,15 @@ class ChangesResultItem():
     :attr str seq: Update sequence.
     """
 
-    def __init__(self,
-                 changes: List['Change'],
-                 id: str,
-                 seq: str,
-                 *,
-                 deleted: bool = None,
-                 doc: 'Document' = None) -> None:
+    def __init__(
+        self,
+        changes: List['Change'],
+        id: str,
+        seq: str,
+        *,
+        deleted: bool = None,
+        doc: 'Document' = None,
+    ) -> None:
         """
         Initialize a ChangesResultItem object.
 
@@ -9824,7 +10290,8 @@ class ChangesResultItem():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ContentInformationSizes():
+
+class ContentInformationSizes:
     """
     Schema for size information of content.
 
@@ -9833,10 +10300,12 @@ class ContentInformationSizes():
     :attr int file: The total size of the content as stored on disk, in bytes.
     """
 
-    def __init__(self,
-                 active: int,
-                 external: int,
-                 file: int) -> None:
+    def __init__(
+        self,
+        active: int,
+        external: int,
+        file: int,
+    ) -> None:
         """
         Initialize a ContentInformationSizes object.
 
@@ -9900,7 +10369,8 @@ class ContentInformationSizes():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class CorsInformation():
+
+class CorsInformation:
     """
     Schema for information about the CORS configuration.
 
@@ -9913,10 +10383,12 @@ class CorsInformation():
           domains, so you have to specify all subdomains used.
     """
 
-    def __init__(self,
-                 allow_credentials: bool,
-                 enable_cors: bool,
-                 origins: List[str]) -> None:
+    def __init__(
+        self,
+        allow_credentials: bool,
+        enable_cors: bool,
+        origins: List[str],
+    ) -> None:
         """
         Initialize a CorsInformation object.
 
@@ -9985,7 +10457,8 @@ class CorsInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class CurrentThroughputInformation():
+
+class CurrentThroughputInformation:
     """
     Schema for information about current consumption of a provisioned throughput capacity.
 
@@ -9993,8 +10466,10 @@ class CurrentThroughputInformation():
           about current consumption.
     """
 
-    def __init__(self,
-                 throughput: 'CurrentThroughputInformationThroughput') -> None:
+    def __init__(
+        self,
+        throughput: 'CurrentThroughputInformationThroughput',
+    ) -> None:
         """
         Initialize a CurrentThroughputInformation object.
 
@@ -10046,7 +10521,8 @@ class CurrentThroughputInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class CurrentThroughputInformationThroughput():
+
+class CurrentThroughputInformationThroughput:
     """
     Detailed information about current consumption.
 
@@ -10058,10 +10534,12 @@ class CurrentThroughputInformationThroughput():
           second.
     """
 
-    def __init__(self,
-                 query: int,
-                 read: int,
-                 write: int) -> None:
+    def __init__(
+        self,
+        query: int,
+        read: int,
+        write: int,
+    ) -> None:
         """
         Initialize a CurrentThroughputInformationThroughput object.
 
@@ -10128,7 +10606,8 @@ class CurrentThroughputInformationThroughput():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DatabaseInformation():
+
+class DatabaseInformation:
     """
     Schema for information about a database.
 
@@ -10153,21 +10632,23 @@ class DatabaseInformation():
     :attr str uuid: (optional) The UUID of the database.
     """
 
-    def __init__(self,
-                 cluster: 'DatabaseInformationCluster',
-                 compact_running: bool,
-                 db_name: str,
-                 disk_format_version: int,
-                 doc_count: int,
-                 doc_del_count: int,
-                 props: 'DatabaseInformationProps',
-                 sizes: 'ContentInformationSizes',
-                 update_seq: str,
-                 *,
-                 committed_update_seq: str = None,
-                 compacted_seq: str = None,
-                 engine: str = None,
-                 uuid: str = None) -> None:
+    def __init__(
+        self,
+        cluster: 'DatabaseInformationCluster',
+        compact_running: bool,
+        db_name: str,
+        disk_format_version: int,
+        doc_count: int,
+        doc_del_count: int,
+        props: 'DatabaseInformationProps',
+        sizes: 'ContentInformationSizes',
+        update_seq: str,
+        *,
+        committed_update_seq: str = None,
+        compacted_seq: str = None,
+        engine: str = None,
+        uuid: str = None,
+    ) -> None:
         """
         Initialize a DatabaseInformation object.
 
@@ -10319,7 +10800,8 @@ class DatabaseInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DatabaseInformationCluster():
+
+class DatabaseInformationCluster:
     """
     Schema for database cluster information.
 
@@ -10332,11 +10814,13 @@ class DatabaseInformationCluster():
           written before a successful reply.
     """
 
-    def __init__(self,
-                 n: int,
-                 q: int,
-                 r: int,
-                 w: int) -> None:
+    def __init__(
+        self,
+        n: int,
+        q: int,
+        r: int,
+        w: int,
+    ) -> None:
         """
         Initialize a DatabaseInformationCluster object.
 
@@ -10411,7 +10895,8 @@ class DatabaseInformationCluster():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DatabaseInformationProps():
+
+class DatabaseInformationProps:
     """
     Schema for database properties.
 
@@ -10419,9 +10904,11 @@ class DatabaseInformationProps():
           database.
     """
 
-    def __init__(self,
-                 *,
-                 partitioned: bool = None) -> None:
+    def __init__(
+        self,
+        *,
+        partitioned: bool = None,
+    ) -> None:
         """
         Initialize a DatabaseInformationProps object.
 
@@ -10468,7 +10955,8 @@ class DatabaseInformationProps():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DbEvent():
+
+class DbEvent:
     """
     Schema for a database change event.
 
@@ -10477,10 +10965,12 @@ class DbEvent():
     :attr str type: A database event.
     """
 
-    def __init__(self,
-                 db_name: str,
-                 seq: str,
-                 type: str) -> None:
+    def __init__(
+        self,
+        db_name: str,
+        seq: str,
+        type: str,
+    ) -> None:
         """
         Initialize a DbEvent object.
 
@@ -10548,12 +11038,14 @@ class DbEvent():
         """
         A database event.
         """
+
         CREATED = 'created'
         DELETED = 'deleted'
         UPDATED = 'updated'
 
 
-class DbUpdates():
+
+class DbUpdates:
     """
     Schema for database updates.
 
@@ -10561,9 +11053,11 @@ class DbUpdates():
     :attr List[DbEvent] results: results.
     """
 
-    def __init__(self,
-                 last_seq: str,
-                 results: List['DbEvent']) -> None:
+    def __init__(
+        self,
+        last_seq: str,
+        results: List['DbEvent'],
+    ) -> None:
         """
         Initialize a DbUpdates object.
 
@@ -10625,7 +11119,8 @@ class DbUpdates():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DbsInfoResult():
+
+class DbsInfoResult:
     """
     Schema for database information keyed by database name.
 
@@ -10635,11 +11130,13 @@ class DbsInfoResult():
     :attr str key: Database name.
     """
 
-    def __init__(self,
-                 key: str,
-                 *,
-                 error: str = None,
-                 info: 'DatabaseInformation' = None) -> None:
+    def __init__(
+        self,
+        key: str,
+        *,
+        error: str = None,
+        info: 'DatabaseInformation' = None,
+    ) -> None:
         """
         Initialize a DbsInfoResult object.
 
@@ -10703,7 +11200,8 @@ class DbsInfoResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DesignDocument():
+
+class DesignDocument:
     """
     Schema for a design document.
 
@@ -10796,25 +11294,27 @@ class DesignDocument():
     # The set of defined properties for the class
     _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info', 'autoupdate', 'filters', 'indexes', 'language', 'options', 'validate_doc_update', 'views'])
 
-    def __init__(self,
-                 *,
-                 attachments: dict = None,
-                 conflicts: List[str] = None,
-                 deleted: bool = None,
-                 deleted_conflicts: List[str] = None,
-                 id: str = None,
-                 local_seq: str = None,
-                 rev: str = None,
-                 revisions: 'Revisions' = None,
-                 revs_info: List['DocumentRevisionStatus'] = None,
-                 autoupdate: bool = None,
-                 filters: dict = None,
-                 indexes: dict = None,
-                 language: str = None,
-                 options: 'DesignDocumentOptions' = None,
-                 validate_doc_update: str = None,
-                 views: dict = None,
-                 **kwargs) -> None:
+    def __init__(
+        self,
+        *,
+        attachments: dict = None,
+        conflicts: List[str] = None,
+        deleted: bool = None,
+        deleted_conflicts: List[str] = None,
+        id: str = None,
+        local_seq: str = None,
+        rev: str = None,
+        revisions: 'Revisions' = None,
+        revs_info: List['DocumentRevisionStatus'] = None,
+        autoupdate: bool = None,
+        filters: dict = None,
+        indexes: dict = None,
+        language: str = None,
+        options: 'DesignDocumentOptions' = None,
+        validate_doc_update: str = None,
+        views: dict = None,
+        **kwargs,
+    ) -> None:
         """
         Initialize a DesignDocument object.
 
@@ -10931,7 +11431,7 @@ class DesignDocument():
         """Initialize a DesignDocument object from a json dictionary."""
         args = {}
         if '_attachments' in _dict:
-            args['attachments'] = {k : Attachment.from_dict(v) for k, v in _dict.get('_attachments').items()}
+            args['attachments'] = {k: Attachment.from_dict(v) for k, v in _dict.get('_attachments').items()}
         if '_conflicts' in _dict:
             args['conflicts'] = _dict.get('_conflicts')
         if '_deleted' in _dict:
@@ -10953,7 +11453,7 @@ class DesignDocument():
         if 'filters' in _dict:
             args['filters'] = _dict.get('filters')
         if 'indexes' in _dict:
-            args['indexes'] = {k : SearchIndexDefinition.from_dict(v) for k, v in _dict.get('indexes').items()}
+            args['indexes'] = {k: SearchIndexDefinition.from_dict(v) for k, v in _dict.get('indexes').items()}
         if 'language' in _dict:
             args['language'] = _dict.get('language')
         if 'options' in _dict:
@@ -10961,8 +11461,8 @@ class DesignDocument():
         if 'validate_doc_update' in _dict:
             args['validate_doc_update'] = _dict.get('validate_doc_update')
         if 'views' in _dict:
-            args['views'] = {k : DesignDocumentViewsMapReduce.from_dict(v) for k, v in _dict.get('views').items()}
-        args.update({k:v for (k, v) in _dict.items() if k not in cls._properties})
+            args['views'] = {k: DesignDocumentViewsMapReduce.from_dict(v) for k, v in _dict.get('views').items()}
+        args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
         return cls(**args)
 
     @classmethod
@@ -11074,7 +11574,8 @@ class DesignDocument():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DesignDocumentInformation():
+
+class DesignDocumentInformation:
     """
     Schema for information about a design document.
 
@@ -11082,9 +11583,11 @@ class DesignDocumentInformation():
     :attr DesignDocumentViewIndex view_index: View index information.
     """
 
-    def __init__(self,
-                 name: str,
-                 view_index: 'DesignDocumentViewIndex') -> None:
+    def __init__(
+        self,
+        name: str,
+        view_index: 'DesignDocumentViewIndex',
+    ) -> None:
         """
         Initialize a DesignDocumentInformation object.
 
@@ -11143,7 +11646,8 @@ class DesignDocumentInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DesignDocumentOptions():
+
+class DesignDocumentOptions:
     """
     Schema for design document options.
 
@@ -11151,9 +11655,11 @@ class DesignDocumentOptions():
           partitioned or global indexes.
     """
 
-    def __init__(self,
-                 *,
-                 partitioned: bool = None) -> None:
+    def __init__(
+        self,
+        *,
+        partitioned: bool = None,
+    ) -> None:
         """
         Initialize a DesignDocumentOptions object.
 
@@ -11200,7 +11706,8 @@ class DesignDocumentOptions():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DesignDocumentViewIndex():
+
+class DesignDocumentViewIndex:
     """
     View index information.
 
@@ -11219,15 +11726,17 @@ class DesignDocumentViewIndex():
           underlying database that need to processed.
     """
 
-    def __init__(self,
-                 collator_versions: List[str],
-                 compact_running: bool,
-                 language: str,
-                 signature: str,
-                 sizes: 'ContentInformationSizes',
-                 updater_running: bool,
-                 waiting_clients: int,
-                 waiting_commit: bool) -> None:
+    def __init__(
+        self,
+        collator_versions: List[str],
+        compact_running: bool,
+        language: str,
+        signature: str,
+        sizes: 'ContentInformationSizes',
+        updater_running: bool,
+        waiting_clients: int,
+        waiting_commit: bool,
+    ) -> None:
         """
         Initialize a DesignDocumentViewIndex object.
 
@@ -11341,7 +11850,8 @@ class DesignDocumentViewIndex():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DesignDocumentViewsMapReduce():
+
+class DesignDocumentViewsMapReduce:
     """
     Schema for view functions definition.
 
@@ -11349,10 +11859,12 @@ class DesignDocumentViewsMapReduce():
     :attr str reduce: (optional) JavaScript reduce function as a string.
     """
 
-    def __init__(self,
-                 map: str,
-                 *,
-                 reduce: str = None) -> None:
+    def __init__(
+        self,
+        map: str,
+        *,
+        reduce: str = None,
+    ) -> None:
         """
         Initialize a DesignDocumentViewsMapReduce object.
 
@@ -11406,7 +11918,8 @@ class DesignDocumentViewsMapReduce():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DocsResultRow():
+
+class DocsResultRow:
     """
     Schema for a row of document information in a DocsResult.
 
@@ -11420,15 +11933,17 @@ class DocsResultRow():
           view.
     """
 
-    def __init__(self,
-                 key: str,
-                 *,
-                 caused_by: str = None,
-                 error: str = None,
-                 reason: str = None,
-                 doc: 'Document' = None,
-                 id: str = None,
-                 value: 'DocsResultRowValue' = None) -> None:
+    def __init__(
+        self,
+        key: str,
+        *,
+        caused_by: str = None,
+        error: str = None,
+        reason: str = None,
+        doc: 'Document' = None,
+        id: str = None,
+        value: 'DocsResultRowValue' = None,
+    ) -> None:
         """
         Initialize a DocsResultRow object.
 
@@ -11519,7 +12034,8 @@ class DocsResultRow():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DocsResultRowValue():
+
+class DocsResultRowValue:
     """
     Value of built-in `/_all_docs` style view.
 
@@ -11528,10 +12044,12 @@ class DocsResultRowValue():
     :attr str rev: Schema for a document revision identifier.
     """
 
-    def __init__(self,
-                 rev: str,
-                 *,
-                 deleted: bool = None) -> None:
+    def __init__(
+        self,
+        rev: str,
+        *,
+        deleted: bool = None,
+    ) -> None:
         """
         Initialize a DocsResultRowValue object.
 
@@ -11586,7 +12104,8 @@ class DocsResultRowValue():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class Document():
+
+class Document:
     """
     Schema for a document.
 
@@ -11609,18 +12128,20 @@ class Document():
     # The set of defined properties for the class
     _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info'])
 
-    def __init__(self,
-                 *,
-                 attachments: dict = None,
-                 conflicts: List[str] = None,
-                 deleted: bool = None,
-                 deleted_conflicts: List[str] = None,
-                 id: str = None,
-                 local_seq: str = None,
-                 rev: str = None,
-                 revisions: 'Revisions' = None,
-                 revs_info: List['DocumentRevisionStatus'] = None,
-                 **kwargs) -> None:
+    def __init__(
+        self,
+        *,
+        attachments: dict = None,
+        conflicts: List[str] = None,
+        deleted: bool = None,
+        deleted_conflicts: List[str] = None,
+        id: str = None,
+        local_seq: str = None,
+        rev: str = None,
+        revisions: 'Revisions' = None,
+        revs_info: List['DocumentRevisionStatus'] = None,
+        **kwargs,
+    ) -> None:
         """
         Initialize a Document object.
 
@@ -11659,7 +12180,7 @@ class Document():
         """Initialize a Document object from a json dictionary."""
         args = {}
         if '_attachments' in _dict:
-            args['attachments'] = {k : Attachment.from_dict(v) for k, v in _dict.get('_attachments').items()}
+            args['attachments'] = {k: Attachment.from_dict(v) for k, v in _dict.get('_attachments').items()}
         if '_conflicts' in _dict:
             args['conflicts'] = _dict.get('_conflicts')
         if '_deleted' in _dict:
@@ -11676,7 +12197,7 @@ class Document():
             args['revisions'] = Revisions.from_dict(_dict.get('_revisions'))
         if '_revs_info' in _dict:
             args['revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in _dict.get('_revs_info')]
-        args.update({k:v for (k, v) in _dict.items() if k not in cls._properties})
+        args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
         return cls(**args)
 
     @classmethod
@@ -11759,7 +12280,8 @@ class Document():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DocumentResult():
+
+class DocumentResult:
     """
     Schema for the result of a document modification.
 
@@ -11771,14 +12293,16 @@ class DocumentResult():
     :attr str reason: (optional) The reason the error occurred (if available).
     """
 
-    def __init__(self,
-                 id: str,
-                 *,
-                 rev: str = None,
-                 ok: bool = None,
-                 caused_by: str = None,
-                 error: str = None,
-                 reason: str = None) -> None:
+    def __init__(
+        self,
+        id: str,
+        *,
+        rev: str = None,
+        ok: bool = None,
+        caused_by: str = None,
+        error: str = None,
+        reason: str = None,
+    ) -> None:
         """
         Initialize a DocumentResult object.
 
@@ -11856,7 +12380,8 @@ class DocumentResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class DocumentRevisionStatus():
+
+class DocumentRevisionStatus:
     """
     Schema for information about revisions and their status.
 
@@ -11866,9 +12391,11 @@ class DocumentRevisionStatus():
           not available - `deleted`: Revision belongs to deleted document.
     """
 
-    def __init__(self,
-                 rev: str,
-                 status: str) -> None:
+    def __init__(
+        self,
+        rev: str,
+        status: str,
+    ) -> None:
         """
         Initialize a DocumentRevisionStatus object.
 
@@ -11933,12 +12460,14 @@ class DocumentRevisionStatus():
         retrieving with rev query parameter - `missing`: Revision is not available -
         `deleted`: Revision belongs to deleted document.
         """
+
         AVAILABLE = 'available'
         MISSING = 'missing'
         DELETED = 'deleted'
 
 
-class DocumentShardInfo():
+
+class DocumentShardInfo:
     """
     Schema for document shard information.
 
@@ -11946,9 +12475,11 @@ class DocumentShardInfo():
     :attr str range: The shard range in which the document is stored.
     """
 
-    def __init__(self,
-                 nodes: List[str],
-                 range: str) -> None:
+    def __init__(
+        self,
+        nodes: List[str],
+        range: str,
+    ) -> None:
         """
         Initialize a DocumentShardInfo object.
 
@@ -12004,7 +12535,8 @@ class DocumentShardInfo():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ExecutionStats():
+
+class ExecutionStats:
     """
     Schema for find query execution statistics.
 
@@ -12016,12 +12548,14 @@ class ExecutionStats():
           primary index with the specified read quorum.
     """
 
-    def __init__(self,
-                 execution_time_ms: float,
-                 results_returned: int,
-                 total_docs_examined: int,
-                 total_keys_examined: int,
-                 total_quorum_docs_examined: int) -> None:
+    def __init__(
+        self,
+        execution_time_ms: float,
+        results_returned: int,
+        total_docs_examined: int,
+        total_keys_examined: int,
+        total_quorum_docs_examined: int,
+    ) -> None:
         """
         Initialize a ExecutionStats object.
 
@@ -12102,7 +12636,8 @@ class ExecutionStats():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ExplainResult():
+
+class ExplainResult:
     """
     Schema for information about the index used for a find query.
 
@@ -12144,16 +12679,18 @@ class ExplainResult():
     :attr int skip: skip.
     """
 
-    def __init__(self,
-                 dbname: str,
-                 fields: List[str],
-                 index: 'IndexInformation',
-                 limit: int,
-                 opts: dict,
-                 selector: dict,
-                 skip: int,
-                 *,
-                 range: 'ExplainResultRange' = None) -> None:
+    def __init__(
+        self,
+        dbname: str,
+        fields: List[str],
+        index: 'IndexInformation',
+        limit: int,
+        opts: dict,
+        selector: dict,
+        skip: int,
+        *,
+        range: 'ExplainResultRange' = None,
+    ) -> None:
         """
         Initialize a ExplainResult object.
 
@@ -12291,7 +12828,8 @@ class ExplainResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ExplainResultRange():
+
+class ExplainResultRange:
     """
     range.
 
@@ -12299,10 +12837,12 @@ class ExplainResultRange():
     :attr List[object] start_key: (optional) start_key.
     """
 
-    def __init__(self,
-                 *,
-                 end_key: List[object] = None,
-                 start_key: List[object] = None) -> None:
+    def __init__(
+        self,
+        *,
+        end_key: List[object] = None,
+        start_key: List[object] = None,
+    ) -> None:
         """
         Initialize a ExplainResultRange object.
 
@@ -12354,7 +12894,8 @@ class ExplainResultRange():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class FindResult():
+
+class FindResult:
     """
     Schema for the result of a query find operation.
 
@@ -12365,12 +12906,14 @@ class FindResult():
     :attr str warning: (optional) warning.
     """
 
-    def __init__(self,
-                 bookmark: str,
-                 docs: List['Document'],
-                 *,
-                 execution_stats: 'ExecutionStats' = None,
-                 warning: str = None) -> None:
+    def __init__(
+        self,
+        bookmark: str,
+        docs: List['Document'],
+        *,
+        execution_stats: 'ExecutionStats' = None,
+        warning: str = None,
+    ) -> None:
         """
         Initialize a FindResult object.
 
@@ -12448,7 +12991,8 @@ class FindResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class IndexDefinition():
+
+class IndexDefinition:
     """
     Schema for a `json` or `text` query index definition. Indexes of type `text` have
     additional configuration properties that do not apply to `json` indexes, these are:
@@ -12504,13 +13048,15 @@ class IndexDefinition():
           syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
     """
 
-    def __init__(self,
-                 *,
-                 default_analyzer: 'Analyzer' = None,
-                 default_field: 'IndexTextOperatorDefaultField' = None,
-                 fields: List['IndexField'] = None,
-                 index_array_lengths: bool = None,
-                 partial_filter_selector: dict = None) -> None:
+    def __init__(
+        self,
+        *,
+        default_analyzer: 'Analyzer' = None,
+        default_field: 'IndexTextOperatorDefaultField' = None,
+        fields: List['IndexField'] = None,
+        index_array_lengths: bool = None,
+        partial_filter_selector: dict = None,
+    ) -> None:
         """
         Initialize a IndexDefinition object.
 
@@ -12639,7 +13185,8 @@ class IndexDefinition():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class IndexField():
+
+class IndexField:
     """
     Schema for indexed fields for use with declarative JSON query.
 
@@ -12650,11 +13197,13 @@ class IndexField():
     # The set of defined properties for the class
     _properties = frozenset(['name', 'type'])
 
-    def __init__(self,
-                 *,
-                 name: str = None,
-                 type: str = None,
-                 **kwargs) -> None:
+    def __init__(
+        self,
+        *,
+        name: str = None,
+        type: str = None,
+        **kwargs,
+    ) -> None:
         """
         Initialize a IndexField object.
 
@@ -12675,7 +13224,7 @@ class IndexField():
             args['name'] = _dict.get('name')
         if 'type' in _dict:
             args['type'] = _dict.get('type')
-        args.update({k:v for (k, v) in _dict.items() if k not in cls._properties})
+        args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
         return cls(**args)
 
     @classmethod
@@ -12733,12 +13282,14 @@ class IndexField():
         """
         The type of the named field.
         """
+
         BOOLEAN = 'boolean'
         NUMBER = 'number'
         STRING = 'string'
 
 
-class IndexInformation():
+
+class IndexInformation:
     """
     Schema for information about an index.
 
@@ -12753,11 +13304,13 @@ class IndexInformation():
     :attr str type: Schema for the type of an index.
     """
 
-    def __init__(self,
-                 ddoc: str,
-                 def_: 'IndexDefinition',
-                 name: str,
-                 type: str) -> None:
+    def __init__(
+        self,
+        ddoc: str,
+        def_: 'IndexDefinition',
+        name: str,
+        type: str,
+    ) -> None:
         """
         Initialize a IndexInformation object.
 
@@ -12841,12 +13394,14 @@ class IndexInformation():
         """
         Schema for the type of an index.
         """
+
         JSON = 'json'
         SPECIAL = 'special'
         TEXT = 'text'
 
 
-class IndexResult():
+
+class IndexResult:
     """
     Schema for the result of creating an index.
 
@@ -12856,10 +13411,12 @@ class IndexResult():
           exists.
     """
 
-    def __init__(self,
-                 id: str,
-                 name: str,
-                 result: str) -> None:
+    def __init__(
+        self,
+        id: str,
+        name: str,
+        result: str,
+    ) -> None:
         """
         Initialize a IndexResult object.
 
@@ -12928,11 +13485,13 @@ class IndexResult():
         """
         Flag to show whether the index was created or one already exists.
         """
+
         CREATED = 'created'
         EXISTS = 'exists'
 
 
-class IndexTextOperatorDefaultField():
+
+class IndexTextOperatorDefaultField:
     """
     Schema for the text index default field configuration. The default field is used to
     index the text of all fields within a document for use with the `$text` operator.
@@ -12941,10 +13500,12 @@ class IndexTextOperatorDefaultField():
     :attr bool enabled: (optional) Whether or not the default_field is enabled.
     """
 
-    def __init__(self,
-                 *,
-                 analyzer: 'Analyzer' = None,
-                 enabled: bool = None) -> None:
+    def __init__(
+        self,
+        *,
+        analyzer: 'Analyzer' = None,
+        enabled: bool = None,
+    ) -> None:
         """
         Initialize a IndexTextOperatorDefaultField object.
 
@@ -13001,7 +13562,8 @@ class IndexTextOperatorDefaultField():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class IndexesInformation():
+
+class IndexesInformation:
     """
     Schema for information about the indexes in a database.
 
@@ -13009,9 +13571,11 @@ class IndexesInformation():
     :attr List[IndexInformation] indexes: Indexes.
     """
 
-    def __init__(self,
-                 total_rows: int,
-                 indexes: List['IndexInformation']) -> None:
+    def __init__(
+        self,
+        total_rows: int,
+        indexes: List['IndexInformation'],
+    ) -> None:
         """
         Initialize a IndexesInformation object.
 
@@ -13073,7 +13637,8 @@ class IndexesInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class MembershipInformation():
+
+class MembershipInformation:
     """
     Schema for information about known nodes and cluster membership.
 
@@ -13082,9 +13647,11 @@ class MembershipInformation():
     :attr List[str] cluster_nodes: All cluster nodes.
     """
 
-    def __init__(self,
-                 all_nodes: List[str],
-                 cluster_nodes: List[str]) -> None:
+    def __init__(
+        self,
+        all_nodes: List[str],
+        cluster_nodes: List[str],
+    ) -> None:
         """
         Initialize a MembershipInformation object.
 
@@ -13141,16 +13708,19 @@ class MembershipInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class Ok():
+
+class Ok:
     """
     Schema for an OK result.
 
     :attr bool ok: (optional) ok.
     """
 
-    def __init__(self,
-                 *,
-                 ok: bool = None) -> None:
+    def __init__(
+        self,
+        *,
+        ok: bool = None,
+    ) -> None:
         """
         Initialize a Ok object.
 
@@ -13196,7 +13766,8 @@ class Ok():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class PartitionInformation():
+
+class PartitionInformation:
     """
     Schema for information about a database partition.
 
@@ -13211,14 +13782,16 @@ class PartitionInformation():
           bytes.
     """
 
-    def __init__(self,
-                 db_name: str,
-                 doc_count: int,
-                 doc_del_count: int,
-                 partition: str,
-                 sizes: 'PartitionInformationSizes',
-                 *,
-                 partitioned_indexes: 'PartitionInformationIndexes' = None) -> None:
+    def __init__(
+        self,
+        db_name: str,
+        doc_count: int,
+        doc_del_count: int,
+        partition: str,
+        sizes: 'PartitionInformationSizes',
+        *,
+        partitioned_indexes: 'PartitionInformationIndexes' = None,
+    ) -> None:
         """
         Initialize a PartitionInformation object.
 
@@ -13313,7 +13886,8 @@ class PartitionInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class PartitionInformationIndexes():
+
+class PartitionInformationIndexes:
     """
     Schema for information about the partition index count and limit in a database.
 
@@ -13323,11 +13897,13 @@ class PartitionInformationIndexes():
     :attr int limit: (optional) The partitioned index limit.
     """
 
-    def __init__(self,
-                 *,
-                 count: int = None,
-                 indexes: 'PartitionInformationIndexesIndexes' = None,
-                 limit: int = None) -> None:
+    def __init__(
+        self,
+        *,
+        count: int = None,
+        indexes: 'PartitionInformationIndexesIndexes' = None,
+        limit: int = None,
+    ) -> None:
         """
         Initialize a PartitionInformationIndexes object.
 
@@ -13389,7 +13965,8 @@ class PartitionInformationIndexes():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class PartitionInformationIndexesIndexes():
+
+class PartitionInformationIndexesIndexes:
     """
     The count breakdown of partitioned indexes.
 
@@ -13397,10 +13974,12 @@ class PartitionInformationIndexesIndexes():
     :attr int view: (optional) Number of partitioned view indexes.
     """
 
-    def __init__(self,
-                 *,
-                 search: int = None,
-                 view: int = None) -> None:
+    def __init__(
+        self,
+        *,
+        search: int = None,
+        view: int = None,
+    ) -> None:
         """
         Initialize a PartitionInformationIndexesIndexes object.
 
@@ -13452,7 +14031,8 @@ class PartitionInformationIndexesIndexes():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class PartitionInformationSizes():
+
+class PartitionInformationSizes:
     """
     The size of active and external data, in bytes.
 
@@ -13462,10 +14042,12 @@ class PartitionInformationSizes():
           bytes.
     """
 
-    def __init__(self,
-                 *,
-                 active: int = None,
-                 external: int = None) -> None:
+    def __init__(
+        self,
+        *,
+        active: int = None,
+        external: int = None,
+    ) -> None:
         """
         Initialize a PartitionInformationSizes object.
 
@@ -13519,7 +14101,8 @@ class PartitionInformationSizes():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ReplicationCreateTargetParameters():
+
+class ReplicationCreateTargetParameters:
     """
     Request parameters to use during target database creation.
 
@@ -13531,11 +14114,13 @@ class ReplicationCreateTargetParameters():
           shard is a partition of the hash value range.
     """
 
-    def __init__(self,
-                 *,
-                 n: int = None,
-                 partitioned: bool = None,
-                 q: int = None) -> None:
+    def __init__(
+        self,
+        *,
+        n: int = None,
+        partitioned: bool = None,
+        q: int = None,
+    ) -> None:
         """
         Initialize a ReplicationCreateTargetParameters object.
 
@@ -13596,7 +14181,8 @@ class ReplicationCreateTargetParameters():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ReplicationDatabase():
+
+class ReplicationDatabase:
     """
     Schema for a replication source or target database.
 
@@ -13606,11 +14192,13 @@ class ReplicationDatabase():
     :attr str url: Replication database URL.
     """
 
-    def __init__(self,
-                 url: str,
-                 *,
-                 auth: 'ReplicationDatabaseAuth' = None,
-                 headers_: dict = None) -> None:
+    def __init__(
+        self,
+        url: str,
+        *,
+        auth: 'ReplicationDatabaseAuth' = None,
+        headers_: dict = None,
+    ) -> None:
         """
         Initialize a ReplicationDatabase object.
 
@@ -13674,7 +14262,8 @@ class ReplicationDatabase():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ReplicationDatabaseAuth():
+
+class ReplicationDatabaseAuth:
     """
     Schema for replication source or target database authentication.
 
@@ -13684,10 +14273,12 @@ class ReplicationDatabaseAuth():
           replication database authentication.
     """
 
-    def __init__(self,
-                 *,
-                 basic: 'ReplicationDatabaseAuthBasic' = None,
-                 iam: 'ReplicationDatabaseAuthIam' = None) -> None:
+    def __init__(
+        self,
+        *,
+        basic: 'ReplicationDatabaseAuthBasic' = None,
+        iam: 'ReplicationDatabaseAuthIam' = None,
+    ) -> None:
         """
         Initialize a ReplicationDatabaseAuth object.
 
@@ -13747,7 +14338,8 @@ class ReplicationDatabaseAuth():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ReplicationDatabaseAuthBasic():
+
+class ReplicationDatabaseAuthBasic:
     """
     Schema for basic authentication of replication source or target database.
 
@@ -13755,9 +14347,11 @@ class ReplicationDatabaseAuthBasic():
     :attr str username: The username.
     """
 
-    def __init__(self,
-                 password: str,
-                 username: str) -> None:
+    def __init__(
+        self,
+        password: str,
+        username: str,
+    ) -> None:
         """
         Initialize a ReplicationDatabaseAuthBasic object.
 
@@ -13813,15 +14407,18 @@ class ReplicationDatabaseAuthBasic():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ReplicationDatabaseAuthIam():
+
+class ReplicationDatabaseAuthIam:
     """
     Schema for an IAM API key for replication database authentication.
 
     :attr str api_key: IAM API key.
     """
 
-    def __init__(self,
-                 api_key: str) -> None:
+    def __init__(
+        self,
+        api_key: str,
+    ) -> None:
         """
         Initialize a ReplicationDatabaseAuthIam object.
 
@@ -13869,7 +14466,8 @@ class ReplicationDatabaseAuthIam():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ReplicationDocument():
+
+class ReplicationDocument:
     """
     Schema for a replication document. Note that `selector`, `doc_ids`, and `filter` are
     incompatible with each other.
@@ -13975,42 +14573,44 @@ class ReplicationDocument():
     # The set of defined properties for the class
     _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info', 'cancel', 'checkpoint_interval', 'connection_timeout', 'continuous', 'create_target', 'create_target_params', 'doc_ids', 'filter', 'http_connections', 'query_params', 'retries_per_request', 'selector', 'since_seq', 'socket_options', 'source', 'source_proxy', 'target', 'target_proxy', 'use_bulk_get', 'use_checkpoints', 'user_ctx', 'winning_revs_only', 'worker_batch_size', 'worker_processes'])
 
-    def __init__(self,
-                 source: 'ReplicationDatabase',
-                 target: 'ReplicationDatabase',
-                 *,
-                 attachments: dict = None,
-                 conflicts: List[str] = None,
-                 deleted: bool = None,
-                 deleted_conflicts: List[str] = None,
-                 id: str = None,
-                 local_seq: str = None,
-                 rev: str = None,
-                 revisions: 'Revisions' = None,
-                 revs_info: List['DocumentRevisionStatus'] = None,
-                 cancel: bool = None,
-                 checkpoint_interval: int = None,
-                 connection_timeout: int = None,
-                 continuous: bool = None,
-                 create_target: bool = None,
-                 create_target_params: 'ReplicationCreateTargetParameters' = None,
-                 doc_ids: List[str] = None,
-                 filter: str = None,
-                 http_connections: int = None,
-                 query_params: dict = None,
-                 retries_per_request: int = None,
-                 selector: dict = None,
-                 since_seq: str = None,
-                 socket_options: str = None,
-                 source_proxy: str = None,
-                 target_proxy: str = None,
-                 use_bulk_get: bool = None,
-                 use_checkpoints: bool = None,
-                 user_ctx: 'UserContext' = None,
-                 winning_revs_only: bool = None,
-                 worker_batch_size: int = None,
-                 worker_processes: int = None,
-                 **kwargs) -> None:
+    def __init__(
+        self,
+        source: 'ReplicationDatabase',
+        target: 'ReplicationDatabase',
+        *,
+        attachments: dict = None,
+        conflicts: List[str] = None,
+        deleted: bool = None,
+        deleted_conflicts: List[str] = None,
+        id: str = None,
+        local_seq: str = None,
+        rev: str = None,
+        revisions: 'Revisions' = None,
+        revs_info: List['DocumentRevisionStatus'] = None,
+        cancel: bool = None,
+        checkpoint_interval: int = None,
+        connection_timeout: int = None,
+        continuous: bool = None,
+        create_target: bool = None,
+        create_target_params: 'ReplicationCreateTargetParameters' = None,
+        doc_ids: List[str] = None,
+        filter: str = None,
+        http_connections: int = None,
+        query_params: dict = None,
+        retries_per_request: int = None,
+        selector: dict = None,
+        since_seq: str = None,
+        socket_options: str = None,
+        source_proxy: str = None,
+        target_proxy: str = None,
+        use_bulk_get: bool = None,
+        use_checkpoints: bool = None,
+        user_ctx: 'UserContext' = None,
+        winning_revs_only: bool = None,
+        worker_batch_size: int = None,
+        worker_processes: int = None,
+        **kwargs,
+    ) -> None:
         """
         Initialize a ReplicationDocument object.
 
@@ -14162,7 +14762,7 @@ class ReplicationDocument():
         """Initialize a ReplicationDocument object from a json dictionary."""
         args = {}
         if '_attachments' in _dict:
-            args['attachments'] = {k : Attachment.from_dict(v) for k, v in _dict.get('_attachments').items()}
+            args['attachments'] = {k: Attachment.from_dict(v) for k, v in _dict.get('_attachments').items()}
         if '_conflicts' in _dict:
             args['conflicts'] = _dict.get('_conflicts')
         if '_deleted' in _dict:
@@ -14231,7 +14831,7 @@ class ReplicationDocument():
             args['worker_batch_size'] = _dict.get('worker_batch_size')
         if 'worker_processes' in _dict:
             args['worker_processes'] = _dict.get('worker_processes')
-        args.update({k:v for (k, v) in _dict.items() if k not in cls._properties})
+        args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
         return cls(**args)
 
     @classmethod
@@ -14374,7 +14974,8 @@ class ReplicationDocument():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class Revisions():
+
+class Revisions:
     """
     Schema for list of revision information.
 
@@ -14383,9 +14984,11 @@ class Revisions():
     :attr int start: Prefix number for the latest revision.
     """
 
-    def __init__(self,
-                 ids: List[str],
-                 start: int) -> None:
+    def __init__(
+        self,
+        ids: List[str],
+        start: int,
+    ) -> None:
         """
         Initialize a Revisions object.
 
@@ -14442,7 +15045,8 @@ class Revisions():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class RevsDiff():
+
+class RevsDiff:
     """
     Schema for information about missing revs and possible ancestors.
 
@@ -14451,10 +15055,12 @@ class RevsDiff():
           revisions.
     """
 
-    def __init__(self,
-                 *,
-                 missing: List[str] = None,
-                 possible_ancestors: List[str] = None) -> None:
+    def __init__(
+        self,
+        *,
+        missing: List[str] = None,
+        possible_ancestors: List[str] = None,
+    ) -> None:
         """
         Initialize a RevsDiff object.
 
@@ -14507,7 +15113,8 @@ class RevsDiff():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SchedulerDocsResult():
+
+class SchedulerDocsResult:
     """
     Schema for a listing of replication scheduler documents.
 
@@ -14515,9 +15122,11 @@ class SchedulerDocsResult():
     :attr List[SchedulerDocument] docs: Array of replication scheduler doc objects.
     """
 
-    def __init__(self,
-                 total_rows: int,
-                 docs: List['SchedulerDocument']) -> None:
+    def __init__(
+        self,
+        total_rows: int,
+        docs: List['SchedulerDocument'],
+    ) -> None:
         """
         Initialize a SchedulerDocsResult object.
 
@@ -14580,7 +15189,8 @@ class SchedulerDocsResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SchedulerDocument():
+
+class SchedulerDocument:
     """
     Schema for a replication scheduler document.
 
@@ -14607,21 +15217,23 @@ class SchedulerDocument():
           proxy server through which replication with the target database occurs.
     """
 
-    def __init__(self,
-                 database: str,
-                 doc_id: str,
-                 error_count: int,
-                 id: str,
-                 info: 'SchedulerInfo',
-                 last_updated: datetime,
-                 start_time: datetime,
-                 state: str,
-                 *,
-                 node: str = None,
-                 source: str = None,
-                 source_proxy: str = None,
-                 target: str = None,
-                 target_proxy: str = None) -> None:
+    def __init__(
+        self,
+        database: str,
+        doc_id: str,
+        error_count: int,
+        id: str,
+        info: 'SchedulerInfo',
+        last_updated: datetime,
+        start_time: datetime,
+        state: str,
+        *,
+        node: str = None,
+        source: str = None,
+        source_proxy: str = None,
+        target: str = None,
+        target_proxy: str = None,
+    ) -> None:
         """
         Initialize a SchedulerDocument object.
 
@@ -14772,6 +15384,7 @@ class SchedulerDocument():
         """
         Schema for replication state.
         """
+
         INITIALIZING = 'initializing'
         ERROR = 'error'
         PENDING = 'pending'
@@ -14781,7 +15394,8 @@ class SchedulerDocument():
         FAILED = 'failed'
 
 
-class SchedulerInfo():
+
+class SchedulerInfo:
     """
     Schema for scheduler document information. A JSON object that may contain additional
     information about the state. For error states this will contain an error field and
@@ -14807,18 +15421,20 @@ class SchedulerInfo():
           replicator.
     """
 
-    def __init__(self,
-                 *,
-                 changes_pending: int = None,
-                 checkpointed_source_seq: str = None,
-                 doc_write_failures: int = None,
-                 docs_read: int = None,
-                 docs_written: int = None,
-                 error: str = None,
-                 missing_revisions_found: int = None,
-                 revisions_checked: int = None,
-                 source_seq: str = None,
-                 through_seq: str = None) -> None:
+    def __init__(
+        self,
+        *,
+        changes_pending: int = None,
+        checkpointed_source_seq: str = None,
+        doc_write_failures: int = None,
+        docs_read: int = None,
+        docs_written: int = None,
+        error: str = None,
+        missing_revisions_found: int = None,
+        revisions_checked: int = None,
+        source_seq: str = None,
+        through_seq: str = None,
+    ) -> None:
         """
         Initialize a SchedulerInfo object.
 
@@ -14927,7 +15543,8 @@ class SchedulerInfo():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SchedulerJob():
+
+class SchedulerJob:
     """
     Schema for a replication scheduler job.
 
@@ -14947,18 +15564,20 @@ class SchedulerJob():
     :attr str user: Name of user running replication.
     """
 
-    def __init__(self,
-                 database: str,
-                 doc_id: str,
-                 history: List['SchedulerJobEvent'],
-                 id: str,
-                 info: 'SchedulerInfo',
-                 node: str,
-                 pid: str,
-                 source: str,
-                 start_time: datetime,
-                 target: str,
-                 user: str) -> None:
+    def __init__(
+        self,
+        database: str,
+        doc_id: str,
+        history: List['SchedulerJobEvent'],
+        id: str,
+        info: 'SchedulerInfo',
+        node: str,
+        pid: str,
+        source: str,
+        start_time: datetime,
+        target: str,
+        user: str,
+    ) -> None:
         """
         Initialize a SchedulerJob object.
 
@@ -15098,7 +15717,8 @@ class SchedulerJob():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SchedulerJobEvent():
+
+class SchedulerJobEvent:
     """
     Schema for a replication scheduler job event.
 
@@ -15107,11 +15727,13 @@ class SchedulerJobEvent():
     :attr str type: Type of the event.
     """
 
-    def __init__(self,
-                 timestamp: datetime,
-                 type: str,
-                 *,
-                 reason: str = None) -> None:
+    def __init__(
+        self,
+        timestamp: datetime,
+        type: str,
+        *,
+        reason: str = None,
+    ) -> None:
         """
         Initialize a SchedulerJobEvent object.
 
@@ -15173,7 +15795,8 @@ class SchedulerJobEvent():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SchedulerJobsResult():
+
+class SchedulerJobsResult:
     """
     Schema for a listing of replication scheduler jobs.
 
@@ -15181,9 +15804,11 @@ class SchedulerJobsResult():
     :attr List[SchedulerJob] jobs: Array of replication job objects.
     """
 
-    def __init__(self,
-                 total_rows: int,
-                 jobs: List['SchedulerJob']) -> None:
+    def __init__(
+        self,
+        total_rows: int,
+        jobs: List['SchedulerJob'],
+    ) -> None:
         """
         Initialize a SchedulerJobsResult object.
 
@@ -15245,15 +15870,18 @@ class SchedulerJobsResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SearchAnalyzeResult():
+
+class SearchAnalyzeResult:
     """
     Schema for the output of testing search analyzer tokenization.
 
     :attr List[str] tokens: tokens.
     """
 
-    def __init__(self,
-                 tokens: List[str]) -> None:
+    def __init__(
+        self,
+        tokens: List[str],
+    ) -> None:
         """
         Initialize a SearchAnalyzeResult object.
 
@@ -15301,7 +15929,8 @@ class SearchAnalyzeResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SearchIndexDefinition():
+
+class SearchIndexDefinition:
     """
     Schema for a search index definition.
 
@@ -15327,10 +15956,12 @@ class SearchIndexDefinition():
                 in the search result; otherwise, the value is not returned.
     """
 
-    def __init__(self,
-                 index: str,
-                 *,
-                 analyzer: 'AnalyzerConfiguration' = None) -> None:
+    def __init__(
+        self,
+        index: str,
+        *,
+        analyzer: 'AnalyzerConfiguration' = None,
+    ) -> None:
         """
         Initialize a SearchIndexDefinition object.
 
@@ -15406,7 +16037,8 @@ class SearchIndexDefinition():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SearchIndexInfo():
+
+class SearchIndexInfo:
     """
     Schema for metadata information about a search index.
 
@@ -15418,13 +16050,15 @@ class SearchIndexInfo():
     :attr str signature: Unique signature of the search index.
     """
 
-    def __init__(self,
-                 committed_seq: int,
-                 disk_size: int,
-                 doc_count: int,
-                 doc_del_count: int,
-                 pending_seq: int,
-                 signature: str) -> None:
+    def __init__(
+        self,
+        committed_seq: int,
+        disk_size: int,
+        doc_count: int,
+        doc_del_count: int,
+        pending_seq: int,
+        signature: str,
+    ) -> None:
         """
         Initialize a SearchIndexInfo object.
 
@@ -15512,7 +16146,8 @@ class SearchIndexInfo():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SearchInfoResult():
+
+class SearchInfoResult:
     """
     Schema for search index information.
 
@@ -15522,9 +16157,11 @@ class SearchInfoResult():
           search index.
     """
 
-    def __init__(self,
-                 name: str,
-                 search_index: 'SearchIndexInfo') -> None:
+    def __init__(
+        self,
+        name: str,
+        search_index: 'SearchIndexInfo',
+    ) -> None:
         """
         Initialize a SearchInfoResult object.
 
@@ -15585,7 +16222,8 @@ class SearchInfoResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SearchResult():
+
+class SearchResult:
     """
     Schema for the result of a query search operation.
 
@@ -15603,15 +16241,17 @@ class SearchResult():
           matches.
     """
 
-    def __init__(self,
-                 total_rows: int,
-                 *,
-                 bookmark: str = None,
-                 by: str = None,
-                 counts: dict = None,
-                 ranges: dict = None,
-                 rows: List['SearchResultRow'] = None,
-                 groups: List['SearchResultProperties'] = None) -> None:
+    def __init__(
+        self,
+        total_rows: int,
+        *,
+        bookmark: str = None,
+        by: str = None,
+        counts: dict = None,
+        ranges: dict = None,
+        rows: List['SearchResultRow'] = None,
+        groups: List['SearchResultProperties'] = None,
+    ) -> None:
         """
         Initialize a SearchResult object.
 
@@ -15712,7 +16352,8 @@ class SearchResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SearchResultProperties():
+
+class SearchResultProperties:
     """
     Schema for the result of a query search operation.
 
@@ -15728,14 +16369,16 @@ class SearchResultProperties():
     :attr List[SearchResultRow] rows: (optional) Array of row objects.
     """
 
-    def __init__(self,
-                 total_rows: int,
-                 *,
-                 bookmark: str = None,
-                 by: str = None,
-                 counts: dict = None,
-                 ranges: dict = None,
-                 rows: List['SearchResultRow'] = None) -> None:
+    def __init__(
+        self,
+        total_rows: int,
+        *,
+        bookmark: str = None,
+        by: str = None,
+        counts: dict = None,
+        ranges: dict = None,
+        rows: List['SearchResultRow'] = None,
+    ) -> None:
         """
         Initialize a SearchResultProperties object.
 
@@ -15823,7 +16466,8 @@ class SearchResultProperties():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SearchResultRow():
+
+class SearchResultRow:
     """
     Schema for a row of the result of a query search operation.
 
@@ -15835,12 +16479,14 @@ class SearchResultRow():
     :attr str id: Schema for a document ID.
     """
 
-    def __init__(self,
-                 fields: dict,
-                 id: str,
-                 *,
-                 doc: 'Document' = None,
-                 highlights: dict = None) -> None:
+    def __init__(
+        self,
+        fields: dict,
+        id: str,
+        *,
+        doc: 'Document' = None,
+        highlights: dict = None,
+    ) -> None:
         """
         Initialize a SearchResultRow object.
 
@@ -15914,7 +16560,8 @@ class SearchResultRow():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class Security():
+
+class Security:
     """
     Schema for a security document.
 
@@ -15928,12 +16575,14 @@ class Security():
           database only.
     """
 
-    def __init__(self,
-                 *,
-                 admins: 'SecurityObject' = None,
-                 members: 'SecurityObject' = None,
-                 cloudant: dict = None,
-                 couchdb_auth_only: bool = None) -> None:
+    def __init__(
+        self,
+        *,
+        admins: 'SecurityObject' = None,
+        members: 'SecurityObject' = None,
+        cloudant: dict = None,
+        couchdb_auth_only: bool = None,
+    ) -> None:
         """
         Initialize a Security object.
 
@@ -16011,6 +16660,7 @@ class Security():
         """
         Database permissions for Cloudant users and/or API keys.
         """
+
         READER = '_reader'
         WRITER = '_writer'
         ADMIN = '_admin'
@@ -16021,7 +16671,8 @@ class Security():
         SECURITY = '_security'
 
 
-class SecurityObject():
+
+class SecurityObject:
     """
     Schema for names and roles to map to a database permission.
 
@@ -16029,10 +16680,12 @@ class SecurityObject():
     :attr List[str] roles: (optional) List of roles.
     """
 
-    def __init__(self,
-                 *,
-                 names: List[str] = None,
-                 roles: List[str] = None) -> None:
+    def __init__(
+        self,
+        *,
+        names: List[str] = None,
+        roles: List[str] = None,
+    ) -> None:
         """
         Initialize a SecurityObject object.
 
@@ -16084,7 +16737,8 @@ class SecurityObject():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ServerInformation():
+
+class ServerInformation:
     """
     Schema for information about the server instance.
 
@@ -16095,12 +16749,14 @@ class ServerInformation():
     :attr List[str] features_flags: List of feature flags.
     """
 
-    def __init__(self,
-                 couchdb: str,
-                 features: List[str],
-                 vendor: 'ServerVendor',
-                 version: str,
-                 features_flags: List[str]) -> None:
+    def __init__(
+        self,
+        couchdb: str,
+        features: List[str],
+        vendor: 'ServerVendor',
+        version: str,
+        features_flags: List[str],
+    ) -> None:
         """
         Initialize a ServerInformation object.
 
@@ -16183,7 +16839,8 @@ class ServerInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ServerVendor():
+
+class ServerVendor:
     """
     Schema for server vendor information.
 
@@ -16192,11 +16849,13 @@ class ServerVendor():
     :attr str version: (optional) Vendor version.
     """
 
-    def __init__(self,
-                 name: str,
-                 *,
-                 variant: str = None,
-                 version: str = None) -> None:
+    def __init__(
+        self,
+        name: str,
+        *,
+        variant: str = None,
+        version: str = None,
+    ) -> None:
         """
         Initialize a ServerVendor object.
 
@@ -16256,7 +16915,8 @@ class ServerVendor():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SessionAuthentication():
+
+class SessionAuthentication:
     """
     Schema for session authentication information.
 
@@ -16265,11 +16925,13 @@ class SessionAuthentication():
     :attr List[str] authentication_handlers: authentication_handlers.
     """
 
-    def __init__(self,
-                 authentication_handlers: List[str],
-                 *,
-                 authenticated: str = None,
-                 authentication_db: str = None) -> None:
+    def __init__(
+        self,
+        authentication_handlers: List[str],
+        *,
+        authenticated: str = None,
+        authentication_db: str = None,
+    ) -> None:
         """
         Initialize a SessionAuthentication object.
 
@@ -16329,7 +16991,8 @@ class SessionAuthentication():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class SessionInformation():
+
+class SessionInformation:
     """
     Schema for information about a session.
 
@@ -16338,10 +17001,12 @@ class SessionInformation():
     :attr UserContext user_ctx: Schema for the user context of a session.
     """
 
-    def __init__(self,
-                 ok: bool,
-                 info: 'SessionAuthentication',
-                 user_ctx: 'UserContext') -> None:
+    def __init__(
+        self,
+        ok: bool,
+        info: 'SessionAuthentication',
+        user_ctx: 'UserContext',
+    ) -> None:
         """
         Initialize a SessionInformation object.
 
@@ -16412,7 +17077,8 @@ class SessionInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ShardsInformation():
+
+class ShardsInformation:
     """
     Schema for a shards object that maps the hash value range for each shard to the array
     of nodes that contain a copy of that shard.
@@ -16420,8 +17086,10 @@ class ShardsInformation():
     :attr dict shards: Mapping of shard hash value range to a list of nodes.
     """
 
-    def __init__(self,
-                 shards: dict) -> None:
+    def __init__(
+        self,
+        shards: dict,
+    ) -> None:
         """
         Initialize a ShardsInformation object.
 
@@ -16469,7 +17137,8 @@ class ShardsInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ThroughputInformation():
+
+class ThroughputInformation:
     """
     Schema for detailed information about throughput capacity with breakdown by specific
     throughput requests classes.
@@ -16482,11 +17151,13 @@ class ThroughputInformation():
     :attr int write: Provisioned writes capacity in operations per second.
     """
 
-    def __init__(self,
-                 blocks: int,
-                 query: int,
-                 read: int,
-                 write: int) -> None:
+    def __init__(
+        self,
+        blocks: int,
+        query: int,
+        read: int,
+        write: int,
+    ) -> None:
         """
         Initialize a ThroughputInformation object.
 
@@ -16561,7 +17232,8 @@ class ThroughputInformation():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class UpInformation():
+
+class UpInformation:
     """
     Schema for information about the up state of the server.
 
@@ -16569,9 +17241,11 @@ class UpInformation():
     :attr str status: status.
     """
 
-    def __init__(self,
-                 seeds: dict,
-                 status: str) -> None:
+    def __init__(
+        self,
+        seeds: dict,
+        status: str,
+    ) -> None:
         """
         Initialize a UpInformation object.
 
@@ -16631,12 +17305,14 @@ class UpInformation():
         """
         status.
         """
+
         MAINTENANCE_MODE = 'maintenance_mode'
         NOLB = 'nolb'
         OK = 'ok'
 
 
-class UserContext():
+
+class UserContext:
     """
     Schema for the user context of a session.
 
@@ -16645,11 +17321,13 @@ class UserContext():
     :attr List[str] roles: List of user roles.
     """
 
-    def __init__(self,
-                 name: str,
-                 roles: List[str],
-                 *,
-                 db: str = None) -> None:
+    def __init__(
+        self,
+        name: str,
+        roles: List[str],
+        *,
+        db: str = None,
+    ) -> None:
         """
         Initialize a UserContext object.
 
@@ -16716,6 +17394,7 @@ class UserContext():
         """
         Schema for a security role.
         """
+
         READER = '_reader'
         WRITER = '_writer'
         ADMIN = '_admin'
@@ -16726,15 +17405,18 @@ class UserContext():
         SECURITY = '_security'
 
 
-class UuidsResult():
+
+class UuidsResult:
     """
     Schema for a set of uuids generated by the server.
 
     :attr List[str] uuids: uuids.
     """
 
-    def __init__(self,
-                 uuids: List[str]) -> None:
+    def __init__(
+        self,
+        uuids: List[str],
+    ) -> None:
         """
         Initialize a UuidsResult object.
 
@@ -16782,7 +17464,8 @@ class UuidsResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ViewQueriesResult():
+
+class ViewQueriesResult:
     """
     Schema for the results of a queries view operation.
 
@@ -16791,8 +17474,10 @@ class ViewQueriesResult():
           request.
     """
 
-    def __init__(self,
-                 results: List['ViewResult']) -> None:
+    def __init__(
+        self,
+        results: List['ViewResult'],
+    ) -> None:
         """
         Initialize a ViewQueriesResult object.
 
@@ -16848,7 +17533,8 @@ class ViewQueriesResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ViewQuery():
+
+class ViewQuery:
     """
     Schema for a query view operation.
 
@@ -16909,28 +17595,30 @@ class ViewQuery():
           them immediately after the request.
     """
 
-    def __init__(self,
-                 *,
-                 att_encoding_info: bool = None,
-                 attachments: bool = None,
-                 conflicts: bool = None,
-                 descending: bool = None,
-                 include_docs: bool = None,
-                 inclusive_end: bool = None,
-                 limit: int = None,
-                 skip: int = None,
-                 update_seq: bool = None,
-                 end_key: object = None,
-                 end_key_doc_id: str = None,
-                 group: bool = None,
-                 group_level: int = None,
-                 key: object = None,
-                 keys: List[object] = None,
-                 reduce: bool = None,
-                 stable: bool = None,
-                 start_key: object = None,
-                 start_key_doc_id: str = None,
-                 update: str = None) -> None:
+    def __init__(
+        self,
+        *,
+        att_encoding_info: bool = None,
+        attachments: bool = None,
+        conflicts: bool = None,
+        descending: bool = None,
+        include_docs: bool = None,
+        inclusive_end: bool = None,
+        limit: int = None,
+        skip: int = None,
+        update_seq: bool = None,
+        end_key: object = None,
+        end_key_doc_id: str = None,
+        group: bool = None,
+        group_level: int = None,
+        key: object = None,
+        keys: List[object] = None,
+        reduce: bool = None,
+        stable: bool = None,
+        start_key: object = None,
+        start_key_doc_id: str = None,
+        update: str = None,
+    ) -> None:
         """
         Initialize a ViewQuery object.
 
@@ -17136,12 +17824,14 @@ class ViewQuery():
         * `lazy` - Return the view results without waiting for an update, but update them
         immediately after the request.
         """
+
         TRUE = 'true'
         FALSE = 'false'
         LAZY = 'lazy'
 
 
-class ViewResult():
+
+class ViewResult:
     """
     Schema for the result of a query view operation.
 
@@ -17150,11 +17840,13 @@ class ViewResult():
     :attr List[ViewResultRow] rows: rows.
     """
 
-    def __init__(self,
-                 rows: List['ViewResultRow'],
-                 *,
-                 total_rows: int = None,
-                 update_seq: str = None) -> None:
+    def __init__(
+        self,
+        rows: List['ViewResultRow'],
+        *,
+        total_rows: int = None,
+        update_seq: str = None,
+    ) -> None:
         """
         Initialize a ViewResult object.
 
@@ -17220,7 +17912,8 @@ class ViewResult():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class ViewResultRow():
+
+class ViewResultRow:
     """
     Schema for a row of a view result.
 
@@ -17233,15 +17926,17 @@ class ViewResultRow():
     :attr object value: Schema for any JSON type.
     """
 
-    def __init__(self,
-                 key: object,
-                 value: object,
-                 *,
-                 caused_by: str = None,
-                 error: str = None,
-                 reason: str = None,
-                 doc: 'Document' = None,
-                 id: str = None) -> None:
+    def __init__(
+        self,
+        key: object,
+        value: object,
+        *,
+        caused_by: str = None,
+        error: str = None,
+        reason: str = None,
+        doc: 'Document' = None,
+        id: str = None,
+    ) -> None:
         """
         Initialize a ViewResultRow object.
 

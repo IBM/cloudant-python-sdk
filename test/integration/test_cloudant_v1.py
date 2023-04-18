@@ -26,7 +26,8 @@ from ibmcloudant.cloudant_v1 import *
 # Config file name
 config_file = 'cloudant_v1.env'
 
-class TestCloudantV1():
+
+class TestCloudantV1:
     """
     Integration Test Class for CloudantV1
     """
@@ -40,8 +41,7 @@ class TestCloudantV1():
             )
             assert cls.cloudant_service is not None
 
-            cls.config = read_external_sources(
-                CloudantV1.DEFAULT_SERVICE_NAME)
+            cls.config = read_external_sources(CloudantV1.DEFAULT_SERVICE_NAME)
             assert cls.config is not None
 
             cls.cloudant_service.enable_retries()
@@ -54,7 +54,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_server_information(self):
-
         response = self.cloudant_service.get_server_information()
 
         assert response.get_status_code() == 200
@@ -63,7 +62,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_membership_information(self):
-
         response = self.cloudant_service.get_membership_information()
 
         assert response.get_status_code() == 200
@@ -72,7 +70,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_uuids(self):
-
         response = self.cloudant_service.get_uuids(
             count=1,
         )
@@ -83,7 +80,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_capacity_throughput_information(self):
-
         response = self.cloudant_service.get_capacity_throughput_information()
 
         assert response.get_status_code() == 200
@@ -92,7 +88,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_put_capacity_throughput_configuration(self):
-
         response = self.cloudant_service.put_capacity_throughput_configuration(
             blocks=0,
         )
@@ -103,7 +98,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_db_updates(self):
-
         response = self.cloudant_service.get_db_updates(
             feed='normal',
             heartbeat=0,
@@ -117,7 +111,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_changes(self):
-
         response = self.cloudant_service.post_changes(
             db='testString',
             doc_ids=['testString'],
@@ -146,7 +139,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_changes_as_stream(self):
-
         response = self.cloudant_service.post_changes_as_stream(
             db='testString',
             doc_ids=['testString'],
@@ -175,7 +167,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_head_database(self):
-
         response = self.cloudant_service.head_database(
             db='testString',
         )
@@ -184,7 +175,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_all_dbs(self):
-
         response = self.cloudant_service.get_all_dbs(
             descending=False,
             end_key='testString',
@@ -199,7 +189,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_dbs_info(self):
-
         response = self.cloudant_service.post_dbs_info(
             keys=['testString'],
         )
@@ -210,7 +199,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_database_information(self):
-
         response = self.cloudant_service.get_database_information(
             db='testString',
         )
@@ -221,7 +209,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_put_database(self):
-
         response = self.cloudant_service.put_database(
             db='testString',
             partitioned=False,
@@ -234,7 +221,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_head_document(self):
-
         response = self.cloudant_service.head_document(
             db='testString',
             doc_id='testString',
@@ -247,7 +233,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_document(self):
-
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
@@ -260,19 +245,16 @@ class TestCloudantV1():
             'revpos': 1,
             'stub': True,
         }
-
         # Construct a dict representation of a Revisions model
         revisions_model = {
             'ids': ['testString'],
             'start': 1,
         }
-
         # Construct a dict representation of a DocumentRevisionStatus model
         document_revision_status_model = {
             'rev': 'testString',
             'status': 'available',
         }
-
         # Construct a dict representation of a Document model
         document_model = {
             '_attachments': {'key1': attachment_model},
@@ -300,7 +282,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_all_docs(self):
-
         response = self.cloudant_service.post_all_docs(
             db='testString',
             att_encoding_info=False,
@@ -324,7 +305,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_all_docs_as_stream(self):
-
         response = self.cloudant_service.post_all_docs_as_stream(
             db='testString',
             att_encoding_info=False,
@@ -348,7 +328,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_all_docs_queries(self):
-
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {
             'att_encoding_info': False,
@@ -377,7 +356,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_all_docs_queries_as_stream(self):
-
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {
             'att_encoding_info': False,
@@ -406,7 +384,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_bulk_docs(self):
-
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
@@ -419,19 +396,16 @@ class TestCloudantV1():
             'revpos': 1,
             'stub': True,
         }
-
         # Construct a dict representation of a Revisions model
         revisions_model = {
             'ids': ['testString'],
             'start': 1,
         }
-
         # Construct a dict representation of a DocumentRevisionStatus model
         document_revision_status_model = {
             'rev': 'testString',
             'status': 'available',
         }
-
         # Construct a dict representation of a Document model
         document_model = {
             '_attachments': {'key1': attachment_model},
@@ -445,7 +419,6 @@ class TestCloudantV1():
             '_revs_info': [document_revision_status_model],
             'foo': 'testString',
         }
-
         # Construct a dict representation of a BulkDocs model
         bulk_docs_model = {
             'docs': [document_model],
@@ -463,7 +436,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_bulk_get(self):
-
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {
             'atts_since': ['1-99b02e08da151943c2dcb40090160bb8'],
@@ -486,7 +458,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_bulk_get_as_mixed(self):
-
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {
             'atts_since': ['1-99b02e08da151943c2dcb40090160bb8'],
@@ -509,7 +480,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_bulk_get_as_related(self):
-
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {
             'atts_since': ['1-99b02e08da151943c2dcb40090160bb8'],
@@ -532,7 +502,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_bulk_get_as_stream(self):
-
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {
             'atts_since': ['1-99b02e08da151943c2dcb40090160bb8'],
@@ -555,7 +524,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_document(self):
-
         response = self.cloudant_service.get_document(
             db='testString',
             doc_id='testString',
@@ -578,7 +546,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_document_as_mixed(self):
-
         response = self.cloudant_service.get_document_as_mixed(
             db='testString',
             doc_id='testString',
@@ -601,7 +568,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_document_as_related(self):
-
         response = self.cloudant_service.get_document_as_related(
             db='testString',
             doc_id='testString',
@@ -624,7 +590,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_document_as_stream(self):
-
         response = self.cloudant_service.get_document_as_stream(
             db='testString',
             doc_id='testString',
@@ -647,7 +612,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_put_document(self):
-
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
@@ -660,19 +624,16 @@ class TestCloudantV1():
             'revpos': 1,
             'stub': True,
         }
-
         # Construct a dict representation of a Revisions model
         revisions_model = {
             'ids': ['testString'],
             'start': 1,
         }
-
         # Construct a dict representation of a DocumentRevisionStatus model
         document_revision_status_model = {
             'rev': 'testString',
             'status': 'available',
         }
-
         # Construct a dict representation of a Document model
         document_model = {
             '_attachments': {'key1': attachment_model},
@@ -704,7 +665,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_head_design_document(self):
-
         response = self.cloudant_service.head_design_document(
             db='testString',
             ddoc='testString',
@@ -715,7 +675,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_design_document(self):
-
         response = self.cloudant_service.get_design_document(
             db='testString',
             ddoc='testString',
@@ -738,7 +697,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_put_design_document(self):
-
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
@@ -751,49 +709,41 @@ class TestCloudantV1():
             'revpos': 1,
             'stub': True,
         }
-
         # Construct a dict representation of a Revisions model
         revisions_model = {
             'ids': ['testString'],
             'start': 1,
         }
-
         # Construct a dict representation of a DocumentRevisionStatus model
         document_revision_status_model = {
             'rev': 'testString',
             'status': 'available',
         }
-
         # Construct a dict representation of a Analyzer model
         analyzer_model = {
             'name': 'classic',
             'stopwords': ['testString'],
         }
-
         # Construct a dict representation of a AnalyzerConfiguration model
         analyzer_configuration_model = {
             'name': 'classic',
             'stopwords': ['testString'],
             'fields': {'key1': analyzer_model},
         }
-
         # Construct a dict representation of a SearchIndexDefinition model
         search_index_definition_model = {
             'analyzer': analyzer_configuration_model,
             'index': 'testString',
         }
-
         # Construct a dict representation of a DesignDocumentOptions model
         design_document_options_model = {
             'partitioned': True,
         }
-
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {
             'map': 'testString',
             'reduce': 'testString',
         }
-
         # Construct a dict representation of a DesignDocument model
         design_document_model = {
             '_attachments': {'key1': attachment_model},
@@ -831,7 +781,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_design_document_information(self):
-
         response = self.cloudant_service.get_design_document_information(
             db='testString',
             ddoc='testString',
@@ -843,7 +792,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_design_docs(self):
-
         response = self.cloudant_service.post_design_docs(
             db='testString',
             att_encoding_info=False,
@@ -868,7 +816,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_design_docs_queries(self):
-
         # Construct a dict representation of a AllDocsQuery model
         all_docs_query_model = {
             'att_encoding_info': False,
@@ -898,7 +845,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_view(self):
-
         response = self.cloudant_service.post_view(
             db='testString',
             ddoc='testString',
@@ -931,7 +877,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_view_as_stream(self):
-
         response = self.cloudant_service.post_view_as_stream(
             db='testString',
             ddoc='testString',
@@ -964,7 +909,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_view_queries(self):
-
         # Construct a dict representation of a ViewQuery model
         view_query_model = {
             'att_encoding_info': False,
@@ -1002,7 +946,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_view_queries_as_stream(self):
-
         # Construct a dict representation of a ViewQuery model
         view_query_model = {
             'att_encoding_info': False,
@@ -1040,7 +983,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_partition_information(self):
-
         response = self.cloudant_service.get_partition_information(
             db='testString',
             partition_key='testString',
@@ -1052,7 +994,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_partition_all_docs(self):
-
         response = self.cloudant_service.post_partition_all_docs(
             db='testString',
             partition_key='testString',
@@ -1077,7 +1018,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_partition_all_docs_as_stream(self):
-
         response = self.cloudant_service.post_partition_all_docs_as_stream(
             db='testString',
             partition_key='testString',
@@ -1102,7 +1042,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_partition_search(self):
-
         response = self.cloudant_service.post_partition_search(
             db='testString',
             partition_key='testString',
@@ -1128,7 +1067,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_partition_search_as_stream(self):
-
         response = self.cloudant_service.post_partition_search_as_stream(
             db='testString',
             partition_key='testString',
@@ -1154,7 +1092,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_partition_view(self):
-
         response = self.cloudant_service.post_partition_view(
             db='testString',
             partition_key='testString',
@@ -1187,7 +1124,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_partition_view_as_stream(self):
-
         response = self.cloudant_service.post_partition_view_as_stream(
             db='testString',
             partition_key='testString',
@@ -1220,7 +1156,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_partition_find(self):
-
         response = self.cloudant_service.post_partition_find(
             db='testString',
             partition_key='testString',
@@ -1243,7 +1178,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_partition_find_as_stream(self):
-
         response = self.cloudant_service.post_partition_find_as_stream(
             db='testString',
             partition_key='testString',
@@ -1266,7 +1200,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_explain(self):
-
         response = self.cloudant_service.post_explain(
             db='testString',
             selector={'foo': 'bar'},
@@ -1289,7 +1222,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_find(self):
-
         response = self.cloudant_service.post_find(
             db='testString',
             selector={'foo': 'bar'},
@@ -1312,7 +1244,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_find_as_stream(self):
-
         response = self.cloudant_service.post_find_as_stream(
             db='testString',
             selector={'foo': 'bar'},
@@ -1335,7 +1266,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_indexes_information(self):
-
         response = self.cloudant_service.get_indexes_information(
             db='testString',
         )
@@ -1346,26 +1276,22 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_index(self):
-
         # Construct a dict representation of a Analyzer model
         analyzer_model = {
             'name': 'classic',
             'stopwords': ['testString'],
         }
-
         # Construct a dict representation of a IndexTextOperatorDefaultField model
         index_text_operator_default_field_model = {
             'analyzer': analyzer_model,
             'enabled': True,
         }
-
         # Construct a dict representation of a IndexField model
         index_field_model = {
             'name': 'testString',
             'type': 'boolean',
             'foo': 'asc',
         }
-
         # Construct a dict representation of a IndexDefinition model
         index_definition_model = {
             'default_analyzer': analyzer_model,
@@ -1391,7 +1317,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_search_analyze(self):
-
         response = self.cloudant_service.post_search_analyze(
             analyzer='arabic',
             text='testString',
@@ -1403,7 +1328,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_search(self):
-
         response = self.cloudant_service.post_search(
             db='testString',
             ddoc='testString',
@@ -1434,7 +1358,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_search_as_stream(self):
-
         response = self.cloudant_service.post_search_as_stream(
             db='testString',
             ddoc='testString',
@@ -1465,7 +1388,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_search_info(self):
-
         response = self.cloudant_service.get_search_info(
             db='testString',
             ddoc='testString',
@@ -1478,7 +1400,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_head_replication_document(self):
-
         response = self.cloudant_service.head_replication_document(
             doc_id='testString',
             if_none_match='testString',
@@ -1488,7 +1409,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_head_scheduler_document(self):
-
         response = self.cloudant_service.head_scheduler_document(
             doc_id='testString',
         )
@@ -1497,7 +1417,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_head_scheduler_job(self):
-
         response = self.cloudant_service.head_scheduler_job(
             job_id='testString',
         )
@@ -1506,7 +1425,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_replication_document(self):
-
         response = self.cloudant_service.get_replication_document(
             doc_id='testString',
             if_none_match='testString',
@@ -1528,7 +1446,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_put_replication_document(self):
-
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
@@ -1541,57 +1458,48 @@ class TestCloudantV1():
             'revpos': 1,
             'stub': True,
         }
-
         # Construct a dict representation of a Revisions model
         revisions_model = {
             'ids': ['testString'],
             'start': 1,
         }
-
         # Construct a dict representation of a DocumentRevisionStatus model
         document_revision_status_model = {
             'rev': 'testString',
             'status': 'available',
         }
-
         # Construct a dict representation of a ReplicationCreateTargetParameters model
         replication_create_target_parameters_model = {
             'n': 1,
             'partitioned': False,
             'q': 26,
         }
-
         # Construct a dict representation of a ReplicationDatabaseAuthBasic model
         replication_database_auth_basic_model = {
             'password': 'testString',
             'username': 'testString',
         }
-
         # Construct a dict representation of a ReplicationDatabaseAuthIam model
         replication_database_auth_iam_model = {
             'api_key': 'testString',
         }
-
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {
             'basic': replication_database_auth_basic_model,
             'iam': replication_database_auth_iam_model,
         }
-
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {
             'auth': replication_database_auth_model,
             'headers': {'key1': 'testString'},
             'url': 'testString',
         }
-
         # Construct a dict representation of a UserContext model
         user_context_model = {
             'db': 'testString',
             'name': 'testString',
             'roles': ['_reader'],
         }
-
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {
             '_attachments': {'key1': attachment_model},
@@ -1645,7 +1553,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_scheduler_docs(self):
-
         response = self.cloudant_service.get_scheduler_docs(
             limit=0,
             skip=0,
@@ -1658,7 +1565,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_scheduler_document(self):
-
         response = self.cloudant_service.get_scheduler_document(
             doc_id='testString',
         )
@@ -1669,7 +1575,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_scheduler_jobs(self):
-
         response = self.cloudant_service.get_scheduler_jobs(
             limit=0,
             skip=0,
@@ -1681,7 +1586,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_scheduler_job(self):
-
         response = self.cloudant_service.get_scheduler_job(
             job_id='testString',
         )
@@ -1692,7 +1596,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_session_information(self):
-
         response = self.cloudant_service.get_session_information()
 
         assert response.get_status_code() == 200
@@ -1701,7 +1604,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_security(self):
-
         response = self.cloudant_service.get_security(
             db='testString',
         )
@@ -1712,7 +1614,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_put_security(self):
-
         # Construct a dict representation of a SecurityObject model
         security_object_model = {
             'names': ['testString'],
@@ -1733,7 +1634,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_api_keys(self):
-
         response = self.cloudant_service.post_api_keys()
 
         assert response.get_status_code() == 201
@@ -1742,7 +1642,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_put_cloudant_security_configuration(self):
-
         # Construct a dict representation of a SecurityObject model
         security_object_model = {
             'names': ['testString'],
@@ -1763,7 +1662,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_cors_information(self):
-
         response = self.cloudant_service.get_cors_information()
 
         assert response.get_status_code() == 200
@@ -1772,7 +1670,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_put_cors_configuration(self):
-
         response = self.cloudant_service.put_cors_configuration(
             origins=['testString'],
             allow_credentials=True,
@@ -1785,7 +1682,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_head_attachment(self):
-
         response = self.cloudant_service.head_attachment(
             db='testString',
             doc_id='testString',
@@ -1799,7 +1695,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_attachment(self):
-
         response = self.cloudant_service.get_attachment(
             db='testString',
             doc_id='testString',
@@ -1816,7 +1711,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_put_attachment(self):
-
         response = self.cloudant_service.put_attachment(
             db='testString',
             doc_id='testString',
@@ -1833,7 +1727,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_head_local_document(self):
-
         response = self.cloudant_service.head_local_document(
             db='testString',
             doc_id='testString',
@@ -1844,7 +1737,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_local_document(self):
-
         response = self.cloudant_service.get_local_document(
             db='testString',
             doc_id='testString',
@@ -1861,7 +1753,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_put_local_document(self):
-
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
@@ -1874,19 +1765,16 @@ class TestCloudantV1():
             'revpos': 1,
             'stub': True,
         }
-
         # Construct a dict representation of a Revisions model
         revisions_model = {
             'ids': ['testString'],
             'start': 1,
         }
-
         # Construct a dict representation of a DocumentRevisionStatus model
         document_revision_status_model = {
             'rev': 'testString',
             'status': 'available',
         }
-
         # Construct a dict representation of a Document model
         document_model = {
             '_attachments': {'key1': attachment_model},
@@ -1915,7 +1803,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_revs_diff(self):
-
         response = self.cloudant_service.post_revs_diff(
             db='testString',
             document_revisions={'key1': ['testString']},
@@ -1927,7 +1814,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_shards_information(self):
-
         response = self.cloudant_service.get_shards_information(
             db='testString',
         )
@@ -1938,7 +1824,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_document_shards_info(self):
-
         response = self.cloudant_service.get_document_shards_info(
             db='testString',
             doc_id='testString',
@@ -1950,14 +1835,12 @@ class TestCloudantV1():
 
     @needscredentials
     def test_head_up_information(self):
-
         response = self.cloudant_service.head_up_information()
 
         assert response.get_status_code() == 200
 
     @needscredentials
     def test_get_active_tasks(self):
-
         response = self.cloudant_service.get_active_tasks()
 
         assert response.get_status_code() == 200
@@ -1966,7 +1849,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_up_information(self):
-
         response = self.cloudant_service.get_up_information()
 
         assert response.get_status_code() == 200
@@ -1975,7 +1857,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_activity_tracker_events(self):
-
         response = self.cloudant_service.get_activity_tracker_events()
 
         assert response.get_status_code() == 200
@@ -1984,7 +1865,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_post_activity_tracker_events(self):
-
         response = self.cloudant_service.post_activity_tracker_events(
             types=['management'],
         )
@@ -1995,7 +1875,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_get_current_throughput_information(self):
-
         response = self.cloudant_service.get_current_throughput_information()
 
         assert response.get_status_code() == 200
@@ -2004,7 +1883,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_delete_database(self):
-
         response = self.cloudant_service.delete_database(
             db='testString',
         )
@@ -2015,7 +1893,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_delete_document(self):
-
         response = self.cloudant_service.delete_document(
             db='testString',
             doc_id='testString',
@@ -2030,7 +1907,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_delete_design_document(self):
-
         response = self.cloudant_service.delete_design_document(
             db='testString',
             ddoc='testString',
@@ -2045,7 +1921,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_delete_index(self):
-
         response = self.cloudant_service.delete_index(
             db='testString',
             ddoc='testString',
@@ -2059,7 +1934,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_delete_replication_document(self):
-
         response = self.cloudant_service.delete_replication_document(
             doc_id='testString',
             if_match='testString',
@@ -2073,7 +1947,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_delete_attachment(self):
-
         response = self.cloudant_service.delete_attachment(
             db='testString',
             doc_id='testString',
@@ -2089,7 +1962,6 @@ class TestCloudantV1():
 
     @needscredentials
     def test_delete_local_document(self):
-
         response = self.cloudant_service.delete_local_document(
             db='testString',
             doc_id='testString',
