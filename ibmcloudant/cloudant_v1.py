@@ -11720,6 +11720,8 @@ class DesignDocumentViewIndex:
     :attr str signature: MD5 signature of the views for the design document.
     :attr ContentInformationSizes sizes: Schema for size information of content.
     :attr bool updater_running: Indicates if the view is currently being updated.
+    :attr UpdatesPending updates_pending: Schema for an ability to tell if view is
+          up-to-date without querying it.
     :attr int waiting_clients: Number of clients waiting on views from this design
           document.
     :attr bool waiting_commit: Indicates if there are outstanding commits to the
@@ -11734,6 +11736,7 @@ class DesignDocumentViewIndex:
         signature: str,
         sizes: 'ContentInformationSizes',
         updater_running: bool,
+        updates_pending: 'UpdatesPending',
         waiting_clients: int,
         waiting_commit: bool,
     ) -> None:
@@ -11751,6 +11754,8 @@ class DesignDocumentViewIndex:
                content.
         :param bool updater_running: Indicates if the view is currently being
                updated.
+        :param UpdatesPending updates_pending: Schema for an ability to tell if
+               view is up-to-date without querying it.
         :param int waiting_clients: Number of clients waiting on views from this
                design document.
         :param bool waiting_commit: Indicates if there are outstanding commits to
@@ -11762,6 +11767,7 @@ class DesignDocumentViewIndex:
         self.signature = signature
         self.sizes = sizes
         self.updater_running = updater_running
+        self.updates_pending = updates_pending
         self.waiting_clients = waiting_clients
         self.waiting_commit = waiting_commit
 
@@ -11793,6 +11799,10 @@ class DesignDocumentViewIndex:
             args['updater_running'] = _dict.get('updater_running')
         else:
             raise ValueError('Required property \'updater_running\' not present in DesignDocumentViewIndex JSON')
+        if 'updates_pending' in _dict:
+            args['updates_pending'] = UpdatesPending.from_dict(_dict.get('updates_pending'))
+        else:
+            raise ValueError('Required property \'updates_pending\' not present in DesignDocumentViewIndex JSON')
         if 'waiting_clients' in _dict:
             args['waiting_clients'] = _dict.get('waiting_clients')
         else:
@@ -11826,6 +11836,11 @@ class DesignDocumentViewIndex:
                 _dict['sizes'] = self.sizes.to_dict()
         if hasattr(self, 'updater_running') and self.updater_running is not None:
             _dict['updater_running'] = self.updater_running
+        if hasattr(self, 'updates_pending') and self.updates_pending is not None:
+            if isinstance(self.updates_pending, dict):
+                _dict['updates_pending'] = self.updates_pending
+            else:
+                _dict['updates_pending'] = self.updates_pending.to_dict()
         if hasattr(self, 'waiting_clients') and self.waiting_clients is not None:
             _dict['waiting_clients'] = self.waiting_clients
         if hasattr(self, 'waiting_commit') and self.waiting_commit is not None:
@@ -17310,6 +17325,90 @@ class UpInformation:
         NOLB = 'nolb'
         OK = 'ok'
 
+
+
+class UpdatesPending:
+    """
+    Schema for an ability to tell if view is up-to-date without querying it.
+
+    :attr int minimum: Sum of shard copies with the least amount of work to do.
+    :attr int preferred: Sum of unique shards. This value is zero when at least one
+          copy of every shard range is up-to-date and the view is able to answer a query
+          without index building delays.
+    :attr int total: Sum of all shard copies.
+    """
+
+    def __init__(
+        self,
+        minimum: int,
+        preferred: int,
+        total: int,
+    ) -> None:
+        """
+        Initialize a UpdatesPending object.
+
+        :param int minimum: Sum of shard copies with the least amount of work to
+               do.
+        :param int preferred: Sum of unique shards. This value is zero when at
+               least one copy of every shard range is up-to-date and the view is able to
+               answer a query without index building delays.
+        :param int total: Sum of all shard copies.
+        """
+        self.minimum = minimum
+        self.preferred = preferred
+        self.total = total
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'UpdatesPending':
+        """Initialize a UpdatesPending object from a json dictionary."""
+        args = {}
+        if 'minimum' in _dict:
+            args['minimum'] = _dict.get('minimum')
+        else:
+            raise ValueError('Required property \'minimum\' not present in UpdatesPending JSON')
+        if 'preferred' in _dict:
+            args['preferred'] = _dict.get('preferred')
+        else:
+            raise ValueError('Required property \'preferred\' not present in UpdatesPending JSON')
+        if 'total' in _dict:
+            args['total'] = _dict.get('total')
+        else:
+            raise ValueError('Required property \'total\' not present in UpdatesPending JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a UpdatesPending object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'minimum') and self.minimum is not None:
+            _dict['minimum'] = self.minimum
+        if hasattr(self, 'preferred') and self.preferred is not None:
+            _dict['preferred'] = self.preferred
+        if hasattr(self, 'total') and self.total is not None:
+            _dict['total'] = self.total
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this UpdatesPending object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'UpdatesPending') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'UpdatesPending') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
 
 
 class UserContext:
