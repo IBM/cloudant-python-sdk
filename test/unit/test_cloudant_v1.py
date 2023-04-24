@@ -5182,7 +5182,7 @@ class TestGetDesignDocumentInformation:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_info')
-        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
+        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "updates_pending": {"minimum": 7, "preferred": 9, "total": 5}, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(
             responses.GET,
             url,
@@ -5222,7 +5222,7 @@ class TestGetDesignDocumentInformation:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_info')
-        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "waiting_clients": 0, "waiting_commit": true}}'
+        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "updates_pending": {"minimum": 7, "preferred": 9, "total": 5}, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(
             responses.GET,
             url,
@@ -14482,6 +14482,11 @@ class TestModel_DesignDocumentInformation:
         content_information_sizes_model['external'] = 26
         content_information_sizes_model['file'] = 26
 
+        updates_pending_model = {}  # UpdatesPending
+        updates_pending_model['minimum'] = 26
+        updates_pending_model['preferred'] = 26
+        updates_pending_model['total'] = 26
+
         design_document_view_index_model = {}  # DesignDocumentViewIndex
         design_document_view_index_model['collator_versions'] = ['testString']
         design_document_view_index_model['compact_running'] = True
@@ -14489,6 +14494,7 @@ class TestModel_DesignDocumentInformation:
         design_document_view_index_model['signature'] = 'testString'
         design_document_view_index_model['sizes'] = content_information_sizes_model
         design_document_view_index_model['updater_running'] = True
+        design_document_view_index_model['updates_pending'] = updates_pending_model
         design_document_view_index_model['waiting_clients'] = 0
         design_document_view_index_model['waiting_commit'] = True
 
@@ -14560,6 +14566,11 @@ class TestModel_DesignDocumentViewIndex:
         content_information_sizes_model['external'] = 26
         content_information_sizes_model['file'] = 26
 
+        updates_pending_model = {}  # UpdatesPending
+        updates_pending_model['minimum'] = 26
+        updates_pending_model['preferred'] = 26
+        updates_pending_model['total'] = 26
+
         # Construct a json representation of a DesignDocumentViewIndex model
         design_document_view_index_model_json = {}
         design_document_view_index_model_json['collator_versions'] = ['testString']
@@ -14568,6 +14579,7 @@ class TestModel_DesignDocumentViewIndex:
         design_document_view_index_model_json['signature'] = 'testString'
         design_document_view_index_model_json['sizes'] = content_information_sizes_model
         design_document_view_index_model_json['updater_running'] = True
+        design_document_view_index_model_json['updates_pending'] = updates_pending_model
         design_document_view_index_model_json['waiting_clients'] = 0
         design_document_view_index_model_json['waiting_commit'] = True
 
@@ -16932,6 +16944,38 @@ class TestModel_UpInformation:
         # Convert model instance back to dict and verify no loss of data
         up_information_model_json2 = up_information_model.to_dict()
         assert up_information_model_json2 == up_information_model_json
+
+
+class TestModel_UpdatesPending:
+    """
+    Test Class for UpdatesPending
+    """
+
+    def test_updates_pending_serialization(self):
+        """
+        Test serialization/deserialization for UpdatesPending
+        """
+
+        # Construct a json representation of a UpdatesPending model
+        updates_pending_model_json = {}
+        updates_pending_model_json['minimum'] = 26
+        updates_pending_model_json['preferred'] = 26
+        updates_pending_model_json['total'] = 26
+
+        # Construct a model instance of UpdatesPending by calling from_dict on the json representation
+        updates_pending_model = UpdatesPending.from_dict(updates_pending_model_json)
+        assert updates_pending_model != False
+
+        # Construct a model instance of UpdatesPending by calling from_dict on the json representation
+        updates_pending_model_dict = UpdatesPending.from_dict(updates_pending_model_json).__dict__
+        updates_pending_model2 = UpdatesPending(**updates_pending_model_dict)
+
+        # Verify the model instances are equivalent
+        assert updates_pending_model == updates_pending_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        updates_pending_model_json2 = updates_pending_model.to_dict()
+        assert updates_pending_model_json2 == updates_pending_model_json
 
 
 class TestModel_UserContext:
