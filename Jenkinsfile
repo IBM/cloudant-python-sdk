@@ -315,6 +315,27 @@ void publishTwine() {
   dir('dist') {
     deleteDir()
   }
+  container('signing') {
+    withCredentials([certificate(credentialsId: 'cldtsdks-ciso-signing', keystoreVariable: 'CODE_SIGNING_PFX_FILE', passwordVariable: 'CODE_SIGNING_P12_PASSWORD')]) {
+      sh """#!/bin/bash -e
+      # Configure the client with your own authentication
+      setup-garasign-client
+
+      sudo /opt/Garantir/bin/grsgpgconfig.sh
+
+      # Load GPG key from the server
+      GrsGPGLoader
+
+      garasign listkeys
+
+      # Export keys
+      garasign export --key PRD0002797key --outputDirectory .
+
+      ls -la .
+      """
+      archiveArtifacts artifacts: '*.pem.cer, *.pem.chain, *.pem.pub.key, *.pub.asc', followSymlinks: false
+    }
+  }
   sh '''
     python3 --version
     python3 setup.py sdist
