@@ -224,7 +224,7 @@ The [request timeout](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/READ
 ### Code examples
 
 The following code examples
-[authenticate with the environment variables](#authenticate-with-environment-variables).
+[authenticate with the environment variables](#authentication-with-environment-variables).
 
 #### 1. Create a database and add a document
 
@@ -236,7 +236,7 @@ the *service url*, *authentication type* and *authentication credentials*
 of your Cloudant service.
 
 Cloudant environment variable naming starts with a *service name* prefix that identifies your service.
-By default this is `CLOUDANT`, see the settings in the
+By default, this is `CLOUDANT`, see the settings in the
 [authentication with environment variables section](#authentication-with-environment-variables).
 
 If you would like to rename your Cloudant service from `CLOUDANT`,
