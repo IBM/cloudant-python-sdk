@@ -1,4 +1,26 @@
 {"mappings":[{
+  "id" : "4e7ecd46-9129-42a1-8899-985567444ad6",
+  "name" : "orders_example",
+  "request" : {
+    "url" : "/orders/example?rev=4-bf3f53fe029a70e6451e375ccd36599c",
+    "method" : "DELETE"
+  },
+  "response" : {
+    "status" : 404,
+    "body" : "{\"error\":\"not_found\",\"reason\":\"deleted\"}\n",
+    "headers" : {
+      "Cache-Control" : "must-revalidate",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 21 Jul 2020 07:58:57 GMT",
+      "Server" : "CouchDB/3.0.0 (Erlang OTP/20)",
+      "X-Couch-Request-ID" : "750c2d635a",
+      "X-CouchDB-Body-Time" : "0"
+    }
+  },
+  "uuid" : "4e7ecd46-9129-42a1-8899-985567444ad6",
+  "persistent" : true,
+  "insertionIndex" : 18
+},{
   "id" : "9fa984ad-62e6-4e74-a0ee-a531711f5dbc",
   "name" : "orders_example",
   "request" : {
