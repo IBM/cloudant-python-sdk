@@ -7748,7 +7748,7 @@ class TestPostExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"anyKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"anyKey": "anyValue"}, "skip": 0}'
+        mock_response = '{"covered": false, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"anyKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"anyKey": "anyValue"}, "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -7827,7 +7827,7 @@ class TestPostExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"anyKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"anyKey": "anyValue"}, "skip": 0}'
+        mock_response = '{"covered": false, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"anyKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"anyKey": "anyValue"}, "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -14979,6 +14979,7 @@ class TestModel_ExplainResult:
 
         # Construct a json representation of a ExplainResult model
         explain_result_model_json = {}
+        explain_result_model_json['covered'] = True
         explain_result_model_json['dbname'] = 'testString'
         explain_result_model_json['fields'] = ['testString']
         explain_result_model_json['index'] = index_information_model
