@@ -447,8 +447,8 @@ class TestGetDbUpdates:
 
         # Set up parameter values
         feed = 'normal'
-        heartbeat = 0
-        timeout = 0
+        heartbeat = 60000
+        timeout = 60000
         since = '0'
 
         # Invoke method
@@ -546,13 +546,13 @@ class TestPostChanges:
         descending = False
         feed = 'normal'
         filter = 'testString'
-        heartbeat = 0
+        heartbeat = 60000
         include_docs = False
         limit = 0
         seq_interval = 1
         since = '0'
         style = 'main_only'
-        timeout = 0
+        timeout = 60000
         view = 'testString'
 
         # Invoke method
@@ -743,13 +743,13 @@ class TestPostChangesAsStream:
         descending = False
         feed = 'normal'
         filter = 'testString'
-        heartbeat = 0
+        heartbeat = 60000
         include_docs = False
         limit = 0
         seq_interval = 1
         since = '0'
         style = 'main_only'
-        timeout = 0
+        timeout = 60000
         view = 'testString'
 
         # Invoke method
@@ -1137,7 +1137,7 @@ class TestPostDbsInfo:
         """
         # Set up mock
         url = preprocess_url('/_dbs_info')
-        mock_response = '[{"error": "error", "info": {"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
+        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
         responses.add(
             responses.POST,
             url,
@@ -1181,7 +1181,7 @@ class TestPostDbsInfo:
         """
         # Set up mock
         url = preprocess_url('/_dbs_info')
-        mock_response = '[{"error": "error", "info": {"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
+        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
         responses.add(
             responses.POST,
             url,
@@ -1305,7 +1305,7 @@ class TestGetDatabaseInformation:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}'
+        mock_response = '{"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}'
         responses.add(
             responses.GET,
             url,
@@ -1343,7 +1343,7 @@ class TestGetDatabaseInformation:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"cluster": {"n": 1, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}'
+        mock_response = '{"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}'
         responses.add(
             responses.GET,
             url,
@@ -6799,7 +6799,7 @@ class TestPostPartitionSearch:
         highlight_number = 1
         highlight_post_tag = '</em>'
         highlight_pre_tag = '<em>'
-        highlight_size = 1
+        highlight_size = 100
         include_docs = False
         include_fields = ['testString']
         limit = 0
@@ -6841,7 +6841,7 @@ class TestPostPartitionSearch:
         assert req_body['highlight_number'] == 1
         assert req_body['highlight_post_tag'] == '</em>'
         assert req_body['highlight_pre_tag'] == '<em>'
-        assert req_body['highlight_size'] == 1
+        assert req_body['highlight_size'] == 100
         assert req_body['include_docs'] == False
         assert req_body['include_fields'] == ['testString']
         assert req_body['limit'] == 0
@@ -6884,7 +6884,7 @@ class TestPostPartitionSearch:
         highlight_number = 1
         highlight_post_tag = '</em>'
         highlight_pre_tag = '<em>'
-        highlight_size = 1
+        highlight_size = 100
         include_docs = False
         include_fields = ['testString']
         limit = 0
@@ -6946,7 +6946,7 @@ class TestPostPartitionSearchAsStream:
         highlight_number = 1
         highlight_post_tag = '</em>'
         highlight_pre_tag = '<em>'
-        highlight_size = 1
+        highlight_size = 100
         include_docs = False
         include_fields = ['testString']
         limit = 0
@@ -6988,7 +6988,7 @@ class TestPostPartitionSearchAsStream:
         assert req_body['highlight_number'] == 1
         assert req_body['highlight_post_tag'] == '</em>'
         assert req_body['highlight_pre_tag'] == '<em>'
-        assert req_body['highlight_size'] == 1
+        assert req_body['highlight_size'] == 100
         assert req_body['include_docs'] == False
         assert req_body['include_fields'] == ['testString']
         assert req_body['limit'] == 0
@@ -7037,7 +7037,7 @@ class TestPostPartitionSearchAsStream:
         highlight_number = 1
         highlight_post_tag = '</em>'
         highlight_pre_tag = '<em>'
-        highlight_size = 1
+        highlight_size = 100
         include_docs = False
         include_fields = ['testString']
         limit = 0
@@ -7450,7 +7450,7 @@ class TestPostPartitionFind:
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -7488,7 +7488,7 @@ class TestPostPartitionFind:
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
         assert req_body['fields'] == ['testString']
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 25
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
         assert req_body['stable'] == True
@@ -7528,7 +7528,7 @@ class TestPostPartitionFind:
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -7585,7 +7585,7 @@ class TestPostPartitionFindAsStream:
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -7623,7 +7623,7 @@ class TestPostPartitionFindAsStream:
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
         assert req_body['fields'] == ['testString']
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 25
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
         assert req_body['stable'] == True
@@ -7669,7 +7669,7 @@ class TestPostPartitionFindAsStream:
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -7748,7 +7748,7 @@ class TestPostExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"anyKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"anyKey": "anyValue"}, "skip": 0}'
+        mock_response = '{"covered": false, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 25, "opts": {"anyKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"anyKey": "anyValue"}, "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -7764,7 +7764,7 @@ class TestPostExplain:
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -7803,7 +7803,7 @@ class TestPostExplain:
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
         assert req_body['fields'] == ['testString']
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 25
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
         assert req_body['stable'] == True
@@ -7827,7 +7827,7 @@ class TestPostExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 0, "opts": {"anyKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"anyKey": "anyValue"}, "skip": 0}'
+        mock_response = '{"covered": false, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 25, "opts": {"anyKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"anyKey": "anyValue"}, "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -7843,7 +7843,7 @@ class TestPostExplain:
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -7899,7 +7899,7 @@ class TestPostFind:
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -7938,7 +7938,7 @@ class TestPostFind:
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
         assert req_body['fields'] == ['testString']
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 25
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
         assert req_body['stable'] == True
@@ -7978,7 +7978,7 @@ class TestPostFind:
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -8034,7 +8034,7 @@ class TestPostFindAsStream:
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -8073,7 +8073,7 @@ class TestPostFindAsStream:
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
         assert req_body['fields'] == ['testString']
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 25
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
         assert req_body['stable'] == True
@@ -8119,7 +8119,7 @@ class TestPostFindAsStream:
         conflicts = True
         execution_stats = True
         fields = ['testString']
-        limit = 0
+        limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -8642,7 +8642,7 @@ class TestPostSearch:
         highlight_number = 1
         highlight_post_tag = '</em>'
         highlight_pre_tag = '<em>'
-        highlight_size = 1
+        highlight_size = 100
         include_docs = False
         include_fields = ['testString']
         limit = 0
@@ -8695,7 +8695,7 @@ class TestPostSearch:
         assert req_body['highlight_number'] == 1
         assert req_body['highlight_post_tag'] == '</em>'
         assert req_body['highlight_pre_tag'] == '<em>'
-        assert req_body['highlight_size'] == 1
+        assert req_body['highlight_size'] == 100
         assert req_body['include_docs'] == False
         assert req_body['include_fields'] == ['testString']
         assert req_body['limit'] == 0
@@ -8743,7 +8743,7 @@ class TestPostSearch:
         highlight_number = 1
         highlight_post_tag = '</em>'
         highlight_pre_tag = '<em>'
-        highlight_size = 1
+        highlight_size = 100
         include_docs = False
         include_fields = ['testString']
         limit = 0
@@ -8809,7 +8809,7 @@ class TestPostSearchAsStream:
         highlight_number = 1
         highlight_post_tag = '</em>'
         highlight_pre_tag = '<em>'
-        highlight_size = 1
+        highlight_size = 100
         include_docs = False
         include_fields = ['testString']
         limit = 0
@@ -8862,7 +8862,7 @@ class TestPostSearchAsStream:
         assert req_body['highlight_number'] == 1
         assert req_body['highlight_post_tag'] == '</em>'
         assert req_body['highlight_pre_tag'] == '<em>'
-        assert req_body['highlight_size'] == 1
+        assert req_body['highlight_size'] == 100
         assert req_body['include_docs'] == False
         assert req_body['include_fields'] == ['testString']
         assert req_body['limit'] == 0
@@ -8916,7 +8916,7 @@ class TestPostSearchAsStream:
         highlight_number = 1
         highlight_post_tag = '</em>'
         highlight_pre_tag = '<em>'
-        highlight_size = 1
+        highlight_size = 100
         include_docs = False
         include_fields = ['testString']
         limit = 0
@@ -9483,7 +9483,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 1, "worker_processes": 1}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -9556,7 +9556,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 1, "worker_processes": 1}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -9594,7 +9594,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 0, "connection_timeout": 0, "continuous": false, "create_target": false, "create_target_params": {"n": 1, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 1, "query_params": {"mapKey": "inner"}, "retries_per_request": 0, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 1, "worker_processes": 1}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": false, "_deleted_conflicts": ["deleted_conflicts"], "_id": "id", "_local_seq": "local_seq", "_rev": "rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -9670,7 +9670,7 @@ class TestPutReplicationDocument:
 
         # Construct a dict representation of a ReplicationCreateTargetParameters model
         replication_create_target_parameters_model = {}
-        replication_create_target_parameters_model['n'] = 1
+        replication_create_target_parameters_model['n'] = 3
         replication_create_target_parameters_model['partitioned'] = False
         replication_create_target_parameters_model['q'] = 26
 
@@ -9712,16 +9712,16 @@ class TestPutReplicationDocument:
         replication_document_model['_revisions'] = revisions_model
         replication_document_model['_revs_info'] = [document_revision_status_model]
         replication_document_model['cancel'] = True
-        replication_document_model['checkpoint_interval'] = 0
-        replication_document_model['connection_timeout'] = 0
+        replication_document_model['checkpoint_interval'] = 30000
+        replication_document_model['connection_timeout'] = 30000
         replication_document_model['continuous'] = False
         replication_document_model['create_target'] = False
         replication_document_model['create_target_params'] = replication_create_target_parameters_model
         replication_document_model['doc_ids'] = ['testString']
         replication_document_model['filter'] = 'testString'
-        replication_document_model['http_connections'] = 1
+        replication_document_model['http_connections'] = 20
         replication_document_model['query_params'] = {'key1': 'testString'}
-        replication_document_model['retries_per_request'] = 0
+        replication_document_model['retries_per_request'] = 5
         replication_document_model['selector'] = {'foo': 'bar'}
         replication_document_model['since_seq'] = 'testString'
         replication_document_model['socket_options'] = 'testString'
@@ -9733,8 +9733,8 @@ class TestPutReplicationDocument:
         replication_document_model['use_checkpoints'] = True
         replication_document_model['user_ctx'] = user_context_model
         replication_document_model['winning_revs_only'] = False
-        replication_document_model['worker_batch_size'] = 1
-        replication_document_model['worker_processes'] = 1
+        replication_document_model['worker_batch_size'] = 500
+        replication_document_model['worker_processes'] = 4
         replication_document_model['foo'] = 'testString'
 
         # Set up parameter values
@@ -9821,7 +9821,7 @@ class TestPutReplicationDocument:
 
         # Construct a dict representation of a ReplicationCreateTargetParameters model
         replication_create_target_parameters_model = {}
-        replication_create_target_parameters_model['n'] = 1
+        replication_create_target_parameters_model['n'] = 3
         replication_create_target_parameters_model['partitioned'] = False
         replication_create_target_parameters_model['q'] = 26
 
@@ -9863,16 +9863,16 @@ class TestPutReplicationDocument:
         replication_document_model['_revisions'] = revisions_model
         replication_document_model['_revs_info'] = [document_revision_status_model]
         replication_document_model['cancel'] = True
-        replication_document_model['checkpoint_interval'] = 0
-        replication_document_model['connection_timeout'] = 0
+        replication_document_model['checkpoint_interval'] = 30000
+        replication_document_model['connection_timeout'] = 30000
         replication_document_model['continuous'] = False
         replication_document_model['create_target'] = False
         replication_document_model['create_target_params'] = replication_create_target_parameters_model
         replication_document_model['doc_ids'] = ['testString']
         replication_document_model['filter'] = 'testString'
-        replication_document_model['http_connections'] = 1
+        replication_document_model['http_connections'] = 20
         replication_document_model['query_params'] = {'key1': 'testString'}
-        replication_document_model['retries_per_request'] = 0
+        replication_document_model['retries_per_request'] = 5
         replication_document_model['selector'] = {'foo': 'bar'}
         replication_document_model['since_seq'] = 'testString'
         replication_document_model['socket_options'] = 'testString'
@@ -9884,8 +9884,8 @@ class TestPutReplicationDocument:
         replication_document_model['use_checkpoints'] = True
         replication_document_model['user_ctx'] = user_context_model
         replication_document_model['winning_revs_only'] = False
-        replication_document_model['worker_batch_size'] = 1
-        replication_document_model['worker_processes'] = 1
+        replication_document_model['worker_batch_size'] = 500
+        replication_document_model['worker_processes'] = 4
         replication_document_model['foo'] = 'testString'
 
         # Set up parameter values
@@ -9958,7 +9958,7 @@ class TestPutReplicationDocument:
 
         # Construct a dict representation of a ReplicationCreateTargetParameters model
         replication_create_target_parameters_model = {}
-        replication_create_target_parameters_model['n'] = 1
+        replication_create_target_parameters_model['n'] = 3
         replication_create_target_parameters_model['partitioned'] = False
         replication_create_target_parameters_model['q'] = 26
 
@@ -10000,16 +10000,16 @@ class TestPutReplicationDocument:
         replication_document_model['_revisions'] = revisions_model
         replication_document_model['_revs_info'] = [document_revision_status_model]
         replication_document_model['cancel'] = True
-        replication_document_model['checkpoint_interval'] = 0
-        replication_document_model['connection_timeout'] = 0
+        replication_document_model['checkpoint_interval'] = 30000
+        replication_document_model['connection_timeout'] = 30000
         replication_document_model['continuous'] = False
         replication_document_model['create_target'] = False
         replication_document_model['create_target_params'] = replication_create_target_parameters_model
         replication_document_model['doc_ids'] = ['testString']
         replication_document_model['filter'] = 'testString'
-        replication_document_model['http_connections'] = 1
+        replication_document_model['http_connections'] = 20
         replication_document_model['query_params'] = {'key1': 'testString'}
-        replication_document_model['retries_per_request'] = 0
+        replication_document_model['retries_per_request'] = 5
         replication_document_model['selector'] = {'foo': 'bar'}
         replication_document_model['since_seq'] = 'testString'
         replication_document_model['socket_options'] = 'testString'
@@ -10021,8 +10021,8 @@ class TestPutReplicationDocument:
         replication_document_model['use_checkpoints'] = True
         replication_document_model['user_ctx'] = user_context_model
         replication_document_model['winning_revs_only'] = False
-        replication_document_model['worker_batch_size'] = 1
-        replication_document_model['worker_processes'] = 1
+        replication_document_model['worker_batch_size'] = 500
+        replication_document_model['worker_processes'] = 4
         replication_document_model['foo'] = 'testString'
 
         # Set up parameter values
@@ -10238,7 +10238,7 @@ class TestGetSchedulerJobs:
         )
 
         # Set up parameter values
-        limit = 0
+        limit = 25
         skip = 0
 
         # Invoke method
@@ -12690,7 +12690,7 @@ class TestGetActiveTasks:
         """
         # Set up mock
         url = preprocess_url('/_active_tasks')
-        mock_response = '[{"bulk_get_attempts": 0, "bulk_get_docs": 0, "changes_done": 0, "changes_pending": 0, "checkpoint_interval": 0, "checkpointed_source_seq": "checkpointed_source_seq", "continuous": false, "database": "database", "design_document": "design_document", "doc_id": "doc_id", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "index": "index", "indexer_pid": "indexer_pid", "missing_revisions_found": 0, "node": "node", "phase": "docid_sort", "pid": "pid", "process_status": "exiting", "progress": 0, "replication_id": "replication_id", "retry": false, "revisions_checked": 0, "source": "source", "source_seq": "source_seq", "started_on": 0, "target": "target", "through_seq": "through_seq", "total_changes": 0, "type": "database_compaction", "updated_on": 0, "user": "user", "view": 0}]'
+        mock_response = '[{"bulk_get_attempts": 0, "bulk_get_docs": 0, "changes_done": 0, "changes_pending": 0, "checkpoint_interval": 30000, "checkpointed_source_seq": "checkpointed_source_seq", "continuous": false, "database": "database", "design_document": "design_document", "doc_id": "doc_id", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "index": "index", "indexer_pid": "indexer_pid", "missing_revisions_found": 0, "node": "node", "phase": "docid_sort", "pid": "pid", "process_status": "exiting", "progress": 0, "replication_id": "replication_id", "retry": false, "revisions_checked": 0, "source": "source", "source_seq": "source_seq", "started_on": 0, "target": "target", "through_seq": "through_seq", "total_changes": 0, "type": "database_compaction", "updated_on": 0, "user": "user", "view": 0}]'
         responses.add(
             responses.GET,
             url,
@@ -12945,7 +12945,7 @@ class TestModel_ActiveTask:
         active_task_model_json['bulk_get_docs'] = 0
         active_task_model_json['changes_done'] = 0
         active_task_model_json['changes_pending'] = 0
-        active_task_model_json['checkpoint_interval'] = 0
+        active_task_model_json['checkpoint_interval'] = 30000
         active_task_model_json['checkpointed_source_seq'] = 'testString'
         active_task_model_json['continuous'] = False
         active_task_model_json['database'] = 'testString'
@@ -14127,7 +14127,7 @@ class TestModel_DatabaseInformation:
         # Construct dict forms of any model objects needed in order to build this model.
 
         database_information_cluster_model = {}  # DatabaseInformationCluster
-        database_information_cluster_model['n'] = 1
+        database_information_cluster_model['n'] = 3
         database_information_cluster_model['q'] = 26
         database_information_cluster_model['r'] = 1
         database_information_cluster_model['w'] = 1
@@ -14184,7 +14184,7 @@ class TestModel_DatabaseInformationCluster:
 
         # Construct a json representation of a DatabaseInformationCluster model
         database_information_cluster_model_json = {}
-        database_information_cluster_model_json['n'] = 1
+        database_information_cluster_model_json['n'] = 3
         database_information_cluster_model_json['q'] = 26
         database_information_cluster_model_json['r'] = 1
         database_information_cluster_model_json['w'] = 1
@@ -14318,7 +14318,7 @@ class TestModel_DbsInfoResult:
         # Construct dict forms of any model objects needed in order to build this model.
 
         database_information_cluster_model = {}  # DatabaseInformationCluster
-        database_information_cluster_model['n'] = 1
+        database_information_cluster_model['n'] = 3
         database_information_cluster_model['q'] = 26
         database_information_cluster_model['r'] = 1
         database_information_cluster_model['w'] = 1
@@ -14979,10 +14979,11 @@ class TestModel_ExplainResult:
 
         # Construct a json representation of a ExplainResult model
         explain_result_model_json = {}
+        explain_result_model_json['covered'] = True
         explain_result_model_json['dbname'] = 'testString'
         explain_result_model_json['fields'] = ['testString']
         explain_result_model_json['index'] = index_information_model
-        explain_result_model_json['limit'] = 0
+        explain_result_model_json['limit'] = 25
         explain_result_model_json['opts'] = {'foo': 'bar'}
         explain_result_model_json['range'] = explain_result_range_model
         explain_result_model_json['selector'] = {'foo': 'bar'}
@@ -15605,7 +15606,7 @@ class TestModel_ReplicationCreateTargetParameters:
 
         # Construct a json representation of a ReplicationCreateTargetParameters model
         replication_create_target_parameters_model_json = {}
-        replication_create_target_parameters_model_json['n'] = 1
+        replication_create_target_parameters_model_json['n'] = 3
         replication_create_target_parameters_model_json['partitioned'] = False
         replication_create_target_parameters_model_json['q'] = 26
 
@@ -15803,7 +15804,7 @@ class TestModel_ReplicationDocument:
         document_revision_status_model['status'] = 'available'
 
         replication_create_target_parameters_model = {}  # ReplicationCreateTargetParameters
-        replication_create_target_parameters_model['n'] = 1
+        replication_create_target_parameters_model['n'] = 3
         replication_create_target_parameters_model['partitioned'] = False
         replication_create_target_parameters_model['q'] = 26
 
@@ -15840,16 +15841,16 @@ class TestModel_ReplicationDocument:
         replication_document_model_json['_revisions'] = revisions_model
         replication_document_model_json['_revs_info'] = [document_revision_status_model]
         replication_document_model_json['cancel'] = True
-        replication_document_model_json['checkpoint_interval'] = 0
-        replication_document_model_json['connection_timeout'] = 0
+        replication_document_model_json['checkpoint_interval'] = 30000
+        replication_document_model_json['connection_timeout'] = 30000
         replication_document_model_json['continuous'] = False
         replication_document_model_json['create_target'] = False
         replication_document_model_json['create_target_params'] = replication_create_target_parameters_model
         replication_document_model_json['doc_ids'] = ['testString']
         replication_document_model_json['filter'] = 'testString'
-        replication_document_model_json['http_connections'] = 1
+        replication_document_model_json['http_connections'] = 20
         replication_document_model_json['query_params'] = {'key1': 'testString'}
-        replication_document_model_json['retries_per_request'] = 0
+        replication_document_model_json['retries_per_request'] = 5
         replication_document_model_json['selector'] = {'foo': 'bar'}
         replication_document_model_json['since_seq'] = 'testString'
         replication_document_model_json['socket_options'] = 'testString'
@@ -15861,8 +15862,8 @@ class TestModel_ReplicationDocument:
         replication_document_model_json['use_checkpoints'] = True
         replication_document_model_json['user_ctx'] = user_context_model
         replication_document_model_json['winning_revs_only'] = False
-        replication_document_model_json['worker_batch_size'] = 1
-        replication_document_model_json['worker_processes'] = 1
+        replication_document_model_json['worker_batch_size'] = 500
+        replication_document_model_json['worker_processes'] = 4
         replication_document_model_json['foo'] = 'testString'
 
         # Construct a model instance of ReplicationDocument by calling from_dict on the json representation

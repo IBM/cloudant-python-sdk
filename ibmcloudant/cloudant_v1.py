@@ -12656,12 +12656,15 @@ class ExplainResult:
     """
     Schema for information about the index used for a find query.
 
-    :attr str dbname: dbname.
-    :attr List[str] fields: fields.
+    :attr bool covered: When `true`, the query is answered using the index only and
+          no documents are fetched.
+    :attr str dbname: Name of database.
+    :attr List[str] fields: Fields to be returned by the query.
     :attr IndexInformation index: Schema for information about an index.
-    :attr int limit: limit.
-    :attr dict opts: opts.
-    :attr ExplainResultRange range: (optional) range.
+    :attr int limit: The used maximum number of results returned.
+    :attr dict opts: Query options used.
+    :attr ExplainResultRange range: (optional) Range parameters passed to the
+          underlying view.
     :attr dict selector: JSON object describing criteria used to select documents.
           The selector specifies fields in the document, and provides an expression to
           evaluate with the field content or other data.
@@ -12691,11 +12694,12 @@ class ExplainResult:
           For further reference see
           [selector
           syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
-    :attr int skip: skip.
+    :attr int skip: Skip parameter used.
     """
 
     def __init__(
         self,
+        covered: bool,
         dbname: str,
         fields: List[str],
         index: 'IndexInformation',
@@ -12709,11 +12713,13 @@ class ExplainResult:
         """
         Initialize a ExplainResult object.
 
-        :param str dbname: dbname.
-        :param List[str] fields: fields.
+        :param bool covered: When `true`, the query is answered using the index
+               only and no documents are fetched.
+        :param str dbname: Name of database.
+        :param List[str] fields: Fields to be returned by the query.
         :param IndexInformation index: Schema for information about an index.
-        :param int limit: limit.
-        :param dict opts: opts.
+        :param int limit: The used maximum number of results returned.
+        :param dict opts: Query options used.
         :param dict selector: JSON object describing criteria used to select
                documents. The selector specifies fields in the document, and provides an
                expression to evaluate with the field content or other data.
@@ -12745,9 +12751,11 @@ class ExplainResult:
                For further reference see
                [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
-        :param int skip: skip.
-        :param ExplainResultRange range: (optional) range.
+        :param int skip: Skip parameter used.
+        :param ExplainResultRange range: (optional) Range parameters passed to the
+               underlying view.
         """
+        self.covered = covered
         self.dbname = dbname
         self.fields = fields
         self.index = index
@@ -12761,6 +12769,10 @@ class ExplainResult:
     def from_dict(cls, _dict: Dict) -> 'ExplainResult':
         """Initialize a ExplainResult object from a json dictionary."""
         args = {}
+        if 'covered' in _dict:
+            args['covered'] = _dict.get('covered')
+        else:
+            raise ValueError('Required property \'covered\' not present in ExplainResult JSON')
         if 'dbname' in _dict:
             args['dbname'] = _dict.get('dbname')
         else:
@@ -12801,6 +12813,8 @@ class ExplainResult:
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
+        if hasattr(self, 'covered') and self.covered is not None:
+            _dict['covered'] = self.covered
         if hasattr(self, 'dbname') and self.dbname is not None:
             _dict['dbname'] = self.dbname
         if hasattr(self, 'fields') and self.fields is not None:
@@ -12846,10 +12860,12 @@ class ExplainResult:
 
 class ExplainResultRange:
     """
-    range.
+    Range parameters passed to the underlying view.
 
-    :attr List[object] end_key: (optional) end_key.
-    :attr List[object] start_key: (optional) start_key.
+    :attr List[object] end_key: (optional) End key parameter passed to the
+          underlying view.
+    :attr List[object] start_key: (optional) Start key parameter passed to the
+          underlying view.
     """
 
     def __init__(
@@ -12861,8 +12877,10 @@ class ExplainResultRange:
         """
         Initialize a ExplainResultRange object.
 
-        :param List[object] end_key: (optional) end_key.
-        :param List[object] start_key: (optional) start_key.
+        :param List[object] end_key: (optional) End key parameter passed to the
+               underlying view.
+        :param List[object] start_key: (optional) Start key parameter passed to the
+               underlying view.
         """
         self.end_key = end_key
         self.start_key = start_key
