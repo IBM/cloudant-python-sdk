@@ -1,0 +1,6 @@
+# documentation
+recommonmark==0.7.1
+Sphinx==5.3.0
+sphinx-autodoc2==0.4.2
+myst-parser==1.0.0
+sphinx-rtd-theme==1.2.1
