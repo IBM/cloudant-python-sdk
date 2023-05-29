@@ -1,0 +1,57 @@
+:py:mod:`ibmcloudant.couchdb_session_token_manager`
+===================================================
+
+.. py:module:: ibmcloudant.couchdb_session_token_manager
+
+.. autodoc2-docstring:: ibmcloudant.couchdb_session_token_manager
+   :parser: myst
+   :allowtitles:
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. list-table::
+   :class: autosummary longtable
+   :align: left
+
+   * - :py:obj:`CouchDbSessionTokenManager <ibmcloudant.couchdb_session_token_manager.CouchDbSessionTokenManager>`
+     - .. autodoc2-docstring:: ibmcloudant.couchdb_session_token_manager.CouchDbSessionTokenManager
+          :parser: myst
+          :summary:
+
+API
+~~~
+
+.. py:class:: CouchDbSessionTokenManager(username: str, password: str, url: str = None, disable_ssl_verification: bool = False)
+   :canonical: ibmcloudant.couchdb_session_token_manager.CouchDbSessionTokenManager
+
+   Bases: :py:obj:`ibm_cloud_sdk_core.token_managers.token_manager.TokenManager`
+
+   .. autodoc2-docstring:: ibmcloudant.couchdb_session_token_manager.CouchDbSessionTokenManager
+      :parser: myst
+
+   .. rubric:: Initialization
+
+   .. autodoc2-docstring:: ibmcloudant.couchdb_session_token_manager.CouchDbSessionTokenManager.__init__
+      :parser: myst
+
+   .. py:method:: request_token()
+      :canonical: ibmcloudant.couchdb_session_token_manager.CouchDbSessionTokenManager.request_token
+
+      .. autodoc2-docstring:: ibmcloudant.couchdb_session_token_manager.CouchDbSessionTokenManager.request_token
+         :parser: myst
+
+   .. py:method:: set_default_headers(headers)
+      :canonical: ibmcloudant.couchdb_session_token_manager.CouchDbSessionTokenManager.set_default_headers
+
+      .. autodoc2-docstring:: ibmcloudant.couchdb_session_token_manager.CouchDbSessionTokenManager.set_default_headers
+         :parser: myst
+
+   .. py:method:: set_service_url(service_url)
+      :canonical: ibmcloudant.couchdb_session_token_manager.CouchDbSessionTokenManager.set_service_url
+
+      .. autodoc2-docstring:: ibmcloudant.couchdb_session_token_manager.CouchDbSessionTokenManager.set_service_url
+         :parser: myst
