@@ -44,7 +44,8 @@ autodoc2_packages = [
             'common.py',
             'version.py',
             'cloudant_base_service.py',
-            'couchdb_session_get_authenticator_patch.py'
+            'couchdb_session_get_authenticator_patch.py',
+            'couchdb_session_token_manager.py'
         ]
     }
 ]
