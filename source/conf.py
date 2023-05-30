@@ -21,7 +21,7 @@ print(os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'Cloudant Python SDK'
-copyright = 'Copyright IBM Corp. 2021, 2023'
+copyright = 'Copyright IBM Corp. 2021, 2023.'
 author = '@IBM/cloudant-sdks'
 
 # -- General configuration ---------------------------------------------------
