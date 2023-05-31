@@ -59,6 +59,7 @@ python3/
 # resources
 resources/output.wav
 
+apidocs/
 docs/_build/
 deploy.sh
 docs/apis
