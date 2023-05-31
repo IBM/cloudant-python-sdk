@@ -100,8 +100,8 @@ class TestCloudantV1:
     def test_get_db_updates(self):
         response = self.cloudant_service.get_db_updates(
             feed='normal',
-            heartbeat=0,
-            timeout=0,
+            heartbeat=60000,
+            timeout=60000,
             since='0',
         )
 
@@ -123,13 +123,13 @@ class TestCloudantV1:
             descending=False,
             feed='normal',
             filter='testString',
-            heartbeat=0,
+            heartbeat=60000,
             include_docs=False,
             limit=0,
             seq_interval=1,
             since='0',
             style='main_only',
-            timeout=0,
+            timeout=60000,
             view='testString',
         )
 
@@ -151,13 +151,13 @@ class TestCloudantV1:
             descending=False,
             feed='normal',
             filter='testString',
-            heartbeat=0,
+            heartbeat=60000,
             include_docs=False,
             limit=0,
             seq_interval=1,
             since='0',
             style='main_only',
-            timeout=0,
+            timeout=60000,
             view='testString',
         )
 
@@ -1053,7 +1053,7 @@ class TestCloudantV1:
             highlight_number=1,
             highlight_post_tag='</em>',
             highlight_pre_tag='<em>',
-            highlight_size=1,
+            highlight_size=100,
             include_docs=False,
             include_fields=['testString'],
             limit=0,
@@ -1078,7 +1078,7 @@ class TestCloudantV1:
             highlight_number=1,
             highlight_post_tag='</em>',
             highlight_pre_tag='<em>',
-            highlight_size=1,
+            highlight_size=100,
             include_docs=False,
             include_fields=['testString'],
             limit=0,
@@ -1164,7 +1164,7 @@ class TestCloudantV1:
             conflicts=True,
             execution_stats=True,
             fields=['testString'],
-            limit=0,
+            limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
             stable=True,
@@ -1186,7 +1186,7 @@ class TestCloudantV1:
             conflicts=True,
             execution_stats=True,
             fields=['testString'],
-            limit=0,
+            limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
             stable=True,
@@ -1207,7 +1207,7 @@ class TestCloudantV1:
             conflicts=True,
             execution_stats=True,
             fields=['testString'],
-            limit=0,
+            limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
             stable=True,
@@ -1229,7 +1229,7 @@ class TestCloudantV1:
             conflicts=True,
             execution_stats=True,
             fields=['testString'],
-            limit=0,
+            limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
             stable=True,
@@ -1251,7 +1251,7 @@ class TestCloudantV1:
             conflicts=True,
             execution_stats=True,
             fields=['testString'],
-            limit=0,
+            limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
             stable=True,
@@ -1338,7 +1338,7 @@ class TestCloudantV1:
             highlight_number=1,
             highlight_post_tag='</em>',
             highlight_pre_tag='<em>',
-            highlight_size=1,
+            highlight_size=100,
             include_docs=False,
             include_fields=['testString'],
             limit=0,
@@ -1368,7 +1368,7 @@ class TestCloudantV1:
             highlight_number=1,
             highlight_post_tag='</em>',
             highlight_pre_tag='<em>',
-            highlight_size=1,
+            highlight_size=100,
             include_docs=False,
             include_fields=['testString'],
             limit=0,
@@ -1470,7 +1470,7 @@ class TestCloudantV1:
         }
         # Construct a dict representation of a ReplicationCreateTargetParameters model
         replication_create_target_parameters_model = {
-            'n': 1,
+            'n': 3,
             'partitioned': False,
             'q': 26,
         }
@@ -1512,16 +1512,16 @@ class TestCloudantV1:
             '_revisions': revisions_model,
             '_revs_info': [document_revision_status_model],
             'cancel': True,
-            'checkpoint_interval': 0,
-            'connection_timeout': 0,
+            'checkpoint_interval': 30000,
+            'connection_timeout': 30000,
             'continuous': False,
             'create_target': False,
             'create_target_params': replication_create_target_parameters_model,
             'doc_ids': ['testString'],
             'filter': 'testString',
-            'http_connections': 1,
+            'http_connections': 20,
             'query_params': {'key1': 'testString'},
-            'retries_per_request': 0,
+            'retries_per_request': 5,
             'selector': {'foo': 'bar'},
             'since_seq': 'testString',
             'socket_options': 'testString',
@@ -1533,8 +1533,8 @@ class TestCloudantV1:
             'use_checkpoints': True,
             'user_ctx': user_context_model,
             'winning_revs_only': False,
-            'worker_batch_size': 1,
-            'worker_processes': 1,
+            'worker_batch_size': 500,
+            'worker_processes': 4,
             'foo': 'testString',
         }
 
@@ -1576,7 +1576,7 @@ class TestCloudantV1:
     @needscredentials
     def test_get_scheduler_jobs(self):
         response = self.cloudant_service.get_scheduler_jobs(
-            limit=0,
+            limit=25,
             skip=0,
         )
 
