@@ -115,7 +115,7 @@ class TestCloudantV1:
             db='testString',
             doc_ids=['testString'],
             fields=['testString'],
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             last_event_id='testString',
             att_encoding_info=False,
             attachments=False,
@@ -143,7 +143,7 @@ class TestCloudantV1:
             db='testString',
             doc_ids=['testString'],
             fields=['testString'],
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             last_event_id='testString',
             att_encoding_info=False,
             attachments=False,
@@ -236,7 +236,7 @@ class TestCloudantV1:
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
-            'data': b'This is a mock byte array value.'.decode('utf-8'),
+            'data': b'This is a mock byte array value.',
             'digest': 'testString',
             'encoded_length': 0,
             'encoding': 'testString',
@@ -387,7 +387,7 @@ class TestCloudantV1:
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
-            'data': b'This is a mock byte array value.'.decode('utf-8'),
+            'data': b'This is a mock byte array value.',
             'digest': 'testString',
             'encoded_length': 0,
             'encoding': 'testString',
@@ -615,7 +615,7 @@ class TestCloudantV1:
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
-            'data': b'This is a mock byte array value.'.decode('utf-8'),
+            'data': b'This is a mock byte array value.',
             'digest': 'testString',
             'encoded_length': 0,
             'encoding': 'testString',
@@ -700,7 +700,7 @@ class TestCloudantV1:
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
-            'data': b'This is a mock byte array value.'.decode('utf-8'),
+            'data': b'This is a mock byte array value.',
             'digest': 'testString',
             'encoded_length': 0,
             'encoding': 'testString',
@@ -1159,7 +1159,7 @@ class TestCloudantV1:
         response = self.cloudant_service.post_partition_find(
             db='testString',
             partition_key='testString',
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
@@ -1181,7 +1181,7 @@ class TestCloudantV1:
         response = self.cloudant_service.post_partition_find_as_stream(
             db='testString',
             partition_key='testString',
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
@@ -1202,7 +1202,7 @@ class TestCloudantV1:
     def test_post_explain(self):
         response = self.cloudant_service.post_explain(
             db='testString',
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
@@ -1224,7 +1224,7 @@ class TestCloudantV1:
     def test_post_find(self):
         response = self.cloudant_service.post_find(
             db='testString',
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
@@ -1246,7 +1246,7 @@ class TestCloudantV1:
     def test_post_find_as_stream(self):
         response = self.cloudant_service.post_find_as_stream(
             db='testString',
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
@@ -1298,7 +1298,7 @@ class TestCloudantV1:
             'default_field': index_text_operator_default_field_model,
             'fields': [index_field_model],
             'index_array_lengths': True,
-            'partial_filter_selector': {'foo': 'bar'},
+            'partial_filter_selector': {'anyKey': 'anyValue'},
         }
 
         response = self.cloudant_service.post_index(
@@ -1449,7 +1449,7 @@ class TestCloudantV1:
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
-            'data': b'This is a mock byte array value.'.decode('utf-8'),
+            'data': b'This is a mock byte array value.',
             'digest': 'testString',
             'encoded_length': 0,
             'encoding': 'testString',
@@ -1522,7 +1522,7 @@ class TestCloudantV1:
             'http_connections': 20,
             'query_params': {'key1': 'testString'},
             'retries_per_request': 5,
-            'selector': {'foo': 'bar'},
+            'selector': {'anyKey': 'anyValue'},
             'since_seq': 'testString',
             'socket_options': 'testString',
             'source': replication_database_model,
@@ -1756,7 +1756,7 @@ class TestCloudantV1:
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
-            'data': b'This is a mock byte array value.'.decode('utf-8'),
+            'data': b'This is a mock byte array value.',
             'digest': 'testString',
             'encoded_length': 0,
             'encoding': 'testString',
