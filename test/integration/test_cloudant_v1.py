@@ -236,7 +236,7 @@ class TestCloudantV1:
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
-            'data': b'This is a mock byte array value.',
+            'data': b'This is a mock byte array value.'.decode('utf-8'),
             'digest': 'testString',
             'encoded_length': 0,
             'encoding': 'testString',
@@ -387,7 +387,7 @@ class TestCloudantV1:
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
-            'data': b'This is a mock byte array value.',
+            'data': b'This is a mock byte array value.'.decode('utf-8'),
             'digest': 'testString',
             'encoded_length': 0,
             'encoding': 'testString',
@@ -615,7 +615,7 @@ class TestCloudantV1:
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
-            'data': b'This is a mock byte array value.',
+            'data': b'This is a mock byte array value.'.decode('utf-8'),
             'digest': 'testString',
             'encoded_length': 0,
             'encoding': 'testString',
@@ -700,7 +700,7 @@ class TestCloudantV1:
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
-            'data': b'This is a mock byte array value.',
+            'data': b'This is a mock byte array value.'.decode('utf-8'),
             'digest': 'testString',
             'encoded_length': 0,
             'encoding': 'testString',
@@ -1449,7 +1449,7 @@ class TestCloudantV1:
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
-            'data': b'This is a mock byte array value.',
+            'data': b'This is a mock byte array value.'.decode('utf-8'),
             'digest': 'testString',
             'encoded_length': 0,
             'encoding': 'testString',
@@ -1756,7 +1756,7 @@ class TestCloudantV1:
         # Construct a dict representation of a Attachment model
         attachment_model = {
             'content_type': 'testString',
-            'data': b'This is a mock byte array value.',
+            'data': b'This is a mock byte array value.'.decode('utf-8'),
             'digest': 'testString',
             'encoded_length': 0,
             'encoding': 'testString',
