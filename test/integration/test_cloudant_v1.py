@@ -100,8 +100,8 @@ class TestCloudantV1:
     def test_get_db_updates(self):
         response = self.cloudant_service.get_db_updates(
             feed='normal',
-            heartbeat=0,
-            timeout=0,
+            heartbeat=60000,
+            timeout=60000,
             since='0',
         )
 
@@ -115,7 +115,7 @@ class TestCloudantV1:
             db='testString',
             doc_ids=['testString'],
             fields=['testString'],
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             last_event_id='testString',
             att_encoding_info=False,
             attachments=False,
@@ -123,13 +123,13 @@ class TestCloudantV1:
             descending=False,
             feed='normal',
             filter='testString',
-            heartbeat=0,
+            heartbeat=60000,
             include_docs=False,
             limit=0,
             seq_interval=1,
             since='0',
             style='main_only',
-            timeout=0,
+            timeout=60000,
             view='testString',
         )
 
@@ -143,7 +143,7 @@ class TestCloudantV1:
             db='testString',
             doc_ids=['testString'],
             fields=['testString'],
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             last_event_id='testString',
             att_encoding_info=False,
             attachments=False,
@@ -151,13 +151,13 @@ class TestCloudantV1:
             descending=False,
             feed='normal',
             filter='testString',
-            heartbeat=0,
+            heartbeat=60000,
             include_docs=False,
             limit=0,
             seq_interval=1,
             since='0',
             style='main_only',
-            timeout=0,
+            timeout=60000,
             view='testString',
         )
 
@@ -1053,7 +1053,7 @@ class TestCloudantV1:
             highlight_number=1,
             highlight_post_tag='</em>',
             highlight_pre_tag='<em>',
-            highlight_size=1,
+            highlight_size=100,
             include_docs=False,
             include_fields=['testString'],
             limit=0,
@@ -1078,7 +1078,7 @@ class TestCloudantV1:
             highlight_number=1,
             highlight_post_tag='</em>',
             highlight_pre_tag='<em>',
-            highlight_size=1,
+            highlight_size=100,
             include_docs=False,
             include_fields=['testString'],
             limit=0,
@@ -1159,12 +1159,12 @@ class TestCloudantV1:
         response = self.cloudant_service.post_partition_find(
             db='testString',
             partition_key='testString',
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
             fields=['testString'],
-            limit=0,
+            limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
             stable=True,
@@ -1181,12 +1181,12 @@ class TestCloudantV1:
         response = self.cloudant_service.post_partition_find_as_stream(
             db='testString',
             partition_key='testString',
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
             fields=['testString'],
-            limit=0,
+            limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
             stable=True,
@@ -1202,12 +1202,12 @@ class TestCloudantV1:
     def test_post_explain(self):
         response = self.cloudant_service.post_explain(
             db='testString',
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
             fields=['testString'],
-            limit=0,
+            limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
             stable=True,
@@ -1224,12 +1224,12 @@ class TestCloudantV1:
     def test_post_find(self):
         response = self.cloudant_service.post_find(
             db='testString',
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
             fields=['testString'],
-            limit=0,
+            limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
             stable=True,
@@ -1246,12 +1246,12 @@ class TestCloudantV1:
     def test_post_find_as_stream(self):
         response = self.cloudant_service.post_find_as_stream(
             db='testString',
-            selector={'foo': 'bar'},
+            selector={'anyKey': 'anyValue'},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
             fields=['testString'],
-            limit=0,
+            limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
             stable=True,
@@ -1298,7 +1298,7 @@ class TestCloudantV1:
             'default_field': index_text_operator_default_field_model,
             'fields': [index_field_model],
             'index_array_lengths': True,
-            'partial_filter_selector': {'foo': 'bar'},
+            'partial_filter_selector': {'anyKey': 'anyValue'},
         }
 
         response = self.cloudant_service.post_index(
@@ -1338,7 +1338,7 @@ class TestCloudantV1:
             highlight_number=1,
             highlight_post_tag='</em>',
             highlight_pre_tag='<em>',
-            highlight_size=1,
+            highlight_size=100,
             include_docs=False,
             include_fields=['testString'],
             limit=0,
@@ -1368,7 +1368,7 @@ class TestCloudantV1:
             highlight_number=1,
             highlight_post_tag='</em>',
             highlight_pre_tag='<em>',
-            highlight_size=1,
+            highlight_size=100,
             include_docs=False,
             include_fields=['testString'],
             limit=0,
@@ -1470,7 +1470,7 @@ class TestCloudantV1:
         }
         # Construct a dict representation of a ReplicationCreateTargetParameters model
         replication_create_target_parameters_model = {
-            'n': 1,
+            'n': 3,
             'partitioned': False,
             'q': 26,
         }
@@ -1512,17 +1512,17 @@ class TestCloudantV1:
             '_revisions': revisions_model,
             '_revs_info': [document_revision_status_model],
             'cancel': True,
-            'checkpoint_interval': 0,
-            'connection_timeout': 0,
+            'checkpoint_interval': 30000,
+            'connection_timeout': 30000,
             'continuous': False,
             'create_target': False,
             'create_target_params': replication_create_target_parameters_model,
             'doc_ids': ['testString'],
             'filter': 'testString',
-            'http_connections': 1,
+            'http_connections': 20,
             'query_params': {'key1': 'testString'},
-            'retries_per_request': 0,
-            'selector': {'foo': 'bar'},
+            'retries_per_request': 5,
+            'selector': {'anyKey': 'anyValue'},
             'since_seq': 'testString',
             'socket_options': 'testString',
             'source': replication_database_model,
@@ -1533,8 +1533,8 @@ class TestCloudantV1:
             'use_checkpoints': True,
             'user_ctx': user_context_model,
             'winning_revs_only': False,
-            'worker_batch_size': 1,
-            'worker_processes': 1,
+            'worker_batch_size': 500,
+            'worker_processes': 4,
             'foo': 'testString',
         }
 
@@ -1576,7 +1576,7 @@ class TestCloudantV1:
     @needscredentials
     def test_get_scheduler_jobs(self):
         response = self.cloudant_service.get_scheduler_jobs(
-            limit=0,
+            limit=25,
             skip=0,
         )
 

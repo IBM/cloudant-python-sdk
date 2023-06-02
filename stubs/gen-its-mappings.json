@@ -383,13 +383,13 @@
           "equalTo": "normal"
         },
         "heartbeat": {
-          "equalTo": "0"
+          "equalTo": "60000"
         },
         "since": {
           "equalTo": "0"
         },
         "timeout": {
-          "equalTo": "0"
+          "equalTo": "60000"
         }
       }
     },
@@ -735,7 +735,7 @@
   {
     "id": "5c158d49-97e6-3f2b-99ec-2f6629a13c77",
     "request": {
-      "url": "/_scheduler/jobs?limit=0&skip=0",
+      "url": "/_scheduler/jobs?limit=25&skip=0",
       "method": "GET"
     },
     "response": {
@@ -1222,7 +1222,7 @@
           "equalTo": "testString"
         },
         "heartbeat": {
-          "equalTo": "0"
+          "equalTo": "60000"
         },
         "include_docs": {
           "equalTo": "false"
@@ -1240,7 +1240,7 @@
           "equalTo": "main_only"
         },
         "timeout": {
-          "equalTo": "0"
+          "equalTo": "60000"
         },
         "view": {
           "equalTo": "testString"
@@ -1690,7 +1690,7 @@
       "method": "POST",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"bookmark\" : \"testString\", \"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"testString\" ], \"limit\" : 0, \"r\" : 1, \"selector\" : { }, \"skip\" : 0, \"sort\" : [ { } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
+          "equalToJson": "{\"bookmark\" : \"testString\", \"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"testString\" ], \"limit\" : 25, \"r\" : 1, \"selector\" : { \"anyKey\" : \"anyValue\" }, \"skip\" : 0, \"sort\" : [ { } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
           "ignoreArrayOrder": true,
           "ignoreExtraElements": true
         }
@@ -1725,7 +1725,7 @@
       "method": "POST",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"bookmark\" : \"testString\", \"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"testString\" ], \"limit\" : 0, \"r\" : 1, \"selector\" : { }, \"skip\" : 0, \"sort\" : [ { } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
+          "equalToJson": "{\"bookmark\" : \"testString\", \"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"testString\" ], \"limit\" : 25, \"r\" : 1, \"selector\" : { \"anyKey\" : \"anyValue\" }, \"skip\" : 0, \"sort\" : [ { } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
           "ignoreArrayOrder": true,
           "ignoreExtraElements": true
         }
@@ -2128,7 +2128,7 @@
       "method": "POST",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"bookmark\" : \"testString\",\"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"testString\" ], \"limit\" : 0, \"selector\" : { }, \"skip\" : 0, \"sort\" : [ { } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
+          "equalToJson": "{\"bookmark\" : \"testString\",\"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"testString\" ], \"limit\" : 25, \"selector\" : { \"anyKey\" : \"anyValue\" }, \"skip\" : 0, \"sort\" : [ { } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
           "ignoreArrayOrder": true,
           "ignoreExtraElements": true
         }
