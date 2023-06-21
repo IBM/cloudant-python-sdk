@@ -2,7 +2,7 @@
 [![Release](https://img.shields.io/github/v/release/IBM/cloudant-python-sdk?include_prereleases&sort=semver)](https://github.com/IBM/cloudant-python-sdk/releases/latest)
 [![Docs](https://img.shields.io/static/v1?label=Pydoc&message=latest&color=blue)](https://ibm.github.io/cloudant-python-sdk/)
 
-# IBM Cloudant Python SDK Version 0.4.2
+# IBM Cloudant Python SDK Version 0.4.3
 
 IBM Cloudant Python SDK is a client library that interacts with the
 [IBM Cloudant APIs](https://cloud.ibm.com/apidocs/cloudant?code=python).
@@ -102,13 +102,13 @@ project:
 To install, use `pip` or `easy_install`:
 
 ```bash
-pip install --upgrade "ibmcloudant>=0.4.2"
+pip install --upgrade "ibmcloudant>=0.4.3"
 ```
 
 or
 
 ```bash
-easy_install --upgrade "ibmcloudant>=0.4.2"
+easy_install --upgrade "ibmcloudant>=0.4.3"
 ```
 
 ## Authentication
