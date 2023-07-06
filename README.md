@@ -95,7 +95,7 @@ project:
   service instance or a
   [CouchDB](https://docs.couchdb.org/en/latest/install/index.html)
   server.
-- Python 3.7 or above.
+- Python 3.8 or above.
 
 ## Installation
 
