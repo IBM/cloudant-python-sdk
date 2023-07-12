@@ -131,7 +131,7 @@ documents into a custom dict or class.
 * use a different member name
 * nest the members inside another object member
 
-See [issue #490](/issues/490).
+See [issue #490](https://github.com/IBM/cloudant-python-sdk/issues/490).
 
 ### Disabling request body compression
 
