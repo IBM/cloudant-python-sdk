@@ -294,31 +294,31 @@ void applyCustomizations() {
 void runTests() {
   sh '''
     export PIP_INDEX_URL=https://${ARTIFACTORY_CREDS_USR}:${ARTIFACTORY_CREDS_PSW}@${ARTIFACTORY_URL_DOWN##'https://'}/api/pypi/cloudant-sdks-pypi-virtual/simple
-    python3 -m tox -e py311-lint
-    python3 -m tox -e py311
+    pip install -r requirements-dev.txt && flit install --only-deps
+    pylint --rcfile=.pylintrc ibmcloudant test
+    python3 -m pytest --junitxml=junitreports/junit-pytest.xml --cov=ibmcloudant
   '''
 }
 
 void publishStaging() {
-  withEnv(["TWINE_REPOSITORY_URL=${env.STAGE_ROOT}pypi/cloudant-sdks-pypi-local", 'TWINE_USERNAME=' + env.ARTIFACTORY_CREDS_USR, 'TWINE_PASSWORD=' + env.ARTIFACTORY_CREDS_PSW]) {
-    publishTwine()
+  withEnv(["FLIT_INDEX_URL=${env.STAGE_ROOT}pypi/cloudant-sdks-pypi-local", 'FLIT_USERNAME=' + env.ARTIFACTORY_CREDS_USR, 'FLIT_PASSWORD=' + env.ARTIFACTORY_CREDS_PSW]) {
+    publishFlit()
   }
 }
 
 void publishPublic() {
   withCredentials([usernamePassword(credentialsId: 'pypi', passwordVariable: 'TWINE_PASSWORD', usernameVariable: 'TWINE_USERNAME')]) {
-    publishTwine()
+    publishFlit()
   }
 }
 
-void publishTwine() {
+void publishFlit() {
   dir('dist') {
     deleteDir()
   }
   sh '''
     python3 --version
-    python3 setup.py sdist
-    python3 -m twine upload dist/*
+    flit publish --no-use-vcs
   '''
 }
 
