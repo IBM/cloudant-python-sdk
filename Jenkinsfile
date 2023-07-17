@@ -294,8 +294,9 @@ void applyCustomizations() {
 void runTests() {
   sh '''
     export PIP_INDEX_URL=https://${ARTIFACTORY_CREDS_USR}:${ARTIFACTORY_CREDS_PSW}@${ARTIFACTORY_URL_DOWN##'https://'}/api/pypi/cloudant-sdks-pypi-virtual/simple
-    python3 -m tox -e py311-lint
-    python3 -m tox -e py311
+    pip install . && pip install -r requirements-dev.txt
+    pylint --rcfile=.pylintrc ibmcloudant test
+    python3 -m pytest --junitxml=junitreports/junit-pytest.xml --cov=ibmcloudant
   '''
 }
 
@@ -317,7 +318,7 @@ void publishTwine() {
   }
   sh '''
     python3 --version
-    python3 setup.py sdist
+    python3 -m build
     python3 -m twine upload dist/*
   '''
 }
