@@ -307,7 +307,7 @@ void publishStaging() {
 }
 
 void publishPublic() {
-  withCredentials([usernamePassword(credentialsId: 'pypi', passwordVariable: 'TWINE_PASSWORD', usernameVariable: 'TWINE_USERNAME')]) {
+  withCredentials([usernamePassword(credentialsId: 'pypi', passwordVariable: 'FLIT_PASSWORD', usernameVariable: 'FLIT_USERNAME')]) {
     publishFlit()
   }
 }
