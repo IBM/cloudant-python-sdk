@@ -50,6 +50,7 @@ jobs:
     - name: Install deps
       run: |
         python -m pip install --upgrade pip
-        pip install tox
+        pip install -r requirements-dev.txt
+        flit install --only-deps
     - name: Run tests
-      run: tox -e py
+      run: python -m pytest
