@@ -8,7 +8,8 @@ GIT_REPO=$(git remote get-url origin)
 
 # Create documentation
 printf ">>>>> Generate new documentation\n"
-python3 -m tox -e docs
+pip install -r requirements-docs.txt
+sphinx-build source apidocs -bhtml
 
 # Clone gh-pages branch
 printf ">>>>> Publishing pydoc for release build: repo=%s branch=%s build_num=%s job_name=%s\n" ${GIT_REPO} ${BRANCH_NAME} ${BUILD_NUMBER} ${JOB_NAME}
