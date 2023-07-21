@@ -1,10 +1,10 @@
+# build dependencies
+flit==3.9.0
 # test dependencies
 pytest==7.4.0
 responses==0.23.1
 python_dotenv==1.0.0
 pylint==2.17.4
-tox==4.6.4
-flit==3.9.0
 # code coverage
 coverage==7.2.7
 pytest-cov==4.1.0
