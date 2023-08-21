@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2020, 2022.
+# © Copyright IBM Corporation 2020, 2023.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,13 +15,9 @@
 # limitations under the License.
 
 import json
-import logging
 
 from ibm_cloud_sdk_core import ApiException
 from ibmcloudant.cloudant_v1 import CloudantV1
-
-# Set logging level to show only critical logs
-logging.basicConfig(level=logging.CRITICAL)
 
 # 1. Create a client with `CLOUDANT` default service name =============
 client = CloudantV1.new_instance()
