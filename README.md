@@ -277,13 +277,8 @@ Once the environment variables are set, you can try out the code examples.
 
 [embedmd]:# (test/examples/src/create_db_and_doc.py /import/ $)
 ```py
-import logging
-
-from ibm_cloud_sdk_core import ApiException
+import ApiException
 from ibmcloudant.cloudant_v1 import CloudantV1, Document
-
-# Set logging level to show only critical logs
-logging.basicConfig(level=logging.CRITICAL)
 
 # 1. Create a client with `CLOUDANT` default service name =============
 client = CloudantV1.new_instance()
@@ -433,13 +428,9 @@ database or 'example' document was not found."
 [embedmd]:# (test/examples/src/update_doc.py /import/ $)
 ```py
 import json
-import logging
 
 from ibm_cloud_sdk_core import ApiException
 from ibmcloudant.cloudant_v1 import CloudantV1
-
-# Set logging level to show only critical logs
-logging.basicConfig(level=logging.CRITICAL)
 
 # 1. Create a client with `CLOUDANT` default service name =============
 client = CloudantV1.new_instance()
@@ -543,13 +534,8 @@ database or 'example' document was not found."
 
 [embedmd]:# (test/examples/src/delete_doc.py /import/ $)
 ```py
-import logging
-
-from ibm_cloud_sdk_core import ApiException
+import ApiException
 from ibmcloudant.cloudant_v1 import CloudantV1
-
-# Set logging level to show only critical logs
-logging.basicConfig(level=logging.CRITICAL)
 
 # 1. Create a client with `CLOUDANT` default service name =============
 client = CloudantV1.new_instance()
