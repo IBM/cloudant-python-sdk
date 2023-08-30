@@ -1,0 +1,17 @@
+:py:mod:`ibmcloudant.features`
+==============================
+
+.. py:module:: ibmcloudant.features
+
+.. autodoc2-docstring:: ibmcloudant.features
+   :parser: myst
+   :allowtitles:
+
+Submodules
+----------
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   ibmcloudant.features.changes_follower
