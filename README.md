@@ -109,7 +109,7 @@ project:
 ## Prerequisites
 
 - A
-  [Cloudant](https://cloud.ibm.com/docs/Cloudant/getting-started.html#step-1-connect-to-your-cloudant-nosql-db-service-instance-on-ibm-cloud)
+  [Cloudant](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-getting-started-with-cloudant)
   service instance or a
   [CouchDB](https://docs.couchdb.org/en/latest/install/index.html)
   server.
@@ -158,6 +158,12 @@ Examples for other configuration methods are available by following the provided
 [couch-jwt-auth]: https://docs.couchdb.org/en/stable/api/server/authn.html#jwt-authentication
 [cloudant-basic-auth]: https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-work-with-your-account#basic-authentication
 [cloudant-legacy-api-keys]: https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-work-with-your-account#api-keys
+[core-container-auth]: https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#container-authentication
+[core-vpc-auth]: https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#vpc-instance-authentication
+[core-iam-auth]: https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#identity-and-access-management-iam-authentication
+[core-bearer-auth]: https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#bearer-token-authentication
+[core-basic-auth]: https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#basic-authentication
+[core-no-auth]: https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#no-auth-authentication
 
 This library requires credentials to authenticate with IBM Cloudant. These credentials may be:
 * IBM Cloud IAM credentials (can be used with authentication types `CONTAINER`, `VPC` and `IAM`)
@@ -176,15 +182,15 @@ This table summarizes the available authentication types.
 The authentication types are listed in order of recommendation, preferably use the authentication type
 from the first row in the table that is compatible with your environment.
 
-| Authenitcation type | Recommended for | `AUTH_TYPE` | Description |
+| Authentication type | Recommended for | `AUTH_TYPE` | Description |
 | --- | --- | --- | --- |
-| IAM Trusted Profiles compute resource ([container](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#container-authentication)) | Cloudant<BR>(SDK running in IBM Cloud IKS) | `CONTAINER` | Obtains a compute resource (CR) token from the container.<BR>Exchanges the CR token for an IAM `access_token`.<BR>Adds an `Authorization: Bearer <access_token>` header to each HTTP request.<BR>Automatically renews the access token when needed. |
-| IAM Trusted Profiles compute resource ([VPC](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#vpc-instance-authentication)) | Cloudant<BR>(SDK running in IBM Cloud VPC)| `VPC` | Obtains an identity token from the VPC instance metadata.<BR>Exchanges the identity token for an IAM `access_token`.<BR>Adds an `Authorization: Bearer <access_token>` header to each HTTP request.<BR>Automatically renews the access token when needed. |
-| [IAM API key](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#identity-and-access-management-iam-authentication) | Cloudant | `IAM` | Exchanges an IAM API key for an IAM `access_token`.<BR>Adds an `Authorization: Bearer <access_token>` header to each HTTP request.<BR>Automatically renews the access token when needed. | 
+| IAM Trusted Profiles compute resource ([container][core-container-auth]) | Cloudant<BR>(SDK running in IBM Cloud IKS) | `CONTAINER` | Obtains a compute resource (CR) token from the container.<BR>Exchanges the CR token for an IAM `access_token`.<BR>Adds an `Authorization: Bearer <access_token>` header to each HTTP request.<BR>Automatically renews the access token when needed. |
+| IAM Trusted Profiles compute resource ([VPC][core-vpc-auth]) | Cloudant<BR>(SDK running in IBM Cloud VPC) | `VPC` | Obtains an identity token from the VPC instance metadata.<BR>Exchanges the identity token for an IAM `access_token`.<BR>Adds an `Authorization: Bearer <access_token>` header to each HTTP request.<BR>Automatically renews the access token when needed. |
+| [IAM API key][core-iam-auth] | Cloudant | `IAM` | Exchanges an IAM API key for an IAM `access_token`.<BR>Adds an `Authorization: Bearer <access_token>` header to each HTTP request.<BR>Automatically renews the access token when needed. | 
 | [Session cookie](#session-cookie-authentication) | [Cloudant][cloudant-cookie-auth]<BR>(legacy credentials & instances without IAM)<BR><BR>[Apache CouchDB][couch-cookie-auth] | `COUCHDB_SESSION` | Exchanges credentials with `/_session` endpoint to retrieve a cookie.<BR>Adds `Cookie` header and content to each HTTP request.<BR>Automatically renews session when needed. |
-| [Bearer token](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#bearer-token-authentication) | [Apache CouchDB][couch-jwt-auth]<BR>(using JWT authentication) | `BEARERTOKEN` | Adds an `Authorization: Bearer <token>` to each HTTP request.<BR>No token management or renewal.<BR>Also compatible with IAM access tokens managed independently of the SDK. |
-| [Basic](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#basic-authentication) | [Apache CouchDB][couch-basic-auth]<BR>(if cookies are not enabled) | `BASIC` | Adds an `Authorization: Basic <encoded username and password>` header to each HTTP request. |
-| [None](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#no-auth-authentication) | - | `NOAUTH` | Note that this authentication type only works for operations against a database allowing access for unauthenticated users.
+| [Bearer token][core-bearer-auth] | [Apache CouchDB][couch-jwt-auth]<BR>(using JWT authentication) | `BEARERTOKEN` | Adds an `Authorization: Bearer <token>` to each HTTP request.<BR>No token management or renewal.<BR>Also compatible with IAM access tokens managed independently of the SDK. |
+| [Basic][core-basic-auth] | [Apache CouchDB][couch-basic-auth]<BR>(if cookies are not enabled) | `BASIC` | Adds an `Authorization: Basic <encoded username and password>` header to each HTTP request. |
+| [None][core-no-auth] | - | `NOAUTH` | Note that this authentication type only works for operations against a database allowing access for unauthenticated users. |
 
 The default authentication type for the SDK is `CONTAINER` unless `APIKEY` configuration is supplied, which changes the default authentication type to `IAM`.
 
@@ -226,7 +232,7 @@ For Cloudant *IAM Trusted profile compute resource vpc authentication*, set the 
 replacing the `<url>` and `<id>` with your values.
 
 ```bash
-CLODUANT_AUTH_TYPE=VPC
+CLOUDANT_AUTH_TYPE=VPC
 CLOUDANT_URL=<url>
 CLOUDANT_IAM_PROFILE_ID=<id>
 ```
@@ -595,7 +601,7 @@ You have deleted the document.
 
 #### Further code examples
 
-For a complete list of code examples, see the [examples directory](examples#examples-for-python).
+For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-python-sdk/tree/v0.5.0/examples#examples-for-python).
 
 ### Error handling
 
@@ -782,26 +788,26 @@ The invalid options are:
   based filters perform better than JavaScript backed filters. Configuring a non-selector based filter will
   cause the follower to error.
 
-Note that that the `limit` parameter will terminate the follower at the given number of changes in either
+Note that the `limit` parameter will terminate the follower at the given number of changes in either
 operating mode.
 
 The changes follower requires the client to have HTTP timeouts of at least 1 minute and will error during
 instantiation if it is insufficient. The default client configuration has sufficiently long timeouts.
 
 For use-cases where these configuration limitations are deemed too restrictive then it is recommended to
-write code to use the SDK's [POST `_changes` API](examples#postchanges) instead of the follower.
+write code to use the SDK's [POST `_changes` API](https://github.com/IBM/cloudant-python-sdk/tree/v0.5.0/examples#postchanges) instead of the follower.
 
 #### Error suppression
 
-By default the changes follower will suppress transient errors indefinitely and attempt to run to completion or listen forever as
-dictated by the opreating mode.
+By default, the changes follower will suppress transient errors indefinitely and attempt to run to completion or listen forever as
+dictated by the operating mode.
 For applications where that is not desirable an optional error tolerance duration may be specified to control the time since
 the last successful response that transient errors will be suppressed. This can be used, for example,  by applications as a grace period
 before reporting an error and requiring intervention.
 
 There are some additional points to consider for error suppression:
 * Errors considered terminal, for example, the database not existing or invalid credentials are never suppressed and will error immediately.
-* The error suppression duration is not guaranteed to fire immediately after lapsing and should be considered a minimum supppression time.
+* The error suppression duration is not guaranteed to fire immediately after lapsing and should be considered a minimum suppression time.
 * The changes follower will back-off between retries and as such may remain paused for a short while after the transient errors have resolved.
 * If the underlying SDK client used to initialize the follower also has retries configured then errors could be suppressed for significantly
   longer than the follower's configured error tolerance duration depending on the configuration options.
@@ -824,7 +830,7 @@ The follower is not optimized for some use cases and it is not recommended to us
 * The volume of changes is very high (if the rate of changes in the database exceeds the follower's rate of pulling them it will never catch-up).
 
 In these cases use-case specific control over the number of change requests made and the content size of the responses
-may be achived by using the SDK's [POST `_changes` API](examples#postchanges).
+may be achieved by using the SDK's [POST `_changes` API](https://github.com/IBM/cloudant-python-sdk/tree/v0.5.0/examples#postchanges).
 
 #### Checkpointing
 
@@ -841,7 +847,7 @@ the processing of the change item by the application has completed. As indicated
 delivered _at least once_ so application code must be able to handle repeated changes already and it is
 preferable to restart from an older `since` value and receive changes again than risk missing them.
 
-The sequence IDs are available on each change item by default, but may be ommitted from some change items when
+The sequence IDs are available on each change item by default, but may be omitted from some change items when
 using the `seq_interval` configuration option. Infrequent sequence IDs may improve performance by reducing
 the amount of data that needs to be transferred, but the trade-off is that more changes will be repeated if
 it is necessary to resume the changes follower.
@@ -1027,7 +1033,7 @@ If you encounter an issue with the project, you are welcome to submit a
 
 Before you submit a bug report, search for
 [similar issues](https://github.com/IBM/cloudant-python-sdk/issues?q=is%3Aissue) and review the
-[KNOWN_ISSUES file](KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
+[KNOWN_ISSUES file](https://github.com/IBM/cloudant-python-sdk/tree/v0.5.0/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
 
 Please consult the [security policy](https://github.com/IBM/cloudant-python-sdk/security/policy) before opening security related issues.
 
@@ -1037,8 +1043,8 @@ Find more open source projects on the [IBM GitHub](http://ibm.github.io/) page.
 
 ## Contributing
 
-For more information, see [CONTRIBUTING](CONTRIBUTING.md).
+For more information, see [CONTRIBUTING](https://github.com/IBM/cloudant-python-sdk/tree/v0.5.0/CONTRIBUTING.md).
 
 ## License
 
-This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](LICENSE).
+This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](https://github.com/IBM/cloudant-python-sdk/tree/v0.5.0/LICENSE).
