@@ -100,7 +100,7 @@ class TestCloudantV1:
     def test_get_db_updates(self):
         response = self.cloudant_service.get_db_updates(
             feed='normal',
-            heartbeat=60000,
+            heartbeat=0,
             timeout=60000,
             since='0',
         )
@@ -123,7 +123,7 @@ class TestCloudantV1:
             descending=False,
             feed='normal',
             filter='testString',
-            heartbeat=60000,
+            heartbeat=0,
             include_docs=False,
             limit=0,
             seq_interval=1,
@@ -151,7 +151,7 @@ class TestCloudantV1:
             descending=False,
             feed='normal',
             filter='testString',
-            heartbeat=60000,
+            heartbeat=0,
             include_docs=False,
             limit=0,
             seq_interval=1,
@@ -1155,6 +1155,50 @@ class TestCloudantV1:
         assert result is not None
 
     @needscredentials
+    def test_post_partition_explain(self):
+        response = self.cloudant_service.post_partition_explain(
+            db='testString',
+            partition_key='testString',
+            selector={'anyKey': 'anyValue'},
+            bookmark='testString',
+            conflicts=True,
+            execution_stats=True,
+            fields=['testString'],
+            limit=25,
+            skip=0,
+            sort=[{'key1': 'asc'}],
+            stable=True,
+            update='true',
+            use_index=['testString'],
+        )
+
+        assert response.get_status_code() == 200
+        explain_result = response.get_result()
+        assert explain_result is not None
+
+    @needscredentials
+    def test_post_partition_explain_as_stream(self):
+        response = self.cloudant_service.post_partition_explain_as_stream(
+            db='testString',
+            partition_key='testString',
+            selector={'anyKey': 'anyValue'},
+            bookmark='testString',
+            conflicts=True,
+            execution_stats=True,
+            fields=['testString'],
+            limit=25,
+            skip=0,
+            sort=[{'key1': 'asc'}],
+            stable=True,
+            update='true',
+            use_index=['testString'],
+        )
+
+        assert response.get_status_code() == 200
+        result = response.get_result()
+        assert result is not None
+
+    @needscredentials
     def test_post_partition_find(self):
         response = self.cloudant_service.post_partition_find(
             db='testString',
@@ -1214,6 +1258,7 @@ class TestCloudantV1:
             update='true',
             use_index=['testString'],
             r=1,
+            accept='application/json',
         )
 
         assert response.get_status_code() == 200

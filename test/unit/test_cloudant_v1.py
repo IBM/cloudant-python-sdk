@@ -447,7 +447,7 @@ class TestGetDbUpdates:
 
         # Set up parameter values
         feed = 'normal'
-        heartbeat = 60000
+        heartbeat = 0
         timeout = 60000
         since = '0'
 
@@ -546,7 +546,7 @@ class TestPostChanges:
         descending = False
         feed = 'normal'
         filter = 'testString'
-        heartbeat = 60000
+        heartbeat = 0
         include_docs = False
         limit = 0
         seq_interval = 1
@@ -743,7 +743,7 @@ class TestPostChangesAsStream:
         descending = False
         feed = 'normal'
         filter = 'testString'
-        heartbeat = 60000
+        heartbeat = 0
         include_docs = False
         limit = 0
         seq_interval = 1
@@ -1137,7 +1137,7 @@ class TestPostDbsInfo:
         """
         # Set up mock
         url = preprocess_url('/_dbs_info')
-        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
+        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}, "key": "key"}]'
         responses.add(
             responses.POST,
             url,
@@ -1181,7 +1181,7 @@ class TestPostDbsInfo:
         """
         # Set up mock
         url = preprocess_url('/_dbs_info')
-        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
+        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}, "key": "key"}]'
         responses.add(
             responses.POST,
             url,
@@ -1305,7 +1305,7 @@ class TestGetDatabaseInformation:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}'
+        mock_response = '{"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}'
         responses.add(
             responses.GET,
             url,
@@ -1343,7 +1343,7 @@ class TestGetDatabaseInformation:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid"}'
+        mock_response = '{"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}'
         responses.add(
             responses.GET,
             url,
@@ -7421,6 +7421,282 @@ class TestPostPartitionViewAsStream:
         self.test_post_partition_view_as_stream_value_error()
 
 
+class TestPostPartitionExplain:
+    """
+    Test Class for post_partition_explain
+    """
+
+    @responses.activate
+    def test_post_partition_explain_all_params(self):
+        """
+        post_partition_explain()
+        """
+        # Set up mock
+        url = preprocess_url('/testString/_partition/testString/_explain')
+        mock_response = '{"covered": false, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": ["anyValue"], "include_docs": true, "partition": false, "reduce": true, "stable": true, "start_key": ["anyValue"], "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": "anyValue", "limit": 25, "partition": "partition", "r": [1], "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "skip": 0}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        db = 'testString'
+        partition_key = 'testString'
+        selector = {'anyKey': 'anyValue'}
+        bookmark = 'testString'
+        conflicts = True
+        execution_stats = True
+        fields = ['testString']
+        limit = 25
+        skip = 0
+        sort = [{'key1': 'asc'}]
+        stable = True
+        update = 'true'
+        use_index = ['testString']
+
+        # Invoke method
+        response = _service.post_partition_explain(
+            db,
+            partition_key,
+            selector,
+            bookmark=bookmark,
+            conflicts=conflicts,
+            execution_stats=execution_stats,
+            fields=fields,
+            limit=limit,
+            skip=skip,
+            sort=sort,
+            stable=stable,
+            update=update,
+            use_index=use_index,
+            headers={},
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # decompress gzip compressed request body
+        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['selector'] == {'anyKey': 'anyValue'}
+        assert req_body['bookmark'] == 'testString'
+        assert req_body['conflicts'] == True
+        assert req_body['execution_stats'] == True
+        assert req_body['fields'] == ['testString']
+        assert req_body['limit'] == 25
+        assert req_body['skip'] == 0
+        assert req_body['sort'] == [{'key1': 'asc'}]
+        assert req_body['stable'] == True
+        assert req_body['update'] == 'true'
+        assert req_body['use_index'] == ['testString']
+
+    def test_post_partition_explain_all_params_with_retries(self):
+        # Enable retries and run test_post_partition_explain_all_params.
+        _service.enable_retries()
+        self.test_post_partition_explain_all_params()
+
+        # Disable retries and run test_post_partition_explain_all_params.
+        _service.disable_retries()
+        self.test_post_partition_explain_all_params()
+
+    @responses.activate
+    def test_post_partition_explain_value_error(self):
+        """
+        test_post_partition_explain_value_error()
+        """
+        # Set up mock
+        url = preprocess_url('/testString/_partition/testString/_explain')
+        mock_response = '{"covered": false, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": ["anyValue"], "include_docs": true, "partition": false, "reduce": true, "stable": true, "start_key": ["anyValue"], "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": "anyValue", "limit": 25, "partition": "partition", "r": [1], "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "skip": 0}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        db = 'testString'
+        partition_key = 'testString'
+        selector = {'anyKey': 'anyValue'}
+        bookmark = 'testString'
+        conflicts = True
+        execution_stats = True
+        fields = ['testString']
+        limit = 25
+        skip = 0
+        sort = [{'key1': 'asc'}]
+        stable = True
+        update = 'true'
+        use_index = ['testString']
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "db": db,
+            "partition_key": partition_key,
+            "selector": selector,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key: val if key is not param else None for (key, val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                _service.post_partition_explain(**req_copy)
+
+    def test_post_partition_explain_value_error_with_retries(self):
+        # Enable retries and run test_post_partition_explain_value_error.
+        _service.enable_retries()
+        self.test_post_partition_explain_value_error()
+
+        # Disable retries and run test_post_partition_explain_value_error.
+        _service.disable_retries()
+        self.test_post_partition_explain_value_error()
+
+
+class TestPostPartitionExplainAsStream:
+    """
+    Test Class for post_partition_explain_as_stream
+    """
+
+    @responses.activate
+    def test_post_partition_explain_as_stream_all_params(self):
+        """
+        post_partition_explain_as_stream()
+        """
+        # Set up mock
+        url = preprocess_url('/testString/_partition/testString/_explain')
+        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        db = 'testString'
+        partition_key = 'testString'
+        selector = {'anyKey': 'anyValue'}
+        bookmark = 'testString'
+        conflicts = True
+        execution_stats = True
+        fields = ['testString']
+        limit = 25
+        skip = 0
+        sort = [{'key1': 'asc'}]
+        stable = True
+        update = 'true'
+        use_index = ['testString']
+
+        # Invoke method
+        response = _service.post_partition_explain_as_stream(
+            db,
+            partition_key,
+            selector,
+            bookmark=bookmark,
+            conflicts=conflicts,
+            execution_stats=execution_stats,
+            fields=fields,
+            limit=limit,
+            skip=skip,
+            sort=sort,
+            stable=stable,
+            update=update,
+            use_index=use_index,
+            headers={},
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # decompress gzip compressed request body
+        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['selector'] == {'anyKey': 'anyValue'}
+        assert req_body['bookmark'] == 'testString'
+        assert req_body['conflicts'] == True
+        assert req_body['execution_stats'] == True
+        assert req_body['fields'] == ['testString']
+        assert req_body['limit'] == 25
+        assert req_body['skip'] == 0
+        assert req_body['sort'] == [{'key1': 'asc'}]
+        assert req_body['stable'] == True
+        assert req_body['update'] == 'true'
+        assert req_body['use_index'] == ['testString']
+
+        # Verify streamed JSON response
+        result = response.get_result()
+        assert isinstance(result, requests.models.Response)
+        response_buf = result.iter_content(chunk_size=1024)
+        assert str(next(response_buf), "utf-8") == mock_response
+
+    def test_post_partition_explain_as_stream_all_params_with_retries(self):
+        # Enable retries and run test_post_partition_explain_as_stream_all_params.
+        _service.enable_retries()
+        self.test_post_partition_explain_as_stream_all_params()
+
+        # Disable retries and run test_post_partition_explain_as_stream_all_params.
+        _service.disable_retries()
+        self.test_post_partition_explain_as_stream_all_params()
+
+    @responses.activate
+    def test_post_partition_explain_as_stream_value_error(self):
+        """
+        test_post_partition_explain_as_stream_value_error()
+        """
+        # Set up mock
+        url = preprocess_url('/testString/_partition/testString/_explain')
+        mock_response = '{"foo": "this is a mock response for JSON streaming"}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        db = 'testString'
+        partition_key = 'testString'
+        selector = {'anyKey': 'anyValue'}
+        bookmark = 'testString'
+        conflicts = True
+        execution_stats = True
+        fields = ['testString']
+        limit = 25
+        skip = 0
+        sort = [{'key1': 'asc'}]
+        stable = True
+        update = 'true'
+        use_index = ['testString']
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "db": db,
+            "partition_key": partition_key,
+            "selector": selector,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key: val if key is not param else None for (key, val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                _service.post_partition_explain_as_stream(**req_copy)
+
+    def test_post_partition_explain_as_stream_value_error_with_retries(self):
+        # Enable retries and run test_post_partition_explain_as_stream_value_error.
+        _service.enable_retries()
+        self.test_post_partition_explain_as_stream_value_error()
+
+        # Disable retries and run test_post_partition_explain_as_stream_value_error.
+        _service.disable_retries()
+        self.test_post_partition_explain_as_stream_value_error()
+
+
 class TestPostPartitionFind:
     """
     Test Class for post_partition_find
@@ -7748,7 +8024,88 @@ class TestPostExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"covered": false, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 25, "opts": {"anyKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"anyKey": "anyValue"}, "skip": 0}'
+        mock_response = '{"covered": false, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": ["anyValue"], "include_docs": true, "partition": false, "reduce": true, "stable": true, "start_key": ["anyValue"], "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": "anyValue", "limit": 25, "partition": "partition", "r": [1], "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "skip": 0}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        db = 'testString'
+        selector = {'anyKey': 'anyValue'}
+        bookmark = 'testString'
+        conflicts = True
+        execution_stats = True
+        fields = ['testString']
+        limit = 25
+        skip = 0
+        sort = [{'key1': 'asc'}]
+        stable = True
+        update = 'true'
+        use_index = ['testString']
+        r = 1
+        accept = 'application/json'
+
+        # Invoke method
+        response = _service.post_explain(
+            db,
+            selector,
+            bookmark=bookmark,
+            conflicts=conflicts,
+            execution_stats=execution_stats,
+            fields=fields,
+            limit=limit,
+            skip=skip,
+            sort=sort,
+            stable=stable,
+            update=update,
+            use_index=use_index,
+            r=r,
+            accept=accept,
+            headers={},
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # decompress gzip compressed request body
+        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['selector'] == {'anyKey': 'anyValue'}
+        assert req_body['bookmark'] == 'testString'
+        assert req_body['conflicts'] == True
+        assert req_body['execution_stats'] == True
+        assert req_body['fields'] == ['testString']
+        assert req_body['limit'] == 25
+        assert req_body['skip'] == 0
+        assert req_body['sort'] == [{'key1': 'asc'}]
+        assert req_body['stable'] == True
+        assert req_body['update'] == 'true'
+        assert req_body['use_index'] == ['testString']
+        assert req_body['r'] == 1
+
+    def test_post_explain_all_params_with_retries(self):
+        # Enable retries and run test_post_explain_all_params.
+        _service.enable_retries()
+        self.test_post_explain_all_params()
+
+        # Disable retries and run test_post_explain_all_params.
+        _service.disable_retries()
+        self.test_post_explain_all_params()
+
+    @responses.activate
+    def test_post_explain_required_params(self):
+        """
+        test_post_explain_required_params()
+        """
+        # Set up mock
+        url = preprocess_url('/testString/_explain')
+        mock_response = '{"covered": false, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": ["anyValue"], "include_docs": true, "partition": false, "reduce": true, "stable": true, "start_key": ["anyValue"], "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": "anyValue", "limit": 25, "partition": "partition", "r": [1], "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -7811,14 +8168,14 @@ class TestPostExplain:
         assert req_body['use_index'] == ['testString']
         assert req_body['r'] == 1
 
-    def test_post_explain_all_params_with_retries(self):
-        # Enable retries and run test_post_explain_all_params.
+    def test_post_explain_required_params_with_retries(self):
+        # Enable retries and run test_post_explain_required_params.
         _service.enable_retries()
-        self.test_post_explain_all_params()
+        self.test_post_explain_required_params()
 
-        # Disable retries and run test_post_explain_all_params.
+        # Disable retries and run test_post_explain_required_params.
         _service.disable_retries()
-        self.test_post_explain_all_params()
+        self.test_post_explain_required_params()
 
     @responses.activate
     def test_post_explain_value_error(self):
@@ -7827,7 +8184,7 @@ class TestPostExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"covered": false, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}, "limit": 25, "opts": {"anyKey": "anyValue"}, "range": {"end_key": ["anyValue"], "start_key": ["anyValue"]}, "selector": {"anyKey": "anyValue"}, "skip": 0}'
+        mock_response = '{"covered": false, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": ["anyValue"], "include_docs": true, "partition": false, "reduce": true, "stable": true, "start_key": ["anyValue"], "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": "anyValue", "limit": 25, "partition": "partition", "r": [1], "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -8159,7 +8516,7 @@ class TestGetIndexesInformation:
         """
         # Set up mock
         url = preprocess_url('/testString/_index')
-        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}]}'
+        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}]}'
         responses.add(
             responses.GET,
             url,
@@ -8197,7 +8554,7 @@ class TestGetIndexesInformation:
         """
         # Set up mock
         url = preprocess_url('/testString/_index')
-        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "type": "json"}]}'
+        mock_response = '{"total_rows": 0, "indexes": [{"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}]}'
         responses.add(
             responses.GET,
             url,
@@ -14140,6 +14497,15 @@ class TestModel_DatabaseInformation:
         content_information_sizes_model['external'] = 26
         content_information_sizes_model['file'] = 26
 
+        partitioned_indexes_detailed_information_model = {}  # PartitionedIndexesDetailedInformation
+        partitioned_indexes_detailed_information_model['search'] = 0
+        partitioned_indexes_detailed_information_model['view'] = 0
+
+        partitioned_indexes_information_model = {}  # PartitionedIndexesInformation
+        partitioned_indexes_information_model['count'] = 0
+        partitioned_indexes_information_model['indexes'] = partitioned_indexes_detailed_information_model
+        partitioned_indexes_information_model['limit'] = 10
+
         # Construct a json representation of a DatabaseInformation model
         database_information_model_json = {}
         database_information_model_json['cluster'] = database_information_cluster_model
@@ -14155,6 +14521,7 @@ class TestModel_DatabaseInformation:
         database_information_model_json['sizes'] = content_information_sizes_model
         database_information_model_json['update_seq'] = 'testString'
         database_information_model_json['uuid'] = 'testString'
+        database_information_model_json['partitioned_indexes'] = partitioned_indexes_information_model
 
         # Construct a model instance of DatabaseInformation by calling from_dict on the json representation
         database_information_model = DatabaseInformation.from_dict(database_information_model_json)
@@ -14331,6 +14698,15 @@ class TestModel_DbsInfoResult:
         content_information_sizes_model['external'] = 26
         content_information_sizes_model['file'] = 26
 
+        partitioned_indexes_detailed_information_model = {}  # PartitionedIndexesDetailedInformation
+        partitioned_indexes_detailed_information_model['search'] = 0
+        partitioned_indexes_detailed_information_model['view'] = 0
+
+        partitioned_indexes_information_model = {}  # PartitionedIndexesInformation
+        partitioned_indexes_information_model['count'] = 0
+        partitioned_indexes_information_model['indexes'] = partitioned_indexes_detailed_information_model
+        partitioned_indexes_information_model['limit'] = 10
+
         database_information_model = {}  # DatabaseInformation
         database_information_model['cluster'] = database_information_cluster_model
         database_information_model['committed_update_seq'] = 'testString'
@@ -14345,6 +14721,7 @@ class TestModel_DbsInfoResult:
         database_information_model['sizes'] = content_information_sizes_model
         database_information_model['update_seq'] = 'testString'
         database_information_model['uuid'] = 'testString'
+        database_information_model['partitioned_indexes'] = partitioned_indexes_information_model
 
         # Construct a json representation of a DbsInfoResult model
         dbs_info_result_model_json = {}
@@ -14971,11 +15348,35 @@ class TestModel_ExplainResult:
         index_information_model['ddoc'] = 'testString'
         index_information_model['def'] = index_definition_model
         index_information_model['name'] = 'testString'
+        index_information_model['partitioned'] = True
         index_information_model['type'] = 'json'
 
-        explain_result_range_model = {}  # ExplainResultRange
-        explain_result_range_model['end_key'] = ['testString']
-        explain_result_range_model['start_key'] = ['testString']
+        explain_result_mr_args_model = {}  # ExplainResultMrArgs
+        explain_result_mr_args_model['conflicts'] = 'testString'
+        explain_result_mr_args_model['direction'] = 'testString'
+        explain_result_mr_args_model['end_key'] = ['testString']
+        explain_result_mr_args_model['include_docs'] = True
+        explain_result_mr_args_model['partition'] = True
+        explain_result_mr_args_model['reduce'] = True
+        explain_result_mr_args_model['stable'] = True
+        explain_result_mr_args_model['start_key'] = ['testString']
+        explain_result_mr_args_model['update'] = 'testString'
+        explain_result_mr_args_model['view_type'] = 'map'
+
+        explain_result_opts_model = {}  # ExplainResultOpts
+        explain_result_opts_model['bookmark'] = 'testString'
+        explain_result_opts_model['conflicts'] = False
+        explain_result_opts_model['execution_stats'] = False
+        explain_result_opts_model['fields'] = 'testString'
+        explain_result_opts_model['limit'] = 25
+        explain_result_opts_model['partition'] = 'testString'
+        explain_result_opts_model['r'] = [1]
+        explain_result_opts_model['skip'] = 0
+        explain_result_opts_model['sort'] = 'testString'
+        explain_result_opts_model['stable'] = False
+        explain_result_opts_model['stale'] = False
+        explain_result_opts_model['update'] = True
+        explain_result_opts_model['use_index'] = ['testString']
 
         # Construct a json representation of a ExplainResult model
         explain_result_model_json = {}
@@ -14984,8 +15385,9 @@ class TestModel_ExplainResult:
         explain_result_model_json['fields'] = ['testString']
         explain_result_model_json['index'] = index_information_model
         explain_result_model_json['limit'] = 25
-        explain_result_model_json['opts'] = {'anyKey': 'anyValue'}
-        explain_result_model_json['range'] = explain_result_range_model
+        explain_result_model_json['mrargs'] = explain_result_mr_args_model
+        explain_result_model_json['opts'] = explain_result_opts_model
+        explain_result_model_json['partitioned'] = 'testString'
         explain_result_model_json['selector'] = {'anyKey': 'anyValue'}
         explain_result_model_json['skip'] = 0
 
@@ -15005,35 +15407,85 @@ class TestModel_ExplainResult:
         assert explain_result_model_json2 == explain_result_model_json
 
 
-class TestModel_ExplainResultRange:
+class TestModel_ExplainResultMrArgs:
     """
-    Test Class for ExplainResultRange
+    Test Class for ExplainResultMrArgs
     """
 
-    def test_explain_result_range_serialization(self):
+    def test_explain_result_mr_args_serialization(self):
         """
-        Test serialization/deserialization for ExplainResultRange
+        Test serialization/deserialization for ExplainResultMrArgs
         """
 
-        # Construct a json representation of a ExplainResultRange model
-        explain_result_range_model_json = {}
-        explain_result_range_model_json['end_key'] = ['testString']
-        explain_result_range_model_json['start_key'] = ['testString']
+        # Construct a json representation of a ExplainResultMrArgs model
+        explain_result_mr_args_model_json = {}
+        explain_result_mr_args_model_json['conflicts'] = 'testString'
+        explain_result_mr_args_model_json['direction'] = 'testString'
+        explain_result_mr_args_model_json['end_key'] = ['testString']
+        explain_result_mr_args_model_json['include_docs'] = True
+        explain_result_mr_args_model_json['partition'] = True
+        explain_result_mr_args_model_json['reduce'] = True
+        explain_result_mr_args_model_json['stable'] = True
+        explain_result_mr_args_model_json['start_key'] = ['testString']
+        explain_result_mr_args_model_json['update'] = 'testString'
+        explain_result_mr_args_model_json['view_type'] = 'map'
 
-        # Construct a model instance of ExplainResultRange by calling from_dict on the json representation
-        explain_result_range_model = ExplainResultRange.from_dict(explain_result_range_model_json)
-        assert explain_result_range_model != False
+        # Construct a model instance of ExplainResultMrArgs by calling from_dict on the json representation
+        explain_result_mr_args_model = ExplainResultMrArgs.from_dict(explain_result_mr_args_model_json)
+        assert explain_result_mr_args_model != False
 
-        # Construct a model instance of ExplainResultRange by calling from_dict on the json representation
-        explain_result_range_model_dict = ExplainResultRange.from_dict(explain_result_range_model_json).__dict__
-        explain_result_range_model2 = ExplainResultRange(**explain_result_range_model_dict)
+        # Construct a model instance of ExplainResultMrArgs by calling from_dict on the json representation
+        explain_result_mr_args_model_dict = ExplainResultMrArgs.from_dict(explain_result_mr_args_model_json).__dict__
+        explain_result_mr_args_model2 = ExplainResultMrArgs(**explain_result_mr_args_model_dict)
 
         # Verify the model instances are equivalent
-        assert explain_result_range_model == explain_result_range_model2
+        assert explain_result_mr_args_model == explain_result_mr_args_model2
 
         # Convert model instance back to dict and verify no loss of data
-        explain_result_range_model_json2 = explain_result_range_model.to_dict()
-        assert explain_result_range_model_json2 == explain_result_range_model_json
+        explain_result_mr_args_model_json2 = explain_result_mr_args_model.to_dict()
+        assert explain_result_mr_args_model_json2 == explain_result_mr_args_model_json
+
+
+class TestModel_ExplainResultOpts:
+    """
+    Test Class for ExplainResultOpts
+    """
+
+    def test_explain_result_opts_serialization(self):
+        """
+        Test serialization/deserialization for ExplainResultOpts
+        """
+
+        # Construct a json representation of a ExplainResultOpts model
+        explain_result_opts_model_json = {}
+        explain_result_opts_model_json['bookmark'] = 'testString'
+        explain_result_opts_model_json['conflicts'] = False
+        explain_result_opts_model_json['execution_stats'] = False
+        explain_result_opts_model_json['fields'] = 'testString'
+        explain_result_opts_model_json['limit'] = 25
+        explain_result_opts_model_json['partition'] = 'testString'
+        explain_result_opts_model_json['r'] = [1]
+        explain_result_opts_model_json['skip'] = 0
+        explain_result_opts_model_json['sort'] = 'testString'
+        explain_result_opts_model_json['stable'] = False
+        explain_result_opts_model_json['stale'] = False
+        explain_result_opts_model_json['update'] = True
+        explain_result_opts_model_json['use_index'] = ['testString']
+
+        # Construct a model instance of ExplainResultOpts by calling from_dict on the json representation
+        explain_result_opts_model = ExplainResultOpts.from_dict(explain_result_opts_model_json)
+        assert explain_result_opts_model != False
+
+        # Construct a model instance of ExplainResultOpts by calling from_dict on the json representation
+        explain_result_opts_model_dict = ExplainResultOpts.from_dict(explain_result_opts_model_json).__dict__
+        explain_result_opts_model2 = ExplainResultOpts(**explain_result_opts_model_dict)
+
+        # Verify the model instances are equivalent
+        assert explain_result_opts_model == explain_result_opts_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        explain_result_opts_model_json2 = explain_result_opts_model.to_dict()
+        assert explain_result_opts_model_json2 == explain_result_opts_model_json
 
 
 class TestModel_FindResult:
@@ -15237,6 +15689,7 @@ class TestModel_IndexInformation:
         index_information_model_json['ddoc'] = 'testString'
         index_information_model_json['def'] = index_definition_model
         index_information_model_json['name'] = 'testString'
+        index_information_model_json['partitioned'] = True
         index_information_model_json['type'] = 'json'
 
         # Construct a model instance of IndexInformation by calling from_dict on the json representation
@@ -15360,6 +15813,7 @@ class TestModel_IndexesInformation:
         index_information_model['ddoc'] = 'testString'
         index_information_model['def'] = index_definition_model
         index_information_model['name'] = 'testString'
+        index_information_model['partitioned'] = True
         index_information_model['type'] = 'json'
 
         # Construct a json representation of a IndexesInformation model
@@ -15592,6 +16046,75 @@ class TestModel_PartitionInformationSizes:
         # Convert model instance back to dict and verify no loss of data
         partition_information_sizes_model_json2 = partition_information_sizes_model.to_dict()
         assert partition_information_sizes_model_json2 == partition_information_sizes_model_json
+
+
+class TestModel_PartitionedIndexesDetailedInformation:
+    """
+    Test Class for PartitionedIndexesDetailedInformation
+    """
+
+    def test_partitioned_indexes_detailed_information_serialization(self):
+        """
+        Test serialization/deserialization for PartitionedIndexesDetailedInformation
+        """
+
+        # Construct a json representation of a PartitionedIndexesDetailedInformation model
+        partitioned_indexes_detailed_information_model_json = {}
+        partitioned_indexes_detailed_information_model_json['search'] = 0
+        partitioned_indexes_detailed_information_model_json['view'] = 0
+
+        # Construct a model instance of PartitionedIndexesDetailedInformation by calling from_dict on the json representation
+        partitioned_indexes_detailed_information_model = PartitionedIndexesDetailedInformation.from_dict(partitioned_indexes_detailed_information_model_json)
+        assert partitioned_indexes_detailed_information_model != False
+
+        # Construct a model instance of PartitionedIndexesDetailedInformation by calling from_dict on the json representation
+        partitioned_indexes_detailed_information_model_dict = PartitionedIndexesDetailedInformation.from_dict(partitioned_indexes_detailed_information_model_json).__dict__
+        partitioned_indexes_detailed_information_model2 = PartitionedIndexesDetailedInformation(**partitioned_indexes_detailed_information_model_dict)
+
+        # Verify the model instances are equivalent
+        assert partitioned_indexes_detailed_information_model == partitioned_indexes_detailed_information_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        partitioned_indexes_detailed_information_model_json2 = partitioned_indexes_detailed_information_model.to_dict()
+        assert partitioned_indexes_detailed_information_model_json2 == partitioned_indexes_detailed_information_model_json
+
+
+class TestModel_PartitionedIndexesInformation:
+    """
+    Test Class for PartitionedIndexesInformation
+    """
+
+    def test_partitioned_indexes_information_serialization(self):
+        """
+        Test serialization/deserialization for PartitionedIndexesInformation
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        partitioned_indexes_detailed_information_model = {}  # PartitionedIndexesDetailedInformation
+        partitioned_indexes_detailed_information_model['search'] = 0
+        partitioned_indexes_detailed_information_model['view'] = 0
+
+        # Construct a json representation of a PartitionedIndexesInformation model
+        partitioned_indexes_information_model_json = {}
+        partitioned_indexes_information_model_json['count'] = 0
+        partitioned_indexes_information_model_json['indexes'] = partitioned_indexes_detailed_information_model
+        partitioned_indexes_information_model_json['limit'] = 10
+
+        # Construct a model instance of PartitionedIndexesInformation by calling from_dict on the json representation
+        partitioned_indexes_information_model = PartitionedIndexesInformation.from_dict(partitioned_indexes_information_model_json)
+        assert partitioned_indexes_information_model != False
+
+        # Construct a model instance of PartitionedIndexesInformation by calling from_dict on the json representation
+        partitioned_indexes_information_model_dict = PartitionedIndexesInformation.from_dict(partitioned_indexes_information_model_json).__dict__
+        partitioned_indexes_information_model2 = PartitionedIndexesInformation(**partitioned_indexes_information_model_dict)
+
+        # Verify the model instances are equivalent
+        assert partitioned_indexes_information_model == partitioned_indexes_information_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        partitioned_indexes_information_model_json2 = partitioned_indexes_information_model.to_dict()
+        assert partitioned_indexes_information_model_json2 == partitioned_indexes_information_model_json
 
 
 class TestModel_ReplicationCreateTargetParameters:
