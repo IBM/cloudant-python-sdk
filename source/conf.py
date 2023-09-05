@@ -66,7 +66,7 @@ autodoc2_docstring_parser_regexes = [
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['apidocs/ibmcloudant/ibmcloudant.rst']
+exclude_patterns = ['apidocs/ibmcloudant/ibmcloudant.rst', 'apidocs/ibmcloudant/ibmcloudant.features.rst']
 
 # -- Patch generated rst -----------------------------------------------------
 
