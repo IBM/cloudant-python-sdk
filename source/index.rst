@@ -21,6 +21,7 @@ Modules
 
    cloudant_v1 <apidocs/ibmcloudant/ibmcloudant.cloudant_v1>
    couchdb_session_authenticator <apidocs/ibmcloudant/ibmcloudant.couchdb_session_authenticator>
+   changes_follower <apidocs/ibmcloudant/ibmcloudant.features.changes_follower>
 
 Indices and tables
 ------------------
