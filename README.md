@@ -70,6 +70,7 @@ to avoid surprises.
       - [Stopping the changes follower](#stopping-the-changes-follower)
 - [Questions](#questions)
 - [Issues](#issues)
+- [Versioning and LTS support](#versioning-and-lts-support)
 - [Open source at IBM](#open-source-at-ibm)
 - [Contributing](#contributing)
 - [License](#license)
@@ -1036,6 +1037,26 @@ Before you submit a bug report, search for
 [KNOWN_ISSUES file](https://github.com/IBM/cloudant-python-sdk/tree/v0.5.0/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
 
 Please consult the [security policy](https://github.com/IBM/cloudant-python-sdk/security/policy) before opening security related issues.
+
+## Versioning and LTS support
+
+This SDK follows semantic versioning with respect to the definition of user facing APIs.
+This means under some circumstances breaking changes may occur within a major or minor version
+of the SDK related to changes in supported language platforms.
+
+The SDK is supported on the available LTS releases of the language platform.
+The LTS language versions are listed in the prerequisites:
+* [LTS versions currently supported by the SDK](https://github.com/IBM/cloudant-python-sdk/#prerequisites)
+* [LTS versions for this release of the SDK](#prerequisites)
+
+Incompatible changes from new language versions are not added to the SDK
+until they are available in the minimum supported language version.
+
+When language LTS versions move out of support the following will happen:
+* Existing SDK releases will continue to run on obsolete language versions, but will no longer be supported.
+* The minimum language version supported by the SDK will be updated to the next available LTS.
+* New language features may be added in subsequent SDK releases that will cause breaking changes
+ if the new releases of the SDK are used with older, now unsupported, language levels.
 
 ## Open source at IBM
 
