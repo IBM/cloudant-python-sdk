@@ -25,6 +25,7 @@ from enum import Enum
 from typing import BinaryIO, Dict, List, Union
 import base64
 import json
+import logging
 
 from ibm_cloud_sdk_core import BaseService, DetailedResponse
 from ibm_cloud_sdk_core.authenticators.authenticator import Authenticator
@@ -314,21 +315,30 @@ class CloudantV1(BaseService):
         """
         Retrieve change events for all databases.
 
+        **This endpoint is not available in IBM Cloudant.**
         Lists changes to databases, like a global changes feed. Types of changes include
         updating the database and creating or deleting a database. Like the changes feed,
         the feed is not guaranteed to return changes in the correct order and might repeat
         changes. Polling modes for this method work like polling modes for the changes
         feed.
-        **Note: This endpoint requires _admin or _db_updates role and is only available on
-        dedicated clusters.**.
 
         :param str feed: (optional) Query parameter to specify the changes feed
                type.
         :param int heartbeat: (optional) Query parameter to specify the period in
-               milliseconds after which an empty line is sent in the results. Only
-               applicable for longpoll, continuous, and eventsource feeds. Overrides any
-               timeout to keep the feed alive indefinitely. May also be `true` to use
-               default value of 60000.
+               milliseconds after which an empty line is sent in the results. Off by
+               default and only applicable for
+               `continuous` and `eventsource` feeds. Overrides any timeout to keep the
+               feed alive indefinitely. May also be `true` to use a value of `60000`.
+               **Note:** Delivery of heartbeats cannot be relied on at specific intervals.
+               If your application runs in an environment where idle network connections
+               may break, `heartbeat` is not suitable as a keepalive mechanism. Instead,
+               consider one of the following options:
+                 * Use the `timeout` parameter with a value that is compatible with your
+               network environment.
+                 * Switch to scheduled usage of one of the non-continuous changes feed
+               types
+                   (`normal` or `longpoll`).
+                 * Use TCP keepalive.
         :param int timeout: (optional) Query parameter to specify the maximum
                period in milliseconds to wait for a change before the response is sent,
                even if there are no results. Only applicable for `longpoll` or
@@ -341,7 +351,11 @@ class CloudantV1(BaseService):
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `DbUpdates` object
+
+        Deprecated: this method is deprecated and may be removed in a future release.
         """
+
+        logging.warning('A deprecated operation has been invoked: get_db_updates')
 
         headers = {}
         sdk_headers = get_sdk_headers(
@@ -413,7 +427,7 @@ class CloudantV1(BaseService):
         :param List[str] doc_ids: (optional) Schema for a list of document IDs.
         :param List[str] fields: (optional) JSON array that uses the field syntax.
                Use this parameter to specify which fields of a document must be returned.
-               If it is omitted, the entire document is returned.
+               If it is omitted or empty, the entire document is returned.
         :param dict selector: (optional) JSON object describing criteria used to
                select documents. The selector specifies fields in the document, and
                provides an expression to evaluate with the field content or other data.
@@ -430,21 +444,21 @@ class CloudantV1(BaseService):
                field.
                There are two core types of operators in the selector syntax:
                * Combination operators: applied at the topmost level of selection. They
-               are used to combine selectors. In addition to the common boolean operators
-               (`$and`, `$or`, `$not`, `$nor`) there are three combination operators:
-               `$all`, `$elemMatch`, and `$allMatch`. A combination operator takes a
-               single argument. The argument is either another selector, or an array of
+               are used to combine selectors. A combination operator takes a single
+               argument. The argument is either another selector, or an array of
                selectors.
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument.
+               supplied argument. See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
+               list of all available combination and conditional operators.
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
                For further reference see
                [selector
-               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str last_event_id: (optional) Header parameter to specify the ID of
                the last events received by the server on a previous connection. Overrides
                `since` query parameter.
@@ -474,10 +488,20 @@ class CloudantV1(BaseService):
                  * `_view` - Returns changes for documents that match an existing map
                      function in the view specified by the query parameter `view`.
         :param int heartbeat: (optional) Query parameter to specify the period in
-               milliseconds after which an empty line is sent in the results. Only
-               applicable for longpoll, continuous, and eventsource feeds. Overrides any
-               timeout to keep the feed alive indefinitely. May also be `true` to use
-               default value of 60000.
+               milliseconds after which an empty line is sent in the results. Off by
+               default and only applicable for
+               `continuous` and `eventsource` feeds. Overrides any timeout to keep the
+               feed alive indefinitely. May also be `true` to use a value of `60000`.
+               **Note:** Delivery of heartbeats cannot be relied on at specific intervals.
+               If your application runs in an environment where idle network connections
+               may break, `heartbeat` is not suitable as a keepalive mechanism. Instead,
+               consider one of the following options:
+                 * Use the `timeout` parameter with a value that is compatible with your
+               network environment.
+                 * Switch to scheduled usage of one of the non-continuous changes feed
+               types
+                   (`normal` or `longpoll`).
+                 * Use TCP keepalive.
         :param bool include_docs: (optional) Query parameter to specify whether to
                include the full content of the documents in the response.
         :param int limit: (optional) Query parameter to specify the number of
@@ -607,7 +631,7 @@ class CloudantV1(BaseService):
         :param List[str] doc_ids: (optional) Schema for a list of document IDs.
         :param List[str] fields: (optional) JSON array that uses the field syntax.
                Use this parameter to specify which fields of a document must be returned.
-               If it is omitted, the entire document is returned.
+               If it is omitted or empty, the entire document is returned.
         :param dict selector: (optional) JSON object describing criteria used to
                select documents. The selector specifies fields in the document, and
                provides an expression to evaluate with the field content or other data.
@@ -624,21 +648,21 @@ class CloudantV1(BaseService):
                field.
                There are two core types of operators in the selector syntax:
                * Combination operators: applied at the topmost level of selection. They
-               are used to combine selectors. In addition to the common boolean operators
-               (`$and`, `$or`, `$not`, `$nor`) there are three combination operators:
-               `$all`, `$elemMatch`, and `$allMatch`. A combination operator takes a
-               single argument. The argument is either another selector, or an array of
+               are used to combine selectors. A combination operator takes a single
+               argument. The argument is either another selector, or an array of
                selectors.
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument.
+               supplied argument. See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
+               list of all available combination and conditional operators.
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
                For further reference see
                [selector
-               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str last_event_id: (optional) Header parameter to specify the ID of
                the last events received by the server on a previous connection. Overrides
                `since` query parameter.
@@ -668,10 +692,20 @@ class CloudantV1(BaseService):
                  * `_view` - Returns changes for documents that match an existing map
                      function in the view specified by the query parameter `view`.
         :param int heartbeat: (optional) Query parameter to specify the period in
-               milliseconds after which an empty line is sent in the results. Only
-               applicable for longpoll, continuous, and eventsource feeds. Overrides any
-               timeout to keep the feed alive indefinitely. May also be `true` to use
-               default value of 60000.
+               milliseconds after which an empty line is sent in the results. Off by
+               default and only applicable for
+               `continuous` and `eventsource` feeds. Overrides any timeout to keep the
+               feed alive indefinitely. May also be `true` to use a value of `60000`.
+               **Note:** Delivery of heartbeats cannot be relied on at specific intervals.
+               If your application runs in an environment where idle network connections
+               may break, `heartbeat` is not suitable as a keepalive mechanism. Instead,
+               consider one of the following options:
+                 * Use the `timeout` parameter with a value that is compatible with your
+               network environment.
+                 * Switch to scheduled usage of one of the non-continuous changes feed
+               types
+                   (`normal` or `longpoll`).
+                 * Use TCP keepalive.
         :param bool include_docs: (optional) Query parameter to specify whether to
                include the full content of the documents in the response.
         :param int limit: (optional) Query parameter to specify the number of
@@ -4425,6 +4459,153 @@ class CloudantV1(BaseService):
         response = self.send(request, stream=True, **kwargs)
         return response
 
+    def post_partition_explain(
+        self,
+        db: str,
+        partition_key: str,
+        selector: dict,
+        *,
+        bookmark: str = None,
+        conflicts: bool = None,
+        execution_stats: bool = None,
+        fields: List[str] = None,
+        limit: int = None,
+        skip: int = None,
+        sort: List[dict] = None,
+        stable: bool = None,
+        update: str = None,
+        use_index: List[str] = None,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve information about which partition index is used for a query.
+
+        Shows which index is being used by the query. Parameters are the same as the
+        [`/{db}/_partition/{partition_key}/_find` endpoint](#postpartitionfind-queries).
+
+        :param str db: Path parameter to specify the database name.
+        :param str partition_key: Path parameter to specify the database partition
+               key.
+        :param dict selector: JSON object describing criteria used to select
+               documents. The selector specifies fields in the document, and provides an
+               expression to evaluate with the field content or other data.
+               The selector object must:
+                 * Be structured as valid JSON.
+                 * Contain a valid query expression.
+               Using a selector is significantly more efficient than using a JavaScript
+               filter function, and is the recommended option if filtering on document
+               attributes only.
+               Elementary selector syntax requires you to specify one or more fields, and
+               the corresponding values required for those fields. You can create more
+               complex selector expressions by combining operators.
+               Operators are identified by the use of a dollar sign `$` prefix in the name
+               field.
+               There are two core types of operators in the selector syntax:
+               * Combination operators: applied at the topmost level of selection. They
+               are used to combine selectors. A combination operator takes a single
+               argument. The argument is either another selector, or an array of
+               selectors.
+               * Condition operators: are specific to a field, and are used to evaluate
+               the value stored in that field. For instance, the basic `$eq` operator
+               matches when the specified field contains a value that is equal to the
+               supplied argument. See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
+               list of all available combination and conditional operators.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
+               (but not `$ne`) can be used as the basis of a query. You should include at
+               least one of these in a selector.
+               For further reference see
+               [selector
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
+        :param str bookmark: (optional) Opaque bookmark token used when paginating
+               results.
+        :param bool conflicts: (optional) A boolean value that indicates whether or
+               not to include information about existing conflicts in the document.
+        :param bool execution_stats: (optional) Use this option to find information
+               about the query that was run. This information includes total key lookups,
+               total document lookups (when `include_docs=true` is used), and total quorum
+               document lookups (when each document replica is fetched).
+        :param List[str] fields: (optional) JSON array that uses the field syntax.
+               Use this parameter to specify which fields of a document must be returned.
+               If it is omitted or empty, the entire document is returned.
+        :param int limit: (optional) Maximum number of results returned. The `type:
+               text` indexes are limited to 200 results when queried.
+        :param int skip: (optional) Skip the first 'n' results, where 'n' is the
+               value that is specified.
+        :param List[dict] sort: (optional) The sort field contains a list of pairs,
+               each mapping a field name to a sort direction (asc or desc). The first
+               field name and direction pair is the topmost level of sort. The second
+               pair, if provided, is the next level of sort. The field can be any field,
+               using dotted notation if desired for sub-document fields.
+               For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
+               "desc"}]`
+               When sorting with multiple fields, ensure that there is an index already
+               defined with all the sort fields in the same order and each object in the
+               sort array has a single key or at least one of the sort fields is included
+               in the selector. All sorting fields must use the same sort direction,
+               either all ascending or all descending.
+        :param bool stable: (optional) Whether or not the view results should be
+               returned from a "stable" set of shards.
+        :param str update: (optional) Whether to update the index prior to
+               returning the result.
+        :param List[str] use_index: (optional) Use this option to identify a
+               specific index for query to run against, rather than by using the IBM
+               Cloudant Query algorithm to find the best index.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `ExplainResult` object
+        """
+
+        if not db:
+            raise ValueError('db must be provided')
+        if not partition_key:
+            raise ValueError('partition_key must be provided')
+        if selector is None:
+            raise ValueError('selector must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_partition_explain',
+        )
+        headers.update(sdk_headers)
+
+        data = {
+            'selector': selector,
+            'bookmark': bookmark,
+            'conflicts': conflicts,
+            'execution_stats': execution_stats,
+            'fields': fields,
+            'limit': limit,
+            'skip': skip,
+            'sort': sort,
+            'stable': stable,
+            'update': update,
+            'use_index': use_index,
+        }
+        data = {k: v for (k, v) in data.items() if v is not None}
+        data = json.dumps(data)
+        headers['content-type'] = 'application/json'
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        path_param_keys = ['db', 'partition_key']
+        path_param_values = self.encode_path_vars(db, partition_key)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_partition/{partition_key}/_explain'.format(**path_param_dict)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
     def post_partition_find(
         self,
         db: str,
@@ -4473,21 +4654,21 @@ class CloudantV1(BaseService):
                field.
                There are two core types of operators in the selector syntax:
                * Combination operators: applied at the topmost level of selection. They
-               are used to combine selectors. In addition to the common boolean operators
-               (`$and`, `$or`, `$not`, `$nor`) there are three combination operators:
-               `$all`, `$elemMatch`, and `$allMatch`. A combination operator takes a
-               single argument. The argument is either another selector, or an array of
+               are used to combine selectors. A combination operator takes a single
+               argument. The argument is either another selector, or an array of
                selectors.
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument.
+               supplied argument. See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
+               list of all available combination and conditional operators.
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
                For further reference see
                [selector
-               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4498,7 +4679,7 @@ class CloudantV1(BaseService):
                document lookups (when each document replica is fetched).
         :param List[str] fields: (optional) JSON array that uses the field syntax.
                Use this parameter to specify which fields of a document must be returned.
-               If it is omitted, the entire document is returned.
+               If it is omitted or empty, the entire document is returned.
         :param int limit: (optional) Maximum number of results returned. The `type:
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
@@ -4625,21 +4806,21 @@ class CloudantV1(BaseService):
                field.
                There are two core types of operators in the selector syntax:
                * Combination operators: applied at the topmost level of selection. They
-               are used to combine selectors. In addition to the common boolean operators
-               (`$and`, `$or`, `$not`, `$nor`) there are three combination operators:
-               `$all`, `$elemMatch`, and `$allMatch`. A combination operator takes a
-               single argument. The argument is either another selector, or an array of
+               are used to combine selectors. A combination operator takes a single
+               argument. The argument is either another selector, or an array of
                selectors.
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument.
+               supplied argument. See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
+               list of all available combination and conditional operators.
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
                For further reference see
                [selector
-               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4650,7 +4831,7 @@ class CloudantV1(BaseService):
                document lookups (when each document replica is fetched).
         :param List[str] fields: (optional) JSON array that uses the field syntax.
                Use this parameter to specify which fields of a document must be returned.
-               If it is omitted, the entire document is returned.
+               If it is omitted or empty, the entire document is returned.
         :param int limit: (optional) Maximum number of results returned. The `type:
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
@@ -4755,7 +4936,7 @@ class CloudantV1(BaseService):
         Retrieve information about which index is used for a query.
 
         Shows which index is being used by the query. Parameters are the same as the
-        [`_find` endpoint](#query-an-index-by-using-selector-syntax).
+        [`_find` endpoint](#postfind).
 
         :param str db: Path parameter to specify the database name.
         :param dict selector: JSON object describing criteria used to select
@@ -4774,21 +4955,21 @@ class CloudantV1(BaseService):
                field.
                There are two core types of operators in the selector syntax:
                * Combination operators: applied at the topmost level of selection. They
-               are used to combine selectors. In addition to the common boolean operators
-               (`$and`, `$or`, `$not`, `$nor`) there are three combination operators:
-               `$all`, `$elemMatch`, and `$allMatch`. A combination operator takes a
-               single argument. The argument is either another selector, or an array of
+               are used to combine selectors. A combination operator takes a single
+               argument. The argument is either another selector, or an array of
                selectors.
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument.
+               supplied argument. See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
+               list of all available combination and conditional operators.
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
                For further reference see
                [selector
-               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4799,7 +4980,7 @@ class CloudantV1(BaseService):
                document lookups (when each document replica is fetched).
         :param List[str] fields: (optional) JSON array that uses the field syntax.
                Use this parameter to specify which fields of a document must be returned.
-               If it is omitted, the entire document is returned.
+               If it is omitted or empty, the entire document is returned.
         :param int limit: (optional) Maximum number of results returned. The `type:
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
@@ -4930,21 +5111,21 @@ class CloudantV1(BaseService):
                field.
                There are two core types of operators in the selector syntax:
                * Combination operators: applied at the topmost level of selection. They
-               are used to combine selectors. In addition to the common boolean operators
-               (`$and`, `$or`, `$not`, `$nor`) there are three combination operators:
-               `$all`, `$elemMatch`, and `$allMatch`. A combination operator takes a
-               single argument. The argument is either another selector, or an array of
+               are used to combine selectors. A combination operator takes a single
+               argument. The argument is either another selector, or an array of
                selectors.
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument.
+               supplied argument. See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
+               list of all available combination and conditional operators.
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
                For further reference see
                [selector
-               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4955,7 +5136,7 @@ class CloudantV1(BaseService):
                document lookups (when each document replica is fetched).
         :param List[str] fields: (optional) JSON array that uses the field syntax.
                Use this parameter to specify which fields of a document must be returned.
-               If it is omitted, the entire document is returned.
+               If it is omitted or empty, the entire document is returned.
         :param int limit: (optional) Maximum number of results returned. The `type:
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
@@ -5086,21 +5267,21 @@ class CloudantV1(BaseService):
                field.
                There are two core types of operators in the selector syntax:
                * Combination operators: applied at the topmost level of selection. They
-               are used to combine selectors. In addition to the common boolean operators
-               (`$and`, `$or`, `$not`, `$nor`) there are three combination operators:
-               `$all`, `$elemMatch`, and `$allMatch`. A combination operator takes a
-               single argument. The argument is either another selector, or an array of
+               are used to combine selectors. A combination operator takes a single
+               argument. The argument is either another selector, or an array of
                selectors.
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument.
+               supplied argument. See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
+               list of all available combination and conditional operators.
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
                For further reference see
                [selector
-               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -5111,7 +5292,7 @@ class CloudantV1(BaseService):
                document lookups (when each document replica is fetched).
         :param List[str] fields: (optional) JSON array that uses the field syntax.
                Use this parameter to specify which fields of a document must be returned.
-               If it is omitted, the entire document is returned.
+               If it is omitted or empty, the entire document is returned.
         :param int limit: (optional) Maximum number of results returned. The `type:
                text` indexes are limited to 200 results when queried.
         :param int skip: (optional) Skip the first 'n' results, where 'n' is the
@@ -5248,7 +5429,6 @@ class CloudantV1(BaseService):
         index: 'IndexDefinition',
         *,
         ddoc: str = None,
-        def_: 'IndexDefinition' = None,
         name: str = None,
         partitioned: bool = None,
         type: str = None,
@@ -5266,14 +5446,9 @@ class CloudantV1(BaseService):
                * `default_analyzer` - the default text analyzer to use * `default_field` -
                whether to index the text in all document fields and what analyzer to use
                for that purpose.
-        :param str ddoc: (optional) Name of the design document in which the index
-               will be created.
-        :param IndexDefinition def_: (optional) Schema for a `json` or `text` query
-               index definition. Indexes of type `text` have additional configuration
-               properties that do not apply to `json` indexes, these are:
-               * `default_analyzer` - the default text analyzer to use * `default_field` -
-               whether to index the text in all document fields and what analyzer to use
-               for that purpose.
+        :param str ddoc: (optional) Specifies the design document name in which the
+               index will be created. The design document name is the design document ID
+               excluding the `_design/` prefix.
         :param str name: (optional) name.
         :param bool partitioned: (optional) The default value is `true` for
                databases with `partitioned: true` and `false` otherwise. For databases
@@ -5290,8 +5465,6 @@ class CloudantV1(BaseService):
         if index is None:
             raise ValueError('index must be provided')
         index = convert_model(index)
-        if def_ is not None:
-            def_ = convert_model(def_)
         headers = {}
         sdk_headers = get_sdk_headers(
             service_name=self.DEFAULT_SERVICE_NAME,
@@ -5303,7 +5476,6 @@ class CloudantV1(BaseService):
         data = {
             'index': index,
             'ddoc': ddoc,
-            'def': def_,
             'name': name,
             'partitioned': partitioned,
             'type': type,
@@ -10630,6 +10802,8 @@ class DatabaseInformation:
     :attr str update_seq: An opaque string that describes the state of the database.
           Do not rely on this string for counting the number of updates.
     :attr str uuid: (optional) The UUID of the database.
+    :attr PartitionedIndexesInformation partitioned_indexes: (optional) Information
+          about database's partitioned indexes.
     """
 
     def __init__(
@@ -10648,6 +10822,7 @@ class DatabaseInformation:
         compacted_seq: str = None,
         engine: str = None,
         uuid: str = None,
+        partitioned_indexes: 'PartitionedIndexesInformation' = None,
     ) -> None:
         """
         Initialize a DatabaseInformation object.
@@ -10672,6 +10847,8 @@ class DatabaseInformation:
                compaction state of the database.
         :param str engine: (optional) The engine used for the database.
         :param str uuid: (optional) The UUID of the database.
+        :param PartitionedIndexesInformation partitioned_indexes: (optional)
+               Information about database's partitioned indexes.
         """
         self.cluster = cluster
         self.committed_update_seq = committed_update_seq
@@ -10686,6 +10863,7 @@ class DatabaseInformation:
         self.sizes = sizes
         self.update_seq = update_seq
         self.uuid = uuid
+        self.partitioned_indexes = partitioned_indexes
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'DatabaseInformation':
@@ -10735,6 +10913,8 @@ class DatabaseInformation:
             raise ValueError('Required property \'update_seq\' not present in DatabaseInformation JSON')
         if 'uuid' in _dict:
             args['uuid'] = _dict.get('uuid')
+        if 'partitioned_indexes' in _dict:
+            args['partitioned_indexes'] = PartitionedIndexesInformation.from_dict(_dict.get('partitioned_indexes'))
         return cls(**args)
 
     @classmethod
@@ -10780,6 +10960,11 @@ class DatabaseInformation:
             _dict['update_seq'] = self.update_seq
         if hasattr(self, 'uuid') and self.uuid is not None:
             _dict['uuid'] = self.uuid
+        if hasattr(self, 'partitioned_indexes') and self.partitioned_indexes is not None:
+            if isinstance(self.partitioned_indexes, dict):
+                _dict['partitioned_indexes'] = self.partitioned_indexes
+            else:
+                _dict['partitioned_indexes'] = self.partitioned_indexes.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -12656,15 +12841,18 @@ class ExplainResult:
     """
     Schema for information about the index used for a find query.
 
-    :attr bool covered: When `true`, the query is answered using the index only and
+    :attr bool covering: When `true`, the query is answered using the index only and
           no documents are fetched.
     :attr str dbname: Name of database.
-    :attr List[str] fields: Fields to be returned by the query.
+    :attr List[str] fields: Fields that were requested to be projected from the
+          document. If no fields were requested to be projected this will be empty and all
+          fields will be returned.
     :attr IndexInformation index: Schema for information about an index.
     :attr int limit: The used maximum number of results returned.
-    :attr dict opts: Query options used.
-    :attr ExplainResultRange range: (optional) Range parameters passed to the
-          underlying view.
+    :attr ExplainResultMrArgs mrargs: (optional) Arguments passed to the underlying
+          view.
+    :attr ExplainResultOpts opts: Options used for the request.
+    :attr object partitioned: (optional) Schema for any JSON type.
     :attr dict selector: JSON object describing criteria used to select documents.
           The selector specifies fields in the document, and provides an expression to
           evaluate with the field content or other data.
@@ -12681,45 +12869,49 @@ class ExplainResult:
           field.
           There are two core types of operators in the selector syntax:
           * Combination operators: applied at the topmost level of selection. They are
-          used to combine selectors. In addition to the common boolean operators (`$and`,
-          `$or`, `$not`, `$nor`) there are three combination operators: `$all`,
-          `$elemMatch`, and `$allMatch`. A combination operator takes a single argument.
-          The argument is either another selector, or an array of selectors.
+          used to combine selectors. A combination operator takes a single argument. The
+          argument is either another selector, or an array of selectors.
           * Condition operators: are specific to a field, and are used to evaluate the
           value stored in that field. For instance, the basic `$eq` operator matches when
-          the specified field contains a value that is equal to the supplied argument.
+          the specified field contains a value that is equal to the supplied argument. See
+          [the Cloudant
+          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list
+          of all available combination and conditional operators.
           * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but
           not `$ne`) can be used as the basis of a query. You should include at least one
           of these in a selector.
           For further reference see
           [selector
-          syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+          syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
     :attr int skip: Skip parameter used.
     """
 
     def __init__(
         self,
-        covered: bool,
+        covering: bool,
         dbname: str,
         fields: List[str],
         index: 'IndexInformation',
         limit: int,
-        opts: dict,
+        opts: 'ExplainResultOpts',
         selector: dict,
         skip: int,
         *,
-        range: 'ExplainResultRange' = None,
+        mrargs: 'ExplainResultMrArgs' = None,
+        partitioned: object = None,
     ) -> None:
         """
         Initialize a ExplainResult object.
 
-        :param bool covered: When `true`, the query is answered using the index
+        :param bool covering: When `true`, the query is answered using the index
                only and no documents are fetched.
         :param str dbname: Name of database.
-        :param List[str] fields: Fields to be returned by the query.
+        :param List[str] fields: Fields that were requested to be projected from
+               the document. If no fields were requested to be projected this will be
+               empty and all fields will be returned.
         :param IndexInformation index: Schema for information about an index.
         :param int limit: The used maximum number of results returned.
-        :param dict opts: Query options used.
+        :param ExplainResultOpts opts: Options used for the request.
         :param dict selector: JSON object describing criteria used to select
                documents. The selector specifies fields in the document, and provides an
                expression to evaluate with the field content or other data.
@@ -12736,32 +12928,34 @@ class ExplainResult:
                field.
                There are two core types of operators in the selector syntax:
                * Combination operators: applied at the topmost level of selection. They
-               are used to combine selectors. In addition to the common boolean operators
-               (`$and`, `$or`, `$not`, `$nor`) there are three combination operators:
-               `$all`, `$elemMatch`, and `$allMatch`. A combination operator takes a
-               single argument. The argument is either another selector, or an array of
+               are used to combine selectors. A combination operator takes a single
+               argument. The argument is either another selector, or an array of
                selectors.
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument.
+               supplied argument. See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
+               list of all available combination and conditional operators.
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
                For further reference see
                [selector
-               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param int skip: Skip parameter used.
-        :param ExplainResultRange range: (optional) Range parameters passed to the
+        :param ExplainResultMrArgs mrargs: (optional) Arguments passed to the
                underlying view.
+        :param object partitioned: (optional) Schema for any JSON type.
         """
-        self.covered = covered
+        self.covering = covering
         self.dbname = dbname
         self.fields = fields
         self.index = index
         self.limit = limit
+        self.mrargs = mrargs
         self.opts = opts
-        self.range = range
+        self.partitioned = partitioned
         self.selector = selector
         self.skip = skip
 
@@ -12769,10 +12963,10 @@ class ExplainResult:
     def from_dict(cls, _dict: Dict) -> 'ExplainResult':
         """Initialize a ExplainResult object from a json dictionary."""
         args = {}
-        if 'covered' in _dict:
-            args['covered'] = _dict.get('covered')
+        if 'covering' in _dict:
+            args['covering'] = _dict.get('covering')
         else:
-            raise ValueError('Required property \'covered\' not present in ExplainResult JSON')
+            raise ValueError('Required property \'covering\' not present in ExplainResult JSON')
         if 'dbname' in _dict:
             args['dbname'] = _dict.get('dbname')
         else:
@@ -12789,12 +12983,14 @@ class ExplainResult:
             args['limit'] = _dict.get('limit')
         else:
             raise ValueError('Required property \'limit\' not present in ExplainResult JSON')
+        if 'mrargs' in _dict:
+            args['mrargs'] = ExplainResultMrArgs.from_dict(_dict.get('mrargs'))
         if 'opts' in _dict:
-            args['opts'] = _dict.get('opts')
+            args['opts'] = ExplainResultOpts.from_dict(_dict.get('opts'))
         else:
             raise ValueError('Required property \'opts\' not present in ExplainResult JSON')
-        if 'range' in _dict:
-            args['range'] = ExplainResultRange.from_dict(_dict.get('range'))
+        if 'partitioned' in _dict:
+            args['partitioned'] = _dict.get('partitioned')
         if 'selector' in _dict:
             args['selector'] = _dict.get('selector')
         else:
@@ -12813,8 +13009,8 @@ class ExplainResult:
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
-        if hasattr(self, 'covered') and self.covered is not None:
-            _dict['covered'] = self.covered
+        if hasattr(self, 'covering') and self.covering is not None:
+            _dict['covering'] = self.covering
         if hasattr(self, 'dbname') and self.dbname is not None:
             _dict['dbname'] = self.dbname
         if hasattr(self, 'fields') and self.fields is not None:
@@ -12826,13 +13022,18 @@ class ExplainResult:
                 _dict['index'] = self.index.to_dict()
         if hasattr(self, 'limit') and self.limit is not None:
             _dict['limit'] = self.limit
-        if hasattr(self, 'opts') and self.opts is not None:
-            _dict['opts'] = self.opts
-        if hasattr(self, 'range') and self.range is not None:
-            if isinstance(self.range, dict):
-                _dict['range'] = self.range
+        if hasattr(self, 'mrargs') and self.mrargs is not None:
+            if isinstance(self.mrargs, dict):
+                _dict['mrargs'] = self.mrargs
             else:
-                _dict['range'] = self.range.to_dict()
+                _dict['mrargs'] = self.mrargs.to_dict()
+        if hasattr(self, 'opts') and self.opts is not None:
+            if isinstance(self.opts, dict):
+                _dict['opts'] = self.opts
+            else:
+                _dict['opts'] = self.opts.to_dict()
+        if hasattr(self, 'partitioned') and self.partitioned is not None:
+            _dict['partitioned'] = self.partitioned
         if hasattr(self, 'selector') and self.selector is not None:
             _dict['selector'] = self.selector
         if hasattr(self, 'skip') and self.skip is not None:
@@ -12858,55 +13059,129 @@ class ExplainResult:
         return not self == other
 
 
-class ExplainResultRange:
+class ExplainResultMrArgs:
     """
-    Range parameters passed to the underlying view.
+    Arguments passed to the underlying view.
 
-    :attr List[object] end_key: (optional) End key parameter passed to the
+    :attr object conflicts: (optional) Schema for any JSON type.
+    :attr str direction: (optional) Direction parameter passed to the underlying
+          view.
+    :attr object end_key: (optional) Schema for any JSON type.
+    :attr bool include_docs: (optional) A parameter that specifies whether to
+          include the full content of the documents in the response in the underlying
+          view.
+    :attr str partition: (optional) Partition parameter passed to the underlying
+          view.
+    :attr bool reduce: (optional) A parameter that specifies returning only
+          documents that match any of the specified keys in the underlying view.
+    :attr bool stable: (optional) A parameter that specifies whether the view
+          results should be returned form a "stable" set of shards passed to the
           underlying view.
-    :attr List[object] start_key: (optional) Start key parameter passed to the
-          underlying view.
+    :attr object start_key: (optional) Schema for any JSON type.
+    :attr object update: (optional) Schema for any JSON type.
+    :attr str view_type: (optional) The type of the underlying view.
     """
 
     def __init__(
         self,
         *,
-        end_key: List[object] = None,
-        start_key: List[object] = None,
+        conflicts: object = None,
+        direction: str = None,
+        end_key: object = None,
+        include_docs: bool = None,
+        partition: str = None,
+        reduce: bool = None,
+        stable: bool = None,
+        start_key: object = None,
+        update: object = None,
+        view_type: str = None,
     ) -> None:
         """
-        Initialize a ExplainResultRange object.
+        Initialize a ExplainResultMrArgs object.
 
-        :param List[object] end_key: (optional) End key parameter passed to the
+        :param object conflicts: (optional) Schema for any JSON type.
+        :param str direction: (optional) Direction parameter passed to the
                underlying view.
-        :param List[object] start_key: (optional) Start key parameter passed to the
+        :param object end_key: (optional) Schema for any JSON type.
+        :param bool include_docs: (optional) A parameter that specifies whether to
+               include the full content of the documents in the response in the underlying
+               view.
+        :param str partition: (optional) Partition parameter passed to the
                underlying view.
+        :param bool reduce: (optional) A parameter that specifies returning only
+               documents that match any of the specified keys in the underlying view.
+        :param bool stable: (optional) A parameter that specifies whether the view
+               results should be returned form a "stable" set of shards passed to the
+               underlying view.
+        :param object start_key: (optional) Schema for any JSON type.
+        :param object update: (optional) Schema for any JSON type.
+        :param str view_type: (optional) The type of the underlying view.
         """
+        self.conflicts = conflicts
+        self.direction = direction
         self.end_key = end_key
+        self.include_docs = include_docs
+        self.partition = partition
+        self.reduce = reduce
+        self.stable = stable
         self.start_key = start_key
+        self.update = update
+        self.view_type = view_type
 
     @classmethod
-    def from_dict(cls, _dict: Dict) -> 'ExplainResultRange':
-        """Initialize a ExplainResultRange object from a json dictionary."""
+    def from_dict(cls, _dict: Dict) -> 'ExplainResultMrArgs':
+        """Initialize a ExplainResultMrArgs object from a json dictionary."""
         args = {}
+        if 'conflicts' in _dict:
+            args['conflicts'] = _dict.get('conflicts')
+        if 'direction' in _dict:
+            args['direction'] = _dict.get('direction')
         if 'end_key' in _dict:
             args['end_key'] = _dict.get('end_key')
+        if 'include_docs' in _dict:
+            args['include_docs'] = _dict.get('include_docs')
+        if 'partition' in _dict:
+            args['partition'] = _dict.get('partition')
+        if 'reduce' in _dict:
+            args['reduce'] = _dict.get('reduce')
+        if 'stable' in _dict:
+            args['stable'] = _dict.get('stable')
         if 'start_key' in _dict:
             args['start_key'] = _dict.get('start_key')
+        if 'update' in _dict:
+            args['update'] = _dict.get('update')
+        if 'view_type' in _dict:
+            args['view_type'] = _dict.get('view_type')
         return cls(**args)
 
     @classmethod
     def _from_dict(cls, _dict):
-        """Initialize a ExplainResultRange object from a json dictionary."""
+        """Initialize a ExplainResultMrArgs object from a json dictionary."""
         return cls.from_dict(_dict)
 
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
+        if hasattr(self, 'conflicts') and self.conflicts is not None:
+            _dict['conflicts'] = self.conflicts
+        if hasattr(self, 'direction') and self.direction is not None:
+            _dict['direction'] = self.direction
         if hasattr(self, 'end_key') and self.end_key is not None:
             _dict['end_key'] = self.end_key
+        if hasattr(self, 'include_docs') and self.include_docs is not None:
+            _dict['include_docs'] = self.include_docs
+        if hasattr(self, 'partition') and self.partition is not None:
+            _dict['partition'] = self.partition
+        if hasattr(self, 'reduce') and self.reduce is not None:
+            _dict['reduce'] = self.reduce
+        if hasattr(self, 'stable') and self.stable is not None:
+            _dict['stable'] = self.stable
         if hasattr(self, 'start_key') and self.start_key is not None:
             _dict['start_key'] = self.start_key
+        if hasattr(self, 'update') and self.update is not None:
+            _dict['update'] = self.update
+        if hasattr(self, 'view_type') and self.view_type is not None:
+            _dict['view_type'] = self.view_type
         return _dict
 
     def _to_dict(self):
@@ -12914,16 +13189,211 @@ class ExplainResultRange:
         return self.to_dict()
 
     def __str__(self) -> str:
-        """Return a `str` version of this ExplainResultRange object."""
+        """Return a `str` version of this ExplainResultMrArgs object."""
         return json.dumps(self.to_dict(), indent=2)
 
-    def __eq__(self, other: 'ExplainResultRange') -> bool:
+    def __eq__(self, other: 'ExplainResultMrArgs') -> bool:
         """Return `true` when self and other are equal, false otherwise."""
         if not isinstance(other, self.__class__):
             return False
         return self.__dict__ == other.__dict__
 
-    def __ne__(self, other: 'ExplainResultRange') -> bool:
+    def __ne__(self, other: 'ExplainResultMrArgs') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+    class ViewTypeEnum(str, Enum):
+        """
+        The type of the underlying view.
+        """
+
+        MAP = 'map'
+        REDUCE = 'reduce'
+
+
+
+class ExplainResultOpts:
+    """
+    Options used for the request.
+
+    :attr str bookmark: Opaque bookmark token used when paginating results.
+    :attr bool conflicts: Conflicts used in the request query.
+    :attr bool execution_stats: Execution statistics used in the request query.
+    :attr List[str] fields: JSON array that uses the field syntax. Use this
+          parameter to specify which fields of a document must be returned. If it is
+          omitted or empty, the entire document is returned.
+    :attr int limit: Limit used in the request query.
+    :attr str partition: On which database partition the request was used. If it was
+          not used on a database partition, it returns with `""`.
+    :attr int r: The read quorum that is needed for the result.
+    :attr int skip: Skip used in the request query.
+    :attr object sort: Schema for any JSON type.
+    :attr bool stable: Stable used in the request query.
+    :attr bool stale: Deprecated: Stale used in the request query.
+    :attr bool update: Update used in the request query.
+    :attr List[str] use_index: Use index used in the request query.
+    """
+
+    def __init__(
+        self,
+        bookmark: str,
+        conflicts: bool,
+        execution_stats: bool,
+        fields: List[str],
+        limit: int,
+        partition: str,
+        r: int,
+        skip: int,
+        sort: object,
+        stable: bool,
+        stale: bool,
+        update: bool,
+        use_index: List[str],
+    ) -> None:
+        """
+        Initialize a ExplainResultOpts object.
+
+        :param str bookmark: Opaque bookmark token used when paginating results.
+        :param bool conflicts: Conflicts used in the request query.
+        :param bool execution_stats: Execution statistics used in the request
+               query.
+        :param List[str] fields: JSON array that uses the field syntax. Use this
+               parameter to specify which fields of a document must be returned. If it is
+               omitted or empty, the entire document is returned.
+        :param int limit: Limit used in the request query.
+        :param str partition: On which database partition the request was used. If
+               it was not used on a database partition, it returns with `""`.
+        :param int r: The read quorum that is needed for the result.
+        :param int skip: Skip used in the request query.
+        :param object sort: Schema for any JSON type.
+        :param bool stable: Stable used in the request query.
+        :param bool stale: Deprecated: Stale used in the request query.
+        :param bool update: Update used in the request query.
+        :param List[str] use_index: Use index used in the request query.
+        """
+        self.bookmark = bookmark
+        self.conflicts = conflicts
+        self.execution_stats = execution_stats
+        self.fields = fields
+        self.limit = limit
+        self.partition = partition
+        self.r = r
+        self.skip = skip
+        self.sort = sort
+        self.stable = stable
+        self.stale = stale
+        self.update = update
+        self.use_index = use_index
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ExplainResultOpts':
+        """Initialize a ExplainResultOpts object from a json dictionary."""
+        args = {}
+        if 'bookmark' in _dict:
+            args['bookmark'] = _dict.get('bookmark')
+        else:
+            raise ValueError('Required property \'bookmark\' not present in ExplainResultOpts JSON')
+        if 'conflicts' in _dict:
+            args['conflicts'] = _dict.get('conflicts')
+        else:
+            raise ValueError('Required property \'conflicts\' not present in ExplainResultOpts JSON')
+        if 'execution_stats' in _dict:
+            args['execution_stats'] = _dict.get('execution_stats')
+        else:
+            raise ValueError('Required property \'execution_stats\' not present in ExplainResultOpts JSON')
+        if 'fields' in _dict:
+            args['fields'] = _dict.get('fields')
+        else:
+            raise ValueError('Required property \'fields\' not present in ExplainResultOpts JSON')
+        if 'limit' in _dict:
+            args['limit'] = _dict.get('limit')
+        else:
+            raise ValueError('Required property \'limit\' not present in ExplainResultOpts JSON')
+        if 'partition' in _dict:
+            args['partition'] = _dict.get('partition')
+        else:
+            raise ValueError('Required property \'partition\' not present in ExplainResultOpts JSON')
+        if 'r' in _dict:
+            args['r'] = _dict.get('r')
+        else:
+            raise ValueError('Required property \'r\' not present in ExplainResultOpts JSON')
+        if 'skip' in _dict:
+            args['skip'] = _dict.get('skip')
+        else:
+            raise ValueError('Required property \'skip\' not present in ExplainResultOpts JSON')
+        if 'sort' in _dict:
+            args['sort'] = _dict.get('sort')
+        else:
+            raise ValueError('Required property \'sort\' not present in ExplainResultOpts JSON')
+        if 'stable' in _dict:
+            args['stable'] = _dict.get('stable')
+        else:
+            raise ValueError('Required property \'stable\' not present in ExplainResultOpts JSON')
+        if 'stale' in _dict:
+            args['stale'] = _dict.get('stale')
+        else:
+            raise ValueError('Required property \'stale\' not present in ExplainResultOpts JSON')
+        if 'update' in _dict:
+            args['update'] = _dict.get('update')
+        else:
+            raise ValueError('Required property \'update\' not present in ExplainResultOpts JSON')
+        if 'use_index' in _dict:
+            args['use_index'] = _dict.get('use_index')
+        else:
+            raise ValueError('Required property \'use_index\' not present in ExplainResultOpts JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ExplainResultOpts object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'bookmark') and self.bookmark is not None:
+            _dict['bookmark'] = self.bookmark
+        if hasattr(self, 'conflicts') and self.conflicts is not None:
+            _dict['conflicts'] = self.conflicts
+        if hasattr(self, 'execution_stats') and self.execution_stats is not None:
+            _dict['execution_stats'] = self.execution_stats
+        if hasattr(self, 'fields') and self.fields is not None:
+            _dict['fields'] = self.fields
+        if hasattr(self, 'limit') and self.limit is not None:
+            _dict['limit'] = self.limit
+        if hasattr(self, 'partition') and self.partition is not None:
+            _dict['partition'] = self.partition
+        if hasattr(self, 'r') and self.r is not None:
+            _dict['r'] = self.r
+        if hasattr(self, 'skip') and self.skip is not None:
+            _dict['skip'] = self.skip
+        if hasattr(self, 'sort') and self.sort is not None:
+            _dict['sort'] = self.sort
+        if hasattr(self, 'stable') and self.stable is not None:
+            _dict['stable'] = self.stable
+        if hasattr(self, 'stale') and self.stale is not None:
+            _dict['stale'] = self.stale
+        if hasattr(self, 'update') and self.update is not None:
+            _dict['update'] = self.update
+        if hasattr(self, 'use_index') and self.use_index is not None:
+            _dict['use_index'] = self.use_index
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ExplainResultOpts object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ExplainResultOpts') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ExplainResultOpts') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
@@ -13066,19 +13536,20 @@ class IndexDefinition:
           field.
           There are two core types of operators in the selector syntax:
           * Combination operators: applied at the topmost level of selection. They are
-          used to combine selectors. In addition to the common boolean operators (`$and`,
-          `$or`, `$not`, `$nor`) there are three combination operators: `$all`,
-          `$elemMatch`, and `$allMatch`. A combination operator takes a single argument.
-          The argument is either another selector, or an array of selectors.
+          used to combine selectors. A combination operator takes a single argument. The
+          argument is either another selector, or an array of selectors.
           * Condition operators: are specific to a field, and are used to evaluate the
           value stored in that field. For instance, the basic `$eq` operator matches when
-          the specified field contains a value that is equal to the supplied argument.
+          the specified field contains a value that is equal to the supplied argument. See
+          [the Cloudant
+          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list
+          of all available combination and conditional operators.
           * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but
           not `$ne`) can be used as the basis of a query. You should include at least one
           of these in a selector.
           For further reference see
           [selector
-          syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+          syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
     """
 
     def __init__(
@@ -13130,21 +13601,21 @@ class IndexDefinition:
                field.
                There are two core types of operators in the selector syntax:
                * Combination operators: applied at the topmost level of selection. They
-               are used to combine selectors. In addition to the common boolean operators
-               (`$and`, `$or`, `$not`, `$nor`) there are three combination operators:
-               `$all`, `$elemMatch`, and `$allMatch`. A combination operator takes a
-               single argument. The argument is either another selector, or an array of
+               are used to combine selectors. A combination operator takes a single
+               argument. The argument is either another selector, or an array of
                selectors.
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument.
+               supplied argument. See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
+               list of all available combination and conditional operators.
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
                For further reference see
                [selector
-               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         """
         self.default_analyzer = default_analyzer
         self.default_field = default_field
@@ -13326,7 +13797,7 @@ class IndexInformation:
     """
     Schema for information about an index.
 
-    :attr str ddoc: Design document ID.
+    :attr str ddoc: Design document ID including a `_design/` prefix.
     :attr IndexDefinition def_: Schema for a `json` or `text` query index
           definition. Indexes of type `text` have additional configuration properties that
           do not apply to `json` indexes, these are:
@@ -13334,6 +13805,7 @@ class IndexInformation:
           whether to index the text in all document fields and what analyzer to use for
           that purpose.
     :attr str name: Index name.
+    :attr bool partitioned: (optional) Indicates if index is partitioned.
     :attr str type: Schema for the type of an index.
     """
 
@@ -13343,11 +13815,13 @@ class IndexInformation:
         def_: 'IndexDefinition',
         name: str,
         type: str,
+        *,
+        partitioned: bool = None,
     ) -> None:
         """
         Initialize a IndexInformation object.
 
-        :param str ddoc: Design document ID.
+        :param str ddoc: Design document ID including a `_design/` prefix.
         :param IndexDefinition def_: Schema for a `json` or `text` query index
                definition. Indexes of type `text` have additional configuration properties
                that do not apply to `json` indexes, these are:
@@ -13356,10 +13830,12 @@ class IndexInformation:
                for that purpose.
         :param str name: Index name.
         :param str type: Schema for the type of an index.
+        :param bool partitioned: (optional) Indicates if index is partitioned.
         """
         self.ddoc = ddoc
         self.def_ = def_
         self.name = name
+        self.partitioned = partitioned
         self.type = type
 
     @classmethod
@@ -13378,6 +13854,8 @@ class IndexInformation:
             args['name'] = _dict.get('name')
         else:
             raise ValueError('Required property \'name\' not present in IndexInformation JSON')
+        if 'partitioned' in _dict:
+            args['partitioned'] = _dict.get('partitioned')
         if 'type' in _dict:
             args['type'] = _dict.get('type')
         else:
@@ -13401,6 +13879,8 @@ class IndexInformation:
                 _dict['def'] = self.def_.to_dict()
         if hasattr(self, 'name') and self.name is not None:
             _dict['name'] = self.name
+        if hasattr(self, 'partitioned') and self.partitioned is not None:
+            _dict['partitioned'] = self.partitioned
         if hasattr(self, 'type') and self.type is not None:
             _dict['type'] = self.type
         return _dict
@@ -14135,6 +14615,154 @@ class PartitionInformationSizes:
         return not self == other
 
 
+class PartitionedIndexesDetailedInformation:
+    """
+    Number of partitioned indexes by type.
+
+    :attr int search: (optional) Number of partitioned indexes of search type.
+    :attr int view: (optional) Number of partitioned indexes of view type.
+    """
+
+    def __init__(
+        self,
+        *,
+        search: int = None,
+        view: int = None,
+    ) -> None:
+        """
+        Initialize a PartitionedIndexesDetailedInformation object.
+
+        :param int search: (optional) Number of partitioned indexes of search type.
+        :param int view: (optional) Number of partitioned indexes of view type.
+        """
+        self.search = search
+        self.view = view
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'PartitionedIndexesDetailedInformation':
+        """Initialize a PartitionedIndexesDetailedInformation object from a json dictionary."""
+        args = {}
+        if 'search' in _dict:
+            args['search'] = _dict.get('search')
+        if 'view' in _dict:
+            args['view'] = _dict.get('view')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a PartitionedIndexesDetailedInformation object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'search') and self.search is not None:
+            _dict['search'] = self.search
+        if hasattr(self, 'view') and self.view is not None:
+            _dict['view'] = self.view
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this PartitionedIndexesDetailedInformation object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'PartitionedIndexesDetailedInformation') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'PartitionedIndexesDetailedInformation') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class PartitionedIndexesInformation:
+    """
+    Information about database's partitioned indexes.
+
+    :attr int count: (optional) Total number of partitioned indexes in the database.
+    :attr PartitionedIndexesDetailedInformation indexes: (optional) Number of
+          partitioned indexes by type.
+    :attr int limit: (optional) Maximum allowed number of partitioned indexes in the
+          database.
+    """
+
+    def __init__(
+        self,
+        *,
+        count: int = None,
+        indexes: 'PartitionedIndexesDetailedInformation' = None,
+        limit: int = None,
+    ) -> None:
+        """
+        Initialize a PartitionedIndexesInformation object.
+
+        :param int count: (optional) Total number of partitioned indexes in the
+               database.
+        :param PartitionedIndexesDetailedInformation indexes: (optional) Number of
+               partitioned indexes by type.
+        :param int limit: (optional) Maximum allowed number of partitioned indexes
+               in the database.
+        """
+        self.count = count
+        self.indexes = indexes
+        self.limit = limit
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'PartitionedIndexesInformation':
+        """Initialize a PartitionedIndexesInformation object from a json dictionary."""
+        args = {}
+        if 'count' in _dict:
+            args['count'] = _dict.get('count')
+        if 'indexes' in _dict:
+            args['indexes'] = PartitionedIndexesDetailedInformation.from_dict(_dict.get('indexes'))
+        if 'limit' in _dict:
+            args['limit'] = _dict.get('limit')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a PartitionedIndexesInformation object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'count') and self.count is not None:
+            _dict['count'] = self.count
+        if hasattr(self, 'indexes') and self.indexes is not None:
+            if isinstance(self.indexes, dict):
+                _dict['indexes'] = self.indexes
+            else:
+                _dict['indexes'] = self.indexes.to_dict()
+        if hasattr(self, 'limit') and self.limit is not None:
+            _dict['limit'] = self.limit
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this PartitionedIndexesInformation object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'PartitionedIndexesInformation') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'PartitionedIndexesInformation') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
 class ReplicationCreateTargetParameters:
     """
     Request parameters to use during target database creation.
@@ -14559,30 +15187,37 @@ class ReplicationDocument:
           field.
           There are two core types of operators in the selector syntax:
           * Combination operators: applied at the topmost level of selection. They are
-          used to combine selectors. In addition to the common boolean operators (`$and`,
-          `$or`, `$not`, `$nor`) there are three combination operators: `$all`,
-          `$elemMatch`, and `$allMatch`. A combination operator takes a single argument.
-          The argument is either another selector, or an array of selectors.
+          used to combine selectors. A combination operator takes a single argument. The
+          argument is either another selector, or an array of selectors.
           * Condition operators: are specific to a field, and are used to evaluate the
           value stored in that field. For instance, the basic `$eq` operator matches when
-          the specified field contains a value that is equal to the supplied argument.
+          the specified field contains a value that is equal to the supplied argument. See
+          [the Cloudant
+          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list
+          of all available combination and conditional operators.
           * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but
           not `$ne`) can be used as the basis of a query. You should include at least one
           of these in a selector.
           For further reference see
           [selector
-          syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+          syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
     :attr str since_seq: (optional) Start the replication at a specific sequence
           value.
     :attr str socket_options: (optional) Replication socket options.
     :attr ReplicationDatabase source: Schema for a replication source or target
           database.
-    :attr str source_proxy: (optional) Address of a (http or socks5 protocol) proxy
-          server through which replication with the source database should occur.
+    :attr str source_proxy: (optional) Deprecated: This setting is forbidden in IBM
+          Cloudant replication documents. This setting may be used with alternative
+          replication mediators.
+          Address of a (http or socks5 protocol) proxy server through which replication
+          with the source database should occur.
     :attr ReplicationDatabase target: Schema for a replication source or target
           database.
-    :attr str target_proxy: (optional) Address of a (http or socks5 protocol) proxy
-          server through which replication with the target database should occur.
+    :attr str target_proxy: (optional) Deprecated: This setting is forbidden in IBM
+          Cloudant replication documents. This setting may be used with alternative
+          replication mediators.
+          Address of a (http or socks5 protocol) proxy server through which replication
+          with the target database should occur.
     :attr bool use_bulk_get: (optional) Specify whether to use _bulk_get for
           fetching documents from the source. If unset, the server configured default will
           be used.
@@ -14708,30 +15343,34 @@ class ReplicationDocument:
                field.
                There are two core types of operators in the selector syntax:
                * Combination operators: applied at the topmost level of selection. They
-               are used to combine selectors. In addition to the common boolean operators
-               (`$and`, `$or`, `$not`, `$nor`) there are three combination operators:
-               `$all`, `$elemMatch`, and `$allMatch`. A combination operator takes a
-               single argument. The argument is either another selector, or an array of
+               are used to combine selectors. A combination operator takes a single
+               argument. The argument is either another selector, or an array of
                selectors.
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument.
+               supplied argument. See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
+               list of all available combination and conditional operators.
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
                For further reference see
                [selector
-               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+               syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str since_seq: (optional) Start the replication at a specific
                sequence value.
         :param str socket_options: (optional) Replication socket options.
-        :param str source_proxy: (optional) Address of a (http or socks5 protocol)
-               proxy server through which replication with the source database should
-               occur.
-        :param str target_proxy: (optional) Address of a (http or socks5 protocol)
-               proxy server through which replication with the target database should
-               occur.
+        :param str source_proxy: (optional) Deprecated: This setting is forbidden
+               in IBM Cloudant replication documents. This setting may be used with
+               alternative replication mediators.
+               Address of a (http or socks5 protocol) proxy server through which
+               replication with the source database should occur.
+        :param str target_proxy: (optional) Deprecated: This setting is forbidden
+               in IBM Cloudant replication documents. This setting may be used with
+               alternative replication mediators.
+               Address of a (http or socks5 protocol) proxy server through which
+               replication with the target database should occur.
         :param bool use_bulk_get: (optional) Specify whether to use _bulk_get for
                fetching documents from the source. If unset, the server configured default
                will be used.
@@ -15241,13 +15880,17 @@ class SchedulerDocument:
     :attr datetime last_updated: Timestamp of last state update.
     :attr str node: (optional) Cluster node where the job is running.
     :attr str source: (optional) Replication source.
-    :attr str source_proxy: (optional) Address of the (http or socks5 protocol)
-          proxy server through which replication with the source database occurs.
+    :attr str source_proxy: (optional) Deprecated: Forbidden in IBM Cloudant
+          mediated replications.
+          Address of the (http or socks5 protocol) proxy server through which replication
+          with the source database occurs.
     :attr datetime start_time: Timestamp of when the replication was started.
     :attr str state: Schema for replication state.
     :attr str target: (optional) Replication target.
-    :attr str target_proxy: (optional) Address of the (http or socks5 protocol)
-          proxy server through which replication with the target database occurs.
+    :attr str target_proxy: (optional) Deprecated: Forbidden in IBM Cloudant
+          mediated replications.
+          Address of the (http or socks5 protocol) proxy server through which replication
+          with the target database occurs.
     """
 
     def __init__(
@@ -15286,13 +15929,15 @@ class SchedulerDocument:
         :param str state: Schema for replication state.
         :param str node: (optional) Cluster node where the job is running.
         :param str source: (optional) Replication source.
-        :param str source_proxy: (optional) Address of the (http or socks5
-               protocol) proxy server through which replication with the source database
-               occurs.
+        :param str source_proxy: (optional) Deprecated: Forbidden in IBM Cloudant
+               mediated replications.
+               Address of the (http or socks5 protocol) proxy server through which
+               replication with the source database occurs.
         :param str target: (optional) Replication target.
-        :param str target_proxy: (optional) Address of the (http or socks5
-               protocol) proxy server through which replication with the target database
-               occurs.
+        :param str target_proxy: (optional) Deprecated: Forbidden in IBM Cloudant
+               mediated replications.
+               Address of the (http or socks5 protocol) proxy server through which
+               replication with the target database occurs.
         """
         self.database = database
         self.doc_id = doc_id
