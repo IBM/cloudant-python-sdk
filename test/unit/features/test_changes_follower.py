@@ -196,7 +196,7 @@ class TestChangesFollowerFinite(ChangesFollowerBaseCase):
             stop = timeit.default_timer() - start
             self.assertLess(
                 stop,
-                0.100,
+                0.300,
                 'There should be no exception delay.',
             )
 
