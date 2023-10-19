@@ -1063,9 +1063,11 @@ class CloudantV1(BaseService):
         :param bool partitioned: (optional) Query parameter to specify whether to
                enable database partitions when creating a database.
         :param int q: (optional) The number of shards in the database. Each shard
-               is a partition of the hash value range. Its value is set by the service.
-               For more information about modifying database configuration, contact IBM
-               Cloudant support.
+               is a partition of the hash value range. Cloudant recommends using the
+               default value for most databases. However, if your database is expected to
+               be larger than 250 GB or have a lot of indexes, you may need to adjust the
+               settings. In these cases, it's best to reach out to IBM Cloudant customer
+               support for guidance on how to meet your specific needs and requirements.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `Ok` object
@@ -10990,7 +10992,8 @@ class DatabaseInformationCluster:
     """
     Schema for database cluster information.
 
-    :attr int n: Schema for the number of replicas of a database in a cluster.
+    :attr int n: Schema for the number of replicas of a database in a cluster. The
+          cluster is using the default value and it cannot be changed by the user.
     :attr int q: Schema for the number of shards in a database. Each shard is a
           partition of the hash value range.
     :attr int r: Read quorum. The number of consistent copies of a document that
@@ -11010,6 +11013,8 @@ class DatabaseInformationCluster:
         Initialize a DatabaseInformationCluster object.
 
         :param int n: Schema for the number of replicas of a database in a cluster.
+               The cluster is using the default value and it cannot be changed by the
+               user.
         :param int q: Schema for the number of shards in a database. Each shard is
                a partition of the hash value range.
         :param int r: Read quorum. The number of consistent copies of a document
@@ -14768,7 +14773,8 @@ class ReplicationCreateTargetParameters:
     Request parameters to use during target database creation.
 
     :attr int n: (optional) Schema for the number of replicas of a database in a
-          cluster.
+          cluster. The cluster is using the default value and it cannot be changed by the
+          user.
     :attr bool partitioned: (optional) Parameter to specify whether to enable
           database partitions when creating the target database.
     :attr int q: (optional) Schema for the number of shards in a database. Each
@@ -14786,7 +14792,8 @@ class ReplicationCreateTargetParameters:
         Initialize a ReplicationCreateTargetParameters object.
 
         :param int n: (optional) Schema for the number of replicas of a database in
-               a cluster.
+               a cluster. The cluster is using the default value and it cannot be changed
+               by the user.
         :param bool partitioned: (optional) Parameter to specify whether to enable
                database partitions when creating the target database.
         :param int q: (optional) Schema for the number of shards in a database.
