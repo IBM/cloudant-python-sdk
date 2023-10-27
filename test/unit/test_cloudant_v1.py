@@ -21,6 +21,7 @@ from datetime import datetime, timezone
 from ibm_cloud_sdk_core.authenticators.no_auth_authenticator import NoAuthAuthenticator
 from ibm_cloud_sdk_core.utils import datetime_to_string, string_to_datetime
 import base64
+import gzip
 import inspect
 import io
 import json
@@ -32,7 +33,6 @@ import requests.models
 import responses
 import tempfile
 import urllib
-import gzip
 from ibmcloudant.cloudant_v1 import *
 
 
@@ -66,8 +66,7 @@ def preprocess_url(operation_path: str):
     # Otherwise, return a regular expression that matches one or more trailing /.
     if re.fullmatch('.*/+', request_url) is None:
         return request_url
-    else:
-        return re.compile(request_url.rstrip('/') + '/+')
+    return re.compile(request_url.rstrip('/') + '/+')
 
 
 ##############################################################################
@@ -331,8 +330,9 @@ class TestPutCapacityThroughputConfiguration:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -599,8 +599,9 @@ class TestPostChanges:
         assert 'style={}'.format(style) in query_string
         assert 'timeout={}'.format(timeout) in query_string
         assert 'view={}'.format(view) in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -651,8 +652,9 @@ class TestPostChanges:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -796,8 +798,9 @@ class TestPostChangesAsStream:
         assert 'style={}'.format(style) in query_string
         assert 'timeout={}'.format(timeout) in query_string
         assert 'view={}'.format(view) in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -854,8 +857,9 @@ class TestPostChangesAsStream:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -1158,8 +1162,9 @@ class TestPostDbsInfo:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -1746,8 +1751,9 @@ class TestPostDocument:
         query_string = responses.calls[0].request.url.split('?', 1)[1]
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'batch={}'.format(batch) in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
 
@@ -1825,8 +1831,9 @@ class TestPostDocument:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 201
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
 
@@ -1973,8 +1980,9 @@ class TestPostAllDocs:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -2111,8 +2119,9 @@ class TestPostAllDocsAsStream:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -2247,8 +2256,9 @@ class TestPostAllDocsQueries:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -2370,8 +2380,9 @@ class TestPostAllDocsQueriesAsStream:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -2523,8 +2534,9 @@ class TestPostBulkDocs:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 201
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -2675,8 +2687,9 @@ class TestPostBulkGet:
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
         assert 'revs={}'.format('true' if revs else 'false') in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -2727,8 +2740,9 @@ class TestPostBulkGet:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -2845,8 +2859,9 @@ class TestPostBulkGetAsMixed:
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
         assert 'revs={}'.format('true' if revs else 'false') in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -2897,8 +2912,9 @@ class TestPostBulkGetAsMixed:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -3015,8 +3031,9 @@ class TestPostBulkGetAsRelated:
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
         assert 'revs={}'.format('true' if revs else 'false') in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -3067,8 +3084,9 @@ class TestPostBulkGetAsRelated:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -3185,8 +3203,9 @@ class TestPostBulkGetAsStream:
         assert 'att_encoding_info={}'.format('true' if att_encoding_info else 'false') in query_string
         assert 'latest={}'.format('true' if latest else 'false') in query_string
         assert 'revs={}'.format('true' if revs else 'false') in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -3243,8 +3262,9 @@ class TestPostBulkGetAsStream:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -4187,8 +4207,9 @@ class TestPutDocument:
         assert 'batch={}'.format(batch) in query_string
         assert 'new_edits={}'.format('true' if new_edits else 'false') in query_string
         assert 'rev={}'.format(rev) in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
 
@@ -4268,8 +4289,9 @@ class TestPutDocument:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 201
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
 
@@ -4930,8 +4952,9 @@ class TestPutDesignDocument:
         assert 'batch={}'.format(batch) in query_string
         assert 'new_edits={}'.format('true' if new_edits else 'false') in query_string
         assert 'rev={}'.format(rev) in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -5045,8 +5068,9 @@ class TestPutDesignDocument:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 201
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -5316,8 +5340,9 @@ class TestPostDesignDocs:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -5398,8 +5423,9 @@ class TestPostDesignDocs:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -5530,8 +5556,9 @@ class TestPostDesignDocsQueries:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -5592,8 +5619,9 @@ class TestPostDesignDocsQueries:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -5780,8 +5808,9 @@ class TestPostView:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -5954,8 +5983,9 @@ class TestPostViewAsStream:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -6119,8 +6149,9 @@ class TestPostViewQueries:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -6264,8 +6295,9 @@ class TestPostViewQueriesAsStream:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -6538,8 +6570,9 @@ class TestPostPartitionAllDocs:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -6680,8 +6713,9 @@ class TestPostPartitionAllDocsAsStream:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -6830,8 +6864,9 @@ class TestPostPartitionSearch:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -6977,8 +7012,9 @@ class TestPostPartitionSearchAsStream:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -7144,8 +7180,9 @@ class TestPostPartitionView:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -7318,8 +7355,9 @@ class TestPostPartitionViewAsStream:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -7478,8 +7516,9 @@ class TestPostPartitionExplain:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -7613,8 +7652,9 @@ class TestPostPartitionFind:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -7748,8 +7788,9 @@ class TestPostPartitionFindAsStream:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -7928,8 +7969,9 @@ class TestPostExplain:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -8063,8 +8105,9 @@ class TestPostFind:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -8198,8 +8241,9 @@ class TestPostFindAsStream:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -8430,8 +8474,9 @@ class TestPostIndex:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -8685,8 +8730,9 @@ class TestPostSearchAnalyze:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -8815,8 +8861,9 @@ class TestPostSearch:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -8982,8 +9029,9 @@ class TestPostSearchAsStream:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -9896,8 +9944,9 @@ class TestPutReplicationDocument:
         assert 'batch={}'.format(batch) in query_string
         assert 'new_edits={}'.format('true' if new_edits else 'false') in query_string
         assert 'rev={}'.format(rev) in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -10033,8 +10082,9 @@ class TestPutReplicationDocument:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 201
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -10754,8 +10804,9 @@ class TestPutSecurity:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -10904,8 +10955,9 @@ class TestPutCloudantSecurityConfiguration:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -11085,8 +11137,9 @@ class TestPutCorsConfiguration:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -11648,8 +11701,9 @@ class TestPutAttachment:
         query_string = responses.calls[0].request.url.split('?', 1)[1]
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'rev={}'.format(rev) in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
 
@@ -11698,8 +11752,9 @@ class TestPutAttachment:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 201
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
 
@@ -12267,8 +12322,9 @@ class TestPutLocalDocument:
         query_string = responses.calls[0].request.url.split('?', 1)[1]
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'batch={}'.format(batch) in query_string
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
 
@@ -12348,8 +12404,9 @@ class TestPutLocalDocument:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 201
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
 
@@ -12513,8 +12570,9 @@ class TestPostRevsDiff:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
@@ -12956,8 +13014,9 @@ class TestPostActivityTrackerEvents:
         # Check for correct operation
         assert len(responses.calls) == 1
         assert response.status_code == 200
-        # decompress gzip compressed request body
-        responses.calls[0].request.body = gzip.decompress(responses.calls[0].request.body)
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
