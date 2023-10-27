@@ -22,7 +22,7 @@ See: https://cloud.ibm.com/docs/services/Cloudant/
 
 from datetime import datetime
 from enum import Enum
-from typing import BinaryIO, Dict, List, Union
+from typing import BinaryIO, Dict, List, Optional, Union
 import base64
 import json
 import logging
@@ -163,7 +163,7 @@ class CloudantV1(BaseService):
     def get_uuids(
         self,
         *,
-        count: int = None,
+        count: Optional[int] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -306,10 +306,10 @@ class CloudantV1(BaseService):
     def get_db_updates(
         self,
         *,
-        feed: str = None,
-        heartbeat: int = None,
-        timeout: int = None,
-        since: str = None,
+        feed: Optional[str] = None,
+        heartbeat: Optional[int] = None,
+        timeout: Optional[int] = None,
+        since: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -392,24 +392,24 @@ class CloudantV1(BaseService):
         self,
         db: str,
         *,
-        doc_ids: List[str] = None,
-        fields: List[str] = None,
-        selector: dict = None,
-        last_event_id: str = None,
-        att_encoding_info: bool = None,
-        attachments: bool = None,
-        conflicts: bool = None,
-        descending: bool = None,
-        feed: str = None,
-        filter: str = None,
-        heartbeat: int = None,
-        include_docs: bool = None,
-        limit: int = None,
-        seq_interval: int = None,
-        since: str = None,
-        style: str = None,
-        timeout: int = None,
-        view: str = None,
+        doc_ids: Optional[List[str]] = None,
+        fields: Optional[List[str]] = None,
+        selector: Optional[dict] = None,
+        last_event_id: Optional[str] = None,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        feed: Optional[str] = None,
+        filter: Optional[str] = None,
+        heartbeat: Optional[int] = None,
+        include_docs: Optional[bool] = None,
+        limit: Optional[int] = None,
+        seq_interval: Optional[int] = None,
+        since: Optional[str] = None,
+        style: Optional[str] = None,
+        timeout: Optional[int] = None,
+        view: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -596,24 +596,24 @@ class CloudantV1(BaseService):
         self,
         db: str,
         *,
-        doc_ids: List[str] = None,
-        fields: List[str] = None,
-        selector: dict = None,
-        last_event_id: str = None,
-        att_encoding_info: bool = None,
-        attachments: bool = None,
-        conflicts: bool = None,
-        descending: bool = None,
-        feed: str = None,
-        filter: str = None,
-        heartbeat: int = None,
-        include_docs: bool = None,
-        limit: int = None,
-        seq_interval: int = None,
-        since: str = None,
-        style: str = None,
-        timeout: int = None,
-        view: str = None,
+        doc_ids: Optional[List[str]] = None,
+        fields: Optional[List[str]] = None,
+        selector: Optional[dict] = None,
+        last_event_id: Optional[str] = None,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        feed: Optional[str] = None,
+        filter: Optional[str] = None,
+        heartbeat: Optional[int] = None,
+        include_docs: Optional[bool] = None,
+        limit: Optional[int] = None,
+        seq_interval: Optional[int] = None,
+        since: Optional[str] = None,
+        style: Optional[str] = None,
+        timeout: Optional[int] = None,
+        view: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -848,11 +848,11 @@ class CloudantV1(BaseService):
     def get_all_dbs(
         self,
         *,
-        descending: bool = None,
-        end_key: str = None,
-        limit: int = None,
-        skip: int = None,
-        start_key: str = None,
+        descending: Optional[bool] = None,
+        end_key: Optional[str] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        start_key: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -1052,8 +1052,8 @@ class CloudantV1(BaseService):
         self,
         db: str,
         *,
-        partitioned: bool = None,
-        q: int = None,
+        partitioned: Optional[bool] = None,
+        q: Optional[int] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -1116,9 +1116,9 @@ class CloudantV1(BaseService):
         db: str,
         doc_id: str,
         *,
-        if_none_match: str = None,
-        latest: bool = None,
-        rev: str = None,
+        if_none_match: Optional[str] = None,
+        latest: Optional[bool] = None,
+        rev: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -1185,8 +1185,8 @@ class CloudantV1(BaseService):
         db: str,
         document: Union['Document', BinaryIO],
         *,
-        content_type: str = None,
-        batch: str = None,
+        content_type: Optional[str] = None,
+        batch: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -1265,19 +1265,19 @@ class CloudantV1(BaseService):
         self,
         db: str,
         *,
-        att_encoding_info: bool = None,
-        attachments: bool = None,
-        conflicts: bool = None,
-        descending: bool = None,
-        include_docs: bool = None,
-        inclusive_end: bool = None,
-        limit: int = None,
-        skip: int = None,
-        update_seq: bool = None,
-        end_key: str = None,
-        key: str = None,
-        keys: List[str] = None,
-        start_key: str = None,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        include_docs: Optional[bool] = None,
+        inclusive_end: Optional[bool] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        update_seq: Optional[bool] = None,
+        end_key: Optional[str] = None,
+        key: Optional[str] = None,
+        keys: Optional[List[str]] = None,
+        start_key: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -1373,19 +1373,19 @@ class CloudantV1(BaseService):
         self,
         db: str,
         *,
-        att_encoding_info: bool = None,
-        attachments: bool = None,
-        conflicts: bool = None,
-        descending: bool = None,
-        include_docs: bool = None,
-        inclusive_end: bool = None,
-        limit: int = None,
-        skip: int = None,
-        update_seq: bool = None,
-        end_key: str = None,
-        key: str = None,
-        keys: List[str] = None,
-        start_key: str = None,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        include_docs: Optional[bool] = None,
+        inclusive_end: Optional[bool] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        update_seq: Optional[bool] = None,
+        end_key: Optional[str] = None,
+        key: Optional[str] = None,
+        keys: Optional[List[str]] = None,
+        start_key: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -1670,10 +1670,10 @@ class CloudantV1(BaseService):
         db: str,
         docs: List['BulkGetQueryDocument'],
         *,
-        attachments: bool = None,
-        att_encoding_info: bool = None,
-        latest: bool = None,
-        revs: bool = None,
+        attachments: Optional[bool] = None,
+        att_encoding_info: Optional[bool] = None,
+        latest: Optional[bool] = None,
+        revs: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -1751,10 +1751,10 @@ class CloudantV1(BaseService):
         db: str,
         docs: List['BulkGetQueryDocument'],
         *,
-        attachments: bool = None,
-        att_encoding_info: bool = None,
-        latest: bool = None,
-        revs: bool = None,
+        attachments: Optional[bool] = None,
+        att_encoding_info: Optional[bool] = None,
+        latest: Optional[bool] = None,
+        revs: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -1832,10 +1832,10 @@ class CloudantV1(BaseService):
         db: str,
         docs: List['BulkGetQueryDocument'],
         *,
-        attachments: bool = None,
-        att_encoding_info: bool = None,
-        latest: bool = None,
-        revs: bool = None,
+        attachments: Optional[bool] = None,
+        att_encoding_info: Optional[bool] = None,
+        latest: Optional[bool] = None,
+        revs: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -1913,10 +1913,10 @@ class CloudantV1(BaseService):
         db: str,
         docs: List['BulkGetQueryDocument'],
         *,
-        attachments: bool = None,
-        att_encoding_info: bool = None,
-        latest: bool = None,
-        revs: bool = None,
+        attachments: Optional[bool] = None,
+        att_encoding_info: Optional[bool] = None,
+        latest: Optional[bool] = None,
+        revs: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -1994,9 +1994,9 @@ class CloudantV1(BaseService):
         db: str,
         doc_id: str,
         *,
-        if_match: str = None,
-        batch: str = None,
-        rev: str = None,
+        if_match: Optional[str] = None,
+        batch: Optional[str] = None,
+        rev: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -2064,17 +2064,17 @@ class CloudantV1(BaseService):
         db: str,
         doc_id: str,
         *,
-        if_none_match: str = None,
-        attachments: bool = None,
-        att_encoding_info: bool = None,
-        conflicts: bool = None,
-        deleted_conflicts: bool = None,
-        latest: bool = None,
-        local_seq: bool = None,
-        meta: bool = None,
-        rev: str = None,
-        revs: bool = None,
-        revs_info: bool = None,
+        if_none_match: Optional[str] = None,
+        attachments: Optional[bool] = None,
+        att_encoding_info: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        deleted_conflicts: Optional[bool] = None,
+        latest: Optional[bool] = None,
+        local_seq: Optional[bool] = None,
+        meta: Optional[bool] = None,
+        rev: Optional[str] = None,
+        revs: Optional[bool] = None,
+        revs_info: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -2167,17 +2167,17 @@ class CloudantV1(BaseService):
         db: str,
         doc_id: str,
         *,
-        if_none_match: str = None,
-        attachments: bool = None,
-        att_encoding_info: bool = None,
-        conflicts: bool = None,
-        deleted_conflicts: bool = None,
-        latest: bool = None,
-        local_seq: bool = None,
-        meta: bool = None,
-        rev: str = None,
-        revs: bool = None,
-        revs_info: bool = None,
+        if_none_match: Optional[str] = None,
+        attachments: Optional[bool] = None,
+        att_encoding_info: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        deleted_conflicts: Optional[bool] = None,
+        latest: Optional[bool] = None,
+        local_seq: Optional[bool] = None,
+        meta: Optional[bool] = None,
+        rev: Optional[str] = None,
+        revs: Optional[bool] = None,
+        revs_info: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -2270,17 +2270,17 @@ class CloudantV1(BaseService):
         db: str,
         doc_id: str,
         *,
-        if_none_match: str = None,
-        attachments: bool = None,
-        att_encoding_info: bool = None,
-        conflicts: bool = None,
-        deleted_conflicts: bool = None,
-        latest: bool = None,
-        local_seq: bool = None,
-        meta: bool = None,
-        rev: str = None,
-        revs: bool = None,
-        revs_info: bool = None,
+        if_none_match: Optional[str] = None,
+        attachments: Optional[bool] = None,
+        att_encoding_info: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        deleted_conflicts: Optional[bool] = None,
+        latest: Optional[bool] = None,
+        local_seq: Optional[bool] = None,
+        meta: Optional[bool] = None,
+        rev: Optional[str] = None,
+        revs: Optional[bool] = None,
+        revs_info: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -2373,17 +2373,17 @@ class CloudantV1(BaseService):
         db: str,
         doc_id: str,
         *,
-        if_none_match: str = None,
-        attachments: bool = None,
-        att_encoding_info: bool = None,
-        conflicts: bool = None,
-        deleted_conflicts: bool = None,
-        latest: bool = None,
-        local_seq: bool = None,
-        meta: bool = None,
-        rev: str = None,
-        revs: bool = None,
-        revs_info: bool = None,
+        if_none_match: Optional[str] = None,
+        attachments: Optional[bool] = None,
+        att_encoding_info: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        deleted_conflicts: Optional[bool] = None,
+        latest: Optional[bool] = None,
+        local_seq: Optional[bool] = None,
+        meta: Optional[bool] = None,
+        rev: Optional[str] = None,
+        revs: Optional[bool] = None,
+        revs_info: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -2477,11 +2477,11 @@ class CloudantV1(BaseService):
         doc_id: str,
         document: Union['Document', BinaryIO],
         *,
-        content_type: str = None,
-        if_match: str = None,
-        batch: str = None,
-        new_edits: bool = None,
-        rev: str = None,
+        content_type: Optional[str] = None,
+        if_match: Optional[str] = None,
+        batch: Optional[str] = None,
+        new_edits: Optional[bool] = None,
+        rev: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -2574,7 +2574,7 @@ class CloudantV1(BaseService):
         db: str,
         ddoc: str,
         *,
-        if_none_match: str = None,
+        if_none_match: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -2635,9 +2635,9 @@ class CloudantV1(BaseService):
         db: str,
         ddoc: str,
         *,
-        if_match: str = None,
-        batch: str = None,
-        rev: str = None,
+        if_match: Optional[str] = None,
+        batch: Optional[str] = None,
+        rev: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -2707,17 +2707,17 @@ class CloudantV1(BaseService):
         db: str,
         ddoc: str,
         *,
-        if_none_match: str = None,
-        attachments: bool = None,
-        att_encoding_info: bool = None,
-        conflicts: bool = None,
-        deleted_conflicts: bool = None,
-        latest: bool = None,
-        local_seq: bool = None,
-        meta: bool = None,
-        rev: str = None,
-        revs: bool = None,
-        revs_info: bool = None,
+        if_none_match: Optional[str] = None,
+        attachments: Optional[bool] = None,
+        att_encoding_info: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        deleted_conflicts: Optional[bool] = None,
+        latest: Optional[bool] = None,
+        local_seq: Optional[bool] = None,
+        meta: Optional[bool] = None,
+        rev: Optional[str] = None,
+        revs: Optional[bool] = None,
+        revs_info: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -2813,10 +2813,10 @@ class CloudantV1(BaseService):
         ddoc: str,
         design_document: 'DesignDocument',
         *,
-        if_match: str = None,
-        batch: str = None,
-        new_edits: bool = None,
-        rev: str = None,
+        if_match: Optional[str] = None,
+        batch: Optional[str] = None,
+        new_edits: Optional[bool] = None,
+        rev: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -2950,20 +2950,20 @@ class CloudantV1(BaseService):
         self,
         db: str,
         *,
-        att_encoding_info: bool = None,
-        attachments: bool = None,
-        conflicts: bool = None,
-        descending: bool = None,
-        include_docs: bool = None,
-        inclusive_end: bool = None,
-        limit: int = None,
-        skip: int = None,
-        update_seq: bool = None,
-        end_key: str = None,
-        key: str = None,
-        keys: List[str] = None,
-        start_key: str = None,
-        accept: str = None,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        include_docs: Optional[bool] = None,
+        inclusive_end: Optional[bool] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        update_seq: Optional[bool] = None,
+        end_key: Optional[str] = None,
+        key: Optional[str] = None,
+        keys: Optional[List[str]] = None,
+        start_key: Optional[str] = None,
+        accept: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -3063,7 +3063,7 @@ class CloudantV1(BaseService):
         db: str,
         queries: List['AllDocsQuery'],
         *,
-        accept: str = None,
+        accept: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -3135,26 +3135,26 @@ class CloudantV1(BaseService):
         ddoc: str,
         view: str,
         *,
-        att_encoding_info: bool = None,
-        attachments: bool = None,
-        conflicts: bool = None,
-        descending: bool = None,
-        include_docs: bool = None,
-        inclusive_end: bool = None,
-        limit: int = None,
-        skip: int = None,
-        update_seq: bool = None,
-        end_key: object = None,
-        end_key_doc_id: str = None,
-        group: bool = None,
-        group_level: int = None,
-        key: object = None,
-        keys: List[object] = None,
-        reduce: bool = None,
-        stable: bool = None,
-        start_key: object = None,
-        start_key_doc_id: str = None,
-        update: str = None,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        include_docs: Optional[bool] = None,
+        inclusive_end: Optional[bool] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        update_seq: Optional[bool] = None,
+        end_key: Optional[object] = None,
+        end_key_doc_id: Optional[str] = None,
+        group: Optional[bool] = None,
+        group_level: Optional[int] = None,
+        key: Optional[object] = None,
+        keys: Optional[List[object]] = None,
+        reduce: Optional[bool] = None,
+        stable: Optional[bool] = None,
+        start_key: Optional[object] = None,
+        start_key_doc_id: Optional[str] = None,
+        update: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -3300,26 +3300,26 @@ class CloudantV1(BaseService):
         ddoc: str,
         view: str,
         *,
-        att_encoding_info: bool = None,
-        attachments: bool = None,
-        conflicts: bool = None,
-        descending: bool = None,
-        include_docs: bool = None,
-        inclusive_end: bool = None,
-        limit: int = None,
-        skip: int = None,
-        update_seq: bool = None,
-        end_key: object = None,
-        end_key_doc_id: str = None,
-        group: bool = None,
-        group_level: int = None,
-        key: object = None,
-        keys: List[object] = None,
-        reduce: bool = None,
-        stable: bool = None,
-        start_key: object = None,
-        start_key_doc_id: str = None,
-        update: str = None,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        include_docs: Optional[bool] = None,
+        inclusive_end: Optional[bool] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        update_seq: Optional[bool] = None,
+        end_key: Optional[object] = None,
+        end_key_doc_id: Optional[str] = None,
+        group: Optional[bool] = None,
+        group_level: Optional[int] = None,
+        key: Optional[object] = None,
+        keys: Optional[List[object]] = None,
+        reduce: Optional[bool] = None,
+        stable: Optional[bool] = None,
+        start_key: Optional[object] = None,
+        start_key_doc_id: Optional[str] = None,
+        update: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -3662,19 +3662,19 @@ class CloudantV1(BaseService):
         db: str,
         partition_key: str,
         *,
-        att_encoding_info: bool = None,
-        attachments: bool = None,
-        conflicts: bool = None,
-        descending: bool = None,
-        include_docs: bool = None,
-        inclusive_end: bool = None,
-        limit: int = None,
-        skip: int = None,
-        update_seq: bool = None,
-        end_key: str = None,
-        key: str = None,
-        keys: List[str] = None,
-        start_key: str = None,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        include_docs: Optional[bool] = None,
+        inclusive_end: Optional[bool] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        update_seq: Optional[bool] = None,
+        end_key: Optional[str] = None,
+        key: Optional[str] = None,
+        keys: Optional[List[str]] = None,
+        start_key: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -3775,19 +3775,19 @@ class CloudantV1(BaseService):
         db: str,
         partition_key: str,
         *,
-        att_encoding_info: bool = None,
-        attachments: bool = None,
-        conflicts: bool = None,
-        descending: bool = None,
-        include_docs: bool = None,
-        inclusive_end: bool = None,
-        limit: int = None,
-        skip: int = None,
-        update_seq: bool = None,
-        end_key: str = None,
-        key: str = None,
-        keys: List[str] = None,
-        start_key: str = None,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        include_docs: Optional[bool] = None,
+        inclusive_end: Optional[bool] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        update_seq: Optional[bool] = None,
+        end_key: Optional[str] = None,
+        key: Optional[str] = None,
+        keys: Optional[List[str]] = None,
+        start_key: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -3891,17 +3891,17 @@ class CloudantV1(BaseService):
         index: str,
         query: str,
         *,
-        bookmark: str = None,
-        highlight_fields: List[str] = None,
-        highlight_number: int = None,
-        highlight_post_tag: str = None,
-        highlight_pre_tag: str = None,
-        highlight_size: int = None,
-        include_docs: bool = None,
-        include_fields: List[str] = None,
-        limit: int = None,
-        sort: List[str] = None,
-        stale: str = None,
+        bookmark: Optional[str] = None,
+        highlight_fields: Optional[List[str]] = None,
+        highlight_number: Optional[int] = None,
+        highlight_post_tag: Optional[str] = None,
+        highlight_pre_tag: Optional[str] = None,
+        highlight_size: Optional[int] = None,
+        include_docs: Optional[bool] = None,
+        include_fields: Optional[List[str]] = None,
+        limit: Optional[int] = None,
+        sort: Optional[List[str]] = None,
+        stale: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -4022,17 +4022,17 @@ class CloudantV1(BaseService):
         index: str,
         query: str,
         *,
-        bookmark: str = None,
-        highlight_fields: List[str] = None,
-        highlight_number: int = None,
-        highlight_post_tag: str = None,
-        highlight_pre_tag: str = None,
-        highlight_size: int = None,
-        include_docs: bool = None,
-        include_fields: List[str] = None,
-        limit: int = None,
-        sort: List[str] = None,
-        stale: str = None,
+        bookmark: Optional[str] = None,
+        highlight_fields: Optional[List[str]] = None,
+        highlight_number: Optional[int] = None,
+        highlight_post_tag: Optional[str] = None,
+        highlight_pre_tag: Optional[str] = None,
+        highlight_size: Optional[int] = None,
+        include_docs: Optional[bool] = None,
+        include_fields: Optional[List[str]] = None,
+        limit: Optional[int] = None,
+        sort: Optional[List[str]] = None,
+        stale: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -4152,25 +4152,25 @@ class CloudantV1(BaseService):
         ddoc: str,
         view: str,
         *,
-        att_encoding_info: bool = None,
-        attachments: bool = None,
-        conflicts: bool = None,
-        descending: bool = None,
-        include_docs: bool = None,
-        inclusive_end: bool = None,
-        limit: int = None,
-        skip: int = None,
-        update_seq: bool = None,
-        end_key: object = None,
-        end_key_doc_id: str = None,
-        group: bool = None,
-        group_level: int = None,
-        key: object = None,
-        keys: List[object] = None,
-        reduce: bool = None,
-        start_key: object = None,
-        start_key_doc_id: str = None,
-        update: str = None,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        include_docs: Optional[bool] = None,
+        inclusive_end: Optional[bool] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        update_seq: Optional[bool] = None,
+        end_key: Optional[object] = None,
+        end_key_doc_id: Optional[str] = None,
+        group: Optional[bool] = None,
+        group_level: Optional[int] = None,
+        key: Optional[object] = None,
+        keys: Optional[List[object]] = None,
+        reduce: Optional[bool] = None,
+        start_key: Optional[object] = None,
+        start_key_doc_id: Optional[str] = None,
+        update: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -4310,25 +4310,25 @@ class CloudantV1(BaseService):
         ddoc: str,
         view: str,
         *,
-        att_encoding_info: bool = None,
-        attachments: bool = None,
-        conflicts: bool = None,
-        descending: bool = None,
-        include_docs: bool = None,
-        inclusive_end: bool = None,
-        limit: int = None,
-        skip: int = None,
-        update_seq: bool = None,
-        end_key: object = None,
-        end_key_doc_id: str = None,
-        group: bool = None,
-        group_level: int = None,
-        key: object = None,
-        keys: List[object] = None,
-        reduce: bool = None,
-        start_key: object = None,
-        start_key_doc_id: str = None,
-        update: str = None,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        include_docs: Optional[bool] = None,
+        inclusive_end: Optional[bool] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        update_seq: Optional[bool] = None,
+        end_key: Optional[object] = None,
+        end_key_doc_id: Optional[str] = None,
+        group: Optional[bool] = None,
+        group_level: Optional[int] = None,
+        key: Optional[object] = None,
+        keys: Optional[List[object]] = None,
+        reduce: Optional[bool] = None,
+        start_key: Optional[object] = None,
+        start_key_doc_id: Optional[str] = None,
+        update: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -4467,16 +4467,16 @@ class CloudantV1(BaseService):
         partition_key: str,
         selector: dict,
         *,
-        bookmark: str = None,
-        conflicts: bool = None,
-        execution_stats: bool = None,
-        fields: List[str] = None,
-        limit: int = None,
-        skip: int = None,
-        sort: List[dict] = None,
-        stable: bool = None,
-        update: str = None,
-        use_index: List[str] = None,
+        bookmark: Optional[str] = None,
+        conflicts: Optional[bool] = None,
+        execution_stats: Optional[bool] = None,
+        fields: Optional[List[str]] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        sort: Optional[List[dict]] = None,
+        stable: Optional[bool] = None,
+        update: Optional[str] = None,
+        use_index: Optional[List[str]] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -4614,16 +4614,16 @@ class CloudantV1(BaseService):
         partition_key: str,
         selector: dict,
         *,
-        bookmark: str = None,
-        conflicts: bool = None,
-        execution_stats: bool = None,
-        fields: List[str] = None,
-        limit: int = None,
-        skip: int = None,
-        sort: List[dict] = None,
-        stable: bool = None,
-        update: str = None,
-        use_index: List[str] = None,
+        bookmark: Optional[str] = None,
+        conflicts: Optional[bool] = None,
+        execution_stats: Optional[bool] = None,
+        fields: Optional[List[str]] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        sort: Optional[List[dict]] = None,
+        stable: Optional[bool] = None,
+        update: Optional[str] = None,
+        use_index: Optional[List[str]] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -4766,16 +4766,16 @@ class CloudantV1(BaseService):
         partition_key: str,
         selector: dict,
         *,
-        bookmark: str = None,
-        conflicts: bool = None,
-        execution_stats: bool = None,
-        fields: List[str] = None,
-        limit: int = None,
-        skip: int = None,
-        sort: List[dict] = None,
-        stable: bool = None,
-        update: str = None,
-        use_index: List[str] = None,
+        bookmark: Optional[str] = None,
+        conflicts: Optional[bool] = None,
+        execution_stats: Optional[bool] = None,
+        fields: Optional[List[str]] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        sort: Optional[List[dict]] = None,
+        stable: Optional[bool] = None,
+        update: Optional[str] = None,
+        use_index: Optional[List[str]] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -4921,17 +4921,17 @@ class CloudantV1(BaseService):
         db: str,
         selector: dict,
         *,
-        bookmark: str = None,
-        conflicts: bool = None,
-        execution_stats: bool = None,
-        fields: List[str] = None,
-        limit: int = None,
-        skip: int = None,
-        sort: List[dict] = None,
-        stable: bool = None,
-        update: str = None,
-        use_index: List[str] = None,
-        r: int = None,
+        bookmark: Optional[str] = None,
+        conflicts: Optional[bool] = None,
+        execution_stats: Optional[bool] = None,
+        fields: Optional[List[str]] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        sort: Optional[List[dict]] = None,
+        stable: Optional[bool] = None,
+        update: Optional[str] = None,
+        use_index: Optional[List[str]] = None,
+        r: Optional[int] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -5071,17 +5071,17 @@ class CloudantV1(BaseService):
         db: str,
         selector: dict,
         *,
-        bookmark: str = None,
-        conflicts: bool = None,
-        execution_stats: bool = None,
-        fields: List[str] = None,
-        limit: int = None,
-        skip: int = None,
-        sort: List[dict] = None,
-        stable: bool = None,
-        update: str = None,
-        use_index: List[str] = None,
-        r: int = None,
+        bookmark: Optional[str] = None,
+        conflicts: Optional[bool] = None,
+        execution_stats: Optional[bool] = None,
+        fields: Optional[List[str]] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        sort: Optional[List[dict]] = None,
+        stable: Optional[bool] = None,
+        update: Optional[str] = None,
+        use_index: Optional[List[str]] = None,
+        r: Optional[int] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -5227,17 +5227,17 @@ class CloudantV1(BaseService):
         db: str,
         selector: dict,
         *,
-        bookmark: str = None,
-        conflicts: bool = None,
-        execution_stats: bool = None,
-        fields: List[str] = None,
-        limit: int = None,
-        skip: int = None,
-        sort: List[dict] = None,
-        stable: bool = None,
-        update: str = None,
-        use_index: List[str] = None,
-        r: int = None,
+        bookmark: Optional[str] = None,
+        conflicts: Optional[bool] = None,
+        execution_stats: Optional[bool] = None,
+        fields: Optional[List[str]] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        sort: Optional[List[dict]] = None,
+        stable: Optional[bool] = None,
+        update: Optional[str] = None,
+        use_index: Optional[List[str]] = None,
+        r: Optional[int] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -5430,10 +5430,10 @@ class CloudantV1(BaseService):
         db: str,
         index: 'IndexDefinition',
         *,
-        ddoc: str = None,
-        name: str = None,
-        partitioned: bool = None,
-        type: str = None,
+        ddoc: Optional[str] = None,
+        name: Optional[str] = None,
+        partitioned: Optional[bool] = None,
+        type: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -5628,23 +5628,23 @@ class CloudantV1(BaseService):
         index: str,
         query: str,
         *,
-        bookmark: str = None,
-        highlight_fields: List[str] = None,
-        highlight_number: int = None,
-        highlight_post_tag: str = None,
-        highlight_pre_tag: str = None,
-        highlight_size: int = None,
-        include_docs: bool = None,
-        include_fields: List[str] = None,
-        limit: int = None,
-        sort: List[str] = None,
-        stale: str = None,
-        counts: List[str] = None,
-        drilldown: List[List[str]] = None,
-        group_field: str = None,
-        group_limit: int = None,
-        group_sort: List[str] = None,
-        ranges: dict = None,
+        bookmark: Optional[str] = None,
+        highlight_fields: Optional[List[str]] = None,
+        highlight_number: Optional[int] = None,
+        highlight_post_tag: Optional[str] = None,
+        highlight_pre_tag: Optional[str] = None,
+        highlight_size: Optional[int] = None,
+        include_docs: Optional[bool] = None,
+        include_fields: Optional[List[str]] = None,
+        limit: Optional[int] = None,
+        sort: Optional[List[str]] = None,
+        stale: Optional[str] = None,
+        counts: Optional[List[str]] = None,
+        drilldown: Optional[List[List[str]]] = None,
+        group_field: Optional[str] = None,
+        group_limit: Optional[int] = None,
+        group_sort: Optional[List[str]] = None,
+        ranges: Optional[dict] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -5798,23 +5798,23 @@ class CloudantV1(BaseService):
         index: str,
         query: str,
         *,
-        bookmark: str = None,
-        highlight_fields: List[str] = None,
-        highlight_number: int = None,
-        highlight_post_tag: str = None,
-        highlight_pre_tag: str = None,
-        highlight_size: int = None,
-        include_docs: bool = None,
-        include_fields: List[str] = None,
-        limit: int = None,
-        sort: List[str] = None,
-        stale: str = None,
-        counts: List[str] = None,
-        drilldown: List[List[str]] = None,
-        group_field: str = None,
-        group_limit: int = None,
-        group_sort: List[str] = None,
-        ranges: dict = None,
+        bookmark: Optional[str] = None,
+        highlight_fields: Optional[List[str]] = None,
+        highlight_number: Optional[int] = None,
+        highlight_post_tag: Optional[str] = None,
+        highlight_pre_tag: Optional[str] = None,
+        highlight_size: Optional[int] = None,
+        include_docs: Optional[bool] = None,
+        include_fields: Optional[List[str]] = None,
+        limit: Optional[int] = None,
+        sort: Optional[List[str]] = None,
+        stale: Optional[str] = None,
+        counts: Optional[List[str]] = None,
+        drilldown: Optional[List[List[str]]] = None,
+        group_field: Optional[str] = None,
+        group_limit: Optional[int] = None,
+        group_sort: Optional[List[str]] = None,
+        ranges: Optional[dict] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -6023,7 +6023,7 @@ class CloudantV1(BaseService):
         self,
         doc_id: str,
         *,
-        if_none_match: str = None,
+        if_none_match: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -6165,9 +6165,9 @@ class CloudantV1(BaseService):
         self,
         doc_id: str,
         *,
-        if_match: str = None,
-        batch: str = None,
-        rev: str = None,
+        if_match: Optional[str] = None,
+        batch: Optional[str] = None,
+        rev: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -6228,17 +6228,17 @@ class CloudantV1(BaseService):
         self,
         doc_id: str,
         *,
-        if_none_match: str = None,
-        attachments: bool = None,
-        att_encoding_info: bool = None,
-        conflicts: bool = None,
-        deleted_conflicts: bool = None,
-        latest: bool = None,
-        local_seq: bool = None,
-        meta: bool = None,
-        rev: str = None,
-        revs: bool = None,
-        revs_info: bool = None,
+        if_none_match: Optional[str] = None,
+        attachments: Optional[bool] = None,
+        att_encoding_info: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        deleted_conflicts: Optional[bool] = None,
+        latest: Optional[bool] = None,
+        local_seq: Optional[bool] = None,
+        meta: Optional[bool] = None,
+        rev: Optional[str] = None,
+        revs: Optional[bool] = None,
+        revs_info: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -6328,10 +6328,10 @@ class CloudantV1(BaseService):
         doc_id: str,
         replication_document: 'ReplicationDocument',
         *,
-        if_match: str = None,
-        batch: str = None,
-        new_edits: bool = None,
-        rev: str = None,
+        if_match: Optional[str] = None,
+        batch: Optional[str] = None,
+        new_edits: Optional[bool] = None,
+        rev: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -6407,9 +6407,9 @@ class CloudantV1(BaseService):
     def get_scheduler_docs(
         self,
         *,
-        limit: int = None,
-        skip: int = None,
-        states: List[str] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        states: Optional[List[str]] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -6510,8 +6510,8 @@ class CloudantV1(BaseService):
     def get_scheduler_jobs(
         self,
         *,
-        limit: int = None,
-        skip: int = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -6702,10 +6702,10 @@ class CloudantV1(BaseService):
         self,
         db: str,
         *,
-        admins: 'SecurityObject' = None,
-        members: 'SecurityObject' = None,
-        cloudant: dict = None,
-        couchdb_auth_only: bool = None,
+        admins: Optional['SecurityObject'] = None,
+        members: Optional['SecurityObject'] = None,
+        cloudant: Optional[dict] = None,
+        couchdb_auth_only: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -6824,9 +6824,9 @@ class CloudantV1(BaseService):
         db: str,
         cloudant: dict,
         *,
-        admins: 'SecurityObject' = None,
-        members: 'SecurityObject' = None,
-        couchdb_auth_only: bool = None,
+        admins: Optional['SecurityObject'] = None,
+        members: Optional['SecurityObject'] = None,
+        couchdb_auth_only: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -6947,8 +6947,8 @@ class CloudantV1(BaseService):
         self,
         origins: List[str],
         *,
-        allow_credentials: bool = None,
-        enable_cors: bool = None,
+        allow_credentials: Optional[bool] = None,
+        enable_cors: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -7015,9 +7015,9 @@ class CloudantV1(BaseService):
         doc_id: str,
         attachment_name: str,
         *,
-        if_match: str = None,
-        if_none_match: str = None,
-        rev: str = None,
+        if_match: Optional[str] = None,
+        if_none_match: Optional[str] = None,
+        rev: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -7086,9 +7086,9 @@ class CloudantV1(BaseService):
         doc_id: str,
         attachment_name: str,
         *,
-        if_match: str = None,
-        rev: str = None,
-        batch: str = None,
+        if_match: Optional[str] = None,
+        rev: Optional[str] = None,
+        batch: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -7158,10 +7158,10 @@ class CloudantV1(BaseService):
         doc_id: str,
         attachment_name: str,
         *,
-        if_match: str = None,
-        if_none_match: str = None,
-        range: str = None,
-        rev: str = None,
+        if_match: Optional[str] = None,
+        if_none_match: Optional[str] = None,
+        range: Optional[str] = None,
+        rev: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -7237,8 +7237,8 @@ class CloudantV1(BaseService):
         attachment: BinaryIO,
         content_type: str,
         *,
-        if_match: str = None,
-        rev: str = None,
+        if_match: Optional[str] = None,
+        rev: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -7323,7 +7323,7 @@ class CloudantV1(BaseService):
         db: str,
         doc_id: str,
         *,
-        if_none_match: str = None,
+        if_none_match: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -7378,7 +7378,7 @@ class CloudantV1(BaseService):
         db: str,
         doc_id: str,
         *,
-        batch: str = None,
+        batch: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -7438,11 +7438,11 @@ class CloudantV1(BaseService):
         db: str,
         doc_id: str,
         *,
-        accept: str = None,
-        if_none_match: str = None,
-        attachments: bool = None,
-        att_encoding_info: bool = None,
-        local_seq: bool = None,
+        accept: Optional[str] = None,
+        if_none_match: Optional[str] = None,
+        attachments: Optional[bool] = None,
+        att_encoding_info: Optional[bool] = None,
+        local_seq: Optional[bool] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -7515,8 +7515,8 @@ class CloudantV1(BaseService):
         doc_id: str,
         document: Union['Document', BinaryIO],
         *,
-        content_type: str = None,
-        batch: str = None,
+        content_type: Optional[str] = None,
+        batch: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -8294,70 +8294,70 @@ class ActiveTask:
     """
     Schema for information about a running task.
 
-    :attr int bulk_get_attempts: (optional) The total count of attempted doc
+    :param int bulk_get_attempts: (optional) The total count of attempted doc
           revisions fetched with `_bulk_get`. Available for `replication` type tasks.
-    :attr int bulk_get_docs: (optional) The total count of successful docs fetched
+    :param int bulk_get_docs: (optional) The total count of successful docs fetched
           with `_bulk_get`. Available for `replication` type tasks.
-    :attr int changes_done: (optional) Processed changes. Available for
+    :param int changes_done: (optional) Processed changes. Available for
           `database_compaction`, `indexer`, `search_indexer`, `view_compaction` type
           tasks.
-    :attr int changes_pending: (optional) The count of changes not yet replicated.
+    :param int changes_pending: (optional) The count of changes not yet replicated.
           Available for `replication` type tasks.
-    :attr int checkpoint_interval: (optional) Specifies the checkpoint interval in
+    :param int checkpoint_interval: (optional) Specifies the checkpoint interval in
           ms. Available for `replication` type tasks.
-    :attr str checkpointed_source_seq: (optional) The source sequence id which was
+    :param str checkpointed_source_seq: (optional) The source sequence id which was
           last successfully replicated. Available for `replication` type tasks.
-    :attr bool continuous: (optional) The replication configured to be continuous.
+    :param bool continuous: (optional) The replication configured to be continuous.
           Available for `replication` type tasks.
-    :attr str database: Source database.
-    :attr str design_document: (optional) The design document that belongs to this
+    :param str database: Source database.
+    :param str design_document: (optional) The design document that belongs to this
           task. Available for `indexer`, `search_indexer`, `view_compaction` type tasks.
-    :attr str doc_id: (optional) Replication document ID. Available for
+    :param str doc_id: (optional) Replication document ID. Available for
           `replication` type tasks.
-    :attr int doc_write_failures: (optional) Number of document write failures.
+    :param int doc_write_failures: (optional) Number of document write failures.
           Available for `replication` type tasks.
-    :attr int docs_read: (optional) Number of documents read. Available for
+    :param int docs_read: (optional) Number of documents read. Available for
           `replication` type tasks.
-    :attr int docs_written: (optional) Number of documents written to target.
+    :param int docs_written: (optional) Number of documents written to target.
           Available for `replication` type tasks.
-    :attr str index: (optional) The search index that belongs to this task.
+    :param str index: (optional) The search index that belongs to this task.
           Available for `search_indexer` type tasks.
-    :attr str indexer_pid: (optional) Indexer process ID. Available for `indexer`
+    :param str indexer_pid: (optional) Indexer process ID. Available for `indexer`
           type tasks.
-    :attr int missing_revisions_found: (optional) The count of docs which have been
+    :param int missing_revisions_found: (optional) The count of docs which have been
           read from the source. Available for `replication` type tasks.
-    :attr str node: Cluster node where the task is running.
-    :attr str phase: (optional) The phase the active task is in. `docid_sort`,
+    :param str node: Cluster node where the task is running.
+    :param str phase: (optional) The phase the active task is in. `docid_sort`,
           `docid_copy`, `document_copy` phases are available for `database_compaction`,
           while `ids` and `view` phases are available for `view_compaction` type tasks.
-    :attr str pid: Process ID.
-    :attr str process_status: (optional) Process status.
-    :attr int progress: (optional) Current percentage progress. Available for
+    :param str pid: Process ID.
+    :param str process_status: (optional) Process status.
+    :param int progress: (optional) Current percentage progress. Available for
           `database_compaction`, `indexer`, `search_indexer`, `view_compaction` type
           tasks.
-    :attr str replication_id: (optional) Replication ID. Available for `replication`
-          type tasks.
-    :attr bool retry: (optional) Indicates whether a compaction retry is currently
+    :param str replication_id: (optional) Replication ID. Available for
+          `replication` type tasks.
+    :param bool retry: (optional) Indicates whether a compaction retry is currently
           running on the database. Available for `database_compaction` type tasks.
-    :attr int revisions_checked: (optional) The count of revisions which have been
+    :param int revisions_checked: (optional) The count of revisions which have been
           checked since this replication began. Available for `replication` type tasks.
-    :attr str source: (optional) Replication source. Available for `replication`
+    :param str source: (optional) Replication source. Available for `replication`
           type tasks.
-    :attr str source_seq: (optional) The last sequence number obtained from the
+    :param str source_seq: (optional) The last sequence number obtained from the
           source database changes feed. Available for `replication` type tasks.
-    :attr int started_on: Schema for a Unix epoch timestamp.
-    :attr str target: (optional) Replication target. Available for `replication`
+    :param int started_on: Schema for a Unix epoch timestamp.
+    :param str target: (optional) Replication target. Available for `replication`
           type tasks.
-    :attr str through_seq: (optional) The last sequence number processed by the
+    :param str through_seq: (optional) The last sequence number processed by the
           replicator. Available for `replication` type tasks.
-    :attr int total_changes: (optional) Total changes to process. Available for
+    :param int total_changes: (optional) Total changes to process. Available for
           `database_compaction`, `indexer`, `search_indexer`, `view_compaction` type
           tasks.
-    :attr str type: Operation type.
-    :attr int updated_on: Schema for a Unix epoch timestamp.
-    :attr str user: (optional) Name of user running replication or owning the
+    :param str type: Operation type.
+    :param int updated_on: Schema for a Unix epoch timestamp.
+    :param str user: (optional) Name of user running replication or owning the
           indexer. Available for `indexer`, `replication` type tasks.
-    :attr int view: (optional) Number of view indexes. Available for
+    :param int view: (optional) Number of view indexes. Available for
           `view_compaction` type tasks.
     """
 
@@ -8370,34 +8370,34 @@ class ActiveTask:
         type: str,
         updated_on: int,
         *,
-        bulk_get_attempts: int = None,
-        bulk_get_docs: int = None,
-        changes_done: int = None,
-        changes_pending: int = None,
-        checkpoint_interval: int = None,
-        checkpointed_source_seq: str = None,
-        continuous: bool = None,
-        design_document: str = None,
-        doc_id: str = None,
-        doc_write_failures: int = None,
-        docs_read: int = None,
-        docs_written: int = None,
-        index: str = None,
-        indexer_pid: str = None,
-        missing_revisions_found: int = None,
-        phase: str = None,
-        process_status: str = None,
-        progress: int = None,
-        replication_id: str = None,
-        retry: bool = None,
-        revisions_checked: int = None,
-        source: str = None,
-        source_seq: str = None,
-        target: str = None,
-        through_seq: str = None,
-        total_changes: int = None,
-        user: str = None,
-        view: int = None,
+        bulk_get_attempts: Optional[int] = None,
+        bulk_get_docs: Optional[int] = None,
+        changes_done: Optional[int] = None,
+        changes_pending: Optional[int] = None,
+        checkpoint_interval: Optional[int] = None,
+        checkpointed_source_seq: Optional[str] = None,
+        continuous: Optional[bool] = None,
+        design_document: Optional[str] = None,
+        doc_id: Optional[str] = None,
+        doc_write_failures: Optional[int] = None,
+        docs_read: Optional[int] = None,
+        docs_written: Optional[int] = None,
+        index: Optional[str] = None,
+        indexer_pid: Optional[str] = None,
+        missing_revisions_found: Optional[int] = None,
+        phase: Optional[str] = None,
+        process_status: Optional[str] = None,
+        progress: Optional[int] = None,
+        replication_id: Optional[str] = None,
+        retry: Optional[bool] = None,
+        revisions_checked: Optional[int] = None,
+        source: Optional[str] = None,
+        source_seq: Optional[str] = None,
+        target: Optional[str] = None,
+        through_seq: Optional[str] = None,
+        total_changes: Optional[int] = None,
+        user: Optional[str] = None,
+        view: Optional[int] = None,
     ) -> None:
         """
         Initialize a ActiveTask object.
@@ -8733,7 +8733,7 @@ class ActivityTrackerEvents:
     """
     Schema for Activity Tracker events.
 
-    :attr List[str] types: An array of event types that are being sent to IBM Cloud
+    :param List[str] types: An array of event types that are being sent to IBM Cloud
           Activity Tracker for the IBM Cloudant instance. "management" is a required
           element of this array.
     """
@@ -8805,7 +8805,7 @@ class AllDocsQueriesResult:
     """
     Schema for the result of an all documents queries operation.
 
-    :attr List[AllDocsResult] results: An array of result objects - one for each
+    :param List[AllDocsResult] results: An array of result objects - one for each
           query. Each result object contains the same fields as the response to a regular
           `/_all_docs` request.
     """
@@ -8874,49 +8874,49 @@ class AllDocsQuery:
     """
     Schema for an all documents query operation.
 
-    :attr bool att_encoding_info: (optional) Parameter to specify whether to include
-          the encoding information in attachment stubs if the particular attachment is
-          compressed.
-    :attr bool attachments: (optional) Parameter to specify whether to include
+    :param bool att_encoding_info: (optional) Parameter to specify whether to
+          include the encoding information in attachment stubs if the particular
+          attachment is compressed.
+    :param bool attachments: (optional) Parameter to specify whether to include
           attachments bodies in a response.
-    :attr bool conflicts: (optional) Parameter to specify whether to include a list
+    :param bool conflicts: (optional) Parameter to specify whether to include a list
           of conflicted revisions in each returned document. Active only when
           `include_docs` is `true`.
-    :attr bool descending: (optional) Parameter to specify whether to return the
+    :param bool descending: (optional) Parameter to specify whether to return the
           documents in descending by key order.
-    :attr bool include_docs: (optional) Parameter to specify whether to include the
+    :param bool include_docs: (optional) Parameter to specify whether to include the
           full content of the documents in the response.
-    :attr bool inclusive_end: (optional) Parameter to specify whether the specified
+    :param bool inclusive_end: (optional) Parameter to specify whether the specified
           end key should be included in the result.
-    :attr int limit: (optional) Parameter to specify the number of returned
+    :param int limit: (optional) Parameter to specify the number of returned
           documents to limit the result to.
-    :attr int skip: (optional) Parameter to specify the number of records before
+    :param int skip: (optional) Parameter to specify the number of records before
           starting to return the results.
-    :attr bool update_seq: (optional) Parameter to specify whether to include in the
-          response an update_seq value indicating the sequence id of the database the view
-          reflects.
-    :attr str end_key: (optional) Schema for a document ID.
-    :attr str key: (optional) Schema for a document ID.
-    :attr List[str] keys: (optional) Schema for a list of document IDs.
-    :attr str start_key: (optional) Schema for a document ID.
+    :param bool update_seq: (optional) Parameter to specify whether to include in
+          the response an update_seq value indicating the sequence id of the database the
+          view reflects.
+    :param str end_key: (optional) Schema for a document ID.
+    :param str key: (optional) Schema for a document ID.
+    :param List[str] keys: (optional) Schema for a list of document IDs.
+    :param str start_key: (optional) Schema for a document ID.
     """
 
     def __init__(
         self,
         *,
-        att_encoding_info: bool = None,
-        attachments: bool = None,
-        conflicts: bool = None,
-        descending: bool = None,
-        include_docs: bool = None,
-        inclusive_end: bool = None,
-        limit: int = None,
-        skip: int = None,
-        update_seq: bool = None,
-        end_key: str = None,
-        key: str = None,
-        keys: List[str] = None,
-        start_key: str = None,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        include_docs: Optional[bool] = None,
+        inclusive_end: Optional[bool] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        update_seq: Optional[bool] = None,
+        end_key: Optional[str] = None,
+        key: Optional[str] = None,
+        keys: Optional[List[str]] = None,
+        start_key: Optional[str] = None,
     ) -> None:
         """
         Initialize a AllDocsQuery object.
@@ -9052,9 +9052,9 @@ class AllDocsResult:
     """
     Schema for the result of an all documents operation.
 
-    :attr int total_rows: Number of total rows.
-    :attr List[DocsResultRow] rows: List of doc results.
-    :attr str update_seq: (optional) Current update sequence for the database.
+    :param int total_rows: Number of total rows.
+    :param List[DocsResultRow] rows: List of doc results.
+    :param str update_seq: (optional) Current update sequence for the database.
     """
 
     def __init__(
@@ -9062,7 +9062,7 @@ class AllDocsResult:
         total_rows: int,
         rows: List['DocsResultRow'],
         *,
-        update_seq: str = None,
+        update_seq: Optional[str] = None,
     ) -> None:
         """
         Initialize a AllDocsResult object.
@@ -9136,20 +9136,20 @@ class Analyzer:
     """
     Schema for a full text search analyzer.
 
-    :attr str name: (optional) Schema for the name of the Apache Lucene analyzer to
+    :param str name: (optional) Schema for the name of the Apache Lucene analyzer to
           use for text indexing. The default value varies depending on the analyzer usage:
           * For search indexes the default is `standard` * For query text indexes the
           default is `keyword` * For a query text index default_field the default is
           `standard`.
-    :attr List[str] stopwords: (optional) Custom stopwords to use with the named
+    :param List[str] stopwords: (optional) Custom stopwords to use with the named
           analyzer.
     """
 
     def __init__(
         self,
         *,
-        name: str = None,
-        stopwords: List[str] = None,
+        name: Optional[str] = None,
+        stopwords: Optional[List[str]] = None,
     ) -> None:
         """
         Initialize a Analyzer object.
@@ -9265,23 +9265,23 @@ class AnalyzerConfiguration:
     """
     Schema for a search analyzer configuration.
 
-    :attr str name: (optional) Schema for the name of the Apache Lucene analyzer to
+    :param str name: (optional) Schema for the name of the Apache Lucene analyzer to
           use for text indexing. The default value varies depending on the analyzer usage:
           * For search indexes the default is `standard` * For query text indexes the
           default is `keyword` * For a query text index default_field the default is
           `standard`.
-    :attr List[str] stopwords: (optional) Custom stopwords to use with the named
+    :param List[str] stopwords: (optional) Custom stopwords to use with the named
           analyzer.
-    :attr dict fields: (optional) Schema for mapping a field name to a per field
+    :param dict fields: (optional) Schema for mapping a field name to a per field
           analyzer.
     """
 
     def __init__(
         self,
         *,
-        name: str = None,
-        stopwords: List[str] = None,
-        fields: dict = None,
+        name: Optional[str] = None,
+        stopwords: Optional[List[str]] = None,
+        fields: Optional[dict] = None,
     ) -> None:
         """
         Initialize a AnalyzerConfiguration object.
@@ -9410,9 +9410,9 @@ class ApiKeysResult:
     """
     Schema for api keys.
 
-    :attr bool ok: ok.
-    :attr str key: The generated api key.
-    :attr str password: The password associated with the api key.
+    :param bool ok: ok.
+    :param str key: The generated api key.
+    :param str password: The password associated with the api key.
     """
 
     def __init__(
@@ -9489,42 +9489,42 @@ class Attachment:
     """
     Schema for an attachment.
 
-    :attr str content_type: (optional) Attachment MIME type.
-    :attr bytes data: (optional) Base64-encoded content. Available if attachment
+    :param str content_type: (optional) Attachment MIME type.
+    :param bytes data: (optional) Base64-encoded content. Available if attachment
           content is requested by using the query parameters `attachments=true` or
           `atts_since`. Note that when used with a view or changes feed `include_docs`
           must also be `true`.
-    :attr str digest: (optional) Content hash digest. It starts with prefix which
+    :param str digest: (optional) Content hash digest. It starts with prefix which
           announce hash type (e.g. `md5-`) and continues with Base64-encoded hash digest.
-    :attr int encoded_length: (optional) Compressed attachment size in bytes.
+    :param int encoded_length: (optional) Compressed attachment size in bytes.
           Available if content_type was in list of compressible types when the attachment
           was added and the query parameter `att_encoding_info` is `true`. Note that when
           used with a view or changes feed `include_docs` must also be `true`.
-    :attr str encoding: (optional) Compression codec. Available if content_type was
+    :param str encoding: (optional) Compression codec. Available if content_type was
           in list of compressible types when the attachment was added and the and the
           query parameter `att_encoding_info` is `true`. Note that when used with a view
           or changes feed `include_docs` must also be `true`.
-    :attr bool follows: (optional) True if the attachment follows in a multipart
+    :param bool follows: (optional) True if the attachment follows in a multipart
           request or response.
-    :attr int length: (optional) Real attachment size in bytes. Not available if
+    :param int length: (optional) Real attachment size in bytes. Not available if
           inline attachment content requested.
-    :attr int revpos: (optional) Revision number when attachment was added.
-    :attr bool stub: (optional) Has `true` value if object contains stub info and no
-          content. Otherwise omitted in response.
+    :param int revpos: (optional) Revision number when attachment was added.
+    :param bool stub: (optional) Has `true` value if object contains stub info and
+          no content. Otherwise omitted in response.
     """
 
     def __init__(
         self,
         *,
-        content_type: str = None,
-        data: bytes = None,
-        digest: str = None,
-        encoded_length: int = None,
-        encoding: str = None,
-        follows: bool = None,
-        length: int = None,
-        revpos: int = None,
-        stub: bool = None,
+        content_type: Optional[str] = None,
+        data: Optional[bytes] = None,
+        digest: Optional[str] = None,
+        encoded_length: Optional[int] = None,
+        encoding: Optional[str] = None,
+        follows: Optional[bool] = None,
+        length: Optional[int] = None,
+        revpos: Optional[int] = None,
+        stub: Optional[bool] = None,
     ) -> None:
         """
         Initialize a Attachment object.
@@ -9640,8 +9640,8 @@ class BulkDocs:
     """
     Schema for submitting documents for bulk modifications.
 
-    :attr List[Document] docs: Array of documents.
-    :attr bool new_edits: (optional) If `false`, prevents the database from
+    :param List[Document] docs: Array of documents.
+    :param bool new_edits: (optional) If `false`, prevents the database from
           assigning them new revision IDs. Default is `true`.
     """
 
@@ -9649,7 +9649,7 @@ class BulkDocs:
         self,
         docs: List['Document'],
         *,
-        new_edits: bool = None,
+        new_edits: Optional[bool] = None,
     ) -> None:
         """
         Initialize a BulkDocs object.
@@ -9716,18 +9716,18 @@ class BulkGetQueryDocument:
     """
     Schema for a document item in a bulk get query.
 
-    :attr List[str] atts_since: (optional) Includes attachments only since specified
-          revisions.
-    :attr str id: Schema for a document ID.
-    :attr str rev: (optional) Schema for a document revision identifier.
+    :param List[str] atts_since: (optional) Includes attachments only since
+          specified revisions.
+    :param str id: Schema for a document ID.
+    :param str rev: (optional) Schema for a document revision identifier.
     """
 
     def __init__(
         self,
         id: str,
         *,
-        atts_since: List[str] = None,
-        rev: str = None,
+        atts_since: Optional[List[str]] = None,
+        rev: Optional[str] = None,
     ) -> None:
         """
         Initialize a BulkGetQueryDocument object.
@@ -9794,7 +9794,7 @@ class BulkGetResult:
     """
     Schema for the results object of a bulk get operation.
 
-    :attr List[BulkGetResultItem] results: Results.
+    :param List[BulkGetResultItem] results: Results.
     """
 
     def __init__(
@@ -9860,16 +9860,16 @@ class BulkGetResultDocument:
     Schema for BulkGetResult object containing a successfully retrieved document or error
     information.
 
-    :attr DocumentResult error: (optional) Schema for the result of a document
+    :param DocumentResult error: (optional) Schema for the result of a document
           modification.
-    :attr Document ok: (optional) Schema for a document.
+    :param Document ok: (optional) Schema for a document.
     """
 
     def __init__(
         self,
         *,
-        error: 'DocumentResult' = None,
-        ok: 'Document' = None,
+        error: Optional['DocumentResult'] = None,
+        ok: Optional['Document'] = None,
     ) -> None:
         """
         Initialize a BulkGetResultDocument object.
@@ -9934,9 +9934,9 @@ class BulkGetResultItem:
     """
     Schema for the document revisions information from a bulk get operation.
 
-    :attr List[BulkGetResultDocument] docs: Array of document revisions or error
+    :param List[BulkGetResultDocument] docs: Array of document revisions or error
           information.
-    :attr str id: Schema for a document ID.
+    :param str id: Schema for a document ID.
     """
 
     def __init__(
@@ -10011,9 +10011,9 @@ class CapacityThroughputInformation:
     """
     Schema for information about the currently provisioned and target throughput capacity.
 
-    :attr CapacityThroughputInformationCurrent current: Detailed information about
+    :param CapacityThroughputInformationCurrent current: Detailed information about
           provisioned throughput capacity.
-    :attr CapacityThroughputInformationTarget target: (optional) Detailed
+    :param CapacityThroughputInformationTarget target: (optional) Detailed
           information about target throughput capacity.
     """
 
@@ -10021,7 +10021,7 @@ class CapacityThroughputInformation:
         self,
         current: 'CapacityThroughputInformationCurrent',
         *,
-        target: 'CapacityThroughputInformationTarget' = None,
+        target: Optional['CapacityThroughputInformationTarget'] = None,
     ) -> None:
         """
         Initialize a CapacityThroughputInformation object.
@@ -10089,7 +10089,7 @@ class CapacityThroughputInformationCurrent:
     """
     Detailed information about provisioned throughput capacity.
 
-    :attr ThroughputInformation throughput: Schema for detailed information about
+    :param ThroughputInformation throughput: Schema for detailed information about
           throughput capacity with breakdown by specific throughput requests classes.
     """
 
@@ -10154,7 +10154,7 @@ class CapacityThroughputInformationTarget:
     """
     Detailed information about target throughput capacity.
 
-    :attr ThroughputInformation throughput: Schema for detailed information about
+    :param ThroughputInformation throughput: Schema for detailed information about
           throughput capacity with breakdown by specific throughput requests classes.
     """
 
@@ -10219,7 +10219,7 @@ class Change:
     """
     Schema for a document leaf with single field rev.
 
-    :attr str rev: Schema for a document revision identifier.
+    :param str rev: Schema for a document revision identifier.
     """
 
     def __init__(
@@ -10278,9 +10278,9 @@ class ChangesResult:
     """
     Schema for normal changes feed result.
 
-    :attr str last_seq: last_seq.
-    :attr int pending: pending.
-    :attr List[ChangesResultItem] results: results.
+    :param str last_seq: last_seq.
+    :param int pending: pending.
+    :param List[ChangesResultItem] results: results.
     """
 
     def __init__(
@@ -10363,11 +10363,11 @@ class ChangesResultItem:
     """
     Schema for an item in the changes results array.
 
-    :attr List[Change] changes: List of document's leaves with single field rev.
-    :attr bool deleted: (optional) if `true` then the document is deleted.
-    :attr Document doc: (optional) Schema for a document.
-    :attr str id: Schema for a document ID.
-    :attr str seq: Update sequence.
+    :param List[Change] changes: List of document's leaves with single field rev.
+    :param bool deleted: (optional) if `true` then the document is deleted.
+    :param Document doc: (optional) Schema for a document.
+    :param str id: Schema for a document ID.
+    :param str seq: Update sequence.
     """
 
     def __init__(
@@ -10376,8 +10376,8 @@ class ChangesResultItem:
         id: str,
         seq: str,
         *,
-        deleted: bool = None,
-        doc: 'Document' = None,
+        deleted: Optional[bool] = None,
+        doc: Optional['Document'] = None,
     ) -> None:
         """
         Initialize a ChangesResultItem object.
@@ -10469,9 +10469,9 @@ class ContentInformationSizes:
     """
     Schema for size information of content.
 
-    :attr int active: The active size of the content, in bytes.
-    :attr int external: The total uncompressed size of the content, in bytes.
-    :attr int file: The total size of the content as stored on disk, in bytes.
+    :param int active: The active size of the content, in bytes.
+    :param int external: The total uncompressed size of the content, in bytes.
+    :param int file: The total size of the content as stored on disk, in bytes.
     """
 
     def __init__(
@@ -10548,10 +10548,11 @@ class CorsInformation:
     """
     Schema for information about the CORS configuration.
 
-    :attr bool allow_credentials: Boolean value to allow authentication credentials.
-          If set to true, browser requests must be done by using withCredentials = true.
-    :attr bool enable_cors: Boolean value to turn CORS on and off.
-    :attr List[str] origins: An array of strings that contain allowed origin
+    :param bool allow_credentials: Boolean value to allow authentication
+          credentials. If set to true, browser requests must be done by using
+          withCredentials = true.
+    :param bool enable_cors: Boolean value to turn CORS on and off.
+    :param List[str] origins: An array of strings that contain allowed origin
           domains. You have to specify the full URL including the protocol. It is
           recommended that only the HTTPS protocol is used. Subdomains count as separate
           domains, so you have to specify all subdomains used.
@@ -10636,7 +10637,7 @@ class CurrentThroughputInformation:
     """
     Schema for information about current consumption of a provisioned throughput capacity.
 
-    :attr CurrentThroughputInformationThroughput throughput: Detailed information
+    :param CurrentThroughputInformationThroughput throughput: Detailed information
           about current consumption.
     """
 
@@ -10700,11 +10701,11 @@ class CurrentThroughputInformationThroughput:
     """
     Detailed information about current consumption.
 
-    :attr int query: Number of global queries conducted against the instance for a
+    :param int query: Number of global queries conducted against the instance for a
           given second.
-    :attr int read: Number of reads conducted against the instance for a given
+    :param int read: Number of reads conducted against the instance for a given
           second.
-    :attr int write: Number of writes conducted against the instance for a given
+    :param int write: Number of writes conducted against the instance for a given
           second.
     """
 
@@ -10785,26 +10786,26 @@ class DatabaseInformation:
     """
     Schema for information about a database.
 
-    :attr DatabaseInformationCluster cluster: Schema for database cluster
+    :param DatabaseInformationCluster cluster: Schema for database cluster
           information.
-    :attr str committed_update_seq: (optional) An opaque string that describes the
+    :param str committed_update_seq: (optional) An opaque string that describes the
           committed state of the database.
-    :attr bool compact_running: True if the database compaction routine is operating
-          on this database.
-    :attr str compacted_seq: (optional) An opaque string that describes the
+    :param bool compact_running: True if the database compaction routine is
+          operating on this database.
+    :param str compacted_seq: (optional) An opaque string that describes the
           compaction state of the database.
-    :attr str db_name: The name of the database.
-    :attr int disk_format_version: The version of the physical format used for the
+    :param str db_name: The name of the database.
+    :param int disk_format_version: The version of the physical format used for the
           data when it is stored on disk.
-    :attr int doc_count: A count of the documents in the specified database.
-    :attr int doc_del_count: Number of deleted documents.
-    :attr str engine: (optional) The engine used for the database.
-    :attr DatabaseInformationProps props: Schema for database properties.
-    :attr ContentInformationSizes sizes: Schema for size information of content.
-    :attr str update_seq: An opaque string that describes the state of the database.
-          Do not rely on this string for counting the number of updates.
-    :attr str uuid: (optional) The UUID of the database.
-    :attr PartitionedIndexesInformation partitioned_indexes: (optional) Information
+    :param int doc_count: A count of the documents in the specified database.
+    :param int doc_del_count: Number of deleted documents.
+    :param str engine: (optional) The engine used for the database.
+    :param DatabaseInformationProps props: Schema for database properties.
+    :param ContentInformationSizes sizes: Schema for size information of content.
+    :param str update_seq: An opaque string that describes the state of the
+          database. Do not rely on this string for counting the number of updates.
+    :param str uuid: (optional) The UUID of the database.
+    :param PartitionedIndexesInformation partitioned_indexes: (optional) Information
           about database's partitioned indexes.
     """
 
@@ -10820,11 +10821,11 @@ class DatabaseInformation:
         sizes: 'ContentInformationSizes',
         update_seq: str,
         *,
-        committed_update_seq: str = None,
-        compacted_seq: str = None,
-        engine: str = None,
-        uuid: str = None,
-        partitioned_indexes: 'PartitionedIndexesInformation' = None,
+        committed_update_seq: Optional[str] = None,
+        compacted_seq: Optional[str] = None,
+        engine: Optional[str] = None,
+        uuid: Optional[str] = None,
+        partitioned_indexes: Optional['PartitionedIndexesInformation'] = None,
     ) -> None:
         """
         Initialize a DatabaseInformation object.
@@ -10992,13 +10993,13 @@ class DatabaseInformationCluster:
     """
     Schema for database cluster information.
 
-    :attr int n: Schema for the number of replicas of a database in a cluster. The
+    :param int n: Schema for the number of replicas of a database in a cluster. The
           cluster is using the default value and it cannot be changed by the user.
-    :attr int q: Schema for the number of shards in a database. Each shard is a
+    :param int q: Schema for the number of shards in a database. Each shard is a
           partition of the hash value range.
-    :attr int r: Read quorum. The number of consistent copies of a document that
+    :param int r: Read quorum. The number of consistent copies of a document that
           need to be read before a successful reply.
-    :attr int w: Write quorum. The number of copies of a document that need to be
+    :param int w: Write quorum. The number of copies of a document that need to be
           written before a successful reply.
     """
 
@@ -11090,14 +11091,14 @@ class DatabaseInformationProps:
     """
     Schema for database properties.
 
-    :attr bool partitioned: (optional) The value is `true` for a partitioned
+    :param bool partitioned: (optional) The value is `true` for a partitioned
           database.
     """
 
     def __init__(
         self,
         *,
-        partitioned: bool = None,
+        partitioned: Optional[bool] = None,
     ) -> None:
         """
         Initialize a DatabaseInformationProps object.
@@ -11150,9 +11151,9 @@ class DbEvent:
     """
     Schema for a database change event.
 
-    :attr str db_name: Database name.
-    :attr str seq: Sequence number.
-    :attr str type: A database event.
+    :param str db_name: Database name.
+    :param str seq: Sequence number.
+    :param str type: A database event.
     """
 
     def __init__(
@@ -11239,8 +11240,8 @@ class DbUpdates:
     """
     Schema for database updates.
 
-    :attr str last_seq: Last sequence number.
-    :attr List[DbEvent] results: results.
+    :param str last_seq: Last sequence number.
+    :param List[DbEvent] results: results.
     """
 
     def __init__(
@@ -11314,18 +11315,18 @@ class DbsInfoResult:
     """
     Schema for database information keyed by database name.
 
-    :attr str error: (optional) The name of the error.
-    :attr DatabaseInformation info: (optional) Schema for information about a
+    :param str error: (optional) The name of the error.
+    :param DatabaseInformation info: (optional) Schema for information about a
           database.
-    :attr str key: Database name.
+    :param str key: Database name.
     """
 
     def __init__(
         self,
         key: str,
         *,
-        error: str = None,
-        info: 'DatabaseInformation' = None,
+        error: Optional[str] = None,
+        info: Optional['DatabaseInformation'] = None,
     ) -> None:
         """
         Initialize a DbsInfoResult object.
@@ -11395,23 +11396,24 @@ class DesignDocument:
     """
     Schema for a design document.
 
-    :attr dict attachments: (optional) Schema for a map of attachment name to
+    :param dict attachments: (optional) Schema for a map of attachment name to
           attachment metadata.
-    :attr List[str] conflicts: (optional) Schema for a list of document revision
+    :param List[str] conflicts: (optional) Schema for a list of document revision
           identifiers.
-    :attr bool deleted: (optional) Deletion flag. Available if document was removed.
-    :attr List[str] deleted_conflicts: (optional) Schema for a list of document
+    :param bool deleted: (optional) Deletion flag. Available if document was
+          removed.
+    :param List[str] deleted_conflicts: (optional) Schema for a list of document
           revision identifiers.
-    :attr str id: (optional) Document ID.
-    :attr str local_seq: (optional) Document's update sequence in current database.
+    :param str id: (optional) Document ID.
+    :param str local_seq: (optional) Document's update sequence in current database.
           Available if requested with local_seq=true query parameter.
-    :attr str rev: (optional) Schema for a document revision identifier.
-    :attr Revisions revisions: (optional) Schema for list of revision information.
-    :attr List[DocumentRevisionStatus] revs_info: (optional) Schema for a list of
+    :param str rev: (optional) Schema for a document revision identifier.
+    :param Revisions revisions: (optional) Schema for list of revision information.
+    :param List[DocumentRevisionStatus] revs_info: (optional) Schema for a list of
           objects with information about local revisions and their status.
-    :attr bool autoupdate: (optional) Indicates whether to automatically build
+    :param bool autoupdate: (optional) Indicates whether to automatically build
           indexes defined in this design document.
-    :attr dict filters: (optional) Schema for filter functions definition. This
+    :param dict filters: (optional) Schema for filter functions definition. This
           schema is a map where keys are the names of the filter functions and values are
           the function definition in string format.
           Filter function formats, or filters the changes feed that pass filter rules. The
@@ -11450,12 +11452,12 @@ class DesignDocument:
               * `uuid` - string, generated UUID by a specified algorithm in the
                 config file.
           Filter functions must return true if a document passed all the rules.
-    :attr dict indexes: (optional) Search (text) index function definitions.
-    :attr str language: (optional) Defines Query Server key to process design
+    :param dict indexes: (optional) Search (text) index function definitions.
+    :param str language: (optional) Defines Query Server key to process design
           document functions.
-    :attr DesignDocumentOptions options: (optional) Schema for design document
+    :param DesignDocumentOptions options: (optional) Schema for design document
           options.
-    :attr str validate_doc_update: (optional) Validate document update function can
+    :param str validate_doc_update: (optional) Validate document update function can
           be used to prevent invalid or unauthorized document update requests from being
           stored. Validation functions typically examine the structure of the new document
           to ensure that required fields are present and to verify that the requesting
@@ -11478,7 +11480,7 @@ class DesignDocument:
               user writing the document (if present), see the `UserContext`.
             * `secObj` - Security Object, with lists of database security roles,
               see the `SecurityObject`.
-    :attr dict views: (optional) Schema for design document views.
+    :param dict views: (optional) Schema for design document views.
     """
 
     # The set of defined properties for the class
@@ -11487,22 +11489,22 @@ class DesignDocument:
     def __init__(
         self,
         *,
-        attachments: dict = None,
-        conflicts: List[str] = None,
-        deleted: bool = None,
-        deleted_conflicts: List[str] = None,
-        id: str = None,
-        local_seq: str = None,
-        rev: str = None,
-        revisions: 'Revisions' = None,
-        revs_info: List['DocumentRevisionStatus'] = None,
-        autoupdate: bool = None,
-        filters: dict = None,
-        indexes: dict = None,
-        language: str = None,
-        options: 'DesignDocumentOptions' = None,
-        validate_doc_update: str = None,
-        views: dict = None,
+        attachments: Optional[dict] = None,
+        conflicts: Optional[List[str]] = None,
+        deleted: Optional[bool] = None,
+        deleted_conflicts: Optional[List[str]] = None,
+        id: Optional[str] = None,
+        local_seq: Optional[str] = None,
+        rev: Optional[str] = None,
+        revisions: Optional['Revisions'] = None,
+        revs_info: Optional[List['DocumentRevisionStatus']] = None,
+        autoupdate: Optional[bool] = None,
+        filters: Optional[dict] = None,
+        indexes: Optional[dict] = None,
+        language: Optional[str] = None,
+        options: Optional['DesignDocumentOptions'] = None,
+        validate_doc_update: Optional[str] = None,
+        views: Optional[dict] = None,
         **kwargs,
     ) -> None:
         """
@@ -11769,8 +11771,8 @@ class DesignDocumentInformation:
     """
     Schema for information about a design document.
 
-    :attr str name: name.
-    :attr DesignDocumentViewIndex view_index: View index information.
+    :param str name: name.
+    :param DesignDocumentViewIndex view_index: View index information.
     """
 
     def __init__(
@@ -11841,14 +11843,14 @@ class DesignDocumentOptions:
     """
     Schema for design document options.
 
-    :attr bool partitioned: (optional) Whether this design document describes
+    :param bool partitioned: (optional) Whether this design document describes
           partitioned or global indexes.
     """
 
     def __init__(
         self,
         *,
-        partitioned: bool = None,
+        partitioned: Optional[bool] = None,
     ) -> None:
         """
         Initialize a DesignDocumentOptions object.
@@ -11901,20 +11903,20 @@ class DesignDocumentViewIndex:
     """
     View index information.
 
-    :attr List[str] collator_versions: List of collator versions. If there are
+    :param List[str] collator_versions: List of collator versions. If there are
           multiple entries this implies a libicu upgrade has occurred but compaction has
           not run yet.
-    :attr bool compact_running: Indicates whether a compaction routine is currently
+    :param bool compact_running: Indicates whether a compaction routine is currently
           running on the view.
-    :attr str language: Language for the defined views.
-    :attr str signature: MD5 signature of the views for the design document.
-    :attr ContentInformationSizes sizes: Schema for size information of content.
-    :attr bool updater_running: Indicates if the view is currently being updated.
-    :attr UpdatesPending updates_pending: Schema for an ability to tell if view is
+    :param str language: Language for the defined views.
+    :param str signature: MD5 signature of the views for the design document.
+    :param ContentInformationSizes sizes: Schema for size information of content.
+    :param bool updater_running: Indicates if the view is currently being updated.
+    :param UpdatesPending updates_pending: Schema for an ability to tell if view is
           up-to-date without querying it.
-    :attr int waiting_clients: Number of clients waiting on views from this design
+    :param int waiting_clients: Number of clients waiting on views from this design
           document.
-    :attr bool waiting_commit: Indicates if there are outstanding commits to the
+    :param bool waiting_commit: Indicates if there are outstanding commits to the
           underlying database that need to processed.
     """
 
@@ -12060,15 +12062,15 @@ class DesignDocumentViewsMapReduce:
     """
     Schema for view functions definition.
 
-    :attr str map: JavaScript map function as a string.
-    :attr str reduce: (optional) JavaScript reduce function as a string.
+    :param str map: JavaScript map function as a string.
+    :param str reduce: (optional) JavaScript reduce function as a string.
     """
 
     def __init__(
         self,
         map: str,
         *,
-        reduce: str = None,
+        reduce: Optional[str] = None,
     ) -> None:
         """
         Initialize a DesignDocumentViewsMapReduce object.
@@ -12128,13 +12130,13 @@ class DocsResultRow:
     """
     Schema for a row of document information in a DocsResult.
 
-    :attr str caused_by: (optional) The cause of the error (if available).
-    :attr str error: (optional) The name of the error.
-    :attr str reason: (optional) The reason the error occurred (if available).
-    :attr Document doc: (optional) Schema for a document.
-    :attr str id: (optional) id.
-    :attr str key: Document ID.
-    :attr DocsResultRowValue value: (optional) Value of built-in `/_all_docs` style
+    :param str caused_by: (optional) The cause of the error (if available).
+    :param str error: (optional) The name of the error.
+    :param str reason: (optional) The reason the error occurred (if available).
+    :param Document doc: (optional) Schema for a document.
+    :param str id: (optional) id.
+    :param str key: Document ID.
+    :param DocsResultRowValue value: (optional) Value of built-in `/_all_docs` style
           view.
     """
 
@@ -12142,12 +12144,12 @@ class DocsResultRow:
         self,
         key: str,
         *,
-        caused_by: str = None,
-        error: str = None,
-        reason: str = None,
-        doc: 'Document' = None,
-        id: str = None,
-        value: 'DocsResultRowValue' = None,
+        caused_by: Optional[str] = None,
+        error: Optional[str] = None,
+        reason: Optional[str] = None,
+        doc: Optional['Document'] = None,
+        id: Optional[str] = None,
+        value: Optional['DocsResultRowValue'] = None,
     ) -> None:
         """
         Initialize a DocsResultRow object.
@@ -12244,16 +12246,16 @@ class DocsResultRowValue:
     """
     Value of built-in `/_all_docs` style view.
 
-    :attr bool deleted: (optional) If `true` then the document is deleted. Not
+    :param bool deleted: (optional) If `true` then the document is deleted. Not
           present for undeleted documents.
-    :attr str rev: Schema for a document revision identifier.
+    :param str rev: Schema for a document revision identifier.
     """
 
     def __init__(
         self,
         rev: str,
         *,
-        deleted: bool = None,
+        deleted: Optional[bool] = None,
     ) -> None:
         """
         Initialize a DocsResultRowValue object.
@@ -12314,19 +12316,20 @@ class Document:
     """
     Schema for a document.
 
-    :attr dict attachments: (optional) Schema for a map of attachment name to
+    :param dict attachments: (optional) Schema for a map of attachment name to
           attachment metadata.
-    :attr List[str] conflicts: (optional) Schema for a list of document revision
+    :param List[str] conflicts: (optional) Schema for a list of document revision
           identifiers.
-    :attr bool deleted: (optional) Deletion flag. Available if document was removed.
-    :attr List[str] deleted_conflicts: (optional) Schema for a list of document
+    :param bool deleted: (optional) Deletion flag. Available if document was
+          removed.
+    :param List[str] deleted_conflicts: (optional) Schema for a list of document
           revision identifiers.
-    :attr str id: (optional) Document ID.
-    :attr str local_seq: (optional) Document's update sequence in current database.
+    :param str id: (optional) Document ID.
+    :param str local_seq: (optional) Document's update sequence in current database.
           Available if requested with local_seq=true query parameter.
-    :attr str rev: (optional) Schema for a document revision identifier.
-    :attr Revisions revisions: (optional) Schema for list of revision information.
-    :attr List[DocumentRevisionStatus] revs_info: (optional) Schema for a list of
+    :param str rev: (optional) Schema for a document revision identifier.
+    :param Revisions revisions: (optional) Schema for list of revision information.
+    :param List[DocumentRevisionStatus] revs_info: (optional) Schema for a list of
           objects with information about local revisions and their status.
     """
 
@@ -12336,15 +12339,15 @@ class Document:
     def __init__(
         self,
         *,
-        attachments: dict = None,
-        conflicts: List[str] = None,
-        deleted: bool = None,
-        deleted_conflicts: List[str] = None,
-        id: str = None,
-        local_seq: str = None,
-        rev: str = None,
-        revisions: 'Revisions' = None,
-        revs_info: List['DocumentRevisionStatus'] = None,
+        attachments: Optional[dict] = None,
+        conflicts: Optional[List[str]] = None,
+        deleted: Optional[bool] = None,
+        deleted_conflicts: Optional[List[str]] = None,
+        id: Optional[str] = None,
+        local_seq: Optional[str] = None,
+        rev: Optional[str] = None,
+        revisions: Optional['Revisions'] = None,
+        revs_info: Optional[List['DocumentRevisionStatus']] = None,
         **kwargs,
     ) -> None:
         """
@@ -12490,23 +12493,23 @@ class DocumentResult:
     """
     Schema for the result of a document modification.
 
-    :attr str id: Schema for a document ID.
-    :attr str rev: (optional) Schema for a document revision identifier.
-    :attr bool ok: (optional) ok.
-    :attr str caused_by: (optional) The cause of the error (if available).
-    :attr str error: (optional) The name of the error.
-    :attr str reason: (optional) The reason the error occurred (if available).
+    :param str id: Schema for a document ID.
+    :param str rev: (optional) Schema for a document revision identifier.
+    :param bool ok: (optional) ok.
+    :param str caused_by: (optional) The cause of the error (if available).
+    :param str error: (optional) The name of the error.
+    :param str reason: (optional) The reason the error occurred (if available).
     """
 
     def __init__(
         self,
         id: str,
         *,
-        rev: str = None,
-        ok: bool = None,
-        caused_by: str = None,
-        error: str = None,
-        reason: str = None,
+        rev: Optional[str] = None,
+        ok: Optional[bool] = None,
+        caused_by: Optional[str] = None,
+        error: Optional[str] = None,
+        reason: Optional[str] = None,
     ) -> None:
         """
         Initialize a DocumentResult object.
@@ -12590,10 +12593,10 @@ class DocumentRevisionStatus:
     """
     Schema for information about revisions and their status.
 
-    :attr str rev: Schema for a document revision identifier.
-    :attr str status: Status of the revision. May be one of: - `available`: Revision
-          is available for retrieving with rev query parameter - `missing`: Revision is
-          not available - `deleted`: Revision belongs to deleted document.
+    :param str rev: Schema for a document revision identifier.
+    :param str status: Status of the revision. May be one of: - `available`:
+          Revision is available for retrieving with rev query parameter - `missing`:
+          Revision is not available - `deleted`: Revision belongs to deleted document.
     """
 
     def __init__(
@@ -12676,8 +12679,8 @@ class DocumentShardInfo:
     """
     Schema for document shard information.
 
-    :attr List[str] nodes: List of nodes serving a replica of the shard.
-    :attr str range: The shard range in which the document is stored.
+    :param List[str] nodes: List of nodes serving a replica of the shard.
+    :param str range: The shard range in which the document is stored.
     """
 
     def __init__(
@@ -12745,11 +12748,11 @@ class ExecutionStats:
     """
     Schema for find query execution statistics.
 
-    :attr float execution_time_ms: Time to execute the query.
-    :attr int results_returned: Number of results returned.
-    :attr int total_docs_examined: Number of documents fetched from the index.
-    :attr int total_keys_examined: Number of rows scanned in the index.
-    :attr int total_quorum_docs_examined: Number of documents fetched from the
+    :param float execution_time_ms: Time to execute the query.
+    :param int results_returned: Number of results returned.
+    :param int total_docs_examined: Number of documents fetched from the index.
+    :param int total_keys_examined: Number of rows scanned in the index.
+    :param int total_quorum_docs_examined: Number of documents fetched from the
           primary index with the specified read quorum.
     """
 
@@ -12846,19 +12849,19 @@ class ExplainResult:
     """
     Schema for information about the index used for a find query.
 
-    :attr bool covering: When `true`, the query is answered using the index only and
-          no documents are fetched.
-    :attr str dbname: Name of database.
-    :attr List[str] fields: Fields that were requested to be projected from the
+    :param bool covering: When `true`, the query is answered using the index only
+          and no documents are fetched.
+    :param str dbname: Name of database.
+    :param List[str] fields: Fields that were requested to be projected from the
           document. If no fields were requested to be projected this will be empty and all
           fields will be returned.
-    :attr IndexInformation index: Schema for information about an index.
-    :attr int limit: The used maximum number of results returned.
-    :attr ExplainResultMrArgs mrargs: (optional) Arguments passed to the underlying
+    :param IndexInformation index: Schema for information about an index.
+    :param int limit: The used maximum number of results returned.
+    :param ExplainResultMrArgs mrargs: (optional) Arguments passed to the underlying
           view.
-    :attr ExplainResultOpts opts: Options used for the request.
-    :attr object partitioned: (optional) Schema for any JSON type.
-    :attr dict selector: JSON object describing criteria used to select documents.
+    :param ExplainResultOpts opts: Options used for the request.
+    :param object partitioned: (optional) Schema for any JSON type.
+    :param dict selector: JSON object describing criteria used to select documents.
           The selector specifies fields in the document, and provides an expression to
           evaluate with the field content or other data.
           The selector object must:
@@ -12888,7 +12891,7 @@ class ExplainResult:
           For further reference see
           [selector
           syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
-    :attr int skip: Skip parameter used.
+    :param int skip: Skip parameter used.
     """
 
     def __init__(
@@ -12902,8 +12905,8 @@ class ExplainResult:
         selector: dict,
         skip: int,
         *,
-        mrargs: 'ExplainResultMrArgs' = None,
-        partitioned: object = None,
+        mrargs: Optional['ExplainResultMrArgs'] = None,
+        partitioned: Optional[object] = None,
     ) -> None:
         """
         Initialize a ExplainResult object.
@@ -13068,38 +13071,38 @@ class ExplainResultMrArgs:
     """
     Arguments passed to the underlying view.
 
-    :attr object conflicts: (optional) Schema for any JSON type.
-    :attr str direction: (optional) Direction parameter passed to the underlying
+    :param object conflicts: (optional) Schema for any JSON type.
+    :param str direction: (optional) Direction parameter passed to the underlying
           view.
-    :attr object end_key: (optional) Schema for any JSON type.
-    :attr bool include_docs: (optional) A parameter that specifies whether to
+    :param object end_key: (optional) Schema for any JSON type.
+    :param bool include_docs: (optional) A parameter that specifies whether to
           include the full content of the documents in the response in the underlying
           view.
-    :attr str partition: (optional) Partition parameter passed to the underlying
+    :param str partition: (optional) Partition parameter passed to the underlying
           view.
-    :attr bool reduce: (optional) A parameter that specifies returning only
+    :param bool reduce: (optional) A parameter that specifies returning only
           documents that match any of the specified keys in the underlying view.
-    :attr bool stable: (optional) A parameter that specifies whether the view
+    :param bool stable: (optional) A parameter that specifies whether the view
           results should be returned form a "stable" set of shards passed to the
           underlying view.
-    :attr object start_key: (optional) Schema for any JSON type.
-    :attr object update: (optional) Schema for any JSON type.
-    :attr str view_type: (optional) The type of the underlying view.
+    :param object start_key: (optional) Schema for any JSON type.
+    :param object update: (optional) Schema for any JSON type.
+    :param str view_type: (optional) The type of the underlying view.
     """
 
     def __init__(
         self,
         *,
-        conflicts: object = None,
-        direction: str = None,
-        end_key: object = None,
-        include_docs: bool = None,
-        partition: str = None,
-        reduce: bool = None,
-        stable: bool = None,
-        start_key: object = None,
-        update: object = None,
-        view_type: str = None,
+        conflicts: Optional[object] = None,
+        direction: Optional[str] = None,
+        end_key: Optional[object] = None,
+        include_docs: Optional[bool] = None,
+        partition: Optional[str] = None,
+        reduce: Optional[bool] = None,
+        stable: Optional[bool] = None,
+        start_key: Optional[object] = None,
+        update: Optional[object] = None,
+        view_type: Optional[str] = None,
     ) -> None:
         """
         Initialize a ExplainResultMrArgs object.
@@ -13221,22 +13224,22 @@ class ExplainResultOpts:
     """
     Options used for the request.
 
-    :attr str bookmark: Opaque bookmark token used when paginating results.
-    :attr bool conflicts: Conflicts used in the request query.
-    :attr bool execution_stats: Execution statistics used in the request query.
-    :attr List[str] fields: JSON array that uses the field syntax. Use this
+    :param str bookmark: Opaque bookmark token used when paginating results.
+    :param bool conflicts: Conflicts used in the request query.
+    :param bool execution_stats: Execution statistics used in the request query.
+    :param List[str] fields: JSON array that uses the field syntax. Use this
           parameter to specify which fields of a document must be returned. If it is
           omitted or empty, the entire document is returned.
-    :attr int limit: Limit used in the request query.
-    :attr str partition: On which database partition the request was used. If it was
-          not used on a database partition, it returns with `""`.
-    :attr int r: The read quorum that is needed for the result.
-    :attr int skip: Skip used in the request query.
-    :attr object sort: Schema for any JSON type.
-    :attr bool stable: Stable used in the request query.
-    :attr bool stale: Deprecated: Stale used in the request query.
-    :attr bool update: Update used in the request query.
-    :attr List[str] use_index: Use index used in the request query.
+    :param int limit: Limit used in the request query.
+    :param str partition: On which database partition the request was used. If it
+          was not used on a database partition, it returns with `""`.
+    :param int r: The read quorum that is needed for the result.
+    :param int skip: Skip used in the request query.
+    :param object sort: Schema for any JSON type.
+    :param bool stable: Stable used in the request query.
+    :param bool stale: Deprecated: Stale used in the request query.
+    :param bool update: Update used in the request query.
+    :param List[str] use_index: Use index used in the request query.
     """
 
     def __init__(
@@ -13407,11 +13410,11 @@ class FindResult:
     """
     Schema for the result of a query find operation.
 
-    :attr str bookmark: Opaque bookmark token used when paginating results.
-    :attr List[Document] docs: Documents matching the selector.
-    :attr ExecutionStats execution_stats: (optional) Schema for find query execution
-          statistics.
-    :attr str warning: (optional) warning.
+    :param str bookmark: Opaque bookmark token used when paginating results.
+    :param List[Document] docs: Documents matching the selector.
+    :param ExecutionStats execution_stats: (optional) Schema for find query
+          execution statistics.
+    :param str warning: (optional) warning.
     """
 
     def __init__(
@@ -13419,8 +13422,8 @@ class FindResult:
         bookmark: str,
         docs: List['Document'],
         *,
-        execution_stats: 'ExecutionStats' = None,
-        warning: str = None,
+        execution_stats: Optional['ExecutionStats'] = None,
+        warning: Optional[str] = None,
     ) -> None:
         """
         Initialize a FindResult object.
@@ -13507,25 +13510,25 @@ class IndexDefinition:
     * `default_analyzer` - the default text analyzer to use * `default_field` - whether to
     index the text in all document fields and what analyzer to use for that purpose.
 
-    :attr Analyzer default_analyzer: (optional) Schema for a full text search
+    :param Analyzer default_analyzer: (optional) Schema for a full text search
           analyzer.
-    :attr IndexTextOperatorDefaultField default_field: (optional) Schema for the
+    :param IndexTextOperatorDefaultField default_field: (optional) Schema for the
           text index default field configuration. The default field is used to index the
           text of all fields within a document for use with the `$text` operator.
-    :attr List[IndexField] fields: (optional) List of field objects to index.
+    :param List[IndexField] fields: (optional) List of field objects to index.
           Nested fields are also allowed, e.g. `person.name`.
           For "json" type indexes each object is a mapping of field name to sort direction
           (asc or desc).
           For "text" type indexes each object has a `name` property of the field name and
           a `type` property of the field type (string, number, or boolean).
-    :attr bool index_array_lengths: (optional) Whether to scan every document for
+    :param bool index_array_lengths: (optional) Whether to scan every document for
           arrays and store the length for each array found. Set the index_array_lengths
           field to false if:
           * You do not need to know the length of an array. * You do not use the `$size`
           operator. * The documents in your database are complex, or not completely under
           your control. As a result, it is difficult to estimate the impact of the extra
           processing that is needed to determine and store the arrays lengths.
-    :attr dict partial_filter_selector: (optional) JSON object describing criteria
+    :param dict partial_filter_selector: (optional) JSON object describing criteria
           used to select documents. The selector specifies fields in the document, and
           provides an expression to evaluate with the field content or other data.
           The selector object must:
@@ -13560,11 +13563,11 @@ class IndexDefinition:
     def __init__(
         self,
         *,
-        default_analyzer: 'Analyzer' = None,
-        default_field: 'IndexTextOperatorDefaultField' = None,
-        fields: List['IndexField'] = None,
-        index_array_lengths: bool = None,
-        partial_filter_selector: dict = None,
+        default_analyzer: Optional['Analyzer'] = None,
+        default_field: Optional['IndexTextOperatorDefaultField'] = None,
+        fields: Optional[List['IndexField']] = None,
+        index_array_lengths: Optional[bool] = None,
+        partial_filter_selector: Optional[dict] = None,
     ) -> None:
         """
         Initialize a IndexDefinition object.
@@ -13699,8 +13702,8 @@ class IndexField:
     """
     Schema for indexed fields for use with declarative JSON query.
 
-    :attr str name: (optional) Name of the field.
-    :attr str type: (optional) The type of the named field.
+    :param str name: (optional) Name of the field.
+    :param str type: (optional) The type of the named field.
     """
 
     # The set of defined properties for the class
@@ -13709,8 +13712,8 @@ class IndexField:
     def __init__(
         self,
         *,
-        name: str = None,
-        type: str = None,
+        name: Optional[str] = None,
+        type: Optional[str] = None,
         **kwargs,
     ) -> None:
         """
@@ -13802,16 +13805,16 @@ class IndexInformation:
     """
     Schema for information about an index.
 
-    :attr str ddoc: Design document ID including a `_design/` prefix.
-    :attr IndexDefinition def_: Schema for a `json` or `text` query index
+    :param str ddoc: Design document ID including a `_design/` prefix.
+    :param IndexDefinition def_: Schema for a `json` or `text` query index
           definition. Indexes of type `text` have additional configuration properties that
           do not apply to `json` indexes, these are:
           * `default_analyzer` - the default text analyzer to use * `default_field` -
           whether to index the text in all document fields and what analyzer to use for
           that purpose.
-    :attr str name: Index name.
-    :attr bool partitioned: (optional) Indicates if index is partitioned.
-    :attr str type: Schema for the type of an index.
+    :param str name: Index name.
+    :param bool partitioned: (optional) Indicates if index is partitioned.
+    :param str type: Schema for the type of an index.
     """
 
     def __init__(
@@ -13821,7 +13824,7 @@ class IndexInformation:
         name: str,
         type: str,
         *,
-        partitioned: bool = None,
+        partitioned: Optional[bool] = None,
     ) -> None:
         """
         Initialize a IndexInformation object.
@@ -13923,9 +13926,9 @@ class IndexResult:
     """
     Schema for the result of creating an index.
 
-    :attr str id: Id of the design document the index was created in.
-    :attr str name: Name of the index created.
-    :attr str result: Flag to show whether the index was created or one already
+    :param str id: Id of the design document the index was created in.
+    :param str name: Name of the index created.
+    :param str result: Flag to show whether the index was created or one already
           exists.
     """
 
@@ -14014,15 +14017,15 @@ class IndexTextOperatorDefaultField:
     Schema for the text index default field configuration. The default field is used to
     index the text of all fields within a document for use with the `$text` operator.
 
-    :attr Analyzer analyzer: (optional) Schema for a full text search analyzer.
-    :attr bool enabled: (optional) Whether or not the default_field is enabled.
+    :param Analyzer analyzer: (optional) Schema for a full text search analyzer.
+    :param bool enabled: (optional) Whether or not the default_field is enabled.
     """
 
     def __init__(
         self,
         *,
-        analyzer: 'Analyzer' = None,
-        enabled: bool = None,
+        analyzer: Optional['Analyzer'] = None,
+        enabled: Optional[bool] = None,
     ) -> None:
         """
         Initialize a IndexTextOperatorDefaultField object.
@@ -14085,8 +14088,8 @@ class IndexesInformation:
     """
     Schema for information about the indexes in a database.
 
-    :attr int total_rows: Number of total rows.
-    :attr List[IndexInformation] indexes: Indexes.
+    :param int total_rows: Number of total rows.
+    :param List[IndexInformation] indexes: Indexes.
     """
 
     def __init__(
@@ -14160,9 +14163,9 @@ class MembershipInformation:
     """
     Schema for information about known nodes and cluster membership.
 
-    :attr List[str] all_nodes: List of nodes this node knows about, including the
+    :param List[str] all_nodes: List of nodes this node knows about, including the
           ones that are part of the cluster.
-    :attr List[str] cluster_nodes: All cluster nodes.
+    :param List[str] cluster_nodes: All cluster nodes.
     """
 
     def __init__(
@@ -14231,13 +14234,13 @@ class Ok:
     """
     Schema for an OK result.
 
-    :attr bool ok: (optional) ok.
+    :param bool ok: (optional) ok.
     """
 
     def __init__(
         self,
         *,
-        ok: bool = None,
+        ok: Optional[bool] = None,
     ) -> None:
         """
         Initialize a Ok object.
@@ -14289,14 +14292,14 @@ class PartitionInformation:
     """
     Schema for information about a database partition.
 
-    :attr str db_name: The name of the database.
-    :attr int doc_count: A count of the documents in the specified database
+    :param str db_name: The name of the database.
+    :param int doc_count: A count of the documents in the specified database
           partition.
-    :attr int doc_del_count: Number of deleted documents.
-    :attr str partition: The name of the partition in the database.
-    :attr PartitionInformationIndexes partitioned_indexes: (optional) Schema for
+    :param int doc_del_count: Number of deleted documents.
+    :param str partition: The name of the partition in the database.
+    :param PartitionInformationIndexes partitioned_indexes: (optional) Schema for
           information about the partition index count and limit in a database.
-    :attr PartitionInformationSizes sizes: The size of active and external data, in
+    :param PartitionInformationSizes sizes: The size of active and external data, in
           bytes.
     """
 
@@ -14308,7 +14311,7 @@ class PartitionInformation:
         partition: str,
         sizes: 'PartitionInformationSizes',
         *,
-        partitioned_indexes: 'PartitionInformationIndexes' = None,
+        partitioned_indexes: Optional['PartitionInformationIndexes'] = None,
     ) -> None:
         """
         Initialize a PartitionInformation object.
@@ -14409,18 +14412,18 @@ class PartitionInformationIndexes:
     """
     Schema for information about the partition index count and limit in a database.
 
-    :attr int count: (optional) Total count of the partitioned indexes.
-    :attr PartitionInformationIndexesIndexes indexes: (optional) The count breakdown
-          of partitioned indexes.
-    :attr int limit: (optional) The partitioned index limit.
+    :param int count: (optional) Total count of the partitioned indexes.
+    :param PartitionInformationIndexesIndexes indexes: (optional) The count
+          breakdown of partitioned indexes.
+    :param int limit: (optional) The partitioned index limit.
     """
 
     def __init__(
         self,
         *,
-        count: int = None,
-        indexes: 'PartitionInformationIndexesIndexes' = None,
-        limit: int = None,
+        count: Optional[int] = None,
+        indexes: Optional['PartitionInformationIndexesIndexes'] = None,
+        limit: Optional[int] = None,
     ) -> None:
         """
         Initialize a PartitionInformationIndexes object.
@@ -14488,15 +14491,15 @@ class PartitionInformationIndexesIndexes:
     """
     The count breakdown of partitioned indexes.
 
-    :attr int search: (optional) Number of partitioned search indexes.
-    :attr int view: (optional) Number of partitioned view indexes.
+    :param int search: (optional) Number of partitioned search indexes.
+    :param int view: (optional) Number of partitioned view indexes.
     """
 
     def __init__(
         self,
         *,
-        search: int = None,
-        view: int = None,
+        search: Optional[int] = None,
+        view: Optional[int] = None,
     ) -> None:
         """
         Initialize a PartitionInformationIndexesIndexes object.
@@ -14554,17 +14557,17 @@ class PartitionInformationSizes:
     """
     The size of active and external data, in bytes.
 
-    :attr int active: (optional) The size of live data inside the database, in
+    :param int active: (optional) The size of live data inside the database, in
           bytes.
-    :attr int external: (optional) The uncompressed size of database contents in
+    :param int external: (optional) The uncompressed size of database contents in
           bytes.
     """
 
     def __init__(
         self,
         *,
-        active: int = None,
-        external: int = None,
+        active: Optional[int] = None,
+        external: Optional[int] = None,
     ) -> None:
         """
         Initialize a PartitionInformationSizes object.
@@ -14624,15 +14627,15 @@ class PartitionedIndexesDetailedInformation:
     """
     Number of partitioned indexes by type.
 
-    :attr int search: (optional) Number of partitioned indexes of search type.
-    :attr int view: (optional) Number of partitioned indexes of view type.
+    :param int search: (optional) Number of partitioned indexes of search type.
+    :param int view: (optional) Number of partitioned indexes of view type.
     """
 
     def __init__(
         self,
         *,
-        search: int = None,
-        view: int = None,
+        search: Optional[int] = None,
+        view: Optional[int] = None,
     ) -> None:
         """
         Initialize a PartitionedIndexesDetailedInformation object.
@@ -14690,19 +14693,20 @@ class PartitionedIndexesInformation:
     """
     Information about database's partitioned indexes.
 
-    :attr int count: (optional) Total number of partitioned indexes in the database.
-    :attr PartitionedIndexesDetailedInformation indexes: (optional) Number of
-          partitioned indexes by type.
-    :attr int limit: (optional) Maximum allowed number of partitioned indexes in the
+    :param int count: (optional) Total number of partitioned indexes in the
           database.
+    :param PartitionedIndexesDetailedInformation indexes: (optional) Number of
+          partitioned indexes by type.
+    :param int limit: (optional) Maximum allowed number of partitioned indexes in
+          the database.
     """
 
     def __init__(
         self,
         *,
-        count: int = None,
-        indexes: 'PartitionedIndexesDetailedInformation' = None,
-        limit: int = None,
+        count: Optional[int] = None,
+        indexes: Optional['PartitionedIndexesDetailedInformation'] = None,
+        limit: Optional[int] = None,
     ) -> None:
         """
         Initialize a PartitionedIndexesInformation object.
@@ -14772,21 +14776,21 @@ class ReplicationCreateTargetParameters:
     """
     Request parameters to use during target database creation.
 
-    :attr int n: (optional) Schema for the number of replicas of a database in a
+    :param int n: (optional) Schema for the number of replicas of a database in a
           cluster. The cluster is using the default value and it cannot be changed by the
           user.
-    :attr bool partitioned: (optional) Parameter to specify whether to enable
+    :param bool partitioned: (optional) Parameter to specify whether to enable
           database partitions when creating the target database.
-    :attr int q: (optional) Schema for the number of shards in a database. Each
+    :param int q: (optional) Schema for the number of shards in a database. Each
           shard is a partition of the hash value range.
     """
 
     def __init__(
         self,
         *,
-        n: int = None,
-        partitioned: bool = None,
-        q: int = None,
+        n: Optional[int] = None,
+        partitioned: Optional[bool] = None,
+        q: Optional[int] = None,
     ) -> None:
         """
         Initialize a ReplicationCreateTargetParameters object.
@@ -14854,18 +14858,18 @@ class ReplicationDatabase:
     """
     Schema for a replication source or target database.
 
-    :attr ReplicationDatabaseAuth auth: (optional) Schema for replication source or
+    :param ReplicationDatabaseAuth auth: (optional) Schema for replication source or
           target database authentication.
-    :attr dict headers_: (optional) Replication request headers.
-    :attr str url: Replication database URL.
+    :param dict headers_: (optional) Replication request headers.
+    :param str url: Replication database URL.
     """
 
     def __init__(
         self,
         url: str,
         *,
-        auth: 'ReplicationDatabaseAuth' = None,
-        headers_: dict = None,
+        auth: Optional['ReplicationDatabaseAuth'] = None,
+        headers_: Optional[dict] = None,
     ) -> None:
         """
         Initialize a ReplicationDatabase object.
@@ -14935,17 +14939,17 @@ class ReplicationDatabaseAuth:
     """
     Schema for replication source or target database authentication.
 
-    :attr ReplicationDatabaseAuthBasic basic: (optional) Schema for basic
+    :param ReplicationDatabaseAuthBasic basic: (optional) Schema for basic
           authentication of replication source or target database.
-    :attr ReplicationDatabaseAuthIam iam: (optional) Schema for an IAM API key for
+    :param ReplicationDatabaseAuthIam iam: (optional) Schema for an IAM API key for
           replication database authentication.
     """
 
     def __init__(
         self,
         *,
-        basic: 'ReplicationDatabaseAuthBasic' = None,
-        iam: 'ReplicationDatabaseAuthIam' = None,
+        basic: Optional['ReplicationDatabaseAuthBasic'] = None,
+        iam: Optional['ReplicationDatabaseAuthIam'] = None,
     ) -> None:
         """
         Initialize a ReplicationDatabaseAuth object.
@@ -15011,8 +15015,8 @@ class ReplicationDatabaseAuthBasic:
     """
     Schema for basic authentication of replication source or target database.
 
-    :attr str password: The password associated with the username.
-    :attr str username: The username.
+    :param str password: The password associated with the username.
+    :param str username: The username.
     """
 
     def __init__(
@@ -15080,7 +15084,7 @@ class ReplicationDatabaseAuthIam:
     """
     Schema for an IAM API key for replication database authentication.
 
-    :attr str api_key: IAM API key.
+    :param str api_key: IAM API key.
     """
 
     def __init__(
@@ -15140,45 +15144,46 @@ class ReplicationDocument:
     Schema for a replication document. Note that `selector`, `doc_ids`, and `filter` are
     incompatible with each other.
 
-    :attr dict attachments: (optional) Schema for a map of attachment name to
+    :param dict attachments: (optional) Schema for a map of attachment name to
           attachment metadata.
-    :attr List[str] conflicts: (optional) Schema for a list of document revision
+    :param List[str] conflicts: (optional) Schema for a list of document revision
           identifiers.
-    :attr bool deleted: (optional) Deletion flag. Available if document was removed.
-    :attr List[str] deleted_conflicts: (optional) Schema for a list of document
+    :param bool deleted: (optional) Deletion flag. Available if document was
+          removed.
+    :param List[str] deleted_conflicts: (optional) Schema for a list of document
           revision identifiers.
-    :attr str id: (optional) Document ID.
-    :attr str local_seq: (optional) Document's update sequence in current database.
+    :param str id: (optional) Document ID.
+    :param str local_seq: (optional) Document's update sequence in current database.
           Available if requested with local_seq=true query parameter.
-    :attr str rev: (optional) Schema for a document revision identifier.
-    :attr Revisions revisions: (optional) Schema for list of revision information.
-    :attr List[DocumentRevisionStatus] revs_info: (optional) Schema for a list of
+    :param str rev: (optional) Schema for a document revision identifier.
+    :param Revisions revisions: (optional) Schema for list of revision information.
+    :param List[DocumentRevisionStatus] revs_info: (optional) Schema for a list of
           objects with information about local revisions and their status.
-    :attr bool cancel: (optional) Cancels the replication.
-    :attr int checkpoint_interval: (optional) Defines replication checkpoint
+    :param bool cancel: (optional) Cancels the replication.
+    :param int checkpoint_interval: (optional) Defines replication checkpoint
           interval in milliseconds.
-    :attr int connection_timeout: (optional) HTTP connection timeout per
+    :param int connection_timeout: (optional) HTTP connection timeout per
           replication. Even for very fast/reliable networks it might need to be increased
           if a remote database is too busy.
-    :attr bool continuous: (optional) Configure the replication to be continuous.
-    :attr bool create_target: (optional) Creates the target database. Requires
+    :param bool continuous: (optional) Configure the replication to be continuous.
+    :param bool create_target: (optional) Creates the target database. Requires
           administrator privileges on target server.
-    :attr ReplicationCreateTargetParameters create_target_params: (optional) Request
-          parameters to use during target database creation.
-    :attr List[str] doc_ids: (optional) Schema for a list of document IDs.
-    :attr str filter: (optional) The name of a filter function which is defined in a
-          design document in the source database in {ddoc_id}/{filter} format. It
+    :param ReplicationCreateTargetParameters create_target_params: (optional)
+          Request parameters to use during target database creation.
+    :param List[str] doc_ids: (optional) Schema for a list of document IDs.
+    :param str filter: (optional) The name of a filter function which is defined in
+          a design document in the source database in {ddoc_id}/{filter} format. It
           determines which documents get replicated. Using the selector option provides
           performance benefits when compared with using the filter option. Use the
           selector option when possible.
-    :attr int http_connections: (optional) Maximum number of HTTP connections per
+    :param int http_connections: (optional) Maximum number of HTTP connections per
           replication.
-    :attr dict query_params: (optional) Schema for a map of string key value pairs,
+    :param dict query_params: (optional) Schema for a map of string key value pairs,
           such as query parameters.
-    :attr int retries_per_request: (optional) Number of times a replication request
+    :param int retries_per_request: (optional) Number of times a replication request
           is retried. The requests are retried with a doubling exponential backoff
           starting at 0.25 seconds, with a cap at 5 minutes.
-    :attr dict selector: (optional) JSON object describing criteria used to select
+    :param dict selector: (optional) JSON object describing criteria used to select
           documents. The selector specifies fields in the document, and provides an
           expression to evaluate with the field content or other data.
           The selector object must:
@@ -15208,40 +15213,41 @@ class ReplicationDocument:
           For further reference see
           [selector
           syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
-    :attr str since_seq: (optional) Start the replication at a specific sequence
+    :param str since_seq: (optional) Start the replication at a specific sequence
           value.
-    :attr str socket_options: (optional) Replication socket options.
-    :attr ReplicationDatabase source: Schema for a replication source or target
+    :param str socket_options: (optional) Replication socket options.
+    :param ReplicationDatabase source: Schema for a replication source or target
           database.
-    :attr str source_proxy: (optional) Deprecated: This setting is forbidden in IBM
+    :param str source_proxy: (optional) Deprecated: This setting is forbidden in IBM
           Cloudant replication documents. This setting may be used with alternative
           replication mediators.
           Address of a (http or socks5 protocol) proxy server through which replication
           with the source database should occur.
-    :attr ReplicationDatabase target: Schema for a replication source or target
+    :param ReplicationDatabase target: Schema for a replication source or target
           database.
-    :attr str target_proxy: (optional) Deprecated: This setting is forbidden in IBM
+    :param str target_proxy: (optional) Deprecated: This setting is forbidden in IBM
           Cloudant replication documents. This setting may be used with alternative
           replication mediators.
           Address of a (http or socks5 protocol) proxy server through which replication
           with the target database should occur.
-    :attr bool use_bulk_get: (optional) Specify whether to use _bulk_get for
+    :param bool use_bulk_get: (optional) Specify whether to use _bulk_get for
           fetching documents from the source. If unset, the server configured default will
           be used.
-    :attr bool use_checkpoints: (optional) Specify if checkpoints should be saved
+    :param bool use_checkpoints: (optional) Specify if checkpoints should be saved
           during replication. Using checkpoints means a replication can be efficiently
           resumed.
-    :attr UserContext user_ctx: (optional) Schema for the user context of a session.
-    :attr bool winning_revs_only: (optional) Replicate only the winning revisions.
+    :param UserContext user_ctx: (optional) Schema for the user context of a
+          session.
+    :param bool winning_revs_only: (optional) Replicate only the winning revisions.
           Replication with this mode discards conflicting revisions. Replication IDs and
           checkpoints generated by this mode are different to those generated by default,
           so it is possible to first replicate the winning revisions then later backfill
           remaining revisions with a regular replication job.
-    :attr int worker_batch_size: (optional) Controls how many documents are
+    :param int worker_batch_size: (optional) Controls how many documents are
           processed. After each batch a checkpoint is written so this controls how
           frequently checkpointing occurs.
-    :attr int worker_processes: (optional) Controls how many separate processes will
-          read from the changes manager and write to the target. A higher number can
+    :param int worker_processes: (optional) Controls how many separate processes
+          will read from the changes manager and write to the target. A higher number can
           improve throughput.
     """
 
@@ -15253,37 +15259,37 @@ class ReplicationDocument:
         source: 'ReplicationDatabase',
         target: 'ReplicationDatabase',
         *,
-        attachments: dict = None,
-        conflicts: List[str] = None,
-        deleted: bool = None,
-        deleted_conflicts: List[str] = None,
-        id: str = None,
-        local_seq: str = None,
-        rev: str = None,
-        revisions: 'Revisions' = None,
-        revs_info: List['DocumentRevisionStatus'] = None,
-        cancel: bool = None,
-        checkpoint_interval: int = None,
-        connection_timeout: int = None,
-        continuous: bool = None,
-        create_target: bool = None,
-        create_target_params: 'ReplicationCreateTargetParameters' = None,
-        doc_ids: List[str] = None,
-        filter: str = None,
-        http_connections: int = None,
-        query_params: dict = None,
-        retries_per_request: int = None,
-        selector: dict = None,
-        since_seq: str = None,
-        socket_options: str = None,
-        source_proxy: str = None,
-        target_proxy: str = None,
-        use_bulk_get: bool = None,
-        use_checkpoints: bool = None,
-        user_ctx: 'UserContext' = None,
-        winning_revs_only: bool = None,
-        worker_batch_size: int = None,
-        worker_processes: int = None,
+        attachments: Optional[dict] = None,
+        conflicts: Optional[List[str]] = None,
+        deleted: Optional[bool] = None,
+        deleted_conflicts: Optional[List[str]] = None,
+        id: Optional[str] = None,
+        local_seq: Optional[str] = None,
+        rev: Optional[str] = None,
+        revisions: Optional['Revisions'] = None,
+        revs_info: Optional[List['DocumentRevisionStatus']] = None,
+        cancel: Optional[bool] = None,
+        checkpoint_interval: Optional[int] = None,
+        connection_timeout: Optional[int] = None,
+        continuous: Optional[bool] = None,
+        create_target: Optional[bool] = None,
+        create_target_params: Optional['ReplicationCreateTargetParameters'] = None,
+        doc_ids: Optional[List[str]] = None,
+        filter: Optional[str] = None,
+        http_connections: Optional[int] = None,
+        query_params: Optional[dict] = None,
+        retries_per_request: Optional[int] = None,
+        selector: Optional[dict] = None,
+        since_seq: Optional[str] = None,
+        socket_options: Optional[str] = None,
+        source_proxy: Optional[str] = None,
+        target_proxy: Optional[str] = None,
+        use_bulk_get: Optional[bool] = None,
+        use_checkpoints: Optional[bool] = None,
+        user_ctx: Optional['UserContext'] = None,
+        winning_revs_only: Optional[bool] = None,
+        worker_batch_size: Optional[int] = None,
+        worker_processes: Optional[int] = None,
         **kwargs,
     ) -> None:
         """
@@ -15658,9 +15664,9 @@ class Revisions:
     """
     Schema for list of revision information.
 
-    :attr List[str] ids: Array of valid revision IDs, in reverse order (latest
+    :param List[str] ids: Array of valid revision IDs, in reverse order (latest
           first).
-    :attr int start: Prefix number for the latest revision.
+    :param int start: Prefix number for the latest revision.
     """
 
     def __init__(
@@ -15729,16 +15735,16 @@ class RevsDiff:
     """
     Schema for information about missing revs and possible ancestors.
 
-    :attr List[str] missing: (optional) List of missing revisions.
-    :attr List[str] possible_ancestors: (optional) List of possible ancestor
+    :param List[str] missing: (optional) List of missing revisions.
+    :param List[str] possible_ancestors: (optional) List of possible ancestor
           revisions.
     """
 
     def __init__(
         self,
         *,
-        missing: List[str] = None,
-        possible_ancestors: List[str] = None,
+        missing: Optional[List[str]] = None,
+        possible_ancestors: Optional[List[str]] = None,
     ) -> None:
         """
         Initialize a RevsDiff object.
@@ -15797,8 +15803,8 @@ class SchedulerDocsResult:
     """
     Schema for a listing of replication scheduler documents.
 
-    :attr int total_rows: Number of total rows.
-    :attr List[SchedulerDocument] docs: Array of replication scheduler doc objects.
+    :param int total_rows: Number of total rows.
+    :param List[SchedulerDocument] docs: Array of replication scheduler doc objects.
     """
 
     def __init__(
@@ -15873,28 +15879,28 @@ class SchedulerDocument:
     """
     Schema for a replication scheduler document.
 
-    :attr str database: Database where replication document came from.
-    :attr str doc_id: Replication document ID.
-    :attr int error_count: Consecutive errors count. Indicates how many times in a
+    :param str database: Database where replication document came from.
+    :param str doc_id: Replication document ID.
+    :param int error_count: Consecutive errors count. Indicates how many times in a
           row this replication has crashed. Replication will be retried with an
           exponential backoff based on this number. As soon as the replication succeeds
           this count is reset to 0. To can be used to get an idea why a particular
           replication is not making progress.
-    :attr str id: Replication ID, or null if state is completed or failed.
-    :attr SchedulerInfo info: Schema for scheduler document information. A JSON
+    :param str id: Replication ID, or null if state is completed or failed.
+    :param SchedulerInfo info: Schema for scheduler document information. A JSON
           object that may contain additional information about the state. For error states
           this will contain an error field and string value.
-    :attr datetime last_updated: Timestamp of last state update.
-    :attr str node: (optional) Cluster node where the job is running.
-    :attr str source: (optional) Replication source.
-    :attr str source_proxy: (optional) Deprecated: Forbidden in IBM Cloudant
+    :param datetime last_updated: Timestamp of last state update.
+    :param str node: (optional) Cluster node where the job is running.
+    :param str source: (optional) Replication source.
+    :param str source_proxy: (optional) Deprecated: Forbidden in IBM Cloudant
           mediated replications.
           Address of the (http or socks5 protocol) proxy server through which replication
           with the source database occurs.
-    :attr datetime start_time: Timestamp of when the replication was started.
-    :attr str state: Schema for replication state.
-    :attr str target: (optional) Replication target.
-    :attr str target_proxy: (optional) Deprecated: Forbidden in IBM Cloudant
+    :param datetime start_time: Timestamp of when the replication was started.
+    :param str state: Schema for replication state.
+    :param str target: (optional) Replication target.
+    :param str target_proxy: (optional) Deprecated: Forbidden in IBM Cloudant
           mediated replications.
           Address of the (http or socks5 protocol) proxy server through which replication
           with the target database occurs.
@@ -15911,11 +15917,11 @@ class SchedulerDocument:
         start_time: datetime,
         state: str,
         *,
-        node: str = None,
-        source: str = None,
-        source_proxy: str = None,
-        target: str = None,
-        target_proxy: str = None,
+        node: Optional[str] = None,
+        source: Optional[str] = None,
+        source_proxy: Optional[str] = None,
+        target: Optional[str] = None,
+        target_proxy: Optional[str] = None,
     ) -> None:
         """
         Initialize a SchedulerDocument object.
@@ -16086,39 +16092,39 @@ class SchedulerInfo:
     information about the state. For error states this will contain an error field and
     string value.
 
-    :attr int changes_pending: (optional) The count of changes not yet replicated.
-    :attr str checkpointed_source_seq: (optional) The source sequence id which was
+    :param int changes_pending: (optional) The count of changes not yet replicated.
+    :param str checkpointed_source_seq: (optional) The source sequence id which was
           last successfully replicated.
-    :attr int doc_write_failures: (optional) The count of docs which failed to be
+    :param int doc_write_failures: (optional) The count of docs which failed to be
           written to the target.
-    :attr int docs_read: (optional) The count of docs which have been read from the
+    :param int docs_read: (optional) The count of docs which have been read from the
           source.
-    :attr int docs_written: (optional) The count of docs which have been written to
+    :param int docs_written: (optional) The count of docs which have been written to
           the target.
-    :attr str error: (optional) Replication error message.
-    :attr int missing_revisions_found: (optional) The count of revisions which were
+    :param str error: (optional) Replication error message.
+    :param int missing_revisions_found: (optional) The count of revisions which were
           found on the source, but missing from the target.
-    :attr int revisions_checked: (optional) The count of revisions which have been
+    :param int revisions_checked: (optional) The count of revisions which have been
           checked since this replication began.
-    :attr str source_seq: (optional) The last sequence number obtained from the
+    :param str source_seq: (optional) The last sequence number obtained from the
           source database changes feed.
-    :attr str through_seq: (optional) The last sequence number processed by the
+    :param str through_seq: (optional) The last sequence number processed by the
           replicator.
     """
 
     def __init__(
         self,
         *,
-        changes_pending: int = None,
-        checkpointed_source_seq: str = None,
-        doc_write_failures: int = None,
-        docs_read: int = None,
-        docs_written: int = None,
-        error: str = None,
-        missing_revisions_found: int = None,
-        revisions_checked: int = None,
-        source_seq: str = None,
-        through_seq: str = None,
+        changes_pending: Optional[int] = None,
+        checkpointed_source_seq: Optional[str] = None,
+        doc_write_failures: Optional[int] = None,
+        docs_read: Optional[int] = None,
+        docs_written: Optional[int] = None,
+        error: Optional[str] = None,
+        missing_revisions_found: Optional[int] = None,
+        revisions_checked: Optional[int] = None,
+        source_seq: Optional[str] = None,
+        through_seq: Optional[str] = None,
     ) -> None:
         """
         Initialize a SchedulerInfo object.
@@ -16233,20 +16239,20 @@ class SchedulerJob:
     """
     Schema for a replication scheduler job.
 
-    :attr str database: Replication document database.
-    :attr str doc_id: Replication document ID.
-    :attr List[SchedulerJobEvent] history: Timestamped history of events as a list
+    :param str database: Replication document database.
+    :param str doc_id: Replication document ID.
+    :param List[SchedulerJobEvent] history: Timestamped history of events as a list
           of objects.
-    :attr str id: Schema for a replication job id.
-    :attr SchedulerInfo info: Schema for scheduler document information. A JSON
+    :param str id: Schema for a replication job id.
+    :param SchedulerInfo info: Schema for scheduler document information. A JSON
           object that may contain additional information about the state. For error states
           this will contain an error field and string value.
-    :attr str node: Cluster node where the job is running.
-    :attr str pid: Replication process ID.
-    :attr str source: Replication source.
-    :attr datetime start_time: Timestamp of when the replication was started.
-    :attr str target: Replication target.
-    :attr str user: Name of user running replication.
+    :param str node: Cluster node where the job is running.
+    :param str pid: Replication process ID.
+    :param str source: Replication source.
+    :param datetime start_time: Timestamp of when the replication was started.
+    :param str target: Replication target.
+    :param str user: Name of user running replication.
     """
 
     def __init__(
@@ -16407,9 +16413,9 @@ class SchedulerJobEvent:
     """
     Schema for a replication scheduler job event.
 
-    :attr str reason: (optional) Reason for current state of event.
-    :attr datetime timestamp: Timestamp of the event.
-    :attr str type: Type of the event.
+    :param str reason: (optional) Reason for current state of event.
+    :param datetime timestamp: Timestamp of the event.
+    :param str type: Type of the event.
     """
 
     def __init__(
@@ -16417,7 +16423,7 @@ class SchedulerJobEvent:
         timestamp: datetime,
         type: str,
         *,
-        reason: str = None,
+        reason: Optional[str] = None,
     ) -> None:
         """
         Initialize a SchedulerJobEvent object.
@@ -16485,8 +16491,8 @@ class SchedulerJobsResult:
     """
     Schema for a listing of replication scheduler jobs.
 
-    :attr int total_rows: Number of total rows.
-    :attr List[SchedulerJob] jobs: Array of replication job objects.
+    :param int total_rows: Number of total rows.
+    :param List[SchedulerJob] jobs: Array of replication job objects.
     """
 
     def __init__(
@@ -16560,7 +16566,7 @@ class SearchAnalyzeResult:
     """
     Schema for the output of testing search analyzer tokenization.
 
-    :attr List[str] tokens: tokens.
+    :param List[str] tokens: tokens.
     """
 
     def __init__(
@@ -16619,9 +16625,9 @@ class SearchIndexDefinition:
     """
     Schema for a search index definition.
 
-    :attr AnalyzerConfiguration analyzer: (optional) Schema for a search analyzer
+    :param AnalyzerConfiguration analyzer: (optional) Schema for a search analyzer
           configuration.
-    :attr str index: String form of a JavaScript function that is called for each
+    :param str index: String form of a JavaScript function that is called for each
           document in the database. The function takes the document as a parameter,
           extracts some data from it, and then calls the `index` function to index that
           data. The index function takes 2, or optionally 3, parameters.
@@ -16645,7 +16651,7 @@ class SearchIndexDefinition:
         self,
         index: str,
         *,
-        analyzer: 'AnalyzerConfiguration' = None,
+        analyzer: Optional['AnalyzerConfiguration'] = None,
     ) -> None:
         """
         Initialize a SearchIndexDefinition object.
@@ -16727,12 +16733,12 @@ class SearchIndexInfo:
     """
     Schema for metadata information about a search index.
 
-    :attr int committed_seq: The committed sequence identifier.
-    :attr int disk_size: The size of the search index on disk.
-    :attr int doc_count: The count of the number of indexed documents.
-    :attr int doc_del_count: The number of deleted documents.
-    :attr int pending_seq: The pending sequence identifier.
-    :attr str signature: Unique signature of the search index.
+    :param int committed_seq: The committed sequence identifier.
+    :param int disk_size: The size of the search index on disk.
+    :param int doc_count: The count of the number of indexed documents.
+    :param int doc_del_count: The number of deleted documents.
+    :param int pending_seq: The pending sequence identifier.
+    :param str signature: Unique signature of the search index.
     """
 
     def __init__(
@@ -16836,9 +16842,9 @@ class SearchInfoResult:
     """
     Schema for search index information.
 
-    :attr str name: The name of the search index prefixed by the design document ID
+    :param str name: The name of the search index prefixed by the design document ID
           where the index is stored.
-    :attr SearchIndexInfo search_index: Schema for metadata information about a
+    :param SearchIndexInfo search_index: Schema for metadata information about a
           search index.
     """
 
@@ -16912,17 +16918,17 @@ class SearchResult:
     """
     Schema for the result of a query search operation.
 
-    :attr int total_rows: Number of total rows.
-    :attr str bookmark: (optional) Opaque bookmark token used when paginating
+    :param int total_rows: Number of total rows.
+    :param str bookmark: (optional) Opaque bookmark token used when paginating
           results.
-    :attr str by: (optional) Grouped search matches.
-    :attr dict counts: (optional) The counts facet syntax returns the number of
+    :param str by: (optional) Grouped search matches.
+    :param dict counts: (optional) The counts facet syntax returns the number of
           query results for each unique value of each named field.
-    :attr dict ranges: (optional) The range facet syntax reuses the standard Lucene
+    :param dict ranges: (optional) The range facet syntax reuses the standard Lucene
           syntax for ranges to return counts of results that fit into each specified
           category.
-    :attr List[SearchResultRow] rows: (optional) Array of row objects.
-    :attr List[SearchResultProperties] groups: (optional) Array of grouped search
+    :param List[SearchResultRow] rows: (optional) Array of row objects.
+    :param List[SearchResultProperties] groups: (optional) Array of grouped search
           matches.
     """
 
@@ -16930,12 +16936,12 @@ class SearchResult:
         self,
         total_rows: int,
         *,
-        bookmark: str = None,
-        by: str = None,
-        counts: dict = None,
-        ranges: dict = None,
-        rows: List['SearchResultRow'] = None,
-        groups: List['SearchResultProperties'] = None,
+        bookmark: Optional[str] = None,
+        by: Optional[str] = None,
+        counts: Optional[dict] = None,
+        ranges: Optional[dict] = None,
+        rows: Optional[List['SearchResultRow']] = None,
+        groups: Optional[List['SearchResultProperties']] = None,
     ) -> None:
         """
         Initialize a SearchResult object.
@@ -17042,27 +17048,27 @@ class SearchResultProperties:
     """
     Schema for the result of a query search operation.
 
-    :attr int total_rows: Number of total rows.
-    :attr str bookmark: (optional) Opaque bookmark token used when paginating
+    :param int total_rows: Number of total rows.
+    :param str bookmark: (optional) Opaque bookmark token used when paginating
           results.
-    :attr str by: (optional) Grouped search matches.
-    :attr dict counts: (optional) The counts facet syntax returns the number of
+    :param str by: (optional) Grouped search matches.
+    :param dict counts: (optional) The counts facet syntax returns the number of
           query results for each unique value of each named field.
-    :attr dict ranges: (optional) The range facet syntax reuses the standard Lucene
+    :param dict ranges: (optional) The range facet syntax reuses the standard Lucene
           syntax for ranges to return counts of results that fit into each specified
           category.
-    :attr List[SearchResultRow] rows: (optional) Array of row objects.
+    :param List[SearchResultRow] rows: (optional) Array of row objects.
     """
 
     def __init__(
         self,
         total_rows: int,
         *,
-        bookmark: str = None,
-        by: str = None,
-        counts: dict = None,
-        ranges: dict = None,
-        rows: List['SearchResultRow'] = None,
+        bookmark: Optional[str] = None,
+        by: Optional[str] = None,
+        counts: Optional[dict] = None,
+        ranges: Optional[dict] = None,
+        rows: Optional[List['SearchResultRow']] = None,
     ) -> None:
         """
         Initialize a SearchResultProperties object.
@@ -17156,12 +17162,12 @@ class SearchResultRow:
     """
     Schema for a row of the result of a query search operation.
 
-    :attr Document doc: (optional) Schema for a document.
-    :attr dict fields: Schema for the fields returned by a query search operation, a
-          map of field name to value.
-    :attr dict highlights: (optional) Returns the context in which a search term was
-          mentioned so that you can display more emphasized results to a user.
-    :attr str id: Schema for a document ID.
+    :param Document doc: (optional) Schema for a document.
+    :param dict fields: Schema for the fields returned by a query search operation,
+          a map of field name to value.
+    :param dict highlights: (optional) Returns the context in which a search term
+          was mentioned so that you can display more emphasized results to a user.
+    :param str id: Schema for a document ID.
     """
 
     def __init__(
@@ -17169,8 +17175,8 @@ class SearchResultRow:
         fields: dict,
         id: str,
         *,
-        doc: 'Document' = None,
-        highlights: dict = None,
+        doc: Optional['Document'] = None,
+        highlights: Optional[dict] = None,
     ) -> None:
         """
         Initialize a SearchResultRow object.
@@ -17250,23 +17256,23 @@ class Security:
     """
     Schema for a security document.
 
-    :attr SecurityObject admins: (optional) Schema for names and roles to map to a
+    :param SecurityObject admins: (optional) Schema for names and roles to map to a
           database permission.
-    :attr SecurityObject members: (optional) Schema for names and roles to map to a
+    :param SecurityObject members: (optional) Schema for names and roles to map to a
           database permission.
-    :attr dict cloudant: (optional) Database permissions for Cloudant users and/or
+    :param dict cloudant: (optional) Database permissions for Cloudant users and/or
           API keys.
-    :attr bool couchdb_auth_only: (optional) Manage permissions using the `_users`
+    :param bool couchdb_auth_only: (optional) Manage permissions using the `_users`
           database only.
     """
 
     def __init__(
         self,
         *,
-        admins: 'SecurityObject' = None,
-        members: 'SecurityObject' = None,
-        cloudant: dict = None,
-        couchdb_auth_only: bool = None,
+        admins: Optional['SecurityObject'] = None,
+        members: Optional['SecurityObject'] = None,
+        cloudant: Optional[dict] = None,
+        couchdb_auth_only: Optional[bool] = None,
     ) -> None:
         """
         Initialize a Security object.
@@ -17361,15 +17367,15 @@ class SecurityObject:
     """
     Schema for names and roles to map to a database permission.
 
-    :attr List[str] names: (optional) List of usernames.
-    :attr List[str] roles: (optional) List of roles.
+    :param List[str] names: (optional) List of usernames.
+    :param List[str] roles: (optional) List of roles.
     """
 
     def __init__(
         self,
         *,
-        names: List[str] = None,
-        roles: List[str] = None,
+        names: Optional[List[str]] = None,
+        roles: Optional[List[str]] = None,
     ) -> None:
         """
         Initialize a SecurityObject object.
@@ -17427,11 +17433,11 @@ class ServerInformation:
     """
     Schema for information about the server instance.
 
-    :attr str couchdb: Welcome message.
-    :attr List[str] features: List of enabled optional features.
-    :attr ServerVendor vendor: Schema for server vendor information.
-    :attr str version: Apache CouchDB version.
-    :attr List[str] features_flags: List of feature flags.
+    :param str couchdb: Welcome message.
+    :param List[str] features: List of enabled optional features.
+    :param ServerVendor vendor: Schema for server vendor information.
+    :param str version: Apache CouchDB version.
+    :param List[str] features_flags: List of feature flags.
     """
 
     def __init__(
@@ -17529,17 +17535,17 @@ class ServerVendor:
     """
     Schema for server vendor information.
 
-    :attr str name: Vendor name.
-    :attr str variant: (optional) Vendor variant.
-    :attr str version: (optional) Vendor version.
+    :param str name: Vendor name.
+    :param str variant: (optional) Vendor variant.
+    :param str version: (optional) Vendor version.
     """
 
     def __init__(
         self,
         name: str,
         *,
-        variant: str = None,
-        version: str = None,
+        variant: Optional[str] = None,
+        version: Optional[str] = None,
     ) -> None:
         """
         Initialize a ServerVendor object.
@@ -17605,17 +17611,17 @@ class SessionAuthentication:
     """
     Schema for session authentication information.
 
-    :attr str authenticated: (optional) authenticated.
-    :attr str authentication_db: (optional) authentication_db.
-    :attr List[str] authentication_handlers: authentication_handlers.
+    :param str authenticated: (optional) authenticated.
+    :param str authentication_db: (optional) authentication_db.
+    :param List[str] authentication_handlers: authentication_handlers.
     """
 
     def __init__(
         self,
         authentication_handlers: List[str],
         *,
-        authenticated: str = None,
-        authentication_db: str = None,
+        authenticated: Optional[str] = None,
+        authentication_db: Optional[str] = None,
     ) -> None:
         """
         Initialize a SessionAuthentication object.
@@ -17681,9 +17687,10 @@ class SessionInformation:
     """
     Schema for information about a session.
 
-    :attr bool ok: ok.
-    :attr SessionAuthentication info: Schema for session authentication information.
-    :attr UserContext user_ctx: Schema for the user context of a session.
+    :param bool ok: ok.
+    :param SessionAuthentication info: Schema for session authentication
+          information.
+    :param UserContext user_ctx: Schema for the user context of a session.
     """
 
     def __init__(
@@ -17768,7 +17775,7 @@ class ShardsInformation:
     Schema for a shards object that maps the hash value range for each shard to the array
     of nodes that contain a copy of that shard.
 
-    :attr dict shards: Mapping of shard hash value range to a list of nodes.
+    :param dict shards: Mapping of shard hash value range to a list of nodes.
     """
 
     def __init__(
@@ -17828,12 +17835,12 @@ class ThroughputInformation:
     Schema for detailed information about throughput capacity with breakdown by specific
     throughput requests classes.
 
-    :attr int blocks: A number of blocks of throughput units. A block consists of
+    :param int blocks: A number of blocks of throughput units. A block consists of
           100 reads/sec, 50 writes/sec, and 5 global queries/sec of provisioned throughput
           capacity.
-    :attr int query: Provisioned global queries capacity in operations per second.
-    :attr int read: Provisioned reads capacity in operations per second.
-    :attr int write: Provisioned writes capacity in operations per second.
+    :param int query: Provisioned global queries capacity in operations per second.
+    :param int read: Provisioned reads capacity in operations per second.
+    :param int write: Provisioned writes capacity in operations per second.
     """
 
     def __init__(
@@ -17922,8 +17929,8 @@ class UpInformation:
     """
     Schema for information about the up state of the server.
 
-    :attr dict seeds: seeds.
-    :attr str status: status.
+    :param dict seeds: seeds.
+    :param str status: status.
     """
 
     def __init__(
@@ -18001,11 +18008,11 @@ class UpdatesPending:
     """
     Schema for an ability to tell if view is up-to-date without querying it.
 
-    :attr int minimum: Sum of shard copies with the least amount of work to do.
-    :attr int preferred: Sum of unique shards. This value is zero when at least one
+    :param int minimum: Sum of shard copies with the least amount of work to do.
+    :param int preferred: Sum of unique shards. This value is zero when at least one
           copy of every shard range is up-to-date and the view is able to answer a query
           without index building delays.
-    :attr int total: Sum of all shard copies.
+    :param int total: Sum of all shard copies.
     """
 
     def __init__(
@@ -18085,9 +18092,10 @@ class UserContext:
     """
     Schema for the user context of a session.
 
-    :attr str db: (optional) Database name in the context of the provided operation.
-    :attr str name: User name.
-    :attr List[str] roles: List of user roles.
+    :param str db: (optional) Database name in the context of the provided
+          operation.
+    :param str name: User name.
+    :param List[str] roles: List of user roles.
     """
 
     def __init__(
@@ -18095,7 +18103,7 @@ class UserContext:
         name: str,
         roles: List[str],
         *,
-        db: str = None,
+        db: Optional[str] = None,
     ) -> None:
         """
         Initialize a UserContext object.
@@ -18179,7 +18187,7 @@ class UuidsResult:
     """
     Schema for a set of uuids generated by the server.
 
-    :attr List[str] uuids: uuids.
+    :param List[str] uuids: uuids.
     """
 
     def __init__(
@@ -18238,9 +18246,9 @@ class ViewQueriesResult:
     """
     Schema for the results of a queries view operation.
 
-    :attr List[ViewResult] results: An array of result objects - one for each query.
-          Each result object contains the same fields as the response to a regular view
-          request.
+    :param List[ViewResult] results: An array of result objects - one for each
+          query. Each result object contains the same fields as the response to a regular
+          view request.
     """
 
     def __init__(
@@ -18307,46 +18315,46 @@ class ViewQuery:
     """
     Schema for a query view operation.
 
-    :attr bool att_encoding_info: (optional) Parameter to specify whether to include
-          the encoding information in attachment stubs if the particular attachment is
-          compressed.
-    :attr bool attachments: (optional) Parameter to specify whether to include
+    :param bool att_encoding_info: (optional) Parameter to specify whether to
+          include the encoding information in attachment stubs if the particular
+          attachment is compressed.
+    :param bool attachments: (optional) Parameter to specify whether to include
           attachments bodies in a response.
-    :attr bool conflicts: (optional) Parameter to specify whether to include a list
+    :param bool conflicts: (optional) Parameter to specify whether to include a list
           of conflicted revisions in each returned document. Active only when
           `include_docs` is `true`.
-    :attr bool descending: (optional) Parameter to specify whether to return the
+    :param bool descending: (optional) Parameter to specify whether to return the
           documents in descending by key order.
-    :attr bool include_docs: (optional) Parameter to specify whether to include the
+    :param bool include_docs: (optional) Parameter to specify whether to include the
           full content of the documents in the response.
-    :attr bool inclusive_end: (optional) Parameter to specify whether the specified
+    :param bool inclusive_end: (optional) Parameter to specify whether the specified
           end key should be included in the result.
-    :attr int limit: (optional) Parameter to specify the number of returned
+    :param int limit: (optional) Parameter to specify the number of returned
           documents to limit the result to.
-    :attr int skip: (optional) Parameter to specify the number of records before
+    :param int skip: (optional) Parameter to specify the number of records before
           starting to return the results.
-    :attr bool update_seq: (optional) Parameter to specify whether to include in the
-          response an update_seq value indicating the sequence id of the database the view
-          reflects.
-    :attr object end_key: (optional) Schema for any JSON type.
-    :attr str end_key_doc_id: (optional) Schema for a document ID.
-    :attr bool group: (optional) Parameter to specify whether to group reduced
+    :param bool update_seq: (optional) Parameter to specify whether to include in
+          the response an update_seq value indicating the sequence id of the database the
+          view reflects.
+    :param object end_key: (optional) Schema for any JSON type.
+    :param str end_key_doc_id: (optional) Schema for a document ID.
+    :param bool group: (optional) Parameter to specify whether to group reduced
           results by key. Valid only if a reduce function defined in the view. If the view
           emits key in JSON array format, then it is possible to reduce groups further
           based on the number of array elements with the `group_level` parameter.
-    :attr int group_level: (optional) Parameter to specify a group level to be used.
-          Only applicable if the view uses keys that are JSON arrays. Implies group is
-          `true`. Group level groups the reduced results by the specified number of array
-          elements. If unset, results are grouped by the entire array key, returning a
-          reduced value for each complete key.
-    :attr object key: (optional) Schema for any JSON type.
-    :attr List[object] keys: (optional) Parameter to specify returning only
+    :param int group_level: (optional) Parameter to specify a group level to be
+          used. Only applicable if the view uses keys that are JSON arrays. Implies group
+          is `true`. Group level groups the reduced results by the specified number of
+          array elements. If unset, results are grouped by the entire array key, returning
+          a reduced value for each complete key.
+    :param object key: (optional) Schema for any JSON type.
+    :param List[object] keys: (optional) Parameter to specify returning only
           documents that match any of the specified keys. A JSON array of keys that match
           the key type emitted by the view function.
-    :attr bool reduce: (optional) Parameter to specify whether to use the reduce
+    :param bool reduce: (optional) Parameter to specify whether to use the reduce
           function in a map-reduce view. Default is true when a reduce function is
           defined.
-    :attr bool stable: (optional) Query parameter to specify whether use the same
+    :param bool stable: (optional) Query parameter to specify whether use the same
           replica of  the index on each request. The default value `false` contacts all
           replicas and returns the result from the first, fastest, responder. Setting it
           to `true` when used in conjunction with `update=false`  may improve consistency
@@ -18354,9 +18362,9 @@ class ViewQuery:
           replica is not the fastest of the available  replicas.
           **Note:** In general setting `true` is discouraged and is strictly not
           recommended when using `update=true`.
-    :attr object start_key: (optional) Schema for any JSON type.
-    :attr str start_key_doc_id: (optional) Schema for a document ID.
-    :attr str update: (optional) Parameter to specify whether or not the view in
+    :param object start_key: (optional) Schema for any JSON type.
+    :param str start_key_doc_id: (optional) Schema for a document ID.
+    :param str update: (optional) Parameter to specify whether or not the view in
           question should be updated prior to responding to the user.
           * `true` - Return results after the view is updated.
           * `false` - Return results without updating the view.
@@ -18367,26 +18375,26 @@ class ViewQuery:
     def __init__(
         self,
         *,
-        att_encoding_info: bool = None,
-        attachments: bool = None,
-        conflicts: bool = None,
-        descending: bool = None,
-        include_docs: bool = None,
-        inclusive_end: bool = None,
-        limit: int = None,
-        skip: int = None,
-        update_seq: bool = None,
-        end_key: object = None,
-        end_key_doc_id: str = None,
-        group: bool = None,
-        group_level: int = None,
-        key: object = None,
-        keys: List[object] = None,
-        reduce: bool = None,
-        stable: bool = None,
-        start_key: object = None,
-        start_key_doc_id: str = None,
-        update: str = None,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        include_docs: Optional[bool] = None,
+        inclusive_end: Optional[bool] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        update_seq: Optional[bool] = None,
+        end_key: Optional[object] = None,
+        end_key_doc_id: Optional[str] = None,
+        group: Optional[bool] = None,
+        group_level: Optional[int] = None,
+        key: Optional[object] = None,
+        keys: Optional[List[object]] = None,
+        reduce: Optional[bool] = None,
+        stable: Optional[bool] = None,
+        start_key: Optional[object] = None,
+        start_key_doc_id: Optional[str] = None,
+        update: Optional[str] = None,
     ) -> None:
         """
         Initialize a ViewQuery object.
@@ -18604,17 +18612,17 @@ class ViewResult:
     """
     Schema for the result of a query view operation.
 
-    :attr int total_rows: (optional) Number of total rows.
-    :attr str update_seq: (optional) Current update sequence for the database.
-    :attr List[ViewResultRow] rows: rows.
+    :param int total_rows: (optional) Number of total rows.
+    :param str update_seq: (optional) Current update sequence for the database.
+    :param List[ViewResultRow] rows: rows.
     """
 
     def __init__(
         self,
         rows: List['ViewResultRow'],
         *,
-        total_rows: int = None,
-        update_seq: str = None,
+        total_rows: Optional[int] = None,
+        update_seq: Optional[str] = None,
     ) -> None:
         """
         Initialize a ViewResult object.
@@ -18686,13 +18694,13 @@ class ViewResultRow:
     """
     Schema for a row of a view result.
 
-    :attr str caused_by: (optional) The cause of the error (if available).
-    :attr str error: (optional) The name of the error.
-    :attr str reason: (optional) The reason the error occurred (if available).
-    :attr Document doc: (optional) Schema for a document.
-    :attr str id: (optional) Schema for a document ID.
-    :attr object key: Schema for any JSON type.
-    :attr object value: Schema for any JSON type.
+    :param str caused_by: (optional) The cause of the error (if available).
+    :param str error: (optional) The name of the error.
+    :param str reason: (optional) The reason the error occurred (if available).
+    :param Document doc: (optional) Schema for a document.
+    :param str id: (optional) Schema for a document ID.
+    :param object key: Schema for any JSON type.
+    :param object value: Schema for any JSON type.
     """
 
     def __init__(
@@ -18700,11 +18708,11 @@ class ViewResultRow:
         key: object,
         value: object,
         *,
-        caused_by: str = None,
-        error: str = None,
-        reason: str = None,
-        doc: 'Document' = None,
-        id: str = None,
+        caused_by: Optional[str] = None,
+        error: Optional[str] = None,
+        reason: Optional[str] = None,
+        doc: Optional['Document'] = None,
+        id: Optional[str] = None,
     ) -> None:
         """
         Initialize a ViewResultRow object.
