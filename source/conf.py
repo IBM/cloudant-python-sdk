@@ -78,9 +78,6 @@ with open(file_path, 'r') as file:
 # patch broken markup
 codeblock = False
 for i in range(len(lines)):
-    # replace class vars to :param: for better rendering
-    if ':attr ' in lines[i]:
-        lines[i] = lines[i].replace(':attr', ':param')
     # replace note with tip admonition
     if '### Note' in lines[i]:
         lines[i] = '        :::{tip}\n'
