@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "ibmcloudant"
-version = "0.6.0"
+version = "0.7.0"
 description = "Python client library for IBM Cloudant"
 dependencies = [
   "ibm_cloud_sdk_core==3.17.2",
