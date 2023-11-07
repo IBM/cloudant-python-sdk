@@ -24,6 +24,11 @@ from datetime import datetime, timedelta
 import functools
 from queue import Queue
 from threading import Thread, Event
+try:
+    from datetime import UTC
+except ImportError:
+    from datetime import timezone
+    UTC = timezone.utc
 
 from enum import Enum, auto
 from typing import Dict, Iterator
@@ -98,7 +103,7 @@ class ChangesFollowerIterator:
             self._transient_suppression = TransientErrorSuppression.ALWAYS
         self.error_tolerance = timedelta(milliseconds=error_tolerance)
         self.since = 'now' if mode is Mode.LISTEN else '0'
-        self._success_timestamp = datetime.now(datetime.UTC)
+        self._success_timestamp = datetime.now(UTC)
         self._request_thread = Thread(target=self._request_callback)
         self._buffer = Queue()
         self._pending = None
@@ -170,7 +175,7 @@ class ChangesFollowerIterator:
                 self._pending = result.get('pending')
                 self._retry = 0
                 if self._transient_suppression == TransientErrorSuppression.TIMER:
-                    self._success_timestamp = datetime.now(datetime.UTC)
+                    self._success_timestamp = datetime.now(UTC)
                 if self.mode == Mode.FINITE and self._pending == 0:
                     self._has_next = False
                 results = result['results']
@@ -189,7 +194,7 @@ class ChangesFollowerIterator:
                         self._transient_suppression
                         == TransientErrorSuppression.TIMER
                         and self._success_timestamp + self.error_tolerance
-                        < datetime.now(datetime.UTC)
+                        < datetime.now(UTC)
                     )
                 ):
                     self.logger.debug('Error tolerance deadline exceeded.')
