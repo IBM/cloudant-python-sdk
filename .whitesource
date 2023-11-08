@@ -4,6 +4,7 @@
     "issueRepoName": "sdks"
   },
   "scanSettings": {
-    "javaVersion": "17"
+    "javaVersion": "17",
+    "python.requirementsFileIncludes": "pyproject.toml,requirements-dev.txt,requirements-docs.txt"
   }
 }
