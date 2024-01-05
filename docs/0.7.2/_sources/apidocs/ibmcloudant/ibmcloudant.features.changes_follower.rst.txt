@@ -1,0 +1,253 @@
+:py:mod:`ibmcloudant.features.changes_follower`
+===============================================
+
+.. py:module:: ibmcloudant.features.changes_follower
+
+.. autodoc2-docstring:: ibmcloudant.features.changes_follower
+   :parser: myst
+   :allowtitles:
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. list-table::
+   :class: autosummary longtable
+   :align: left
+
+   * - :py:obj:`ChangesFollower <ibmcloudant.features.changes_follower.ChangesFollower>`
+     - .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower
+          :parser: myst
+          :summary:
+   * - :py:obj:`ChangesFollowerIterator <ibmcloudant.features.changes_follower.ChangesFollowerIterator>`
+     - .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollowerIterator
+          :parser: myst
+          :summary:
+   * - :py:obj:`Mode <ibmcloudant.features.changes_follower.Mode>`
+     - .. autodoc2-docstring:: ibmcloudant.features.changes_follower.Mode
+          :parser: myst
+          :summary:
+   * - :py:obj:`TransientErrorSuppression <ibmcloudant.features.changes_follower.TransientErrorSuppression>`
+     - .. autodoc2-docstring:: ibmcloudant.features.changes_follower.TransientErrorSuppression
+          :parser: myst
+          :summary:
+
+Data
+~~~~
+
+.. list-table::
+   :class: autosummary longtable
+   :align: left
+
+   * - :py:obj:`BASE_DELAY <ibmcloudant.features.changes_follower.BASE_DELAY>`
+     - .. autodoc2-docstring:: ibmcloudant.features.changes_follower.BASE_DELAY
+          :parser: myst
+          :summary:
+   * - :py:obj:`BATCH_SIZE <ibmcloudant.features.changes_follower.BATCH_SIZE>`
+     - .. autodoc2-docstring:: ibmcloudant.features.changes_follower.BATCH_SIZE
+          :parser: myst
+          :summary:
+   * - :py:obj:`EXP_RETRY_GATE <ibmcloudant.features.changes_follower.EXP_RETRY_GATE>`
+     - .. autodoc2-docstring:: ibmcloudant.features.changes_follower.EXP_RETRY_GATE
+          :parser: myst
+          :summary:
+   * - :py:obj:`FOREVER <ibmcloudant.features.changes_follower.FOREVER>`
+     - .. autodoc2-docstring:: ibmcloudant.features.changes_follower.FOREVER
+          :parser: myst
+          :summary:
+   * - :py:obj:`LONGPOLL_TIMEOUT <ibmcloudant.features.changes_follower.LONGPOLL_TIMEOUT>`
+     - .. autodoc2-docstring:: ibmcloudant.features.changes_follower.LONGPOLL_TIMEOUT
+          :parser: myst
+          :summary:
+   * - :py:obj:`MIN_CLIENT_TIMEOUT <ibmcloudant.features.changes_follower.MIN_CLIENT_TIMEOUT>`
+     - .. autodoc2-docstring:: ibmcloudant.features.changes_follower.MIN_CLIENT_TIMEOUT
+          :parser: myst
+          :summary:
+
+API
+~~~
+
+.. py:data:: BASE_DELAY
+   :canonical: ibmcloudant.features.changes_follower.BASE_DELAY
+   :value: 100
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.BASE_DELAY
+      :parser: myst
+
+.. py:data:: BATCH_SIZE
+   :canonical: ibmcloudant.features.changes_follower.BATCH_SIZE
+   :value: 10000
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.BATCH_SIZE
+      :parser: myst
+
+.. py:class:: ChangesFollower(service: ibmcloudant.cloudant_v1.CloudantV1, *, error_tolerance: int = FOREVER, **kwargs)
+   :canonical: ibmcloudant.features.changes_follower.ChangesFollower
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower
+      :parser: myst
+
+   .. rubric:: Initialization
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower.__init__
+      :parser: myst
+
+   .. py:property:: error_tolerance
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollower.error_tolerance
+      :type: int
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower.error_tolerance
+         :parser: myst
+
+   .. py:property:: options
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollower.options
+      :type: typing.Dict
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower.options
+         :parser: myst
+
+   .. py:method:: start() -> typing.Iterator[ibmcloudant.cloudant_v1.ChangesResultItem]
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollower.start
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower.start
+         :parser: myst
+
+   .. py:method:: start_one_off() -> typing.Iterator[ibmcloudant.cloudant_v1.ChangesResultItem]
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollower.start_one_off
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower.start_one_off
+         :parser: myst
+
+   .. py:method:: stop() -> None
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollower.stop
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower.stop
+         :parser: myst
+
+.. py:class:: ChangesFollowerIterator(changes_caller, mode: ibmcloudant.features.changes_follower.Mode, error_tolerance: int)
+   :canonical: ibmcloudant.features.changes_follower.ChangesFollowerIterator
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollowerIterator
+      :parser: myst
+
+   .. rubric:: Initialization
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollowerIterator.__init__
+      :parser: myst
+
+   .. py:property:: limit
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollowerIterator.limit
+      :type: int
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollowerIterator.limit
+         :parser: myst
+
+   .. py:method:: retry_delay()
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollowerIterator.retry_delay
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollowerIterator.retry_delay
+         :parser: myst
+
+   .. py:property:: since
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollowerIterator.since
+      :type: str
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollowerIterator.since
+         :parser: myst
+
+   .. py:method:: stop() -> None
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollowerIterator.stop
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollowerIterator.stop
+         :parser: myst
+
+.. py:data:: EXP_RETRY_GATE
+   :canonical: ibmcloudant.features.changes_follower.EXP_RETRY_GATE
+   :value: 'int(...)'
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.EXP_RETRY_GATE
+      :parser: myst
+
+.. py:data:: FOREVER
+   :canonical: ibmcloudant.features.changes_follower.FOREVER
+   :value: None
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.FOREVER
+      :parser: myst
+
+.. py:data:: LONGPOLL_TIMEOUT
+   :canonical: ibmcloudant.features.changes_follower.LONGPOLL_TIMEOUT
+   :value: None
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.LONGPOLL_TIMEOUT
+      :parser: myst
+
+.. py:data:: MIN_CLIENT_TIMEOUT
+   :canonical: ibmcloudant.features.changes_follower.MIN_CLIENT_TIMEOUT
+   :value: 60000
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.MIN_CLIENT_TIMEOUT
+      :parser: myst
+
+.. py:class:: Mode(*args, **kwds)
+   :canonical: ibmcloudant.features.changes_follower.Mode
+
+   Bases: :py:obj:`enum.Enum`
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.Mode
+      :parser: myst
+
+   .. rubric:: Initialization
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.Mode.__init__
+      :parser: myst
+
+   .. py:attribute:: FINITE
+      :canonical: ibmcloudant.features.changes_follower.Mode.FINITE
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.Mode.FINITE
+         :parser: myst
+
+   .. py:attribute:: LISTEN
+      :canonical: ibmcloudant.features.changes_follower.Mode.LISTEN
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.Mode.LISTEN
+         :parser: myst
+
+.. py:class:: TransientErrorSuppression(*args, **kwds)
+   :canonical: ibmcloudant.features.changes_follower.TransientErrorSuppression
+
+   Bases: :py:obj:`enum.Enum`
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.TransientErrorSuppression
+      :parser: myst
+
+   .. rubric:: Initialization
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.TransientErrorSuppression.__init__
+      :parser: myst
+
+   .. py:attribute:: ALWAYS
+      :canonical: ibmcloudant.features.changes_follower.TransientErrorSuppression.ALWAYS
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.TransientErrorSuppression.ALWAYS
+         :parser: myst
+
+   .. py:attribute:: NEVER
+      :canonical: ibmcloudant.features.changes_follower.TransientErrorSuppression.NEVER
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.TransientErrorSuppression.NEVER
+         :parser: myst
+
+   .. py:attribute:: TIMER
+      :canonical: ibmcloudant.features.changes_follower.TransientErrorSuppression.TIMER
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.TransientErrorSuppression.TIMER
+         :parser: myst
