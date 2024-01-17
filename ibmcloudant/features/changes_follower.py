@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2022, 2023.
+# © Copyright IBM Corporation 2022, 2024.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,22 +37,22 @@ from ibmcloudant.cloudant_v1 import (
 )
 
 # max timedelta in milliseconds
-FOREVER = round(timedelta.max.total_seconds() * 1000) - 1
+_FOREVER = round(timedelta.max.total_seconds() * 1000) - 1
 # 1 minute in millisec
-MIN_CLIENT_TIMEOUT = 60000
+_MIN_CLIENT_TIMEOUT = 60000
 # To give the changes request a chance to be answered
 # before the client timeout it is set to 3 seconds less.
-LONGPOLL_TIMEOUT = MIN_CLIENT_TIMEOUT - 3000
-BATCH_SIZE = 10000
+_LONGPOLL_TIMEOUT = _MIN_CLIENT_TIMEOUT - 3000
+_BATCH_SIZE = 10000
 
 # Base delay in milliseconds between unsuccessful attempts to pull changes feed
 # in presence of transient errors
-BASE_DELAY = 100
+_BASE_DELAY = 100
 # Once we reach this number of retries we'll be capping the backoff
-EXP_RETRY_GATE = int(math.log(LONGPOLL_TIMEOUT / BASE_DELAY) / math.log(2))
+_EXP_RETRY_GATE = int(math.log(_LONGPOLL_TIMEOUT / _BASE_DELAY) / math.log(2))
 
 
-class Mode(Enum):
+class _Mode(Enum):
     """
     Enums for changes follower's operation mode.
     """
@@ -60,7 +60,7 @@ class Mode(Enum):
     LISTEN = auto()
 
 
-class TransientErrorSuppression(Enum):
+class _TransientErrorSuppression(Enum):
     """
     Enums for changes follower's transient errors suppression mode.
     """
@@ -69,7 +69,7 @@ class TransientErrorSuppression(Enum):
     TIMER = auto()
 
 
-class ChangesFollowerIterator:
+class _ChangesFollowerIterator:
     """
     The ChangesFollowerIterator implements iterator interface.
 
@@ -86,18 +86,18 @@ class ChangesFollowerIterator:
     """
 
     def __init__(
-        self, changes_caller, mode: Mode, error_tolerance: int
+        self, changes_caller, mode: _Mode, error_tolerance: int
     ) -> None:
         self.changes_caller = changes_caller
         self._changes_iter = iter([])
         self.mode = mode
-        self._transient_suppression = TransientErrorSuppression.TIMER
+        self._transient_suppression = _TransientErrorSuppression.TIMER
         if error_tolerance == 0:
-            self._transient_suppression = TransientErrorSuppression.NEVER
-        elif error_tolerance == FOREVER:
-            self._transient_suppression = TransientErrorSuppression.ALWAYS
+            self._transient_suppression = _TransientErrorSuppression.NEVER
+        elif error_tolerance == _FOREVER:
+            self._transient_suppression = _TransientErrorSuppression.ALWAYS
         self.error_tolerance = timedelta(milliseconds=error_tolerance)
-        self.since = 'now' if mode is Mode.LISTEN else '0'
+        self.since = 'now' if mode is _Mode.LISTEN else '0'
         self._success_timestamp = datetime.now(timezone.utc)
         self._request_thread = Thread(target=self._request_callback)
         self._buffer = Queue()
@@ -169,9 +169,9 @@ class ChangesFollowerIterator:
                 self.since = result.get('last_seq')
                 self._pending = result.get('pending')
                 self._retry = 0
-                if self._transient_suppression == TransientErrorSuppression.TIMER:
+                if self._transient_suppression == _TransientErrorSuppression.TIMER:
                     self._success_timestamp = datetime.now(timezone.utc)
-                if self.mode == Mode.FINITE and self._pending == 0:
+                if self.mode == _Mode.FINITE and self._pending == 0:
                     self._has_next = False
                 results = result['results']
                 self.logger.debug(f'_request_callback results {results}')
@@ -184,10 +184,10 @@ class ChangesFollowerIterator:
             except Exception as e:
                 self.logger.debug(f'Exception getting changes {e}')
                 if (
-                    self._transient_suppression == TransientErrorSuppression.NEVER
+                    self._transient_suppression == _TransientErrorSuppression.NEVER
                     or (
                         self._transient_suppression
-                        == TransientErrorSuppression.TIMER
+                        == _TransientErrorSuppression.TIMER
                         and self._success_timestamp + self.error_tolerance
                         < datetime.now(timezone.utc)
                     )
@@ -218,10 +218,10 @@ class ChangesFollowerIterator:
 
         Algorithm reference: https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
         """
-        if (self._retry >= EXP_RETRY_GATE):
-            exp_delay = LONGPOLL_TIMEOUT
+        if (self._retry >= _EXP_RETRY_GATE):
+            exp_delay = _LONGPOLL_TIMEOUT
         else:
-            exp_delay = pow(2, self._retry) * BASE_DELAY
+            exp_delay = pow(2, self._retry) * _BASE_DELAY
         jitter_delay = random.uniform(0, exp_delay)
         time.sleep(round(jitter_delay / 1000, 3))
         self._retry += 1
@@ -285,7 +285,7 @@ class ChangesFollower:
     """
 
     def __init__(
-        self, service: CloudantV1, *, error_tolerance: int = FOREVER, **kwargs
+        self, service: CloudantV1, *, error_tolerance: int = _FOREVER, **kwargs
     ) -> None:
         self.options = kwargs
         self.limit = self.options.get('limit')
@@ -303,16 +303,16 @@ class ChangesFollower:
         call_timeout, read_timeout = call_timeout * 1000, read_timeout * 1000
         if (
             call_timeout > 0
-            and call_timeout < MIN_CLIENT_TIMEOUT
+            and call_timeout < _MIN_CLIENT_TIMEOUT
             or read_timeout > 0
-            and read_timeout < MIN_CLIENT_TIMEOUT
+            and read_timeout < _MIN_CLIENT_TIMEOUT
         ):
             raise ValueError(
                 'To use {} the client read and call timeouts must be at least'
                 ' {:d} ms. The client read timeout is {:d}'
                 ' ms and the call timeout is {:d} ms.'.format(
                     type(self).__name__,
-                    MIN_CLIENT_TIMEOUT,
+                    _MIN_CLIENT_TIMEOUT,
                     read_timeout,
                     call_timeout,
                 )
@@ -324,9 +324,9 @@ class ChangesFollower:
 
     @error_tolerance.setter
     def error_tolerance(self, value: int) -> None:
-        if value > FOREVER:
+        if value > _FOREVER:
             raise ValueError(
-                f'Error tolerance duration must not be larger than {FOREVER}.'
+                f'Error tolerance duration must not be larger than {_FOREVER}.'
             )
         if value < 0:
             raise ValueError('Error tolerance duration must not be negative.')
@@ -357,7 +357,7 @@ class ChangesFollower:
     def _set_defaults(self, limit: int = None):
         defaults = {
             'feed': PostChangesEnums.Feed.LONGPOLL,
-            'timeout': LONGPOLL_TIMEOUT,
+            'timeout': _LONGPOLL_TIMEOUT,
         }
         if limit is not None:
             self.logger.debug(f'Applying changes limit {limit}')
@@ -387,7 +387,7 @@ class ChangesFollower:
         or unsupressed transient error is recevied from the service
         when fetching changes
         """
-        return self._run(Mode.LISTEN)
+        return self._run(_Mode.LISTEN)
 
     def start_one_off(self) -> Iterator[ChangesResultItem]:
         """
@@ -412,7 +412,7 @@ class ChangesFollower:
         or unsupressed transient error is recevied from the service
         when fetching changes
         """
-        return self._run(Mode.FINITE)
+        return self._run(_Mode.FINITE)
 
     def stop(self) -> None:
         """
@@ -423,11 +423,11 @@ class ChangesFollower:
         """
         self._iter.stop()
 
-    def _run(self, mode: Mode):
+    def _run(self, mode: _Mode):
         if self._iter is not None:
             raise RuntimeError('Cannot start a feed that has already started.')
 
-        batch_size = BATCH_SIZE
+        batch_size = _BATCH_SIZE
         if self.options.get('include_docs', False):
             resp = self.service.get_database_information(
                 db=self.options.get('db')
@@ -445,7 +445,7 @@ class ChangesFollower:
         changes_caller = functools.partial(
             self.service.post_changes, **self.options
         )
-        self._iter = ChangesFollowerIterator(
+        self._iter = _ChangesFollowerIterator(
             changes_caller, mode, self.error_tolerance
         )
         if self.limit is not None:

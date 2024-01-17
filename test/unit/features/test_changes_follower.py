@@ -31,17 +31,17 @@ from ibmcloudant.cloudant_v1 import PostChangesEnums
 
 from ibmcloudant.features.changes_follower import (
     ChangesFollower,
-    FOREVER,
-    LONGPOLL_TIMEOUT,
-    BATCH_SIZE,
-    Mode,
+    _FOREVER,
+    _LONGPOLL_TIMEOUT,
+    _BATCH_SIZE,
+    _Mode,
 )
 
 
 from conftest import ChangesFollowerBaseCase
 
 # the largest positive integer supported by the platform
-MAX_BATCHES = sys.maxsize / BATCH_SIZE
+MAX_BATCHES = sys.maxsize / _BATCH_SIZE
 
 
 @pytest.mark.usefixtures('timeouts')
@@ -60,7 +60,7 @@ class TestChangesFollowerInitialization(ChangesFollowerBaseCase):
     def test_validate_overflow_tolerance(self):
         regx = 'Error tolerance duration must not be larger than'
         with self.assertRaisesRegex(ValueError, regx):
-            ChangesFollower(self.client, db='db', error_tolerance=FOREVER + 1)
+            ChangesFollower(self.client, db='db', error_tolerance=_FOREVER + 1)
 
     def test_validate_negative_tolerance(self):
         regx = 'Error tolerance duration must not be negative.'
@@ -120,7 +120,7 @@ class TestChangesFollowerOptions(ChangesFollowerBaseCase):
         follower = ChangesFollower(self.client, db='db', **self.kwarg_valid)
         expected = {
             'feed': PostChangesEnums.Feed.LONGPOLL,
-            'timeout': LONGPOLL_TIMEOUT,
+            'timeout': _LONGPOLL_TIMEOUT,
         }
         for opt, val in expected.items():
             self.assertEqual(follower.options.get(opt), val)
@@ -130,7 +130,7 @@ class TestChangesFollowerOptions(ChangesFollowerBaseCase):
         follower._set_defaults(limit=12)
         expected = {
             'feed': PostChangesEnums.Feed.LONGPOLL,
-            'timeout': LONGPOLL_TIMEOUT,
+            'timeout': _LONGPOLL_TIMEOUT,
             'limit': 12,
         }
         for opt, val in expected.items():
@@ -158,7 +158,7 @@ class TestChangesFollowerFinite(ChangesFollowerBaseCase):
         count = sum(1 for _ in changes)
         self.assertEqual(
             count,
-            batches * BATCH_SIZE,
+            batches * _BATCH_SIZE,
             'There should be the expected number of changes.',
         )
 
@@ -246,7 +246,7 @@ class TestChangesFollowerFinite(ChangesFollowerBaseCase):
         count = sum(1 for _ in changes)
         self.assertEqual(
             count,
-            batches * BATCH_SIZE,
+            batches * _BATCH_SIZE,
             'There should be the expected number of changes.',
         )
 
@@ -262,7 +262,7 @@ class TestChangesFollowerFinite(ChangesFollowerBaseCase):
             try:
                 self.prepare_mock_with_error(error)
                 follower = ChangesFollower(self.client, db='db')
-                count = self.runner(follower, Mode.FINITE, timeout=0.5)
+                count = self.runner(follower, _Mode.FINITE, timeout=0.5)
             except BaseException:
                 self.fail('There should be no exception.')
             self.assertEqual(count, 0, 'There should be no changes.')
@@ -284,7 +284,7 @@ class TestChangesFollowerFinite(ChangesFollowerBaseCase):
         count = sum(1 for _ in changes)
         self.assertEqual(
             count,
-            batches * BATCH_SIZE,
+            batches * _BATCH_SIZE,
             'There should be the expected number of changes.',
         )
 
@@ -298,7 +298,7 @@ class TestChangesFollowerFinite(ChangesFollowerBaseCase):
             follower = ChangesFollower(self.client, db='db')
             start = timeit.default_timer()
             count = self.runner(
-                follower, Mode.FINITE, timeout=5, stop_after=1000
+                follower, _Mode.FINITE, timeout=5, stop_after=1000
             )
             stop = timeit.default_timer() - start
         except BaseException:
@@ -316,7 +316,7 @@ class TestChangesFollowerFinite(ChangesFollowerBaseCase):
         try:
             self.prepare_mock_changes(batches=MAX_BATCHES)
             follower = ChangesFollower(self.client, db='db')
-            self.runner(follower, Mode.FINITE, timeout=1, stop_after=1000)
+            self.runner(follower, _Mode.FINITE, timeout=1, stop_after=1000)
             with self.assertRaisesRegex(
                 RuntimeError, 'Cannot start a feed that has already started.'
             ):
@@ -338,7 +338,7 @@ class TestChangesFollowerFinite(ChangesFollowerBaseCase):
             try:
                 self.prepare_mock_changes(batches=MAX_BATCHES)
                 follower = ChangesFollower(self.client, db='db', limit=limit)
-                count = self.runner(follower, Mode.FINITE, timeout=3600)
+                count = self.runner(follower, _Mode.FINITE, timeout=3600)
             except BaseException:
                 self.fail('There should be no exception.')
             self.assertEqual(
@@ -368,7 +368,7 @@ class TestChangesFollowerFinite(ChangesFollowerBaseCase):
             error = self.transient_errors[0]
             resp = self.prepare_mock_with_error(error)
             follower = ChangesFollower(self.client, db='db')
-            count = self.runner(follower, Mode.FINITE, timeout=0.6)
+            count = self.runner(follower, _Mode.FINITE, timeout=0.6)
         except BaseException:
             self.fail('There should be no exception.')
         self.assertEqual(count, 0, 'There should be no changes.')
@@ -460,11 +460,11 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
         try:
             self.prepare_mock_changes(batches=MAX_BATCHES)
             follower = ChangesFollower(self.client, db='db')
-            count = self.runner(follower, Mode.LISTEN, timeout=5)
+            count = self.runner(follower, _Mode.LISTEN, timeout=5)
         except BaseException:
             self.fail('There should be no exception.')
         self.assertGreater(
-            count, 2 * BATCH_SIZE + 1, 'There should be some changes.'
+            count, 2 * _BATCH_SIZE + 1, 'There should be some changes.'
         )
 
     @responses.activate
@@ -476,7 +476,7 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
             self.prepare_mock_with_error(error)
             follower = ChangesFollower(self.client, db='db')
             with self.assertRaisesRegex(ApiException, error):
-                self.runner(follower, Mode.LISTEN, timeout=1)
+                self.runner(follower, _Mode.LISTEN, timeout=1)
 
     @responses.activate
     def test_start_transient_errors_no_suppression(self):
@@ -489,12 +489,12 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
             follower = ChangesFollower(self.client, db='db', error_tolerance=0)
             if error == 'bad_io':
                 with self.assertRaises(ConnectionError):
-                    self.runner(follower, Mode.LISTEN, timeout=1)
+                    self.runner(follower, _Mode.LISTEN, timeout=1)
             else:
                 if error == 'bad_json':
                     error = 'Error processing the HTTP response'
                 with self.assertRaisesRegex(ApiException, error):
-                    self.runner(follower, Mode.LISTEN, timeout=1)
+                    self.runner(follower, _Mode.LISTEN, timeout=1)
 
     @responses.activate
     def test_start_transient_errors_with_suppression_error_termination(self):
@@ -509,12 +509,12 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
             )
             if error == 'bad_io':
                 with self.assertRaises(ConnectionError):
-                    self.runner(follower, Mode.LISTEN, timeout=1)
+                    self.runner(follower, _Mode.LISTEN, timeout=1)
             else:
                 if error == 'bad_json':
                     error = 'Error processing the HTTP response'
                 with self.assertRaisesRegex(ApiException, error):
-                    self.runner(follower, Mode.LISTEN, timeout=1)
+                    self.runner(follower, _Mode.LISTEN, timeout=1)
             self.assertGreater(
                 resp.call_count, 1, 'Mock server should receive calls.'
             )
@@ -534,12 +534,12 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
             follower = ChangesFollower(
                 self.client, db='db', error_tolerance=300
             )
-            count = self.runner(follower, Mode.LISTEN, timeout=1)
+            count = self.runner(follower, _Mode.LISTEN, timeout=1)
         except BaseException:
             self.fail('There should be no exception.')
         self.assertEqual(
             count,
-            batches * BATCH_SIZE,
+            batches * _BATCH_SIZE,
             'There should be the correct number of changes.',
         )
 
@@ -553,7 +553,7 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
             try:
                 resp = self.prepare_mock_with_error(error)
                 follower = ChangesFollower(self.client, db='db')
-                count = self.runner(follower, Mode.LISTEN, timeout=1)
+                count = self.runner(follower, _Mode.LISTEN, timeout=1)
             except BaseException:
                 self.fail('There should be no exception.')
             self.assertEqual(count, 0, 'There should be no changes.')
@@ -574,12 +574,12 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
         )
         try:
             follower = ChangesFollower(self.client, db='db')
-            count = self.runner(follower, Mode.LISTEN, timeout=1)
+            count = self.runner(follower, _Mode.LISTEN, timeout=1)
         except BaseException:
             self.fail('There should be no exception.')
         self.assertEqual(
             count,
-            batches * BATCH_SIZE,
+            batches * _BATCH_SIZE,
             'There should be the correct number of changes.',
         )
 
@@ -593,7 +593,7 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
             follower = ChangesFollower(self.client, db='db')
             start = timeit.default_timer()
             count = self.runner(
-                follower, Mode.LISTEN, timeout=5, stop_after=1000
+                follower, _Mode.LISTEN, timeout=5, stop_after=1000
             )
             stop = timeit.default_timer() - start
         except BaseException:
@@ -611,7 +611,7 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
         try:
             self.prepare_mock_changes(batches=MAX_BATCHES)
             follower = ChangesFollower(self.client, db='db')
-            self.runner(follower, Mode.LISTEN, timeout=1, stop_after=1000)
+            self.runner(follower, _Mode.LISTEN, timeout=1, stop_after=1000)
             with self.assertRaisesRegex(
                 RuntimeError, 'Cannot start a feed that has already started.'
             ):
@@ -633,7 +633,7 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
             try:
                 self.prepare_mock_changes(batches=MAX_BATCHES)
                 follower = ChangesFollower(self.client, db='db', limit=limit)
-                count = self.runner(follower, Mode.LISTEN, timeout=3600)
+                count = self.runner(follower, _Mode.LISTEN, timeout=3600)
             except BaseException:
                 self.fail('There should be no exception.')
             self.assertEqual(
@@ -652,7 +652,7 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
             error = self.transient_errors[0]
             resp = self.prepare_mock_with_error(error)
             follower = ChangesFollower(self.client, db='db')
-            count = self.runner(follower, Mode.LISTEN, timeout=0.6)
+            count = self.runner(follower, _Mode.LISTEN, timeout=0.6)
         except BaseException:
             self.fail('There should be no exception.')
         self.assertEqual(count, 0, 'There should be no changes.')
