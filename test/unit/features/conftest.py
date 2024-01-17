@@ -39,7 +39,7 @@ from ibmcloudant.cloudant_v1 import (
     ChangesResultItem,
 )
 
-from ibmcloudant.features.changes_follower import LONGPOLL_TIMEOUT, BATCH_SIZE, Mode
+from ibmcloudant.features.changes_follower import _LONGPOLL_TIMEOUT, _BATCH_SIZE, _Mode
 
 
 @pytest.fixture(scope='class')
@@ -66,7 +66,7 @@ def kwargs(request):
 
 @pytest.fixture(scope='class')
 def timeouts(request):
-    longpoll_timeout = int(LONGPOLL_TIMEOUT / 1000)
+    longpoll_timeout = int(_LONGPOLL_TIMEOUT / 1000)
     request.cls.timeouts_valid = [60, (60, 60), 120, 300, (120, 300)]
     request.cls.timeouts_invalid = [
         15,
@@ -99,8 +99,8 @@ def errors(request):
 def limits(request):
     request.cls.limits = [
         100,
-        BATCH_SIZE,
-        BATCH_SIZE + 123,
+        _BATCH_SIZE,
+        _BATCH_SIZE + 123,
     ]
 
 
@@ -134,16 +134,16 @@ class ChangesFollowerBaseCase(unittest.TestCase):
                             json.dumps({'error': error}),
                         )
                 # this stands for "large" seq in empty result case
-                last_seq = f'{batches * BATCH_SIZE}-abcdef'
+                last_seq = f'{batches * _BATCH_SIZE}-abcdef'
                 pending = 0
                 items = []
                 if self._batch_num <= batches:
                     # we start from doc idx 000001
-                    start = (self._batch_num - 1) * BATCH_SIZE + 1
-                    stop = start + BATCH_SIZE
+                    start = (self._batch_num - 1) * _BATCH_SIZE + 1
+                    stop = start + _BATCH_SIZE
                     last_seq = f'{stop-1}-abcdef'
                     pending = (
-                        batches * BATCH_SIZE - (self._batch_num) * BATCH_SIZE
+                        batches * _BATCH_SIZE - (self._batch_num) * _BATCH_SIZE
                     )
                     for idx in range(start, stop, 1):
                         items.append(
@@ -222,9 +222,9 @@ class ChangesFollowerBaseCase(unittest.TestCase):
                 buf.put(e)
 
         def main():
-            if mode == Mode.LISTEN:
+            if mode == _Mode.LISTEN:
                 changes = follower.start()
-            elif mode == Mode.FINITE:
+            elif mode == _Mode.FINITE:
                 changes = follower.start_one_off()
             buf = queue.Queue()
             thread = threading.Thread(target=looper, args=(changes, buf))
