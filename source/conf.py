@@ -15,13 +15,14 @@
 #
 import os
 import sys
+import datetime
 sys.path.insert(0, os.path.abspath('..'))
 print(os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
 project = 'Cloudant Python SDK'
-copyright = 'Copyright IBM Corp. 2021, 2023.'
+copyright = f'Copyright IBM Corp. 2021, {datetime.date.today().year}'
 author = '@IBM/cloudant-sdks'
 
 # -- General configuration ---------------------------------------------------
