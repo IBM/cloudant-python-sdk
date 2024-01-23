@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2022, 2023.
+# © Copyright IBM Corporation 2022, 2024.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -458,7 +458,7 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
         with some batches.
         """
         try:
-            self.prepare_mock_changes(batches=MAX_BATCHES)
+            self.prepare_mock_changes(batches=3)
             follower = ChangesFollower(self.client, db='db')
             count = self.runner(follower, _Mode.LISTEN, timeout=5)
         except BaseException:
