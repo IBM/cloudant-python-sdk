@@ -3,7 +3,7 @@ flit==3.9.0
 # test dependencies
 pytest==7.4.4
 responses==0.24.1
-python_dotenv==1.0.0
+python_dotenv==1.0.1
 pylint==3.0.3
 # code coverage
 coverage==7.4.0
