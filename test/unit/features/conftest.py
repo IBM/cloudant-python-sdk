@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2022, 2023.
+# © Copyright IBM Corporation 2022, 2024.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -212,12 +212,13 @@ class ChangesFollowerBaseCase(unittest.TestCase):
 
         def looper(changes, buf):
             counter = 0
+            buf.put(counter)
             try:
                 for _ in changes:
                     counter += 1
+                    buf.put(counter)
                     if stop_after > 0 and stop_after == counter:
                         follower.stop()
-                buf.put(counter)
             except Exception as e:
                 buf.put(e)
 
@@ -229,15 +230,16 @@ class ChangesFollowerBaseCase(unittest.TestCase):
             buf = queue.Queue()
             thread = threading.Thread(target=looper, args=(changes, buf))
             thread.start()
+            thread.join(timeout)
+            while not buf.empty():
+                data = buf.get()
+                if isinstance(data, Exception):
+                    raise data
             while True:
-                thread.join(timeout)
                 if thread.is_alive():
                     follower.stop()
                 else:
                     break
-            data = buf.get()
-            if isinstance(data, Exception):
-                raise data
             return data
 
         return main()
