@@ -39,7 +39,11 @@ from ibmcloudant.cloudant_v1 import (
     ChangesResultItem,
 )
 
-from ibmcloudant.features.changes_follower import _LONGPOLL_TIMEOUT, _BATCH_SIZE, _Mode
+from ibmcloudant.features.changes_follower import (
+    _LONGPOLL_TIMEOUT,
+    _BATCH_SIZE,
+    _Mode,
+)
 
 
 @pytest.fixture(scope='class')
@@ -112,7 +116,13 @@ class ChangesFollowerBaseCase(unittest.TestCase):
             service_name='TEST_SERVICE',
         )
 
-    def prepare_mock_changes(self, batches=0, errors=[], db_info_doc_count=500_000, db_info_doc_size=523):
+    def prepare_mock_changes(
+        self,
+        batches=0,
+        errors=[],
+        db_info_doc_count=500_000,
+        db_info_doc_size=523,
+    ):
         class changes_callback:
             def __init__(self):
                 self._batch_num = 1
@@ -171,7 +181,10 @@ class ChangesFollowerBaseCase(unittest.TestCase):
             url,
             status=200,
             content_type='application/json',
-            json={'doc_count': db_info_doc_count, 'sizes': {'external': db_info_doc_count * db_info_doc_size}},
+            json={
+                'doc_count': db_info_doc_count,
+                'sizes': {'external': db_info_doc_count * db_info_doc_size},
+            },
         )
 
         url = _base_url + '/db/_changes'
