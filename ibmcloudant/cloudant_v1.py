@@ -1190,23 +1190,23 @@ class CloudantV1(BaseService):
         **kwargs,
     ) -> DetailedResponse:
         """
-        Create or modify a document in a database.
+        Create a document in a database.
 
-        Creates or modifies a document in the specified database by using the supplied
+        Creates a document in the specified database by using the supplied
         JSON document.
-        For creation, you may specify the document ID but you should not specify the
+
+        You may specify the document ID, but you should not specify the
         revision. If you don't specify the document ID, then the server generates an ID
         for your document.
-        For modification, you must specify the document ID and a revision identifier in
-        the JSON document.
+
         If your document ID includes the `_local/` or `_design/` prefix, then this
-        operation creates or modifies a local or a design document respectively.
+        operation creates a local or a design document respectively.
 
         :param str db: Path parameter to specify the database name.
         :param Document document: HTTP request body for Document operations.
         :param str content_type: (optional) The type of the input.
         :param str batch: (optional) Query parameter to specify whether to store in
-               batch mode. The server will respond with a HTTP 202 Accepted response code
+               batch mode. The server will respond with an HTTP 202 Accepted response code
                immediately.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
@@ -2485,12 +2485,10 @@ class CloudantV1(BaseService):
         **kwargs,
     ) -> DetailedResponse:
         """
-        Create or modify a document.
+        Modify a document.
 
-        Creates or modifies a document in the specified database.
-        For creation, you must specify the document ID but you should not specify the
-        revision.
-        For modification, you must specify the document ID and a revision  identifier.
+        Modifies a document in the specified database.
+        You must specify the document ID and a revision identifier.
 
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
