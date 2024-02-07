@@ -88,7 +88,7 @@ try:
           json.dumps(document, indent=2))
 
 except ApiException as ae:
-    if ae.code == 404:
+    if ae.status_code == 404:
         print('Cannot delete document because either ' +
               f'"{example_db_name}" database or "{example_doc_id}" ' +
               'document was not found.')
