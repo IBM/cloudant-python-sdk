@@ -197,7 +197,7 @@ class _ChangesFollowerIterator:
                     self._buffer.put(e)
                     break
                 if (
-                    type(e) is ApiException and e.code in [400, 401, 403, 404]
+                    type(e) is ApiException and e.status_code in [400, 401, 403, 404]
                     or type(e) is StopIteration
                 ):
                     self.logger.debug('Terminal error.')
