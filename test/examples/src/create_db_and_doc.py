@@ -31,7 +31,7 @@ try:
     if put_database_result["ok"]:
         print(f'"{example_db_name}" database created.')
 except ApiException as ae:
-    if ae.code == 412:
+    if ae.status_code == 412:
         print(f'Cannot create "{example_db_name}" database, ' +
               'it already exists.')
 
