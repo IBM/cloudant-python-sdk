@@ -8511,86 +8511,86 @@ class ActiveTask:
     def from_dict(cls, _dict: Dict) -> 'ActiveTask':
         """Initialize a ActiveTask object from a json dictionary."""
         args = {}
-        if 'bulk_get_attempts' in _dict:
-            args['bulk_get_attempts'] = _dict.get('bulk_get_attempts')
-        if 'bulk_get_docs' in _dict:
-            args['bulk_get_docs'] = _dict.get('bulk_get_docs')
-        if 'changes_done' in _dict:
-            args['changes_done'] = _dict.get('changes_done')
-        if 'changes_pending' in _dict:
-            args['changes_pending'] = _dict.get('changes_pending')
-        if 'checkpoint_interval' in _dict:
-            args['checkpoint_interval'] = _dict.get('checkpoint_interval')
-        if 'checkpointed_source_seq' in _dict:
-            args['checkpointed_source_seq'] = _dict.get('checkpointed_source_seq')
-        if 'continuous' in _dict:
-            args['continuous'] = _dict.get('continuous')
-        if 'database' in _dict:
-            args['database'] = _dict.get('database')
+        if (bulk_get_attempts := _dict.get('bulk_get_attempts')) is not None:
+            args['bulk_get_attempts'] = bulk_get_attempts
+        if (bulk_get_docs := _dict.get('bulk_get_docs')) is not None:
+            args['bulk_get_docs'] = bulk_get_docs
+        if (changes_done := _dict.get('changes_done')) is not None:
+            args['changes_done'] = changes_done
+        if (changes_pending := _dict.get('changes_pending')) is not None:
+            args['changes_pending'] = changes_pending
+        if (checkpoint_interval := _dict.get('checkpoint_interval')) is not None:
+            args['checkpoint_interval'] = checkpoint_interval
+        if (checkpointed_source_seq := _dict.get('checkpointed_source_seq')) is not None:
+            args['checkpointed_source_seq'] = checkpointed_source_seq
+        if (continuous := _dict.get('continuous')) is not None:
+            args['continuous'] = continuous
+        if (database := _dict.get('database')) is not None:
+            args['database'] = database
         else:
             raise ValueError('Required property \'database\' not present in ActiveTask JSON')
-        if 'design_document' in _dict:
-            args['design_document'] = _dict.get('design_document')
-        if 'doc_id' in _dict:
-            args['doc_id'] = _dict.get('doc_id')
-        if 'doc_write_failures' in _dict:
-            args['doc_write_failures'] = _dict.get('doc_write_failures')
-        if 'docs_read' in _dict:
-            args['docs_read'] = _dict.get('docs_read')
-        if 'docs_written' in _dict:
-            args['docs_written'] = _dict.get('docs_written')
-        if 'index' in _dict:
-            args['index'] = _dict.get('index')
-        if 'indexer_pid' in _dict:
-            args['indexer_pid'] = _dict.get('indexer_pid')
-        if 'missing_revisions_found' in _dict:
-            args['missing_revisions_found'] = _dict.get('missing_revisions_found')
-        if 'node' in _dict:
-            args['node'] = _dict.get('node')
+        if (design_document := _dict.get('design_document')) is not None:
+            args['design_document'] = design_document
+        if (doc_id := _dict.get('doc_id')) is not None:
+            args['doc_id'] = doc_id
+        if (doc_write_failures := _dict.get('doc_write_failures')) is not None:
+            args['doc_write_failures'] = doc_write_failures
+        if (docs_read := _dict.get('docs_read')) is not None:
+            args['docs_read'] = docs_read
+        if (docs_written := _dict.get('docs_written')) is not None:
+            args['docs_written'] = docs_written
+        if (index := _dict.get('index')) is not None:
+            args['index'] = index
+        if (indexer_pid := _dict.get('indexer_pid')) is not None:
+            args['indexer_pid'] = indexer_pid
+        if (missing_revisions_found := _dict.get('missing_revisions_found')) is not None:
+            args['missing_revisions_found'] = missing_revisions_found
+        if (node := _dict.get('node')) is not None:
+            args['node'] = node
         else:
             raise ValueError('Required property \'node\' not present in ActiveTask JSON')
-        if 'phase' in _dict:
-            args['phase'] = _dict.get('phase')
-        if 'pid' in _dict:
-            args['pid'] = _dict.get('pid')
+        if (phase := _dict.get('phase')) is not None:
+            args['phase'] = phase
+        if (pid := _dict.get('pid')) is not None:
+            args['pid'] = pid
         else:
             raise ValueError('Required property \'pid\' not present in ActiveTask JSON')
-        if 'process_status' in _dict:
-            args['process_status'] = _dict.get('process_status')
-        if 'progress' in _dict:
-            args['progress'] = _dict.get('progress')
-        if 'replication_id' in _dict:
-            args['replication_id'] = _dict.get('replication_id')
-        if 'retry' in _dict:
-            args['retry'] = _dict.get('retry')
-        if 'revisions_checked' in _dict:
-            args['revisions_checked'] = _dict.get('revisions_checked')
-        if 'source' in _dict:
-            args['source'] = _dict.get('source')
-        if 'source_seq' in _dict:
-            args['source_seq'] = _dict.get('source_seq')
-        if 'started_on' in _dict:
-            args['started_on'] = _dict.get('started_on')
+        if (process_status := _dict.get('process_status')) is not None:
+            args['process_status'] = process_status
+        if (progress := _dict.get('progress')) is not None:
+            args['progress'] = progress
+        if (replication_id := _dict.get('replication_id')) is not None:
+            args['replication_id'] = replication_id
+        if (retry := _dict.get('retry')) is not None:
+            args['retry'] = retry
+        if (revisions_checked := _dict.get('revisions_checked')) is not None:
+            args['revisions_checked'] = revisions_checked
+        if (source := _dict.get('source')) is not None:
+            args['source'] = source
+        if (source_seq := _dict.get('source_seq')) is not None:
+            args['source_seq'] = source_seq
+        if (started_on := _dict.get('started_on')) is not None:
+            args['started_on'] = started_on
         else:
             raise ValueError('Required property \'started_on\' not present in ActiveTask JSON')
-        if 'target' in _dict:
-            args['target'] = _dict.get('target')
-        if 'through_seq' in _dict:
-            args['through_seq'] = _dict.get('through_seq')
-        if 'total_changes' in _dict:
-            args['total_changes'] = _dict.get('total_changes')
-        if 'type' in _dict:
-            args['type'] = _dict.get('type')
+        if (target := _dict.get('target')) is not None:
+            args['target'] = target
+        if (through_seq := _dict.get('through_seq')) is not None:
+            args['through_seq'] = through_seq
+        if (total_changes := _dict.get('total_changes')) is not None:
+            args['total_changes'] = total_changes
+        if (type := _dict.get('type')) is not None:
+            args['type'] = type
         else:
             raise ValueError('Required property \'type\' not present in ActiveTask JSON')
-        if 'updated_on' in _dict:
-            args['updated_on'] = _dict.get('updated_on')
+        if (updated_on := _dict.get('updated_on')) is not None:
+            args['updated_on'] = updated_on
         else:
             raise ValueError('Required property \'updated_on\' not present in ActiveTask JSON')
-        if 'user' in _dict:
-            args['user'] = _dict.get('user')
-        if 'view' in _dict:
-            args['view'] = _dict.get('view')
+        if (user := _dict.get('user')) is not None:
+            args['user'] = user
+        if (view := _dict.get('view')) is not None:
+            args['view'] = view
         return cls(**args)
 
     @classmethod
@@ -8755,8 +8755,8 @@ class ActivityTrackerEvents:
     def from_dict(cls, _dict: Dict) -> 'ActivityTrackerEvents':
         """Initialize a ActivityTrackerEvents object from a json dictionary."""
         args = {}
-        if 'types' in _dict:
-            args['types'] = _dict.get('types')
+        if (types := _dict.get('types')) is not None:
+            args['types'] = types
         else:
             raise ValueError('Required property \'types\' not present in ActivityTrackerEvents JSON')
         return cls(**args)
@@ -8827,8 +8827,8 @@ class AllDocsQueriesResult:
     def from_dict(cls, _dict: Dict) -> 'AllDocsQueriesResult':
         """Initialize a AllDocsQueriesResult object from a json dictionary."""
         args = {}
-        if 'results' in _dict:
-            args['results'] = [AllDocsResult.from_dict(v) for v in _dict.get('results')]
+        if (results := _dict.get('results')) is not None:
+            args['results'] = [AllDocsResult.from_dict(v) for v in results]
         else:
             raise ValueError('Required property \'results\' not present in AllDocsQueriesResult JSON')
         return cls(**args)
@@ -8965,32 +8965,32 @@ class AllDocsQuery:
     def from_dict(cls, _dict: Dict) -> 'AllDocsQuery':
         """Initialize a AllDocsQuery object from a json dictionary."""
         args = {}
-        if 'att_encoding_info' in _dict:
-            args['att_encoding_info'] = _dict.get('att_encoding_info')
-        if 'attachments' in _dict:
-            args['attachments'] = _dict.get('attachments')
-        if 'conflicts' in _dict:
-            args['conflicts'] = _dict.get('conflicts')
-        if 'descending' in _dict:
-            args['descending'] = _dict.get('descending')
-        if 'include_docs' in _dict:
-            args['include_docs'] = _dict.get('include_docs')
-        if 'inclusive_end' in _dict:
-            args['inclusive_end'] = _dict.get('inclusive_end')
-        if 'limit' in _dict:
-            args['limit'] = _dict.get('limit')
-        if 'skip' in _dict:
-            args['skip'] = _dict.get('skip')
-        if 'update_seq' in _dict:
-            args['update_seq'] = _dict.get('update_seq')
-        if 'end_key' in _dict:
-            args['end_key'] = _dict.get('end_key')
-        if 'key' in _dict:
-            args['key'] = _dict.get('key')
-        if 'keys' in _dict:
-            args['keys'] = _dict.get('keys')
-        if 'start_key' in _dict:
-            args['start_key'] = _dict.get('start_key')
+        if (att_encoding_info := _dict.get('att_encoding_info')) is not None:
+            args['att_encoding_info'] = att_encoding_info
+        if (attachments := _dict.get('attachments')) is not None:
+            args['attachments'] = attachments
+        if (conflicts := _dict.get('conflicts')) is not None:
+            args['conflicts'] = conflicts
+        if (descending := _dict.get('descending')) is not None:
+            args['descending'] = descending
+        if (include_docs := _dict.get('include_docs')) is not None:
+            args['include_docs'] = include_docs
+        if (inclusive_end := _dict.get('inclusive_end')) is not None:
+            args['inclusive_end'] = inclusive_end
+        if (limit := _dict.get('limit')) is not None:
+            args['limit'] = limit
+        if (skip := _dict.get('skip')) is not None:
+            args['skip'] = skip
+        if (update_seq := _dict.get('update_seq')) is not None:
+            args['update_seq'] = update_seq
+        if (end_key := _dict.get('end_key')) is not None:
+            args['end_key'] = end_key
+        if (key := _dict.get('key')) is not None:
+            args['key'] = key
+        if (keys := _dict.get('keys')) is not None:
+            args['keys'] = keys
+        if (start_key := _dict.get('start_key')) is not None:
+            args['start_key'] = start_key
         return cls(**args)
 
     @classmethod
@@ -9079,16 +9079,16 @@ class AllDocsResult:
     def from_dict(cls, _dict: Dict) -> 'AllDocsResult':
         """Initialize a AllDocsResult object from a json dictionary."""
         args = {}
-        if 'total_rows' in _dict:
-            args['total_rows'] = _dict.get('total_rows')
+        if (total_rows := _dict.get('total_rows')) is not None:
+            args['total_rows'] = total_rows
         else:
             raise ValueError('Required property \'total_rows\' not present in AllDocsResult JSON')
-        if 'rows' in _dict:
-            args['rows'] = [DocsResultRow.from_dict(v) for v in _dict.get('rows')]
+        if (rows := _dict.get('rows')) is not None:
+            args['rows'] = [DocsResultRow.from_dict(v) for v in rows]
         else:
             raise ValueError('Required property \'rows\' not present in AllDocsResult JSON')
-        if 'update_seq' in _dict:
-            args['update_seq'] = _dict.get('update_seq')
+        if (update_seq := _dict.get('update_seq')) is not None:
+            args['update_seq'] = update_seq
         return cls(**args)
 
     @classmethod
@@ -9170,10 +9170,10 @@ class Analyzer:
     def from_dict(cls, _dict: Dict) -> 'Analyzer':
         """Initialize a Analyzer object from a json dictionary."""
         args = {}
-        if 'name' in _dict:
-            args['name'] = _dict.get('name')
-        if 'stopwords' in _dict:
-            args['stopwords'] = _dict.get('stopwords')
+        if (name := _dict.get('name')) is not None:
+            args['name'] = name
+        if (stopwords := _dict.get('stopwords')) is not None:
+            args['stopwords'] = stopwords
         return cls(**args)
 
     @classmethod
@@ -9305,12 +9305,12 @@ class AnalyzerConfiguration:
     def from_dict(cls, _dict: Dict) -> 'AnalyzerConfiguration':
         """Initialize a AnalyzerConfiguration object from a json dictionary."""
         args = {}
-        if 'name' in _dict:
-            args['name'] = _dict.get('name')
-        if 'stopwords' in _dict:
-            args['stopwords'] = _dict.get('stopwords')
-        if 'fields' in _dict:
-            args['fields'] = {k: Analyzer.from_dict(v) for k, v in _dict.get('fields').items()}
+        if (name := _dict.get('name')) is not None:
+            args['name'] = name
+        if (stopwords := _dict.get('stopwords')) is not None:
+            args['stopwords'] = stopwords
+        if (fields := _dict.get('fields')) is not None:
+            args['fields'] = {k: Analyzer.from_dict(v) for k, v in fields.items()}
         return cls(**args)
 
     @classmethod
@@ -9436,16 +9436,16 @@ class ApiKeysResult:
     def from_dict(cls, _dict: Dict) -> 'ApiKeysResult':
         """Initialize a ApiKeysResult object from a json dictionary."""
         args = {}
-        if 'ok' in _dict:
-            args['ok'] = _dict.get('ok')
+        if (ok := _dict.get('ok')) is not None:
+            args['ok'] = ok
         else:
             raise ValueError('Required property \'ok\' not present in ApiKeysResult JSON')
-        if 'key' in _dict:
-            args['key'] = _dict.get('key')
+        if (key := _dict.get('key')) is not None:
+            args['key'] = key
         else:
             raise ValueError('Required property \'key\' not present in ApiKeysResult JSON')
-        if 'password' in _dict:
-            args['password'] = _dict.get('password')
+        if (password := _dict.get('password')) is not None:
+            args['password'] = password
         else:
             raise ValueError('Required property \'password\' not present in ApiKeysResult JSON')
         return cls(**args)
@@ -9569,24 +9569,24 @@ class Attachment:
     def from_dict(cls, _dict: Dict) -> 'Attachment':
         """Initialize a Attachment object from a json dictionary."""
         args = {}
-        if 'content_type' in _dict:
-            args['content_type'] = _dict.get('content_type')
-        if 'data' in _dict:
-            args['data'] = base64.b64decode(_dict.get('data'))
-        if 'digest' in _dict:
-            args['digest'] = _dict.get('digest')
-        if 'encoded_length' in _dict:
-            args['encoded_length'] = _dict.get('encoded_length')
-        if 'encoding' in _dict:
-            args['encoding'] = _dict.get('encoding')
-        if 'follows' in _dict:
-            args['follows'] = _dict.get('follows')
-        if 'length' in _dict:
-            args['length'] = _dict.get('length')
-        if 'revpos' in _dict:
-            args['revpos'] = _dict.get('revpos')
-        if 'stub' in _dict:
-            args['stub'] = _dict.get('stub')
+        if (content_type := _dict.get('content_type')) is not None:
+            args['content_type'] = content_type
+        if (data := _dict.get('data')) is not None:
+            args['data'] = base64.b64decode(data)
+        if (digest := _dict.get('digest')) is not None:
+            args['digest'] = digest
+        if (encoded_length := _dict.get('encoded_length')) is not None:
+            args['encoded_length'] = encoded_length
+        if (encoding := _dict.get('encoding')) is not None:
+            args['encoding'] = encoding
+        if (follows := _dict.get('follows')) is not None:
+            args['follows'] = follows
+        if (length := _dict.get('length')) is not None:
+            args['length'] = length
+        if (revpos := _dict.get('revpos')) is not None:
+            args['revpos'] = revpos
+        if (stub := _dict.get('stub')) is not None:
+            args['stub'] = stub
         return cls(**args)
 
     @classmethod
@@ -9665,12 +9665,12 @@ class BulkDocs:
     def from_dict(cls, _dict: Dict) -> 'BulkDocs':
         """Initialize a BulkDocs object from a json dictionary."""
         args = {}
-        if 'docs' in _dict:
-            args['docs'] = [Document.from_dict(v) for v in _dict.get('docs')]
+        if (docs := _dict.get('docs')) is not None:
+            args['docs'] = [Document.from_dict(v) for v in docs]
         else:
             raise ValueError('Required property \'docs\' not present in BulkDocs JSON')
-        if 'new_edits' in _dict:
-            args['new_edits'] = _dict.get('new_edits')
+        if (new_edits := _dict.get('new_edits')) is not None:
+            args['new_edits'] = new_edits
         return cls(**args)
 
     @classmethod
@@ -9745,14 +9745,14 @@ class BulkGetQueryDocument:
     def from_dict(cls, _dict: Dict) -> 'BulkGetQueryDocument':
         """Initialize a BulkGetQueryDocument object from a json dictionary."""
         args = {}
-        if 'atts_since' in _dict:
-            args['atts_since'] = _dict.get('atts_since')
-        if 'id' in _dict:
-            args['id'] = _dict.get('id')
+        if (atts_since := _dict.get('atts_since')) is not None:
+            args['atts_since'] = atts_since
+        if (id := _dict.get('id')) is not None:
+            args['id'] = id
         else:
             raise ValueError('Required property \'id\' not present in BulkGetQueryDocument JSON')
-        if 'rev' in _dict:
-            args['rev'] = _dict.get('rev')
+        if (rev := _dict.get('rev')) is not None:
+            args['rev'] = rev
         return cls(**args)
 
     @classmethod
@@ -9812,8 +9812,8 @@ class BulkGetResult:
     def from_dict(cls, _dict: Dict) -> 'BulkGetResult':
         """Initialize a BulkGetResult object from a json dictionary."""
         args = {}
-        if 'results' in _dict:
-            args['results'] = [BulkGetResultItem.from_dict(v) for v in _dict.get('results')]
+        if (results := _dict.get('results')) is not None:
+            args['results'] = [BulkGetResultItem.from_dict(v) for v in results]
         else:
             raise ValueError('Required property \'results\' not present in BulkGetResult JSON')
         return cls(**args)
@@ -9885,10 +9885,10 @@ class BulkGetResultDocument:
     def from_dict(cls, _dict: Dict) -> 'BulkGetResultDocument':
         """Initialize a BulkGetResultDocument object from a json dictionary."""
         args = {}
-        if 'error' in _dict:
-            args['error'] = DocumentResult.from_dict(_dict.get('error'))
-        if 'ok' in _dict:
-            args['ok'] = Document.from_dict(_dict.get('ok'))
+        if (error := _dict.get('error')) is not None:
+            args['error'] = DocumentResult.from_dict(error)
+        if (ok := _dict.get('ok')) is not None:
+            args['ok'] = Document.from_dict(ok)
         return cls(**args)
 
     @classmethod
@@ -9958,12 +9958,12 @@ class BulkGetResultItem:
     def from_dict(cls, _dict: Dict) -> 'BulkGetResultItem':
         """Initialize a BulkGetResultItem object from a json dictionary."""
         args = {}
-        if 'docs' in _dict:
-            args['docs'] = [BulkGetResultDocument.from_dict(v) for v in _dict.get('docs')]
+        if (docs := _dict.get('docs')) is not None:
+            args['docs'] = [BulkGetResultDocument.from_dict(v) for v in docs]
         else:
             raise ValueError('Required property \'docs\' not present in BulkGetResultItem JSON')
-        if 'id' in _dict:
-            args['id'] = _dict.get('id')
+        if (id := _dict.get('id')) is not None:
+            args['id'] = id
         else:
             raise ValueError('Required property \'id\' not present in BulkGetResultItem JSON')
         return cls(**args)
@@ -10038,12 +10038,12 @@ class CapacityThroughputInformation:
     def from_dict(cls, _dict: Dict) -> 'CapacityThroughputInformation':
         """Initialize a CapacityThroughputInformation object from a json dictionary."""
         args = {}
-        if 'current' in _dict:
-            args['current'] = CapacityThroughputInformationCurrent.from_dict(_dict.get('current'))
+        if (current := _dict.get('current')) is not None:
+            args['current'] = CapacityThroughputInformationCurrent.from_dict(current)
         else:
             raise ValueError('Required property \'current\' not present in CapacityThroughputInformation JSON')
-        if 'target' in _dict:
-            args['target'] = CapacityThroughputInformationTarget.from_dict(_dict.get('target'))
+        if (target := _dict.get('target')) is not None:
+            args['target'] = CapacityThroughputInformationTarget.from_dict(target)
         return cls(**args)
 
     @classmethod
@@ -10110,8 +10110,8 @@ class CapacityThroughputInformationCurrent:
     def from_dict(cls, _dict: Dict) -> 'CapacityThroughputInformationCurrent':
         """Initialize a CapacityThroughputInformationCurrent object from a json dictionary."""
         args = {}
-        if 'throughput' in _dict:
-            args['throughput'] = ThroughputInformation.from_dict(_dict.get('throughput'))
+        if (throughput := _dict.get('throughput')) is not None:
+            args['throughput'] = ThroughputInformation.from_dict(throughput)
         else:
             raise ValueError('Required property \'throughput\' not present in CapacityThroughputInformationCurrent JSON')
         return cls(**args)
@@ -10175,8 +10175,8 @@ class CapacityThroughputInformationTarget:
     def from_dict(cls, _dict: Dict) -> 'CapacityThroughputInformationTarget':
         """Initialize a CapacityThroughputInformationTarget object from a json dictionary."""
         args = {}
-        if 'throughput' in _dict:
-            args['throughput'] = ThroughputInformation.from_dict(_dict.get('throughput'))
+        if (throughput := _dict.get('throughput')) is not None:
+            args['throughput'] = ThroughputInformation.from_dict(throughput)
         else:
             raise ValueError('Required property \'throughput\' not present in CapacityThroughputInformationTarget JSON')
         return cls(**args)
@@ -10237,8 +10237,8 @@ class Change:
     def from_dict(cls, _dict: Dict) -> 'Change':
         """Initialize a Change object from a json dictionary."""
         args = {}
-        if 'rev' in _dict:
-            args['rev'] = _dict.get('rev')
+        if (rev := _dict.get('rev')) is not None:
+            args['rev'] = rev
         else:
             raise ValueError('Required property \'rev\' not present in Change JSON')
         return cls(**args)
@@ -10304,16 +10304,16 @@ class ChangesResult:
     def from_dict(cls, _dict: Dict) -> 'ChangesResult':
         """Initialize a ChangesResult object from a json dictionary."""
         args = {}
-        if 'last_seq' in _dict:
-            args['last_seq'] = _dict.get('last_seq')
+        if (last_seq := _dict.get('last_seq')) is not None:
+            args['last_seq'] = last_seq
         else:
             raise ValueError('Required property \'last_seq\' not present in ChangesResult JSON')
-        if 'pending' in _dict:
-            args['pending'] = _dict.get('pending')
+        if (pending := _dict.get('pending')) is not None:
+            args['pending'] = pending
         else:
             raise ValueError('Required property \'pending\' not present in ChangesResult JSON')
-        if 'results' in _dict:
-            args['results'] = [ChangesResultItem.from_dict(v) for v in _dict.get('results')]
+        if (results := _dict.get('results')) is not None:
+            args['results'] = [ChangesResultItem.from_dict(v) for v in results]
         else:
             raise ValueError('Required property \'results\' not present in ChangesResult JSON')
         return cls(**args)
@@ -10399,20 +10399,20 @@ class ChangesResultItem:
     def from_dict(cls, _dict: Dict) -> 'ChangesResultItem':
         """Initialize a ChangesResultItem object from a json dictionary."""
         args = {}
-        if 'changes' in _dict:
-            args['changes'] = [Change.from_dict(v) for v in _dict.get('changes')]
+        if (changes := _dict.get('changes')) is not None:
+            args['changes'] = [Change.from_dict(v) for v in changes]
         else:
             raise ValueError('Required property \'changes\' not present in ChangesResultItem JSON')
-        if 'deleted' in _dict:
-            args['deleted'] = _dict.get('deleted')
-        if 'doc' in _dict:
-            args['doc'] = Document.from_dict(_dict.get('doc'))
-        if 'id' in _dict:
-            args['id'] = _dict.get('id')
+        if (deleted := _dict.get('deleted')) is not None:
+            args['deleted'] = deleted
+        if (doc := _dict.get('doc')) is not None:
+            args['doc'] = Document.from_dict(doc)
+        if (id := _dict.get('id')) is not None:
+            args['id'] = id
         else:
             raise ValueError('Required property \'id\' not present in ChangesResultItem JSON')
-        if 'seq' in _dict:
-            args['seq'] = _dict.get('seq')
+        if (seq := _dict.get('seq')) is not None:
+            args['seq'] = seq
         else:
             raise ValueError('Required property \'seq\' not present in ChangesResultItem JSON')
         return cls(**args)
@@ -10495,16 +10495,16 @@ class ContentInformationSizes:
     def from_dict(cls, _dict: Dict) -> 'ContentInformationSizes':
         """Initialize a ContentInformationSizes object from a json dictionary."""
         args = {}
-        if 'active' in _dict:
-            args['active'] = _dict.get('active')
+        if (active := _dict.get('active')) is not None:
+            args['active'] = active
         else:
             raise ValueError('Required property \'active\' not present in ContentInformationSizes JSON')
-        if 'external' in _dict:
-            args['external'] = _dict.get('external')
+        if (external := _dict.get('external')) is not None:
+            args['external'] = external
         else:
             raise ValueError('Required property \'external\' not present in ContentInformationSizes JSON')
-        if 'file' in _dict:
-            args['file'] = _dict.get('file')
+        if (file := _dict.get('file')) is not None:
+            args['file'] = file
         else:
             raise ValueError('Required property \'file\' not present in ContentInformationSizes JSON')
         return cls(**args)
@@ -10584,16 +10584,16 @@ class CorsInformation:
     def from_dict(cls, _dict: Dict) -> 'CorsInformation':
         """Initialize a CorsInformation object from a json dictionary."""
         args = {}
-        if 'allow_credentials' in _dict:
-            args['allow_credentials'] = _dict.get('allow_credentials')
+        if (allow_credentials := _dict.get('allow_credentials')) is not None:
+            args['allow_credentials'] = allow_credentials
         else:
             raise ValueError('Required property \'allow_credentials\' not present in CorsInformation JSON')
-        if 'enable_cors' in _dict:
-            args['enable_cors'] = _dict.get('enable_cors')
+        if (enable_cors := _dict.get('enable_cors')) is not None:
+            args['enable_cors'] = enable_cors
         else:
             raise ValueError('Required property \'enable_cors\' not present in CorsInformation JSON')
-        if 'origins' in _dict:
-            args['origins'] = _dict.get('origins')
+        if (origins := _dict.get('origins')) is not None:
+            args['origins'] = origins
         else:
             raise ValueError('Required property \'origins\' not present in CorsInformation JSON')
         return cls(**args)
@@ -10657,8 +10657,8 @@ class CurrentThroughputInformation:
     def from_dict(cls, _dict: Dict) -> 'CurrentThroughputInformation':
         """Initialize a CurrentThroughputInformation object from a json dictionary."""
         args = {}
-        if 'throughput' in _dict:
-            args['throughput'] = CurrentThroughputInformationThroughput.from_dict(_dict.get('throughput'))
+        if (throughput := _dict.get('throughput')) is not None:
+            args['throughput'] = CurrentThroughputInformationThroughput.from_dict(throughput)
         else:
             raise ValueError('Required property \'throughput\' not present in CurrentThroughputInformation JSON')
         return cls(**args)
@@ -10733,16 +10733,16 @@ class CurrentThroughputInformationThroughput:
     def from_dict(cls, _dict: Dict) -> 'CurrentThroughputInformationThroughput':
         """Initialize a CurrentThroughputInformationThroughput object from a json dictionary."""
         args = {}
-        if 'query' in _dict:
-            args['query'] = _dict.get('query')
+        if (query := _dict.get('query')) is not None:
+            args['query'] = query
         else:
             raise ValueError('Required property \'query\' not present in CurrentThroughputInformationThroughput JSON')
-        if 'read' in _dict:
-            args['read'] = _dict.get('read')
+        if (read := _dict.get('read')) is not None:
+            args['read'] = read
         else:
             raise ValueError('Required property \'read\' not present in CurrentThroughputInformationThroughput JSON')
-        if 'write' in _dict:
-            args['write'] = _dict.get('write')
+        if (write := _dict.get('write')) is not None:
+            args['write'] = write
         else:
             raise ValueError('Required property \'write\' not present in CurrentThroughputInformationThroughput JSON')
         return cls(**args)
@@ -10872,52 +10872,52 @@ class DatabaseInformation:
     def from_dict(cls, _dict: Dict) -> 'DatabaseInformation':
         """Initialize a DatabaseInformation object from a json dictionary."""
         args = {}
-        if 'cluster' in _dict:
-            args['cluster'] = DatabaseInformationCluster.from_dict(_dict.get('cluster'))
+        if (cluster := _dict.get('cluster')) is not None:
+            args['cluster'] = DatabaseInformationCluster.from_dict(cluster)
         else:
             raise ValueError('Required property \'cluster\' not present in DatabaseInformation JSON')
-        if 'committed_update_seq' in _dict:
-            args['committed_update_seq'] = _dict.get('committed_update_seq')
-        if 'compact_running' in _dict:
-            args['compact_running'] = _dict.get('compact_running')
+        if (committed_update_seq := _dict.get('committed_update_seq')) is not None:
+            args['committed_update_seq'] = committed_update_seq
+        if (compact_running := _dict.get('compact_running')) is not None:
+            args['compact_running'] = compact_running
         else:
             raise ValueError('Required property \'compact_running\' not present in DatabaseInformation JSON')
-        if 'compacted_seq' in _dict:
-            args['compacted_seq'] = _dict.get('compacted_seq')
-        if 'db_name' in _dict:
-            args['db_name'] = _dict.get('db_name')
+        if (compacted_seq := _dict.get('compacted_seq')) is not None:
+            args['compacted_seq'] = compacted_seq
+        if (db_name := _dict.get('db_name')) is not None:
+            args['db_name'] = db_name
         else:
             raise ValueError('Required property \'db_name\' not present in DatabaseInformation JSON')
-        if 'disk_format_version' in _dict:
-            args['disk_format_version'] = _dict.get('disk_format_version')
+        if (disk_format_version := _dict.get('disk_format_version')) is not None:
+            args['disk_format_version'] = disk_format_version
         else:
             raise ValueError('Required property \'disk_format_version\' not present in DatabaseInformation JSON')
-        if 'doc_count' in _dict:
-            args['doc_count'] = _dict.get('doc_count')
+        if (doc_count := _dict.get('doc_count')) is not None:
+            args['doc_count'] = doc_count
         else:
             raise ValueError('Required property \'doc_count\' not present in DatabaseInformation JSON')
-        if 'doc_del_count' in _dict:
-            args['doc_del_count'] = _dict.get('doc_del_count')
+        if (doc_del_count := _dict.get('doc_del_count')) is not None:
+            args['doc_del_count'] = doc_del_count
         else:
             raise ValueError('Required property \'doc_del_count\' not present in DatabaseInformation JSON')
-        if 'engine' in _dict:
-            args['engine'] = _dict.get('engine')
-        if 'props' in _dict:
-            args['props'] = DatabaseInformationProps.from_dict(_dict.get('props'))
+        if (engine := _dict.get('engine')) is not None:
+            args['engine'] = engine
+        if (props := _dict.get('props')) is not None:
+            args['props'] = DatabaseInformationProps.from_dict(props)
         else:
             raise ValueError('Required property \'props\' not present in DatabaseInformation JSON')
-        if 'sizes' in _dict:
-            args['sizes'] = ContentInformationSizes.from_dict(_dict.get('sizes'))
+        if (sizes := _dict.get('sizes')) is not None:
+            args['sizes'] = ContentInformationSizes.from_dict(sizes)
         else:
             raise ValueError('Required property \'sizes\' not present in DatabaseInformation JSON')
-        if 'update_seq' in _dict:
-            args['update_seq'] = _dict.get('update_seq')
+        if (update_seq := _dict.get('update_seq')) is not None:
+            args['update_seq'] = update_seq
         else:
             raise ValueError('Required property \'update_seq\' not present in DatabaseInformation JSON')
-        if 'uuid' in _dict:
-            args['uuid'] = _dict.get('uuid')
-        if 'partitioned_indexes' in _dict:
-            args['partitioned_indexes'] = PartitionedIndexesInformation.from_dict(_dict.get('partitioned_indexes'))
+        if (uuid := _dict.get('uuid')) is not None:
+            args['uuid'] = uuid
+        if (partitioned_indexes := _dict.get('partitioned_indexes')) is not None:
+            args['partitioned_indexes'] = PartitionedIndexesInformation.from_dict(partitioned_indexes)
         return cls(**args)
 
     @classmethod
@@ -11032,20 +11032,20 @@ class DatabaseInformationCluster:
     def from_dict(cls, _dict: Dict) -> 'DatabaseInformationCluster':
         """Initialize a DatabaseInformationCluster object from a json dictionary."""
         args = {}
-        if 'n' in _dict:
-            args['n'] = _dict.get('n')
+        if (n := _dict.get('n')) is not None:
+            args['n'] = n
         else:
             raise ValueError('Required property \'n\' not present in DatabaseInformationCluster JSON')
-        if 'q' in _dict:
-            args['q'] = _dict.get('q')
+        if (q := _dict.get('q')) is not None:
+            args['q'] = q
         else:
             raise ValueError('Required property \'q\' not present in DatabaseInformationCluster JSON')
-        if 'r' in _dict:
-            args['r'] = _dict.get('r')
+        if (r := _dict.get('r')) is not None:
+            args['r'] = r
         else:
             raise ValueError('Required property \'r\' not present in DatabaseInformationCluster JSON')
-        if 'w' in _dict:
-            args['w'] = _dict.get('w')
+        if (w := _dict.get('w')) is not None:
+            args['w'] = w
         else:
             raise ValueError('Required property \'w\' not present in DatabaseInformationCluster JSON')
         return cls(**args)
@@ -11112,8 +11112,8 @@ class DatabaseInformationProps:
     def from_dict(cls, _dict: Dict) -> 'DatabaseInformationProps':
         """Initialize a DatabaseInformationProps object from a json dictionary."""
         args = {}
-        if 'partitioned' in _dict:
-            args['partitioned'] = _dict.get('partitioned')
+        if (partitioned := _dict.get('partitioned')) is not None:
+            args['partitioned'] = partitioned
         return cls(**args)
 
     @classmethod
@@ -11177,16 +11177,16 @@ class DbEvent:
     def from_dict(cls, _dict: Dict) -> 'DbEvent':
         """Initialize a DbEvent object from a json dictionary."""
         args = {}
-        if 'db_name' in _dict:
-            args['db_name'] = _dict.get('db_name')
+        if (db_name := _dict.get('db_name')) is not None:
+            args['db_name'] = db_name
         else:
             raise ValueError('Required property \'db_name\' not present in DbEvent JSON')
-        if 'seq' in _dict:
-            args['seq'] = _dict.get('seq')
+        if (seq := _dict.get('seq')) is not None:
+            args['seq'] = seq
         else:
             raise ValueError('Required property \'seq\' not present in DbEvent JSON')
-        if 'type' in _dict:
-            args['type'] = _dict.get('type')
+        if (type := _dict.get('type')) is not None:
+            args['type'] = type
         else:
             raise ValueError('Required property \'type\' not present in DbEvent JSON')
         return cls(**args)
@@ -11262,12 +11262,12 @@ class DbUpdates:
     def from_dict(cls, _dict: Dict) -> 'DbUpdates':
         """Initialize a DbUpdates object from a json dictionary."""
         args = {}
-        if 'last_seq' in _dict:
-            args['last_seq'] = _dict.get('last_seq')
+        if (last_seq := _dict.get('last_seq')) is not None:
+            args['last_seq'] = last_seq
         else:
             raise ValueError('Required property \'last_seq\' not present in DbUpdates JSON')
-        if 'results' in _dict:
-            args['results'] = [DbEvent.from_dict(v) for v in _dict.get('results')]
+        if (results := _dict.get('results')) is not None:
+            args['results'] = [DbEvent.from_dict(v) for v in results]
         else:
             raise ValueError('Required property \'results\' not present in DbUpdates JSON')
         return cls(**args)
@@ -11344,12 +11344,12 @@ class DbsInfoResult:
     def from_dict(cls, _dict: Dict) -> 'DbsInfoResult':
         """Initialize a DbsInfoResult object from a json dictionary."""
         args = {}
-        if 'error' in _dict:
-            args['error'] = _dict.get('error')
-        if 'info' in _dict:
-            args['info'] = DatabaseInformation.from_dict(_dict.get('info'))
-        if 'key' in _dict:
-            args['key'] = _dict.get('key')
+        if (error := _dict.get('error')) is not None:
+            args['error'] = error
+        if (info := _dict.get('info')) is not None:
+            args['info'] = DatabaseInformation.from_dict(info)
+        if (key := _dict.get('key')) is not None:
+            args['key'] = key
         else:
             raise ValueError('Required property \'key\' not present in DbsInfoResult JSON')
         return cls(**args)
@@ -11622,38 +11622,38 @@ class DesignDocument:
     def from_dict(cls, _dict: Dict) -> 'DesignDocument':
         """Initialize a DesignDocument object from a json dictionary."""
         args = {}
-        if '_attachments' in _dict:
-            args['attachments'] = {k: Attachment.from_dict(v) for k, v in _dict.get('_attachments').items()}
-        if '_conflicts' in _dict:
-            args['conflicts'] = _dict.get('_conflicts')
-        if '_deleted' in _dict:
-            args['deleted'] = _dict.get('_deleted')
-        if '_deleted_conflicts' in _dict:
-            args['deleted_conflicts'] = _dict.get('_deleted_conflicts')
-        if '_id' in _dict:
-            args['id'] = _dict.get('_id')
-        if '_local_seq' in _dict:
-            args['local_seq'] = _dict.get('_local_seq')
-        if '_rev' in _dict:
-            args['rev'] = _dict.get('_rev')
-        if '_revisions' in _dict:
-            args['revisions'] = Revisions.from_dict(_dict.get('_revisions'))
-        if '_revs_info' in _dict:
-            args['revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in _dict.get('_revs_info')]
-        if 'autoupdate' in _dict:
-            args['autoupdate'] = _dict.get('autoupdate')
-        if 'filters' in _dict:
-            args['filters'] = _dict.get('filters')
-        if 'indexes' in _dict:
-            args['indexes'] = {k: SearchIndexDefinition.from_dict(v) for k, v in _dict.get('indexes').items()}
-        if 'language' in _dict:
-            args['language'] = _dict.get('language')
-        if 'options' in _dict:
-            args['options'] = DesignDocumentOptions.from_dict(_dict.get('options'))
-        if 'validate_doc_update' in _dict:
-            args['validate_doc_update'] = _dict.get('validate_doc_update')
-        if 'views' in _dict:
-            args['views'] = {k: DesignDocumentViewsMapReduce.from_dict(v) for k, v in _dict.get('views').items()}
+        if (attachments := _dict.get('_attachments')) is not None:
+            args['attachments'] = {k: Attachment.from_dict(v) for k, v in attachments.items()}
+        if (conflicts := _dict.get('_conflicts')) is not None:
+            args['conflicts'] = conflicts
+        if (deleted := _dict.get('_deleted')) is not None:
+            args['deleted'] = deleted
+        if (deleted_conflicts := _dict.get('_deleted_conflicts')) is not None:
+            args['deleted_conflicts'] = deleted_conflicts
+        if (id := _dict.get('_id')) is not None:
+            args['id'] = id
+        if (local_seq := _dict.get('_local_seq')) is not None:
+            args['local_seq'] = local_seq
+        if (rev := _dict.get('_rev')) is not None:
+            args['rev'] = rev
+        if (revisions := _dict.get('_revisions')) is not None:
+            args['revisions'] = Revisions.from_dict(revisions)
+        if (revs_info := _dict.get('_revs_info')) is not None:
+            args['revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in revs_info]
+        if (autoupdate := _dict.get('autoupdate')) is not None:
+            args['autoupdate'] = autoupdate
+        if (filters := _dict.get('filters')) is not None:
+            args['filters'] = filters
+        if (indexes := _dict.get('indexes')) is not None:
+            args['indexes'] = {k: SearchIndexDefinition.from_dict(v) for k, v in indexes.items()}
+        if (language := _dict.get('language')) is not None:
+            args['language'] = language
+        if (options := _dict.get('options')) is not None:
+            args['options'] = DesignDocumentOptions.from_dict(options)
+        if (validate_doc_update := _dict.get('validate_doc_update')) is not None:
+            args['validate_doc_update'] = validate_doc_update
+        if (views := _dict.get('views')) is not None:
+            args['views'] = {k: DesignDocumentViewsMapReduce.from_dict(v) for k, v in views.items()}
         args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
         return cls(**args)
 
@@ -11793,12 +11793,12 @@ class DesignDocumentInformation:
     def from_dict(cls, _dict: Dict) -> 'DesignDocumentInformation':
         """Initialize a DesignDocumentInformation object from a json dictionary."""
         args = {}
-        if 'name' in _dict:
-            args['name'] = _dict.get('name')
+        if (name := _dict.get('name')) is not None:
+            args['name'] = name
         else:
             raise ValueError('Required property \'name\' not present in DesignDocumentInformation JSON')
-        if 'view_index' in _dict:
-            args['view_index'] = DesignDocumentViewIndex.from_dict(_dict.get('view_index'))
+        if (view_index := _dict.get('view_index')) is not None:
+            args['view_index'] = DesignDocumentViewIndex.from_dict(view_index)
         else:
             raise ValueError('Required property \'view_index\' not present in DesignDocumentInformation JSON')
         return cls(**args)
@@ -11864,8 +11864,8 @@ class DesignDocumentOptions:
     def from_dict(cls, _dict: Dict) -> 'DesignDocumentOptions':
         """Initialize a DesignDocumentOptions object from a json dictionary."""
         args = {}
-        if 'partitioned' in _dict:
-            args['partitioned'] = _dict.get('partitioned')
+        if (partitioned := _dict.get('partitioned')) is not None:
+            args['partitioned'] = partitioned
         return cls(**args)
 
     @classmethod
@@ -11967,40 +11967,40 @@ class DesignDocumentViewIndex:
     def from_dict(cls, _dict: Dict) -> 'DesignDocumentViewIndex':
         """Initialize a DesignDocumentViewIndex object from a json dictionary."""
         args = {}
-        if 'collator_versions' in _dict:
-            args['collator_versions'] = _dict.get('collator_versions')
+        if (collator_versions := _dict.get('collator_versions')) is not None:
+            args['collator_versions'] = collator_versions
         else:
             raise ValueError('Required property \'collator_versions\' not present in DesignDocumentViewIndex JSON')
-        if 'compact_running' in _dict:
-            args['compact_running'] = _dict.get('compact_running')
+        if (compact_running := _dict.get('compact_running')) is not None:
+            args['compact_running'] = compact_running
         else:
             raise ValueError('Required property \'compact_running\' not present in DesignDocumentViewIndex JSON')
-        if 'language' in _dict:
-            args['language'] = _dict.get('language')
+        if (language := _dict.get('language')) is not None:
+            args['language'] = language
         else:
             raise ValueError('Required property \'language\' not present in DesignDocumentViewIndex JSON')
-        if 'signature' in _dict:
-            args['signature'] = _dict.get('signature')
+        if (signature := _dict.get('signature')) is not None:
+            args['signature'] = signature
         else:
             raise ValueError('Required property \'signature\' not present in DesignDocumentViewIndex JSON')
-        if 'sizes' in _dict:
-            args['sizes'] = ContentInformationSizes.from_dict(_dict.get('sizes'))
+        if (sizes := _dict.get('sizes')) is not None:
+            args['sizes'] = ContentInformationSizes.from_dict(sizes)
         else:
             raise ValueError('Required property \'sizes\' not present in DesignDocumentViewIndex JSON')
-        if 'updater_running' in _dict:
-            args['updater_running'] = _dict.get('updater_running')
+        if (updater_running := _dict.get('updater_running')) is not None:
+            args['updater_running'] = updater_running
         else:
             raise ValueError('Required property \'updater_running\' not present in DesignDocumentViewIndex JSON')
-        if 'updates_pending' in _dict:
-            args['updates_pending'] = UpdatesPending.from_dict(_dict.get('updates_pending'))
+        if (updates_pending := _dict.get('updates_pending')) is not None:
+            args['updates_pending'] = UpdatesPending.from_dict(updates_pending)
         else:
             raise ValueError('Required property \'updates_pending\' not present in DesignDocumentViewIndex JSON')
-        if 'waiting_clients' in _dict:
-            args['waiting_clients'] = _dict.get('waiting_clients')
+        if (waiting_clients := _dict.get('waiting_clients')) is not None:
+            args['waiting_clients'] = waiting_clients
         else:
             raise ValueError('Required property \'waiting_clients\' not present in DesignDocumentViewIndex JSON')
-        if 'waiting_commit' in _dict:
-            args['waiting_commit'] = _dict.get('waiting_commit')
+        if (waiting_commit := _dict.get('waiting_commit')) is not None:
+            args['waiting_commit'] = waiting_commit
         else:
             raise ValueError('Required property \'waiting_commit\' not present in DesignDocumentViewIndex JSON')
         return cls(**args)
@@ -12085,12 +12085,12 @@ class DesignDocumentViewsMapReduce:
     def from_dict(cls, _dict: Dict) -> 'DesignDocumentViewsMapReduce':
         """Initialize a DesignDocumentViewsMapReduce object from a json dictionary."""
         args = {}
-        if 'map' in _dict:
-            args['map'] = _dict.get('map')
+        if (map := _dict.get('map')) is not None:
+            args['map'] = map
         else:
             raise ValueError('Required property \'map\' not present in DesignDocumentViewsMapReduce JSON')
-        if 'reduce' in _dict:
-            args['reduce'] = _dict.get('reduce')
+        if (reduce := _dict.get('reduce')) is not None:
+            args['reduce'] = reduce
         return cls(**args)
 
     @classmethod
@@ -12175,22 +12175,22 @@ class DocsResultRow:
     def from_dict(cls, _dict: Dict) -> 'DocsResultRow':
         """Initialize a DocsResultRow object from a json dictionary."""
         args = {}
-        if 'caused_by' in _dict:
-            args['caused_by'] = _dict.get('caused_by')
-        if 'error' in _dict:
-            args['error'] = _dict.get('error')
-        if 'reason' in _dict:
-            args['reason'] = _dict.get('reason')
-        if 'doc' in _dict:
-            args['doc'] = Document.from_dict(_dict.get('doc'))
-        if 'id' in _dict:
-            args['id'] = _dict.get('id')
-        if 'key' in _dict:
-            args['key'] = _dict.get('key')
+        if (caused_by := _dict.get('caused_by')) is not None:
+            args['caused_by'] = caused_by
+        if (error := _dict.get('error')) is not None:
+            args['error'] = error
+        if (reason := _dict.get('reason')) is not None:
+            args['reason'] = reason
+        if (doc := _dict.get('doc')) is not None:
+            args['doc'] = Document.from_dict(doc)
+        if (id := _dict.get('id')) is not None:
+            args['id'] = id
+        if (key := _dict.get('key')) is not None:
+            args['key'] = key
         else:
             raise ValueError('Required property \'key\' not present in DocsResultRow JSON')
-        if 'value' in _dict:
-            args['value'] = DocsResultRowValue.from_dict(_dict.get('value'))
+        if (value := _dict.get('value')) is not None:
+            args['value'] = DocsResultRowValue.from_dict(value)
         return cls(**args)
 
     @classmethod
@@ -12271,10 +12271,10 @@ class DocsResultRowValue:
     def from_dict(cls, _dict: Dict) -> 'DocsResultRowValue':
         """Initialize a DocsResultRowValue object from a json dictionary."""
         args = {}
-        if 'deleted' in _dict:
-            args['deleted'] = _dict.get('deleted')
-        if 'rev' in _dict:
-            args['rev'] = _dict.get('rev')
+        if (deleted := _dict.get('deleted')) is not None:
+            args['deleted'] = deleted
+        if (rev := _dict.get('rev')) is not None:
+            args['rev'] = rev
         else:
             raise ValueError('Required property \'rev\' not present in DocsResultRowValue JSON')
         return cls(**args)
@@ -12387,24 +12387,24 @@ class Document:
     def from_dict(cls, _dict: Dict) -> 'Document':
         """Initialize a Document object from a json dictionary."""
         args = {}
-        if '_attachments' in _dict:
-            args['attachments'] = {k: Attachment.from_dict(v) for k, v in _dict.get('_attachments').items()}
-        if '_conflicts' in _dict:
-            args['conflicts'] = _dict.get('_conflicts')
-        if '_deleted' in _dict:
-            args['deleted'] = _dict.get('_deleted')
-        if '_deleted_conflicts' in _dict:
-            args['deleted_conflicts'] = _dict.get('_deleted_conflicts')
-        if '_id' in _dict:
-            args['id'] = _dict.get('_id')
-        if '_local_seq' in _dict:
-            args['local_seq'] = _dict.get('_local_seq')
-        if '_rev' in _dict:
-            args['rev'] = _dict.get('_rev')
-        if '_revisions' in _dict:
-            args['revisions'] = Revisions.from_dict(_dict.get('_revisions'))
-        if '_revs_info' in _dict:
-            args['revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in _dict.get('_revs_info')]
+        if (attachments := _dict.get('_attachments')) is not None:
+            args['attachments'] = {k: Attachment.from_dict(v) for k, v in attachments.items()}
+        if (conflicts := _dict.get('_conflicts')) is not None:
+            args['conflicts'] = conflicts
+        if (deleted := _dict.get('_deleted')) is not None:
+            args['deleted'] = deleted
+        if (deleted_conflicts := _dict.get('_deleted_conflicts')) is not None:
+            args['deleted_conflicts'] = deleted_conflicts
+        if (id := _dict.get('_id')) is not None:
+            args['id'] = id
+        if (local_seq := _dict.get('_local_seq')) is not None:
+            args['local_seq'] = local_seq
+        if (rev := _dict.get('_rev')) is not None:
+            args['rev'] = rev
+        if (revisions := _dict.get('_revisions')) is not None:
+            args['revisions'] = Revisions.from_dict(revisions)
+        if (revs_info := _dict.get('_revs_info')) is not None:
+            args['revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in revs_info]
         args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
         return cls(**args)
 
@@ -12532,20 +12532,20 @@ class DocumentResult:
     def from_dict(cls, _dict: Dict) -> 'DocumentResult':
         """Initialize a DocumentResult object from a json dictionary."""
         args = {}
-        if 'id' in _dict:
-            args['id'] = _dict.get('id')
+        if (id := _dict.get('id')) is not None:
+            args['id'] = id
         else:
             raise ValueError('Required property \'id\' not present in DocumentResult JSON')
-        if 'rev' in _dict:
-            args['rev'] = _dict.get('rev')
-        if 'ok' in _dict:
-            args['ok'] = _dict.get('ok')
-        if 'caused_by' in _dict:
-            args['caused_by'] = _dict.get('caused_by')
-        if 'error' in _dict:
-            args['error'] = _dict.get('error')
-        if 'reason' in _dict:
-            args['reason'] = _dict.get('reason')
+        if (rev := _dict.get('rev')) is not None:
+            args['rev'] = rev
+        if (ok := _dict.get('ok')) is not None:
+            args['ok'] = ok
+        if (caused_by := _dict.get('caused_by')) is not None:
+            args['caused_by'] = caused_by
+        if (error := _dict.get('error')) is not None:
+            args['error'] = error
+        if (reason := _dict.get('reason')) is not None:
+            args['reason'] = reason
         return cls(**args)
 
     @classmethod
@@ -12620,12 +12620,12 @@ class DocumentRevisionStatus:
     def from_dict(cls, _dict: Dict) -> 'DocumentRevisionStatus':
         """Initialize a DocumentRevisionStatus object from a json dictionary."""
         args = {}
-        if 'rev' in _dict:
-            args['rev'] = _dict.get('rev')
+        if (rev := _dict.get('rev')) is not None:
+            args['rev'] = rev
         else:
             raise ValueError('Required property \'rev\' not present in DocumentRevisionStatus JSON')
-        if 'status' in _dict:
-            args['status'] = _dict.get('status')
+        if (status := _dict.get('status')) is not None:
+            args['status'] = status
         else:
             raise ValueError('Required property \'status\' not present in DocumentRevisionStatus JSON')
         return cls(**args)
@@ -12701,12 +12701,12 @@ class DocumentShardInfo:
     def from_dict(cls, _dict: Dict) -> 'DocumentShardInfo':
         """Initialize a DocumentShardInfo object from a json dictionary."""
         args = {}
-        if 'nodes' in _dict:
-            args['nodes'] = _dict.get('nodes')
+        if (nodes := _dict.get('nodes')) is not None:
+            args['nodes'] = nodes
         else:
             raise ValueError('Required property \'nodes\' not present in DocumentShardInfo JSON')
-        if 'range' in _dict:
-            args['range'] = _dict.get('range')
+        if (range := _dict.get('range')) is not None:
+            args['range'] = range
         else:
             raise ValueError('Required property \'range\' not present in DocumentShardInfo JSON')
         return cls(**args)
@@ -12784,24 +12784,24 @@ class ExecutionStats:
     def from_dict(cls, _dict: Dict) -> 'ExecutionStats':
         """Initialize a ExecutionStats object from a json dictionary."""
         args = {}
-        if 'execution_time_ms' in _dict:
-            args['execution_time_ms'] = _dict.get('execution_time_ms')
+        if (execution_time_ms := _dict.get('execution_time_ms')) is not None:
+            args['execution_time_ms'] = execution_time_ms
         else:
             raise ValueError('Required property \'execution_time_ms\' not present in ExecutionStats JSON')
-        if 'results_returned' in _dict:
-            args['results_returned'] = _dict.get('results_returned')
+        if (results_returned := _dict.get('results_returned')) is not None:
+            args['results_returned'] = results_returned
         else:
             raise ValueError('Required property \'results_returned\' not present in ExecutionStats JSON')
-        if 'total_docs_examined' in _dict:
-            args['total_docs_examined'] = _dict.get('total_docs_examined')
+        if (total_docs_examined := _dict.get('total_docs_examined')) is not None:
+            args['total_docs_examined'] = total_docs_examined
         else:
             raise ValueError('Required property \'total_docs_examined\' not present in ExecutionStats JSON')
-        if 'total_keys_examined' in _dict:
-            args['total_keys_examined'] = _dict.get('total_keys_examined')
+        if (total_keys_examined := _dict.get('total_keys_examined')) is not None:
+            args['total_keys_examined'] = total_keys_examined
         else:
             raise ValueError('Required property \'total_keys_examined\' not present in ExecutionStats JSON')
-        if 'total_quorum_docs_examined' in _dict:
-            args['total_quorum_docs_examined'] = _dict.get('total_quorum_docs_examined')
+        if (total_quorum_docs_examined := _dict.get('total_quorum_docs_examined')) is not None:
+            args['total_quorum_docs_examined'] = total_quorum_docs_examined
         else:
             raise ValueError('Required property \'total_quorum_docs_examined\' not present in ExecutionStats JSON')
         return cls(**args)
@@ -12971,40 +12971,40 @@ class ExplainResult:
     def from_dict(cls, _dict: Dict) -> 'ExplainResult':
         """Initialize a ExplainResult object from a json dictionary."""
         args = {}
-        if 'covering' in _dict:
-            args['covering'] = _dict.get('covering')
+        if (covering := _dict.get('covering')) is not None:
+            args['covering'] = covering
         else:
             raise ValueError('Required property \'covering\' not present in ExplainResult JSON')
-        if 'dbname' in _dict:
-            args['dbname'] = _dict.get('dbname')
+        if (dbname := _dict.get('dbname')) is not None:
+            args['dbname'] = dbname
         else:
             raise ValueError('Required property \'dbname\' not present in ExplainResult JSON')
-        if 'fields' in _dict:
-            args['fields'] = _dict.get('fields')
+        if (fields := _dict.get('fields')) is not None:
+            args['fields'] = fields
         else:
             raise ValueError('Required property \'fields\' not present in ExplainResult JSON')
-        if 'index' in _dict:
-            args['index'] = IndexInformation.from_dict(_dict.get('index'))
+        if (index := _dict.get('index')) is not None:
+            args['index'] = IndexInformation.from_dict(index)
         else:
             raise ValueError('Required property \'index\' not present in ExplainResult JSON')
-        if 'limit' in _dict:
-            args['limit'] = _dict.get('limit')
+        if (limit := _dict.get('limit')) is not None:
+            args['limit'] = limit
         else:
             raise ValueError('Required property \'limit\' not present in ExplainResult JSON')
-        if 'mrargs' in _dict:
-            args['mrargs'] = ExplainResultMrArgs.from_dict(_dict.get('mrargs'))
-        if 'opts' in _dict:
-            args['opts'] = ExplainResultOpts.from_dict(_dict.get('opts'))
+        if (mrargs := _dict.get('mrargs')) is not None:
+            args['mrargs'] = ExplainResultMrArgs.from_dict(mrargs)
+        if (opts := _dict.get('opts')) is not None:
+            args['opts'] = ExplainResultOpts.from_dict(opts)
         else:
             raise ValueError('Required property \'opts\' not present in ExplainResult JSON')
-        if 'partitioned' in _dict:
-            args['partitioned'] = _dict.get('partitioned')
-        if 'selector' in _dict:
-            args['selector'] = _dict.get('selector')
+        if (partitioned := _dict.get('partitioned')) is not None:
+            args['partitioned'] = partitioned
+        if (selector := _dict.get('selector')) is not None:
+            args['selector'] = selector
         else:
             raise ValueError('Required property \'selector\' not present in ExplainResult JSON')
-        if 'skip' in _dict:
-            args['skip'] = _dict.get('skip')
+        if (skip := _dict.get('skip')) is not None:
+            args['skip'] = skip
         else:
             raise ValueError('Required property \'skip\' not present in ExplainResult JSON')
         return cls(**args)
@@ -13140,26 +13140,26 @@ class ExplainResultMrArgs:
     def from_dict(cls, _dict: Dict) -> 'ExplainResultMrArgs':
         """Initialize a ExplainResultMrArgs object from a json dictionary."""
         args = {}
-        if 'conflicts' in _dict:
-            args['conflicts'] = _dict.get('conflicts')
-        if 'direction' in _dict:
-            args['direction'] = _dict.get('direction')
-        if 'end_key' in _dict:
-            args['end_key'] = _dict.get('end_key')
-        if 'include_docs' in _dict:
-            args['include_docs'] = _dict.get('include_docs')
-        if 'partition' in _dict:
-            args['partition'] = _dict.get('partition')
-        if 'reduce' in _dict:
-            args['reduce'] = _dict.get('reduce')
-        if 'stable' in _dict:
-            args['stable'] = _dict.get('stable')
-        if 'start_key' in _dict:
-            args['start_key'] = _dict.get('start_key')
-        if 'update' in _dict:
-            args['update'] = _dict.get('update')
-        if 'view_type' in _dict:
-            args['view_type'] = _dict.get('view_type')
+        if (conflicts := _dict.get('conflicts')) is not None:
+            args['conflicts'] = conflicts
+        if (direction := _dict.get('direction')) is not None:
+            args['direction'] = direction
+        if (end_key := _dict.get('end_key')) is not None:
+            args['end_key'] = end_key
+        if (include_docs := _dict.get('include_docs')) is not None:
+            args['include_docs'] = include_docs
+        if (partition := _dict.get('partition')) is not None:
+            args['partition'] = partition
+        if (reduce := _dict.get('reduce')) is not None:
+            args['reduce'] = reduce
+        if (stable := _dict.get('stable')) is not None:
+            args['stable'] = stable
+        if (start_key := _dict.get('start_key')) is not None:
+            args['start_key'] = start_key
+        if (update := _dict.get('update')) is not None:
+            args['update'] = update
+        if (view_type := _dict.get('view_type')) is not None:
+            args['view_type'] = view_type
         return cls(**args)
 
     @classmethod
@@ -13297,56 +13297,56 @@ class ExplainResultOpts:
     def from_dict(cls, _dict: Dict) -> 'ExplainResultOpts':
         """Initialize a ExplainResultOpts object from a json dictionary."""
         args = {}
-        if 'bookmark' in _dict:
-            args['bookmark'] = _dict.get('bookmark')
+        if (bookmark := _dict.get('bookmark')) is not None:
+            args['bookmark'] = bookmark
         else:
             raise ValueError('Required property \'bookmark\' not present in ExplainResultOpts JSON')
-        if 'conflicts' in _dict:
-            args['conflicts'] = _dict.get('conflicts')
+        if (conflicts := _dict.get('conflicts')) is not None:
+            args['conflicts'] = conflicts
         else:
             raise ValueError('Required property \'conflicts\' not present in ExplainResultOpts JSON')
-        if 'execution_stats' in _dict:
-            args['execution_stats'] = _dict.get('execution_stats')
+        if (execution_stats := _dict.get('execution_stats')) is not None:
+            args['execution_stats'] = execution_stats
         else:
             raise ValueError('Required property \'execution_stats\' not present in ExplainResultOpts JSON')
-        if 'fields' in _dict:
-            args['fields'] = _dict.get('fields')
+        if (fields := _dict.get('fields')) is not None:
+            args['fields'] = fields
         else:
             raise ValueError('Required property \'fields\' not present in ExplainResultOpts JSON')
-        if 'limit' in _dict:
-            args['limit'] = _dict.get('limit')
+        if (limit := _dict.get('limit')) is not None:
+            args['limit'] = limit
         else:
             raise ValueError('Required property \'limit\' not present in ExplainResultOpts JSON')
-        if 'partition' in _dict:
-            args['partition'] = _dict.get('partition')
+        if (partition := _dict.get('partition')) is not None:
+            args['partition'] = partition
         else:
             raise ValueError('Required property \'partition\' not present in ExplainResultOpts JSON')
-        if 'r' in _dict:
-            args['r'] = _dict.get('r')
+        if (r := _dict.get('r')) is not None:
+            args['r'] = r
         else:
             raise ValueError('Required property \'r\' not present in ExplainResultOpts JSON')
-        if 'skip' in _dict:
-            args['skip'] = _dict.get('skip')
+        if (skip := _dict.get('skip')) is not None:
+            args['skip'] = skip
         else:
             raise ValueError('Required property \'skip\' not present in ExplainResultOpts JSON')
-        if 'sort' in _dict:
-            args['sort'] = _dict.get('sort')
+        if (sort := _dict.get('sort')) is not None:
+            args['sort'] = sort
         else:
             raise ValueError('Required property \'sort\' not present in ExplainResultOpts JSON')
-        if 'stable' in _dict:
-            args['stable'] = _dict.get('stable')
+        if (stable := _dict.get('stable')) is not None:
+            args['stable'] = stable
         else:
             raise ValueError('Required property \'stable\' not present in ExplainResultOpts JSON')
-        if 'stale' in _dict:
-            args['stale'] = _dict.get('stale')
+        if (stale := _dict.get('stale')) is not None:
+            args['stale'] = stale
         else:
             raise ValueError('Required property \'stale\' not present in ExplainResultOpts JSON')
-        if 'update' in _dict:
-            args['update'] = _dict.get('update')
+        if (update := _dict.get('update')) is not None:
+            args['update'] = update
         else:
             raise ValueError('Required property \'update\' not present in ExplainResultOpts JSON')
-        if 'use_index' in _dict:
-            args['use_index'] = _dict.get('use_index')
+        if (use_index := _dict.get('use_index')) is not None:
+            args['use_index'] = use_index
         else:
             raise ValueError('Required property \'use_index\' not present in ExplainResultOpts JSON')
         return cls(**args)
@@ -13443,18 +13443,18 @@ class FindResult:
     def from_dict(cls, _dict: Dict) -> 'FindResult':
         """Initialize a FindResult object from a json dictionary."""
         args = {}
-        if 'bookmark' in _dict:
-            args['bookmark'] = _dict.get('bookmark')
+        if (bookmark := _dict.get('bookmark')) is not None:
+            args['bookmark'] = bookmark
         else:
             raise ValueError('Required property \'bookmark\' not present in FindResult JSON')
-        if 'docs' in _dict:
-            args['docs'] = [Document.from_dict(v) for v in _dict.get('docs')]
+        if (docs := _dict.get('docs')) is not None:
+            args['docs'] = [Document.from_dict(v) for v in docs]
         else:
             raise ValueError('Required property \'docs\' not present in FindResult JSON')
-        if 'execution_stats' in _dict:
-            args['execution_stats'] = ExecutionStats.from_dict(_dict.get('execution_stats'))
-        if 'warning' in _dict:
-            args['warning'] = _dict.get('warning')
+        if (execution_stats := _dict.get('execution_stats')) is not None:
+            args['execution_stats'] = ExecutionStats.from_dict(execution_stats)
+        if (warning := _dict.get('warning')) is not None:
+            args['warning'] = warning
         return cls(**args)
 
     @classmethod
@@ -13635,16 +13635,16 @@ class IndexDefinition:
     def from_dict(cls, _dict: Dict) -> 'IndexDefinition':
         """Initialize a IndexDefinition object from a json dictionary."""
         args = {}
-        if 'default_analyzer' in _dict:
-            args['default_analyzer'] = Analyzer.from_dict(_dict.get('default_analyzer'))
-        if 'default_field' in _dict:
-            args['default_field'] = IndexTextOperatorDefaultField.from_dict(_dict.get('default_field'))
-        if 'fields' in _dict:
-            args['fields'] = [IndexField.from_dict(v) for v in _dict.get('fields')]
-        if 'index_array_lengths' in _dict:
-            args['index_array_lengths'] = _dict.get('index_array_lengths')
-        if 'partial_filter_selector' in _dict:
-            args['partial_filter_selector'] = _dict.get('partial_filter_selector')
+        if (default_analyzer := _dict.get('default_analyzer')) is not None:
+            args['default_analyzer'] = Analyzer.from_dict(default_analyzer)
+        if (default_field := _dict.get('default_field')) is not None:
+            args['default_field'] = IndexTextOperatorDefaultField.from_dict(default_field)
+        if (fields := _dict.get('fields')) is not None:
+            args['fields'] = [IndexField.from_dict(v) for v in fields]
+        if (index_array_lengths := _dict.get('index_array_lengths')) is not None:
+            args['index_array_lengths'] = index_array_lengths
+        if (partial_filter_selector := _dict.get('partial_filter_selector')) is not None:
+            args['partial_filter_selector'] = partial_filter_selector
         return cls(**args)
 
     @classmethod
@@ -13732,10 +13732,10 @@ class IndexField:
     def from_dict(cls, _dict: Dict) -> 'IndexField':
         """Initialize a IndexField object from a json dictionary."""
         args = {}
-        if 'name' in _dict:
-            args['name'] = _dict.get('name')
-        if 'type' in _dict:
-            args['type'] = _dict.get('type')
+        if (name := _dict.get('name')) is not None:
+            args['name'] = name
+        if (type := _dict.get('type')) is not None:
+            args['type'] = type
         args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
         return cls(**args)
 
@@ -13850,22 +13850,22 @@ class IndexInformation:
     def from_dict(cls, _dict: Dict) -> 'IndexInformation':
         """Initialize a IndexInformation object from a json dictionary."""
         args = {}
-        if 'ddoc' in _dict:
-            args['ddoc'] = _dict.get('ddoc')
+        if (ddoc := _dict.get('ddoc')) is not None:
+            args['ddoc'] = ddoc
         else:
             raise ValueError('Required property \'ddoc\' not present in IndexInformation JSON')
-        if 'def' in _dict:
-            args['def_'] = IndexDefinition.from_dict(_dict.get('def'))
+        if (def_ := _dict.get('def')) is not None:
+            args['def_'] = IndexDefinition.from_dict(def_)
         else:
             raise ValueError('Required property \'def\' not present in IndexInformation JSON')
-        if 'name' in _dict:
-            args['name'] = _dict.get('name')
+        if (name := _dict.get('name')) is not None:
+            args['name'] = name
         else:
             raise ValueError('Required property \'name\' not present in IndexInformation JSON')
-        if 'partitioned' in _dict:
-            args['partitioned'] = _dict.get('partitioned')
-        if 'type' in _dict:
-            args['type'] = _dict.get('type')
+        if (partitioned := _dict.get('partitioned')) is not None:
+            args['partitioned'] = partitioned
+        if (type := _dict.get('type')) is not None:
+            args['type'] = type
         else:
             raise ValueError('Required property \'type\' not present in IndexInformation JSON')
         return cls(**args)
@@ -13954,16 +13954,16 @@ class IndexResult:
     def from_dict(cls, _dict: Dict) -> 'IndexResult':
         """Initialize a IndexResult object from a json dictionary."""
         args = {}
-        if 'id' in _dict:
-            args['id'] = _dict.get('id')
+        if (id := _dict.get('id')) is not None:
+            args['id'] = id
         else:
             raise ValueError('Required property \'id\' not present in IndexResult JSON')
-        if 'name' in _dict:
-            args['name'] = _dict.get('name')
+        if (name := _dict.get('name')) is not None:
+            args['name'] = name
         else:
             raise ValueError('Required property \'name\' not present in IndexResult JSON')
-        if 'result' in _dict:
-            args['result'] = _dict.get('result')
+        if (result := _dict.get('result')) is not None:
+            args['result'] = result
         else:
             raise ValueError('Required property \'result\' not present in IndexResult JSON')
         return cls(**args)
@@ -14042,10 +14042,10 @@ class IndexTextOperatorDefaultField:
     def from_dict(cls, _dict: Dict) -> 'IndexTextOperatorDefaultField':
         """Initialize a IndexTextOperatorDefaultField object from a json dictionary."""
         args = {}
-        if 'analyzer' in _dict:
-            args['analyzer'] = Analyzer.from_dict(_dict.get('analyzer'))
-        if 'enabled' in _dict:
-            args['enabled'] = _dict.get('enabled')
+        if (analyzer := _dict.get('analyzer')) is not None:
+            args['analyzer'] = Analyzer.from_dict(analyzer)
+        if (enabled := _dict.get('enabled')) is not None:
+            args['enabled'] = enabled
         return cls(**args)
 
     @classmethod
@@ -14110,12 +14110,12 @@ class IndexesInformation:
     def from_dict(cls, _dict: Dict) -> 'IndexesInformation':
         """Initialize a IndexesInformation object from a json dictionary."""
         args = {}
-        if 'total_rows' in _dict:
-            args['total_rows'] = _dict.get('total_rows')
+        if (total_rows := _dict.get('total_rows')) is not None:
+            args['total_rows'] = total_rows
         else:
             raise ValueError('Required property \'total_rows\' not present in IndexesInformation JSON')
-        if 'indexes' in _dict:
-            args['indexes'] = [IndexInformation.from_dict(v) for v in _dict.get('indexes')]
+        if (indexes := _dict.get('indexes')) is not None:
+            args['indexes'] = [IndexInformation.from_dict(v) for v in indexes]
         else:
             raise ValueError('Required property \'indexes\' not present in IndexesInformation JSON')
         return cls(**args)
@@ -14187,12 +14187,12 @@ class MembershipInformation:
     def from_dict(cls, _dict: Dict) -> 'MembershipInformation':
         """Initialize a MembershipInformation object from a json dictionary."""
         args = {}
-        if 'all_nodes' in _dict:
-            args['all_nodes'] = _dict.get('all_nodes')
+        if (all_nodes := _dict.get('all_nodes')) is not None:
+            args['all_nodes'] = all_nodes
         else:
             raise ValueError('Required property \'all_nodes\' not present in MembershipInformation JSON')
-        if 'cluster_nodes' in _dict:
-            args['cluster_nodes'] = _dict.get('cluster_nodes')
+        if (cluster_nodes := _dict.get('cluster_nodes')) is not None:
+            args['cluster_nodes'] = cluster_nodes
         else:
             raise ValueError('Required property \'cluster_nodes\' not present in MembershipInformation JSON')
         return cls(**args)
@@ -14253,8 +14253,8 @@ class Ok:
     def from_dict(cls, _dict: Dict) -> 'Ok':
         """Initialize a Ok object from a json dictionary."""
         args = {}
-        if 'ok' in _dict:
-            args['ok'] = _dict.get('ok')
+        if (ok := _dict.get('ok')) is not None:
+            args['ok'] = ok
         return cls(**args)
 
     @classmethod
@@ -14337,26 +14337,26 @@ class PartitionInformation:
     def from_dict(cls, _dict: Dict) -> 'PartitionInformation':
         """Initialize a PartitionInformation object from a json dictionary."""
         args = {}
-        if 'db_name' in _dict:
-            args['db_name'] = _dict.get('db_name')
+        if (db_name := _dict.get('db_name')) is not None:
+            args['db_name'] = db_name
         else:
             raise ValueError('Required property \'db_name\' not present in PartitionInformation JSON')
-        if 'doc_count' in _dict:
-            args['doc_count'] = _dict.get('doc_count')
+        if (doc_count := _dict.get('doc_count')) is not None:
+            args['doc_count'] = doc_count
         else:
             raise ValueError('Required property \'doc_count\' not present in PartitionInformation JSON')
-        if 'doc_del_count' in _dict:
-            args['doc_del_count'] = _dict.get('doc_del_count')
+        if (doc_del_count := _dict.get('doc_del_count')) is not None:
+            args['doc_del_count'] = doc_del_count
         else:
             raise ValueError('Required property \'doc_del_count\' not present in PartitionInformation JSON')
-        if 'partition' in _dict:
-            args['partition'] = _dict.get('partition')
+        if (partition := _dict.get('partition')) is not None:
+            args['partition'] = partition
         else:
             raise ValueError('Required property \'partition\' not present in PartitionInformation JSON')
-        if 'partitioned_indexes' in _dict:
-            args['partitioned_indexes'] = PartitionInformationIndexes.from_dict(_dict.get('partitioned_indexes'))
-        if 'sizes' in _dict:
-            args['sizes'] = PartitionInformationSizes.from_dict(_dict.get('sizes'))
+        if (partitioned_indexes := _dict.get('partitioned_indexes')) is not None:
+            args['partitioned_indexes'] = PartitionInformationIndexes.from_dict(partitioned_indexes)
+        if (sizes := _dict.get('sizes')) is not None:
+            args['sizes'] = PartitionInformationSizes.from_dict(sizes)
         else:
             raise ValueError('Required property \'sizes\' not present in PartitionInformation JSON')
         return cls(**args)
@@ -14441,12 +14441,12 @@ class PartitionInformationIndexes:
     def from_dict(cls, _dict: Dict) -> 'PartitionInformationIndexes':
         """Initialize a PartitionInformationIndexes object from a json dictionary."""
         args = {}
-        if 'count' in _dict:
-            args['count'] = _dict.get('count')
-        if 'indexes' in _dict:
-            args['indexes'] = PartitionInformationIndexesIndexes.from_dict(_dict.get('indexes'))
-        if 'limit' in _dict:
-            args['limit'] = _dict.get('limit')
+        if (count := _dict.get('count')) is not None:
+            args['count'] = count
+        if (indexes := _dict.get('indexes')) is not None:
+            args['indexes'] = PartitionInformationIndexesIndexes.from_dict(indexes)
+        if (limit := _dict.get('limit')) is not None:
+            args['limit'] = limit
         return cls(**args)
 
     @classmethod
@@ -14514,10 +14514,10 @@ class PartitionInformationIndexesIndexes:
     def from_dict(cls, _dict: Dict) -> 'PartitionInformationIndexesIndexes':
         """Initialize a PartitionInformationIndexesIndexes object from a json dictionary."""
         args = {}
-        if 'search' in _dict:
-            args['search'] = _dict.get('search')
-        if 'view' in _dict:
-            args['view'] = _dict.get('view')
+        if (search := _dict.get('search')) is not None:
+            args['search'] = search
+        if (view := _dict.get('view')) is not None:
+            args['view'] = view
         return cls(**args)
 
     @classmethod
@@ -14584,10 +14584,10 @@ class PartitionInformationSizes:
     def from_dict(cls, _dict: Dict) -> 'PartitionInformationSizes':
         """Initialize a PartitionInformationSizes object from a json dictionary."""
         args = {}
-        if 'active' in _dict:
-            args['active'] = _dict.get('active')
-        if 'external' in _dict:
-            args['external'] = _dict.get('external')
+        if (active := _dict.get('active')) is not None:
+            args['active'] = active
+        if (external := _dict.get('external')) is not None:
+            args['external'] = external
         return cls(**args)
 
     @classmethod
@@ -14650,10 +14650,10 @@ class PartitionedIndexesDetailedInformation:
     def from_dict(cls, _dict: Dict) -> 'PartitionedIndexesDetailedInformation':
         """Initialize a PartitionedIndexesDetailedInformation object from a json dictionary."""
         args = {}
-        if 'search' in _dict:
-            args['search'] = _dict.get('search')
-        if 'view' in _dict:
-            args['view'] = _dict.get('view')
+        if (search := _dict.get('search')) is not None:
+            args['search'] = search
+        if (view := _dict.get('view')) is not None:
+            args['view'] = view
         return cls(**args)
 
     @classmethod
@@ -14726,12 +14726,12 @@ class PartitionedIndexesInformation:
     def from_dict(cls, _dict: Dict) -> 'PartitionedIndexesInformation':
         """Initialize a PartitionedIndexesInformation object from a json dictionary."""
         args = {}
-        if 'count' in _dict:
-            args['count'] = _dict.get('count')
-        if 'indexes' in _dict:
-            args['indexes'] = PartitionedIndexesDetailedInformation.from_dict(_dict.get('indexes'))
-        if 'limit' in _dict:
-            args['limit'] = _dict.get('limit')
+        if (count := _dict.get('count')) is not None:
+            args['count'] = count
+        if (indexes := _dict.get('indexes')) is not None:
+            args['indexes'] = PartitionedIndexesDetailedInformation.from_dict(indexes)
+        if (limit := _dict.get('limit')) is not None:
+            args['limit'] = limit
         return cls(**args)
 
     @classmethod
@@ -14811,12 +14811,12 @@ class ReplicationCreateTargetParameters:
     def from_dict(cls, _dict: Dict) -> 'ReplicationCreateTargetParameters':
         """Initialize a ReplicationCreateTargetParameters object from a json dictionary."""
         args = {}
-        if 'n' in _dict:
-            args['n'] = _dict.get('n')
-        if 'partitioned' in _dict:
-            args['partitioned'] = _dict.get('partitioned')
-        if 'q' in _dict:
-            args['q'] = _dict.get('q')
+        if (n := _dict.get('n')) is not None:
+            args['n'] = n
+        if (partitioned := _dict.get('partitioned')) is not None:
+            args['partitioned'] = partitioned
+        if (q := _dict.get('q')) is not None:
+            args['q'] = q
         return cls(**args)
 
     @classmethod
@@ -14887,12 +14887,12 @@ class ReplicationDatabase:
     def from_dict(cls, _dict: Dict) -> 'ReplicationDatabase':
         """Initialize a ReplicationDatabase object from a json dictionary."""
         args = {}
-        if 'auth' in _dict:
-            args['auth'] = ReplicationDatabaseAuth.from_dict(_dict.get('auth'))
-        if 'headers' in _dict:
-            args['headers_'] = _dict.get('headers')
-        if 'url' in _dict:
-            args['url'] = _dict.get('url')
+        if (auth := _dict.get('auth')) is not None:
+            args['auth'] = ReplicationDatabaseAuth.from_dict(auth)
+        if (headers_ := _dict.get('headers')) is not None:
+            args['headers_'] = headers_
+        if (url := _dict.get('url')) is not None:
+            args['url'] = url
         else:
             raise ValueError('Required property \'url\' not present in ReplicationDatabase JSON')
         return cls(**args)
@@ -14966,10 +14966,10 @@ class ReplicationDatabaseAuth:
     def from_dict(cls, _dict: Dict) -> 'ReplicationDatabaseAuth':
         """Initialize a ReplicationDatabaseAuth object from a json dictionary."""
         args = {}
-        if 'basic' in _dict:
-            args['basic'] = ReplicationDatabaseAuthBasic.from_dict(_dict.get('basic'))
-        if 'iam' in _dict:
-            args['iam'] = ReplicationDatabaseAuthIam.from_dict(_dict.get('iam'))
+        if (basic := _dict.get('basic')) is not None:
+            args['basic'] = ReplicationDatabaseAuthBasic.from_dict(basic)
+        if (iam := _dict.get('iam')) is not None:
+            args['iam'] = ReplicationDatabaseAuthIam.from_dict(iam)
         return cls(**args)
 
     @classmethod
@@ -15037,12 +15037,12 @@ class ReplicationDatabaseAuthBasic:
     def from_dict(cls, _dict: Dict) -> 'ReplicationDatabaseAuthBasic':
         """Initialize a ReplicationDatabaseAuthBasic object from a json dictionary."""
         args = {}
-        if 'password' in _dict:
-            args['password'] = _dict.get('password')
+        if (password := _dict.get('password')) is not None:
+            args['password'] = password
         else:
             raise ValueError('Required property \'password\' not present in ReplicationDatabaseAuthBasic JSON')
-        if 'username' in _dict:
-            args['username'] = _dict.get('username')
+        if (username := _dict.get('username')) is not None:
+            args['username'] = username
         else:
             raise ValueError('Required property \'username\' not present in ReplicationDatabaseAuthBasic JSON')
         return cls(**args)
@@ -15102,8 +15102,8 @@ class ReplicationDatabaseAuthIam:
     def from_dict(cls, _dict: Dict) -> 'ReplicationDatabaseAuthIam':
         """Initialize a ReplicationDatabaseAuthIam object from a json dictionary."""
         args = {}
-        if 'api_key' in _dict:
-            args['api_key'] = _dict.get('api_key')
+        if (api_key := _dict.get('api_key')) is not None:
+            args['api_key'] = api_key
         else:
             raise ValueError('Required property \'api_key\' not present in ReplicationDatabaseAuthIam JSON')
         return cls(**args)
@@ -15446,76 +15446,76 @@ class ReplicationDocument:
     def from_dict(cls, _dict: Dict) -> 'ReplicationDocument':
         """Initialize a ReplicationDocument object from a json dictionary."""
         args = {}
-        if '_attachments' in _dict:
-            args['attachments'] = {k: Attachment.from_dict(v) for k, v in _dict.get('_attachments').items()}
-        if '_conflicts' in _dict:
-            args['conflicts'] = _dict.get('_conflicts')
-        if '_deleted' in _dict:
-            args['deleted'] = _dict.get('_deleted')
-        if '_deleted_conflicts' in _dict:
-            args['deleted_conflicts'] = _dict.get('_deleted_conflicts')
-        if '_id' in _dict:
-            args['id'] = _dict.get('_id')
-        if '_local_seq' in _dict:
-            args['local_seq'] = _dict.get('_local_seq')
-        if '_rev' in _dict:
-            args['rev'] = _dict.get('_rev')
-        if '_revisions' in _dict:
-            args['revisions'] = Revisions.from_dict(_dict.get('_revisions'))
-        if '_revs_info' in _dict:
-            args['revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in _dict.get('_revs_info')]
-        if 'cancel' in _dict:
-            args['cancel'] = _dict.get('cancel')
-        if 'checkpoint_interval' in _dict:
-            args['checkpoint_interval'] = _dict.get('checkpoint_interval')
-        if 'connection_timeout' in _dict:
-            args['connection_timeout'] = _dict.get('connection_timeout')
-        if 'continuous' in _dict:
-            args['continuous'] = _dict.get('continuous')
-        if 'create_target' in _dict:
-            args['create_target'] = _dict.get('create_target')
-        if 'create_target_params' in _dict:
-            args['create_target_params'] = ReplicationCreateTargetParameters.from_dict(_dict.get('create_target_params'))
-        if 'doc_ids' in _dict:
-            args['doc_ids'] = _dict.get('doc_ids')
-        if 'filter' in _dict:
-            args['filter'] = _dict.get('filter')
-        if 'http_connections' in _dict:
-            args['http_connections'] = _dict.get('http_connections')
-        if 'query_params' in _dict:
-            args['query_params'] = _dict.get('query_params')
-        if 'retries_per_request' in _dict:
-            args['retries_per_request'] = _dict.get('retries_per_request')
-        if 'selector' in _dict:
-            args['selector'] = _dict.get('selector')
-        if 'since_seq' in _dict:
-            args['since_seq'] = _dict.get('since_seq')
-        if 'socket_options' in _dict:
-            args['socket_options'] = _dict.get('socket_options')
-        if 'source' in _dict:
-            args['source'] = ReplicationDatabase.from_dict(_dict.get('source'))
+        if (attachments := _dict.get('_attachments')) is not None:
+            args['attachments'] = {k: Attachment.from_dict(v) for k, v in attachments.items()}
+        if (conflicts := _dict.get('_conflicts')) is not None:
+            args['conflicts'] = conflicts
+        if (deleted := _dict.get('_deleted')) is not None:
+            args['deleted'] = deleted
+        if (deleted_conflicts := _dict.get('_deleted_conflicts')) is not None:
+            args['deleted_conflicts'] = deleted_conflicts
+        if (id := _dict.get('_id')) is not None:
+            args['id'] = id
+        if (local_seq := _dict.get('_local_seq')) is not None:
+            args['local_seq'] = local_seq
+        if (rev := _dict.get('_rev')) is not None:
+            args['rev'] = rev
+        if (revisions := _dict.get('_revisions')) is not None:
+            args['revisions'] = Revisions.from_dict(revisions)
+        if (revs_info := _dict.get('_revs_info')) is not None:
+            args['revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in revs_info]
+        if (cancel := _dict.get('cancel')) is not None:
+            args['cancel'] = cancel
+        if (checkpoint_interval := _dict.get('checkpoint_interval')) is not None:
+            args['checkpoint_interval'] = checkpoint_interval
+        if (connection_timeout := _dict.get('connection_timeout')) is not None:
+            args['connection_timeout'] = connection_timeout
+        if (continuous := _dict.get('continuous')) is not None:
+            args['continuous'] = continuous
+        if (create_target := _dict.get('create_target')) is not None:
+            args['create_target'] = create_target
+        if (create_target_params := _dict.get('create_target_params')) is not None:
+            args['create_target_params'] = ReplicationCreateTargetParameters.from_dict(create_target_params)
+        if (doc_ids := _dict.get('doc_ids')) is not None:
+            args['doc_ids'] = doc_ids
+        if (filter := _dict.get('filter')) is not None:
+            args['filter'] = filter
+        if (http_connections := _dict.get('http_connections')) is not None:
+            args['http_connections'] = http_connections
+        if (query_params := _dict.get('query_params')) is not None:
+            args['query_params'] = query_params
+        if (retries_per_request := _dict.get('retries_per_request')) is not None:
+            args['retries_per_request'] = retries_per_request
+        if (selector := _dict.get('selector')) is not None:
+            args['selector'] = selector
+        if (since_seq := _dict.get('since_seq')) is not None:
+            args['since_seq'] = since_seq
+        if (socket_options := _dict.get('socket_options')) is not None:
+            args['socket_options'] = socket_options
+        if (source := _dict.get('source')) is not None:
+            args['source'] = ReplicationDatabase.from_dict(source)
         else:
             raise ValueError('Required property \'source\' not present in ReplicationDocument JSON')
-        if 'source_proxy' in _dict:
-            args['source_proxy'] = _dict.get('source_proxy')
-        if 'target' in _dict:
-            args['target'] = ReplicationDatabase.from_dict(_dict.get('target'))
+        if (source_proxy := _dict.get('source_proxy')) is not None:
+            args['source_proxy'] = source_proxy
+        if (target := _dict.get('target')) is not None:
+            args['target'] = ReplicationDatabase.from_dict(target)
         else:
             raise ValueError('Required property \'target\' not present in ReplicationDocument JSON')
-        if 'target_proxy' in _dict:
-            args['target_proxy'] = _dict.get('target_proxy')
-        if 'use_bulk_get' in _dict:
-            args['use_bulk_get'] = _dict.get('use_bulk_get')
-        if 'use_checkpoints' in _dict:
-            args['use_checkpoints'] = _dict.get('use_checkpoints')
-        if 'user_ctx' in _dict:
-            args['user_ctx'] = UserContext.from_dict(_dict.get('user_ctx'))
-        if 'winning_revs_only' in _dict:
-            args['winning_revs_only'] = _dict.get('winning_revs_only')
-        if 'worker_batch_size' in _dict:
-            args['worker_batch_size'] = _dict.get('worker_batch_size')
-        if 'worker_processes' in _dict:
-            args['worker_processes'] = _dict.get('worker_processes')
+        if (target_proxy := _dict.get('target_proxy')) is not None:
+            args['target_proxy'] = target_proxy
+        if (use_bulk_get := _dict.get('use_bulk_get')) is not None:
+            args['use_bulk_get'] = use_bulk_get
+        if (use_checkpoints := _dict.get('use_checkpoints')) is not None:
+            args['use_checkpoints'] = use_checkpoints
+        if (user_ctx := _dict.get('user_ctx')) is not None:
+            args['user_ctx'] = UserContext.from_dict(user_ctx)
+        if (winning_revs_only := _dict.get('winning_revs_only')) is not None:
+            args['winning_revs_only'] = winning_revs_only
+        if (worker_batch_size := _dict.get('worker_batch_size')) is not None:
+            args['worker_batch_size'] = worker_batch_size
+        if (worker_processes := _dict.get('worker_processes')) is not None:
+            args['worker_processes'] = worker_processes
         args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
         return cls(**args)
 
@@ -15688,12 +15688,12 @@ class Revisions:
     def from_dict(cls, _dict: Dict) -> 'Revisions':
         """Initialize a Revisions object from a json dictionary."""
         args = {}
-        if 'ids' in _dict:
-            args['ids'] = _dict.get('ids')
+        if (ids := _dict.get('ids')) is not None:
+            args['ids'] = ids
         else:
             raise ValueError('Required property \'ids\' not present in Revisions JSON')
-        if 'start' in _dict:
-            args['start'] = _dict.get('start')
+        if (start := _dict.get('start')) is not None:
+            args['start'] = start
         else:
             raise ValueError('Required property \'start\' not present in Revisions JSON')
         return cls(**args)
@@ -15760,10 +15760,10 @@ class RevsDiff:
     def from_dict(cls, _dict: Dict) -> 'RevsDiff':
         """Initialize a RevsDiff object from a json dictionary."""
         args = {}
-        if 'missing' in _dict:
-            args['missing'] = _dict.get('missing')
-        if 'possible_ancestors' in _dict:
-            args['possible_ancestors'] = _dict.get('possible_ancestors')
+        if (missing := _dict.get('missing')) is not None:
+            args['missing'] = missing
+        if (possible_ancestors := _dict.get('possible_ancestors')) is not None:
+            args['possible_ancestors'] = possible_ancestors
         return cls(**args)
 
     @classmethod
@@ -15826,12 +15826,12 @@ class SchedulerDocsResult:
     def from_dict(cls, _dict: Dict) -> 'SchedulerDocsResult':
         """Initialize a SchedulerDocsResult object from a json dictionary."""
         args = {}
-        if 'total_rows' in _dict:
-            args['total_rows'] = _dict.get('total_rows')
+        if (total_rows := _dict.get('total_rows')) is not None:
+            args['total_rows'] = total_rows
         else:
             raise ValueError('Required property \'total_rows\' not present in SchedulerDocsResult JSON')
-        if 'docs' in _dict:
-            args['docs'] = [SchedulerDocument.from_dict(v) for v in _dict.get('docs')]
+        if (docs := _dict.get('docs')) is not None:
+            args['docs'] = [SchedulerDocument.from_dict(v) for v in docs]
         else:
             raise ValueError('Required property \'docs\' not present in SchedulerDocsResult JSON')
         return cls(**args)
@@ -15970,48 +15970,48 @@ class SchedulerDocument:
     def from_dict(cls, _dict: Dict) -> 'SchedulerDocument':
         """Initialize a SchedulerDocument object from a json dictionary."""
         args = {}
-        if 'database' in _dict:
-            args['database'] = _dict.get('database')
+        if (database := _dict.get('database')) is not None:
+            args['database'] = database
         else:
             raise ValueError('Required property \'database\' not present in SchedulerDocument JSON')
-        if 'doc_id' in _dict:
-            args['doc_id'] = _dict.get('doc_id')
+        if (doc_id := _dict.get('doc_id')) is not None:
+            args['doc_id'] = doc_id
         else:
             raise ValueError('Required property \'doc_id\' not present in SchedulerDocument JSON')
-        if 'error_count' in _dict:
-            args['error_count'] = _dict.get('error_count')
+        if (error_count := _dict.get('error_count')) is not None:
+            args['error_count'] = error_count
         else:
             raise ValueError('Required property \'error_count\' not present in SchedulerDocument JSON')
-        if 'id' in _dict:
-            args['id'] = _dict.get('id')
+        if (id := _dict.get('id')) is not None:
+            args['id'] = id
         else:
             raise ValueError('Required property \'id\' not present in SchedulerDocument JSON')
-        if 'info' in _dict:
-            args['info'] = SchedulerInfo.from_dict(_dict.get('info'))
+        if (info := _dict.get('info')) is not None:
+            args['info'] = SchedulerInfo.from_dict(info)
         else:
             raise ValueError('Required property \'info\' not present in SchedulerDocument JSON')
-        if 'last_updated' in _dict:
-            args['last_updated'] = string_to_datetime(_dict.get('last_updated'))
+        if (last_updated := _dict.get('last_updated')) is not None:
+            args['last_updated'] = string_to_datetime(last_updated)
         else:
             raise ValueError('Required property \'last_updated\' not present in SchedulerDocument JSON')
-        if 'node' in _dict:
-            args['node'] = _dict.get('node')
-        if 'source' in _dict:
-            args['source'] = _dict.get('source')
-        if 'source_proxy' in _dict:
-            args['source_proxy'] = _dict.get('source_proxy')
-        if 'start_time' in _dict:
-            args['start_time'] = string_to_datetime(_dict.get('start_time'))
+        if (node := _dict.get('node')) is not None:
+            args['node'] = node
+        if (source := _dict.get('source')) is not None:
+            args['source'] = source
+        if (source_proxy := _dict.get('source_proxy')) is not None:
+            args['source_proxy'] = source_proxy
+        if (start_time := _dict.get('start_time')) is not None:
+            args['start_time'] = string_to_datetime(start_time)
         else:
             raise ValueError('Required property \'start_time\' not present in SchedulerDocument JSON')
-        if 'state' in _dict:
-            args['state'] = _dict.get('state')
+        if (state := _dict.get('state')) is not None:
+            args['state'] = state
         else:
             raise ValueError('Required property \'state\' not present in SchedulerDocument JSON')
-        if 'target' in _dict:
-            args['target'] = _dict.get('target')
-        if 'target_proxy' in _dict:
-            args['target_proxy'] = _dict.get('target_proxy')
+        if (target := _dict.get('target')) is not None:
+            args['target'] = target
+        if (target_proxy := _dict.get('target_proxy')) is not None:
+            args['target_proxy'] = target_proxy
         return cls(**args)
 
     @classmethod
@@ -16164,26 +16164,26 @@ class SchedulerInfo:
     def from_dict(cls, _dict: Dict) -> 'SchedulerInfo':
         """Initialize a SchedulerInfo object from a json dictionary."""
         args = {}
-        if 'changes_pending' in _dict:
-            args['changes_pending'] = _dict.get('changes_pending')
-        if 'checkpointed_source_seq' in _dict:
-            args['checkpointed_source_seq'] = _dict.get('checkpointed_source_seq')
-        if 'doc_write_failures' in _dict:
-            args['doc_write_failures'] = _dict.get('doc_write_failures')
-        if 'docs_read' in _dict:
-            args['docs_read'] = _dict.get('docs_read')
-        if 'docs_written' in _dict:
-            args['docs_written'] = _dict.get('docs_written')
-        if 'error' in _dict:
-            args['error'] = _dict.get('error')
-        if 'missing_revisions_found' in _dict:
-            args['missing_revisions_found'] = _dict.get('missing_revisions_found')
-        if 'revisions_checked' in _dict:
-            args['revisions_checked'] = _dict.get('revisions_checked')
-        if 'source_seq' in _dict:
-            args['source_seq'] = _dict.get('source_seq')
-        if 'through_seq' in _dict:
-            args['through_seq'] = _dict.get('through_seq')
+        if (changes_pending := _dict.get('changes_pending')) is not None:
+            args['changes_pending'] = changes_pending
+        if (checkpointed_source_seq := _dict.get('checkpointed_source_seq')) is not None:
+            args['checkpointed_source_seq'] = checkpointed_source_seq
+        if (doc_write_failures := _dict.get('doc_write_failures')) is not None:
+            args['doc_write_failures'] = doc_write_failures
+        if (docs_read := _dict.get('docs_read')) is not None:
+            args['docs_read'] = docs_read
+        if (docs_written := _dict.get('docs_written')) is not None:
+            args['docs_written'] = docs_written
+        if (error := _dict.get('error')) is not None:
+            args['error'] = error
+        if (missing_revisions_found := _dict.get('missing_revisions_found')) is not None:
+            args['missing_revisions_found'] = missing_revisions_found
+        if (revisions_checked := _dict.get('revisions_checked')) is not None:
+            args['revisions_checked'] = revisions_checked
+        if (source_seq := _dict.get('source_seq')) is not None:
+            args['source_seq'] = source_seq
+        if (through_seq := _dict.get('through_seq')) is not None:
+            args['through_seq'] = through_seq
         return cls(**args)
 
     @classmethod
@@ -16303,48 +16303,48 @@ class SchedulerJob:
     def from_dict(cls, _dict: Dict) -> 'SchedulerJob':
         """Initialize a SchedulerJob object from a json dictionary."""
         args = {}
-        if 'database' in _dict:
-            args['database'] = _dict.get('database')
+        if (database := _dict.get('database')) is not None:
+            args['database'] = database
         else:
             raise ValueError('Required property \'database\' not present in SchedulerJob JSON')
-        if 'doc_id' in _dict:
-            args['doc_id'] = _dict.get('doc_id')
+        if (doc_id := _dict.get('doc_id')) is not None:
+            args['doc_id'] = doc_id
         else:
             raise ValueError('Required property \'doc_id\' not present in SchedulerJob JSON')
-        if 'history' in _dict:
-            args['history'] = [SchedulerJobEvent.from_dict(v) for v in _dict.get('history')]
+        if (history := _dict.get('history')) is not None:
+            args['history'] = [SchedulerJobEvent.from_dict(v) for v in history]
         else:
             raise ValueError('Required property \'history\' not present in SchedulerJob JSON')
-        if 'id' in _dict:
-            args['id'] = _dict.get('id')
+        if (id := _dict.get('id')) is not None:
+            args['id'] = id
         else:
             raise ValueError('Required property \'id\' not present in SchedulerJob JSON')
-        if 'info' in _dict:
-            args['info'] = SchedulerInfo.from_dict(_dict.get('info'))
+        if (info := _dict.get('info')) is not None:
+            args['info'] = SchedulerInfo.from_dict(info)
         else:
             raise ValueError('Required property \'info\' not present in SchedulerJob JSON')
-        if 'node' in _dict:
-            args['node'] = _dict.get('node')
+        if (node := _dict.get('node')) is not None:
+            args['node'] = node
         else:
             raise ValueError('Required property \'node\' not present in SchedulerJob JSON')
-        if 'pid' in _dict:
-            args['pid'] = _dict.get('pid')
+        if (pid := _dict.get('pid')) is not None:
+            args['pid'] = pid
         else:
             raise ValueError('Required property \'pid\' not present in SchedulerJob JSON')
-        if 'source' in _dict:
-            args['source'] = _dict.get('source')
+        if (source := _dict.get('source')) is not None:
+            args['source'] = source
         else:
             raise ValueError('Required property \'source\' not present in SchedulerJob JSON')
-        if 'start_time' in _dict:
-            args['start_time'] = string_to_datetime(_dict.get('start_time'))
+        if (start_time := _dict.get('start_time')) is not None:
+            args['start_time'] = string_to_datetime(start_time)
         else:
             raise ValueError('Required property \'start_time\' not present in SchedulerJob JSON')
-        if 'target' in _dict:
-            args['target'] = _dict.get('target')
+        if (target := _dict.get('target')) is not None:
+            args['target'] = target
         else:
             raise ValueError('Required property \'target\' not present in SchedulerJob JSON')
-        if 'user' in _dict:
-            args['user'] = _dict.get('user')
+        if (user := _dict.get('user')) is not None:
+            args['user'] = user
         else:
             raise ValueError('Required property \'user\' not present in SchedulerJob JSON')
         return cls(**args)
@@ -16440,14 +16440,14 @@ class SchedulerJobEvent:
     def from_dict(cls, _dict: Dict) -> 'SchedulerJobEvent':
         """Initialize a SchedulerJobEvent object from a json dictionary."""
         args = {}
-        if 'reason' in _dict:
-            args['reason'] = _dict.get('reason')
-        if 'timestamp' in _dict:
-            args['timestamp'] = string_to_datetime(_dict.get('timestamp'))
+        if (reason := _dict.get('reason')) is not None:
+            args['reason'] = reason
+        if (timestamp := _dict.get('timestamp')) is not None:
+            args['timestamp'] = string_to_datetime(timestamp)
         else:
             raise ValueError('Required property \'timestamp\' not present in SchedulerJobEvent JSON')
-        if 'type' in _dict:
-            args['type'] = _dict.get('type')
+        if (type := _dict.get('type')) is not None:
+            args['type'] = type
         else:
             raise ValueError('Required property \'type\' not present in SchedulerJobEvent JSON')
         return cls(**args)
@@ -16513,12 +16513,12 @@ class SchedulerJobsResult:
     def from_dict(cls, _dict: Dict) -> 'SchedulerJobsResult':
         """Initialize a SchedulerJobsResult object from a json dictionary."""
         args = {}
-        if 'total_rows' in _dict:
-            args['total_rows'] = _dict.get('total_rows')
+        if (total_rows := _dict.get('total_rows')) is not None:
+            args['total_rows'] = total_rows
         else:
             raise ValueError('Required property \'total_rows\' not present in SchedulerJobsResult JSON')
-        if 'jobs' in _dict:
-            args['jobs'] = [SchedulerJob.from_dict(v) for v in _dict.get('jobs')]
+        if (jobs := _dict.get('jobs')) is not None:
+            args['jobs'] = [SchedulerJob.from_dict(v) for v in jobs]
         else:
             raise ValueError('Required property \'jobs\' not present in SchedulerJobsResult JSON')
         return cls(**args)
@@ -16584,8 +16584,8 @@ class SearchAnalyzeResult:
     def from_dict(cls, _dict: Dict) -> 'SearchAnalyzeResult':
         """Initialize a SearchAnalyzeResult object from a json dictionary."""
         args = {}
-        if 'tokens' in _dict:
-            args['tokens'] = _dict.get('tokens')
+        if (tokens := _dict.get('tokens')) is not None:
+            args['tokens'] = tokens
         else:
             raise ValueError('Required property \'tokens\' not present in SearchAnalyzeResult JSON')
         return cls(**args)
@@ -16685,10 +16685,10 @@ class SearchIndexDefinition:
     def from_dict(cls, _dict: Dict) -> 'SearchIndexDefinition':
         """Initialize a SearchIndexDefinition object from a json dictionary."""
         args = {}
-        if 'analyzer' in _dict:
-            args['analyzer'] = AnalyzerConfiguration.from_dict(_dict.get('analyzer'))
-        if 'index' in _dict:
-            args['index'] = _dict.get('index')
+        if (analyzer := _dict.get('analyzer')) is not None:
+            args['analyzer'] = AnalyzerConfiguration.from_dict(analyzer)
+        if (index := _dict.get('index')) is not None:
+            args['index'] = index
         else:
             raise ValueError('Required property \'index\' not present in SearchIndexDefinition JSON')
         return cls(**args)
@@ -16771,28 +16771,28 @@ class SearchIndexInfo:
     def from_dict(cls, _dict: Dict) -> 'SearchIndexInfo':
         """Initialize a SearchIndexInfo object from a json dictionary."""
         args = {}
-        if 'committed_seq' in _dict:
-            args['committed_seq'] = _dict.get('committed_seq')
+        if (committed_seq := _dict.get('committed_seq')) is not None:
+            args['committed_seq'] = committed_seq
         else:
             raise ValueError('Required property \'committed_seq\' not present in SearchIndexInfo JSON')
-        if 'disk_size' in _dict:
-            args['disk_size'] = _dict.get('disk_size')
+        if (disk_size := _dict.get('disk_size')) is not None:
+            args['disk_size'] = disk_size
         else:
             raise ValueError('Required property \'disk_size\' not present in SearchIndexInfo JSON')
-        if 'doc_count' in _dict:
-            args['doc_count'] = _dict.get('doc_count')
+        if (doc_count := _dict.get('doc_count')) is not None:
+            args['doc_count'] = doc_count
         else:
             raise ValueError('Required property \'doc_count\' not present in SearchIndexInfo JSON')
-        if 'doc_del_count' in _dict:
-            args['doc_del_count'] = _dict.get('doc_del_count')
+        if (doc_del_count := _dict.get('doc_del_count')) is not None:
+            args['doc_del_count'] = doc_del_count
         else:
             raise ValueError('Required property \'doc_del_count\' not present in SearchIndexInfo JSON')
-        if 'pending_seq' in _dict:
-            args['pending_seq'] = _dict.get('pending_seq')
+        if (pending_seq := _dict.get('pending_seq')) is not None:
+            args['pending_seq'] = pending_seq
         else:
             raise ValueError('Required property \'pending_seq\' not present in SearchIndexInfo JSON')
-        if 'signature' in _dict:
-            args['signature'] = _dict.get('signature')
+        if (signature := _dict.get('signature')) is not None:
+            args['signature'] = signature
         else:
             raise ValueError('Required property \'signature\' not present in SearchIndexInfo JSON')
         return cls(**args)
@@ -16868,12 +16868,12 @@ class SearchInfoResult:
     def from_dict(cls, _dict: Dict) -> 'SearchInfoResult':
         """Initialize a SearchInfoResult object from a json dictionary."""
         args = {}
-        if 'name' in _dict:
-            args['name'] = _dict.get('name')
+        if (name := _dict.get('name')) is not None:
+            args['name'] = name
         else:
             raise ValueError('Required property \'name\' not present in SearchInfoResult JSON')
-        if 'search_index' in _dict:
-            args['search_index'] = SearchIndexInfo.from_dict(_dict.get('search_index'))
+        if (search_index := _dict.get('search_index')) is not None:
+            args['search_index'] = SearchIndexInfo.from_dict(search_index)
         else:
             raise ValueError('Required property \'search_index\' not present in SearchInfoResult JSON')
         return cls(**args)
@@ -16971,22 +16971,22 @@ class SearchResult:
     def from_dict(cls, _dict: Dict) -> 'SearchResult':
         """Initialize a SearchResult object from a json dictionary."""
         args = {}
-        if 'total_rows' in _dict:
-            args['total_rows'] = _dict.get('total_rows')
+        if (total_rows := _dict.get('total_rows')) is not None:
+            args['total_rows'] = total_rows
         else:
             raise ValueError('Required property \'total_rows\' not present in SearchResult JSON')
-        if 'bookmark' in _dict:
-            args['bookmark'] = _dict.get('bookmark')
-        if 'by' in _dict:
-            args['by'] = _dict.get('by')
-        if 'counts' in _dict:
-            args['counts'] = _dict.get('counts')
-        if 'ranges' in _dict:
-            args['ranges'] = _dict.get('ranges')
-        if 'rows' in _dict:
-            args['rows'] = [SearchResultRow.from_dict(v) for v in _dict.get('rows')]
-        if 'groups' in _dict:
-            args['groups'] = [SearchResultProperties.from_dict(v) for v in _dict.get('groups')]
+        if (bookmark := _dict.get('bookmark')) is not None:
+            args['bookmark'] = bookmark
+        if (by := _dict.get('by')) is not None:
+            args['by'] = by
+        if (counts := _dict.get('counts')) is not None:
+            args['counts'] = counts
+        if (ranges := _dict.get('ranges')) is not None:
+            args['ranges'] = ranges
+        if (rows := _dict.get('rows')) is not None:
+            args['rows'] = [SearchResultRow.from_dict(v) for v in rows]
+        if (groups := _dict.get('groups')) is not None:
+            args['groups'] = [SearchResultProperties.from_dict(v) for v in groups]
         return cls(**args)
 
     @classmethod
@@ -17095,20 +17095,20 @@ class SearchResultProperties:
     def from_dict(cls, _dict: Dict) -> 'SearchResultProperties':
         """Initialize a SearchResultProperties object from a json dictionary."""
         args = {}
-        if 'total_rows' in _dict:
-            args['total_rows'] = _dict.get('total_rows')
+        if (total_rows := _dict.get('total_rows')) is not None:
+            args['total_rows'] = total_rows
         else:
             raise ValueError('Required property \'total_rows\' not present in SearchResultProperties JSON')
-        if 'bookmark' in _dict:
-            args['bookmark'] = _dict.get('bookmark')
-        if 'by' in _dict:
-            args['by'] = _dict.get('by')
-        if 'counts' in _dict:
-            args['counts'] = _dict.get('counts')
-        if 'ranges' in _dict:
-            args['ranges'] = _dict.get('ranges')
-        if 'rows' in _dict:
-            args['rows'] = [SearchResultRow.from_dict(v) for v in _dict.get('rows')]
+        if (bookmark := _dict.get('bookmark')) is not None:
+            args['bookmark'] = bookmark
+        if (by := _dict.get('by')) is not None:
+            args['by'] = by
+        if (counts := _dict.get('counts')) is not None:
+            args['counts'] = counts
+        if (ranges := _dict.get('ranges')) is not None:
+            args['ranges'] = ranges
+        if (rows := _dict.get('rows')) is not None:
+            args['rows'] = [SearchResultRow.from_dict(v) for v in rows]
         return cls(**args)
 
     @classmethod
@@ -17198,16 +17198,16 @@ class SearchResultRow:
     def from_dict(cls, _dict: Dict) -> 'SearchResultRow':
         """Initialize a SearchResultRow object from a json dictionary."""
         args = {}
-        if 'doc' in _dict:
-            args['doc'] = Document.from_dict(_dict.get('doc'))
-        if 'fields' in _dict:
-            args['fields'] = _dict.get('fields')
+        if (doc := _dict.get('doc')) is not None:
+            args['doc'] = Document.from_dict(doc)
+        if (fields := _dict.get('fields')) is not None:
+            args['fields'] = fields
         else:
             raise ValueError('Required property \'fields\' not present in SearchResultRow JSON')
-        if 'highlights' in _dict:
-            args['highlights'] = _dict.get('highlights')
-        if 'id' in _dict:
-            args['id'] = _dict.get('id')
+        if (highlights := _dict.get('highlights')) is not None:
+            args['highlights'] = highlights
+        if (id := _dict.get('id')) is not None:
+            args['id'] = id
         else:
             raise ValueError('Required property \'id\' not present in SearchResultRow JSON')
         return cls(**args)
@@ -17295,14 +17295,14 @@ class Security:
     def from_dict(cls, _dict: Dict) -> 'Security':
         """Initialize a Security object from a json dictionary."""
         args = {}
-        if 'admins' in _dict:
-            args['admins'] = SecurityObject.from_dict(_dict.get('admins'))
-        if 'members' in _dict:
-            args['members'] = SecurityObject.from_dict(_dict.get('members'))
-        if 'cloudant' in _dict:
-            args['cloudant'] = _dict.get('cloudant')
-        if 'couchdb_auth_only' in _dict:
-            args['couchdb_auth_only'] = _dict.get('couchdb_auth_only')
+        if (admins := _dict.get('admins')) is not None:
+            args['admins'] = SecurityObject.from_dict(admins)
+        if (members := _dict.get('members')) is not None:
+            args['members'] = SecurityObject.from_dict(members)
+        if (cloudant := _dict.get('cloudant')) is not None:
+            args['cloudant'] = cloudant
+        if (couchdb_auth_only := _dict.get('couchdb_auth_only')) is not None:
+            args['couchdb_auth_only'] = couchdb_auth_only
         return cls(**args)
 
     @classmethod
@@ -17390,10 +17390,10 @@ class SecurityObject:
     def from_dict(cls, _dict: Dict) -> 'SecurityObject':
         """Initialize a SecurityObject object from a json dictionary."""
         args = {}
-        if 'names' in _dict:
-            args['names'] = _dict.get('names')
-        if 'roles' in _dict:
-            args['roles'] = _dict.get('roles')
+        if (names := _dict.get('names')) is not None:
+            args['names'] = names
+        if (roles := _dict.get('roles')) is not None:
+            args['roles'] = roles
         return cls(**args)
 
     @classmethod
@@ -17467,24 +17467,24 @@ class ServerInformation:
     def from_dict(cls, _dict: Dict) -> 'ServerInformation':
         """Initialize a ServerInformation object from a json dictionary."""
         args = {}
-        if 'couchdb' in _dict:
-            args['couchdb'] = _dict.get('couchdb')
+        if (couchdb := _dict.get('couchdb')) is not None:
+            args['couchdb'] = couchdb
         else:
             raise ValueError('Required property \'couchdb\' not present in ServerInformation JSON')
-        if 'features' in _dict:
-            args['features'] = _dict.get('features')
+        if (features := _dict.get('features')) is not None:
+            args['features'] = features
         else:
             raise ValueError('Required property \'features\' not present in ServerInformation JSON')
-        if 'vendor' in _dict:
-            args['vendor'] = ServerVendor.from_dict(_dict.get('vendor'))
+        if (vendor := _dict.get('vendor')) is not None:
+            args['vendor'] = ServerVendor.from_dict(vendor)
         else:
             raise ValueError('Required property \'vendor\' not present in ServerInformation JSON')
-        if 'version' in _dict:
-            args['version'] = _dict.get('version')
+        if (version := _dict.get('version')) is not None:
+            args['version'] = version
         else:
             raise ValueError('Required property \'version\' not present in ServerInformation JSON')
-        if 'features_flags' in _dict:
-            args['features_flags'] = _dict.get('features_flags')
+        if (features_flags := _dict.get('features_flags')) is not None:
+            args['features_flags'] = features_flags
         else:
             raise ValueError('Required property \'features_flags\' not present in ServerInformation JSON')
         return cls(**args)
@@ -17562,14 +17562,14 @@ class ServerVendor:
     def from_dict(cls, _dict: Dict) -> 'ServerVendor':
         """Initialize a ServerVendor object from a json dictionary."""
         args = {}
-        if 'name' in _dict:
-            args['name'] = _dict.get('name')
+        if (name := _dict.get('name')) is not None:
+            args['name'] = name
         else:
             raise ValueError('Required property \'name\' not present in ServerVendor JSON')
-        if 'variant' in _dict:
-            args['variant'] = _dict.get('variant')
-        if 'version' in _dict:
-            args['version'] = _dict.get('version')
+        if (variant := _dict.get('variant')) is not None:
+            args['variant'] = variant
+        if (version := _dict.get('version')) is not None:
+            args['version'] = version
         return cls(**args)
 
     @classmethod
@@ -17638,12 +17638,12 @@ class SessionAuthentication:
     def from_dict(cls, _dict: Dict) -> 'SessionAuthentication':
         """Initialize a SessionAuthentication object from a json dictionary."""
         args = {}
-        if 'authenticated' in _dict:
-            args['authenticated'] = _dict.get('authenticated')
-        if 'authentication_db' in _dict:
-            args['authentication_db'] = _dict.get('authentication_db')
-        if 'authentication_handlers' in _dict:
-            args['authentication_handlers'] = _dict.get('authentication_handlers')
+        if (authenticated := _dict.get('authenticated')) is not None:
+            args['authenticated'] = authenticated
+        if (authentication_db := _dict.get('authentication_db')) is not None:
+            args['authentication_db'] = authentication_db
+        if (authentication_handlers := _dict.get('authentication_handlers')) is not None:
+            args['authentication_handlers'] = authentication_handlers
         else:
             raise ValueError('Required property \'authentication_handlers\' not present in SessionAuthentication JSON')
         return cls(**args)
@@ -17715,16 +17715,16 @@ class SessionInformation:
     def from_dict(cls, _dict: Dict) -> 'SessionInformation':
         """Initialize a SessionInformation object from a json dictionary."""
         args = {}
-        if 'ok' in _dict:
-            args['ok'] = _dict.get('ok')
+        if (ok := _dict.get('ok')) is not None:
+            args['ok'] = ok
         else:
             raise ValueError('Required property \'ok\' not present in SessionInformation JSON')
-        if 'info' in _dict:
-            args['info'] = SessionAuthentication.from_dict(_dict.get('info'))
+        if (info := _dict.get('info')) is not None:
+            args['info'] = SessionAuthentication.from_dict(info)
         else:
             raise ValueError('Required property \'info\' not present in SessionInformation JSON')
-        if 'userCtx' in _dict:
-            args['user_ctx'] = UserContext.from_dict(_dict.get('userCtx'))
+        if (user_ctx := _dict.get('userCtx')) is not None:
+            args['user_ctx'] = UserContext.from_dict(user_ctx)
         else:
             raise ValueError('Required property \'userCtx\' not present in SessionInformation JSON')
         return cls(**args)
@@ -17793,8 +17793,8 @@ class ShardsInformation:
     def from_dict(cls, _dict: Dict) -> 'ShardsInformation':
         """Initialize a ShardsInformation object from a json dictionary."""
         args = {}
-        if 'shards' in _dict:
-            args['shards'] = _dict.get('shards')
+        if (shards := _dict.get('shards')) is not None:
+            args['shards'] = shards
         else:
             raise ValueError('Required property \'shards\' not present in ShardsInformation JSON')
         return cls(**args)
@@ -17870,20 +17870,20 @@ class ThroughputInformation:
     def from_dict(cls, _dict: Dict) -> 'ThroughputInformation':
         """Initialize a ThroughputInformation object from a json dictionary."""
         args = {}
-        if 'blocks' in _dict:
-            args['blocks'] = _dict.get('blocks')
+        if (blocks := _dict.get('blocks')) is not None:
+            args['blocks'] = blocks
         else:
             raise ValueError('Required property \'blocks\' not present in ThroughputInformation JSON')
-        if 'query' in _dict:
-            args['query'] = _dict.get('query')
+        if (query := _dict.get('query')) is not None:
+            args['query'] = query
         else:
             raise ValueError('Required property \'query\' not present in ThroughputInformation JSON')
-        if 'read' in _dict:
-            args['read'] = _dict.get('read')
+        if (read := _dict.get('read')) is not None:
+            args['read'] = read
         else:
             raise ValueError('Required property \'read\' not present in ThroughputInformation JSON')
-        if 'write' in _dict:
-            args['write'] = _dict.get('write')
+        if (write := _dict.get('write')) is not None:
+            args['write'] = write
         else:
             raise ValueError('Required property \'write\' not present in ThroughputInformation JSON')
         return cls(**args)
@@ -17951,12 +17951,12 @@ class UpInformation:
     def from_dict(cls, _dict: Dict) -> 'UpInformation':
         """Initialize a UpInformation object from a json dictionary."""
         args = {}
-        if 'seeds' in _dict:
-            args['seeds'] = _dict.get('seeds')
+        if (seeds := _dict.get('seeds')) is not None:
+            args['seeds'] = seeds
         else:
             raise ValueError('Required property \'seeds\' not present in UpInformation JSON')
-        if 'status' in _dict:
-            args['status'] = _dict.get('status')
+        if (status := _dict.get('status')) is not None:
+            args['status'] = status
         else:
             raise ValueError('Required property \'status\' not present in UpInformation JSON')
         return cls(**args)
@@ -18039,16 +18039,16 @@ class UpdatesPending:
     def from_dict(cls, _dict: Dict) -> 'UpdatesPending':
         """Initialize a UpdatesPending object from a json dictionary."""
         args = {}
-        if 'minimum' in _dict:
-            args['minimum'] = _dict.get('minimum')
+        if (minimum := _dict.get('minimum')) is not None:
+            args['minimum'] = minimum
         else:
             raise ValueError('Required property \'minimum\' not present in UpdatesPending JSON')
-        if 'preferred' in _dict:
-            args['preferred'] = _dict.get('preferred')
+        if (preferred := _dict.get('preferred')) is not None:
+            args['preferred'] = preferred
         else:
             raise ValueError('Required property \'preferred\' not present in UpdatesPending JSON')
-        if 'total' in _dict:
-            args['total'] = _dict.get('total')
+        if (total := _dict.get('total')) is not None:
+            args['total'] = total
         else:
             raise ValueError('Required property \'total\' not present in UpdatesPending JSON')
         return cls(**args)
@@ -18121,14 +18121,14 @@ class UserContext:
     def from_dict(cls, _dict: Dict) -> 'UserContext':
         """Initialize a UserContext object from a json dictionary."""
         args = {}
-        if 'db' in _dict:
-            args['db'] = _dict.get('db')
-        if 'name' in _dict:
-            args['name'] = _dict.get('name')
+        if (db := _dict.get('db')) is not None:
+            args['db'] = db
+        if (name := _dict.get('name')) is not None:
+            args['name'] = name
         else:
             raise ValueError('Required property \'name\' not present in UserContext JSON')
-        if 'roles' in _dict:
-            args['roles'] = _dict.get('roles')
+        if (roles := _dict.get('roles')) is not None:
+            args['roles'] = roles
         else:
             raise ValueError('Required property \'roles\' not present in UserContext JSON')
         return cls(**args)
@@ -18205,8 +18205,8 @@ class UuidsResult:
     def from_dict(cls, _dict: Dict) -> 'UuidsResult':
         """Initialize a UuidsResult object from a json dictionary."""
         args = {}
-        if 'uuids' in _dict:
-            args['uuids'] = _dict.get('uuids')
+        if (uuids := _dict.get('uuids')) is not None:
+            args['uuids'] = uuids
         else:
             raise ValueError('Required property \'uuids\' not present in UuidsResult JSON')
         return cls(**args)
@@ -18268,8 +18268,8 @@ class ViewQueriesResult:
     def from_dict(cls, _dict: Dict) -> 'ViewQueriesResult':
         """Initialize a ViewQueriesResult object from a json dictionary."""
         args = {}
-        if 'results' in _dict:
-            args['results'] = [ViewResult.from_dict(v) for v in _dict.get('results')]
+        if (results := _dict.get('results')) is not None:
+            args['results'] = [ViewResult.from_dict(v) for v in results]
         else:
             raise ValueError('Required property \'results\' not present in ViewQueriesResult JSON')
         return cls(**args)
@@ -18482,46 +18482,46 @@ class ViewQuery:
     def from_dict(cls, _dict: Dict) -> 'ViewQuery':
         """Initialize a ViewQuery object from a json dictionary."""
         args = {}
-        if 'att_encoding_info' in _dict:
-            args['att_encoding_info'] = _dict.get('att_encoding_info')
-        if 'attachments' in _dict:
-            args['attachments'] = _dict.get('attachments')
-        if 'conflicts' in _dict:
-            args['conflicts'] = _dict.get('conflicts')
-        if 'descending' in _dict:
-            args['descending'] = _dict.get('descending')
-        if 'include_docs' in _dict:
-            args['include_docs'] = _dict.get('include_docs')
-        if 'inclusive_end' in _dict:
-            args['inclusive_end'] = _dict.get('inclusive_end')
-        if 'limit' in _dict:
-            args['limit'] = _dict.get('limit')
-        if 'skip' in _dict:
-            args['skip'] = _dict.get('skip')
-        if 'update_seq' in _dict:
-            args['update_seq'] = _dict.get('update_seq')
-        if 'end_key' in _dict:
-            args['end_key'] = _dict.get('end_key')
-        if 'end_key_doc_id' in _dict:
-            args['end_key_doc_id'] = _dict.get('end_key_doc_id')
-        if 'group' in _dict:
-            args['group'] = _dict.get('group')
-        if 'group_level' in _dict:
-            args['group_level'] = _dict.get('group_level')
-        if 'key' in _dict:
-            args['key'] = _dict.get('key')
-        if 'keys' in _dict:
-            args['keys'] = _dict.get('keys')
-        if 'reduce' in _dict:
-            args['reduce'] = _dict.get('reduce')
-        if 'stable' in _dict:
-            args['stable'] = _dict.get('stable')
-        if 'start_key' in _dict:
-            args['start_key'] = _dict.get('start_key')
-        if 'start_key_doc_id' in _dict:
-            args['start_key_doc_id'] = _dict.get('start_key_doc_id')
-        if 'update' in _dict:
-            args['update'] = _dict.get('update')
+        if (att_encoding_info := _dict.get('att_encoding_info')) is not None:
+            args['att_encoding_info'] = att_encoding_info
+        if (attachments := _dict.get('attachments')) is not None:
+            args['attachments'] = attachments
+        if (conflicts := _dict.get('conflicts')) is not None:
+            args['conflicts'] = conflicts
+        if (descending := _dict.get('descending')) is not None:
+            args['descending'] = descending
+        if (include_docs := _dict.get('include_docs')) is not None:
+            args['include_docs'] = include_docs
+        if (inclusive_end := _dict.get('inclusive_end')) is not None:
+            args['inclusive_end'] = inclusive_end
+        if (limit := _dict.get('limit')) is not None:
+            args['limit'] = limit
+        if (skip := _dict.get('skip')) is not None:
+            args['skip'] = skip
+        if (update_seq := _dict.get('update_seq')) is not None:
+            args['update_seq'] = update_seq
+        if (end_key := _dict.get('end_key')) is not None:
+            args['end_key'] = end_key
+        if (end_key_doc_id := _dict.get('end_key_doc_id')) is not None:
+            args['end_key_doc_id'] = end_key_doc_id
+        if (group := _dict.get('group')) is not None:
+            args['group'] = group
+        if (group_level := _dict.get('group_level')) is not None:
+            args['group_level'] = group_level
+        if (key := _dict.get('key')) is not None:
+            args['key'] = key
+        if (keys := _dict.get('keys')) is not None:
+            args['keys'] = keys
+        if (reduce := _dict.get('reduce')) is not None:
+            args['reduce'] = reduce
+        if (stable := _dict.get('stable')) is not None:
+            args['stable'] = stable
+        if (start_key := _dict.get('start_key')) is not None:
+            args['start_key'] = start_key
+        if (start_key_doc_id := _dict.get('start_key_doc_id')) is not None:
+            args['start_key_doc_id'] = start_key_doc_id
+        if (update := _dict.get('update')) is not None:
+            args['update'] = update
         return cls(**args)
 
     @classmethod
@@ -18639,12 +18639,12 @@ class ViewResult:
     def from_dict(cls, _dict: Dict) -> 'ViewResult':
         """Initialize a ViewResult object from a json dictionary."""
         args = {}
-        if 'total_rows' in _dict:
-            args['total_rows'] = _dict.get('total_rows')
-        if 'update_seq' in _dict:
-            args['update_seq'] = _dict.get('update_seq')
-        if 'rows' in _dict:
-            args['rows'] = [ViewResultRow.from_dict(v) for v in _dict.get('rows')]
+        if (total_rows := _dict.get('total_rows')) is not None:
+            args['total_rows'] = total_rows
+        if (update_seq := _dict.get('update_seq')) is not None:
+            args['update_seq'] = update_seq
+        if (rows := _dict.get('rows')) is not None:
+            args['rows'] = [ViewResultRow.from_dict(v) for v in rows]
         else:
             raise ValueError('Required property \'rows\' not present in ViewResult JSON')
         return cls(**args)
@@ -18737,22 +18737,22 @@ class ViewResultRow:
     def from_dict(cls, _dict: Dict) -> 'ViewResultRow':
         """Initialize a ViewResultRow object from a json dictionary."""
         args = {}
-        if 'caused_by' in _dict:
-            args['caused_by'] = _dict.get('caused_by')
-        if 'error' in _dict:
-            args['error'] = _dict.get('error')
-        if 'reason' in _dict:
-            args['reason'] = _dict.get('reason')
-        if 'doc' in _dict:
-            args['doc'] = Document.from_dict(_dict.get('doc'))
-        if 'id' in _dict:
-            args['id'] = _dict.get('id')
-        if 'key' in _dict:
-            args['key'] = _dict.get('key')
+        if (caused_by := _dict.get('caused_by')) is not None:
+            args['caused_by'] = caused_by
+        if (error := _dict.get('error')) is not None:
+            args['error'] = error
+        if (reason := _dict.get('reason')) is not None:
+            args['reason'] = reason
+        if (doc := _dict.get('doc')) is not None:
+            args['doc'] = Document.from_dict(doc)
+        if (id := _dict.get('id')) is not None:
+            args['id'] = id
+        if (key := _dict.get('key')) is not None:
+            args['key'] = key
         else:
             raise ValueError('Required property \'key\' not present in ViewResultRow JSON')
-        if 'value' in _dict:
-            args['value'] = _dict.get('value')
+        if (value := _dict.get('value')) is not None:
+            args['value'] = value
         else:
             raise ValueError('Required property \'value\' not present in ViewResultRow JSON')
         return cls(**args)
