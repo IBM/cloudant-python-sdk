@@ -99,8 +99,10 @@ class TestCloudantV1:
     @needscredentials
     def test_get_db_updates(self):
         response = self.cloudant_service.get_db_updates(
+            descending=False,
             feed='normal',
             heartbeat=0,
+            limit=0,
             timeout=60000,
             since='0',
         )

@@ -306,8 +306,10 @@ class CloudantV1(BaseService):
     def get_db_updates(
         self,
         *,
+        descending: Optional[bool] = None,
         feed: Optional[str] = None,
         heartbeat: Optional[int] = None,
+        limit: Optional[int] = None,
         timeout: Optional[int] = None,
         since: Optional[str] = None,
         **kwargs,
@@ -322,6 +324,8 @@ class CloudantV1(BaseService):
         changes. Polling modes for this method work like polling modes for the changes
         feed.
 
+        :param bool descending: (optional) Query parameter to specify whether to
+               return the documents in descending by key order.
         :param str feed: (optional) Query parameter to specify the changes feed
                type.
         :param int heartbeat: (optional) Query parameter to specify the period in
@@ -339,6 +343,8 @@ class CloudantV1(BaseService):
                types
                    (`normal` or `longpoll`).
                  * Use TCP keepalive.
+        :param int limit: (optional) Query parameter to specify the number of
+               returned documents to limit the result to.
         :param int timeout: (optional) Query parameter to specify the maximum
                period in milliseconds to wait for a change before the response is sent,
                even if there are no results. Only applicable for `longpoll` or
@@ -366,8 +372,10 @@ class CloudantV1(BaseService):
         headers.update(sdk_headers)
 
         params = {
+            'descending': descending,
             'feed': feed,
             'heartbeat': heartbeat,
+            'limit': limit,
             'timeout': timeout,
             'since': since,
         }

@@ -446,15 +446,19 @@ class TestGetDbUpdates:
         )
 
         # Set up parameter values
+        descending = False
         feed = 'normal'
         heartbeat = 0
+        limit = 0
         timeout = 60000
         since = '0'
 
         # Invoke method
         response = _service.get_db_updates(
+            descending=descending,
             feed=feed,
             heartbeat=heartbeat,
+            limit=limit,
             timeout=timeout,
             since=since,
             headers={},
@@ -466,8 +470,10 @@ class TestGetDbUpdates:
         # Validate query params
         query_string = responses.calls[0].request.url.split('?', 1)[1]
         query_string = urllib.parse.unquote_plus(query_string)
+        assert 'descending={}'.format('true' if descending else 'false') in query_string
         assert 'feed={}'.format(feed) in query_string
         assert 'heartbeat={}'.format(heartbeat) in query_string
+        assert 'limit={}'.format(limit) in query_string
         assert 'timeout={}'.format(timeout) in query_string
         assert 'since={}'.format(since) in query_string
 
