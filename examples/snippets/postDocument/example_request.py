@@ -4,7 +4,7 @@ from ibmcloudant.cloudant_v1 import Document, CloudantV1
 service = CloudantV1.new_instance()
 
 products_doc = Document(
-  id="small-appliances:1000042",
+  _id="small-appliances:1000042",
   type="product",
   productid="1000042",
   brand="Salter",

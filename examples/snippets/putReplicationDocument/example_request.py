@@ -19,7 +19,7 @@ target_db = ReplicationDatabase(
 )
 
 replication_document = ReplicationDocument(
-  id='repldoc-example',
+  _id='repldoc-example',
   create_target=True,
   source=source_db,
   target=target_db

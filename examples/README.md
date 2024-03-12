@@ -345,7 +345,7 @@ target_db = ReplicationDatabase(
 )
 
 replication_document = ReplicationDocument(
-  id='repldoc-example',
+  _id='repldoc-example',
   create_target=True,
   source=source_db,
   target=target_db
@@ -576,7 +576,7 @@ from ibmcloudant.cloudant_v1 import Document, CloudantV1
 service = CloudantV1.new_instance()
 
 products_doc = Document(
-  id="small-appliances:1000042",
+  _id="small-appliances:1000042",
   type="product",
   productid="1000042",
   brand="Salter",
@@ -686,7 +686,7 @@ from ibmcloudant.cloudant_v1 import Document, CloudantV1, BulkDocs
 service = CloudantV1.new_instance()
 
 event_doc_1 = Document(
-  id="0007241142412418284",
+  _id="0007241142412418284",
   type="event",
   userid="abc123",
   eventType="addedToBasket",
@@ -694,7 +694,7 @@ event_doc_1 = Document(
   date="2019-01-28T10:44:22.000Z"
 )
 event_doc_2 = Document(
-  id="0007241142412418285",
+  _id="0007241142412418285",
   type="event",
   userid="abc234",
   eventType="addedToBasket",
@@ -720,14 +720,14 @@ from ibmcloudant.cloudant_v1 import Document, CloudantV1, BulkDocs
 service = CloudantV1.new_instance()
 
 event_doc_1 = Document(
-  id="0007241142412418284",
-  rev="1-5005d65514fe9e90f8eccf174af5dd64",
-  deleted=True,
+  _id="0007241142412418284",
+  _rev="1-5005d65514fe9e90f8eccf174af5dd64",
+  _deleted=True,
 )
 event_doc_2 = Document(
-  id="0007241142412418285",
-  rev="1-2d7810b054babeda4812b3924428d6d6",
-  deleted=True,
+  _id="0007241142412418285",
+  _rev="1-2d7810b054babeda4812b3924428d6d6",
+  _deleted=True,
 )
 
 bulk_docs = BulkDocs(docs=[event_doc_1, event_doc_2])
