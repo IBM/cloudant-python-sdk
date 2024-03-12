@@ -132,34 +132,6 @@ The example above represents this JSON body:
 }
 ```
 
-### Documents
-
-#### Name collisions with reserved metadata fields
-
-The cloudant-python-sdk internal representation of the `Document` model in a Python dict
-currently does not allow for members with the same names as the reserved (`_` prefixed)
-document metadata members.
-
-This means that members named any of the following will be removed by the `Document`
-`from_dict` and `to_dict` functions:
-* `attachments`
-* `conflicts`
-* `deleted`
-* `deleted_conflicts`
-* `id`
-* `local_seq`
-* `rev`
-* `revisions`
-* `revs_info`
-
-Potential workarounds are:
-* use [Raw IO](/#raw-io) functions to serialize/deserialize
-documents into a custom dict or class.
-* use a different member name
-* nest the members inside another object member
-
-See [issue #490](https://github.com/IBM/cloudant-python-sdk/issues/490).
-
 ### Disabling request body compression
 
 Some issues with older server versions can be worked around by disabling
