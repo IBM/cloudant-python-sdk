@@ -11404,20 +11404,20 @@ class DesignDocument:
     """
     Schema for a design document.
 
-    :param dict attachments: (optional) Schema for a map of attachment name to
+    :param dict _attachments: (optional) Schema for a map of attachment name to
           attachment metadata.
-    :param List[str] conflicts: (optional) Schema for a list of document revision
+    :param List[str] _conflicts: (optional) Schema for a list of document revision
           identifiers.
-    :param bool deleted: (optional) Deletion flag. Available if document was
+    :param bool _deleted: (optional) Deletion flag. Available if document was
           removed.
-    :param List[str] deleted_conflicts: (optional) Schema for a list of document
+    :param List[str] _deleted_conflicts: (optional) Schema for a list of document
           revision identifiers.
-    :param str id: (optional) Document ID.
-    :param str local_seq: (optional) Document's update sequence in current database.
-          Available if requested with local_seq=true query parameter.
-    :param str rev: (optional) Schema for a document revision identifier.
-    :param Revisions revisions: (optional) Schema for list of revision information.
-    :param List[DocumentRevisionStatus] revs_info: (optional) Schema for a list of
+    :param str _id: (optional) Document ID.
+    :param str _local_seq: (optional) Document's update sequence in current
+          database. Available if requested with local_seq=true query parameter.
+    :param str _rev: (optional) Schema for a document revision identifier.
+    :param Revisions _revisions: (optional) Schema for list of revision information.
+    :param List[DocumentRevisionStatus] _revs_info: (optional) Schema for a list of
           objects with information about local revisions and their status.
     :param bool autoupdate: (optional) Indicates whether to automatically build
           indexes defined in this design document.
@@ -11492,20 +11492,20 @@ class DesignDocument:
     """
 
     # The set of defined properties for the class
-    _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info', 'autoupdate', 'filters', 'indexes', 'language', 'options', 'validate_doc_update', 'views'])
+    _properties = frozenset(['_attachments', '_conflicts', '_deleted', '_deleted_conflicts', '_id', '_local_seq', '_rev', '_revisions', '_revs_info', 'autoupdate', 'filters', 'indexes', 'language', 'options', 'validate_doc_update', 'views'])
 
     def __init__(
         self,
         *,
-        attachments: Optional[dict] = None,
-        conflicts: Optional[List[str]] = None,
-        deleted: Optional[bool] = None,
-        deleted_conflicts: Optional[List[str]] = None,
-        id: Optional[str] = None,
-        local_seq: Optional[str] = None,
-        rev: Optional[str] = None,
-        revisions: Optional['Revisions'] = None,
-        revs_info: Optional[List['DocumentRevisionStatus']] = None,
+        _attachments: Optional[dict] = None,
+        _conflicts: Optional[List[str]] = None,
+        _deleted: Optional[bool] = None,
+        _deleted_conflicts: Optional[List[str]] = None,
+        _id: Optional[str] = None,
+        _local_seq: Optional[str] = None,
+        _rev: Optional[str] = None,
+        _revisions: Optional['Revisions'] = None,
+        _revs_info: Optional[List['DocumentRevisionStatus']] = None,
         autoupdate: Optional[bool] = None,
         filters: Optional[dict] = None,
         indexes: Optional[dict] = None,
@@ -11518,22 +11518,22 @@ class DesignDocument:
         """
         Initialize a DesignDocument object.
 
-        :param dict attachments: (optional) Schema for a map of attachment name to
+        :param dict _attachments: (optional) Schema for a map of attachment name to
                attachment metadata.
-        :param List[str] conflicts: (optional) Schema for a list of document
+        :param List[str] _conflicts: (optional) Schema for a list of document
                revision identifiers.
-        :param bool deleted: (optional) Deletion flag. Available if document was
+        :param bool _deleted: (optional) Deletion flag. Available if document was
                removed.
-        :param List[str] deleted_conflicts: (optional) Schema for a list of
+        :param List[str] _deleted_conflicts: (optional) Schema for a list of
                document revision identifiers.
-        :param str id: (optional) Document ID.
-        :param str local_seq: (optional) Document's update sequence in current
+        :param str _id: (optional) Document ID.
+        :param str _local_seq: (optional) Document's update sequence in current
                database. Available if requested with local_seq=true query parameter.
-        :param str rev: (optional) Schema for a document revision identifier.
-        :param Revisions revisions: (optional) Schema for list of revision
+        :param str _rev: (optional) Schema for a document revision identifier.
+        :param Revisions _revisions: (optional) Schema for list of revision
                information.
-        :param List[DocumentRevisionStatus] revs_info: (optional) Schema for a list
-               of objects with information about local revisions and their status.
+        :param List[DocumentRevisionStatus] _revs_info: (optional) Schema for a
+               list of objects with information about local revisions and their status.
         :param bool autoupdate: (optional) Indicates whether to automatically build
                indexes defined in this design document.
         :param dict filters: (optional) Schema for filter functions definition.
@@ -11607,15 +11607,15 @@ class DesignDocument:
         :param dict views: (optional) Schema for design document views.
         :param **kwargs: (optional) Any additional properties.
         """
-        self.attachments = attachments
-        self.conflicts = conflicts
-        self.deleted = deleted
-        self.deleted_conflicts = deleted_conflicts
-        self.id = id
-        self.local_seq = local_seq
-        self.rev = rev
-        self.revisions = revisions
-        self.revs_info = revs_info
+        self._attachments = _attachments
+        self._conflicts = _conflicts
+        self._deleted = _deleted
+        self._deleted_conflicts = _deleted_conflicts
+        self._id = _id
+        self._local_seq = _local_seq
+        self._rev = _rev
+        self._revisions = _revisions
+        self._revs_info = _revs_info
         self.autoupdate = autoupdate
         self.filters = filters
         self.indexes = indexes
@@ -11631,23 +11631,23 @@ class DesignDocument:
         """Initialize a DesignDocument object from a json dictionary."""
         args = {}
         if (attachments := _dict.get('_attachments')) is not None:
-            args['attachments'] = {k: Attachment.from_dict(v) for k, v in attachments.items()}
+            args['_attachments'] = {k: Attachment.from_dict(v) for k, v in attachments.items()}
         if (conflicts := _dict.get('_conflicts')) is not None:
-            args['conflicts'] = conflicts
+            args['_conflicts'] = conflicts
         if (deleted := _dict.get('_deleted')) is not None:
-            args['deleted'] = deleted
+            args['_deleted'] = deleted
         if (deleted_conflicts := _dict.get('_deleted_conflicts')) is not None:
-            args['deleted_conflicts'] = deleted_conflicts
+            args['_deleted_conflicts'] = deleted_conflicts
         if (id := _dict.get('_id')) is not None:
-            args['id'] = id
+            args['_id'] = id
         if (local_seq := _dict.get('_local_seq')) is not None:
-            args['local_seq'] = local_seq
+            args['_local_seq'] = local_seq
         if (rev := _dict.get('_rev')) is not None:
-            args['rev'] = rev
+            args['_rev'] = rev
         if (revisions := _dict.get('_revisions')) is not None:
-            args['revisions'] = Revisions.from_dict(revisions)
+            args['_revisions'] = Revisions.from_dict(revisions)
         if (revs_info := _dict.get('_revs_info')) is not None:
-            args['revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in revs_info]
+            args['_revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in revs_info]
         if (autoupdate := _dict.get('autoupdate')) is not None:
             args['autoupdate'] = autoupdate
         if (filters := _dict.get('filters')) is not None:
@@ -11673,34 +11673,34 @@ class DesignDocument:
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
-        if hasattr(self, 'attachments') and self.attachments is not None:
+        if hasattr(self, '_attachments') and self._attachments is not None:
             _attachments_map = {}
-            for k, v in self.attachments.items():
+            for k, v in self._attachments.items():
                 if isinstance(v, dict):
                     _attachments_map[k] = v
                 else:
                     _attachments_map[k] = v.to_dict()
             _dict['_attachments'] = _attachments_map
-        if hasattr(self, 'conflicts') and self.conflicts is not None:
-            _dict['_conflicts'] = self.conflicts
-        if hasattr(self, 'deleted') and self.deleted is not None:
-            _dict['_deleted'] = self.deleted
-        if hasattr(self, 'deleted_conflicts') and self.deleted_conflicts is not None:
-            _dict['_deleted_conflicts'] = self.deleted_conflicts
-        if hasattr(self, 'id') and self.id is not None:
-            _dict['_id'] = self.id
-        if hasattr(self, 'local_seq') and self.local_seq is not None:
-            _dict['_local_seq'] = self.local_seq
-        if hasattr(self, 'rev') and self.rev is not None:
-            _dict['_rev'] = self.rev
-        if hasattr(self, 'revisions') and self.revisions is not None:
-            if isinstance(self.revisions, dict):
-                _dict['_revisions'] = self.revisions
+        if hasattr(self, '_conflicts') and self._conflicts is not None:
+            _dict['_conflicts'] = self._conflicts
+        if hasattr(self, '_deleted') and self._deleted is not None:
+            _dict['_deleted'] = self._deleted
+        if hasattr(self, '_deleted_conflicts') and self._deleted_conflicts is not None:
+            _dict['_deleted_conflicts'] = self._deleted_conflicts
+        if hasattr(self, '_id') and self._id is not None:
+            _dict['_id'] = self._id
+        if hasattr(self, '_local_seq') and self._local_seq is not None:
+            _dict['_local_seq'] = self._local_seq
+        if hasattr(self, '_rev') and self._rev is not None:
+            _dict['_rev'] = self._rev
+        if hasattr(self, '_revisions') and self._revisions is not None:
+            if isinstance(self._revisions, dict):
+                _dict['_revisions'] = self._revisions
             else:
-                _dict['_revisions'] = self.revisions.to_dict()
-        if hasattr(self, 'revs_info') and self.revs_info is not None:
+                _dict['_revisions'] = self._revisions.to_dict()
+        if hasattr(self, '_revs_info') and self._revs_info is not None:
             _revs_info_list = []
-            for v in self.revs_info:
+            for v in self._revs_info:
                 if isinstance(v, dict):
                     _revs_info_list.append(v)
                 else:
@@ -12324,70 +12324,70 @@ class Document:
     """
     Schema for a document.
 
-    :param dict attachments: (optional) Schema for a map of attachment name to
+    :param dict _attachments: (optional) Schema for a map of attachment name to
           attachment metadata.
-    :param List[str] conflicts: (optional) Schema for a list of document revision
+    :param List[str] _conflicts: (optional) Schema for a list of document revision
           identifiers.
-    :param bool deleted: (optional) Deletion flag. Available if document was
+    :param bool _deleted: (optional) Deletion flag. Available if document was
           removed.
-    :param List[str] deleted_conflicts: (optional) Schema for a list of document
+    :param List[str] _deleted_conflicts: (optional) Schema for a list of document
           revision identifiers.
-    :param str id: (optional) Document ID.
-    :param str local_seq: (optional) Document's update sequence in current database.
-          Available if requested with local_seq=true query parameter.
-    :param str rev: (optional) Schema for a document revision identifier.
-    :param Revisions revisions: (optional) Schema for list of revision information.
-    :param List[DocumentRevisionStatus] revs_info: (optional) Schema for a list of
+    :param str _id: (optional) Document ID.
+    :param str _local_seq: (optional) Document's update sequence in current
+          database. Available if requested with local_seq=true query parameter.
+    :param str _rev: (optional) Schema for a document revision identifier.
+    :param Revisions _revisions: (optional) Schema for list of revision information.
+    :param List[DocumentRevisionStatus] _revs_info: (optional) Schema for a list of
           objects with information about local revisions and their status.
     """
 
     # The set of defined properties for the class
-    _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info'])
+    _properties = frozenset(['_attachments', '_conflicts', '_deleted', '_deleted_conflicts', '_id', '_local_seq', '_rev', '_revisions', '_revs_info'])
 
     def __init__(
         self,
         *,
-        attachments: Optional[dict] = None,
-        conflicts: Optional[List[str]] = None,
-        deleted: Optional[bool] = None,
-        deleted_conflicts: Optional[List[str]] = None,
-        id: Optional[str] = None,
-        local_seq: Optional[str] = None,
-        rev: Optional[str] = None,
-        revisions: Optional['Revisions'] = None,
-        revs_info: Optional[List['DocumentRevisionStatus']] = None,
+        _attachments: Optional[dict] = None,
+        _conflicts: Optional[List[str]] = None,
+        _deleted: Optional[bool] = None,
+        _deleted_conflicts: Optional[List[str]] = None,
+        _id: Optional[str] = None,
+        _local_seq: Optional[str] = None,
+        _rev: Optional[str] = None,
+        _revisions: Optional['Revisions'] = None,
+        _revs_info: Optional[List['DocumentRevisionStatus']] = None,
         **kwargs,
     ) -> None:
         """
         Initialize a Document object.
 
-        :param dict attachments: (optional) Schema for a map of attachment name to
+        :param dict _attachments: (optional) Schema for a map of attachment name to
                attachment metadata.
-        :param List[str] conflicts: (optional) Schema for a list of document
+        :param List[str] _conflicts: (optional) Schema for a list of document
                revision identifiers.
-        :param bool deleted: (optional) Deletion flag. Available if document was
+        :param bool _deleted: (optional) Deletion flag. Available if document was
                removed.
-        :param List[str] deleted_conflicts: (optional) Schema for a list of
+        :param List[str] _deleted_conflicts: (optional) Schema for a list of
                document revision identifiers.
-        :param str id: (optional) Document ID.
-        :param str local_seq: (optional) Document's update sequence in current
+        :param str _id: (optional) Document ID.
+        :param str _local_seq: (optional) Document's update sequence in current
                database. Available if requested with local_seq=true query parameter.
-        :param str rev: (optional) Schema for a document revision identifier.
-        :param Revisions revisions: (optional) Schema for list of revision
+        :param str _rev: (optional) Schema for a document revision identifier.
+        :param Revisions _revisions: (optional) Schema for list of revision
                information.
-        :param List[DocumentRevisionStatus] revs_info: (optional) Schema for a list
-               of objects with information about local revisions and their status.
+        :param List[DocumentRevisionStatus] _revs_info: (optional) Schema for a
+               list of objects with information about local revisions and their status.
         :param **kwargs: (optional) Any additional properties.
         """
-        self.attachments = attachments
-        self.conflicts = conflicts
-        self.deleted = deleted
-        self.deleted_conflicts = deleted_conflicts
-        self.id = id
-        self.local_seq = local_seq
-        self.rev = rev
-        self.revisions = revisions
-        self.revs_info = revs_info
+        self._attachments = _attachments
+        self._conflicts = _conflicts
+        self._deleted = _deleted
+        self._deleted_conflicts = _deleted_conflicts
+        self._id = _id
+        self._local_seq = _local_seq
+        self._rev = _rev
+        self._revisions = _revisions
+        self._revs_info = _revs_info
         for _key, _value in kwargs.items():
             setattr(self, _key, _value)
 
@@ -12396,23 +12396,23 @@ class Document:
         """Initialize a Document object from a json dictionary."""
         args = {}
         if (attachments := _dict.get('_attachments')) is not None:
-            args['attachments'] = {k: Attachment.from_dict(v) for k, v in attachments.items()}
+            args['_attachments'] = {k: Attachment.from_dict(v) for k, v in attachments.items()}
         if (conflicts := _dict.get('_conflicts')) is not None:
-            args['conflicts'] = conflicts
+            args['_conflicts'] = conflicts
         if (deleted := _dict.get('_deleted')) is not None:
-            args['deleted'] = deleted
+            args['_deleted'] = deleted
         if (deleted_conflicts := _dict.get('_deleted_conflicts')) is not None:
-            args['deleted_conflicts'] = deleted_conflicts
+            args['_deleted_conflicts'] = deleted_conflicts
         if (id := _dict.get('_id')) is not None:
-            args['id'] = id
+            args['_id'] = id
         if (local_seq := _dict.get('_local_seq')) is not None:
-            args['local_seq'] = local_seq
+            args['_local_seq'] = local_seq
         if (rev := _dict.get('_rev')) is not None:
-            args['rev'] = rev
+            args['_rev'] = rev
         if (revisions := _dict.get('_revisions')) is not None:
-            args['revisions'] = Revisions.from_dict(revisions)
+            args['_revisions'] = Revisions.from_dict(revisions)
         if (revs_info := _dict.get('_revs_info')) is not None:
-            args['revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in revs_info]
+            args['_revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in revs_info]
         args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
         return cls(**args)
 
@@ -12424,34 +12424,34 @@ class Document:
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
-        if hasattr(self, 'attachments') and self.attachments is not None:
+        if hasattr(self, '_attachments') and self._attachments is not None:
             _attachments_map = {}
-            for k, v in self.attachments.items():
+            for k, v in self._attachments.items():
                 if isinstance(v, dict):
                     _attachments_map[k] = v
                 else:
                     _attachments_map[k] = v.to_dict()
             _dict['_attachments'] = _attachments_map
-        if hasattr(self, 'conflicts') and self.conflicts is not None:
-            _dict['_conflicts'] = self.conflicts
-        if hasattr(self, 'deleted') and self.deleted is not None:
-            _dict['_deleted'] = self.deleted
-        if hasattr(self, 'deleted_conflicts') and self.deleted_conflicts is not None:
-            _dict['_deleted_conflicts'] = self.deleted_conflicts
-        if hasattr(self, 'id') and self.id is not None:
-            _dict['_id'] = self.id
-        if hasattr(self, 'local_seq') and self.local_seq is not None:
-            _dict['_local_seq'] = self.local_seq
-        if hasattr(self, 'rev') and self.rev is not None:
-            _dict['_rev'] = self.rev
-        if hasattr(self, 'revisions') and self.revisions is not None:
-            if isinstance(self.revisions, dict):
-                _dict['_revisions'] = self.revisions
+        if hasattr(self, '_conflicts') and self._conflicts is not None:
+            _dict['_conflicts'] = self._conflicts
+        if hasattr(self, '_deleted') and self._deleted is not None:
+            _dict['_deleted'] = self._deleted
+        if hasattr(self, '_deleted_conflicts') and self._deleted_conflicts is not None:
+            _dict['_deleted_conflicts'] = self._deleted_conflicts
+        if hasattr(self, '_id') and self._id is not None:
+            _dict['_id'] = self._id
+        if hasattr(self, '_local_seq') and self._local_seq is not None:
+            _dict['_local_seq'] = self._local_seq
+        if hasattr(self, '_rev') and self._rev is not None:
+            _dict['_rev'] = self._rev
+        if hasattr(self, '_revisions') and self._revisions is not None:
+            if isinstance(self._revisions, dict):
+                _dict['_revisions'] = self._revisions
             else:
-                _dict['_revisions'] = self.revisions.to_dict()
-        if hasattr(self, 'revs_info') and self.revs_info is not None:
+                _dict['_revisions'] = self._revisions.to_dict()
+        if hasattr(self, '_revs_info') and self._revs_info is not None:
             _revs_info_list = []
-            for v in self.revs_info:
+            for v in self._revs_info:
                 if isinstance(v, dict):
                     _revs_info_list.append(v)
                 else:
@@ -15152,20 +15152,20 @@ class ReplicationDocument:
     Schema for a replication document. Note that `selector`, `doc_ids`, and `filter` are
     incompatible with each other.
 
-    :param dict attachments: (optional) Schema for a map of attachment name to
+    :param dict _attachments: (optional) Schema for a map of attachment name to
           attachment metadata.
-    :param List[str] conflicts: (optional) Schema for a list of document revision
+    :param List[str] _conflicts: (optional) Schema for a list of document revision
           identifiers.
-    :param bool deleted: (optional) Deletion flag. Available if document was
+    :param bool _deleted: (optional) Deletion flag. Available if document was
           removed.
-    :param List[str] deleted_conflicts: (optional) Schema for a list of document
+    :param List[str] _deleted_conflicts: (optional) Schema for a list of document
           revision identifiers.
-    :param str id: (optional) Document ID.
-    :param str local_seq: (optional) Document's update sequence in current database.
-          Available if requested with local_seq=true query parameter.
-    :param str rev: (optional) Schema for a document revision identifier.
-    :param Revisions revisions: (optional) Schema for list of revision information.
-    :param List[DocumentRevisionStatus] revs_info: (optional) Schema for a list of
+    :param str _id: (optional) Document ID.
+    :param str _local_seq: (optional) Document's update sequence in current
+          database. Available if requested with local_seq=true query parameter.
+    :param str _rev: (optional) Schema for a document revision identifier.
+    :param Revisions _revisions: (optional) Schema for list of revision information.
+    :param List[DocumentRevisionStatus] _revs_info: (optional) Schema for a list of
           objects with information about local revisions and their status.
     :param bool cancel: (optional) Cancels the replication.
     :param int checkpoint_interval: (optional) Defines replication checkpoint
@@ -15260,22 +15260,22 @@ class ReplicationDocument:
     """
 
     # The set of defined properties for the class
-    _properties = frozenset(['attachments', '_attachments', 'conflicts', '_conflicts', 'deleted', '_deleted', 'deleted_conflicts', '_deleted_conflicts', 'id', '_id', 'local_seq', '_local_seq', 'rev', '_rev', 'revisions', '_revisions', 'revs_info', '_revs_info', 'cancel', 'checkpoint_interval', 'connection_timeout', 'continuous', 'create_target', 'create_target_params', 'doc_ids', 'filter', 'http_connections', 'query_params', 'retries_per_request', 'selector', 'since_seq', 'socket_options', 'source', 'source_proxy', 'target', 'target_proxy', 'use_bulk_get', 'use_checkpoints', 'user_ctx', 'winning_revs_only', 'worker_batch_size', 'worker_processes'])
+    _properties = frozenset(['_attachments', '_conflicts', '_deleted', '_deleted_conflicts', '_id', '_local_seq', '_rev', '_revisions', '_revs_info', 'cancel', 'checkpoint_interval', 'connection_timeout', 'continuous', 'create_target', 'create_target_params', 'doc_ids', 'filter', 'http_connections', 'query_params', 'retries_per_request', 'selector', 'since_seq', 'socket_options', 'source', 'source_proxy', 'target', 'target_proxy', 'use_bulk_get', 'use_checkpoints', 'user_ctx', 'winning_revs_only', 'worker_batch_size', 'worker_processes'])
 
     def __init__(
         self,
         source: 'ReplicationDatabase',
         target: 'ReplicationDatabase',
         *,
-        attachments: Optional[dict] = None,
-        conflicts: Optional[List[str]] = None,
-        deleted: Optional[bool] = None,
-        deleted_conflicts: Optional[List[str]] = None,
-        id: Optional[str] = None,
-        local_seq: Optional[str] = None,
-        rev: Optional[str] = None,
-        revisions: Optional['Revisions'] = None,
-        revs_info: Optional[List['DocumentRevisionStatus']] = None,
+        _attachments: Optional[dict] = None,
+        _conflicts: Optional[List[str]] = None,
+        _deleted: Optional[bool] = None,
+        _deleted_conflicts: Optional[List[str]] = None,
+        _id: Optional[str] = None,
+        _local_seq: Optional[str] = None,
+        _rev: Optional[str] = None,
+        _revisions: Optional['Revisions'] = None,
+        _revs_info: Optional[List['DocumentRevisionStatus']] = None,
         cancel: Optional[bool] = None,
         checkpoint_interval: Optional[int] = None,
         connection_timeout: Optional[int] = None,
@@ -15307,22 +15307,22 @@ class ReplicationDocument:
                target database.
         :param ReplicationDatabase target: Schema for a replication source or
                target database.
-        :param dict attachments: (optional) Schema for a map of attachment name to
+        :param dict _attachments: (optional) Schema for a map of attachment name to
                attachment metadata.
-        :param List[str] conflicts: (optional) Schema for a list of document
+        :param List[str] _conflicts: (optional) Schema for a list of document
                revision identifiers.
-        :param bool deleted: (optional) Deletion flag. Available if document was
+        :param bool _deleted: (optional) Deletion flag. Available if document was
                removed.
-        :param List[str] deleted_conflicts: (optional) Schema for a list of
+        :param List[str] _deleted_conflicts: (optional) Schema for a list of
                document revision identifiers.
-        :param str id: (optional) Document ID.
-        :param str local_seq: (optional) Document's update sequence in current
+        :param str _id: (optional) Document ID.
+        :param str _local_seq: (optional) Document's update sequence in current
                database. Available if requested with local_seq=true query parameter.
-        :param str rev: (optional) Schema for a document revision identifier.
-        :param Revisions revisions: (optional) Schema for list of revision
+        :param str _rev: (optional) Schema for a document revision identifier.
+        :param Revisions _revisions: (optional) Schema for list of revision
                information.
-        :param List[DocumentRevisionStatus] revs_info: (optional) Schema for a list
-               of objects with information about local revisions and their status.
+        :param List[DocumentRevisionStatus] _revs_info: (optional) Schema for a
+               list of objects with information about local revisions and their status.
         :param bool cancel: (optional) Cancels the replication.
         :param int checkpoint_interval: (optional) Defines replication checkpoint
                interval in milliseconds.
@@ -15414,15 +15414,15 @@ class ReplicationDocument:
                higher number can improve throughput.
         :param **kwargs: (optional) Any additional properties.
         """
-        self.attachments = attachments
-        self.conflicts = conflicts
-        self.deleted = deleted
-        self.deleted_conflicts = deleted_conflicts
-        self.id = id
-        self.local_seq = local_seq
-        self.rev = rev
-        self.revisions = revisions
-        self.revs_info = revs_info
+        self._attachments = _attachments
+        self._conflicts = _conflicts
+        self._deleted = _deleted
+        self._deleted_conflicts = _deleted_conflicts
+        self._id = _id
+        self._local_seq = _local_seq
+        self._rev = _rev
+        self._revisions = _revisions
+        self._revs_info = _revs_info
         self.cancel = cancel
         self.checkpoint_interval = checkpoint_interval
         self.connection_timeout = connection_timeout
@@ -15455,23 +15455,23 @@ class ReplicationDocument:
         """Initialize a ReplicationDocument object from a json dictionary."""
         args = {}
         if (attachments := _dict.get('_attachments')) is not None:
-            args['attachments'] = {k: Attachment.from_dict(v) for k, v in attachments.items()}
+            args['_attachments'] = {k: Attachment.from_dict(v) for k, v in attachments.items()}
         if (conflicts := _dict.get('_conflicts')) is not None:
-            args['conflicts'] = conflicts
+            args['_conflicts'] = conflicts
         if (deleted := _dict.get('_deleted')) is not None:
-            args['deleted'] = deleted
+            args['_deleted'] = deleted
         if (deleted_conflicts := _dict.get('_deleted_conflicts')) is not None:
-            args['deleted_conflicts'] = deleted_conflicts
+            args['_deleted_conflicts'] = deleted_conflicts
         if (id := _dict.get('_id')) is not None:
-            args['id'] = id
+            args['_id'] = id
         if (local_seq := _dict.get('_local_seq')) is not None:
-            args['local_seq'] = local_seq
+            args['_local_seq'] = local_seq
         if (rev := _dict.get('_rev')) is not None:
-            args['rev'] = rev
+            args['_rev'] = rev
         if (revisions := _dict.get('_revisions')) is not None:
-            args['revisions'] = Revisions.from_dict(revisions)
+            args['_revisions'] = Revisions.from_dict(revisions)
         if (revs_info := _dict.get('_revs_info')) is not None:
-            args['revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in revs_info]
+            args['_revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in revs_info]
         if (cancel := _dict.get('cancel')) is not None:
             args['cancel'] = cancel
         if (checkpoint_interval := _dict.get('checkpoint_interval')) is not None:
@@ -15535,34 +15535,34 @@ class ReplicationDocument:
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
-        if hasattr(self, 'attachments') and self.attachments is not None:
+        if hasattr(self, '_attachments') and self._attachments is not None:
             _attachments_map = {}
-            for k, v in self.attachments.items():
+            for k, v in self._attachments.items():
                 if isinstance(v, dict):
                     _attachments_map[k] = v
                 else:
                     _attachments_map[k] = v.to_dict()
             _dict['_attachments'] = _attachments_map
-        if hasattr(self, 'conflicts') and self.conflicts is not None:
-            _dict['_conflicts'] = self.conflicts
-        if hasattr(self, 'deleted') and self.deleted is not None:
-            _dict['_deleted'] = self.deleted
-        if hasattr(self, 'deleted_conflicts') and self.deleted_conflicts is not None:
-            _dict['_deleted_conflicts'] = self.deleted_conflicts
-        if hasattr(self, 'id') and self.id is not None:
-            _dict['_id'] = self.id
-        if hasattr(self, 'local_seq') and self.local_seq is not None:
-            _dict['_local_seq'] = self.local_seq
-        if hasattr(self, 'rev') and self.rev is not None:
-            _dict['_rev'] = self.rev
-        if hasattr(self, 'revisions') and self.revisions is not None:
-            if isinstance(self.revisions, dict):
-                _dict['_revisions'] = self.revisions
+        if hasattr(self, '_conflicts') and self._conflicts is not None:
+            _dict['_conflicts'] = self._conflicts
+        if hasattr(self, '_deleted') and self._deleted is not None:
+            _dict['_deleted'] = self._deleted
+        if hasattr(self, '_deleted_conflicts') and self._deleted_conflicts is not None:
+            _dict['_deleted_conflicts'] = self._deleted_conflicts
+        if hasattr(self, '_id') and self._id is not None:
+            _dict['_id'] = self._id
+        if hasattr(self, '_local_seq') and self._local_seq is not None:
+            _dict['_local_seq'] = self._local_seq
+        if hasattr(self, '_rev') and self._rev is not None:
+            _dict['_rev'] = self._rev
+        if hasattr(self, '_revisions') and self._revisions is not None:
+            if isinstance(self._revisions, dict):
+                _dict['_revisions'] = self._revisions
             else:
-                _dict['_revisions'] = self.revisions.to_dict()
-        if hasattr(self, 'revs_info') and self.revs_info is not None:
+                _dict['_revisions'] = self._revisions.to_dict()
+        if hasattr(self, '_revs_info') and self._revs_info is not None:
             _revs_info_list = []
-            for v in self.revs_info:
+            for v in self._revs_info:
                 if isinstance(v, dict):
                     _revs_info_list.append(v)
                 else:
