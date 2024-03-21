@@ -64,7 +64,7 @@ def preprocess_url(operation_path: str):
 
     # If the request url does NOT end with a /, then just return it as-is.
     # Otherwise, return a regular expression that matches one or more trailing /.
-    if re.fullmatch('.*/+', request_url) is None:
+    if not request_url.endswith('/'):
         return request_url
     return re.compile(request_url.rstrip('/') + '/+')
 
@@ -319,7 +319,7 @@ class TestPutCapacityThroughputConfiguration:
         )
 
         # Set up parameter values
-        blocks = 0
+        blocks = 10
 
         # Invoke method
         response = _service.put_capacity_throughput_configuration(
@@ -336,7 +336,7 @@ class TestPutCapacityThroughputConfiguration:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['blocks'] == 0
+        assert req_body['blocks'] == 10
 
     def test_put_capacity_throughput_configuration_all_params_with_retries(self):
         # Enable retries and run test_put_capacity_throughput_configuration_all_params.
@@ -364,7 +364,7 @@ class TestPutCapacityThroughputConfiguration:
         )
 
         # Set up parameter values
-        blocks = 0
+        blocks = 10
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -542,7 +542,7 @@ class TestPostChanges:
 
         # Set up parameter values
         db = 'testString'
-        doc_ids = ['testString']
+        doc_ids = ['0007741142412418284']
         fields = ['testString']
         selector = {'anyKey': 'anyValue'}
         last_event_id = 'testString'
@@ -611,7 +611,7 @@ class TestPostChanges:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['doc_ids'] == ['testString']
+        assert req_body['doc_ids'] == ['0007741142412418284']
         assert req_body['fields'] == ['testString']
         assert req_body['selector'] == {'anyKey': 'anyValue'}
 
@@ -642,7 +642,7 @@ class TestPostChanges:
 
         # Set up parameter values
         db = 'testString'
-        doc_ids = ['testString']
+        doc_ids = ['0007741142412418284']
         fields = ['testString']
         selector = {'anyKey': 'anyValue'}
 
@@ -664,7 +664,7 @@ class TestPostChanges:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['doc_ids'] == ['testString']
+        assert req_body['doc_ids'] == ['0007741142412418284']
         assert req_body['fields'] == ['testString']
         assert req_body['selector'] == {'anyKey': 'anyValue'}
 
@@ -695,7 +695,7 @@ class TestPostChanges:
 
         # Set up parameter values
         db = 'testString'
-        doc_ids = ['testString']
+        doc_ids = ['0007741142412418284']
         fields = ['testString']
         selector = {'anyKey': 'anyValue'}
 
@@ -741,7 +741,7 @@ class TestPostChangesAsStream:
 
         # Set up parameter values
         db = 'testString'
-        doc_ids = ['testString']
+        doc_ids = ['0007741142412418284']
         fields = ['testString']
         selector = {'anyKey': 'anyValue'}
         last_event_id = 'testString'
@@ -810,7 +810,7 @@ class TestPostChangesAsStream:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['doc_ids'] == ['testString']
+        assert req_body['doc_ids'] == ['0007741142412418284']
         assert req_body['fields'] == ['testString']
         assert req_body['selector'] == {'anyKey': 'anyValue'}
 
@@ -847,7 +847,7 @@ class TestPostChangesAsStream:
 
         # Set up parameter values
         db = 'testString'
-        doc_ids = ['testString']
+        doc_ids = ['0007741142412418284']
         fields = ['testString']
         selector = {'anyKey': 'anyValue'}
 
@@ -869,7 +869,7 @@ class TestPostChangesAsStream:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['doc_ids'] == ['testString']
+        assert req_body['doc_ids'] == ['0007741142412418284']
         assert req_body['fields'] == ['testString']
         assert req_body['selector'] == {'anyKey': 'anyValue'}
 
@@ -906,7 +906,7 @@ class TestPostChangesAsStream:
 
         # Set up parameter values
         db = 'testString'
-        doc_ids = ['testString']
+        doc_ids = ['0007741142412418284']
         fields = ['testString']
         selector = {'anyKey': 'anyValue'}
 
@@ -1157,7 +1157,7 @@ class TestPostDbsInfo:
         )
 
         # Set up parameter values
-        keys = ['testString']
+        keys = ['products', 'users', 'orders']
 
         # Invoke method
         response = _service.post_dbs_info(
@@ -1174,7 +1174,7 @@ class TestPostDbsInfo:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['keys'] == ['testString']
+        assert req_body['keys'] == ['products', 'users', 'orders']
 
     def test_post_dbs_info_all_params_with_retries(self):
         # Enable retries and run test_post_dbs_info_all_params.
@@ -1202,7 +1202,7 @@ class TestPostDbsInfo:
         )
 
         # Set up parameter values
-        keys = ['testString']
+        keys = ['products', 'users', 'orders']
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -1728,12 +1728,21 @@ class TestPostDocument:
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = 'testString'
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -1816,12 +1825,21 @@ class TestPostDocument:
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = 'testString'
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -1896,12 +1914,21 @@ class TestPostDocument:
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = 'testString'
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -1956,13 +1983,13 @@ class TestPostAllDocs:
         descending = False
         include_docs = False
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        start_key = 'testString'
+        start_key = '0007741142412418284'
 
         # Invoke method
         response = _service.post_all_docs(
@@ -1998,13 +2025,13 @@ class TestPostAllDocs:
         assert req_body['descending'] == False
         assert req_body['include_docs'] == False
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
         assert req_body['end_key'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['start_key'] == 'testString'
+        assert req_body['start_key'] == '0007741142412418284'
 
     def test_post_all_docs_all_params_with_retries(self):
         # Enable retries and run test_post_all_docs_all_params.
@@ -2039,13 +2066,13 @@ class TestPostAllDocs:
         descending = False
         include_docs = False
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        start_key = 'testString'
+        start_key = '0007741142412418284'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -2095,13 +2122,13 @@ class TestPostAllDocsAsStream:
         descending = False
         include_docs = False
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        start_key = 'testString'
+        start_key = '0007741142412418284'
 
         # Invoke method
         response = _service.post_all_docs_as_stream(
@@ -2137,13 +2164,13 @@ class TestPostAllDocsAsStream:
         assert req_body['descending'] == False
         assert req_body['include_docs'] == False
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
         assert req_body['end_key'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['start_key'] == 'testString'
+        assert req_body['start_key'] == '0007741142412418284'
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -2184,13 +2211,13 @@ class TestPostAllDocsAsStream:
         descending = False
         include_docs = False
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        start_key = 'testString'
+        start_key = '0007741142412418284'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -2245,7 +2272,7 @@ class TestPostAllDocsQueries:
         all_docs_query_model['update_seq'] = False
         all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
-        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
         all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
@@ -2308,7 +2335,7 @@ class TestPostAllDocsQueries:
         all_docs_query_model['update_seq'] = False
         all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
-        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
         all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
@@ -2369,7 +2396,7 @@ class TestPostAllDocsQueriesAsStream:
         all_docs_query_model['update_seq'] = False
         all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
-        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
         all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
@@ -2438,7 +2465,7 @@ class TestPostAllDocsQueriesAsStream:
         all_docs_query_model['update_seq'] = False
         all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
-        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
         all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
@@ -2514,12 +2541,16 @@ class TestPostBulkDocs:
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = '0007241142412418284'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = 'testString'
+        document_model['date'] = '2019-01-28T10:44:22.000Z'
+        document_model['eventType'] = 'addedToBasket'
+        document_model['productId'] = '1000042'
+        document_model['type'] = 'event'
+        document_model['userid'] = 'abc123'
 
         # Construct a dict representation of a BulkDocs model
         bulk_docs_model = {}
@@ -2601,12 +2632,16 @@ class TestPostBulkDocs:
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = '0007241142412418284'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = 'testString'
+        document_model['date'] = '2019-01-28T10:44:22.000Z'
+        document_model['eventType'] = 'addedToBasket'
+        document_model['productId'] = '1000042'
+        document_model['type'] = 'event'
+        document_model['userid'] = 'abc123'
 
         # Construct a dict representation of a BulkDocs model
         bulk_docs_model = {}
@@ -2661,8 +2696,8 @@ class TestPostBulkGet:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
-        bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['id'] = 'order00067'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2729,8 +2764,8 @@ class TestPostBulkGet:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
-        bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['id'] = 'order00067'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2782,8 +2817,8 @@ class TestPostBulkGet:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
-        bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['id'] = 'order00067'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2833,8 +2868,8 @@ class TestPostBulkGetAsMixed:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
-        bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['id'] = 'order00067'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2901,8 +2936,8 @@ class TestPostBulkGetAsMixed:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
-        bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['id'] = 'order00067'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -2954,8 +2989,8 @@ class TestPostBulkGetAsMixed:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
-        bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['id'] = 'order00067'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -3005,8 +3040,8 @@ class TestPostBulkGetAsRelated:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
-        bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['id'] = 'order00067'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -3073,8 +3108,8 @@ class TestPostBulkGetAsRelated:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
-        bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['id'] = 'order00067'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -3126,8 +3161,8 @@ class TestPostBulkGetAsRelated:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
-        bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['id'] = 'order00067'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -3177,8 +3212,8 @@ class TestPostBulkGetAsStream:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
-        bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['id'] = 'order00067'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -3251,8 +3286,8 @@ class TestPostBulkGetAsStream:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
-        bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['id'] = 'order00067'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -3310,8 +3345,8 @@ class TestPostBulkGetAsStream:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {}
         bulk_get_query_document_model['atts_since'] = ['1-99b02e08da151943c2dcb40090160bb8']
-        bulk_get_query_document_model['id'] = 'testString'
-        bulk_get_query_document_model['rev'] = 'testString'
+        bulk_get_query_document_model['id'] = 'order00067'
+        bulk_get_query_document_model['rev'] = '3-917fa2381192822767f010b95b45325b'
 
         # Set up parameter values
         db = 'testString'
@@ -4174,12 +4209,21 @@ class TestPutDocument:
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = 'testString'
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -4272,12 +4316,21 @@ class TestPutDocument:
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = 'testString'
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -4354,12 +4407,21 @@ class TestPutDocument:
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = 'testString'
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -4890,14 +4952,14 @@ class TestPutDesignDocument:
 
         # Construct a dict representation of a AnalyzerConfiguration model
         analyzer_configuration_model = {}
-        analyzer_configuration_model['name'] = 'classic'
+        analyzer_configuration_model['name'] = 'standard'
         analyzer_configuration_model['stopwords'] = ['testString']
         analyzer_configuration_model['fields'] = {'key1': analyzer_model}
 
         # Construct a dict representation of a SearchIndexDefinition model
         search_index_definition_model = {}
         search_index_definition_model['analyzer'] = analyzer_configuration_model
-        search_index_definition_model['index'] = 'testString'
+        search_index_definition_model['index'] = 'function (doc) {\n  index("price", doc.price);\n}'
 
         # Construct a dict representation of a DesignDocumentOptions model
         design_document_options_model = {}
@@ -4905,7 +4967,7 @@ class TestPutDesignDocument:
 
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {}
-        design_document_views_map_reduce_model['map'] = 'testString'
+        design_document_views_map_reduce_model['map'] = 'function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}'
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
         # Construct a dict representation of a DesignDocument model
@@ -4914,9 +4976,9 @@ class TestPutDesignDocument:
         design_document_model['_conflicts'] = ['testString']
         design_document_model['_deleted'] = True
         design_document_model['_deleted_conflicts'] = ['testString']
-        design_document_model['_id'] = 'testString'
+        design_document_model['_id'] = '_design/appliances'
         design_document_model['_local_seq'] = 'testString'
-        design_document_model['_rev'] = 'testString'
+        design_document_model['_rev'] = '8-7e2537e5989294471061e0cfd7292725'
         design_document_model['_revisions'] = revisions_model
         design_document_model['_revs_info'] = [document_revision_status_model]
         design_document_model['autoupdate'] = True
@@ -5020,14 +5082,14 @@ class TestPutDesignDocument:
 
         # Construct a dict representation of a AnalyzerConfiguration model
         analyzer_configuration_model = {}
-        analyzer_configuration_model['name'] = 'classic'
+        analyzer_configuration_model['name'] = 'standard'
         analyzer_configuration_model['stopwords'] = ['testString']
         analyzer_configuration_model['fields'] = {'key1': analyzer_model}
 
         # Construct a dict representation of a SearchIndexDefinition model
         search_index_definition_model = {}
         search_index_definition_model['analyzer'] = analyzer_configuration_model
-        search_index_definition_model['index'] = 'testString'
+        search_index_definition_model['index'] = 'function (doc) {\n  index("price", doc.price);\n}'
 
         # Construct a dict representation of a DesignDocumentOptions model
         design_document_options_model = {}
@@ -5035,7 +5097,7 @@ class TestPutDesignDocument:
 
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {}
-        design_document_views_map_reduce_model['map'] = 'testString'
+        design_document_views_map_reduce_model['map'] = 'function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}'
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
         # Construct a dict representation of a DesignDocument model
@@ -5044,9 +5106,9 @@ class TestPutDesignDocument:
         design_document_model['_conflicts'] = ['testString']
         design_document_model['_deleted'] = True
         design_document_model['_deleted_conflicts'] = ['testString']
-        design_document_model['_id'] = 'testString'
+        design_document_model['_id'] = '_design/appliances'
         design_document_model['_local_seq'] = 'testString'
-        design_document_model['_rev'] = 'testString'
+        design_document_model['_rev'] = '8-7e2537e5989294471061e0cfd7292725'
         design_document_model['_revisions'] = revisions_model
         design_document_model['_revs_info'] = [document_revision_status_model]
         design_document_model['autoupdate'] = True
@@ -5136,14 +5198,14 @@ class TestPutDesignDocument:
 
         # Construct a dict representation of a AnalyzerConfiguration model
         analyzer_configuration_model = {}
-        analyzer_configuration_model['name'] = 'classic'
+        analyzer_configuration_model['name'] = 'standard'
         analyzer_configuration_model['stopwords'] = ['testString']
         analyzer_configuration_model['fields'] = {'key1': analyzer_model}
 
         # Construct a dict representation of a SearchIndexDefinition model
         search_index_definition_model = {}
         search_index_definition_model['analyzer'] = analyzer_configuration_model
-        search_index_definition_model['index'] = 'testString'
+        search_index_definition_model['index'] = 'function (doc) {\n  index("price", doc.price);\n}'
 
         # Construct a dict representation of a DesignDocumentOptions model
         design_document_options_model = {}
@@ -5151,7 +5213,7 @@ class TestPutDesignDocument:
 
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {}
-        design_document_views_map_reduce_model['map'] = 'testString'
+        design_document_views_map_reduce_model['map'] = 'function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}'
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
         # Construct a dict representation of a DesignDocument model
@@ -5160,9 +5222,9 @@ class TestPutDesignDocument:
         design_document_model['_conflicts'] = ['testString']
         design_document_model['_deleted'] = True
         design_document_model['_deleted_conflicts'] = ['testString']
-        design_document_model['_id'] = 'testString'
+        design_document_model['_id'] = '_design/appliances'
         design_document_model['_local_seq'] = 'testString'
-        design_document_model['_rev'] = 'testString'
+        design_document_model['_rev'] = '8-7e2537e5989294471061e0cfd7292725'
         design_document_model['_revisions'] = revisions_model
         design_document_model['_revs_info'] = [document_revision_status_model]
         design_document_model['autoupdate'] = True
@@ -5314,13 +5376,13 @@ class TestPostDesignDocs:
         descending = False
         include_docs = False
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        start_key = 'testString'
+        start_key = '0007741142412418284'
         accept = 'application/json'
 
         # Invoke method
@@ -5358,13 +5420,13 @@ class TestPostDesignDocs:
         assert req_body['descending'] == False
         assert req_body['include_docs'] == False
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
         assert req_body['end_key'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['start_key'] == 'testString'
+        assert req_body['start_key'] == '0007741142412418284'
 
     def test_post_design_docs_all_params_with_retries(self):
         # Enable retries and run test_post_design_docs_all_params.
@@ -5399,13 +5461,13 @@ class TestPostDesignDocs:
         descending = False
         include_docs = False
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        start_key = 'testString'
+        start_key = '0007741142412418284'
 
         # Invoke method
         response = _service.post_design_docs(
@@ -5441,13 +5503,13 @@ class TestPostDesignDocs:
         assert req_body['descending'] == False
         assert req_body['include_docs'] == False
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
         assert req_body['end_key'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['start_key'] == 'testString'
+        assert req_body['start_key'] == '0007741142412418284'
 
     def test_post_design_docs_required_params_with_retries(self):
         # Enable retries and run test_post_design_docs_required_params.
@@ -5482,13 +5544,13 @@ class TestPostDesignDocs:
         descending = False
         include_docs = False
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        start_key = 'testString'
+        start_key = '0007741142412418284'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -5543,7 +5605,7 @@ class TestPostDesignDocsQueries:
         all_docs_query_model['update_seq'] = False
         all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
-        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
         all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
@@ -5608,7 +5670,7 @@ class TestPostDesignDocsQueries:
         all_docs_query_model['update_seq'] = False
         all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
-        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
         all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
@@ -5671,7 +5733,7 @@ class TestPostDesignDocsQueries:
         all_docs_query_model['update_seq'] = False
         all_docs_query_model['end_key'] = 'testString'
         all_docs_query_model['key'] = 'testString'
-        all_docs_query_model['keys'] = ['testString']
+        all_docs_query_model['keys'] = ['small-appliances:1000042', 'small-appliances:1000043']
         all_docs_query_model['start_key'] = 'testString'
 
         # Set up parameter values
@@ -5766,9 +5828,9 @@ class TestPostView:
         attachments = False
         conflicts = False
         descending = False
-        include_docs = False
+        include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
@@ -5776,7 +5838,7 @@ class TestPostView:
         group = False
         group_level = 1
         key = 'testString'
-        keys = ['testString']
+        keys = ['examplekey']
         reduce = True
         stable = False
         start_key = 'testString'
@@ -5824,9 +5886,9 @@ class TestPostView:
         assert req_body['attachments'] == False
         assert req_body['conflicts'] == False
         assert req_body['descending'] == False
-        assert req_body['include_docs'] == False
+        assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
         assert req_body['end_key'] == 'testString'
@@ -5834,7 +5896,7 @@ class TestPostView:
         assert req_body['group'] == False
         assert req_body['group_level'] == 1
         assert req_body['key'] == 'testString'
-        assert req_body['keys'] == ['testString']
+        assert req_body['keys'] == ['examplekey']
         assert req_body['reduce'] == True
         assert req_body['stable'] == False
         assert req_body['start_key'] == 'testString'
@@ -5874,9 +5936,9 @@ class TestPostView:
         attachments = False
         conflicts = False
         descending = False
-        include_docs = False
+        include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
@@ -5884,7 +5946,7 @@ class TestPostView:
         group = False
         group_level = 1
         key = 'testString'
-        keys = ['testString']
+        keys = ['examplekey']
         reduce = True
         stable = False
         start_key = 'testString'
@@ -5941,9 +6003,9 @@ class TestPostViewAsStream:
         attachments = False
         conflicts = False
         descending = False
-        include_docs = False
+        include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
@@ -5951,7 +6013,7 @@ class TestPostViewAsStream:
         group = False
         group_level = 1
         key = 'testString'
-        keys = ['testString']
+        keys = ['examplekey']
         reduce = True
         stable = False
         start_key = 'testString'
@@ -5999,9 +6061,9 @@ class TestPostViewAsStream:
         assert req_body['attachments'] == False
         assert req_body['conflicts'] == False
         assert req_body['descending'] == False
-        assert req_body['include_docs'] == False
+        assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
         assert req_body['end_key'] == 'testString'
@@ -6009,7 +6071,7 @@ class TestPostViewAsStream:
         assert req_body['group'] == False
         assert req_body['group_level'] == 1
         assert req_body['key'] == 'testString'
-        assert req_body['keys'] == ['testString']
+        assert req_body['keys'] == ['examplekey']
         assert req_body['reduce'] == True
         assert req_body['stable'] == False
         assert req_body['start_key'] == 'testString'
@@ -6055,9 +6117,9 @@ class TestPostViewAsStream:
         attachments = False
         conflicts = False
         descending = False
-        include_docs = False
+        include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
@@ -6065,7 +6127,7 @@ class TestPostViewAsStream:
         group = False
         group_level = 1
         key = 'testString'
-        keys = ['testString']
+        keys = ['examplekey']
         reduce = True
         stable = False
         start_key = 'testString'
@@ -6120,9 +6182,9 @@ class TestPostViewQueries:
         view_query_model['attachments'] = False
         view_query_model['conflicts'] = False
         view_query_model['descending'] = False
-        view_query_model['include_docs'] = False
+        view_query_model['include_docs'] = True
         view_query_model['inclusive_end'] = True
-        view_query_model['limit'] = 0
+        view_query_model['limit'] = 5
         view_query_model['skip'] = 0
         view_query_model['update_seq'] = False
         view_query_model['end_key'] = 'testString'
@@ -6194,9 +6256,9 @@ class TestPostViewQueries:
         view_query_model['attachments'] = False
         view_query_model['conflicts'] = False
         view_query_model['descending'] = False
-        view_query_model['include_docs'] = False
+        view_query_model['include_docs'] = True
         view_query_model['inclusive_end'] = True
-        view_query_model['limit'] = 0
+        view_query_model['limit'] = 5
         view_query_model['skip'] = 0
         view_query_model['update_seq'] = False
         view_query_model['end_key'] = 'testString'
@@ -6266,9 +6328,9 @@ class TestPostViewQueriesAsStream:
         view_query_model['attachments'] = False
         view_query_model['conflicts'] = False
         view_query_model['descending'] = False
-        view_query_model['include_docs'] = False
+        view_query_model['include_docs'] = True
         view_query_model['inclusive_end'] = True
-        view_query_model['limit'] = 0
+        view_query_model['limit'] = 5
         view_query_model['skip'] = 0
         view_query_model['update_seq'] = False
         view_query_model['end_key'] = 'testString'
@@ -6346,9 +6408,9 @@ class TestPostViewQueriesAsStream:
         view_query_model['attachments'] = False
         view_query_model['conflicts'] = False
         view_query_model['descending'] = False
-        view_query_model['include_docs'] = False
+        view_query_model['include_docs'] = True
         view_query_model['inclusive_end'] = True
-        view_query_model['limit'] = 0
+        view_query_model['limit'] = 5
         view_query_model['skip'] = 0
         view_query_model['update_seq'] = False
         view_query_model['end_key'] = 'testString'
@@ -6545,13 +6607,13 @@ class TestPostPartitionAllDocs:
         descending = False
         include_docs = False
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        start_key = 'testString'
+        start_key = '0007741142412418284'
 
         # Invoke method
         response = _service.post_partition_all_docs(
@@ -6588,13 +6650,13 @@ class TestPostPartitionAllDocs:
         assert req_body['descending'] == False
         assert req_body['include_docs'] == False
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
         assert req_body['end_key'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['start_key'] == 'testString'
+        assert req_body['start_key'] == '0007741142412418284'
 
     def test_post_partition_all_docs_all_params_with_retries(self):
         # Enable retries and run test_post_partition_all_docs_all_params.
@@ -6630,13 +6692,13 @@ class TestPostPartitionAllDocs:
         descending = False
         include_docs = False
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        start_key = 'testString'
+        start_key = '0007741142412418284'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -6688,13 +6750,13 @@ class TestPostPartitionAllDocsAsStream:
         descending = False
         include_docs = False
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        start_key = 'testString'
+        start_key = '0007741142412418284'
 
         # Invoke method
         response = _service.post_partition_all_docs_as_stream(
@@ -6731,13 +6793,13 @@ class TestPostPartitionAllDocsAsStream:
         assert req_body['descending'] == False
         assert req_body['include_docs'] == False
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
         assert req_body['end_key'] == 'testString'
         assert req_body['key'] == 'testString'
         assert req_body['keys'] == ['testString']
-        assert req_body['start_key'] == 'testString'
+        assert req_body['start_key'] == '0007741142412418284'
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -6779,13 +6841,13 @@ class TestPostPartitionAllDocsAsStream:
         descending = False
         include_docs = False
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
         key = 'testString'
         keys = ['testString']
-        start_key = 'testString'
+        start_key = '0007741142412418284'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -6842,7 +6904,7 @@ class TestPostPartitionSearch:
         highlight_size = 100
         include_docs = False
         include_fields = ['testString']
-        limit = 0
+        limit = 3
         sort = ['testString']
         stale = 'ok'
 
@@ -6885,7 +6947,7 @@ class TestPostPartitionSearch:
         assert req_body['highlight_size'] == 100
         assert req_body['include_docs'] == False
         assert req_body['include_fields'] == ['testString']
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 3
         assert req_body['sort'] == ['testString']
         assert req_body['stale'] == 'ok'
 
@@ -6928,7 +6990,7 @@ class TestPostPartitionSearch:
         highlight_size = 100
         include_docs = False
         include_fields = ['testString']
-        limit = 0
+        limit = 3
         sort = ['testString']
         stale = 'ok'
 
@@ -6990,7 +7052,7 @@ class TestPostPartitionSearchAsStream:
         highlight_size = 100
         include_docs = False
         include_fields = ['testString']
-        limit = 0
+        limit = 3
         sort = ['testString']
         stale = 'ok'
 
@@ -7033,7 +7095,7 @@ class TestPostPartitionSearchAsStream:
         assert req_body['highlight_size'] == 100
         assert req_body['include_docs'] == False
         assert req_body['include_fields'] == ['testString']
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 3
         assert req_body['sort'] == ['testString']
         assert req_body['stale'] == 'ok'
 
@@ -7082,7 +7144,7 @@ class TestPostPartitionSearchAsStream:
         highlight_size = 100
         include_docs = False
         include_fields = ['testString']
-        limit = 0
+        limit = 3
         sort = ['testString']
         stale = 'ok'
 
@@ -7139,9 +7201,9 @@ class TestPostPartitionView:
         attachments = False
         conflicts = False
         descending = False
-        include_docs = False
+        include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
@@ -7149,7 +7211,7 @@ class TestPostPartitionView:
         group = False
         group_level = 1
         key = 'testString'
-        keys = ['testString']
+        keys = ['examplekey']
         reduce = True
         start_key = 'testString'
         start_key_doc_id = 'testString'
@@ -7196,9 +7258,9 @@ class TestPostPartitionView:
         assert req_body['attachments'] == False
         assert req_body['conflicts'] == False
         assert req_body['descending'] == False
-        assert req_body['include_docs'] == False
+        assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
         assert req_body['end_key'] == 'testString'
@@ -7206,7 +7268,7 @@ class TestPostPartitionView:
         assert req_body['group'] == False
         assert req_body['group_level'] == 1
         assert req_body['key'] == 'testString'
-        assert req_body['keys'] == ['testString']
+        assert req_body['keys'] == ['examplekey']
         assert req_body['reduce'] == True
         assert req_body['start_key'] == 'testString'
         assert req_body['start_key_doc_id'] == 'testString'
@@ -7246,9 +7308,9 @@ class TestPostPartitionView:
         attachments = False
         conflicts = False
         descending = False
-        include_docs = False
+        include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
@@ -7256,7 +7318,7 @@ class TestPostPartitionView:
         group = False
         group_level = 1
         key = 'testString'
-        keys = ['testString']
+        keys = ['examplekey']
         reduce = True
         start_key = 'testString'
         start_key_doc_id = 'testString'
@@ -7314,9 +7376,9 @@ class TestPostPartitionViewAsStream:
         attachments = False
         conflicts = False
         descending = False
-        include_docs = False
+        include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
@@ -7324,7 +7386,7 @@ class TestPostPartitionViewAsStream:
         group = False
         group_level = 1
         key = 'testString'
-        keys = ['testString']
+        keys = ['examplekey']
         reduce = True
         start_key = 'testString'
         start_key_doc_id = 'testString'
@@ -7371,9 +7433,9 @@ class TestPostPartitionViewAsStream:
         assert req_body['attachments'] == False
         assert req_body['conflicts'] == False
         assert req_body['descending'] == False
-        assert req_body['include_docs'] == False
+        assert req_body['include_docs'] == True
         assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 10
         assert req_body['skip'] == 0
         assert req_body['update_seq'] == False
         assert req_body['end_key'] == 'testString'
@@ -7381,7 +7443,7 @@ class TestPostPartitionViewAsStream:
         assert req_body['group'] == False
         assert req_body['group_level'] == 1
         assert req_body['key'] == 'testString'
-        assert req_body['keys'] == ['testString']
+        assert req_body['keys'] == ['examplekey']
         assert req_body['reduce'] == True
         assert req_body['start_key'] == 'testString'
         assert req_body['start_key_doc_id'] == 'testString'
@@ -7427,9 +7489,9 @@ class TestPostPartitionViewAsStream:
         attachments = False
         conflicts = False
         descending = False
-        include_docs = False
+        include_docs = True
         inclusive_end = True
-        limit = 0
+        limit = 10
         skip = 0
         update_seq = False
         end_key = 'testString'
@@ -7437,7 +7499,7 @@ class TestPostPartitionViewAsStream:
         group = False
         group_level = 1
         key = 'testString'
-        keys = ['testString']
+        keys = ['examplekey']
         reduce = True
         start_key = 'testString'
         start_key_doc_id = 'testString'
@@ -7489,11 +7551,11 @@ class TestPostPartitionExplain:
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'anyKey': 'anyValue'}
+        selector = {'type': {'$eq': 'product'}}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
+        fields = ['productid', 'name', 'description']
         limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
@@ -7528,11 +7590,11 @@ class TestPostPartitionExplain:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'anyKey': 'anyValue'}
+        assert req_body['selector'] == {'type': {'$eq': 'product'}}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
-        assert req_body['fields'] == ['testString']
+        assert req_body['fields'] == ['productid', 'name', 'description']
         assert req_body['limit'] == 25
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
@@ -7568,11 +7630,11 @@ class TestPostPartitionExplain:
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'anyKey': 'anyValue'}
+        selector = {'type': {'$eq': 'product'}}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
+        fields = ['productid', 'name', 'description']
         limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
@@ -7625,11 +7687,11 @@ class TestPostPartitionFind:
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'anyKey': 'anyValue'}
+        selector = {'type': {'$eq': 'product'}}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
+        fields = ['productid', 'name', 'description']
         limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
@@ -7664,11 +7726,11 @@ class TestPostPartitionFind:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'anyKey': 'anyValue'}
+        assert req_body['selector'] == {'type': {'$eq': 'product'}}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
-        assert req_body['fields'] == ['testString']
+        assert req_body['fields'] == ['productid', 'name', 'description']
         assert req_body['limit'] == 25
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
@@ -7704,11 +7766,11 @@ class TestPostPartitionFind:
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'anyKey': 'anyValue'}
+        selector = {'type': {'$eq': 'product'}}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
+        fields = ['productid', 'name', 'description']
         limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
@@ -7761,11 +7823,11 @@ class TestPostPartitionFindAsStream:
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'anyKey': 'anyValue'}
+        selector = {'type': {'$eq': 'product'}}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
+        fields = ['productid', 'name', 'description']
         limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
@@ -7800,11 +7862,11 @@ class TestPostPartitionFindAsStream:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'anyKey': 'anyValue'}
+        assert req_body['selector'] == {'type': {'$eq': 'product'}}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
-        assert req_body['fields'] == ['testString']
+        assert req_body['fields'] == ['productid', 'name', 'description']
         assert req_body['limit'] == 25
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
@@ -7846,11 +7908,11 @@ class TestPostPartitionFindAsStream:
         # Set up parameter values
         db = 'testString'
         partition_key = 'testString'
-        selector = {'anyKey': 'anyValue'}
+        selector = {'type': {'$eq': 'product'}}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
+        fields = ['productid', 'name', 'description']
         limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
@@ -7941,12 +8003,12 @@ class TestPostExplain:
 
         # Set up parameter values
         db = 'testString'
-        selector = {'anyKey': 'anyValue'}
+        selector = {'email_verified': {'$eq': True}}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
-        limit = 25
+        fields = ['_id', 'type', 'name', 'email']
+        limit = 3
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -7981,12 +8043,12 @@ class TestPostExplain:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'anyKey': 'anyValue'}
+        assert req_body['selector'] == {'email_verified': {'$eq': True}}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
-        assert req_body['fields'] == ['testString']
-        assert req_body['limit'] == 25
+        assert req_body['fields'] == ['_id', 'type', 'name', 'email']
+        assert req_body['limit'] == 3
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
         assert req_body['stable'] == True
@@ -8021,12 +8083,12 @@ class TestPostExplain:
 
         # Set up parameter values
         db = 'testString'
-        selector = {'anyKey': 'anyValue'}
+        selector = {'email_verified': {'$eq': True}}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
-        limit = 25
+        fields = ['_id', 'type', 'name', 'email']
+        limit = 3
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -8077,12 +8139,12 @@ class TestPostFind:
 
         # Set up parameter values
         db = 'testString'
-        selector = {'anyKey': 'anyValue'}
+        selector = {'email_verified': {'$eq': True}}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
-        limit = 25
+        fields = ['_id', 'type', 'name', 'email']
+        limit = 3
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -8117,12 +8179,12 @@ class TestPostFind:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'anyKey': 'anyValue'}
+        assert req_body['selector'] == {'email_verified': {'$eq': True}}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
-        assert req_body['fields'] == ['testString']
-        assert req_body['limit'] == 25
+        assert req_body['fields'] == ['_id', 'type', 'name', 'email']
+        assert req_body['limit'] == 3
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
         assert req_body['stable'] == True
@@ -8157,12 +8219,12 @@ class TestPostFind:
 
         # Set up parameter values
         db = 'testString'
-        selector = {'anyKey': 'anyValue'}
+        selector = {'email_verified': {'$eq': True}}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
-        limit = 25
+        fields = ['_id', 'type', 'name', 'email']
+        limit = 3
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -8213,12 +8275,12 @@ class TestPostFindAsStream:
 
         # Set up parameter values
         db = 'testString'
-        selector = {'anyKey': 'anyValue'}
+        selector = {'email_verified': {'$eq': True}}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
-        limit = 25
+        fields = ['_id', 'type', 'name', 'email']
+        limit = 3
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -8253,12 +8315,12 @@ class TestPostFindAsStream:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['selector'] == {'anyKey': 'anyValue'}
+        assert req_body['selector'] == {'email_verified': {'$eq': True}}
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
-        assert req_body['fields'] == ['testString']
-        assert req_body['limit'] == 25
+        assert req_body['fields'] == ['_id', 'type', 'name', 'email']
+        assert req_body['limit'] == 3
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
         assert req_body['stable'] == True
@@ -8299,12 +8361,12 @@ class TestPostFindAsStream:
 
         # Set up parameter values
         db = 'testString'
-        selector = {'anyKey': 'anyValue'}
+        selector = {'email_verified': {'$eq': True}}
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['testString']
-        limit = 25
+        fields = ['_id', 'type', 'name', 'email']
+        limit = 3
         skip = 0
         sort = [{'key1': 'asc'}]
         stable = True
@@ -8446,7 +8508,7 @@ class TestPostIndex:
 
         # Construct a dict representation of a IndexField model
         index_field_model = {}
-        index_field_model['name'] = 'testString'
+        index_field_model['name'] = 'asc'
         index_field_model['type'] = 'boolean'
         index_field_model['foo'] = 'asc'
 
@@ -8461,8 +8523,8 @@ class TestPostIndex:
         # Set up parameter values
         db = 'testString'
         index = index_definition_model
-        ddoc = 'testString'
-        name = 'testString'
+        ddoc = 'json-index'
+        name = 'getUserByName'
         partitioned = True
         type = 'json'
 
@@ -8487,8 +8549,8 @@ class TestPostIndex:
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['index'] == index_definition_model
-        assert req_body['ddoc'] == 'testString'
-        assert req_body['name'] == 'testString'
+        assert req_body['ddoc'] == 'json-index'
+        assert req_body['name'] == 'getUserByName'
         assert req_body['partitioned'] == True
         assert req_body['type'] == 'json'
 
@@ -8529,7 +8591,7 @@ class TestPostIndex:
 
         # Construct a dict representation of a IndexField model
         index_field_model = {}
-        index_field_model['name'] = 'testString'
+        index_field_model['name'] = 'asc'
         index_field_model['type'] = 'boolean'
         index_field_model['foo'] = 'asc'
 
@@ -8544,8 +8606,8 @@ class TestPostIndex:
         # Set up parameter values
         db = 'testString'
         index = index_definition_model
-        ddoc = 'testString'
-        name = 'testString'
+        ddoc = 'json-index'
+        name = 'getUserByName'
         partitioned = True
         type = 'json'
 
@@ -8723,8 +8785,8 @@ class TestPostSearchAnalyze:
         )
 
         # Set up parameter values
-        analyzer = 'arabic'
-        text = 'testString'
+        analyzer = 'english'
+        text = 'running is fun'
 
         # Invoke method
         response = _service.post_search_analyze(
@@ -8742,8 +8804,8 @@ class TestPostSearchAnalyze:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['analyzer'] == 'arabic'
-        assert req_body['text'] == 'testString'
+        assert req_body['analyzer'] == 'english'
+        assert req_body['text'] == 'running is fun'
 
     def test_post_search_analyze_all_params_with_retries(self):
         # Enable retries and run test_post_search_analyze_all_params.
@@ -8771,8 +8833,8 @@ class TestPostSearchAnalyze:
         )
 
         # Set up parameter values
-        analyzer = 'arabic'
-        text = 'testString'
+        analyzer = 'english'
+        text = 'running is fun'
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -8828,7 +8890,7 @@ class TestPostSearch:
         highlight_size = 100
         include_docs = False
         include_fields = ['testString']
-        limit = 0
+        limit = 3
         sort = ['testString']
         stale = 'ok'
         counts = ['testString']
@@ -8882,7 +8944,7 @@ class TestPostSearch:
         assert req_body['highlight_size'] == 100
         assert req_body['include_docs'] == False
         assert req_body['include_fields'] == ['testString']
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 3
         assert req_body['sort'] == ['testString']
         assert req_body['stale'] == 'ok'
         assert req_body['counts'] == ['testString']
@@ -8930,7 +8992,7 @@ class TestPostSearch:
         highlight_size = 100
         include_docs = False
         include_fields = ['testString']
-        limit = 0
+        limit = 3
         sort = ['testString']
         stale = 'ok'
         counts = ['testString']
@@ -8996,7 +9058,7 @@ class TestPostSearchAsStream:
         highlight_size = 100
         include_docs = False
         include_fields = ['testString']
-        limit = 0
+        limit = 3
         sort = ['testString']
         stale = 'ok'
         counts = ['testString']
@@ -9050,7 +9112,7 @@ class TestPostSearchAsStream:
         assert req_body['highlight_size'] == 100
         assert req_body['include_docs'] == False
         assert req_body['include_fields'] == ['testString']
-        assert req_body['limit'] == 0
+        assert req_body['limit'] == 3
         assert req_body['sort'] == ['testString']
         assert req_body['stale'] == 'ok'
         assert req_body['counts'] == ['testString']
@@ -9104,7 +9166,7 @@ class TestPostSearchAsStream:
         highlight_size = 100
         include_docs = False
         include_fields = ['testString']
-        limit = 0
+        limit = 3
         sort = ['testString']
         stale = 'ok'
         counts = ['testString']
@@ -9857,7 +9919,7 @@ class TestPutReplicationDocument:
         replication_create_target_parameters_model = {}
         replication_create_target_parameters_model['n'] = 3
         replication_create_target_parameters_model['partitioned'] = False
-        replication_create_target_parameters_model['q'] = 26
+        replication_create_target_parameters_model['q'] = 1
 
         # Construct a dict representation of a ReplicationDatabaseAuthBasic model
         replication_database_auth_basic_model = {}
@@ -9877,13 +9939,13 @@ class TestPutReplicationDocument:
         replication_database_model = {}
         replication_database_model['auth'] = replication_database_auth_model
         replication_database_model['headers'] = {'key1': 'testString'}
-        replication_database_model['url'] = 'testString'
+        replication_database_model['url'] = 'https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb'
 
         # Construct a dict representation of a UserContext model
         user_context_model = {}
         user_context_model['db'] = 'testString'
-        user_context_model['name'] = 'testString'
-        user_context_model['roles'] = ['_reader']
+        user_context_model['name'] = 'john'
+        user_context_model['roles'] = ['researcher']
 
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {}
@@ -9896,30 +9958,30 @@ class TestPutReplicationDocument:
         replication_document_model['_rev'] = 'testString'
         replication_document_model['_revisions'] = revisions_model
         replication_document_model['_revs_info'] = [document_revision_status_model]
-        replication_document_model['cancel'] = True
-        replication_document_model['checkpoint_interval'] = 30000
-        replication_document_model['connection_timeout'] = 30000
-        replication_document_model['continuous'] = False
-        replication_document_model['create_target'] = False
+        replication_document_model['cancel'] = False
+        replication_document_model['checkpoint_interval'] = 4500
+        replication_document_model['connection_timeout'] = 15000
+        replication_document_model['continuous'] = True
+        replication_document_model['create_target'] = True
         replication_document_model['create_target_params'] = replication_create_target_parameters_model
-        replication_document_model['doc_ids'] = ['testString']
-        replication_document_model['filter'] = 'testString'
-        replication_document_model['http_connections'] = 20
+        replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
+        replication_document_model['filter'] = 'ddoc/my_filter'
+        replication_document_model['http_connections'] = 10
         replication_document_model['query_params'] = {'key1': 'testString'}
-        replication_document_model['retries_per_request'] = 5
-        replication_document_model['selector'] = {'anyKey': 'anyValue'}
-        replication_document_model['since_seq'] = 'testString'
-        replication_document_model['socket_options'] = 'testString'
+        replication_document_model['retries_per_request'] = 3
+        replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
+        replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
+        replication_document_model['socket_options'] = '[{keepalive, true}, {nodelay, false}]'
         replication_document_model['source'] = replication_database_model
         replication_document_model['source_proxy'] = 'testString'
         replication_document_model['target'] = replication_database_model
         replication_document_model['target_proxy'] = 'testString'
         replication_document_model['use_bulk_get'] = True
-        replication_document_model['use_checkpoints'] = True
+        replication_document_model['use_checkpoints'] = False
         replication_document_model['user_ctx'] = user_context_model
         replication_document_model['winning_revs_only'] = False
-        replication_document_model['worker_batch_size'] = 500
-        replication_document_model['worker_processes'] = 4
+        replication_document_model['worker_batch_size'] = 400
+        replication_document_model['worker_processes'] = 3
         replication_document_model['foo'] = 'testString'
 
         # Set up parameter values
@@ -10009,7 +10071,7 @@ class TestPutReplicationDocument:
         replication_create_target_parameters_model = {}
         replication_create_target_parameters_model['n'] = 3
         replication_create_target_parameters_model['partitioned'] = False
-        replication_create_target_parameters_model['q'] = 26
+        replication_create_target_parameters_model['q'] = 1
 
         # Construct a dict representation of a ReplicationDatabaseAuthBasic model
         replication_database_auth_basic_model = {}
@@ -10029,13 +10091,13 @@ class TestPutReplicationDocument:
         replication_database_model = {}
         replication_database_model['auth'] = replication_database_auth_model
         replication_database_model['headers'] = {'key1': 'testString'}
-        replication_database_model['url'] = 'testString'
+        replication_database_model['url'] = 'https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb'
 
         # Construct a dict representation of a UserContext model
         user_context_model = {}
         user_context_model['db'] = 'testString'
-        user_context_model['name'] = 'testString'
-        user_context_model['roles'] = ['_reader']
+        user_context_model['name'] = 'john'
+        user_context_model['roles'] = ['researcher']
 
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {}
@@ -10048,30 +10110,30 @@ class TestPutReplicationDocument:
         replication_document_model['_rev'] = 'testString'
         replication_document_model['_revisions'] = revisions_model
         replication_document_model['_revs_info'] = [document_revision_status_model]
-        replication_document_model['cancel'] = True
-        replication_document_model['checkpoint_interval'] = 30000
-        replication_document_model['connection_timeout'] = 30000
-        replication_document_model['continuous'] = False
-        replication_document_model['create_target'] = False
+        replication_document_model['cancel'] = False
+        replication_document_model['checkpoint_interval'] = 4500
+        replication_document_model['connection_timeout'] = 15000
+        replication_document_model['continuous'] = True
+        replication_document_model['create_target'] = True
         replication_document_model['create_target_params'] = replication_create_target_parameters_model
-        replication_document_model['doc_ids'] = ['testString']
-        replication_document_model['filter'] = 'testString'
-        replication_document_model['http_connections'] = 20
+        replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
+        replication_document_model['filter'] = 'ddoc/my_filter'
+        replication_document_model['http_connections'] = 10
         replication_document_model['query_params'] = {'key1': 'testString'}
-        replication_document_model['retries_per_request'] = 5
-        replication_document_model['selector'] = {'anyKey': 'anyValue'}
-        replication_document_model['since_seq'] = 'testString'
-        replication_document_model['socket_options'] = 'testString'
+        replication_document_model['retries_per_request'] = 3
+        replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
+        replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
+        replication_document_model['socket_options'] = '[{keepalive, true}, {nodelay, false}]'
         replication_document_model['source'] = replication_database_model
         replication_document_model['source_proxy'] = 'testString'
         replication_document_model['target'] = replication_database_model
         replication_document_model['target_proxy'] = 'testString'
         replication_document_model['use_bulk_get'] = True
-        replication_document_model['use_checkpoints'] = True
+        replication_document_model['use_checkpoints'] = False
         replication_document_model['user_ctx'] = user_context_model
         replication_document_model['winning_revs_only'] = False
-        replication_document_model['worker_batch_size'] = 500
-        replication_document_model['worker_processes'] = 4
+        replication_document_model['worker_batch_size'] = 400
+        replication_document_model['worker_processes'] = 3
         replication_document_model['foo'] = 'testString'
 
         # Set up parameter values
@@ -10147,7 +10209,7 @@ class TestPutReplicationDocument:
         replication_create_target_parameters_model = {}
         replication_create_target_parameters_model['n'] = 3
         replication_create_target_parameters_model['partitioned'] = False
-        replication_create_target_parameters_model['q'] = 26
+        replication_create_target_parameters_model['q'] = 1
 
         # Construct a dict representation of a ReplicationDatabaseAuthBasic model
         replication_database_auth_basic_model = {}
@@ -10167,13 +10229,13 @@ class TestPutReplicationDocument:
         replication_database_model = {}
         replication_database_model['auth'] = replication_database_auth_model
         replication_database_model['headers'] = {'key1': 'testString'}
-        replication_database_model['url'] = 'testString'
+        replication_database_model['url'] = 'https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb'
 
         # Construct a dict representation of a UserContext model
         user_context_model = {}
         user_context_model['db'] = 'testString'
-        user_context_model['name'] = 'testString'
-        user_context_model['roles'] = ['_reader']
+        user_context_model['name'] = 'john'
+        user_context_model['roles'] = ['researcher']
 
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {}
@@ -10186,30 +10248,30 @@ class TestPutReplicationDocument:
         replication_document_model['_rev'] = 'testString'
         replication_document_model['_revisions'] = revisions_model
         replication_document_model['_revs_info'] = [document_revision_status_model]
-        replication_document_model['cancel'] = True
-        replication_document_model['checkpoint_interval'] = 30000
-        replication_document_model['connection_timeout'] = 30000
-        replication_document_model['continuous'] = False
-        replication_document_model['create_target'] = False
+        replication_document_model['cancel'] = False
+        replication_document_model['checkpoint_interval'] = 4500
+        replication_document_model['connection_timeout'] = 15000
+        replication_document_model['continuous'] = True
+        replication_document_model['create_target'] = True
         replication_document_model['create_target_params'] = replication_create_target_parameters_model
-        replication_document_model['doc_ids'] = ['testString']
-        replication_document_model['filter'] = 'testString'
-        replication_document_model['http_connections'] = 20
+        replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
+        replication_document_model['filter'] = 'ddoc/my_filter'
+        replication_document_model['http_connections'] = 10
         replication_document_model['query_params'] = {'key1': 'testString'}
-        replication_document_model['retries_per_request'] = 5
-        replication_document_model['selector'] = {'anyKey': 'anyValue'}
-        replication_document_model['since_seq'] = 'testString'
-        replication_document_model['socket_options'] = 'testString'
+        replication_document_model['retries_per_request'] = 3
+        replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
+        replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
+        replication_document_model['socket_options'] = '[{keepalive, true}, {nodelay, false}]'
         replication_document_model['source'] = replication_database_model
         replication_document_model['source_proxy'] = 'testString'
         replication_document_model['target'] = replication_database_model
         replication_document_model['target_proxy'] = 'testString'
         replication_document_model['use_bulk_get'] = True
-        replication_document_model['use_checkpoints'] = True
+        replication_document_model['use_checkpoints'] = False
         replication_document_model['user_ctx'] = user_context_model
         replication_document_model['winning_revs_only'] = False
-        replication_document_model['worker_batch_size'] = 500
-        replication_document_model['worker_processes'] = 4
+        replication_document_model['worker_batch_size'] = 400
+        replication_document_model['worker_processes'] = 3
         replication_document_model['foo'] = 'testString'
 
         # Set up parameter values
@@ -10787,8 +10849,8 @@ class TestPutSecurity:
 
         # Construct a dict representation of a SecurityObject model
         security_object_model = {}
-        security_object_model['names'] = ['testString']
-        security_object_model['roles'] = ['testString']
+        security_object_model['names'] = ['superuser']
+        security_object_model['roles'] = ['admins']
 
         # Set up parameter values
         db = 'testString'
@@ -10848,8 +10910,8 @@ class TestPutSecurity:
 
         # Construct a dict representation of a SecurityObject model
         security_object_model = {}
-        security_object_model['names'] = ['testString']
-        security_object_model['roles'] = ['testString']
+        security_object_model['names'] = ['superuser']
+        security_object_model['roles'] = ['admins']
 
         # Set up parameter values
         db = 'testString'
@@ -11128,7 +11190,7 @@ class TestPutCorsConfiguration:
         )
 
         # Set up parameter values
-        origins = ['testString']
+        origins = ['https://example.com', 'https://www.example.com']
         allow_credentials = True
         enable_cors = True
 
@@ -11149,7 +11211,7 @@ class TestPutCorsConfiguration:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['origins'] == ['testString']
+        assert req_body['origins'] == ['https://example.com', 'https://www.example.com']
         assert req_body['allow_credentials'] == True
         assert req_body['enable_cors'] == True
 
@@ -11179,7 +11241,7 @@ class TestPutCorsConfiguration:
         )
 
         # Set up parameter values
-        origins = ['testString']
+        origins = ['https://example.com', 'https://www.example.com']
         allow_credentials = True
         enable_cors = True
 
@@ -12297,12 +12359,21 @@ class TestPutLocalDocument:
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = 'testString'
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -12387,12 +12458,21 @@ class TestPutLocalDocument:
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = 'testString'
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -12469,12 +12549,21 @@ class TestPutLocalDocument:
         document_model['_conflicts'] = ['testString']
         document_model['_deleted'] = True
         document_model['_deleted_conflicts'] = ['testString']
-        document_model['_id'] = 'testString'
+        document_model['_id'] = 'exampleid'
         document_model['_local_seq'] = 'testString'
         document_model['_rev'] = 'testString'
         document_model['_revisions'] = revisions_model
         document_model['_revs_info'] = [document_revision_status_model]
-        document_model['foo'] = 'testString'
+        document_model['brand'] = 'Foo'
+        document_model['colours'] = '["red","green","black","blue"]'
+        document_model['description'] = 'Slim Colourful Design Electronic Cooking Appliance for ...'
+        document_model['image'] = 'assets/img/0gmsnghhew.jpg'
+        document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
+        document_model['name'] = 'Digital Kitchen Scales'
+        document_model['price'] = '14.99'
+        document_model['productid'] = '1000042'
+        document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
+        document_model['type'] = 'product'
 
         # Set up parameter values
         db = 'testString'
@@ -13009,7 +13098,7 @@ class TestPostActivityTrackerEvents:
         )
 
         # Set up parameter values
-        types = ['management']
+        types = ['management', 'data']
 
         # Invoke method
         response = _service.post_activity_tracker_events(
@@ -13026,7 +13115,7 @@ class TestPostActivityTrackerEvents:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['types'] == ['management']
+        assert req_body['types'] == ['management', 'data']
 
     def test_post_activity_tracker_events_all_params_with_retries(self):
         # Enable retries and run test_post_activity_tracker_events_all_params.
@@ -13054,7 +13143,7 @@ class TestPostActivityTrackerEvents:
         )
 
         # Set up parameter values
-        types = ['management']
+        types = ['management', 'data']
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {

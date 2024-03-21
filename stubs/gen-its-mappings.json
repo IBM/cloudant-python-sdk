@@ -421,7 +421,7 @@
       "method": "POST",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"keys\": [\"testString\"]}",
+          "equalToJson": "{\"keys\": [\"products\", \"users\", \"orders\"]}",
           "ignoreArrayOrder": true,
           "ignoreExtraElements": true
         }
