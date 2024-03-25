@@ -89,7 +89,7 @@ class TestCloudantV1:
     @needscredentials
     def test_put_capacity_throughput_configuration(self):
         response = self.cloudant_service.put_capacity_throughput_configuration(
-            blocks=0,
+            blocks=10,
         )
 
         assert response.get_status_code() == 200
@@ -115,7 +115,7 @@ class TestCloudantV1:
     def test_post_changes(self):
         response = self.cloudant_service.post_changes(
             db='testString',
-            doc_ids=['testString'],
+            doc_ids=['0007741142412418284'],
             fields=['testString'],
             selector={'anyKey': 'anyValue'},
             last_event_id='testString',
@@ -143,7 +143,7 @@ class TestCloudantV1:
     def test_post_changes_as_stream(self):
         response = self.cloudant_service.post_changes_as_stream(
             db='testString',
-            doc_ids=['testString'],
+            doc_ids=['0007741142412418284'],
             fields=['testString'],
             selector={'anyKey': 'anyValue'},
             last_event_id='testString',
@@ -192,7 +192,7 @@ class TestCloudantV1:
     @needscredentials
     def test_post_dbs_info(self):
         response = self.cloudant_service.post_dbs_info(
-            keys=['testString'],
+            keys=['products', 'users', 'orders'],
         )
 
         assert response.get_status_code() == 200
@@ -263,12 +263,21 @@ class TestCloudantV1:
             '_conflicts': ['testString'],
             '_deleted': True,
             '_deleted_conflicts': ['testString'],
-            '_id': 'testString',
+            '_id': 'exampleid',
             '_local_seq': 'testString',
             '_rev': 'testString',
             '_revisions': revisions_model,
             '_revs_info': [document_revision_status_model],
-            'foo': 'testString',
+            'brand': 'Foo',
+            'colours': '["red","green","black","blue"]',
+            'description': 'Slim Colourful Design Electronic Cooking Appliance for ...',
+            'image': 'assets/img/0gmsnghhew.jpg',
+            'keywords': '["Foo","Scales","Weight","Digital","Kitchen"]',
+            'name': 'Digital Kitchen Scales',
+            'price': '14.99',
+            'productid': '1000042',
+            'taxonomy': '["Home","Kitchen","Small Appliances"]',
+            'type': 'product',
         }
 
         response = self.cloudant_service.post_document(
@@ -292,13 +301,13 @@ class TestCloudantV1:
             descending=False,
             include_docs=False,
             inclusive_end=True,
-            limit=0,
+            limit=10,
             skip=0,
             update_seq=False,
             end_key='testString',
             key='testString',
             keys=['testString'],
-            start_key='testString',
+            start_key='0007741142412418284',
         )
 
         assert response.get_status_code() == 200
@@ -315,13 +324,13 @@ class TestCloudantV1:
             descending=False,
             include_docs=False,
             inclusive_end=True,
-            limit=0,
+            limit=10,
             skip=0,
             update_seq=False,
             end_key='testString',
             key='testString',
             keys=['testString'],
-            start_key='testString',
+            start_key='0007741142412418284',
         )
 
         assert response.get_status_code() == 200
@@ -343,7 +352,7 @@ class TestCloudantV1:
             'update_seq': False,
             'end_key': 'testString',
             'key': 'testString',
-            'keys': ['testString'],
+            'keys': ['small-appliances:1000042', 'small-appliances:1000043'],
             'start_key': 'testString',
         }
 
@@ -371,7 +380,7 @@ class TestCloudantV1:
             'update_seq': False,
             'end_key': 'testString',
             'key': 'testString',
-            'keys': ['testString'],
+            'keys': ['small-appliances:1000042', 'small-appliances:1000043'],
             'start_key': 'testString',
         }
 
@@ -414,12 +423,16 @@ class TestCloudantV1:
             '_conflicts': ['testString'],
             '_deleted': True,
             '_deleted_conflicts': ['testString'],
-            '_id': 'testString',
+            '_id': '0007241142412418284',
             '_local_seq': 'testString',
             '_rev': 'testString',
             '_revisions': revisions_model,
             '_revs_info': [document_revision_status_model],
-            'foo': 'testString',
+            'date': '2019-01-28T10:44:22.000Z',
+            'eventType': 'addedToBasket',
+            'productId': '1000042',
+            'type': 'event',
+            'userid': 'abc123',
         }
         # Construct a dict representation of a BulkDocs model
         bulk_docs_model = {
@@ -441,8 +454,8 @@ class TestCloudantV1:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {
             'atts_since': ['1-99b02e08da151943c2dcb40090160bb8'],
-            'id': 'testString',
-            'rev': 'testString',
+            'id': 'order00067',
+            'rev': '3-917fa2381192822767f010b95b45325b',
         }
 
         response = self.cloudant_service.post_bulk_get(
@@ -463,8 +476,8 @@ class TestCloudantV1:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {
             'atts_since': ['1-99b02e08da151943c2dcb40090160bb8'],
-            'id': 'testString',
-            'rev': 'testString',
+            'id': 'order00067',
+            'rev': '3-917fa2381192822767f010b95b45325b',
         }
 
         response = self.cloudant_service.post_bulk_get_as_mixed(
@@ -485,8 +498,8 @@ class TestCloudantV1:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {
             'atts_since': ['1-99b02e08da151943c2dcb40090160bb8'],
-            'id': 'testString',
-            'rev': 'testString',
+            'id': 'order00067',
+            'rev': '3-917fa2381192822767f010b95b45325b',
         }
 
         response = self.cloudant_service.post_bulk_get_as_related(
@@ -507,8 +520,8 @@ class TestCloudantV1:
         # Construct a dict representation of a BulkGetQueryDocument model
         bulk_get_query_document_model = {
             'atts_since': ['1-99b02e08da151943c2dcb40090160bb8'],
-            'id': 'testString',
-            'rev': 'testString',
+            'id': 'order00067',
+            'rev': '3-917fa2381192822767f010b95b45325b',
         }
 
         response = self.cloudant_service.post_bulk_get_as_stream(
@@ -642,12 +655,21 @@ class TestCloudantV1:
             '_conflicts': ['testString'],
             '_deleted': True,
             '_deleted_conflicts': ['testString'],
-            '_id': 'testString',
+            '_id': 'exampleid',
             '_local_seq': 'testString',
             '_rev': 'testString',
             '_revisions': revisions_model,
             '_revs_info': [document_revision_status_model],
-            'foo': 'testString',
+            'brand': 'Foo',
+            'colours': '["red","green","black","blue"]',
+            'description': 'Slim Colourful Design Electronic Cooking Appliance for ...',
+            'image': 'assets/img/0gmsnghhew.jpg',
+            'keywords': '["Foo","Scales","Weight","Digital","Kitchen"]',
+            'name': 'Digital Kitchen Scales',
+            'price': '14.99',
+            'productid': '1000042',
+            'taxonomy': '["Home","Kitchen","Small Appliances"]',
+            'type': 'product',
         }
 
         response = self.cloudant_service.put_document(
@@ -728,14 +750,14 @@ class TestCloudantV1:
         }
         # Construct a dict representation of a AnalyzerConfiguration model
         analyzer_configuration_model = {
-            'name': 'classic',
+            'name': 'standard',
             'stopwords': ['testString'],
             'fields': {'key1': analyzer_model},
         }
         # Construct a dict representation of a SearchIndexDefinition model
         search_index_definition_model = {
             'analyzer': analyzer_configuration_model,
-            'index': 'testString',
+            'index': 'function (doc) {\n  index("price", doc.price);\n}',
         }
         # Construct a dict representation of a DesignDocumentOptions model
         design_document_options_model = {
@@ -743,7 +765,7 @@ class TestCloudantV1:
         }
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {
-            'map': 'testString',
+            'map': 'function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}',
             'reduce': 'testString',
         }
         # Construct a dict representation of a DesignDocument model
@@ -752,18 +774,22 @@ class TestCloudantV1:
             '_conflicts': ['testString'],
             '_deleted': True,
             '_deleted_conflicts': ['testString'],
-            '_id': 'testString',
+            '_id': '_design/appliances',
             '_local_seq': 'testString',
-            '_rev': 'testString',
+            '_rev': '8-7e2537e5989294471061e0cfd7292725',
             '_revisions': revisions_model,
             '_revs_info': [document_revision_status_model],
             'autoupdate': True,
             'filters': {'key1': 'testString'},
-            'indexes': {'key1': search_index_definition_model},
+            'indexes': {'findByPrice': search_index_definition_model },
+
+
             'language': 'javascript',
             'options': design_document_options_model,
             'validate_doc_update': 'testString',
-            'views': {'key1': design_document_views_map_reduce_model},
+            'views': {'byApplianceProdId': design_document_views_map_reduce_model },
+
+
             'foo': 'testString',
         }
 
@@ -802,13 +828,13 @@ class TestCloudantV1:
             descending=False,
             include_docs=False,
             inclusive_end=True,
-            limit=0,
+            limit=10,
             skip=0,
             update_seq=False,
             end_key='testString',
             key='testString',
             keys=['testString'],
-            start_key='testString',
+            start_key='0007741142412418284',
             accept='application/json',
         )
 
@@ -831,7 +857,7 @@ class TestCloudantV1:
             'update_seq': False,
             'end_key': 'testString',
             'key': 'testString',
-            'keys': ['testString'],
+            'keys': ['small-appliances:1000042', 'small-appliances:1000043'],
             'start_key': 'testString',
         }
 
@@ -855,9 +881,9 @@ class TestCloudantV1:
             attachments=False,
             conflicts=False,
             descending=False,
-            include_docs=False,
+            include_docs=True,
             inclusive_end=True,
-            limit=0,
+            limit=10,
             skip=0,
             update_seq=False,
             end_key='testString',
@@ -865,7 +891,7 @@ class TestCloudantV1:
             group=False,
             group_level=1,
             key='testString',
-            keys=['testString'],
+            keys=['examplekey'],
             reduce=True,
             stable=False,
             start_key='testString',
@@ -887,9 +913,9 @@ class TestCloudantV1:
             attachments=False,
             conflicts=False,
             descending=False,
-            include_docs=False,
+            include_docs=True,
             inclusive_end=True,
-            limit=0,
+            limit=10,
             skip=0,
             update_seq=False,
             end_key='testString',
@@ -897,7 +923,7 @@ class TestCloudantV1:
             group=False,
             group_level=1,
             key='testString',
-            keys=['testString'],
+            keys=['examplekey'],
             reduce=True,
             stable=False,
             start_key='testString',
@@ -917,9 +943,9 @@ class TestCloudantV1:
             'attachments': False,
             'conflicts': False,
             'descending': False,
-            'include_docs': False,
+            'include_docs': True,
             'inclusive_end': True,
-            'limit': 0,
+            'limit': 5,
             'skip': 0,
             'update_seq': False,
             'end_key': 'testString',
@@ -954,9 +980,9 @@ class TestCloudantV1:
             'attachments': False,
             'conflicts': False,
             'descending': False,
-            'include_docs': False,
+            'include_docs': True,
             'inclusive_end': True,
-            'limit': 0,
+            'limit': 5,
             'skip': 0,
             'update_seq': False,
             'end_key': 'testString',
@@ -1005,13 +1031,13 @@ class TestCloudantV1:
             descending=False,
             include_docs=False,
             inclusive_end=True,
-            limit=0,
+            limit=10,
             skip=0,
             update_seq=False,
             end_key='testString',
             key='testString',
             keys=['testString'],
-            start_key='testString',
+            start_key='0007741142412418284',
         )
 
         assert response.get_status_code() == 200
@@ -1029,13 +1055,13 @@ class TestCloudantV1:
             descending=False,
             include_docs=False,
             inclusive_end=True,
-            limit=0,
+            limit=10,
             skip=0,
             update_seq=False,
             end_key='testString',
             key='testString',
             keys=['testString'],
-            start_key='testString',
+            start_key='0007741142412418284',
         )
 
         assert response.get_status_code() == 200
@@ -1058,7 +1084,7 @@ class TestCloudantV1:
             highlight_size=100,
             include_docs=False,
             include_fields=['testString'],
-            limit=0,
+            limit=3,
             sort=['testString'],
             stale='ok',
         )
@@ -1083,7 +1109,7 @@ class TestCloudantV1:
             highlight_size=100,
             include_docs=False,
             include_fields=['testString'],
-            limit=0,
+            limit=3,
             sort=['testString'],
             stale='ok',
         )
@@ -1103,9 +1129,9 @@ class TestCloudantV1:
             attachments=False,
             conflicts=False,
             descending=False,
-            include_docs=False,
+            include_docs=True,
             inclusive_end=True,
-            limit=0,
+            limit=10,
             skip=0,
             update_seq=False,
             end_key='testString',
@@ -1113,7 +1139,7 @@ class TestCloudantV1:
             group=False,
             group_level=1,
             key='testString',
-            keys=['testString'],
+            keys=['examplekey'],
             reduce=True,
             start_key='testString',
             start_key_doc_id='testString',
@@ -1135,9 +1161,9 @@ class TestCloudantV1:
             attachments=False,
             conflicts=False,
             descending=False,
-            include_docs=False,
+            include_docs=True,
             inclusive_end=True,
-            limit=0,
+            limit=10,
             skip=0,
             update_seq=False,
             end_key='testString',
@@ -1145,7 +1171,7 @@ class TestCloudantV1:
             group=False,
             group_level=1,
             key='testString',
-            keys=['testString'],
+            keys=['examplekey'],
             reduce=True,
             start_key='testString',
             start_key_doc_id='testString',
@@ -1161,11 +1187,11 @@ class TestCloudantV1:
         response = self.cloudant_service.post_partition_explain(
             db='testString',
             partition_key='testString',
-            selector={'anyKey': 'anyValue'},
+            selector={'type': {'$eq': 'product'}},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
-            fields=['testString'],
+            fields=['productid', 'name', 'description'],
             limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
@@ -1183,11 +1209,11 @@ class TestCloudantV1:
         response = self.cloudant_service.post_partition_find(
             db='testString',
             partition_key='testString',
-            selector={'anyKey': 'anyValue'},
+            selector={'type': {'$eq': 'product'}},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
-            fields=['testString'],
+            fields=['productid', 'name', 'description'],
             limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
@@ -1205,11 +1231,11 @@ class TestCloudantV1:
         response = self.cloudant_service.post_partition_find_as_stream(
             db='testString',
             partition_key='testString',
-            selector={'anyKey': 'anyValue'},
+            selector={'type': {'$eq': 'product'}},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
-            fields=['testString'],
+            fields=['productid', 'name', 'description'],
             limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
@@ -1226,12 +1252,12 @@ class TestCloudantV1:
     def test_post_explain(self):
         response = self.cloudant_service.post_explain(
             db='testString',
-            selector={'anyKey': 'anyValue'},
+            selector={'email_verified': {'$eq': True}},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
-            fields=['testString'],
-            limit=25,
+            fields=['_id', 'type', 'name', 'email'],
+            limit=3,
             skip=0,
             sort=[{'key1': 'asc'}],
             stable=True,
@@ -1248,12 +1274,12 @@ class TestCloudantV1:
     def test_post_find(self):
         response = self.cloudant_service.post_find(
             db='testString',
-            selector={'anyKey': 'anyValue'},
+            selector={'email_verified': {'$eq': True}},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
-            fields=['testString'],
-            limit=25,
+            fields=['_id', 'type', 'name', 'email'],
+            limit=3,
             skip=0,
             sort=[{'key1': 'asc'}],
             stable=True,
@@ -1270,12 +1296,12 @@ class TestCloudantV1:
     def test_post_find_as_stream(self):
         response = self.cloudant_service.post_find_as_stream(
             db='testString',
-            selector={'anyKey': 'anyValue'},
+            selector={'email_verified': {'$eq': True}},
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
-            fields=['testString'],
-            limit=25,
+            fields=['_id', 'type', 'name', 'email'],
+            limit=3,
             skip=0,
             sort=[{'key1': 'asc'}],
             stable=True,
@@ -1312,7 +1338,7 @@ class TestCloudantV1:
         }
         # Construct a dict representation of a IndexField model
         index_field_model = {
-            'name': 'testString',
+            'name': 'asc',
             'type': 'boolean',
             'foo': 'asc',
         }
@@ -1328,8 +1354,8 @@ class TestCloudantV1:
         response = self.cloudant_service.post_index(
             db='testString',
             index=index_definition_model,
-            ddoc='testString',
-            name='testString',
+            ddoc='json-index',
+            name='getUserByName',
             partitioned=True,
             type='json',
         )
@@ -1341,8 +1367,8 @@ class TestCloudantV1:
     @needscredentials
     def test_post_search_analyze(self):
         response = self.cloudant_service.post_search_analyze(
-            analyzer='arabic',
-            text='testString',
+            analyzer='english',
+            text='running is fun',
         )
 
         assert response.get_status_code() == 200
@@ -1364,7 +1390,7 @@ class TestCloudantV1:
             highlight_size=100,
             include_docs=False,
             include_fields=['testString'],
-            limit=0,
+            limit=3,
             sort=['testString'],
             stale='ok',
             counts=['testString'],
@@ -1394,7 +1420,7 @@ class TestCloudantV1:
             highlight_size=100,
             include_docs=False,
             include_fields=['testString'],
-            limit=0,
+            limit=3,
             sort=['testString'],
             stale='ok',
             counts=['testString'],
@@ -1495,7 +1521,7 @@ class TestCloudantV1:
         replication_create_target_parameters_model = {
             'n': 3,
             'partitioned': False,
-            'q': 26,
+            'q': 1,
         }
         # Construct a dict representation of a ReplicationDatabaseAuthBasic model
         replication_database_auth_basic_model = {
@@ -1515,13 +1541,13 @@ class TestCloudantV1:
         replication_database_model = {
             'auth': replication_database_auth_model,
             'headers': {'key1': 'testString'},
-            'url': 'testString',
+            'url': 'https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb',
         }
         # Construct a dict representation of a UserContext model
         user_context_model = {
             'db': 'testString',
-            'name': 'testString',
-            'roles': ['_reader'],
+            'name': 'john',
+            'roles': ['researcher'],
         }
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {
@@ -1534,30 +1560,30 @@ class TestCloudantV1:
             '_rev': 'testString',
             '_revisions': revisions_model,
             '_revs_info': [document_revision_status_model],
-            'cancel': True,
-            'checkpoint_interval': 30000,
-            'connection_timeout': 30000,
-            'continuous': False,
-            'create_target': False,
+            'cancel': False,
+            'checkpoint_interval': 4500,
+            'connection_timeout': 15000,
+            'continuous': True,
+            'create_target': True,
             'create_target_params': replication_create_target_parameters_model,
-            'doc_ids': ['testString'],
-            'filter': 'testString',
-            'http_connections': 20,
+            'doc_ids': ['badger', 'lemur', 'llama'],
+            'filter': 'ddoc/my_filter',
+            'http_connections': 10,
             'query_params': {'key1': 'testString'},
-            'retries_per_request': 5,
-            'selector': {'anyKey': 'anyValue'},
-            'since_seq': 'testString',
-            'socket_options': 'testString',
+            'retries_per_request': 3,
+            'selector': {'_id': {'$regex': 'docid'}},
+            'since_seq': '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU',
+            'socket_options': '[{keepalive, true}, {nodelay, false}]',
             'source': replication_database_model,
             'source_proxy': 'testString',
             'target': replication_database_model,
             'target_proxy': 'testString',
             'use_bulk_get': True,
-            'use_checkpoints': True,
+            'use_checkpoints': False,
             'user_ctx': user_context_model,
             'winning_revs_only': False,
-            'worker_batch_size': 500,
-            'worker_processes': 4,
+            'worker_batch_size': 400,
+            'worker_processes': 3,
             'foo': 'testString',
         }
 
@@ -1639,8 +1665,8 @@ class TestCloudantV1:
     def test_put_security(self):
         # Construct a dict representation of a SecurityObject model
         security_object_model = {
-            'names': ['testString'],
-            'roles': ['testString'],
+            'names': ['superuser'],
+            'roles': ['admins'],
         }
 
         response = self.cloudant_service.put_security(
@@ -1673,7 +1699,7 @@ class TestCloudantV1:
 
         response = self.cloudant_service.put_cloudant_security_configuration(
             db='testString',
-            cloudant={'key1': ['_reader']},
+            cloudant={'antsellseadespecteposene': ['_reader', '_writer', '_admin'], 'garbados': ['_reader', '_writer'], 'nobody': ['_reader']},
             admins=security_object_model,
             members=security_object_model,
             couchdb_auth_only=True,
@@ -1694,7 +1720,7 @@ class TestCloudantV1:
     @needscredentials
     def test_put_cors_configuration(self):
         response = self.cloudant_service.put_cors_configuration(
-            origins=['testString'],
+            origins=['https://example.com', 'https://www.example.com'],
             allow_credentials=True,
             enable_cors=True,
         )
@@ -1804,12 +1830,21 @@ class TestCloudantV1:
             '_conflicts': ['testString'],
             '_deleted': True,
             '_deleted_conflicts': ['testString'],
-            '_id': 'testString',
+            '_id': 'exampleid',
             '_local_seq': 'testString',
             '_rev': 'testString',
             '_revisions': revisions_model,
             '_revs_info': [document_revision_status_model],
-            'foo': 'testString',
+            'brand': 'Foo',
+            'colours': '["red","green","black","blue"]',
+            'description': 'Slim Colourful Design Electronic Cooking Appliance for ...',
+            'image': 'assets/img/0gmsnghhew.jpg',
+            'keywords': '["Foo","Scales","Weight","Digital","Kitchen"]',
+            'name': 'Digital Kitchen Scales',
+            'price': '14.99',
+            'productid': '1000042',
+            'taxonomy': '["Home","Kitchen","Small Appliances"]',
+            'type': 'product',
         }
 
         response = self.cloudant_service.put_local_document(
@@ -1889,7 +1924,7 @@ class TestCloudantV1:
     @needscredentials
     def test_post_activity_tracker_events(self):
         response = self.cloudant_service.post_activity_tracker_events(
-            types=['management'],
+            types=['management', 'data'],
         )
 
         assert response.get_status_code() == 200

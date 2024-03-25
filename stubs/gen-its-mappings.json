@@ -121,7 +121,7 @@
       "bodyPatterns": [
         {
           "matchesJsonPath": "$.[?(@.cloudant == null || @.cloudant.key1 != null)]",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -185,7 +185,7 @@
       "method": "POST",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"types\": [\"management\"]}",
+          "equalToJson": "{\"types\": [\"management\", \"data\"]}",
           "ignoreArrayOrder": true,
           "ignoreExtraElements": true
         }
@@ -222,7 +222,7 @@
       "bodyPatterns": [
         {
           "matchesJsonPath": "$.blocks",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -286,7 +286,7 @@
       "method": "PUT",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"allow_credentials\": true, \"enable_cors\": true, \"origins\": [\"testString\"]}",
+          "equalToJson": "{\"allow_credentials\": true, \"enable_cors\": true, \"origins\": [ \"https://example.com\", \"https://www.example.com\" ]}",
           "ignoreArrayOrder": false,
           "ignoreExtraElements": false
         }
@@ -421,8 +421,8 @@
       "method": "POST",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"keys\": [\"testString\"]}",
-          "ignoreArrayOrder": true,
+          "equalToJson": "{\"keys\": [\"products\", \"users\", \"orders\"]}",
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -558,8 +558,8 @@
       },
       "bodyPatterns": [
         {
-          "equalToJson": "{\"source\": {\"url\": \"testString\"}, \"target\": {\"url\": \"testString\"}}",
-          "ignoreArrayOrder": true,
+          "equalToJson": "{\"source\": {\"url\": \"https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb\"}, \"target\": {\"url\": \"https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb\"}}",
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -878,8 +878,8 @@
       "method": "POST",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"analyzer\": \"arabic\", \"text\": \"testString\"}",
-          "ignoreArrayOrder": true,
+          "equalToJson": "{\"analyzer\": \"english\", \"text\": \"running is fun\"}",
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -1051,7 +1051,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{\"queries\": [{}]}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -1087,7 +1087,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -1122,7 +1122,7 @@
       "bodyPatterns": [
         {
           "matchesJsonPath": "$.[?(@ == null || @.key1 != null)]",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -1168,15 +1168,15 @@
       },
       "bodyPatterns": [
         {
-          "equalToJson": "{\"docs\": [{\"atts_since\": [\"1-99b02e08da151943c2dcb40090160bb8\"], \"id\": \"testString\"}]}",
-          "ignoreArrayOrder": true,
+          "equalToJson": "{\"docs\": [{\"atts_since\": [\"1-99b02e08da151943c2dcb40090160bb8\"], \"id\": \"order00067\", \"rev\": \"3-917fa2381192822767f010b95b45325b\"}]}",
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
     },
     "response": {
       "status": 200,
-      "body": "{\"results\": [{\"id\": \"testString\", \"docs\": [{\"error\":{\"id\":\"testString\",\"rev\":\"undefined\",\"error\":\"not_found\",\"reason\":\"missing\"}}]}]}",
+      "body": "{\"results\": [{\"id\": \"order00067\", \"docs\": [{\"error\":{\"id\":\"order00067\",\"rev\":\"3-917fa2381192822767f010b95b45325b\",\"error\":\"not_found\",\"reason\":\"missing\"}}]}]}",
       "headers": {
         "Cache-Control": "must-revalidate",
         "Content-Type": "application/json",
@@ -1296,7 +1296,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -1450,7 +1450,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{\"query\": \"testString\"}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -1513,7 +1513,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -1548,7 +1548,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{\"queries\": [{}]}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -1620,7 +1620,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -1655,7 +1655,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{\"queries\": [{}]}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -1690,8 +1690,8 @@
       "method": "POST",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"bookmark\" : \"testString\", \"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"testString\" ], \"limit\" : 25, \"r\" : 1, \"selector\" : { \"anyKey\" : \"anyValue\" }, \"skip\" : 0, \"sort\" : [ { } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
-          "ignoreArrayOrder": true,
+          "equalToJson": "{\"bookmark\" : \"testString\", \"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"_id\", \"type\", \"name\", \"email\" ], \"limit\" : 3, \"r\" : 1, \"selector\" : { }, \"skip\" : 0, \"sort\" : [ { \"key1\": \"asc\" } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -1725,8 +1725,8 @@
       "method": "POST",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"bookmark\" : \"testString\", \"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"testString\" ], \"limit\" : 25, \"r\" : 1, \"selector\" : { \"anyKey\" : \"anyValue\" }, \"skip\" : 0, \"sort\" : [ { } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
-          "ignoreArrayOrder": true,
+          "equalToJson": "{\"bookmark\" : \"testString\", \"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"_id\", \"type\", \"name\", \"email\" ], \"limit\" : 3, \"r\" : 1, \"selector\" : { }, \"skip\" : 0, \"sort\" : [ { \"key1\": \"asc\" } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -1817,7 +1817,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{\"index\": {}}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -1857,7 +1857,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -2024,7 +2024,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -2059,7 +2059,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{\"query\": \"testString\"}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -2094,7 +2094,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -2128,8 +2128,8 @@
       "method": "POST",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"bookmark\": \"testString\",\"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"testString\" ], \"limit\" : 25, \"selector\" : { \"anyKey\" : \"anyValue\" }, \"skip\" : 0, \"sort\" : [ { \"key1\": \"asc\" } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
-          "ignoreArrayOrder": true,
+          "equalToJson": "{\"bookmark\": \"testString\",\"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"productid\", \"name\", \"description\" ], \"limit\" : 25, \"selector\" : { }, \"skip\" : 0, \"sort\" : [ { \"key1\": \"asc\" } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -2163,8 +2163,8 @@
       "method": "POST",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"bookmark\" : \"testString\",\"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"testString\" ], \"limit\" : 25, \"selector\" : { \"anyKey\" : \"anyValue\" }, \"skip\" : 0, \"sort\" : [ { } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
-          "ignoreArrayOrder": true,
+          "equalToJson": "{\"bookmark\" : \"testString\",\"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"productid\", \"name\", \"description\" ], \"limit\" : 25, \"selector\" : { }, \"skip\" : 0, \"sort\" :  [ { \"key1\": \"asc\" } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -2199,7 +2199,7 @@
       "bodyPatterns": [
         {
           "matchesJsonPath": "$.[?(@ == null || @.key1 != null)]",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -2262,7 +2262,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
@@ -2745,7 +2745,7 @@
       "bodyPatterns": [
         {
           "equalToJson": "{}",
-          "ignoreArrayOrder": true,
+          "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
       ]
