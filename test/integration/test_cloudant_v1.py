@@ -781,11 +781,11 @@ class TestCloudantV1:
             '_revs_info': [document_revision_status_model],
             'autoupdate': True,
             'filters': {'key1': 'testString'},
-            'indexes': {'findByPrice': search_index_definition_model },
+            'indexes': {'findByPrice': search_index_definition_model},
             'language': 'javascript',
             'options': design_document_options_model,
             'validate_doc_update': 'testString',
-            'views': {'byApplianceProdId': design_document_views_map_reduce_model },
+            'views': {'byApplianceProdId': design_document_views_map_reduce_model},
             'foo': 'testString',
         }
 
