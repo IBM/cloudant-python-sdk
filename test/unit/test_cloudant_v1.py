@@ -7539,7 +7539,7 @@ class TestPostPartitionExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_explain')
-        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "skip": 0}'
+        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -7618,7 +7618,7 @@ class TestPostPartitionExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_explain')
-        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "skip": 0}'
+        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -7992,7 +7992,7 @@ class TestPostExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "skip": 0}'
+        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -8072,7 +8072,7 @@ class TestPostExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "skip": 0}'
+        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -15279,6 +15279,19 @@ class TestModel_ExplainResult:
         index_information_model['partitioned'] = True
         index_information_model['type'] = 'json'
 
+        index_analysis_exclusion_reason_model = {}  # IndexAnalysisExclusionReason
+        index_analysis_exclusion_reason_model['name'] = 'alphabetically_comes_after'
+
+        index_analysis_model = {}  # IndexAnalysis
+        index_analysis_model['covering'] = True
+        index_analysis_model['ranking'] = 1
+        index_analysis_model['reasons'] = [index_analysis_exclusion_reason_model]
+        index_analysis_model['usable'] = True
+
+        index_candidate_model = {}  # IndexCandidate
+        index_candidate_model['analysis'] = index_analysis_model
+        index_candidate_model['index'] = index_information_model
+
         explain_result_mr_args_model = {}  # ExplainResultMrArgs
         explain_result_mr_args_model['conflicts'] = 'testString'
         explain_result_mr_args_model['direction'] = 'testString'
@@ -15306,17 +15319,24 @@ class TestModel_ExplainResult:
         explain_result_opts_model['update'] = True
         explain_result_opts_model['use_index'] = ['testString']
 
+        selector_hint_model = {}  # SelectorHint
+        selector_hint_model['indexable_fields'] = ['testString']
+        selector_hint_model['type'] = 'json'
+        selector_hint_model['unindexable_fields'] = ['testString']
+
         # Construct a json representation of a ExplainResult model
         explain_result_model_json = {}
         explain_result_model_json['covering'] = True
         explain_result_model_json['dbname'] = 'testString'
         explain_result_model_json['fields'] = ['testString']
         explain_result_model_json['index'] = index_information_model
+        explain_result_model_json['index_candidates'] = [index_candidate_model]
         explain_result_model_json['limit'] = 25
         explain_result_model_json['mrargs'] = explain_result_mr_args_model
         explain_result_model_json['opts'] = explain_result_opts_model
         explain_result_model_json['partitioned'] = 'testString'
         explain_result_model_json['selector'] = {'anyKey': 'anyValue'}
+        explain_result_model_json['selector_hints'] = [selector_hint_model]
         explain_result_model_json['skip'] = 0
 
         # Construct a model instance of ExplainResult by calling from_dict on the json representation
@@ -15487,6 +15507,143 @@ class TestModel_FindResult:
         # Convert model instance back to dict and verify no loss of data
         find_result_model_json2 = find_result_model.to_dict()
         assert find_result_model_json2 == find_result_model_json
+
+
+class TestModel_IndexAnalysis:
+    """
+    Test Class for IndexAnalysis
+    """
+
+    def test_index_analysis_serialization(self):
+        """
+        Test serialization/deserialization for IndexAnalysis
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        index_analysis_exclusion_reason_model = {}  # IndexAnalysisExclusionReason
+        index_analysis_exclusion_reason_model['name'] = 'alphabetically_comes_after'
+
+        # Construct a json representation of a IndexAnalysis model
+        index_analysis_model_json = {}
+        index_analysis_model_json['covering'] = True
+        index_analysis_model_json['ranking'] = 1
+        index_analysis_model_json['reasons'] = [index_analysis_exclusion_reason_model]
+        index_analysis_model_json['usable'] = True
+
+        # Construct a model instance of IndexAnalysis by calling from_dict on the json representation
+        index_analysis_model = IndexAnalysis.from_dict(index_analysis_model_json)
+        assert index_analysis_model != False
+
+        # Construct a model instance of IndexAnalysis by calling from_dict on the json representation
+        index_analysis_model_dict = IndexAnalysis.from_dict(index_analysis_model_json).__dict__
+        index_analysis_model2 = IndexAnalysis(**index_analysis_model_dict)
+
+        # Verify the model instances are equivalent
+        assert index_analysis_model == index_analysis_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        index_analysis_model_json2 = index_analysis_model.to_dict()
+        assert index_analysis_model_json2 == index_analysis_model_json
+
+
+class TestModel_IndexAnalysisExclusionReason:
+    """
+    Test Class for IndexAnalysisExclusionReason
+    """
+
+    def test_index_analysis_exclusion_reason_serialization(self):
+        """
+        Test serialization/deserialization for IndexAnalysisExclusionReason
+        """
+
+        # Construct a json representation of a IndexAnalysisExclusionReason model
+        index_analysis_exclusion_reason_model_json = {}
+        index_analysis_exclusion_reason_model_json['name'] = 'alphabetically_comes_after'
+
+        # Construct a model instance of IndexAnalysisExclusionReason by calling from_dict on the json representation
+        index_analysis_exclusion_reason_model = IndexAnalysisExclusionReason.from_dict(index_analysis_exclusion_reason_model_json)
+        assert index_analysis_exclusion_reason_model != False
+
+        # Construct a model instance of IndexAnalysisExclusionReason by calling from_dict on the json representation
+        index_analysis_exclusion_reason_model_dict = IndexAnalysisExclusionReason.from_dict(index_analysis_exclusion_reason_model_json).__dict__
+        index_analysis_exclusion_reason_model2 = IndexAnalysisExclusionReason(**index_analysis_exclusion_reason_model_dict)
+
+        # Verify the model instances are equivalent
+        assert index_analysis_exclusion_reason_model == index_analysis_exclusion_reason_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        index_analysis_exclusion_reason_model_json2 = index_analysis_exclusion_reason_model.to_dict()
+        assert index_analysis_exclusion_reason_model_json2 == index_analysis_exclusion_reason_model_json
+
+
+class TestModel_IndexCandidate:
+    """
+    Test Class for IndexCandidate
+    """
+
+    def test_index_candidate_serialization(self):
+        """
+        Test serialization/deserialization for IndexCandidate
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        index_analysis_exclusion_reason_model = {}  # IndexAnalysisExclusionReason
+        index_analysis_exclusion_reason_model['name'] = 'alphabetically_comes_after'
+
+        index_analysis_model = {}  # IndexAnalysis
+        index_analysis_model['covering'] = True
+        index_analysis_model['ranking'] = 1
+        index_analysis_model['reasons'] = [index_analysis_exclusion_reason_model]
+        index_analysis_model['usable'] = True
+
+        analyzer_model = {}  # Analyzer
+        analyzer_model['name'] = 'classic'
+        analyzer_model['stopwords'] = ['testString']
+
+        index_text_operator_default_field_model = {}  # IndexTextOperatorDefaultField
+        index_text_operator_default_field_model['analyzer'] = analyzer_model
+        index_text_operator_default_field_model['enabled'] = True
+
+        index_field_model = {}  # IndexField
+        index_field_model['name'] = 'testString'
+        index_field_model['type'] = 'boolean'
+        index_field_model['foo'] = 'asc'
+
+        index_definition_model = {}  # IndexDefinition
+        index_definition_model['default_analyzer'] = analyzer_model
+        index_definition_model['default_field'] = index_text_operator_default_field_model
+        index_definition_model['fields'] = [index_field_model]
+        index_definition_model['index_array_lengths'] = True
+        index_definition_model['partial_filter_selector'] = {'anyKey': 'anyValue'}
+
+        index_information_model = {}  # IndexInformation
+        index_information_model['ddoc'] = 'testString'
+        index_information_model['def'] = index_definition_model
+        index_information_model['name'] = 'testString'
+        index_information_model['partitioned'] = True
+        index_information_model['type'] = 'json'
+
+        # Construct a json representation of a IndexCandidate model
+        index_candidate_model_json = {}
+        index_candidate_model_json['analysis'] = index_analysis_model
+        index_candidate_model_json['index'] = index_information_model
+
+        # Construct a model instance of IndexCandidate by calling from_dict on the json representation
+        index_candidate_model = IndexCandidate.from_dict(index_candidate_model_json)
+        assert index_candidate_model != False
+
+        # Construct a model instance of IndexCandidate by calling from_dict on the json representation
+        index_candidate_model_dict = IndexCandidate.from_dict(index_candidate_model_json).__dict__
+        index_candidate_model2 = IndexCandidate(**index_candidate_model_dict)
+
+        # Verify the model instances are equivalent
+        assert index_candidate_model == index_candidate_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        index_candidate_model_json2 = index_candidate_model.to_dict()
+        assert index_candidate_model_json2 == index_candidate_model_json
 
 
 class TestModel_IndexDefinition:
@@ -17153,6 +17310,38 @@ class TestModel_SecurityObject:
         # Convert model instance back to dict and verify no loss of data
         security_object_model_json2 = security_object_model.to_dict()
         assert security_object_model_json2 == security_object_model_json
+
+
+class TestModel_SelectorHint:
+    """
+    Test Class for SelectorHint
+    """
+
+    def test_selector_hint_serialization(self):
+        """
+        Test serialization/deserialization for SelectorHint
+        """
+
+        # Construct a json representation of a SelectorHint model
+        selector_hint_model_json = {}
+        selector_hint_model_json['indexable_fields'] = ['testString']
+        selector_hint_model_json['type'] = 'json'
+        selector_hint_model_json['unindexable_fields'] = ['testString']
+
+        # Construct a model instance of SelectorHint by calling from_dict on the json representation
+        selector_hint_model = SelectorHint.from_dict(selector_hint_model_json)
+        assert selector_hint_model != False
+
+        # Construct a model instance of SelectorHint by calling from_dict on the json representation
+        selector_hint_model_dict = SelectorHint.from_dict(selector_hint_model_json).__dict__
+        selector_hint_model2 = SelectorHint(**selector_hint_model_dict)
+
+        # Verify the model instances are equivalent
+        assert selector_hint_model == selector_hint_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        selector_hint_model_json2 = selector_hint_model.to_dict()
+        assert selector_hint_model_json2 == selector_hint_model_json
 
 
 class TestModel_ServerInformation:
