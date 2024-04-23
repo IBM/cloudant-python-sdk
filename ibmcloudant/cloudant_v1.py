@@ -427,9 +427,13 @@ class CloudantV1(BaseService):
         It is widely used with the `filter` query parameter because it allows one to pass
         more information to the filter.
         ### Note
-        Before using the changes feed we recommend reading the
+        Before using the changes feed read the
         [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-faq-using-changes-feed)
         to understand the limitations and appropriate use cases.
+        If you need to pass parameters to dynamically change the filtered content use the
+        `_selector` filter type for better performance and compatibility. The SDKs have
+        full support for change requests using selector filters, but don't support passing
+        parameters to design document filters.
 
         :param str db: Path parameter to specify the database name.
         :param List[str] doc_ids: (optional) Schema for a list of document IDs.
@@ -482,19 +486,24 @@ class CloudantV1(BaseService):
                return the documents in descending by key order.
         :param str feed: (optional) Query parameter to specify the changes feed
                type.
-        :param str filter: (optional) Query parameter to specify a filter function
-               from a design document that will filter the changes stream emitting only
-               filtered events. For example: `design_doc/filtername`.
-               Additionally, some keywords are reserved for built-in filters:
+        :param str filter: (optional) Query parameter to specify a filter to emit
+               only specific events from the changes stream.
+               The built-in filter types are:
                  * `_design` - Returns only changes to design documents.
                  * `_doc_ids` - Returns changes for documents with an ID matching one
                specified in
-                     `doc_ids` request body parameter.
+                     `doc_ids` request body parameter. (`POST` only)
                  * `_selector` - Returns changes for documents that match the `selector`
                      request body parameter. The selector syntax is the same as used for
-                     `_find`.
+                     `_find`. (`POST` only)
                  * `_view` - Returns changes for documents that match an existing map
                      function in the view specified by the query parameter `view`.
+               Additionally, the value can be the name of a JS filter function from a
+               design document. For example: `design_doc/filtername`.
+               **Note:** For better performance use the built-in `_selector`, `_design` or
+               `_doc_ids` filters rather than JS based `_view` or design document filters.
+               If you need to pass values to change the filtered content use the
+               `_selector` filter type.
         :param int heartbeat: (optional) Query parameter to specify the period in
                milliseconds after which an empty line is sent in the results. Off by
                default and only applicable for
@@ -631,9 +640,13 @@ class CloudantV1(BaseService):
         It is widely used with the `filter` query parameter because it allows one to pass
         more information to the filter.
         ### Note
-        Before using the changes feed we recommend reading the
+        Before using the changes feed read the
         [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-faq-using-changes-feed)
         to understand the limitations and appropriate use cases.
+        If you need to pass parameters to dynamically change the filtered content use the
+        `_selector` filter type for better performance and compatibility. The SDKs have
+        full support for change requests using selector filters, but don't support passing
+        parameters to design document filters.
 
         :param str db: Path parameter to specify the database name.
         :param List[str] doc_ids: (optional) Schema for a list of document IDs.
@@ -686,19 +699,24 @@ class CloudantV1(BaseService):
                return the documents in descending by key order.
         :param str feed: (optional) Query parameter to specify the changes feed
                type.
-        :param str filter: (optional) Query parameter to specify a filter function
-               from a design document that will filter the changes stream emitting only
-               filtered events. For example: `design_doc/filtername`.
-               Additionally, some keywords are reserved for built-in filters:
+        :param str filter: (optional) Query parameter to specify a filter to emit
+               only specific events from the changes stream.
+               The built-in filter types are:
                  * `_design` - Returns only changes to design documents.
                  * `_doc_ids` - Returns changes for documents with an ID matching one
                specified in
-                     `doc_ids` request body parameter.
+                     `doc_ids` request body parameter. (`POST` only)
                  * `_selector` - Returns changes for documents that match the `selector`
                      request body parameter. The selector syntax is the same as used for
-                     `_find`.
+                     `_find`. (`POST` only)
                  * `_view` - Returns changes for documents that match an existing map
                      function in the view specified by the query parameter `view`.
+               Additionally, the value can be the name of a JS filter function from a
+               design document. For example: `design_doc/filtername`.
+               **Note:** For better performance use the built-in `_selector`, `_design` or
+               `_doc_ids` filters rather than JS based `_view` or design document filters.
+               If you need to pass values to change the filtered content use the
+               `_selector` filter type.
         :param int heartbeat: (optional) Query parameter to specify the period in
                milliseconds after which an empty line is sent in the results. Off by
                default and only applicable for
@@ -4559,8 +4577,12 @@ class CloudantV1(BaseService):
         :param str update: (optional) Whether to update the index prior to
                returning the result.
         :param List[str] use_index: (optional) Use this option to identify a
-               specific index for query to run against, rather than by using the IBM
-               Cloudant Query algorithm to find the best index.
+               specific index to answer the query, rather than letting the IBM Cloudant
+               query planner choose an index. Specified as a two element array of design
+               document id followed by index name, for example `["my_design_doc",
+               "my_index"]`.
+               It’s recommended to specify indexes explicitly in your queries to prevent
+               existing queries being affected by new indexes that might get added later.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `ExplainResult` object
@@ -4711,8 +4733,12 @@ class CloudantV1(BaseService):
         :param str update: (optional) Whether to update the index prior to
                returning the result.
         :param List[str] use_index: (optional) Use this option to identify a
-               specific index for query to run against, rather than by using the IBM
-               Cloudant Query algorithm to find the best index.
+               specific index to answer the query, rather than letting the IBM Cloudant
+               query planner choose an index. Specified as a two element array of design
+               document id followed by index name, for example `["my_design_doc",
+               "my_index"]`.
+               It’s recommended to specify indexes explicitly in your queries to prevent
+               existing queries being affected by new indexes that might get added later.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `FindResult` object
@@ -4863,8 +4889,12 @@ class CloudantV1(BaseService):
         :param str update: (optional) Whether to update the index prior to
                returning the result.
         :param List[str] use_index: (optional) Use this option to identify a
-               specific index for query to run against, rather than by using the IBM
-               Cloudant Query algorithm to find the best index.
+               specific index to answer the query, rather than letting the IBM Cloudant
+               query planner choose an index. Specified as a two element array of design
+               document id followed by index name, for example `["my_design_doc",
+               "my_index"]`.
+               It’s recommended to specify indexes explicitly in your queries to prevent
+               existing queries being affected by new indexes that might get added later.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `BinaryIO` result
@@ -5012,8 +5042,12 @@ class CloudantV1(BaseService):
         :param str update: (optional) Whether to update the index prior to
                returning the result.
         :param List[str] use_index: (optional) Use this option to identify a
-               specific index for query to run against, rather than by using the IBM
-               Cloudant Query algorithm to find the best index.
+               specific index to answer the query, rather than letting the IBM Cloudant
+               query planner choose an index. Specified as a two element array of design
+               document id followed by index name, for example `["my_design_doc",
+               "my_index"]`.
+               It’s recommended to specify indexes explicitly in your queries to prevent
+               existing queries being affected by new indexes that might get added later.
         :param int r: (optional) The read quorum that is needed for the result. The
                value defaults to 1, in which case the document that was found in the index
                is returned. If set to a higher value, each document is read from at least
@@ -5168,8 +5202,12 @@ class CloudantV1(BaseService):
         :param str update: (optional) Whether to update the index prior to
                returning the result.
         :param List[str] use_index: (optional) Use this option to identify a
-               specific index for query to run against, rather than by using the IBM
-               Cloudant Query algorithm to find the best index.
+               specific index to answer the query, rather than letting the IBM Cloudant
+               query planner choose an index. Specified as a two element array of design
+               document id followed by index name, for example `["my_design_doc",
+               "my_index"]`.
+               It’s recommended to specify indexes explicitly in your queries to prevent
+               existing queries being affected by new indexes that might get added later.
         :param int r: (optional) The read quorum that is needed for the result. The
                value defaults to 1, in which case the document that was found in the index
                is returned. If set to a higher value, each document is read from at least
@@ -5324,8 +5362,12 @@ class CloudantV1(BaseService):
         :param str update: (optional) Whether to update the index prior to
                returning the result.
         :param List[str] use_index: (optional) Use this option to identify a
-               specific index for query to run against, rather than by using the IBM
-               Cloudant Query algorithm to find the best index.
+               specific index to answer the query, rather than letting the IBM Cloudant
+               query planner choose an index. Specified as a two element array of design
+               document id followed by index name, for example `["my_design_doc",
+               "my_index"]`.
+               It’s recommended to specify indexes explicitly in your queries to prevent
+               existing queries being affected by new indexes that might get added later.
         :param int r: (optional) The read quorum that is needed for the result. The
                value defaults to 1, in which case the document that was found in the index
                is returned. If set to a higher value, each document is read from at least
@@ -11412,7 +11454,7 @@ class DesignDocument:
           removed.
     :param List[str] _deleted_conflicts: (optional) Schema for a list of document
           revision identifiers.
-    :param str _id: (optional) Document ID.
+    :param str _id: (optional) Schema for a design document ID.
     :param str _local_seq: (optional) Document's update sequence in current
           database. Available if requested with local_seq=true query parameter.
     :param str _rev: (optional) Schema for a document revision identifier.
@@ -11526,7 +11568,7 @@ class DesignDocument:
                removed.
         :param List[str] _deleted_conflicts: (optional) Schema for a list of
                document revision identifiers.
-        :param str _id: (optional) Document ID.
+        :param str _id: (optional) Schema for a design document ID.
         :param str _local_seq: (optional) Document's update sequence in current
                database. Available if requested with local_seq=true query parameter.
         :param str _rev: (optional) Schema for a document revision identifier.
@@ -12332,7 +12374,7 @@ class Document:
           removed.
     :param List[str] _deleted_conflicts: (optional) Schema for a list of document
           revision identifiers.
-    :param str _id: (optional) Document ID.
+    :param str _id: (optional) Schema for a document ID.
     :param str _local_seq: (optional) Document's update sequence in current
           database. Available if requested with local_seq=true query parameter.
     :param str _rev: (optional) Schema for a document revision identifier.
@@ -12369,7 +12411,7 @@ class Document:
                removed.
         :param List[str] _deleted_conflicts: (optional) Schema for a list of
                document revision identifiers.
-        :param str _id: (optional) Document ID.
+        :param str _id: (optional) Schema for a document ID.
         :param str _local_seq: (optional) Document's update sequence in current
                database. Available if requested with local_seq=true query parameter.
         :param str _rev: (optional) Schema for a document revision identifier.
@@ -12864,6 +12906,8 @@ class ExplainResult:
           document. If no fields were requested to be projected this will be empty and all
           fields will be returned.
     :param IndexInformation index: Schema for information about an index.
+    :param List[IndexCandidate] index_candidates: (optional) Schema for the list of
+          all the other indexes that were not chosen for serving the query.
     :param int limit: The used maximum number of results returned.
     :param ExplainResultMrArgs mrargs: (optional) Arguments passed to the underlying
           view.
@@ -12899,6 +12943,9 @@ class ExplainResult:
           For further reference see
           [selector
           syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
+    :param List[SelectorHint] selector_hints: (optional) Schema for a list of
+          objects with extra information on the selector to provide insights about its
+          usability.
     :param int skip: Skip parameter used.
     """
 
@@ -12913,8 +12960,10 @@ class ExplainResult:
         selector: dict,
         skip: int,
         *,
+        index_candidates: Optional[List['IndexCandidate']] = None,
         mrargs: Optional['ExplainResultMrArgs'] = None,
         partitioned: Optional[object] = None,
+        selector_hints: Optional[List['SelectorHint']] = None,
     ) -> None:
         """
         Initialize a ExplainResult object.
@@ -12960,19 +13009,26 @@ class ExplainResult:
                [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param int skip: Skip parameter used.
+        :param List[IndexCandidate] index_candidates: (optional) Schema for the
+               list of all the other indexes that were not chosen for serving the query.
         :param ExplainResultMrArgs mrargs: (optional) Arguments passed to the
                underlying view.
         :param object partitioned: (optional) Schema for any JSON type.
+        :param List[SelectorHint] selector_hints: (optional) Schema for a list of
+               objects with extra information on the selector to provide insights about
+               its usability.
         """
         self.covering = covering
         self.dbname = dbname
         self.fields = fields
         self.index = index
+        self.index_candidates = index_candidates
         self.limit = limit
         self.mrargs = mrargs
         self.opts = opts
         self.partitioned = partitioned
         self.selector = selector
+        self.selector_hints = selector_hints
         self.skip = skip
 
     @classmethod
@@ -12995,6 +13051,8 @@ class ExplainResult:
             args['index'] = IndexInformation.from_dict(index)
         else:
             raise ValueError('Required property \'index\' not present in ExplainResult JSON')
+        if (index_candidates := _dict.get('index_candidates')) is not None:
+            args['index_candidates'] = [IndexCandidate.from_dict(v) for v in index_candidates]
         if (limit := _dict.get('limit')) is not None:
             args['limit'] = limit
         else:
@@ -13011,6 +13069,8 @@ class ExplainResult:
             args['selector'] = selector
         else:
             raise ValueError('Required property \'selector\' not present in ExplainResult JSON')
+        if (selector_hints := _dict.get('selector_hints')) is not None:
+            args['selector_hints'] = [SelectorHint.from_dict(v) for v in selector_hints]
         if (skip := _dict.get('skip')) is not None:
             args['skip'] = skip
         else:
@@ -13036,6 +13096,14 @@ class ExplainResult:
                 _dict['index'] = self.index
             else:
                 _dict['index'] = self.index.to_dict()
+        if hasattr(self, 'index_candidates') and self.index_candidates is not None:
+            index_candidates_list = []
+            for v in self.index_candidates:
+                if isinstance(v, dict):
+                    index_candidates_list.append(v)
+                else:
+                    index_candidates_list.append(v.to_dict())
+            _dict['index_candidates'] = index_candidates_list
         if hasattr(self, 'limit') and self.limit is not None:
             _dict['limit'] = self.limit
         if hasattr(self, 'mrargs') and self.mrargs is not None:
@@ -13052,6 +13120,14 @@ class ExplainResult:
             _dict['partitioned'] = self.partitioned
         if hasattr(self, 'selector') and self.selector is not None:
             _dict['selector'] = self.selector
+        if hasattr(self, 'selector_hints') and self.selector_hints is not None:
+            selector_hints_list = []
+            for v in self.selector_hints:
+                if isinstance(v, dict):
+                    selector_hints_list.append(v)
+                else:
+                    selector_hints_list.append(v.to_dict())
+            _dict['selector_hints'] = selector_hints_list
         if hasattr(self, 'skip') and self.skip is not None:
             _dict['skip'] = self.skip
         return _dict
@@ -13507,6 +13583,317 @@ class FindResult:
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'FindResult') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class IndexAnalysis:
+    """
+    Schema for detailed explanation of why the specific index was excluded by the query
+    planner.
+
+    :param bool covering: When `true`, the query is answered using the index only
+          and no documents are fetched.
+    :param int ranking: A position of the unused index based on its potential
+          relevance to the query.
+    :param List[IndexAnalysisExclusionReason] reasons: A list of reasons explaining
+          why index was not chosen for the query.
+    :param bool usable: Indicates whether an index can still be used for the query.
+    """
+
+    def __init__(
+        self,
+        covering: bool,
+        ranking: int,
+        reasons: List['IndexAnalysisExclusionReason'],
+        usable: bool,
+    ) -> None:
+        """
+        Initialize a IndexAnalysis object.
+
+        :param bool covering: When `true`, the query is answered using the index
+               only and no documents are fetched.
+        :param int ranking: A position of the unused index based on its potential
+               relevance to the query.
+        :param List[IndexAnalysisExclusionReason] reasons: A list of reasons
+               explaining why index was not chosen for the query.
+        :param bool usable: Indicates whether an index can still be used for the
+               query.
+        """
+        self.covering = covering
+        self.ranking = ranking
+        self.reasons = reasons
+        self.usable = usable
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'IndexAnalysis':
+        """Initialize a IndexAnalysis object from a json dictionary."""
+        args = {}
+        if (covering := _dict.get('covering')) is not None:
+            args['covering'] = covering
+        else:
+            raise ValueError('Required property \'covering\' not present in IndexAnalysis JSON')
+        if (ranking := _dict.get('ranking')) is not None:
+            args['ranking'] = ranking
+        else:
+            raise ValueError('Required property \'ranking\' not present in IndexAnalysis JSON')
+        if (reasons := _dict.get('reasons')) is not None:
+            args['reasons'] = [IndexAnalysisExclusionReason.from_dict(v) for v in reasons]
+        else:
+            raise ValueError('Required property \'reasons\' not present in IndexAnalysis JSON')
+        if (usable := _dict.get('usable')) is not None:
+            args['usable'] = usable
+        else:
+            raise ValueError('Required property \'usable\' not present in IndexAnalysis JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a IndexAnalysis object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'covering') and self.covering is not None:
+            _dict['covering'] = self.covering
+        if hasattr(self, 'ranking') and self.ranking is not None:
+            _dict['ranking'] = self.ranking
+        if hasattr(self, 'reasons') and self.reasons is not None:
+            reasons_list = []
+            for v in self.reasons:
+                if isinstance(v, dict):
+                    reasons_list.append(v)
+                else:
+                    reasons_list.append(v.to_dict())
+            _dict['reasons'] = reasons_list
+        if hasattr(self, 'usable') and self.usable is not None:
+            _dict['usable'] = self.usable
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this IndexAnalysis object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'IndexAnalysis') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'IndexAnalysis') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class IndexAnalysisExclusionReason:
+    """
+    A reason for index's exclusion.
+
+    :param str name: (optional) A reason code for index's exclusion.
+          The full list of possible reason codes is following:
+          * alphabetically_comes_after: json
+            There is another suitable index whose name comes before that of this index.
+          * empty_selector: text
+          "text" indexes do not support queries with empty selectors.
+          * excluded_by_user: any use_index was used to manually specify the index.
+          * field_mismatch: any Fields in "selector" of the query do match with the fields
+          available in the index.
+          * is_partial: json, text Partial indexes can be selected only manually.
+          * less_overlap: json There is a better match of fields available within the
+          indexes for the query.
+          * needs_text_search: json The use of the $text operator requires a "text" index.
+          * scope_mismatch: json The scope of the query and the index is not the same.
+          * sort_order_mismatch: json, special Fields in "sort" of the query do not match
+          with the fields available in the index.
+          * too_many_fields: json The index has more fields than the chosen one.
+          * unfavored_type: any The type of the index is not preferred.
+    """
+
+    def __init__(
+        self,
+        *,
+        name: Optional[str] = None,
+    ) -> None:
+        """
+        Initialize a IndexAnalysisExclusionReason object.
+
+        :param str name: (optional) A reason code for index's exclusion.
+               The full list of possible reason codes is following:
+               * alphabetically_comes_after: json
+                 There is another suitable index whose name comes before that of this
+               index.
+               * empty_selector: text
+               "text" indexes do not support queries with empty selectors.
+               * excluded_by_user: any use_index was used to manually specify the index.
+               * field_mismatch: any Fields in "selector" of the query do match with the
+               fields available in the index.
+               * is_partial: json, text Partial indexes can be selected only manually.
+               * less_overlap: json There is a better match of fields available within the
+               indexes for the query.
+               * needs_text_search: json The use of the $text operator requires a "text"
+               index.
+               * scope_mismatch: json The scope of the query and the index is not the
+               same.
+               * sort_order_mismatch: json, special Fields in "sort" of the query do not
+               match with the fields available in the index.
+               * too_many_fields: json The index has more fields than the chosen one.
+               * unfavored_type: any The type of the index is not preferred.
+        """
+        self.name = name
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'IndexAnalysisExclusionReason':
+        """Initialize a IndexAnalysisExclusionReason object from a json dictionary."""
+        args = {}
+        if (name := _dict.get('name')) is not None:
+            args['name'] = name
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a IndexAnalysisExclusionReason object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'name') and self.name is not None:
+            _dict['name'] = self.name
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this IndexAnalysisExclusionReason object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'IndexAnalysisExclusionReason') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'IndexAnalysisExclusionReason') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+    class NameEnum(str, Enum):
+        """
+        A reason code for index's exclusion.
+        The full list of possible reason codes is following:
+        * alphabetically_comes_after: json
+          There is another suitable index whose name comes before that of this index.
+        * empty_selector: text
+        "text" indexes do not support queries with empty selectors.
+        * excluded_by_user: any use_index was used to manually specify the index.
+        * field_mismatch: any Fields in "selector" of the query do match with the fields
+        available in the index.
+        * is_partial: json, text Partial indexes can be selected only manually.
+        * less_overlap: json There is a better match of fields available within the
+        indexes for the query.
+        * needs_text_search: json The use of the $text operator requires a "text" index.
+        * scope_mismatch: json The scope of the query and the index is not the same.
+        * sort_order_mismatch: json, special Fields in "sort" of the query do not match
+        with the fields available in the index.
+        * too_many_fields: json The index has more fields than the chosen one.
+        * unfavored_type: any The type of the index is not preferred.
+        """
+
+        ALPHABETICALLY_COMES_AFTER = 'alphabetically_comes_after'
+        EMPTY_SELECTOR = 'empty_selector'
+        EXCLUDED_BY_USER = 'excluded_by_user'
+        FIELD_MISMATCH = 'field_mismatch'
+        IS_PARTIAL = 'is_partial'
+        LESS_OVERLAP = 'less_overlap'
+        NEEDS_TEXT_SEARCH = 'needs_text_search'
+        SCOPE_MISMATCH = 'scope_mismatch'
+        SORT_ORDER_MISMATCH = 'sort_order_mismatch'
+        TOO_MANY_FIELDS = 'too_many_fields'
+        UNFAVORED_TYPE = 'unfavored_type'
+
+
+
+class IndexCandidate:
+    """
+    Schema for an index that was not chosen for serving the query with the reason for the
+    exclusion.
+
+    :param IndexAnalysis analysis: Schema for detailed explanation of why the
+          specific index was excluded by the query planner.
+    :param IndexInformation index: Schema for information about an index.
+    """
+
+    def __init__(
+        self,
+        analysis: 'IndexAnalysis',
+        index: 'IndexInformation',
+    ) -> None:
+        """
+        Initialize a IndexCandidate object.
+
+        :param IndexAnalysis analysis: Schema for detailed explanation of why the
+               specific index was excluded by the query planner.
+        :param IndexInformation index: Schema for information about an index.
+        """
+        self.analysis = analysis
+        self.index = index
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'IndexCandidate':
+        """Initialize a IndexCandidate object from a json dictionary."""
+        args = {}
+        if (analysis := _dict.get('analysis')) is not None:
+            args['analysis'] = IndexAnalysis.from_dict(analysis)
+        else:
+            raise ValueError('Required property \'analysis\' not present in IndexCandidate JSON')
+        if (index := _dict.get('index')) is not None:
+            args['index'] = IndexInformation.from_dict(index)
+        else:
+            raise ValueError('Required property \'index\' not present in IndexCandidate JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a IndexCandidate object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'analysis') and self.analysis is not None:
+            if isinstance(self.analysis, dict):
+                _dict['analysis'] = self.analysis
+            else:
+                _dict['analysis'] = self.analysis.to_dict()
+        if hasattr(self, 'index') and self.index is not None:
+            if isinstance(self.index, dict):
+                _dict['index'] = self.index
+            else:
+                _dict['index'] = self.index.to_dict()
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this IndexCandidate object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'IndexCandidate') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'IndexCandidate') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
@@ -15160,7 +15547,7 @@ class ReplicationDocument:
           removed.
     :param List[str] _deleted_conflicts: (optional) Schema for a list of document
           revision identifiers.
-    :param str _id: (optional) Document ID.
+    :param str _id: (optional) Schema for a document ID.
     :param str _local_seq: (optional) Document's update sequence in current
           database. Available if requested with local_seq=true query parameter.
     :param str _rev: (optional) Schema for a document revision identifier.
@@ -15315,7 +15702,7 @@ class ReplicationDocument:
                removed.
         :param List[str] _deleted_conflicts: (optional) Schema for a list of
                document revision identifiers.
-        :param str _id: (optional) Document ID.
+        :param str _id: (optional) Schema for a document ID.
         :param str _local_seq: (optional) Document's update sequence in current
                database. Available if requested with local_seq=true query parameter.
         :param str _rev: (optional) Schema for a document revision identifier.
@@ -17435,6 +17822,98 @@ class SecurityObject:
     def __ne__(self, other: 'SecurityObject') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
+
+
+class SelectorHint:
+    """
+    Schema for extra information on the selector.
+
+    :param List[str] indexable_fields: A list of fields in the given selector that
+          can be used to restrict the query.
+    :param str type: A type of the index.
+    :param List[str] unindexable_fields: A list of fields in the given selector that
+          can't be used to restrict the query.
+    """
+
+    def __init__(
+        self,
+        indexable_fields: List[str],
+        type: str,
+        unindexable_fields: List[str],
+    ) -> None:
+        """
+        Initialize a SelectorHint object.
+
+        :param List[str] indexable_fields: A list of fields in the given selector
+               that can be used to restrict the query.
+        :param str type: A type of the index.
+        :param List[str] unindexable_fields: A list of fields in the given selector
+               that can't be used to restrict the query.
+        """
+        self.indexable_fields = indexable_fields
+        self.type = type
+        self.unindexable_fields = unindexable_fields
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'SelectorHint':
+        """Initialize a SelectorHint object from a json dictionary."""
+        args = {}
+        if (indexable_fields := _dict.get('indexable_fields')) is not None:
+            args['indexable_fields'] = indexable_fields
+        else:
+            raise ValueError('Required property \'indexable_fields\' not present in SelectorHint JSON')
+        if (type := _dict.get('type')) is not None:
+            args['type'] = type
+        else:
+            raise ValueError('Required property \'type\' not present in SelectorHint JSON')
+        if (unindexable_fields := _dict.get('unindexable_fields')) is not None:
+            args['unindexable_fields'] = unindexable_fields
+        else:
+            raise ValueError('Required property \'unindexable_fields\' not present in SelectorHint JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a SelectorHint object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'indexable_fields') and self.indexable_fields is not None:
+            _dict['indexable_fields'] = self.indexable_fields
+        if hasattr(self, 'type') and self.type is not None:
+            _dict['type'] = self.type
+        if hasattr(self, 'unindexable_fields') and self.unindexable_fields is not None:
+            _dict['unindexable_fields'] = self.unindexable_fields
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this SelectorHint object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'SelectorHint') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'SelectorHint') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+    class TypeEnum(str, Enum):
+        """
+        A type of the index.
+        """
+
+        JSON = 'json'
+        TEXT = 'text'
+
 
 
 class ServerInformation:
