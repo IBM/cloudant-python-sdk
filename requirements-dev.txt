@@ -1,7 +1,7 @@
 # build dependencies
 flit==3.9.0
 # test dependencies
-pytest==8.1.1
+pytest==8.2.0
 responses==0.25.0
 python_dotenv==1.0.1
 pylint==3.1.0
