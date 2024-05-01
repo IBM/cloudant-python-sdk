@@ -4,9 +4,11 @@
 
 _GET `/`_
 
-### [Example request](./snippets/getServerInformation/example_request.py)
+### [Example request](snippets/getServerInformation/example_request.py)
 
-```python
+[embedmd]:# (snippets/getServerInformation/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -20,9 +22,11 @@ print(response)
 
 _GET `/_active_tasks`_
 
-### [Example request](./snippets/getActiveTasks/example_request.py)
+### [Example request](snippets/getActiveTasks/example_request.py)
 
-```python
+[embedmd]:# (snippets/getActiveTasks/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -36,9 +40,11 @@ print(response)
 
 _GET `/_all_dbs`_
 
-### [Example request](./snippets/getAllDbs/example_request.py)
+### [Example request](snippets/getAllDbs/example_request.py)
 
-```python
+[embedmd]:# (snippets/getAllDbs/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -52,9 +58,11 @@ print(response)
 
 _POST `/_api/v2/api_keys`_
 
-### [Example request](./snippets/postApiKeys/example_request.py)
+### [Example request](snippets/postApiKeys/example_request.py)
 
-```python
+[embedmd]:# (snippets/postApiKeys/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -68,9 +76,11 @@ print(response)
 
 _PUT `/_api/v2/db/{db}/_security`_
 
-### [Example request](./snippets/putCloudantSecurity/example_request.py)
+### [Example request](snippets/putCloudantSecurity/example_request.py)
 
-```python
+[embedmd]:# (snippets/putCloudantSecurity/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -82,19 +92,21 @@ response = service.put_cloudant_security_configuration(
 ).get_result()
 
 print(response)
+# section: markdown
+# The `nobody` username applies to all unauthenticated connection attempts. For example, if an application tries to read data from a database, but didn't identify itself, the task can continue only if the `nobody` user has the role `_reader`.
+# section: markdown
+# If instead of using Cloudant's security model for managing permissions you opt to use the Apache CouchDB `_users` database (that is using legacy credentials _and_ the `couchdb_auth_only:true` option) then be aware that the user must already exist in `_users` database before adding permissions. For information on the `_users` database, see <a href="https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-work-with-your-account#using-the-users-database-with-cloudant-nosql-db" target="_blank">Using the `_users` database with Cloudant</a>.
 ```
-
-The `nobody` username applies to all unauthenticated connection attempts. For example, if an application tries to read data from a database, but didn't identify itself, the task can continue only if the `nobody` user has the role `_reader`.
-
-If instead of using Cloudant's security model for managing permissions you opt to use the Apache CouchDB `_users` database (that is using legacy credentials _and_ the `couchdb_auth_only:true` option) then be aware that the user must already exist in `_users` database before adding permissions. For information on the `_users` database, see <a href="https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-work-with-your-account#using-the-users-database-with-cloudant-nosql-db" target="_blank">Using the `_users` database with Cloudant</a>.
 
 ## getActivityTrackerEvents
 
 _GET `/_api/v2/user/activity_tracker/events`_
 
-### [Example request](./snippets/getActivityTrackerEvents/example_request.py)
+### [Example request](snippets/getActivityTrackerEvents/example_request.py)
 
-```python
+[embedmd]:# (snippets/getActivityTrackerEvents/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -108,9 +120,11 @@ print(response)
 
 _POST `/_api/v2/user/activity_tracker/events`_
 
-### [Example request](./snippets/postActivityTrackerEvents/example_request.py)
+### [Example request](snippets/postActivityTrackerEvents/example_request.py)
 
-```python
+[embedmd]:# (snippets/postActivityTrackerEvents/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -126,9 +140,11 @@ print(response)
 
 _GET `/_api/v2/user/capacity/throughput`_
 
-### [Example request](./snippets/getCapacityThroughputInformation/example_request.py)
+### [Example request](snippets/getCapacityThroughputInformation/example_request.py)
 
-```python
+[embedmd]:# (snippets/getCapacityThroughputInformation/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -142,9 +158,11 @@ print(response)
 
 _PUT `/_api/v2/user/capacity/throughput`_
 
-### [Example request](./snippets/putCapacityThroughputConfiguration/example_request.py)
+### [Example request](snippets/putCapacityThroughputConfiguration/example_request.py)
 
-```python
+[embedmd]:# (snippets/putCapacityThroughputConfiguration/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -160,9 +178,11 @@ print(response)
 
 _GET `/_api/v2/user/config/cors`_
 
-### [Example request](./snippets/getCorsInformation/example_request.py)
+### [Example request](snippets/getCorsInformation/example_request.py)
 
-```python
+[embedmd]:# (snippets/getCorsInformation/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -176,9 +196,11 @@ print(response)
 
 _PUT `/_api/v2/user/config/cors`_
 
-### [Example request](./snippets/putCorsConfiguration/example_request.py)
+### [Example request](snippets/putCorsConfiguration/example_request.py)
 
-```python
+[embedmd]:# (snippets/putCorsConfiguration/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -195,9 +217,11 @@ print(response)
 
 _GET `/_api/v2/user/current/throughput`_
 
-### [Example request](./snippets/getCurrentThroughputInformation/example_request.py)
+### [Example request](snippets/getCurrentThroughputInformation/example_request.py)
 
-```python
+[embedmd]:# (snippets/getCurrentThroughputInformation/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -211,9 +235,11 @@ print(response)
 
 _GET `/_db_updates`_
 
-### [Example request](./snippets/getDbUpdates/example_request.py)
+### [Example request](snippets/getDbUpdates/example_request.py)
 
-```python
+[embedmd]:# (snippets/getDbUpdates/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -225,17 +251,19 @@ response = service.get_db_updates(
 ).get_result()
 
 print(response)
+# section: markdown
+# This request requires `server_admin` access.
 ```
-
-This request requires `server_admin` access.
 
 ## postDbsInfo
 
 _POST `/_dbs_info`_
 
-### [Example request](./snippets/postDbsInfo/example_request.py)
+### [Example request](snippets/postDbsInfo/example_request.py)
 
-```python
+[embedmd]:# (snippets/postDbsInfo/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -251,9 +279,11 @@ print(response)
 
 _GET `/_membership`_
 
-### [Example request](./snippets/getMembershipInformation/example_request.py)
+### [Example request](snippets/getMembershipInformation/example_request.py)
 
-```python
+[embedmd]:# (snippets/getMembershipInformation/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -267,9 +297,11 @@ print(response)
 
 _DELETE `/_replicator/{doc_id}`_
 
-### [Example request](./snippets/deleteReplicationDocument/example_request.py)
+### [Example request](snippets/deleteReplicationDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/deleteReplicationDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -286,9 +318,11 @@ print(response)
 
 _GET `/_replicator/{doc_id}`_
 
-### [Example request](./snippets/getReplicationDocument/example_request.py)
+### [Example request](snippets/getReplicationDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/getReplicationDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -304,9 +338,11 @@ print(response)
 
 _HEAD `/_replicator/{doc_id}`_
 
-### [Example request](./snippets/headReplicationDocument/example_request.py)
+### [Example request](snippets/headReplicationDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/headReplicationDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -322,9 +358,11 @@ print(response.get_headers()['ETag'])
 
 _PUT `/_replicator/{doc_id}`_
 
-### [Example request](./snippets/putReplicationDocument/example_request.py)
+### [Example request](snippets/putReplicationDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/putReplicationDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1, ReplicationDocument, ReplicationDatabase, ReplicationDatabaseAuthIam, ReplicationDatabaseAuth
 
 service = CloudantV1.new_instance()
@@ -363,9 +401,11 @@ print(response)
 
 _GET `/_scheduler/docs`_
 
-### [Example request](./snippets/getSchedulerDocs/example_request.py)
+### [Example request](snippets/getSchedulerDocs/example_request.py)
 
-```python
+[embedmd]:# (snippets/getSchedulerDocs/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -382,9 +422,11 @@ print(response)
 
 _GET `/_scheduler/docs/_replicator/{doc_id}`_
 
-### [Example request](./snippets/getSchedulerDocument/example_request.py)
+### [Example request](snippets/getSchedulerDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/getSchedulerDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -398,9 +440,11 @@ print(response)
 
 _GET `/_scheduler/jobs`_
 
-### [Example request](./snippets/getSchedulerJobs/example_request.py)
+### [Example request](snippets/getSchedulerJobs/example_request.py)
 
-```python
+[embedmd]:# (snippets/getSchedulerJobs/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -416,9 +460,11 @@ print(response)
 
 _GET `/_scheduler/jobs/{job_id}`_
 
-### [Example request](./snippets/getSchedulerJob/example_request.py)
+### [Example request](snippets/getSchedulerJob/example_request.py)
 
-```python
+[embedmd]:# (snippets/getSchedulerJob/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -434,9 +480,11 @@ print(response)
 
 _HEAD `/_scheduler/jobs/{job_id}`_
 
-### [Example request](./snippets/headSchedulerJob/example_request.py)
+### [Example request](snippets/headSchedulerJob/example_request.py)
 
-```python
+[embedmd]:# (snippets/headSchedulerJob/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -452,9 +500,11 @@ print(response.get_status_code())
 
 _POST `/_search_analyze`_
 
-### [Example request](./snippets/postSearchAnalyze/example_request.py)
+### [Example request](snippets/postSearchAnalyze/example_request.py)
 
-```python
+[embedmd]:# (snippets/postSearchAnalyze/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -471,9 +521,11 @@ print(response)
 
 _GET `/_session`_
 
-### [Example request](./snippets/getSessionInformation/example_request.py)
+### [Example request](snippets/getSessionInformation/example_request.py)
 
-```python
+[embedmd]:# (snippets/getSessionInformation/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -481,17 +533,19 @@ service = CloudantV1.new_instance()
 response = service.get_session_information().get_result()
 
 print(response)
+# section: markdown
+# For more details on Session Authentication, see [Authentication.](#authentication)
 ```
-
-For more details on Session Authentication, see [Authentication.](#authentication)
 
 ## getUpInformation
 
 _GET `/_up`_
 
-### [Example request](./snippets/getUpInformation/example_request.py)
+### [Example request](snippets/getUpInformation/example_request.py)
 
-```python
+[embedmd]:# (snippets/getUpInformation/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -505,9 +559,11 @@ print(response)
 
 _GET `/_uuids`_
 
-### [Example request](./snippets/getUuids/example_request.py)
+### [Example request](snippets/getUuids/example_request.py)
 
-```python
+[embedmd]:# (snippets/getUuids/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -521,9 +577,11 @@ print(response)
 
 _DELETE `/{db}`_
 
-### [Example request](./snippets/deleteDatabase/example_request.py)
+### [Example request](snippets/deleteDatabase/example_request.py)
 
-```python
+[embedmd]:# (snippets/deleteDatabase/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -537,9 +595,11 @@ print(response)
 
 _GET `/{db}`_
 
-### [Example request](./snippets/getDatabaseInformation/example_request.py)
+### [Example request](snippets/getDatabaseInformation/example_request.py)
 
-```python
+[embedmd]:# (snippets/getDatabaseInformation/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -553,9 +613,11 @@ print(response)
 
 _HEAD `/{db}`_
 
-### [Example request](./snippets/headDatabase/example_request.py)
+### [Example request](snippets/headDatabase/example_request.py)
 
-```python
+[embedmd]:# (snippets/headDatabase/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -568,9 +630,11 @@ print(response.get_status_code())
 
 _POST `/{db}`_
 
-### [Example request](./snippets/postDocument/example_request.py)
+### [Example request](snippets/postDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/postDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import Document, CloudantV1
 
 service = CloudantV1.new_instance()
@@ -594,9 +658,11 @@ print(response)
 
 _PUT `/{db}`_
 
-### [Example request](./snippets/putDatabase/example_request.py)
+### [Example request](snippets/putDatabase/example_request.py)
 
-```python
+[embedmd]:# (snippets/putDatabase/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -610,9 +676,11 @@ print(response)
 
 _POST `/{db}/_all_docs`_
 
-### [Example request](./snippets/postAllDocs/example_request.py)
+### [Example request](snippets/postAllDocs/example_request.py)
 
-```python
+[embedmd]:# (snippets/postAllDocs/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -627,9 +695,11 @@ response = service.post_all_docs(
 print(response)
 ```
 
-### [Example request as a stream](./snippets/postAllDocs/example_request_as_a_stream.py)
+### [Example request as a stream](snippets/postAllDocs/example_request_as_a_stream.py)
 
-```python
+[embedmd]:# (snippets/postAllDocs/example_request_as_a_stream.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -650,9 +720,11 @@ with open('result.json', 'wb') as f:
 
 _POST `/{db}/_all_docs/queries`_
 
-### [Example request](./snippets/postAllDocsQueries/example_request.py)
+### [Example request](snippets/postAllDocsQueries/example_request.py)
 
-```python
+[embedmd]:# (snippets/postAllDocsQueries/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import AllDocsQuery, CloudantV1
 
 service = CloudantV1.new_instance()
@@ -678,9 +750,11 @@ print(response)
 
 _POST `/{db}/_bulk_docs`_
 
-### [Example request: create documents](./snippets/postBulkDocs/example_request_create_documents.py)
+### [Example request: create documents](snippets/postBulkDocs/example_request_create_documents.py)
 
-```python
+[embedmd]:# (snippets/postBulkDocs/example_request_create_documents.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import Document, CloudantV1, BulkDocs
 
 service = CloudantV1.new_instance()
@@ -712,9 +786,11 @@ response = service.post_bulk_docs(
 print(response)
 ```
 
-### [Example request: delete documents](./snippets/postBulkDocs/example_request_delete_documents.py)
+### [Example request: delete documents](snippets/postBulkDocs/example_request_delete_documents.py)
 
-```python
+[embedmd]:# (snippets/postBulkDocs/example_request_delete_documents.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import Document, CloudantV1, BulkDocs
 
 service = CloudantV1.new_instance()
@@ -740,9 +816,11 @@ response = service.post_bulk_docs(
 print(response)
 ```
 
-### [Example request as a stream](./snippets/postBulkDocs/example_request_as_a_stream.py)
+### [Example request as a stream](snippets/postBulkDocs/example_request_as_a_stream.py)
 
-```python
+[embedmd]:# (snippets/postBulkDocs/example_request_as_a_stream.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import Document, CloudantV1
 
 service = CloudantV1.new_instance()
@@ -754,10 +832,9 @@ with open('upload.json', 'rb') as f:
   ).get_result()
 
 print(response)
-```
-
-Content of upload.json
-```python
+# section: markdown
+# Content of upload.json
+# section: code
 {
   "docs": [
     {
@@ -784,9 +861,11 @@ Content of upload.json
 
 _POST `/{db}/_bulk_get`_
 
-### [Example request](./snippets/postBulkGet/example_request.py)
+### [Example request](snippets/postBulkGet/example_request.py)
 
-```python
+[embedmd]:# (snippets/postBulkGet/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import BulkGetQueryDocument, CloudantV1
 
 service = CloudantV1.new_instance()
@@ -807,9 +886,11 @@ response = service.post_bulk_get(
 print(response)
 ```
 
-### [Alternative example request for `open_revs=all`](./snippets/postBulkGet/alternative_example_request_for_open_revs_all.py)
+### [Alternative example request for `open_revs=all`](snippets/postBulkGet/alternative_example_request_for_open_revs_all.py)
 
-```python
+[embedmd]:# (snippets/postBulkGet/alternative_example_request_for_open_revs_all.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import BulkGetQueryDocument, CloudantV1
 
 service = CloudantV1.new_instance()
@@ -823,9 +904,11 @@ response = service.post_bulk_get(
 print(response)
 ```
 
-### [Alternative example request for `atts_since`](./snippets/postBulkGet/alternative_example_request_for_atts_since.py)
+### [Alternative example request for `atts_since`](snippets/postBulkGet/alternative_example_request_for_atts_since.py)
 
-```python
+[embedmd]:# (snippets/postBulkGet/alternative_example_request_for_atts_since.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import BulkGetQueryDocument, CloudantV1
 
 service = CloudantV1.new_instance()
@@ -845,9 +928,11 @@ print(response)
 
 _POST `/{db}/_changes`_
 
-### [Example request](./snippets/postChanges/example_request.py)
+### [Example request](snippets/postChanges/example_request.py)
 
-```python
+[embedmd]:# (snippets/postChanges/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -858,9 +943,11 @@ response = service.post_changes(
 print(response)
 ```
 
-### [Example request as a stream](./snippets/postChanges/example_request_as_a_stream.py)
+### [Example request as a stream](snippets/postChanges/example_request_as_a_stream.py)
 
-```python
+[embedmd]:# (snippets/postChanges/example_request_as_a_stream.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -878,9 +965,11 @@ with open('result.json', 'wb') as f:
 
 _DELETE `/{db}/_design/{ddoc}`_
 
-### [Example request](./snippets/deleteDesignDocument/example_request.py)
+### [Example request](snippets/deleteDesignDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/deleteDesignDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -898,9 +987,11 @@ print(response)
 
 _GET `/{db}/_design/{ddoc}`_
 
-### [Example request](./snippets/getDesignDocument/example_request.py)
+### [Example request](snippets/getDesignDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/getDesignDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -918,9 +1009,11 @@ print(response)
 
 _HEAD `/{db}/_design/{ddoc}`_
 
-### [Example request](./snippets/headDesignDocument/example_request.py)
+### [Example request](snippets/headDesignDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/headDesignDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -937,9 +1030,11 @@ print(response.get_headers()['ETag'])
 
 _PUT `/{db}/_design/{ddoc}`_
 
-### [Example request](./snippets/putDesignDocument/example_request.py)
+### [Example request](snippets/putDesignDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/putDesignDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import Analyzer, AnalyzerConfiguration, CloudantV1, DesignDocument, DesignDocumentOptions, DesignDocumentViewsMapReduce, SearchIndexDefinition
 
 service = CloudantV1.new_instance()
@@ -993,17 +1088,19 @@ response = service.put_design_document(
 ).get_result()
 
 print(response)
+# section: markdown
+# This example creates `allusers` design document in the `users` database and `appliances` design document in the partitioned `products` database.
 ```
-
-This example creates `allusers` design document in the `users` database and `appliances` design document in the partitioned `products` database.
 
 ## getDesignDocumentInformation
 
 _GET `/{db}/_design/{ddoc}/_info`_
 
-### [Example request](./snippets/getDesignDocumentInformation/example_request.py)
+### [Example request](snippets/getDesignDocumentInformation/example_request.py)
 
-```python
+[embedmd]:# (snippets/getDesignDocumentInformation/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1020,9 +1117,11 @@ print(response)
 
 _POST `/{db}/_design/{ddoc}/_search/{index}`_
 
-### [Example request](./snippets/postSearch/example_request.py)
+### [Example request](snippets/postSearch/example_request.py)
 
-```python
+[embedmd]:# (snippets/postSearch/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1035,17 +1134,19 @@ response = service.post_search(
 ).get_result()
 
 print(response)
+# section: markdown
+# This example requires the `activeUsers` Cloudant Search index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
 ```
-
-This example requires the `activeUsers` Cloudant Search index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
 
 ## getSearchInfo
 
 _GET `/{db}/_design/{ddoc}/_search_info/{index}`_
 
-### [Example request](./snippets/getSearchInfo/example_request.py)
+### [Example request](snippets/getSearchInfo/example_request.py)
 
-```python
+[embedmd]:# (snippets/getSearchInfo/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1057,17 +1158,19 @@ response = service.get_search_info(
 ).get_result()
 
 print(response)
+# section: markdown
+# This example requires the `findByPrice` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
 ```
-
-This example requires the `findByPrice` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
 
 ## postView
 
 _POST `/{db}/_design/{ddoc}/_view/{view}`_
 
-### [Example request](./snippets/postView/example_request.py)
+### [Example request](snippets/postView/example_request.py)
 
-```python
+[embedmd]:# (snippets/postView/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1079,17 +1182,19 @@ response = service.post_view(
 ).get_result()
 
 print(response)
+# section: markdown
+# This example requires the `getVerifiedEmails` view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
 ```
-
-This example requires the `getVerifiedEmails` view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
 
 ## postViewQueries
 
 _POST `/{db}/_design/{ddoc}/_view/{view}/queries`_
 
-### [Example request](./snippets/postViewQueries/example_request.py)
+### [Example request](snippets/postViewQueries/example_request.py)
 
-```python
+[embedmd]:# (snippets/postViewQueries/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1, ViewQuery
 
 service = CloudantV1.new_instance()
@@ -1111,17 +1216,19 @@ response = service.post_view_queries(
 ).get_result()
 
 print(response)
+# section: markdown
+# This example requires the `getVerifiedEmails` view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
 ```
-
-This example requires the `getVerifiedEmails` view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
 
 ## postDesignDocs
 
 _POST `/{db}/_design_docs`_
 
-### [Example request](./snippets/postDesignDocs/example_request.py)
+### [Example request](snippets/postDesignDocs/example_request.py)
 
-```python
+[embedmd]:# (snippets/postDesignDocs/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1138,9 +1245,11 @@ print(response)
 
 _POST `/{db}/_design_docs/queries`_
 
-### [Example request](./snippets/postDesignDocsQueries/example_request.py)
+### [Example request](snippets/postDesignDocsQueries/example_request.py)
 
-```python
+[embedmd]:# (snippets/postDesignDocsQueries/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import AllDocsQuery, CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1168,9 +1277,11 @@ print(response)
 
 _POST `/{db}/_explain`_
 
-### [Example request](./snippets/postExplain/example_request.py)
+### [Example request](snippets/postExplain/example_request.py)
 
-```python
+[embedmd]:# (snippets/postExplain/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1189,9 +1300,11 @@ print(response)
 
 _POST `/{db}/_find`_
 
-### [Example request for "json" index type](./snippets/postFind/example_request_for_json_index_type.py)
+### [Example request for "json" index type](snippets/postFind/example_request_for_json_index_type.py)
 
-```python
+[embedmd]:# (snippets/postFind/example_request_for_json_index_type.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1204,13 +1317,15 @@ response = service.post_find(
   limit=3
 ).get_result()
 print(response)
+# section: markdown
+# This example requires the `getUserByAddress` Cloudant Query "json" index to exist. To create the index, see [Create a new index on a database.](#postindex)
 ```
 
-This example requires the `getUserByAddress` Cloudant Query "json" index to exist. To create the index, see [Create a new index on a database.](#postindex)
+### [Example request for "text" index type](snippets/postFind/example_request_for_text_index_type.py)
 
-### [Example request for "text" index type](./snippets/postFind/example_request_for_text_index_type.py)
-
-```python
+[embedmd]:# (snippets/postFind/example_request_for_text_index_type.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1222,17 +1337,19 @@ response = service.post_find(
   limit=3
 ).get_result()
 print(response)
+# section: markdown
+# This example requires the `getUserByVerifiedEmail` Cloudant Query "text" index to exist. To create the index, see [Create a new index on a database.](#postindex)
 ```
-
-This example requires the `getUserByVerifiedEmail` Cloudant Query "text" index to exist. To create the index, see [Create a new index on a database.](#postindex)
 
 ## getIndexesInformation
 
 _GET `/{db}/_index`_
 
-### [Example request](./snippets/getIndexesInformation/example_request.py)
+### [Example request](snippets/getIndexesInformation/example_request.py)
 
-```python
+[embedmd]:# (snippets/getIndexesInformation/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1248,9 +1365,11 @@ print(response)
 
 _POST `/{db}/_index`_
 
-### [Example request using "json" type index](./snippets/postIndex/example_request_using_json_type_index.py)
+### [Example request using "json" type index](snippets/postIndex/example_request_using_json_type_index.py)
 
-```python
+[embedmd]:# (snippets/postIndex/example_request_using_json_type_index.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1, IndexDefinition, IndexField
 
 service = CloudantV1.new_instance()
@@ -1274,9 +1393,11 @@ response = service.post_index(
 print(response)
 ```
 
-### [Example request using "text" type index](./snippets/postIndex/example_request_using_text_type_index.py)
+### [Example request using "text" type index](snippets/postIndex/example_request_using_text_type_index.py)
 
-```python
+[embedmd]:# (snippets/postIndex/example_request_using_text_type_index.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1, IndexDefinition, IndexField
 
 service = CloudantV1.new_instance()
@@ -1305,9 +1426,11 @@ print(response)
 
 _DELETE `/{db}/_index/_design/{ddoc}/{type}/{index}`_
 
-### [Example request](./snippets/deleteIndex/example_request.py)
+### [Example request](snippets/deleteIndex/example_request.py)
 
-```python
+[embedmd]:# (snippets/deleteIndex/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1320,17 +1443,19 @@ response = service.delete_index(
 ).get_result()
 
 print(response)
+# section: markdown
+# This example will fail if `getUserByName` index doesn't exist. To create the index, see [Create a new index on a database.](#postindex)
 ```
-
-This example will fail if `getUserByName` index doesn't exist. To create the index, see [Create a new index on a database.](#postindex)
 
 ## deleteLocalDocument
 
 _DELETE `/{db}/_local/{doc_id}`_
 
-### [Example request](./snippets/deleteLocalDocument/example_request.py)
+### [Example request](snippets/deleteLocalDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/deleteLocalDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1347,9 +1472,11 @@ print(response)
 
 _GET `/{db}/_local/{doc_id}`_
 
-### [Example request](./snippets/getLocalDocument/example_request.py)
+### [Example request](snippets/getLocalDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/getLocalDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1366,9 +1493,11 @@ print(response)
 
 _PUT `/{db}/_local/{doc_id}`_
 
-### [Example request](./snippets/putLocalDocument/example_request.py)
+### [Example request](snippets/putLocalDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/putLocalDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import Document, CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1399,9 +1528,11 @@ print(response)
 
 _POST `/{db}/_missing_revs`_
 
-### [Example request](./snippets/postMissingRevs/example_request.py)
+### [Example request](snippets/postMissingRevs/example_request.py)
 
-```python
+[embedmd]:# (snippets/postMissingRevs/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import DocumentRevisions, CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1419,9 +1550,11 @@ print(response)
 
 _GET `/{db}/_partition/{partition_key}`_
 
-### [Example request](./snippets/getPartitionInformation/example_request.py)
+### [Example request](snippets/getPartitionInformation/example_request.py)
 
-```python
+[embedmd]:# (snippets/getPartitionInformation/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1438,9 +1571,11 @@ print(response)
 
 _POST `/{db}/_partition/{partition_key}/_all_docs`_
 
-### [Example request](./snippets/postPartitionAllDocs/example_request.py)
+### [Example request](snippets/postPartitionAllDocs/example_request.py)
 
-```python
+[embedmd]:# (snippets/postPartitionAllDocs/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1458,9 +1593,11 @@ print(response)
 
 _POST `/{db}/_partition/{partition_key}/_design/{ddoc}/_search/{index}`_
 
-### [Example request](./snippets/postPartitionSearch/example_request.py)
+### [Example request](snippets/postPartitionSearch/example_request.py)
 
-```python
+[embedmd]:# (snippets/postPartitionSearch/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1474,17 +1611,19 @@ response = service.post_partition_search(
 ).get_result()
 
 print(response)
+# section: markdown
+# This example requires the `findByPrice` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
 ```
-
-This example requires the `findByPrice` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
 
 ## postPartitionView
 
 _POST `/{db}/_partition/{partition_key}/_design/{ddoc}/_view/{view}`_
 
-### [Example request](./snippets/postPartitionView/example_request.py)
+### [Example request](snippets/postPartitionView/example_request.py)
 
-```python
+[embedmd]:# (snippets/postPartitionView/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1498,17 +1637,19 @@ response = service.post_partition_view(
 ).get_result()
 
 print(response)
+# section: markdown
+# This example requires the `byApplianceProdId` partitioned view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
 ```
-
-This example requires the `byApplianceProdId` partitioned view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
 
 ## postPartitionFind
 
 _POST `/{db}/_partition/{partition_key}/_find`_
 
-### [Example request](./snippets/postPartitionFind/example_request.py)
+### [Example request](snippets/postPartitionFind/example_request.py)
 
-```python
+[embedmd]:# (snippets/postPartitionFind/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1527,9 +1668,11 @@ print(response)
 
 _POST `/{db}/_revs_diff`_
 
-### [Example request](./snippets/postRevsDiff/example_request.py)
+### [Example request](snippets/postRevsDiff/example_request.py)
 
-```python
+[embedmd]:# (snippets/postRevsDiff/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import DocumentRevisions, CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1554,9 +1697,11 @@ print(response)
 
 _GET `/{db}/_security`_
 
-### [Example request](./snippets/getSecurity/example_request.py)
+### [Example request](snippets/getSecurity/example_request.py)
 
-```python
+[embedmd]:# (snippets/getSecurity/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1572,9 +1717,11 @@ print(response)
 
 _PUT `/{db}/_security`_
 
-### [Example request](./snippets/putSecurity/example_request.py)
+### [Example request](snippets/putSecurity/example_request.py)
 
-```python
+[embedmd]:# (snippets/putSecurity/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1, SecurityObject
 
 service = CloudantV1.new_instance()
@@ -1590,19 +1737,21 @@ response = service.put_security(
 ).get_result()
 
 print(response)
+# section: markdown
+# The `nobody` username applies to all unauthenticated connection attempts. For example, if an application tries to read data from a database, but didn't identify itself, the task can continue only if the `nobody` user has the role `_reader`.
+# section: markdown
+# If instead of using Cloudant's security model for managing permissions you opt to use the Apache CouchDB `_users` database (that is using legacy credentials _and_ the `couchdb_auth_only:true` option) then be aware that the user must already exist in `_users` database before adding permissions. For information on the `_users` database, see <a href="https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-work-with-your-account#using-the-users-database-with-cloudant-nosql-db" target="_blank">Using the `_users` database with Cloudant</a>.
 ```
-
-The `nobody` username applies to all unauthenticated connection attempts. For example, if an application tries to read data from a database, but didn't identify itself, the task can continue only if the `nobody` user has the role `_reader`.
-
-If instead of using Cloudant's security model for managing permissions you opt to use the Apache CouchDB `_users` database (that is using legacy credentials _and_ the `couchdb_auth_only:true` option) then be aware that the user must already exist in `_users` database before adding permissions. For information on the `_users` database, see <a href="https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-work-with-your-account#using-the-users-database-with-cloudant-nosql-db" target="_blank">Using the `_users` database with Cloudant</a>.
 
 ## getShardsInformation
 
 _GET `/{db}/_shards`_
 
-### [Example request](./snippets/getShardsInformation/example_request.py)
+### [Example request](snippets/getShardsInformation/example_request.py)
 
-```python
+[embedmd]:# (snippets/getShardsInformation/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1618,9 +1767,11 @@ print(response)
 
 _GET `/{db}/_shards/{doc_id}`_
 
-### [Example request](./snippets/getDocumentShardsInfo/example_request.py)
+### [Example request](snippets/getDocumentShardsInfo/example_request.py)
 
-```python
+[embedmd]:# (snippets/getDocumentShardsInfo/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1637,9 +1788,11 @@ print(response)
 
 _DELETE `/{db}/{doc_id}`_
 
-### [Example request](./snippets/deleteDocument/example_request.py)
+### [Example request](snippets/deleteDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/deleteDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1657,9 +1810,11 @@ print(response)
 
 _GET `/{db}/{doc_id}`_
 
-### [Example request](./snippets/getDocument/example_request.py)
+### [Example request](snippets/getDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/getDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1676,9 +1831,11 @@ print(response)
 
 _HEAD `/{db}/{doc_id}`_
 
-### [Example request](./snippets/headDocument/example_request.py)
+### [Example request](snippets/headDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/headDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1695,9 +1852,11 @@ print(response.get_headers()['ETag'])
 
 _PUT `/{db}/{doc_id}`_
 
-### [Example request](./snippets/putDocument/example_request.py)
+### [Example request](snippets/putDocument/example_request.py)
 
-```python
+[embedmd]:# (snippets/putDocument/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import Document, CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1722,9 +1881,11 @@ print(response)
 
 _DELETE `/{db}/{doc_id}/{attachment_name}`_
 
-### [Example request](./snippets/deleteAttachment/example_request.py)
+### [Example request](snippets/deleteAttachment/example_request.py)
 
-```python
+[embedmd]:# (snippets/deleteAttachment/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1737,17 +1898,19 @@ response = service.delete_attachment(
 ).get_result()
 
 print(response)
+# section: markdown
+# This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 ```
-
-This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 
 ## getAttachment
 
 _GET `/{db}/{doc_id}/{attachment_name}`_
 
-### [Example request](./snippets/getAttachment/example_request.py)
+### [Example request](snippets/getAttachment/example_request.py)
 
-```python
+[embedmd]:# (snippets/getAttachment/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1759,17 +1922,19 @@ response_attachment = service.get_attachment(
 ).get_result().content
 
 print(response_attachment)
+# section: markdown
+# This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 ```
-
-This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 
 ## headAttachment
 
 _HEAD `/{db}/{doc_id}/{attachment_name}`_
 
-### [Example request](./snippets/headAttachment/example_request.py)
+### [Example request](snippets/headAttachment/example_request.py)
 
-```python
+[embedmd]:# (snippets/headAttachment/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
@@ -1782,17 +1947,19 @@ response = service.head_attachment(
 print(response.get_status_code())
 print(response.get_headers()['Content-Length'])
 print(response.get_headers()['Content-Type'])
+# section: markdown
+# This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 ```
-
-This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 
 ## putAttachment
 
 _PUT `/{db}/{doc_id}/{attachment_name}`_
 
-### [Example request](./snippets/putAttachment/example_request.py)
+### [Example request](snippets/putAttachment/example_request.py)
 
-```python
+[embedmd]:# (snippets/putAttachment/example_request.py)
+```py
+# section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
