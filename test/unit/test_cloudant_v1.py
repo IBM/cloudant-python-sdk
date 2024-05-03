@@ -1691,7 +1691,7 @@ class TestPostDocument:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.POST,
             url,
@@ -1788,7 +1788,7 @@ class TestPostDocument:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.POST,
             url,
@@ -1877,7 +1877,7 @@ class TestPostDocument:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.POST,
             url,
@@ -1966,7 +1966,7 @@ class TestPostAllDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_all_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
+        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(
             responses.POST,
             url,
@@ -2049,7 +2049,7 @@ class TestPostAllDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_all_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
+        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(
             responses.POST,
             url,
@@ -2250,7 +2250,7 @@ class TestPostAllDocsQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_all_docs/queries')
-        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
+        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(
             responses.POST,
             url,
@@ -2313,7 +2313,7 @@ class TestPostAllDocsQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_all_docs/queries')
-        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
+        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(
             responses.POST,
             url,
@@ -2504,7 +2504,7 @@ class TestPostBulkDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_bulk_docs')
-        mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}]'
+        mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}]'
         responses.add(
             responses.POST,
             url,
@@ -2595,7 +2595,7 @@ class TestPostBulkDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_bulk_docs')
-        mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}]'
+        mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}]'
         responses.add(
             responses.POST,
             url,
@@ -2684,7 +2684,7 @@ class TestPostBulkGet:
         """
         # Set up mock
         url = preprocess_url('/testString/_bulk_get')
-        mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
+        mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
         responses.add(
             responses.POST,
             url,
@@ -2752,7 +2752,7 @@ class TestPostBulkGet:
         """
         # Set up mock
         url = preprocess_url('/testString/_bulk_get')
-        mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
+        mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
         responses.add(
             responses.POST,
             url,
@@ -2805,7 +2805,7 @@ class TestPostBulkGet:
         """
         # Set up mock
         url = preprocess_url('/testString/_bulk_get')
-        mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
+        mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
         responses.add(
             responses.POST,
             url,
@@ -3384,7 +3384,7 @@ class TestDeleteDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -3435,7 +3435,7 @@ class TestDeleteDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -3475,7 +3475,7 @@ class TestDeleteDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -4172,7 +4172,7 @@ class TestPutDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -4279,7 +4279,7 @@ class TestPutDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -4370,7 +4370,7 @@ class TestPutDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -4618,7 +4618,7 @@ class TestDeleteDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -4669,7 +4669,7 @@ class TestDeleteDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -4709,7 +4709,7 @@ class TestDeleteDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -4914,7 +4914,7 @@ class TestPutDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -5044,7 +5044,7 @@ class TestPutDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -5160,7 +5160,7 @@ class TestPutDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -5359,7 +5359,7 @@ class TestPostDesignDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_design_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
+        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(
             responses.POST,
             url,
@@ -5383,7 +5383,6 @@ class TestPostDesignDocs:
         key = 'testString'
         keys = ['testString']
         start_key = '0007741142412418284'
-        accept = 'application/json'
 
         # Invoke method
         response = _service.post_design_docs(
@@ -5401,7 +5400,6 @@ class TestPostDesignDocs:
             key=key,
             keys=keys,
             start_key=start_key,
-            accept=accept,
             headers={},
         )
 
@@ -5438,96 +5436,13 @@ class TestPostDesignDocs:
         self.test_post_design_docs_all_params()
 
     @responses.activate
-    def test_post_design_docs_required_params(self):
-        """
-        test_post_design_docs_required_params()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_design_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
-        responses.add(
-            responses.POST,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Set up parameter values
-        db = 'testString'
-        att_encoding_info = False
-        attachments = False
-        conflicts = False
-        descending = False
-        include_docs = False
-        inclusive_end = True
-        limit = 10
-        skip = 0
-        update_seq = False
-        end_key = 'testString'
-        key = 'testString'
-        keys = ['testString']
-        start_key = '0007741142412418284'
-
-        # Invoke method
-        response = _service.post_design_docs(
-            db,
-            att_encoding_info=att_encoding_info,
-            attachments=attachments,
-            conflicts=conflicts,
-            descending=descending,
-            include_docs=include_docs,
-            inclusive_end=inclusive_end,
-            limit=limit,
-            skip=skip,
-            update_seq=update_seq,
-            end_key=end_key,
-            key=key,
-            keys=keys,
-            start_key=start_key,
-            headers={},
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-        # Decompress gzip compressed request body.
-        raw_body = responses.calls[0].request.body
-        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
-
-        # Validate body params
-        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['att_encoding_info'] == False
-        assert req_body['attachments'] == False
-        assert req_body['conflicts'] == False
-        assert req_body['descending'] == False
-        assert req_body['include_docs'] == False
-        assert req_body['inclusive_end'] == True
-        assert req_body['limit'] == 10
-        assert req_body['skip'] == 0
-        assert req_body['update_seq'] == False
-        assert req_body['end_key'] == 'testString'
-        assert req_body['key'] == 'testString'
-        assert req_body['keys'] == ['testString']
-        assert req_body['start_key'] == '0007741142412418284'
-
-    def test_post_design_docs_required_params_with_retries(self):
-        # Enable retries and run test_post_design_docs_required_params.
-        _service.enable_retries()
-        self.test_post_design_docs_required_params()
-
-        # Disable retries and run test_post_design_docs_required_params.
-        _service.disable_retries()
-        self.test_post_design_docs_required_params()
-
-    @responses.activate
     def test_post_design_docs_value_error(self):
         """
         test_post_design_docs_value_error()
         """
         # Set up mock
         url = preprocess_url('/testString/_design_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
+        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(
             responses.POST,
             url,
@@ -5583,7 +5498,7 @@ class TestPostDesignDocsQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_design_docs/queries')
-        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
+        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(
             responses.POST,
             url,
@@ -5648,7 +5563,7 @@ class TestPostDesignDocsQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_design_docs/queries')
-        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
+        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(
             responses.POST,
             url,
@@ -5711,7 +5626,7 @@ class TestPostDesignDocsQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_design_docs/queries')
-        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
+        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(
             responses.POST,
             url,
@@ -5811,7 +5726,7 @@ class TestPostView:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(
             responses.POST,
             url,
@@ -5919,7 +5834,7 @@ class TestPostView:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(
             responses.POST,
             url,
@@ -6167,7 +6082,7 @@ class TestPostViewQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_view/testString/queries')
-        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}]}'
+        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}]}'
         responses.add(
             responses.POST,
             url,
@@ -6241,7 +6156,7 @@ class TestPostViewQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_view/testString/queries')
-        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}]}'
+        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}]}'
         responses.add(
             responses.POST,
             url,
@@ -6589,7 +6504,7 @@ class TestPostPartitionAllDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_all_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
+        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(
             responses.POST,
             url,
@@ -6674,7 +6589,7 @@ class TestPostPartitionAllDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_all_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
+        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(
             responses.POST,
             url,
@@ -6895,7 +6810,7 @@ class TestPostPartitionSearch:
         partition_key = 'testString'
         ddoc = 'testString'
         index = 'testString'
-        query = 'testString'
+        query = 'name:Jane* AND active:True'
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
@@ -6938,7 +6853,7 @@ class TestPostPartitionSearch:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['query'] == 'testString'
+        assert req_body['query'] == 'name:Jane* AND active:True'
         assert req_body['bookmark'] == 'testString'
         assert req_body['highlight_fields'] == ['testString']
         assert req_body['highlight_number'] == 1
@@ -6981,7 +6896,7 @@ class TestPostPartitionSearch:
         partition_key = 'testString'
         ddoc = 'testString'
         index = 'testString'
-        query = 'testString'
+        query = 'name:Jane* AND active:True'
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
@@ -7043,7 +6958,7 @@ class TestPostPartitionSearchAsStream:
         partition_key = 'testString'
         ddoc = 'testString'
         index = 'testString'
-        query = 'testString'
+        query = 'name:Jane* AND active:True'
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
@@ -7086,7 +7001,7 @@ class TestPostPartitionSearchAsStream:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['query'] == 'testString'
+        assert req_body['query'] == 'name:Jane* AND active:True'
         assert req_body['bookmark'] == 'testString'
         assert req_body['highlight_fields'] == ['testString']
         assert req_body['highlight_number'] == 1
@@ -7135,7 +7050,7 @@ class TestPostPartitionSearchAsStream:
         partition_key = 'testString'
         ddoc = 'testString'
         index = 'testString'
-        query = 'testString'
+        query = 'name:Jane* AND active:True'
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
@@ -7183,7 +7098,7 @@ class TestPostPartitionView:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(
             responses.POST,
             url,
@@ -7290,7 +7205,7 @@ class TestPostPartitionView:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(
             responses.POST,
             url,
@@ -8881,7 +8796,7 @@ class TestPostSearch:
         db = 'testString'
         ddoc = 'testString'
         index = 'testString'
-        query = 'testString'
+        query = 'name:Jane* AND active:True'
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
@@ -8935,7 +8850,7 @@ class TestPostSearch:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['query'] == 'testString'
+        assert req_body['query'] == 'name:Jane* AND active:True'
         assert req_body['bookmark'] == 'testString'
         assert req_body['highlight_fields'] == ['testString']
         assert req_body['highlight_number'] == 1
@@ -8983,7 +8898,7 @@ class TestPostSearch:
         db = 'testString'
         ddoc = 'testString'
         index = 'testString'
-        query = 'testString'
+        query = 'name:Jane* AND active:True'
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
@@ -9049,7 +8964,7 @@ class TestPostSearchAsStream:
         db = 'testString'
         ddoc = 'testString'
         index = 'testString'
-        query = 'testString'
+        query = 'name:Jane* AND active:True'
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
@@ -9103,7 +9018,7 @@ class TestPostSearchAsStream:
 
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['query'] == 'testString'
+        assert req_body['query'] == 'name:Jane* AND active:True'
         assert req_body['bookmark'] == 'testString'
         assert req_body['highlight_fields'] == ['testString']
         assert req_body['highlight_number'] == 1
@@ -9157,7 +9072,7 @@ class TestPostSearchAsStream:
         db = 'testString'
         ddoc = 'testString'
         index = 'testString'
-        query = 'testString'
+        query = 'name:Jane* AND active:True'
         bookmark = 'testString'
         highlight_fields = ['testString']
         highlight_number = 1
@@ -9600,7 +9515,7 @@ class TestDeleteReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -9649,7 +9564,7 @@ class TestDeleteReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -9687,7 +9602,7 @@ class TestDeleteReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -9884,7 +9799,7 @@ class TestPutReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -9945,7 +9860,7 @@ class TestPutReplicationDocument:
         user_context_model = {}
         user_context_model['db'] = 'testString'
         user_context_model['name'] = 'john'
-        user_context_model['roles'] = ['researcher']
+        user_context_model['roles'] = ['_replicator']
 
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {}
@@ -10036,7 +9951,7 @@ class TestPutReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -10097,7 +10012,7 @@ class TestPutReplicationDocument:
         user_context_model = {}
         user_context_model['db'] = 'testString'
         user_context_model['name'] = 'john'
-        user_context_model['roles'] = ['researcher']
+        user_context_model['roles'] = ['_replicator']
 
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {}
@@ -10174,7 +10089,7 @@ class TestPutReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -10235,7 +10150,7 @@ class TestPutReplicationDocument:
         user_context_model = {}
         user_context_model['db'] = 'testString'
         user_context_model['name'] = 'john'
-        user_context_model['roles'] = ['researcher']
+        user_context_model['roles'] = ['_replicator']
 
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {}
@@ -11447,7 +11362,7 @@ class TestDeleteAttachment:
         """
         # Set up mock
         url = preprocess_url('/testString/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -11500,7 +11415,7 @@ class TestDeleteAttachment:
         """
         # Set up mock
         url = preprocess_url('/testString/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -11542,7 +11457,7 @@ class TestDeleteAttachment:
         """
         # Set up mock
         url = preprocess_url('/testString/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -11732,7 +11647,7 @@ class TestPutAttachment:
         """
         # Set up mock
         url = preprocess_url('/testString/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -11791,7 +11706,7 @@ class TestPutAttachment:
         """
         # Set up mock
         url = preprocess_url('/testString/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -11842,7 +11757,7 @@ class TestPutAttachment:
         """
         # Set up mock
         url = preprocess_url('/testString/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -12050,7 +11965,7 @@ class TestDeleteLocalDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_local/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -12096,7 +12011,7 @@ class TestDeleteLocalDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_local/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -12136,7 +12051,7 @@ class TestDeleteLocalDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_local/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.DELETE,
             url,
@@ -12322,7 +12237,7 @@ class TestPutLocalDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_local/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -12421,7 +12336,7 @@ class TestPutLocalDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_local/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -12512,7 +12427,7 @@ class TestPutLocalDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_local/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason"}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
         responses.add(
             responses.PUT,
             url,
@@ -13358,6 +13273,7 @@ class TestModel_AllDocsQueriesResult:
         docs_result_row_model['caused_by'] = 'testString'
         docs_result_row_model['error'] = 'testString'
         docs_result_row_model['reason'] = 'testString'
+        docs_result_row_model['ref'] = 26
         docs_result_row_model['doc'] = document_model
         docs_result_row_model['id'] = 'testString'
         docs_result_row_model['key'] = 'testString'
@@ -13481,6 +13397,7 @@ class TestModel_AllDocsResult:
         docs_result_row_model['caused_by'] = 'testString'
         docs_result_row_model['error'] = 'testString'
         docs_result_row_model['reason'] = 'testString'
+        docs_result_row_model['ref'] = 26
         docs_result_row_model['doc'] = document_model
         docs_result_row_model['id'] = 'testString'
         docs_result_row_model['key'] = 'testString'
@@ -13762,6 +13679,7 @@ class TestModel_BulkGetResult:
         document_result_model['caused_by'] = 'testString'
         document_result_model['error'] = 'testString'
         document_result_model['reason'] = 'testString'
+        document_result_model['ref'] = 26
 
         attachment_model = {}  # Attachment
         attachment_model['content_type'] = 'testString'
@@ -13841,6 +13759,7 @@ class TestModel_BulkGetResultDocument:
         document_result_model['caused_by'] = 'testString'
         document_result_model['error'] = 'testString'
         document_result_model['reason'] = 'testString'
+        document_result_model['ref'] = 26
 
         attachment_model = {}  # Attachment
         attachment_model['content_type'] = 'testString'
@@ -13913,6 +13832,7 @@ class TestModel_BulkGetResultItem:
         document_result_model['caused_by'] = 'testString'
         document_result_model['error'] = 'testString'
         document_result_model['reason'] = 'testString'
+        document_result_model['ref'] = 26
 
         attachment_model = {}  # Attachment
         attachment_model['content_type'] = 'testString'
@@ -14987,6 +14907,7 @@ class TestModel_DocsResultRow:
         docs_result_row_model_json['caused_by'] = 'testString'
         docs_result_row_model_json['error'] = 'testString'
         docs_result_row_model_json['reason'] = 'testString'
+        docs_result_row_model_json['ref'] = 26
         docs_result_row_model_json['doc'] = document_model
         docs_result_row_model_json['id'] = 'testString'
         docs_result_row_model_json['key'] = 'testString'
@@ -15127,6 +15048,7 @@ class TestModel_DocumentResult:
         document_result_model_json['caused_by'] = 'testString'
         document_result_model_json['error'] = 'testString'
         document_result_model_json['reason'] = 'testString'
+        document_result_model_json['ref'] = 26
 
         # Construct a model instance of DocumentResult by calling from_dict on the json representation
         document_result_model = DocumentResult.from_dict(document_result_model_json)
@@ -17728,6 +17650,7 @@ class TestModel_ViewQueriesResult:
         view_result_row_model['caused_by'] = 'testString'
         view_result_row_model['error'] = 'testString'
         view_result_row_model['reason'] = 'testString'
+        view_result_row_model['ref'] = 26
         view_result_row_model['doc'] = document_model
         view_result_row_model['id'] = 'testString'
         view_result_row_model['key'] = 'testString'
@@ -17854,6 +17777,7 @@ class TestModel_ViewResult:
         view_result_row_model['caused_by'] = 'testString'
         view_result_row_model['error'] = 'testString'
         view_result_row_model['reason'] = 'testString'
+        view_result_row_model['ref'] = 26
         view_result_row_model['doc'] = document_model
         view_result_row_model['id'] = 'testString'
         view_result_row_model['key'] = 'testString'
@@ -17929,6 +17853,7 @@ class TestModel_ViewResultRow:
         view_result_row_model_json['caused_by'] = 'testString'
         view_result_row_model_json['error'] = 'testString'
         view_result_row_model_json['reason'] = 'testString'
+        view_result_row_model_json['ref'] = 26
         view_result_row_model_json['doc'] = document_model
         view_result_row_model_json['id'] = 'testString'
         view_result_row_model_json['key'] = 'testString'
