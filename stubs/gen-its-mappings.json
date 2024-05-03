@@ -1449,7 +1449,7 @@
       "method": "POST",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"query\": \"testString\"}",
+          "equalToJson": "{\"query\": \"name:Jane* AND active:True\"}",
           "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }
@@ -2058,7 +2058,7 @@
       "method": "POST",
       "bodyPatterns": [
         {
-          "equalToJson": "{\"query\": \"testString\"}",
+          "equalToJson": "{\"query\": \"name:Jane* AND active:True\"}",
           "ignoreArrayOrder": false,
           "ignoreExtraElements": true
         }

@@ -884,6 +884,8 @@ class CloudantV1(BaseService):
         """
         Query a list of all database names in the instance.
 
+        Query to retrieve a list of database names from the instance.
+
         :param bool descending: (optional) Query parameter to specify whether to
                return the documents in descending by key order.
         :param str end_key: (optional) Query parameter to specify to stop returning
@@ -1040,6 +1042,8 @@ class CloudantV1(BaseService):
         """
         Retrieve information about a database.
 
+        Retrieve detailed information about the database.
+
         :param str db: Path parameter to specify the database name.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
@@ -1084,6 +1088,8 @@ class CloudantV1(BaseService):
     ) -> DetailedResponse:
         """
         Create a database.
+
+        Create a new database with the requested properties.
 
         :param str db: Path parameter to specify the database name.
         :param bool partitioned: (optional) Query parameter to specify whether to
@@ -1159,8 +1165,8 @@ class CloudantV1(BaseService):
 
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
-        :param str if_none_match: (optional) Header parameter to specify a double
-               quoted document revision token for cache control.
+        :param str if_none_match: (optional) Header parameter for a conditional
+               HTTP request not matching an ETag.
         :param bool latest: (optional) Query parameter to specify whether to force
                retrieving latest leaf revision, no matter what rev was requested.
         :param str rev: (optional) Query parameter to specify a document revision.
@@ -2036,8 +2042,8 @@ class CloudantV1(BaseService):
 
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
-        :param str if_match: (optional) Header parameter to specify the document
-               revision. Alternative to rev query parameter.
+        :param str if_match: (optional) Header parameter for a conditional HTTP
+               request matching an ETag.
         :param str batch: (optional) Query parameter to specify whether to store in
                batch mode. The server will respond with a HTTP 202 Accepted response code
                immediately.
@@ -2112,8 +2118,8 @@ class CloudantV1(BaseService):
 
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
-        :param str if_none_match: (optional) Header parameter to specify a double
-               quoted document revision token for cache control.
+        :param str if_none_match: (optional) Header parameter for a conditional
+               HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
                include attachments bodies in a response.
         :param bool att_encoding_info: (optional) Query parameter to specify
@@ -2215,8 +2221,8 @@ class CloudantV1(BaseService):
 
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
-        :param str if_none_match: (optional) Header parameter to specify a double
-               quoted document revision token for cache control.
+        :param str if_none_match: (optional) Header parameter for a conditional
+               HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
                include attachments bodies in a response.
         :param bool att_encoding_info: (optional) Query parameter to specify
@@ -2318,8 +2324,8 @@ class CloudantV1(BaseService):
 
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
-        :param str if_none_match: (optional) Header parameter to specify a double
-               quoted document revision token for cache control.
+        :param str if_none_match: (optional) Header parameter for a conditional
+               HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
                include attachments bodies in a response.
         :param bool att_encoding_info: (optional) Query parameter to specify
@@ -2421,8 +2427,8 @@ class CloudantV1(BaseService):
 
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
-        :param str if_none_match: (optional) Header parameter to specify a double
-               quoted document revision token for cache control.
+        :param str if_none_match: (optional) Header parameter for a conditional
+               HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
                include attachments bodies in a response.
         :param bool att_encoding_info: (optional) Query parameter to specify
@@ -2522,8 +2528,8 @@ class CloudantV1(BaseService):
         :param str doc_id: Path parameter to specify the document ID.
         :param Document document: HTTP request body for Document operations.
         :param str content_type: (optional) The type of the input.
-        :param str if_match: (optional) Header parameter to specify the document
-               revision. Alternative to rev query parameter.
+        :param str if_match: (optional) Header parameter for a conditional HTTP
+               request matching an ETag.
         :param str batch: (optional) Query parameter to specify whether to store in
                batch mode. The server will respond with a HTTP 202 Accepted response code
                immediately.
@@ -2618,8 +2624,8 @@ class CloudantV1(BaseService):
         :param str ddoc: Path parameter to specify the design document name. The
                design document name is the design document ID excluding the `_design/`
                prefix.
-        :param str if_none_match: (optional) Header parameter to specify a double
-               quoted document revision token for cache control.
+        :param str if_none_match: (optional) Header parameter for a conditional
+               HTTP request not matching an ETag.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse
@@ -2679,8 +2685,8 @@ class CloudantV1(BaseService):
         :param str ddoc: Path parameter to specify the design document name. The
                design document name is the design document ID excluding the `_design/`
                prefix.
-        :param str if_match: (optional) Header parameter to specify the document
-               revision. Alternative to rev query parameter.
+        :param str if_match: (optional) Header parameter for a conditional HTTP
+               request matching an ETag.
         :param str batch: (optional) Query parameter to specify whether to store in
                batch mode. The server will respond with a HTTP 202 Accepted response code
                immediately.
@@ -2757,8 +2763,8 @@ class CloudantV1(BaseService):
         :param str ddoc: Path parameter to specify the design document name. The
                design document name is the design document ID excluding the `_design/`
                prefix.
-        :param str if_none_match: (optional) Header parameter to specify a double
-               quoted document revision token for cache control.
+        :param str if_none_match: (optional) Header parameter for a conditional
+               HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
                include attachments bodies in a response.
         :param bool att_encoding_info: (optional) Query parameter to specify
@@ -2857,8 +2863,8 @@ class CloudantV1(BaseService):
                prefix.
         :param DesignDocument design_document: HTTP request body for DesignDocument
                operations.
-        :param str if_match: (optional) Header parameter to specify the document
-               revision. Alternative to rev query parameter.
+        :param str if_match: (optional) Header parameter for a conditional HTTP
+               request matching an ETag.
         :param str batch: (optional) Query parameter to specify whether to store in
                batch mode. The server will respond with a HTTP 202 Accepted response code
                immediately.
@@ -2989,7 +2995,6 @@ class CloudantV1(BaseService):
         key: Optional[str] = None,
         keys: Optional[List[str]] = None,
         start_key: Optional[str] = None,
-        accept: Optional[str] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -3028,8 +3033,6 @@ class CloudantV1(BaseService):
         :param str key: (optional) Schema for a document ID.
         :param List[str] keys: (optional) Schema for a list of document IDs.
         :param str start_key: (optional) Schema for a document ID.
-        :param str accept: (optional) The type of the response: application/json or
-               application/octet-stream.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `AllDocsResult` object
@@ -3037,9 +3040,7 @@ class CloudantV1(BaseService):
 
         if not db:
             raise ValueError('db must be provided')
-        headers = {
-            'Accept': accept,
-        }
+        headers = {}
         sdk_headers = get_sdk_headers(
             service_name=self.DEFAULT_SERVICE_NAME,
             service_version='V1',
@@ -3069,6 +3070,7 @@ class CloudantV1(BaseService):
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
             del kwargs['headers']
+        headers['Accept'] = 'application/json'
 
         path_param_keys = ['db']
         path_param_values = self.encode_path_vars(db)
@@ -5566,6 +5568,8 @@ class CloudantV1(BaseService):
         """
         Delete an index.
 
+        Delete the index functions from the design document and index files on the server.
+
         :param str db: Path parameter to specify the database name.
         :param str ddoc: Path parameter to specify the design document name. The
                design document name is the design document ID excluding the `_design/`
@@ -6085,8 +6089,8 @@ class CloudantV1(BaseService):
         only headers like content length and the revision (ETag header) are returned.
 
         :param str doc_id: Path parameter to specify the document ID.
-        :param str if_none_match: (optional) Header parameter to specify a double
-               quoted document revision token for cache control.
+        :param str if_none_match: (optional) Header parameter for a conditional
+               HTTP request not matching an ETag.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse
@@ -6227,8 +6231,8 @@ class CloudantV1(BaseService):
         `_replicator` database.
 
         :param str doc_id: Path parameter to specify the document ID.
-        :param str if_match: (optional) Header parameter to specify the document
-               revision. Alternative to rev query parameter.
+        :param str if_match: (optional) Header parameter for a conditional HTTP
+               request matching an ETag.
         :param str batch: (optional) Query parameter to specify whether to store in
                batch mode. The server will respond with a HTTP 202 Accepted response code
                immediately.
@@ -6299,8 +6303,8 @@ class CloudantV1(BaseService):
         recorded in the document but can be checked via the replication scheduler.
 
         :param str doc_id: Path parameter to specify the document ID.
-        :param str if_none_match: (optional) Header parameter to specify a double
-               quoted document revision token for cache control.
+        :param str if_none_match: (optional) Header parameter for a conditional
+               HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
                include attachments bodies in a response.
         :param bool att_encoding_info: (optional) Query parameter to specify
@@ -6393,8 +6397,8 @@ class CloudantV1(BaseService):
         :param str doc_id: Path parameter to specify the document ID.
         :param ReplicationDocument replication_document: HTTP request body for
                replication operations.
-        :param str if_match: (optional) Header parameter to specify the document
-               revision. Alternative to rev query parameter.
+        :param str if_match: (optional) Header parameter for a conditional HTTP
+               request matching an ETag.
         :param str batch: (optional) Query parameter to specify whether to store in
                batch mode. The server will respond with a HTTP 202 Accepted response code
                immediately.
@@ -7081,10 +7085,10 @@ class CloudantV1(BaseService):
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
         :param str attachment_name: Path parameter to specify the attachment name.
-        :param str if_match: (optional) Header parameter to specify the document
-               revision. Alternative to rev query parameter.
-        :param str if_none_match: (optional) Header parameter to specify a double
-               quoted document revision token for cache control.
+        :param str if_match: (optional) Header parameter for a conditional HTTP
+               request matching an ETag.
+        :param str if_none_match: (optional) Header parameter for a conditional
+               HTTP request not matching an ETag.
         :param str rev: (optional) Query parameter to specify a document revision.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
@@ -7151,8 +7155,8 @@ class CloudantV1(BaseService):
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
         :param str attachment_name: Path parameter to specify the attachment name.
-        :param str if_match: (optional) Header parameter to specify the document
-               revision. Alternative to rev query parameter.
+        :param str if_match: (optional) Header parameter for a conditional HTTP
+               request matching an ETag.
         :param str rev: (optional) Query parameter to specify a document revision.
         :param str batch: (optional) Query parameter to specify whether to store in
                batch mode. The server will respond with a HTTP 202 Accepted response code
@@ -7225,10 +7229,10 @@ class CloudantV1(BaseService):
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
         :param str attachment_name: Path parameter to specify the attachment name.
-        :param str if_match: (optional) Header parameter to specify the document
-               revision. Alternative to rev query parameter.
-        :param str if_none_match: (optional) Header parameter to specify a double
-               quoted document revision token for cache control.
+        :param str if_match: (optional) Header parameter for a conditional HTTP
+               request matching an ETag.
+        :param str if_none_match: (optional) Header parameter for a conditional
+               HTTP request not matching an ETag.
         :param str range: (optional) Header parameter to specify the byte range for
                a request. This allows the implementation of resumable downloads and
                skippable streams. This is available for all attachments inside CouchDB.
@@ -7309,8 +7313,8 @@ class CloudantV1(BaseService):
         :param str attachment_name: Path parameter to specify the attachment name.
         :param BinaryIO attachment: HTTP request body for attachment operations.
         :param str content_type: Content-Type of the attachment.
-        :param str if_match: (optional) Header parameter to specify the document
-               revision. Alternative to rev query parameter.
+        :param str if_match: (optional) Header parameter for a conditional HTTP
+               request matching an ETag.
         :param str rev: (optional) Query parameter to specify a document revision.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
@@ -7385,8 +7389,8 @@ class CloudantV1(BaseService):
 
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
-        :param str if_none_match: (optional) Header parameter to specify a double
-               quoted document revision token for cache control.
+        :param str if_none_match: (optional) Header parameter for a conditional
+               HTTP request not matching an ETag.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse
@@ -7506,8 +7510,8 @@ class CloudantV1(BaseService):
         :param str doc_id: Path parameter to specify the document ID.
         :param str accept: (optional) The type of the response: application/json,
                multipart/mixed, multipart/related, or application/octet-stream.
-        :param str if_none_match: (optional) Header parameter to specify a double
-               quoted document revision token for cache control.
+        :param str if_none_match: (optional) Header parameter for a conditional
+               HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
                include attachments bodies in a response.
         :param bool att_encoding_info: (optional) Query parameter to specify
@@ -8174,20 +8178,6 @@ class PutDesignDocumentEnums:
         """
 
         OK = 'ok'
-
-
-class PostDesignDocsEnums:
-    """
-    Enums for post_design_docs parameters.
-    """
-
-    class Accept(str, Enum):
-        """
-        The type of the response: application/json or application/octet-stream.
-        """
-
-        APPLICATION_JSON = 'application/json'
-        APPLICATION_OCTET_STREAM = 'application/octet-stream'
 
 
 class PostDesignDocsQueriesEnums:
@@ -12183,6 +12173,7 @@ class DocsResultRow:
     :param str caused_by: (optional) The cause of the error (if available).
     :param str error: (optional) The name of the error.
     :param str reason: (optional) The reason the error occurred (if available).
+    :param int ref: (optional) An internal error reference (if available).
     :param Document doc: (optional) Schema for a document.
     :param str id: (optional) id.
     :param str key: Document ID.
@@ -12197,6 +12188,7 @@ class DocsResultRow:
         caused_by: Optional[str] = None,
         error: Optional[str] = None,
         reason: Optional[str] = None,
+        ref: Optional[int] = None,
         doc: Optional['Document'] = None,
         id: Optional[str] = None,
         value: Optional['DocsResultRowValue'] = None,
@@ -12208,6 +12200,7 @@ class DocsResultRow:
         :param str caused_by: (optional) The cause of the error (if available).
         :param str error: (optional) The name of the error.
         :param str reason: (optional) The reason the error occurred (if available).
+        :param int ref: (optional) An internal error reference (if available).
         :param Document doc: (optional) Schema for a document.
         :param str id: (optional) id.
         :param DocsResultRowValue value: (optional) Value of built-in `/_all_docs`
@@ -12216,6 +12209,7 @@ class DocsResultRow:
         self.caused_by = caused_by
         self.error = error
         self.reason = reason
+        self.ref = ref
         self.doc = doc
         self.id = id
         self.key = key
@@ -12231,6 +12225,8 @@ class DocsResultRow:
             args['error'] = error
         if (reason := _dict.get('reason')) is not None:
             args['reason'] = reason
+        if (ref := _dict.get('ref')) is not None:
+            args['ref'] = ref
         if (doc := _dict.get('doc')) is not None:
             args['doc'] = Document.from_dict(doc)
         if (id := _dict.get('id')) is not None:
@@ -12257,6 +12253,8 @@ class DocsResultRow:
             _dict['error'] = self.error
         if hasattr(self, 'reason') and self.reason is not None:
             _dict['reason'] = self.reason
+        if hasattr(self, 'ref') and self.ref is not None:
+            _dict['ref'] = self.ref
         if hasattr(self, 'doc') and self.doc is not None:
             if isinstance(self.doc, dict):
                 _dict['doc'] = self.doc
@@ -12549,6 +12547,7 @@ class DocumentResult:
     :param str caused_by: (optional) The cause of the error (if available).
     :param str error: (optional) The name of the error.
     :param str reason: (optional) The reason the error occurred (if available).
+    :param int ref: (optional) An internal error reference (if available).
     """
 
     def __init__(
@@ -12560,6 +12559,7 @@ class DocumentResult:
         caused_by: Optional[str] = None,
         error: Optional[str] = None,
         reason: Optional[str] = None,
+        ref: Optional[int] = None,
     ) -> None:
         """
         Initialize a DocumentResult object.
@@ -12570,6 +12570,7 @@ class DocumentResult:
         :param str caused_by: (optional) The cause of the error (if available).
         :param str error: (optional) The name of the error.
         :param str reason: (optional) The reason the error occurred (if available).
+        :param int ref: (optional) An internal error reference (if available).
         """
         self.id = id
         self.rev = rev
@@ -12577,6 +12578,7 @@ class DocumentResult:
         self.caused_by = caused_by
         self.error = error
         self.reason = reason
+        self.ref = ref
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'DocumentResult':
@@ -12596,6 +12598,8 @@ class DocumentResult:
             args['error'] = error
         if (reason := _dict.get('reason')) is not None:
             args['reason'] = reason
+        if (ref := _dict.get('ref')) is not None:
+            args['ref'] = ref
         return cls(**args)
 
     @classmethod
@@ -12618,6 +12622,8 @@ class DocumentResult:
             _dict['error'] = self.error
         if hasattr(self, 'reason') and self.reason is not None:
             _dict['reason'] = self.reason
+        if hasattr(self, 'ref') and self.ref is not None:
+            _dict['ref'] = self.ref
         return _dict
 
     def _to_dict(self):
@@ -18416,20 +18422,21 @@ class UpInformation:
     """
     Schema for information about the up state of the server.
 
-    :param dict seeds: seeds.
+    :param dict seeds: (optional) seeds.
     :param str status: status.
     """
 
     def __init__(
         self,
-        seeds: dict,
         status: str,
+        *,
+        seeds: Optional[dict] = None,
     ) -> None:
         """
         Initialize a UpInformation object.
 
-        :param dict seeds: seeds.
         :param str status: status.
+        :param dict seeds: (optional) seeds.
         """
         self.seeds = seeds
         self.status = status
@@ -18440,8 +18447,6 @@ class UpInformation:
         args = {}
         if (seeds := _dict.get('seeds')) is not None:
             args['seeds'] = seeds
-        else:
-            raise ValueError('Required property \'seeds\' not present in UpInformation JSON')
         if (status := _dict.get('status')) is not None:
             args['status'] = status
         else:
@@ -19184,6 +19189,7 @@ class ViewResultRow:
     :param str caused_by: (optional) The cause of the error (if available).
     :param str error: (optional) The name of the error.
     :param str reason: (optional) The reason the error occurred (if available).
+    :param int ref: (optional) An internal error reference (if available).
     :param Document doc: (optional) Schema for a document.
     :param str id: (optional) Schema for a document ID.
     :param object key: Schema for any JSON type.
@@ -19198,6 +19204,7 @@ class ViewResultRow:
         caused_by: Optional[str] = None,
         error: Optional[str] = None,
         reason: Optional[str] = None,
+        ref: Optional[int] = None,
         doc: Optional['Document'] = None,
         id: Optional[str] = None,
     ) -> None:
@@ -19209,12 +19216,14 @@ class ViewResultRow:
         :param str caused_by: (optional) The cause of the error (if available).
         :param str error: (optional) The name of the error.
         :param str reason: (optional) The reason the error occurred (if available).
+        :param int ref: (optional) An internal error reference (if available).
         :param Document doc: (optional) Schema for a document.
         :param str id: (optional) Schema for a document ID.
         """
         self.caused_by = caused_by
         self.error = error
         self.reason = reason
+        self.ref = ref
         self.doc = doc
         self.id = id
         self.key = key
@@ -19230,6 +19239,8 @@ class ViewResultRow:
             args['error'] = error
         if (reason := _dict.get('reason')) is not None:
             args['reason'] = reason
+        if (ref := _dict.get('ref')) is not None:
+            args['ref'] = ref
         if (doc := _dict.get('doc')) is not None:
             args['doc'] = Document.from_dict(doc)
         if (id := _dict.get('id')) is not None:
@@ -19258,6 +19269,8 @@ class ViewResultRow:
             _dict['error'] = self.error
         if hasattr(self, 'reason') and self.reason is not None:
             _dict['reason'] = self.reason
+        if hasattr(self, 'ref') and self.ref is not None:
+            _dict['ref'] = self.ref
         if hasattr(self, 'doc') and self.doc is not None:
             if isinstance(self.doc, dict):
                 _dict['doc'] = self.doc

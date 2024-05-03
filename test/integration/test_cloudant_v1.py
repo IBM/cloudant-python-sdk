@@ -831,7 +831,6 @@ class TestCloudantV1:
             key='testString',
             keys=['testString'],
             start_key='0007741142412418284',
-            accept='application/json',
         )
 
         assert response.get_status_code() == 200
@@ -1071,7 +1070,7 @@ class TestCloudantV1:
             partition_key='testString',
             ddoc='testString',
             index='testString',
-            query='testString',
+            query='name:Jane* AND active:True',
             bookmark='testString',
             highlight_fields=['testString'],
             highlight_number=1,
@@ -1096,7 +1095,7 @@ class TestCloudantV1:
             partition_key='testString',
             ddoc='testString',
             index='testString',
-            query='testString',
+            query='name:Jane* AND active:True',
             bookmark='testString',
             highlight_fields=['testString'],
             highlight_number=1,
@@ -1377,7 +1376,7 @@ class TestCloudantV1:
             db='testString',
             ddoc='testString',
             index='testString',
-            query='testString',
+            query='name:Jane* AND active:True',
             bookmark='testString',
             highlight_fields=['testString'],
             highlight_number=1,
@@ -1407,7 +1406,7 @@ class TestCloudantV1:
             db='testString',
             ddoc='testString',
             index='testString',
-            query='testString',
+            query='name:Jane* AND active:True',
             bookmark='testString',
             highlight_fields=['testString'],
             highlight_number=1,
@@ -1543,7 +1542,7 @@ class TestCloudantV1:
         user_context_model = {
             'db': 'testString',
             'name': 'john',
-            'roles': ['researcher'],
+            'roles': ['_replicator'],
         }
         # Construct a dict representation of a ReplicationDocument model
         replication_document_model = {
