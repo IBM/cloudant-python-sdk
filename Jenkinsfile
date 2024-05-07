@@ -192,7 +192,7 @@ def scanCode
 void defaultInit() {
   // Default to using bump2version
   bumpVersion = { isDevRelease ->
-    newVersion = getNewVersion(isDevRelease, true)
+    newVersion = getNewVersion(isDevRelease)
     // Set an env var with the new version
     env.NEW_SDK_VERSION = newVersion
     doVersionBump(isDevRelease, newVersion)
@@ -202,9 +202,9 @@ void defaultInit() {
     sh "bump2version --new-version ${newVersion} ${allowDirty ? '--allow-dirty': ''} ${isDevRelease ? '--no-commit' : '--tag --tag-message "Release {new_version}"'} patch"
   }
 
-  getNewVersion = { isDevRelease, includeBuildMeta ->
+  getNewVersion = { isDevRelease ->
     // Get a staging or target version and customize with lang specific requirements
-    return customizeVersion(isDevRelease ? getDevVersion(includeBuildMeta) : getTargetVersion())
+    return customizeVersion(isDevRelease ? getDevVersion() : getTargetVersion())
   }
 
   getTargetVersion = {
@@ -218,19 +218,20 @@ void defaultInit() {
     return version.trim()
   }
 
-  getDevVersion = { includeBuildMeta ->
+  getDevVersion = {
     devVersion = getTargetVersion()
     if (devVersion ==~ /${env.SVRE_RELEASE}/) {
-      // For a release (e.g. 1.0.0) make a -dev pre-release (e.g. 1.0.0-devTS)
-      devVersion += "-dev${currentBuild.startTimeInMillis}"
+      // For a release (e.g. 1.0.0) use a hyphen separator (e.g. 1.0.0-dev)
+      devVersion += "-"
     } else if (devVersion ==~ /${env.SVRE_PRE_RELEASE}/) {
-      // For a pre-release (e.g. 1.0.0-b7), add .dev identifier (e.g. 1.0.0-b7.devTS)
-      devVersion += ".dev${currentBuild.startTimeInMillis}"
+      // For a pre-release (e.g. 1.0.0-b7), add dot separator (e.g. 1.0.0-b7.dev)
+      devVersion += "."
     }
-    if (includeBuildMeta) {
-      // Add uniqueness and build metadata when requested to dev build versions
-      devVersion += "+${commitHash}.${currentBuild.number}"
-    }
+    // Now add dev identifier (a number is required by some package managers)
+    devVersion += "dev0"
+    // Add uniqueness with build metadata to dev build versions
+    devVersion += "+git${commitHash}.${currentBuild.startTimeInMillis}.${currentBuild.number}"
+
     return devVersion
   }
 
