@@ -106,7 +106,6 @@ pipeline {
       steps {
         script {
             buildResults = null
-            prefixedSdkVersion = "${testVersionPrefix}${env.NEW_SDK_VERSION}"
 
             // For standard builds attempt to run on a matching env.BRANCH_NAME branch first and if it doesn't exist
             // then fallback to TARGET_GAUGE_RELEASE_BRANCH_NAME if set or env.TARGET_GAUGE_DEFAULT_BRANCH_NAME.
@@ -122,14 +121,14 @@ pipeline {
           try {
             buildResults = build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${gaugeBranchName}", parameters: [
                 string(name: 'SDK_RUN_LANG', value: "$libName"),
-                string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "$prefixedSdkVersion")]
+                string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "${env.NEW_SDK_VERSION}")]
           } catch (hudson.AbortException ae) {
             // only run build in sdks-gauge default branch if BRANCH_NAME doesn't exist
             if (ae.getMessage().contains("No item named /${env.SDKS_GAUGE_PIPELINE_PROJECT}/${gaugeBranchName} found")) {
               echo "No matching branch named '${gaugeBranchName}' in sdks-gauge, building ${fallbackBranchName} branch"
               build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${fallbackBranchName}", parameters: [
                   string(name: 'SDK_RUN_LANG', value: "$libName"),
-                  string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "$prefixedSdkVersion")]
+                  string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "${env.NEW_SDK_VERSION}")]
             } else {
               throw ae
             }
@@ -279,7 +278,6 @@ void defaultInit() {
 // + other customizations
 void applyCustomizations() {
   libName = 'python'
-  testVersionPrefix = '=='
   customizeVersion = { semverFormatVersion ->
     // Use a python format version
     semverFormatVersion.replace('-a','a').replace('-b','b').replace('-rc', 'rc').replace('-','.')
