@@ -14,7 +14,6 @@ pipeline {
                       regex: /NONE|${globals.SVRE_PRE_RELEASE}/)
   }
   environment {
-    GH_CREDS = credentials('gh-sdks-automation')
     ARTIFACTORY_CREDS = credentials('artifactory')
     ARTIFACTORY_URL_UP = "${Artifactory.server('taas-artifactory-upload').getUrl()}"
     ARTIFACTORY_URL_DOWN = "${Artifactory.server('taas-artifactory').getUrl()}"
@@ -26,12 +25,6 @@ pipeline {
           defaultInit()
           applyCustomizations()
           commitHash = "${env.GIT_COMMIT.take(7)}"
-          sh '''
-            git config --global user.email $GH_SDKS_AUTOMATION_MAIL
-            git config --global user.name $GH_CREDS_USR
-            git config --global credential.username $GH_CREDS_USR
-            git config --global credential.helper '!f() { echo password=\$GH_CREDS_PSW; echo; }; f'
-          '''
         }
       }
     }
@@ -148,10 +141,12 @@ pipeline {
         }
       }
       steps {
-        // bump the version
-        bumpVersion(false)
-        // Push the version bump and release tag
-        sh 'git push --tags origin HEAD:main'
+        gitsh('github.com') {
+          // bump the version
+          bumpVersion(false)
+          // Push the version bump and release tag
+          sh 'git push --tags origin HEAD:main'
+        }
       }
     }
     stage('Publish[repository]') {
