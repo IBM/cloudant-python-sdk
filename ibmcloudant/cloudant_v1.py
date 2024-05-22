@@ -10840,6 +10840,10 @@ class DatabaseInformation:
     :param int doc_count: A count of the documents in the specified database.
     :param int doc_del_count: Number of deleted documents.
     :param str engine: (optional) The engine used for the database.
+    :param str instance_start_time: An opaque string to detect whether a database
+          has been recreated. The field name is for compatibility with old replicator
+          versions. Do not use the value to infer timing infromation. Typically only used
+          by replicators.
     :param DatabaseInformationProps props: Schema for database properties.
     :param ContentInformationSizes sizes: Schema for size information of content.
     :param str update_seq: An opaque string that describes the state of the
@@ -10857,6 +10861,7 @@ class DatabaseInformation:
         disk_format_version: int,
         doc_count: int,
         doc_del_count: int,
+        instance_start_time: str,
         props: 'DatabaseInformationProps',
         sizes: 'ContentInformationSizes',
         update_seq: str,
@@ -10879,6 +10884,10 @@ class DatabaseInformation:
                the data when it is stored on disk.
         :param int doc_count: A count of the documents in the specified database.
         :param int doc_del_count: Number of deleted documents.
+        :param str instance_start_time: An opaque string to detect whether a
+               database has been recreated. The field name is for compatibility with old
+               replicator versions. Do not use the value to infer timing infromation.
+               Typically only used by replicators.
         :param DatabaseInformationProps props: Schema for database properties.
         :param ContentInformationSizes sizes: Schema for size information of
                content.
@@ -10902,6 +10911,7 @@ class DatabaseInformation:
         self.doc_count = doc_count
         self.doc_del_count = doc_del_count
         self.engine = engine
+        self.instance_start_time = instance_start_time
         self.props = props
         self.sizes = sizes
         self.update_seq = update_seq
@@ -10942,6 +10952,10 @@ class DatabaseInformation:
             raise ValueError('Required property \'doc_del_count\' not present in DatabaseInformation JSON')
         if (engine := _dict.get('engine')) is not None:
             args['engine'] = engine
+        if (instance_start_time := _dict.get('instance_start_time')) is not None:
+            args['instance_start_time'] = instance_start_time
+        else:
+            raise ValueError('Required property \'instance_start_time\' not present in DatabaseInformation JSON')
         if (props := _dict.get('props')) is not None:
             args['props'] = DatabaseInformationProps.from_dict(props)
         else:
@@ -10989,6 +11003,8 @@ class DatabaseInformation:
             _dict['doc_del_count'] = self.doc_del_count
         if hasattr(self, 'engine') and self.engine is not None:
             _dict['engine'] = self.engine
+        if hasattr(self, 'instance_start_time') and self.instance_start_time is not None:
+            _dict['instance_start_time'] = self.instance_start_time
         if hasattr(self, 'props') and self.props is not None:
             if isinstance(self.props, dict):
                 _dict['props'] = self.props
