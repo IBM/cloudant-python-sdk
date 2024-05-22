@@ -1147,7 +1147,7 @@ class TestPostDbsInfo:
         """
         # Set up mock
         url = preprocess_url('/_dbs_info')
-        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}, "key": "key"}]'
+        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "instance_start_time": "instance_start_time", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}, "key": "key"}]'
         responses.add(
             responses.POST,
             url,
@@ -1192,7 +1192,7 @@ class TestPostDbsInfo:
         """
         # Set up mock
         url = preprocess_url('/_dbs_info')
-        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}, "key": "key"}]'
+        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "instance_start_time": "instance_start_time", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}, "key": "key"}]'
         responses.add(
             responses.POST,
             url,
@@ -1316,7 +1316,7 @@ class TestGetDatabaseInformation:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}'
+        mock_response = '{"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "instance_start_time": "instance_start_time", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}'
         responses.add(
             responses.GET,
             url,
@@ -1354,7 +1354,7 @@ class TestGetDatabaseInformation:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}'
+        mock_response = '{"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "instance_start_time": "instance_start_time", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}'
         responses.add(
             responses.GET,
             url,
@@ -14365,6 +14365,7 @@ class TestModel_DatabaseInformation:
         database_information_model_json['doc_count'] = 0
         database_information_model_json['doc_del_count'] = 0
         database_information_model_json['engine'] = 'testString'
+        database_information_model_json['instance_start_time'] = 'testString'
         database_information_model_json['props'] = database_information_props_model
         database_information_model_json['sizes'] = content_information_sizes_model
         database_information_model_json['update_seq'] = 'testString'
@@ -14565,6 +14566,7 @@ class TestModel_DbsInfoResult:
         database_information_model['doc_count'] = 0
         database_information_model['doc_del_count'] = 0
         database_information_model['engine'] = 'testString'
+        database_information_model['instance_start_time'] = 'testString'
         database_information_model['props'] = database_information_props_model
         database_information_model['sizes'] = content_information_sizes_model
         database_information_model['update_seq'] = 'testString'
