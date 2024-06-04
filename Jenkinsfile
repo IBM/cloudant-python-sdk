@@ -162,7 +162,9 @@ pipeline {
       }
       steps {
         publishPublic()
-        publishDocs()
+        gitsh('github.com') {
+          publishDocs()
+        }
       }
     }
   }
