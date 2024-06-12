@@ -40,7 +40,7 @@ _service = CloudantV1(
     authenticator=NoAuthAuthenticator()
 )
 
-_base_url = 'http://localhost:5984'
+_base_url = 'https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud'
 _service.set_service_url(_base_url)
 
 

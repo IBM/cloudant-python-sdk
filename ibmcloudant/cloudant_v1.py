@@ -42,7 +42,7 @@ from .common import get_sdk_headers
 class CloudantV1(BaseService):
     """The Cloudant V1 service."""
 
-    DEFAULT_SERVICE_URL = 'http://localhost:5984'
+    DEFAULT_SERVICE_URL = 'https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud'
     DEFAULT_SERVICE_NAME = 'cloudant'
 
     @classmethod
