@@ -111,7 +111,9 @@ def limits(request):
 class ChangesFollowerBaseCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        # Setup client env config
         os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+        os.environ['TEST_SERVICE_URL'] = 'http://localhost:5984'
         cls.client = CloudantV1.new_instance(
             service_name='TEST_SERVICE',
         )
@@ -175,7 +177,7 @@ class ChangesFollowerBaseCase(unittest.TestCase):
                     json.dumps(resp),
                 )
 
-        _base_url = 'http://localhost:5984'
+        _base_url = os.environ.get('TEST_SERVER_URL', 'http://localhost:5984')
         url = _base_url + '/db'
         responses.get(
             url,
@@ -196,7 +198,7 @@ class ChangesFollowerBaseCase(unittest.TestCase):
         )
 
     def prepare_mock_with_error(self, error: str):
-        _base_url = 'http://localhost:5984'
+        _base_url = os.environ.get('TEST_SERVER_URL', 'http://localhost:5984')
         url = _base_url + '/db/_changes'
         if error == 'bad_io':
             return responses.post(url, body=ConnectionError('peer reset'))
