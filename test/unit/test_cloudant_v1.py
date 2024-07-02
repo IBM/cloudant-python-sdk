@@ -9638,7 +9638,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -9711,7 +9711,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -9749,7 +9749,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -9875,6 +9875,7 @@ class TestPutReplicationDocument:
         replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
         replication_document_model['filter'] = 'ddoc/my_filter'
         replication_document_model['http_connections'] = 10
+        replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
@@ -10027,6 +10028,7 @@ class TestPutReplicationDocument:
         replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
         replication_document_model['filter'] = 'ddoc/my_filter'
         replication_document_model['http_connections'] = 10
+        replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
@@ -10165,6 +10167,7 @@ class TestPutReplicationDocument:
         replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
         replication_document_model['filter'] = 'ddoc/my_filter'
         replication_document_model['http_connections'] = 10
+        replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
@@ -16374,6 +16377,7 @@ class TestModel_ReplicationDocument:
         replication_document_model_json['doc_ids'] = ['testString']
         replication_document_model_json['filter'] = 'testString'
         replication_document_model_json['http_connections'] = 20
+        replication_document_model_json['owner'] = 'testString'
         replication_document_model_json['query_params'] = {'key1': 'testString'}
         replication_document_model_json['retries_per_request'] = 5
         replication_document_model_json['selector'] = {'anyKey': 'anyValue'}
@@ -17277,6 +17281,7 @@ class TestModel_ServerInformation:
         server_vendor_model['name'] = 'testString'
         server_vendor_model['variant'] = 'testString'
         server_vendor_model['version'] = 'testString'
+        server_vendor_model['foo'] = 'testString'
 
         # Construct a json representation of a ServerInformation model
         server_information_model_json = {}
@@ -17317,6 +17322,7 @@ class TestModel_ServerVendor:
         server_vendor_model_json['name'] = 'testString'
         server_vendor_model_json['variant'] = 'testString'
         server_vendor_model_json['version'] = 'testString'
+        server_vendor_model_json['foo'] = 'testString'
 
         # Construct a model instance of ServerVendor by calling from_dict on the json representation
         server_vendor_model = ServerVendor.from_dict(server_vendor_model_json)
@@ -17332,6 +17338,16 @@ class TestModel_ServerVendor:
         # Convert model instance back to dict and verify no loss of data
         server_vendor_model_json2 = server_vendor_model.to_dict()
         assert server_vendor_model_json2 == server_vendor_model_json
+
+        # Test get_properties and set_properties methods.
+        server_vendor_model.set_properties({})
+        actual_dict = server_vendor_model.get_properties()
+        assert actual_dict == {}
+
+        expected_dict = {'foo': 'testString'}
+        server_vendor_model.set_properties(expected_dict)
+        actual_dict = server_vendor_model.get_properties()
+        assert actual_dict == expected_dict
 
 
 class TestModel_SessionAuthentication:

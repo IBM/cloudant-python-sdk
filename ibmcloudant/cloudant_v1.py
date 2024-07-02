@@ -5438,10 +5438,10 @@ class CloudantV1(BaseService):
         """
         Retrieve information about all indexes.
 
-        When you make a GET request to `/db/_index`, you get a list of all indexes used by
-        Cloudant Query in the database, including the primary index. In addition to the
-        information available through this API, indexes are also stored in the `indexes`
-        property of design documents.
+        When you make a GET request to `/db/_index`, you get a list of all the indexes
+        using `"language":"query"` in the database and the primary index. In addition to
+        the information available through this API, the indexes are stored in the
+        `indexes` property of their respective design documents.
 
         :param str db: Path parameter to specify the database name.
         :param dict headers: A `dict` containing the request headers
@@ -15595,6 +15595,9 @@ class ReplicationDocument:
           selector option when possible.
     :param int http_connections: (optional) Maximum number of HTTP connections per
           replication.
+    :param str owner: (optional) The replication document owner. The server sets an
+          appropriate value if the field is unset when writing a replication document.
+          Only administrators can modify the value to an owner other than themselves.
     :param dict query_params: (optional) Schema for a map of string key value pairs,
           such as query parameters.
     :param int retries_per_request: (optional) Number of times a replication request
@@ -15669,7 +15672,7 @@ class ReplicationDocument:
     """
 
     # The set of defined properties for the class
-    _properties = frozenset(['_attachments', '_conflicts', '_deleted', '_deleted_conflicts', '_id', '_local_seq', '_rev', '_revisions', '_revs_info', 'cancel', 'checkpoint_interval', 'connection_timeout', 'continuous', 'create_target', 'create_target_params', 'doc_ids', 'filter', 'http_connections', 'query_params', 'retries_per_request', 'selector', 'since_seq', 'socket_options', 'source', 'source_proxy', 'target', 'target_proxy', 'use_bulk_get', 'use_checkpoints', 'user_ctx', 'winning_revs_only', 'worker_batch_size', 'worker_processes'])
+    _properties = frozenset(['_attachments', '_conflicts', '_deleted', '_deleted_conflicts', '_id', '_local_seq', '_rev', '_revisions', '_revs_info', 'cancel', 'checkpoint_interval', 'connection_timeout', 'continuous', 'create_target', 'create_target_params', 'doc_ids', 'filter', 'http_connections', 'owner', 'query_params', 'retries_per_request', 'selector', 'since_seq', 'socket_options', 'source', 'source_proxy', 'target', 'target_proxy', 'use_bulk_get', 'use_checkpoints', 'user_ctx', 'winning_revs_only', 'worker_batch_size', 'worker_processes'])
 
     def __init__(
         self,
@@ -15694,6 +15697,7 @@ class ReplicationDocument:
         doc_ids: Optional[List[str]] = None,
         filter: Optional[str] = None,
         http_connections: Optional[int] = None,
+        owner: Optional[str] = None,
         query_params: Optional[dict] = None,
         retries_per_request: Optional[int] = None,
         selector: Optional[dict] = None,
@@ -15752,6 +15756,10 @@ class ReplicationDocument:
                option. Use the selector option when possible.
         :param int http_connections: (optional) Maximum number of HTTP connections
                per replication.
+        :param str owner: (optional) The replication document owner. The server
+               sets an appropriate value if the field is unset when writing a replication
+               document. Only administrators can modify the value to an owner other than
+               themselves.
         :param dict query_params: (optional) Schema for a map of string key value
                pairs, such as query parameters.
         :param int retries_per_request: (optional) Number of times a replication
@@ -15841,6 +15849,7 @@ class ReplicationDocument:
         self.doc_ids = doc_ids
         self.filter = filter
         self.http_connections = http_connections
+        self.owner = owner
         self.query_params = query_params
         self.retries_per_request = retries_per_request
         self.selector = selector
@@ -15899,6 +15908,8 @@ class ReplicationDocument:
             args['filter'] = filter
         if (http_connections := _dict.get('http_connections')) is not None:
             args['http_connections'] = http_connections
+        if (owner := _dict.get('owner')) is not None:
+            args['owner'] = owner
         if (query_params := _dict.get('query_params')) is not None:
             args['query_params'] = query_params
         if (retries_per_request := _dict.get('retries_per_request')) is not None:
@@ -15998,6 +16009,8 @@ class ReplicationDocument:
             _dict['filter'] = self.filter
         if hasattr(self, 'http_connections') and self.http_connections is not None:
             _dict['http_connections'] = self.http_connections
+        if hasattr(self, 'owner') and self.owner is not None:
+            _dict['owner'] = self.owner
         if hasattr(self, 'query_params') and self.query_params is not None:
             _dict['query_params'] = self.query_params
         if hasattr(self, 'retries_per_request') and self.retries_per_request is not None:
@@ -18045,27 +18058,33 @@ class ServerVendor:
     Schema for server vendor information.
 
     :param str name: Vendor name.
-    :param str variant: (optional) Vendor variant.
-    :param str version: (optional) Vendor version.
+    :param str variant: Vendor variant.
+    :param str version: Vendor version.
     """
+
+    # The set of defined properties for the class
+    _properties = frozenset(['name', 'variant', 'version'])
 
     def __init__(
         self,
         name: str,
-        *,
-        variant: Optional[str] = None,
-        version: Optional[str] = None,
+        variant: str,
+        version: str,
+        **kwargs,
     ) -> None:
         """
         Initialize a ServerVendor object.
 
         :param str name: Vendor name.
-        :param str variant: (optional) Vendor variant.
-        :param str version: (optional) Vendor version.
+        :param str variant: Vendor variant.
+        :param str version: Vendor version.
+        :param **kwargs: (optional) Any additional properties.
         """
         self.name = name
         self.variant = variant
         self.version = version
+        for _key, _value in kwargs.items():
+            setattr(self, _key, _value)
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'ServerVendor':
@@ -18077,8 +18096,13 @@ class ServerVendor:
             raise ValueError('Required property \'name\' not present in ServerVendor JSON')
         if (variant := _dict.get('variant')) is not None:
             args['variant'] = variant
+        else:
+            raise ValueError('Required property \'variant\' not present in ServerVendor JSON')
         if (version := _dict.get('version')) is not None:
             args['version'] = version
+        else:
+            raise ValueError('Required property \'version\' not present in ServerVendor JSON')
+        args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
         return cls(**args)
 
     @classmethod
@@ -18095,11 +18119,30 @@ class ServerVendor:
             _dict['variant'] = self.variant
         if hasattr(self, 'version') and self.version is not None:
             _dict['version'] = self.version
+        for _key in [k for k in vars(self).keys() if k not in ServerVendor._properties]:
+            _dict[_key] = getattr(self, _key)
         return _dict
 
     def _to_dict(self):
         """Return a json dictionary representing this model."""
         return self.to_dict()
+
+    def get_properties(self) -> Dict:
+        """Return a dictionary of arbitrary properties from this instance of ServerVendor"""
+        _dict = {}
+
+        for _key in [k for k in vars(self).keys() if k not in ServerVendor._properties]:
+            _dict[_key] = getattr(self, _key)
+        return _dict
+
+    def set_properties(self, _dict: dict):
+        """Set a dictionary of arbitrary properties to this instance of ServerVendor"""
+        for _key in [k for k in vars(self).keys() if k not in ServerVendor._properties]:
+            delattr(self, _key)
+
+        for _key, _value in _dict.items():
+            if _key not in ServerVendor._properties:
+                setattr(self, _key, _value)
 
     def __str__(self) -> str:
         """Return a `str` version of this ServerVendor object."""

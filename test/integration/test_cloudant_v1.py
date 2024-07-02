@@ -1564,6 +1564,7 @@ class TestCloudantV1:
             'doc_ids': ['badger', 'lemur', 'llama'],
             'filter': 'ddoc/my_filter',
             'http_connections': 10,
+            'owner': 'testString',
             'query_params': {'key1': 'testString'},
             'retries_per_request': 3,
             'selector': {'_id': {'$regex': 'docid'}},
