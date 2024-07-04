@@ -186,7 +186,7 @@ def buildType
 def scanCode
 
 void defaultInit() {
-  // Default to using bump2version
+  // Default to using bump-my-version
   bumpVersion = { isDevRelease ->
     newVersion = getNewVersion(isDevRelease)
     // Set an env var with the new version
@@ -195,7 +195,7 @@ void defaultInit() {
   }
 
   doVersionBump = { isDevRelease, newVersion, allowDirty ->
-    sh "bump2version --new-version ${newVersion} ${allowDirty ? '--allow-dirty': ''} ${isDevRelease ? '--no-commit' : '--tag --tag-message "Release {new_version}"'} patch"
+    sh "bump-my-version bump patch --new-version ${newVersion} ${allowDirty ? '--allow-dirty': ''} ${isDevRelease ? '--no-commit' : '--tag --tag-message "Release {new_version}"'}"
   }
 
   getNewVersion = { isDevRelease ->
@@ -209,7 +209,7 @@ void defaultInit() {
       version = params.TARGET_VERSION
     } else {
       // If a target version is not provided default to a patch bump
-      version = sh returnStdout: true, script: 'bump2version --list --dry-run patch | grep new_version=.* | cut -f2 -d='
+      version = sh returnStdout: true, script: 'bump-my-version show-bump --ascii | grep patch | rev | cut -f1 -d " " | rev'
     }
     return version.trim()
   }
