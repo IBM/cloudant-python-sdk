@@ -23,6 +23,7 @@ import pytest
 import os
 import json
 import responses
+import time
 
 import threading
 import queue
@@ -231,11 +232,12 @@ class ChangesFollowerBaseCase(unittest.TestCase):
             try:
                 for _ in changes:
                     counter += 1
-                    buf.put(counter)
                     if stop_after > 0 and stop_after == counter:
                         follower.stop()
             except Exception as e:
                 buf.put(e)
+                return
+            buf.put(counter)
 
         def main():
             if mode == _Mode.LISTEN:
@@ -246,15 +248,16 @@ class ChangesFollowerBaseCase(unittest.TestCase):
             thread = threading.Thread(target=looper, args=(changes, buf))
             thread.start()
             thread.join(timeout)
-            while not buf.empty():
-                data = buf.get()
-                if isinstance(data, Exception):
-                    raise data
             while True:
+                time.sleep(0.2)
                 if thread.is_alive():
                     follower.stop()
                 else:
                     break
+            while not buf.empty():
+                data = buf.get()
+                if isinstance(data, Exception):
+                    raise data
             return data
 
         return main()
