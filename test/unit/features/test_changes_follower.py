@@ -512,7 +512,7 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
         )
         try:
             follower = ChangesFollower(self.client, db="db", error_tolerance=300)
-            count = self.runner(follower, _Mode.LISTEN, timeout=3)
+            count = self.runner(follower, _Mode.LISTEN, timeout=1)
         except BaseException:
             self.fail("There should be no exception.")
         self.assertEqual(
@@ -550,7 +550,7 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
         )
         try:
             follower = ChangesFollower(self.client, db="db")
-            count = self.runner(follower, _Mode.LISTEN, timeout=3)
+            count = self.runner(follower, _Mode.LISTEN, timeout=1)
         except BaseException:
             self.fail("There should be no exception.")
         self.assertEqual(
