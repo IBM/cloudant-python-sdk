@@ -11537,6 +11537,8 @@ class DesignDocument:
             * `secObj` - Security Object, with lists of database security roles,
               see the `SecurityObject`.
     :param dict views: (optional) Schema for design document views.
+
+    This type supports additional properties of type object.
     """
 
     # The set of defined properties for the class
@@ -11561,7 +11563,7 @@ class DesignDocument:
         options: Optional['DesignDocumentOptions'] = None,
         validate_doc_update: Optional[str] = None,
         views: Optional[dict] = None,
-        **kwargs,
+        **kwargs: Optional[object],
     ) -> None:
         """
         Initialize a DesignDocument object.
@@ -11653,7 +11655,7 @@ class DesignDocument:
                  * `secObj` - Security Object, with lists of database security roles,
                    see the `SecurityObject`.
         :param dict views: (optional) Schema for design document views.
-        :param **kwargs: (optional) Any additional properties.
+        :param object **kwargs: (optional) Additional properties of type object
         """
         self._attachments = _attachments
         self._conflicts = _conflicts
@@ -11671,8 +11673,13 @@ class DesignDocument:
         self.options = options
         self.validate_doc_update = validate_doc_update
         self.views = views
-        for _key, _value in kwargs.items():
-            setattr(self, _key, _value)
+        for k, v in kwargs.items():
+            if k not in DesignDocument._properties:
+                if not isinstance(v, object):
+                    raise ValueError('Value for additional property {} must be of type object'.format(k))
+                setattr(self, k, v)
+            else:
+                raise ValueError('Property {} cannot be specified as an additional property'.format(k))
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'DesignDocument':
@@ -11710,7 +11717,11 @@ class DesignDocument:
             args['validate_doc_update'] = validate_doc_update
         if (views := _dict.get('views')) is not None:
             args['views'] = {k: DesignDocumentViewsMapReduce.from_dict(v) for k, v in views.items()}
-        args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
+        for k, v in _dict.items():
+            if k not in cls._properties:
+                    if not isinstance(v, object):
+                        raise ValueError('Value for additional property {} must be of type object'.format(k))
+                    args[k] = v
         return cls(**args)
 
     @classmethod
@@ -11783,8 +11794,8 @@ class DesignDocument:
                 else:
                     views_map[k] = v.to_dict()
             _dict['views'] = views_map
-        for _key in [k for k in vars(self).keys() if k not in DesignDocument._properties]:
-            _dict[_key] = getattr(self, _key)
+        for k in [_k for _k in vars(self).keys() if _k not in DesignDocument._properties]:
+            _dict[k] = getattr(self, k)
         return _dict
 
     def _to_dict(self):
@@ -11792,21 +11803,23 @@ class DesignDocument:
         return self.to_dict()
 
     def get_properties(self) -> Dict:
-        """Return a dictionary of arbitrary properties from this instance of DesignDocument"""
+        """Return the additional properties from this instance of DesignDocument in the form of a dict."""
         _dict = {}
-
-        for _key in [k for k in vars(self).keys() if k not in DesignDocument._properties]:
-            _dict[_key] = getattr(self, _key)
+        for k in [_k for _k in vars(self).keys() if _k not in DesignDocument._properties]:
+            _dict[k] = getattr(self, k)
         return _dict
 
     def set_properties(self, _dict: dict):
-        """Set a dictionary of arbitrary properties to this instance of DesignDocument"""
-        for _key in [k for k in vars(self).keys() if k not in DesignDocument._properties]:
-            delattr(self, _key)
-
-        for _key, _value in _dict.items():
-            if _key not in DesignDocument._properties:
-                setattr(self, _key, _value)
+        """Set a dictionary of additional properties in this instance of DesignDocument"""
+        for k in [_k for _k in vars(self).keys() if _k not in DesignDocument._properties]:
+            delattr(self, k)
+        for k, v in _dict.items():
+            if k not in DesignDocument._properties:
+                if not isinstance(v, object):
+                    raise ValueError('Value for additional property {} must be of type object'.format(k))
+                setattr(self, k, v)
+            else:
+                raise ValueError('Property {} cannot be specified as an additional property'.format(_key))
 
     def __str__(self) -> str:
         """Return a `str` version of this DesignDocument object."""
@@ -12395,6 +12408,8 @@ class Document:
     :param Revisions _revisions: (optional) Schema for list of revision information.
     :param List[DocumentRevisionStatus] _revs_info: (optional) Schema for a list of
           objects with information about local revisions and their status.
+
+    This type supports additional properties of type object.
     """
 
     # The set of defined properties for the class
@@ -12412,7 +12427,7 @@ class Document:
         _rev: Optional[str] = None,
         _revisions: Optional['Revisions'] = None,
         _revs_info: Optional[List['DocumentRevisionStatus']] = None,
-        **kwargs,
+        **kwargs: Optional[object],
     ) -> None:
         """
         Initialize a Document object.
@@ -12433,7 +12448,7 @@ class Document:
                information.
         :param List[DocumentRevisionStatus] _revs_info: (optional) Schema for a
                list of objects with information about local revisions and their status.
-        :param **kwargs: (optional) Any additional properties.
+        :param object **kwargs: (optional) Additional properties of type object
         """
         self._attachments = _attachments
         self._conflicts = _conflicts
@@ -12444,8 +12459,13 @@ class Document:
         self._rev = _rev
         self._revisions = _revisions
         self._revs_info = _revs_info
-        for _key, _value in kwargs.items():
-            setattr(self, _key, _value)
+        for k, v in kwargs.items():
+            if k not in Document._properties:
+                if not isinstance(v, object):
+                    raise ValueError('Value for additional property {} must be of type object'.format(k))
+                setattr(self, k, v)
+            else:
+                raise ValueError('Property {} cannot be specified as an additional property'.format(k))
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'Document':
@@ -12469,7 +12489,11 @@ class Document:
             args['_revisions'] = Revisions.from_dict(revisions)
         if (revs_info := _dict.get('_revs_info')) is not None:
             args['_revs_info'] = [DocumentRevisionStatus.from_dict(v) for v in revs_info]
-        args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
+        for k, v in _dict.items():
+            if k not in cls._properties:
+                    if not isinstance(v, object):
+                        raise ValueError('Value for additional property {} must be of type object'.format(k))
+                    args[k] = v
         return cls(**args)
 
     @classmethod
@@ -12513,8 +12537,8 @@ class Document:
                 else:
                     _revs_info_list.append(v.to_dict())
             _dict['_revs_info'] = _revs_info_list
-        for _key in [k for k in vars(self).keys() if k not in Document._properties]:
-            _dict[_key] = getattr(self, _key)
+        for k in [_k for _k in vars(self).keys() if _k not in Document._properties]:
+            _dict[k] = getattr(self, k)
         return _dict
 
     def _to_dict(self):
@@ -12522,21 +12546,23 @@ class Document:
         return self.to_dict()
 
     def get_properties(self) -> Dict:
-        """Return a dictionary of arbitrary properties from this instance of Document"""
+        """Return the additional properties from this instance of Document in the form of a dict."""
         _dict = {}
-
-        for _key in [k for k in vars(self).keys() if k not in Document._properties]:
-            _dict[_key] = getattr(self, _key)
+        for k in [_k for _k in vars(self).keys() if _k not in Document._properties]:
+            _dict[k] = getattr(self, k)
         return _dict
 
     def set_properties(self, _dict: dict):
-        """Set a dictionary of arbitrary properties to this instance of Document"""
-        for _key in [k for k in vars(self).keys() if k not in Document._properties]:
-            delattr(self, _key)
-
-        for _key, _value in _dict.items():
-            if _key not in Document._properties:
-                setattr(self, _key, _value)
+        """Set a dictionary of additional properties in this instance of Document"""
+        for k in [_k for _k in vars(self).keys() if _k not in Document._properties]:
+            delattr(self, k)
+        for k, v in _dict.items():
+            if k not in Document._properties:
+                if not isinstance(v, object):
+                    raise ValueError('Value for additional property {} must be of type object'.format(k))
+                setattr(self, k, v)
+            else:
+                raise ValueError('Property {} cannot be specified as an additional property'.format(_key))
 
     def __str__(self) -> str:
         """Return a `str` version of this Document object."""
@@ -14121,6 +14147,8 @@ class IndexField:
 
     :param str name: (optional) Name of the field.
     :param str type: (optional) The type of the named field.
+
+    This type supports additional properties of type str. Schema for sort direction.
     """
 
     # The set of defined properties for the class
@@ -14131,19 +14159,24 @@ class IndexField:
         *,
         name: Optional[str] = None,
         type: Optional[str] = None,
-        **kwargs,
+        **kwargs: Optional[str],
     ) -> None:
         """
         Initialize a IndexField object.
 
         :param str name: (optional) Name of the field.
         :param str type: (optional) The type of the named field.
-        :param **kwargs: (optional) Any additional properties.
+        :param str **kwargs: (optional) Schema for sort direction.
         """
         self.name = name
         self.type = type
-        for _key, _value in kwargs.items():
-            setattr(self, _key, _value)
+        for k, v in kwargs.items():
+            if k not in IndexField._properties:
+                if not isinstance(v, str):
+                    raise ValueError('Value for additional property {} must be of type str'.format(k))
+                setattr(self, k, v)
+            else:
+                raise ValueError('Property {} cannot be specified as an additional property'.format(k))
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'IndexField':
@@ -14153,7 +14186,11 @@ class IndexField:
             args['name'] = name
         if (type := _dict.get('type')) is not None:
             args['type'] = type
-        args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
+        for k, v in _dict.items():
+            if k not in cls._properties:
+                    if not isinstance(v, str):
+                        raise ValueError('Value for additional property {} must be of type str'.format(k))
+                    args[k] = v
         return cls(**args)
 
     @classmethod
@@ -14168,8 +14205,8 @@ class IndexField:
             _dict['name'] = self.name
         if hasattr(self, 'type') and self.type is not None:
             _dict['type'] = self.type
-        for _key in [k for k in vars(self).keys() if k not in IndexField._properties]:
-            _dict[_key] = getattr(self, _key)
+        for k in [_k for _k in vars(self).keys() if _k not in IndexField._properties]:
+            _dict[k] = getattr(self, k)
         return _dict
 
     def _to_dict(self):
@@ -14177,21 +14214,23 @@ class IndexField:
         return self.to_dict()
 
     def get_properties(self) -> Dict:
-        """Return a dictionary of arbitrary properties from this instance of IndexField"""
+        """Return the additional properties from this instance of IndexField in the form of a dict."""
         _dict = {}
-
-        for _key in [k for k in vars(self).keys() if k not in IndexField._properties]:
-            _dict[_key] = getattr(self, _key)
+        for k in [_k for _k in vars(self).keys() if _k not in IndexField._properties]:
+            _dict[k] = getattr(self, k)
         return _dict
 
     def set_properties(self, _dict: dict):
-        """Set a dictionary of arbitrary properties to this instance of IndexField"""
-        for _key in [k for k in vars(self).keys() if k not in IndexField._properties]:
-            delattr(self, _key)
-
-        for _key, _value in _dict.items():
-            if _key not in IndexField._properties:
-                setattr(self, _key, _value)
+        """Set a dictionary of additional properties in this instance of IndexField"""
+        for k in [_k for _k in vars(self).keys() if _k not in IndexField._properties]:
+            delattr(self, k)
+        for k, v in _dict.items():
+            if k not in IndexField._properties:
+                if not isinstance(v, str):
+                    raise ValueError('Value for additional property {} must be of type str'.format(k))
+                setattr(self, k, v)
+            else:
+                raise ValueError('Property {} cannot be specified as an additional property'.format(_key))
 
     def __str__(self) -> str:
         """Return a `str` version of this IndexField object."""
@@ -15669,6 +15708,8 @@ class ReplicationDocument:
     :param int worker_processes: (optional) Controls how many separate processes
           will read from the changes manager and write to the target. A higher number can
           improve throughput.
+
+    This type supports additional properties of type object.
     """
 
     # The set of defined properties for the class
@@ -15711,7 +15752,7 @@ class ReplicationDocument:
         winning_revs_only: Optional[bool] = None,
         worker_batch_size: Optional[int] = None,
         worker_processes: Optional[int] = None,
-        **kwargs,
+        **kwargs: Optional[object],
     ) -> None:
         """
         Initialize a ReplicationDocument object.
@@ -15829,7 +15870,7 @@ class ReplicationDocument:
         :param int worker_processes: (optional) Controls how many separate
                processes will read from the changes manager and write to the target. A
                higher number can improve throughput.
-        :param **kwargs: (optional) Any additional properties.
+        :param object **kwargs: (optional) Additional properties of type object
         """
         self._attachments = _attachments
         self._conflicts = _conflicts
@@ -15865,8 +15906,13 @@ class ReplicationDocument:
         self.winning_revs_only = winning_revs_only
         self.worker_batch_size = worker_batch_size
         self.worker_processes = worker_processes
-        for _key, _value in kwargs.items():
-            setattr(self, _key, _value)
+        for k, v in kwargs.items():
+            if k not in ReplicationDocument._properties:
+                if not isinstance(v, object):
+                    raise ValueError('Value for additional property {} must be of type object'.format(k))
+                setattr(self, k, v)
+            else:
+                raise ValueError('Property {} cannot be specified as an additional property'.format(k))
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'ReplicationDocument':
@@ -15944,7 +15990,11 @@ class ReplicationDocument:
             args['worker_batch_size'] = worker_batch_size
         if (worker_processes := _dict.get('worker_processes')) is not None:
             args['worker_processes'] = worker_processes
-        args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
+        for k, v in _dict.items():
+            if k not in cls._properties:
+                    if not isinstance(v, object):
+                        raise ValueError('Value for additional property {} must be of type object'.format(k))
+                    args[k] = v
         return cls(**args)
 
     @classmethod
@@ -16050,8 +16100,8 @@ class ReplicationDocument:
             _dict['worker_batch_size'] = self.worker_batch_size
         if hasattr(self, 'worker_processes') and self.worker_processes is not None:
             _dict['worker_processes'] = self.worker_processes
-        for _key in [k for k in vars(self).keys() if k not in ReplicationDocument._properties]:
-            _dict[_key] = getattr(self, _key)
+        for k in [_k for _k in vars(self).keys() if _k not in ReplicationDocument._properties]:
+            _dict[k] = getattr(self, k)
         return _dict
 
     def _to_dict(self):
@@ -16059,21 +16109,23 @@ class ReplicationDocument:
         return self.to_dict()
 
     def get_properties(self) -> Dict:
-        """Return a dictionary of arbitrary properties from this instance of ReplicationDocument"""
+        """Return the additional properties from this instance of ReplicationDocument in the form of a dict."""
         _dict = {}
-
-        for _key in [k for k in vars(self).keys() if k not in ReplicationDocument._properties]:
-            _dict[_key] = getattr(self, _key)
+        for k in [_k for _k in vars(self).keys() if _k not in ReplicationDocument._properties]:
+            _dict[k] = getattr(self, k)
         return _dict
 
     def set_properties(self, _dict: dict):
-        """Set a dictionary of arbitrary properties to this instance of ReplicationDocument"""
-        for _key in [k for k in vars(self).keys() if k not in ReplicationDocument._properties]:
-            delattr(self, _key)
-
-        for _key, _value in _dict.items():
-            if _key not in ReplicationDocument._properties:
-                setattr(self, _key, _value)
+        """Set a dictionary of additional properties in this instance of ReplicationDocument"""
+        for k in [_k for _k in vars(self).keys() if _k not in ReplicationDocument._properties]:
+            delattr(self, k)
+        for k, v in _dict.items():
+            if k not in ReplicationDocument._properties:
+                if not isinstance(v, object):
+                    raise ValueError('Value for additional property {} must be of type object'.format(k))
+                setattr(self, k, v)
+            else:
+                raise ValueError('Property {} cannot be specified as an additional property'.format(_key))
 
     def __str__(self) -> str:
         """Return a `str` version of this ReplicationDocument object."""
@@ -18060,6 +18112,8 @@ class ServerVendor:
     :param str name: Vendor name.
     :param str variant: Vendor variant.
     :param str version: Vendor version.
+
+    This type supports additional properties of type str.
     """
 
     # The set of defined properties for the class
@@ -18070,7 +18124,7 @@ class ServerVendor:
         name: str,
         variant: str,
         version: str,
-        **kwargs,
+        **kwargs: Optional[str],
     ) -> None:
         """
         Initialize a ServerVendor object.
@@ -18078,13 +18132,18 @@ class ServerVendor:
         :param str name: Vendor name.
         :param str variant: Vendor variant.
         :param str version: Vendor version.
-        :param **kwargs: (optional) Any additional properties.
+        :param str **kwargs: (optional) Additional properties of type str
         """
         self.name = name
         self.variant = variant
         self.version = version
-        for _key, _value in kwargs.items():
-            setattr(self, _key, _value)
+        for k, v in kwargs.items():
+            if k not in ServerVendor._properties:
+                if not isinstance(v, str):
+                    raise ValueError('Value for additional property {} must be of type str'.format(k))
+                setattr(self, k, v)
+            else:
+                raise ValueError('Property {} cannot be specified as an additional property'.format(k))
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'ServerVendor':
@@ -18102,7 +18161,11 @@ class ServerVendor:
             args['version'] = version
         else:
             raise ValueError('Required property \'version\' not present in ServerVendor JSON')
-        args.update({k: v for (k, v) in _dict.items() if k not in cls._properties})
+        for k, v in _dict.items():
+            if k not in cls._properties:
+                    if not isinstance(v, str):
+                        raise ValueError('Value for additional property {} must be of type str'.format(k))
+                    args[k] = v
         return cls(**args)
 
     @classmethod
@@ -18119,8 +18182,8 @@ class ServerVendor:
             _dict['variant'] = self.variant
         if hasattr(self, 'version') and self.version is not None:
             _dict['version'] = self.version
-        for _key in [k for k in vars(self).keys() if k not in ServerVendor._properties]:
-            _dict[_key] = getattr(self, _key)
+        for k in [_k for _k in vars(self).keys() if _k not in ServerVendor._properties]:
+            _dict[k] = getattr(self, k)
         return _dict
 
     def _to_dict(self):
@@ -18128,21 +18191,23 @@ class ServerVendor:
         return self.to_dict()
 
     def get_properties(self) -> Dict:
-        """Return a dictionary of arbitrary properties from this instance of ServerVendor"""
+        """Return the additional properties from this instance of ServerVendor in the form of a dict."""
         _dict = {}
-
-        for _key in [k for k in vars(self).keys() if k not in ServerVendor._properties]:
-            _dict[_key] = getattr(self, _key)
+        for k in [_k for _k in vars(self).keys() if _k not in ServerVendor._properties]:
+            _dict[k] = getattr(self, k)
         return _dict
 
     def set_properties(self, _dict: dict):
-        """Set a dictionary of arbitrary properties to this instance of ServerVendor"""
-        for _key in [k for k in vars(self).keys() if k not in ServerVendor._properties]:
-            delattr(self, _key)
-
-        for _key, _value in _dict.items():
-            if _key not in ServerVendor._properties:
-                setattr(self, _key, _value)
+        """Set a dictionary of additional properties in this instance of ServerVendor"""
+        for k in [_k for _k in vars(self).keys() if _k not in ServerVendor._properties]:
+            delattr(self, k)
+        for k, v in _dict.items():
+            if k not in ServerVendor._properties:
+                if not isinstance(v, str):
+                    raise ValueError('Value for additional property {} must be of type str'.format(k))
+                setattr(self, k, v)
+            else:
+                raise ValueError('Property {} cannot be specified as an additional property'.format(_key))
 
     def __str__(self) -> str:
         """Return a `str` version of this ServerVendor object."""
