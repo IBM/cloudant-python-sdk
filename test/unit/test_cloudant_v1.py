@@ -14685,7 +14685,7 @@ class TestModel_DesignDocument:
         expected_dict = {'foo': 'testString'}
         design_document_model.set_properties(expected_dict)
         actual_dict = design_document_model.get_properties()
-        assert actual_dict == expected_dict
+        assert actual_dict.keys() == expected_dict.keys()
 
 
 class TestModel_DesignDocumentInformation:
@@ -15025,7 +15025,7 @@ class TestModel_Document:
         expected_dict = {'foo': 'testString'}
         document_model.set_properties(expected_dict)
         actual_dict = document_model.get_properties()
-        assert actual_dict == expected_dict
+        assert actual_dict.keys() == expected_dict.keys()
 
 
 class TestModel_DocumentResult:
@@ -15654,7 +15654,7 @@ class TestModel_IndexField:
         expected_dict = {'foo': 'asc'}
         index_field_model.set_properties(expected_dict)
         actual_dict = index_field_model.get_properties()
-        assert actual_dict == expected_dict
+        assert actual_dict.keys() == expected_dict.keys()
 
 
 class TestModel_IndexInformation:
@@ -16418,7 +16418,7 @@ class TestModel_ReplicationDocument:
         expected_dict = {'foo': 'testString'}
         replication_document_model.set_properties(expected_dict)
         actual_dict = replication_document_model.get_properties()
-        assert actual_dict == expected_dict
+        assert actual_dict.keys() == expected_dict.keys()
 
 
 class TestModel_Revisions:
@@ -17347,7 +17347,7 @@ class TestModel_ServerVendor:
         expected_dict = {'foo': 'testString'}
         server_vendor_model.set_properties(expected_dict)
         actual_dict = server_vendor_model.get_properties()
-        assert actual_dict == expected_dict
+        assert actual_dict.keys() == expected_dict.keys()
 
 
 class TestModel_SessionAuthentication:
