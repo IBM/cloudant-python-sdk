@@ -291,7 +291,7 @@ void runTests() {
   sh '''
     export PIP_INDEX_URL=https://${ARTIFACTORY_CREDS_USR}:${ARTIFACTORY_CREDS_PSW}@${ARTIFACTORY_URL_DOWN##'https://'}/api/pypi/cloudant-sdks-pypi-virtual/simple
     pip install -r requirements-dev.txt && flit install --only-deps
-    pylint --rcfile=.pylintrc ibmcloudant test
+    pylint --rcfile=.pylintrc ibmcloudant
     python3 -m pytest --junitxml=junitreports/junit-pytest.xml --cov=ibmcloudant
   '''
 }
