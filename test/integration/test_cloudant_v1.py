@@ -61,14 +61,6 @@ class TestCloudantV1:
         assert server_information is not None
 
     @needscredentials
-    def test_get_membership_information(self):
-        response = self.cloudant_service.get_membership_information()
-
-        assert response.get_status_code() == 200
-        membership_information = response.get_result()
-        assert membership_information is not None
-
-    @needscredentials
     def test_get_uuids(self):
         response = self.cloudant_service.get_uuids(
             count=1,
@@ -763,9 +755,14 @@ class TestCloudantV1:
         design_document_options_model = {
             'partitioned': True,
         }
+        # Construct a dict representation of a DesignDocumentViewsMapReduceOptions model
+        design_document_views_map_reduce_options_model = {
+            'foo': 'testString',
+        }
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {
             'map': 'function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}',
+            'options': design_document_views_map_reduce_options_model,
             'reduce': 'testString',
         }
         # Construct a dict representation of a DesignDocument model
@@ -1900,6 +1897,14 @@ class TestCloudantV1:
         assert response.get_status_code() == 200
         list_active_task = response.get_result()
         assert list_active_task is not None
+
+    @needscredentials
+    def test_get_membership_information(self):
+        response = self.cloudant_service.get_membership_information()
+
+        assert response.get_status_code() == 200
+        membership_information = response.get_result()
+        assert membership_information is not None
 
     @needscredentials
     def test_get_up_information(self):
