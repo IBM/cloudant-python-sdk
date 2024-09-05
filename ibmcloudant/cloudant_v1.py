@@ -121,45 +121,6 @@ class CloudantV1(BaseService):
         response = self.send(request, **kwargs)
         return response
 
-    def get_membership_information(
-        self,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Retrieve cluster membership information.
-
-        Displays the nodes that are part of the cluster as `cluster_nodes`. The field,
-        `all_nodes`, displays all nodes this node knows about, including the ones that are
-        part of the cluster. This endpoint is useful when you set up a cluster.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `MembershipInformation` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='get_membership_information',
-        )
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        url = '/_membership'
-        request = self.prepare_request(
-            method='GET',
-            url=url,
-            headers=headers,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
     def get_uuids(
         self,
         *,
@@ -260,7 +221,7 @@ class CloudantV1(BaseService):
 
         :param int blocks: A number of blocks of throughput units. A block consists
                of 100 reads/sec, 50 writes/sec, and 5 global queries/sec of provisioned
-               throughput capacity.
+               throughput capacity. Not available for some plans.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `CapacityThroughputInformation` object
@@ -462,14 +423,19 @@ class CloudantV1(BaseService):
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument. See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
-               list of all available combination and conditional operators.
+               supplied argument.
+               It is important for query performance to use appropriate selectors:
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
-               For further reference see
-               [selector
+               * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
+               answered from an index. For query selectors use these operators in
+               conjunction with equality operators or create and use a partial index to
+               reduce the number of documents that will need to be scanned.
+               See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               list of all available combination and conditional operators.
+               For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str last_event_id: (optional) Header parameter to specify the ID of
                the last events received by the server on a previous connection. Overrides
@@ -675,14 +641,19 @@ class CloudantV1(BaseService):
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument. See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
-               list of all available combination and conditional operators.
+               supplied argument.
+               It is important for query performance to use appropriate selectors:
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
-               For further reference see
-               [selector
+               * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
+               answered from an index. For query selectors use these operators in
+               conjunction with equality operators or create and use a partial index to
+               reduce the number of documents that will need to be scanned.
+               See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               list of all available combination and conditional operators.
+               For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str last_event_id: (optional) Header parameter to specify the ID of
                the last events received by the server on a previous connection. Overrides
@@ -1094,6 +1065,9 @@ class CloudantV1(BaseService):
         :param str db: Path parameter to specify the database name.
         :param bool partitioned: (optional) Query parameter to specify whether to
                enable database partitions when creating a database.
+               Before using read the
+               [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partitioned-databases-database-partitioning)
+               to understand the limitations and appropriate use cases.
         :param int q: (optional) The number of shards in the database. Each shard
                is a partition of the hash value range. Cloudant recommends using the
                default value for most databases. However, if your database is expected to
@@ -2538,6 +2512,9 @@ class CloudantV1(BaseService):
                well-formed _rev must be included in the document. False is used by the
                replicator to insert documents into the target database even if that leads
                to the creation of conflicts.
+               Avoid using this parameter, since this option applies document revisions
+               without checking for conflicts, so it is very easy to accidentally end up
+               with a large number of conflicts.
         :param str rev: (optional) Query parameter to specify a document revision.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
@@ -2873,6 +2850,9 @@ class CloudantV1(BaseService):
                well-formed _rev must be included in the document. False is used by the
                replicator to insert documents into the target database even if that leads
                to the creation of conflicts.
+               Avoid using this parameter, since this option applies document revisions
+               without checking for conflicts, so it is very easy to accidentally end up
+               with a large number of conflicts.
         :param str rev: (optional) Query parameter to specify a document revision.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
@@ -3241,6 +3221,9 @@ class CloudantV1(BaseService):
         :param bool reduce: (optional) Parameter to specify whether to use the
                reduce function in a map-reduce view. Default is true when a reduce
                function is defined.
+               A default `reduce` view type can be disabled to behave like a `map` by
+               setting `reduce=false` explicitly.
+               Be aware that `include_docs=true` can only be used with `map` views.
         :param bool stable: (optional) Query parameter to specify whether use the
                same replica of  the index on each request. The default value `false`
                contacts all  replicas and returns the result from the first, fastest,
@@ -3406,6 +3389,9 @@ class CloudantV1(BaseService):
         :param bool reduce: (optional) Parameter to specify whether to use the
                reduce function in a map-reduce view. Default is true when a reduce
                function is defined.
+               A default `reduce` view type can be disabled to behave like a `map` by
+               setting `reduce=false` explicitly.
+               Be aware that `include_docs=true` can only be used with `map` views.
         :param bool stable: (optional) Query parameter to specify whether use the
                same replica of  the index on each request. The default value `false`
                contacts all  replicas and returns the result from the first, fastest,
@@ -3939,6 +3925,9 @@ class CloudantV1(BaseService):
         databases to be queried by using Lucene Query Parser Syntax. Search indexes are
         defined by an index function, similar to a map function in MapReduce views. The
         index function decides what data to index and store in the index.
+        Before using read the
+        [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying)
+        to understand the limitations and appropriate use cases.
 
         :param str db: Path parameter to specify the database name.
         :param str partition_key: Path parameter to specify the database partition
@@ -4070,6 +4059,9 @@ class CloudantV1(BaseService):
         databases to be queried by using Lucene Query Parser Syntax. Search indexes are
         defined by an index function, similar to a map function in MapReduce views. The
         index function decides what data to index and store in the index.
+        Before using read the
+        [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying)
+        to understand the limitations and appropriate use cases.
 
         :param str db: Path parameter to specify the database name.
         :param str partition_key: Path parameter to specify the database partition
@@ -4209,6 +4201,9 @@ class CloudantV1(BaseService):
         the specification of explicit keys to be retrieved from the view results. The
         remainder of the POST view functionality is identical to the `GET
         /{db}/_design/{ddoc}/_view/{view}` API.
+        Before using read the
+        [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying)
+        to understand the limitations and appropriate use cases.
 
         :param str db: Path parameter to specify the database name.
         :param str partition_key: Path parameter to specify the database partition
@@ -4258,6 +4253,9 @@ class CloudantV1(BaseService):
         :param bool reduce: (optional) Parameter to specify whether to use the
                reduce function in a map-reduce view. Default is true when a reduce
                function is defined.
+               A default `reduce` view type can be disabled to behave like a `map` by
+               setting `reduce=false` explicitly.
+               Be aware that `include_docs=true` can only be used with `map` views.
         :param object start_key: (optional) Schema for any JSON type.
         :param str start_key_doc_id: (optional) Schema for a document ID.
         :param str update: (optional) Parameter to specify whether or not the view
@@ -4367,6 +4365,9 @@ class CloudantV1(BaseService):
         the specification of explicit keys to be retrieved from the view results. The
         remainder of the POST view functionality is identical to the `GET
         /{db}/_design/{ddoc}/_view/{view}` API.
+        Before using read the
+        [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying)
+        to understand the limitations and appropriate use cases.
 
         :param str db: Path parameter to specify the database name.
         :param str partition_key: Path parameter to specify the database partition
@@ -4416,6 +4417,9 @@ class CloudantV1(BaseService):
         :param bool reduce: (optional) Parameter to specify whether to use the
                reduce function in a map-reduce view. Default is true when a reduce
                function is defined.
+               A default `reduce` view type can be disabled to behave like a `map` by
+               setting `reduce=false` explicitly.
+               Be aware that `include_docs=true` can only be used with `map` views.
         :param object start_key: (optional) Schema for any JSON type.
         :param str start_key_doc_id: (optional) Schema for a document ID.
         :param str update: (optional) Parameter to specify whether or not the view
@@ -4538,14 +4542,19 @@ class CloudantV1(BaseService):
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument. See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
-               list of all available combination and conditional operators.
+               supplied argument.
+               It is important for query performance to use appropriate selectors:
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
-               For further reference see
-               [selector
+               * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
+               answered from an index. For query selectors use these operators in
+               conjunction with equality operators or create and use a partial index to
+               reduce the number of documents that will need to be scanned.
+               See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               list of all available combination and conditional operators.
+               For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
@@ -4585,6 +4594,9 @@ class CloudantV1(BaseService):
                "my_index"]`.
                It’s recommended to specify indexes explicitly in your queries to prevent
                existing queries being affected by new indexes that might get added later.
+               If the specified index does not exist or cannot answer the query then the
+               value is ignored and another index or a full scan of all documents will
+               answer the query.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `ExplainResult` object
@@ -4668,6 +4680,9 @@ class CloudantV1(BaseService):
         `_all_docs` index. This is not recommended because it has a noticeable performance
         impact causing a full scan of the partition with each request. In this case the
         response body will include a warning field recommending that an index is created.
+        Before using read the
+        [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying)
+        to understand the limitations and appropriate use cases.
 
         :param str db: Path parameter to specify the database name.
         :param str partition_key: Path parameter to specify the database partition
@@ -4694,14 +4709,19 @@ class CloudantV1(BaseService):
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument. See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
-               list of all available combination and conditional operators.
+               supplied argument.
+               It is important for query performance to use appropriate selectors:
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
-               For further reference see
-               [selector
+               * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
+               answered from an index. For query selectors use these operators in
+               conjunction with equality operators or create and use a partial index to
+               reduce the number of documents that will need to be scanned.
+               See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               list of all available combination and conditional operators.
+               For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
@@ -4741,6 +4761,9 @@ class CloudantV1(BaseService):
                "my_index"]`.
                It’s recommended to specify indexes explicitly in your queries to prevent
                existing queries being affected by new indexes that might get added later.
+               If the specified index does not exist or cannot answer the query then the
+               value is ignored and another index or a full scan of all documents will
+               answer the query.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `FindResult` object
@@ -4824,6 +4847,9 @@ class CloudantV1(BaseService):
         `_all_docs` index. This is not recommended because it has a noticeable performance
         impact causing a full scan of the partition with each request. In this case the
         response body will include a warning field recommending that an index is created.
+        Before using read the
+        [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying)
+        to understand the limitations and appropriate use cases.
 
         :param str db: Path parameter to specify the database name.
         :param str partition_key: Path parameter to specify the database partition
@@ -4850,14 +4876,19 @@ class CloudantV1(BaseService):
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument. See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
-               list of all available combination and conditional operators.
+               supplied argument.
+               It is important for query performance to use appropriate selectors:
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
-               For further reference see
-               [selector
+               * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
+               answered from an index. For query selectors use these operators in
+               conjunction with equality operators or create and use a partial index to
+               reduce the number of documents that will need to be scanned.
+               See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               list of all available combination and conditional operators.
+               For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
@@ -4897,6 +4928,9 @@ class CloudantV1(BaseService):
                "my_index"]`.
                It’s recommended to specify indexes explicitly in your queries to prevent
                existing queries being affected by new indexes that might get added later.
+               If the specified index does not exist or cannot answer the query then the
+               value is ignored and another index or a full scan of all documents will
+               answer the query.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `BinaryIO` result
@@ -5003,14 +5037,19 @@ class CloudantV1(BaseService):
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument. See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
-               list of all available combination and conditional operators.
+               supplied argument.
+               It is important for query performance to use appropriate selectors:
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
-               For further reference see
-               [selector
+               * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
+               answered from an index. For query selectors use these operators in
+               conjunction with equality operators or create and use a partial index to
+               reduce the number of documents that will need to be scanned.
+               See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               list of all available combination and conditional operators.
+               For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
@@ -5050,6 +5089,9 @@ class CloudantV1(BaseService):
                "my_index"]`.
                It’s recommended to specify indexes explicitly in your queries to prevent
                existing queries being affected by new indexes that might get added later.
+               If the specified index does not exist or cannot answer the query then the
+               value is ignored and another index or a full scan of all documents will
+               answer the query.
         :param int r: (optional) The read quorum that is needed for the result. The
                value defaults to 1, in which case the document that was found in the index
                is returned. If set to a higher value, each document is read from at least
@@ -5163,14 +5205,19 @@ class CloudantV1(BaseService):
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument. See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
-               list of all available combination and conditional operators.
+               supplied argument.
+               It is important for query performance to use appropriate selectors:
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
-               For further reference see
-               [selector
+               * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
+               answered from an index. For query selectors use these operators in
+               conjunction with equality operators or create and use a partial index to
+               reduce the number of documents that will need to be scanned.
+               See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               list of all available combination and conditional operators.
+               For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
@@ -5210,6 +5257,9 @@ class CloudantV1(BaseService):
                "my_index"]`.
                It’s recommended to specify indexes explicitly in your queries to prevent
                existing queries being affected by new indexes that might get added later.
+               If the specified index does not exist or cannot answer the query then the
+               value is ignored and another index or a full scan of all documents will
+               answer the query.
         :param int r: (optional) The read quorum that is needed for the result. The
                value defaults to 1, in which case the document that was found in the index
                is returned. If set to a higher value, each document is read from at least
@@ -5323,14 +5373,19 @@ class CloudantV1(BaseService):
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument. See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
-               list of all available combination and conditional operators.
+               supplied argument.
+               It is important for query performance to use appropriate selectors:
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
-               For further reference see
-               [selector
+               * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
+               answered from an index. For query selectors use these operators in
+               conjunction with equality operators or create and use a partial index to
+               reduce the number of documents that will need to be scanned.
+               See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               list of all available combination and conditional operators.
+               For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
@@ -5370,6 +5425,9 @@ class CloudantV1(BaseService):
                "my_index"]`.
                It’s recommended to specify indexes explicitly in your queries to prevent
                existing queries being affected by new indexes that might get added later.
+               If the specified index does not exist or cannot answer the query then the
+               value is ignored and another index or a full scan of all documents will
+               answer the query.
         :param int r: (optional) The read quorum that is needed for the result. The
                value defaults to 1, in which case the document that was found in the index
                is returned. If set to a higher value, each document is read from at least
@@ -6407,6 +6465,9 @@ class CloudantV1(BaseService):
                well-formed _rev must be included in the document. False is used by the
                replicator to insert documents into the target database even if that leads
                to the creation of conflicts.
+               Avoid using this parameter, since this option applies document revisions
+               without checking for conflicts, so it is very easy to accidentally end up
+               with a large number of conflicts.
         :param str rev: (optional) Query parameter to specify a document revision.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
@@ -7866,6 +7927,45 @@ class CloudantV1(BaseService):
         headers['Accept'] = 'application/json'
 
         url = '/_active_tasks'
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def get_membership_information(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve cluster membership information.
+
+        Displays the nodes that are part of the cluster as `cluster_nodes`. The field,
+        `all_nodes`, displays all nodes this node knows about, including the ones that are
+        part of the cluster. This endpoint is useful when you set up a cluster.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `MembershipInformation` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_membership_information',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_membership'
         request = self.prepare_request(
             method='GET',
             url=url,
@@ -9683,6 +9783,9 @@ class BulkDocs:
     :param List[Document] docs: Array of documents.
     :param bool new_edits: (optional) If `false`, prevents the database from
           assigning them new revision IDs. Default is `true`.
+          Avoid using this parameter, since this option applies document revisions without
+          checking for conflicts, so it is very easy to accidentally end up with a large
+          number of conflicts.
     """
 
     def __init__(
@@ -9697,6 +9800,9 @@ class BulkDocs:
         :param List[Document] docs: Array of documents.
         :param bool new_edits: (optional) If `false`, prevents the database from
                assigning them new revision IDs. Default is `true`.
+               Avoid using this parameter, since this option applies document revisions
+               without checking for conflicts, so it is very easy to accidentally end up
+               with a large number of conflicts.
         """
         self.docs = docs
         self.new_edits = new_edits
@@ -12132,6 +12238,8 @@ class DesignDocumentViewsMapReduce:
     Schema for view functions definition.
 
     :param str map: JavaScript map function as a string.
+    :param DesignDocumentViewsMapReduceOptions options: (optional) Options of view
+          build resuls.
     :param str reduce: (optional) JavaScript reduce function as a string.
     """
 
@@ -12139,15 +12247,19 @@ class DesignDocumentViewsMapReduce:
         self,
         map: str,
         *,
+        options: Optional['DesignDocumentViewsMapReduceOptions'] = None,
         reduce: Optional[str] = None,
     ) -> None:
         """
         Initialize a DesignDocumentViewsMapReduce object.
 
         :param str map: JavaScript map function as a string.
+        :param DesignDocumentViewsMapReduceOptions options: (optional) Options of
+               view build resuls.
         :param str reduce: (optional) JavaScript reduce function as a string.
         """
         self.map = map
+        self.options = options
         self.reduce = reduce
 
     @classmethod
@@ -12158,6 +12270,8 @@ class DesignDocumentViewsMapReduce:
             args['map'] = map
         else:
             raise ValueError('Required property \'map\' not present in DesignDocumentViewsMapReduce JSON')
+        if (options := _dict.get('options')) is not None:
+            args['options'] = DesignDocumentViewsMapReduceOptions.from_dict(options)
         if (reduce := _dict.get('reduce')) is not None:
             args['reduce'] = reduce
         return cls(**args)
@@ -12172,6 +12286,11 @@ class DesignDocumentViewsMapReduce:
         _dict = {}
         if hasattr(self, 'map') and self.map is not None:
             _dict['map'] = self.map
+        if hasattr(self, 'options') and self.options is not None:
+            if isinstance(self.options, dict):
+                _dict['options'] = self.options
+            else:
+                _dict['options'] = self.options.to_dict()
         if hasattr(self, 'reduce') and self.reduce is not None:
             _dict['reduce'] = self.reduce
         return _dict
@@ -12191,6 +12310,85 @@ class DesignDocumentViewsMapReduce:
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'DesignDocumentViewsMapReduce') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class DesignDocumentViewsMapReduceOptions:
+    """
+    Options of view build resuls.
+
+
+    This type supports additional properties of type object.
+    """
+
+    def __init__(
+        self,
+        **kwargs: Optional[object],
+    ) -> None:
+        """
+        Initialize a DesignDocumentViewsMapReduceOptions object.
+
+        :param object **kwargs: (optional) Additional properties of type object
+        """
+        for k, v in kwargs.items():
+            if not isinstance(v, object):
+                raise ValueError('Value for additional property {} must be of type object'.format(k))
+            setattr(self, k, v)
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'DesignDocumentViewsMapReduceOptions':
+        """Initialize a DesignDocumentViewsMapReduceOptions object from a json dictionary."""
+        args = {}
+        for k, v in _dict.items():
+                if not isinstance(v, object):
+                    raise ValueError('Value for additional property {} must be of type object'.format(k))
+                args[k] = v
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a DesignDocumentViewsMapReduceOptions object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        for k in [_k for _k in vars(self).keys()]:
+            _dict[k] = getattr(self, k)
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def get_properties(self) -> Dict:
+        """Return the additional properties from this instance of DesignDocumentViewsMapReduceOptions in the form of a dict."""
+        _dict = {}
+        for k in [_k for _k in vars(self).keys()]:
+            _dict[k] = getattr(self, k)
+        return _dict
+
+    def set_properties(self, _dict: dict):
+        """Set a dictionary of additional properties in this instance of DesignDocumentViewsMapReduceOptions"""
+        for k in [_k for _k in vars(self).keys()]:
+            delattr(self, k)
+        for k, v in _dict.items():
+            if not isinstance(v, object):
+                raise ValueError('Value for additional property {} must be of type object'.format(k))
+            setattr(self, k, v)
+
+    def __str__(self) -> str:
+        """Return a `str` version of this DesignDocumentViewsMapReduceOptions object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'DesignDocumentViewsMapReduceOptions') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'DesignDocumentViewsMapReduceOptions') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
@@ -12981,15 +13179,19 @@ class ExplainResult:
           argument is either another selector, or an array of selectors.
           * Condition operators: are specific to a field, and are used to evaluate the
           value stored in that field. For instance, the basic `$eq` operator matches when
-          the specified field contains a value that is equal to the supplied argument. See
-          [the Cloudant
-          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list
-          of all available combination and conditional operators.
+          the specified field contains a value that is equal to the supplied argument.
+          It is important for query performance to use appropriate selectors:
           * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but
           not `$ne`) can be used as the basis of a query. You should include at least one
           of these in a selector.
-          For further reference see
-          [selector
+          * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be answered
+          from an index. For query selectors use these operators in conjunction with
+          equality operators or create and use a partial index to reduce the number of
+          documents that will need to be scanned.
+          See [the Cloudant
+          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a list of
+          all available combination and conditional operators.
+          For further reference see [selector
           syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
     :param List[SelectorHint] selector_hints: (optional) Schema for a list of
           objects with extra information on the selector to provide insights about its
@@ -13047,14 +13249,19 @@ class ExplainResult:
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument. See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
-               list of all available combination and conditional operators.
+               supplied argument.
+               It is important for query performance to use appropriate selectors:
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
-               For further reference see
-               [selector
+               * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
+               answered from an index. For query selectors use these operators in
+               conjunction with equality operators or create and use a partial index to
+               reduce the number of documents that will need to be scanned.
+               See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               list of all available combination and conditional operators.
+               For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param int skip: Skip parameter used.
         :param List[IndexCandidate] index_candidates: (optional) Schema for the
@@ -13991,15 +14198,19 @@ class IndexDefinition:
           argument is either another selector, or an array of selectors.
           * Condition operators: are specific to a field, and are used to evaluate the
           value stored in that field. For instance, the basic `$eq` operator matches when
-          the specified field contains a value that is equal to the supplied argument. See
-          [the Cloudant
-          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list
-          of all available combination and conditional operators.
+          the specified field contains a value that is equal to the supplied argument.
+          It is important for query performance to use appropriate selectors:
           * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but
           not `$ne`) can be used as the basis of a query. You should include at least one
           of these in a selector.
-          For further reference see
-          [selector
+          * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be answered
+          from an index. For query selectors use these operators in conjunction with
+          equality operators or create and use a partial index to reduce the number of
+          documents that will need to be scanned.
+          See [the Cloudant
+          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a list of
+          all available combination and conditional operators.
+          For further reference see [selector
           syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
     """
 
@@ -14058,14 +14269,19 @@ class IndexDefinition:
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument. See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
-               list of all available combination and conditional operators.
+               supplied argument.
+               It is important for query performance to use appropriate selectors:
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
-               For further reference see
-               [selector
+               * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
+               answered from an index. For query selectors use these operators in
+               conjunction with equality operators or create and use a partial index to
+               reduce the number of documents that will need to be scanned.
+               See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               list of all available combination and conditional operators.
+               For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         """
         self.default_analyzer = default_analyzer
@@ -15662,15 +15878,19 @@ class ReplicationDocument:
           argument is either another selector, or an array of selectors.
           * Condition operators: are specific to a field, and are used to evaluate the
           value stored in that field. For instance, the basic `$eq` operator matches when
-          the specified field contains a value that is equal to the supplied argument. See
-          [the Cloudant
-          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list
-          of all available combination and conditional operators.
+          the specified field contains a value that is equal to the supplied argument.
+          It is important for query performance to use appropriate selectors:
           * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but
           not `$ne`) can be used as the basis of a query. You should include at least one
           of these in a selector.
-          For further reference see
-          [selector
+          * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be answered
+          from an index. For query selectors use these operators in conjunction with
+          equality operators or create and use a partial index to reduce the number of
+          documents that will need to be scanned.
+          See [the Cloudant
+          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a list of
+          all available combination and conditional operators.
+          For further reference see [selector
           syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
     :param str since_seq: (optional) Start the replication at a specific sequence
           value.
@@ -15828,14 +16048,19 @@ class ReplicationDocument:
                * Condition operators: are specific to a field, and are used to evaluate
                the value stored in that field. For instance, the basic `$eq` operator
                matches when the specified field contains a value that is equal to the
-               supplied argument. See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
-               list of all available combination and conditional operators.
+               supplied argument.
+               It is important for query performance to use appropriate selectors:
                * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
                (but not `$ne`) can be used as the basis of a query. You should include at
                least one of these in a selector.
-               For further reference see
-               [selector
+               * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
+               answered from an index. For query selectors use these operators in
+               conjunction with equality operators or create and use a partial index to
+               reduce the number of documents that will need to be scanned.
+               See [the Cloudant
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               list of all available combination and conditional operators.
+               For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param str since_seq: (optional) Start the replication at a specific
                sequence value.
@@ -18452,9 +18677,9 @@ class ThroughputInformation:
     Schema for detailed information about throughput capacity with breakdown by specific
     throughput requests classes.
 
-    :param int blocks: A number of blocks of throughput units. A block consists of
-          100 reads/sec, 50 writes/sec, and 5 global queries/sec of provisioned throughput
-          capacity.
+    :param int blocks: (optional) A number of blocks of throughput units. A block
+          consists of 100 reads/sec, 50 writes/sec, and 5 global queries/sec of
+          provisioned throughput capacity. Not available for some plans.
     :param int query: Provisioned global queries capacity in operations per second.
     :param int read: Provisioned reads capacity in operations per second.
     :param int write: Provisioned writes capacity in operations per second.
@@ -18462,21 +18687,22 @@ class ThroughputInformation:
 
     def __init__(
         self,
-        blocks: int,
         query: int,
         read: int,
         write: int,
+        *,
+        blocks: Optional[int] = None,
     ) -> None:
         """
         Initialize a ThroughputInformation object.
 
-        :param int blocks: A number of blocks of throughput units. A block consists
-               of 100 reads/sec, 50 writes/sec, and 5 global queries/sec of provisioned
-               throughput capacity.
         :param int query: Provisioned global queries capacity in operations per
                second.
         :param int read: Provisioned reads capacity in operations per second.
         :param int write: Provisioned writes capacity in operations per second.
+        :param int blocks: (optional) A number of blocks of throughput units. A
+               block consists of 100 reads/sec, 50 writes/sec, and 5 global queries/sec of
+               provisioned throughput capacity. Not available for some plans.
         """
         self.blocks = blocks
         self.query = query
@@ -18489,8 +18715,6 @@ class ThroughputInformation:
         args = {}
         if (blocks := _dict.get('blocks')) is not None:
             args['blocks'] = blocks
-        else:
-            raise ValueError('Required property \'blocks\' not present in ThroughputInformation JSON')
         if (query := _dict.get('query')) is not None:
             args['query'] = query
         else:
@@ -18970,6 +19194,9 @@ class ViewQuery:
     :param bool reduce: (optional) Parameter to specify whether to use the reduce
           function in a map-reduce view. Default is true when a reduce function is
           defined.
+          A default `reduce` view type can be disabled to behave like a `map` by setting
+          `reduce=false` explicitly.
+          Be aware that `include_docs=true` can only be used with `map` views.
     :param bool stable: (optional) Query parameter to specify whether use the same
           replica of  the index on each request. The default value `false` contacts all
           replicas and returns the result from the first, fastest, responder. Setting it
@@ -19055,6 +19282,9 @@ class ViewQuery:
         :param bool reduce: (optional) Parameter to specify whether to use the
                reduce function in a map-reduce view. Default is true when a reduce
                function is defined.
+               A default `reduce` view type can be disabled to behave like a `map` by
+               setting `reduce=false` explicitly.
+               Be aware that `include_docs=true` can only be used with `map` views.
         :param bool stable: (optional) Query parameter to specify whether use the
                same replica of  the index on each request. The default value `false`
                contacts all  replicas and returns the result from the first, fastest,
