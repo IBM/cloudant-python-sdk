@@ -755,14 +755,9 @@ class TestCloudantV1:
         design_document_options_model = {
             'partitioned': True,
         }
-        # Construct a dict representation of a DesignDocumentViewsMapReduceOptions model
-        design_document_views_map_reduce_options_model = {
-            'foo': 'testString',
-        }
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {
             'map': 'function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}',
-            'options': design_document_views_map_reduce_options_model,
             'reduce': 'testString',
         }
         # Construct a dict representation of a DesignDocument model

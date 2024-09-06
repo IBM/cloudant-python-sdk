@@ -4709,7 +4709,7 @@ class TestGetDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "options": {}, "reduce": "reduce"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}}'
         responses.add(
             responses.GET,
             url,
@@ -4784,7 +4784,7 @@ class TestGetDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "options": {}, "reduce": "reduce"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}}'
         responses.add(
             responses.GET,
             url,
@@ -4824,7 +4824,7 @@ class TestGetDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "options": {}, "reduce": "reduce"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}}'
         responses.add(
             responses.GET,
             url,
@@ -4920,14 +4920,9 @@ class TestPutDesignDocument:
         design_document_options_model = {}
         design_document_options_model['partitioned'] = True
 
-        # Construct a dict representation of a DesignDocumentViewsMapReduceOptions model
-        design_document_views_map_reduce_options_model = {}
-        design_document_views_map_reduce_options_model['foo'] = 'testString'
-
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {}
         design_document_views_map_reduce_model['map'] = 'function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}'
-        design_document_views_map_reduce_model['options'] = design_document_views_map_reduce_options_model
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
         # Construct a dict representation of a DesignDocument model
@@ -5055,14 +5050,9 @@ class TestPutDesignDocument:
         design_document_options_model = {}
         design_document_options_model['partitioned'] = True
 
-        # Construct a dict representation of a DesignDocumentViewsMapReduceOptions model
-        design_document_views_map_reduce_options_model = {}
-        design_document_views_map_reduce_options_model['foo'] = 'testString'
-
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {}
         design_document_views_map_reduce_model['map'] = 'function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}'
-        design_document_views_map_reduce_model['options'] = design_document_views_map_reduce_options_model
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
         # Construct a dict representation of a DesignDocument model
@@ -5176,14 +5166,9 @@ class TestPutDesignDocument:
         design_document_options_model = {}
         design_document_options_model['partitioned'] = True
 
-        # Construct a dict representation of a DesignDocumentViewsMapReduceOptions model
-        design_document_views_map_reduce_options_model = {}
-        design_document_views_map_reduce_options_model['foo'] = 'testString'
-
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {}
         design_document_views_map_reduce_model['map'] = 'function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}'
-        design_document_views_map_reduce_model['options'] = design_document_views_map_reduce_options_model
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
         # Construct a dict representation of a DesignDocument model
@@ -14653,12 +14638,8 @@ class TestModel_DesignDocument:
         design_document_options_model = {}  # DesignDocumentOptions
         design_document_options_model['partitioned'] = True
 
-        design_document_views_map_reduce_options_model = {}  # DesignDocumentViewsMapReduceOptions
-        design_document_views_map_reduce_options_model['foo'] = 'testString'
-
         design_document_views_map_reduce_model = {}  # DesignDocumentViewsMapReduce
         design_document_views_map_reduce_model['map'] = 'testString'
-        design_document_views_map_reduce_model['options'] = design_document_views_map_reduce_options_model
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
         # Construct a json representation of a DesignDocument model
@@ -14851,15 +14832,9 @@ class TestModel_DesignDocumentViewsMapReduce:
         Test serialization/deserialization for DesignDocumentViewsMapReduce
         """
 
-        # Construct dict forms of any model objects needed in order to build this model.
-
-        design_document_views_map_reduce_options_model = {}  # DesignDocumentViewsMapReduceOptions
-        design_document_views_map_reduce_options_model['foo'] = 'testString'
-
         # Construct a json representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model_json = {}
         design_document_views_map_reduce_model_json['map'] = 'testString'
-        design_document_views_map_reduce_model_json['options'] = design_document_views_map_reduce_options_model
         design_document_views_map_reduce_model_json['reduce'] = 'testString'
 
         # Construct a model instance of DesignDocumentViewsMapReduce by calling from_dict on the json representation
@@ -14876,46 +14851,6 @@ class TestModel_DesignDocumentViewsMapReduce:
         # Convert model instance back to dict and verify no loss of data
         design_document_views_map_reduce_model_json2 = design_document_views_map_reduce_model.to_dict()
         assert design_document_views_map_reduce_model_json2 == design_document_views_map_reduce_model_json
-
-
-class TestModel_DesignDocumentViewsMapReduceOptions:
-    """
-    Test Class for DesignDocumentViewsMapReduceOptions
-    """
-
-    def test_design_document_views_map_reduce_options_serialization(self):
-        """
-        Test serialization/deserialization for DesignDocumentViewsMapReduceOptions
-        """
-
-        # Construct a json representation of a DesignDocumentViewsMapReduceOptions model
-        design_document_views_map_reduce_options_model_json = {}
-        design_document_views_map_reduce_options_model_json['foo'] = 'testString'
-
-        # Construct a model instance of DesignDocumentViewsMapReduceOptions by calling from_dict on the json representation
-        design_document_views_map_reduce_options_model = DesignDocumentViewsMapReduceOptions.from_dict(design_document_views_map_reduce_options_model_json)
-        assert design_document_views_map_reduce_options_model != False
-
-        # Construct a model instance of DesignDocumentViewsMapReduceOptions by calling from_dict on the json representation
-        design_document_views_map_reduce_options_model_dict = DesignDocumentViewsMapReduceOptions.from_dict(design_document_views_map_reduce_options_model_json).__dict__
-        design_document_views_map_reduce_options_model2 = DesignDocumentViewsMapReduceOptions(**design_document_views_map_reduce_options_model_dict)
-
-        # Verify the model instances are equivalent
-        assert design_document_views_map_reduce_options_model == design_document_views_map_reduce_options_model2
-
-        # Convert model instance back to dict and verify no loss of data
-        design_document_views_map_reduce_options_model_json2 = design_document_views_map_reduce_options_model.to_dict()
-        assert design_document_views_map_reduce_options_model_json2 == design_document_views_map_reduce_options_model_json
-
-        # Test get_properties and set_properties methods.
-        design_document_views_map_reduce_options_model.set_properties({})
-        actual_dict = design_document_views_map_reduce_options_model.get_properties()
-        assert actual_dict == {}
-
-        expected_dict = {'foo': 'testString'}
-        design_document_views_map_reduce_options_model.set_properties(expected_dict)
-        actual_dict = design_document_views_map_reduce_options_model.get_properties()
-        assert actual_dict.keys() == expected_dict.keys()
 
 
 class TestModel_DocsResultRow:
