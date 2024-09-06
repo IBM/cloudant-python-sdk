@@ -12238,8 +12238,6 @@ class DesignDocumentViewsMapReduce:
     Schema for view functions definition.
 
     :param str map: JavaScript map function as a string.
-    :param DesignDocumentViewsMapReduceOptions options: (optional) Options of view
-          build resuls.
     :param str reduce: (optional) JavaScript reduce function as a string.
     """
 
@@ -12247,19 +12245,15 @@ class DesignDocumentViewsMapReduce:
         self,
         map: str,
         *,
-        options: Optional['DesignDocumentViewsMapReduceOptions'] = None,
         reduce: Optional[str] = None,
     ) -> None:
         """
         Initialize a DesignDocumentViewsMapReduce object.
 
         :param str map: JavaScript map function as a string.
-        :param DesignDocumentViewsMapReduceOptions options: (optional) Options of
-               view build resuls.
         :param str reduce: (optional) JavaScript reduce function as a string.
         """
         self.map = map
-        self.options = options
         self.reduce = reduce
 
     @classmethod
@@ -12270,8 +12264,6 @@ class DesignDocumentViewsMapReduce:
             args['map'] = map
         else:
             raise ValueError('Required property \'map\' not present in DesignDocumentViewsMapReduce JSON')
-        if (options := _dict.get('options')) is not None:
-            args['options'] = DesignDocumentViewsMapReduceOptions.from_dict(options)
         if (reduce := _dict.get('reduce')) is not None:
             args['reduce'] = reduce
         return cls(**args)
@@ -12286,11 +12278,6 @@ class DesignDocumentViewsMapReduce:
         _dict = {}
         if hasattr(self, 'map') and self.map is not None:
             _dict['map'] = self.map
-        if hasattr(self, 'options') and self.options is not None:
-            if isinstance(self.options, dict):
-                _dict['options'] = self.options
-            else:
-                _dict['options'] = self.options.to_dict()
         if hasattr(self, 'reduce') and self.reduce is not None:
             _dict['reduce'] = self.reduce
         return _dict
@@ -12310,85 +12297,6 @@ class DesignDocumentViewsMapReduce:
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'DesignDocumentViewsMapReduce') -> bool:
-        """Return `true` when self and other are not equal, false otherwise."""
-        return not self == other
-
-
-class DesignDocumentViewsMapReduceOptions:
-    """
-    Options of view build resuls.
-
-
-    This type supports additional properties of type object.
-    """
-
-    def __init__(
-        self,
-        **kwargs: Optional[object],
-    ) -> None:
-        """
-        Initialize a DesignDocumentViewsMapReduceOptions object.
-
-        :param object **kwargs: (optional) Additional properties of type object
-        """
-        for k, v in kwargs.items():
-            if not isinstance(v, object):
-                raise ValueError('Value for additional property {} must be of type object'.format(k))
-            setattr(self, k, v)
-
-    @classmethod
-    def from_dict(cls, _dict: Dict) -> 'DesignDocumentViewsMapReduceOptions':
-        """Initialize a DesignDocumentViewsMapReduceOptions object from a json dictionary."""
-        args = {}
-        for k, v in _dict.items():
-                if not isinstance(v, object):
-                    raise ValueError('Value for additional property {} must be of type object'.format(k))
-                args[k] = v
-        return cls(**args)
-
-    @classmethod
-    def _from_dict(cls, _dict):
-        """Initialize a DesignDocumentViewsMapReduceOptions object from a json dictionary."""
-        return cls.from_dict(_dict)
-
-    def to_dict(self) -> Dict:
-        """Return a json dictionary representing this model."""
-        _dict = {}
-        for k in [_k for _k in vars(self).keys()]:
-            _dict[k] = getattr(self, k)
-        return _dict
-
-    def _to_dict(self):
-        """Return a json dictionary representing this model."""
-        return self.to_dict()
-
-    def get_properties(self) -> Dict:
-        """Return the additional properties from this instance of DesignDocumentViewsMapReduceOptions in the form of a dict."""
-        _dict = {}
-        for k in [_k for _k in vars(self).keys()]:
-            _dict[k] = getattr(self, k)
-        return _dict
-
-    def set_properties(self, _dict: dict):
-        """Set a dictionary of additional properties in this instance of DesignDocumentViewsMapReduceOptions"""
-        for k in [_k for _k in vars(self).keys()]:
-            delattr(self, k)
-        for k, v in _dict.items():
-            if not isinstance(v, object):
-                raise ValueError('Value for additional property {} must be of type object'.format(k))
-            setattr(self, k, v)
-
-    def __str__(self) -> str:
-        """Return a `str` version of this DesignDocumentViewsMapReduceOptions object."""
-        return json.dumps(self.to_dict(), indent=2)
-
-    def __eq__(self, other: 'DesignDocumentViewsMapReduceOptions') -> bool:
-        """Return `true` when self and other are equal, false otherwise."""
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other: 'DesignDocumentViewsMapReduceOptions') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
