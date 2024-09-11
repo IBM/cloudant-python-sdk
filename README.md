@@ -339,7 +339,7 @@ print(f'You have created the document:\n{example_document}')
 
 When you run the code, you see a result similar to the following output.
 
-```txt
+```text
 "orders" database created.
 You have created the document:
 {
@@ -401,7 +401,7 @@ print(f'Document retrieved from database:\n'
 </details>
 When you run the code, you see a result similar to the following output.
 
-```txt
+```text
 Server Version: 2.1.1
 Document count in "orders" database is 1.
 Document retrieved from database:
@@ -508,7 +508,7 @@ except ApiException as ae:
 </details>
 When you run the code, you see a result similar to the following output.
 
-```txt
+```text
 {
   "_id": "example",
   "_rev": "2-4e2178e85cffb32d38ba4e451f6ca376",
@@ -565,7 +565,7 @@ except ApiException as ae:
 </details>
 When you run the code, you see the following output.
 
-```txt
+```text
 You have deleted the document.
 ```
 
