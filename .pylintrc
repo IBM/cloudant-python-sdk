@@ -45,6 +45,7 @@ confidence=HIGH
 # no Warning level messages displayed, use "--disable=all --enable=classes
 # --disable=W".
 disable=too-many-arguments,
+        too-many-positional-arguments,
         too-many-public-methods,
         too-few-public-methods,
         too-many-instance-attributes,
