@@ -6,5 +6,5 @@ responses==0.25.3
 python_dotenv==1.0.1
 pylint==3.3.1
 # code coverage
-coverage==7.6.2
+coverage==7.6.3
 pytest-cov==5.0.0
