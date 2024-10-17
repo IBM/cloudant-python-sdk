@@ -4,11 +4,11 @@ from ibmcloudant.cloudant_v1 import Analyzer, AnalyzerConfiguration, CloudantV1,
 service = CloudantV1.new_instance()
 
 email_view_map_reduce = DesignDocumentViewsMapReduce(
-  map='function(doc) { if(doc.email_verified  === true){\n  emit(doc.email, [doc.name, doc.email_verified, doc.joined]) }}'
+  map='function(doc) { if(doc.email_verified === true) { emit(doc.email, [doc.name, doc.email_verified, doc.joined]); }}'
 )
 
 user_index = SearchIndexDefinition(
-  index='function (doc) { index("name", doc.name); index("active", doc.active); }',
+  index='function(doc) { index("name", doc.name); index("active", doc.active); }',
   analyzer=AnalyzerConfiguration(name="standard", fields={"email": Analyzer(name="email")}))
 
 design_document = DesignDocument(
@@ -27,11 +27,11 @@ print(response)
 # Partitioned DesignDocument Example
 
 product_map = DesignDocumentViewsMapReduce(
-  map='function(doc) { emit(doc.productId, [doc.brand, doc.name, doc.description]) }'
+  map='function(doc) { emit(doc.productId, [doc.date, doc.eventType, doc.userId]); }'
 )
 
-price_index = SearchIndexDefinition(
-  index='function (doc) { index("price", doc.price);}',
+date_index = SearchIndexDefinition(
+  index='function(doc) { index("date", doc.date); }',
   analyzer=AnalyzerConfiguration(name="classic", fields={"description": Analyzer(name="english")})
 )
 
@@ -40,17 +40,17 @@ design_document_options = DesignDocumentOptions(
 )
 
 partitioned_design_doc = DesignDocument(
-  views={'byApplianceProdId': product_map},
-  indexes={'findByPrice': price_index},
+  views={'byProductId': product_map},
+  indexes={'findByDate': date_index},
   options=design_document_options
 )
 
 response = service.put_design_document(
-  db='products',
+  db='events',
   design_document=partitioned_design_doc,
-  ddoc='appliances'
+  ddoc='checkout'
 ).get_result()
 
 print(response)
 # section: markdown
-# This example creates `allusers` design document in the `users` database and `appliances` design document in the partitioned `products` database.
+# This example creates `allusers` design document in the `users` database and `checkout` design document in the partitioned `events` database.

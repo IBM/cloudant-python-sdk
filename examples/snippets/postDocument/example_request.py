@@ -4,9 +4,9 @@ from ibmcloudant.cloudant_v1 import Document, CloudantV1
 service = CloudantV1.new_instance()
 
 products_doc = Document(
-  _id="small-appliances:1000042",
+  _id="1000042",
   type="product",
-  productid="1000042",
+  productId="1000042",
   brand="Salter",
   name="Digital Kitchen Scales",
   description="Slim Colourful Design Electronic Cooking Appliance for Home / Kitchen, Weigh up to 5kg + Aquatronic for Liquids ml + fl. oz. 15Yr Guarantee - Green",

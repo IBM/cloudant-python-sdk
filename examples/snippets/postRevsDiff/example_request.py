@@ -17,3 +17,5 @@ response = service.post_revs_diff(
 ).get_result()
 
 print(response)
+// section: markdown
+// This example requires the example revisions in the POST body to be replaced with valid revisions.

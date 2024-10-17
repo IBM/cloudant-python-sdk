@@ -5,7 +5,7 @@ service = CloudantV1.new_instance()
 
 response = service.get_document(
   db='products',
-  doc_id='small-appliances:1000042'
+  doc_id='1000042'
 ).get_result()
 
 print(response)

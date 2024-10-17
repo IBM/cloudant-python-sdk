@@ -11,4 +11,4 @@ response = service.post_find(
 ).get_result()
 print(response)
 # section: markdown
-# This example requires the `getUserByVerifiedEmail` Cloudant Query "text" index to exist. To create the index, see [Create a new index on a database.](#postindex)
+# This example requires the `getUserByAddress` Cloudant Query "text" index to exist. To create the index, see [Create a new index on a database.](#postindex)
