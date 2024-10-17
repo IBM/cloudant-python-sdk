@@ -4,17 +4,17 @@ from ibmcloudant.cloudant_v1 import Document, CloudantV1, BulkDocs
 service = CloudantV1.new_instance()
 
 event_doc_1 = Document(
-  _id="0007241142412418284",
+  _id="ns1HJS13AMkK:0007241142412418284",
   type="event",
-  userid="abc123",
+  userId="abc123",
   eventType="addedToBasket",
   productId="1000042",
   date="2019-01-28T10:44:22.000Z"
 )
 event_doc_2 = Document(
-  _id="0007241142412418285",
+  _id="H8tDIwfadxp9:0007241142412418285",
   type="event",
-  userid="abc234",
+  userId="abc234",
   eventType="addedToBasket",
   productId="1000050",
   date="2019-01-25T20:00:00.000Z"

@@ -640,9 +640,9 @@ from ibmcloudant.cloudant_v1 import Document, CloudantV1
 service = CloudantV1.new_instance()
 
 products_doc = Document(
-  _id="small-appliances:1000042",
+  _id="1000042",
   type="product",
-  productid="1000042",
+  productId="1000042",
   brand="Salter",
   name="Digital Kitchen Scales",
   description="Slim Colourful Design Electronic Cooking Appliance for Home / Kitchen, Weigh up to 5kg + Aquatronic for Liquids ml + fl. oz. 15Yr Guarantee - Green",
@@ -667,7 +667,7 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
 
-response = service.put_database(db='products', partitioned=True).get_result()
+response = service.put_database(db='events', partitioned=True).get_result()
 
 print(response)
 ```
@@ -730,7 +730,7 @@ from ibmcloudant.cloudant_v1 import AllDocsQuery, CloudantV1
 service = CloudantV1.new_instance()
 
 all_docs_query1 = AllDocsQuery(
-  keys=['small-appliances:1000042', 'small-appliances:1000043']
+  keys=['1000042', '1000043']
 )
 
 all_docs_query2 = AllDocsQuery(
@@ -760,17 +760,17 @@ from ibmcloudant.cloudant_v1 import Document, CloudantV1, BulkDocs
 service = CloudantV1.new_instance()
 
 event_doc_1 = Document(
-  _id="0007241142412418284",
+  _id="ns1HJS13AMkK:0007241142412418284",
   type="event",
-  userid="abc123",
+  userId="abc123",
   eventType="addedToBasket",
   productId="1000042",
   date="2019-01-28T10:44:22.000Z"
 )
 event_doc_2 = Document(
-  _id="0007241142412418285",
+  _id="H8tDIwfadxp9:0007241142412418285",
   type="event",
-  userid="abc234",
+  userId="abc234",
   eventType="addedToBasket",
   productId="1000050",
   date="2019-01-25T20:00:00.000Z"
@@ -796,12 +796,12 @@ from ibmcloudant.cloudant_v1 import Document, CloudantV1, BulkDocs
 service = CloudantV1.new_instance()
 
 event_doc_1 = Document(
-  _id="0007241142412418284",
+  _id="ns1HJS13AMkK:0007241142412418284",
   _rev="1-5005d65514fe9e90f8eccf174af5dd64",
   _deleted=True,
 )
 event_doc_2 = Document(
-  _id="0007241142412418285",
+  _id="H8tDIwfadxp9:0007241142412418285",
   _rev="1-2d7810b054babeda4812b3924428d6d6",
   _deleted=True,
 )
@@ -838,17 +838,17 @@ print(response)
 {
   "docs": [
     {
-      "_id": "0007241142412418284",
+      "_id": "ns1HJS13AMkK:0007241142412418284",
       "type": "event",
-      "userid": "abc123",
+      "userId": "abc123",
       "eventType": "addedToBasket",
       "productId": "1000042",
       "date": "2019-01-28T10:44:22.000Z"
     },
     {
-      "_id": "0007241142412418285",
+      "_id": "H8tDIwfadxp9:0007241142412418285",
       "type": "event",
-      "userid": "abc123",
+      "userId": "abc234",
       "eventType": "addedToBasket",
       "productId": "1000050",
       "date": "2019-01-25T20:00:00.000Z"
@@ -1019,8 +1019,8 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 service = CloudantV1.new_instance()
 
 response = service.head_design_document(
-  db='products',
-  ddoc='appliances'
+  db='events',
+  ddoc='checkout'
 )
 print(response.get_status_code())
 print(response.get_headers()['ETag'])
@@ -1040,11 +1040,11 @@ from ibmcloudant.cloudant_v1 import Analyzer, AnalyzerConfiguration, CloudantV1,
 service = CloudantV1.new_instance()
 
 email_view_map_reduce = DesignDocumentViewsMapReduce(
-  map='function(doc) { if(doc.email_verified  === true){\n  emit(doc.email, [doc.name, doc.email_verified, doc.joined]) }}'
+  map='function(doc) { if(doc.email_verified === true) { emit(doc.email, [doc.name, doc.email_verified, doc.joined]); }}'
 )
 
 user_index = SearchIndexDefinition(
-  index='function (doc) { index("name", doc.name); index("active", doc.active); }',
+  index='function(doc) { index("name", doc.name); index("active", doc.active); }',
   analyzer=AnalyzerConfiguration(name="standard", fields={"email": Analyzer(name="email")}))
 
 design_document = DesignDocument(
@@ -1063,11 +1063,11 @@ print(response)
 # Partitioned DesignDocument Example
 
 product_map = DesignDocumentViewsMapReduce(
-  map='function(doc) { emit(doc.productId, [doc.brand, doc.name, doc.description]) }'
+  map='function(doc) { emit(doc.productId, [doc.date, doc.eventType, doc.userId]); }'
 )
 
-price_index = SearchIndexDefinition(
-  index='function (doc) { index("price", doc.price);}',
+date_index = SearchIndexDefinition(
+  index='function(doc) { index("date", doc.date); }',
   analyzer=AnalyzerConfiguration(name="classic", fields={"description": Analyzer(name="english")})
 )
 
@@ -1076,20 +1076,20 @@ design_document_options = DesignDocumentOptions(
 )
 
 partitioned_design_doc = DesignDocument(
-  views={'byApplianceProdId': product_map},
-  indexes={'findByPrice': price_index},
+  views={'byProductId': product_map},
+  indexes={'findByDate': date_index},
   options=design_document_options
 )
 
 response = service.put_design_document(
-  db='products',
+  db='events',
   design_document=partitioned_design_doc,
-  ddoc='appliances'
+  ddoc='checkout'
 ).get_result()
 
 print(response)
 # section: markdown
-# This example creates `allusers` design document in the `users` database and `appliances` design document in the partitioned `products` database.
+# This example creates `allusers` design document in the `users` database and `checkout` design document in the partitioned `events` database.
 ```
 
 ## getDesignDocumentInformation
@@ -1152,14 +1152,14 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 service = CloudantV1.new_instance()
 
 response = service.get_search_info(
-  db='products',
-  ddoc='appliances',
-  index='findByPrice'
+  db='events',
+  ddoc='checkout',
+  index='findByDate'
 ).get_result()
 
 print(response)
 # section: markdown
-# This example requires the `findByPrice` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
+# This example requires the `findByDate` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
 ```
 
 ## postView
@@ -1318,7 +1318,7 @@ response = service.post_find(
 ).get_result()
 print(response)
 # section: markdown
-# This example requires the `getUserByAddress` Cloudant Query "json" index to exist. To create the index, see [Create a new index on a database.](#postindex)
+# This example requires the `getUserByEmail` Cloudant Query "json" index to exist. To create the index, see [Create a new index on a database.](#postindex)
 ```
 
 ### [Example request for "text" index type](snippets/postFind/example_request_for_text_index_type.py)
@@ -1338,7 +1338,7 @@ response = service.post_find(
 ).get_result()
 print(response)
 # section: markdown
-# This example requires the `getUserByVerifiedEmail` Cloudant Query "text" index to exist. To create the index, see [Create a new index on a database.](#postindex)
+# This example requires the `getUserByAddress` Cloudant Query "text" index to exist. To create the index, see [Create a new index on a database.](#postindex)
 ```
 
 ## getIndexesInformation
@@ -1505,13 +1505,13 @@ service = CloudantV1.new_instance()
 local_document = Document(
    type='order',
    user='Bob Smith',
-   orderid='0007741142412418284',
-   userid='abc123',
+   orderId='0007741142412418284',
+   userId='abc123',
    total=214.98,
    deliveryAddress='19 Front Street, Darlington, DL5 1TY',
    delivered='true',
    courier='UPS',
-   courierid='15125425151261289',
+   courierId='15125425151261289',
    date='2019-01-28T10:44:22.000Z'
 )
 
@@ -1538,8 +1538,8 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 service = CloudantV1.new_instance()
 
 response = service.get_partition_information(
-  db='products',
-  partition_key='small-appliances'
+  db='events',
+  partition_key='ns1HJS13AMkK'
 ).get_result()
 
 print(response)
@@ -1559,8 +1559,8 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 service = CloudantV1.new_instance()
 
 response = service.post_partition_all_docs(
-  db='products',
-  partition_key='small-appliances',
+  db='events',
+  partition_key='ns1HJS13AMkK',
   include_docs=True
 ).get_result()
 
@@ -1581,16 +1581,16 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 service = CloudantV1.new_instance()
 
 response = service.post_partition_search(
-  db='products',
-  partition_key='small-appliances',
-  ddoc='appliances',
-  index='findByPrice',
-  query='price:[14 TO 20]'
+  db='events',
+  partition_key='ns1HJS13AMkK',
+  ddoc='checkout',
+  index='findByDate',
+  query='date:[2019-01-01T12:00:00.000Z TO 2019-01-31T12:00:00.000Z]'
 ).get_result()
 
 print(response)
 # section: markdown
-# This example requires the `findByPrice` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
+# This example requires the `findByDate` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
 ```
 
 ## postPartitionView
@@ -1607,16 +1607,40 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 service = CloudantV1.new_instance()
 
 response = service.post_partition_view(
-  db='products',
-  ddoc='appliances',
+  db='events',
+  ddoc='checkout',
+  include_docs=True,
   limit=10,
-  partition_key='small-appliances',
-  view='byApplianceProdId'
+  partition_key='ns1HJS13AMkK',
+  view='byProductId'
 ).get_result()
 
 print(response)
 # section: markdown
-# This example requires the `byApplianceProdId` partitioned view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
+# This example requires the `byProductId` partitioned view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
+```
+
+## postPartitionExplain
+
+_POST `/{db}/_partition/{partition_key}/_explain`_
+
+### [Example request](snippets/postPartitionExplain/example_request.py)
+
+[embedmd]:# (snippets/postPartitionFind/example_request.py)
+```py
+# section: code
+from ibmcloudant.cloudant_v1 import CloudantV1
+
+service = CloudantV1.new_instance()
+
+response = service.post_partition_find(
+  db='events',
+  partition_key='ns1HJS13AMkK',
+  fields=['productId', 'eventType', 'date'],
+  selector={'userId': {'$eq': 'abc123'}}
+).get_result()
+
+print(response)
 ```
 
 ## postPartitionFind
@@ -1633,10 +1657,10 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 service = CloudantV1.new_instance()
 
 response = service.post_partition_find(
-  db='products',
-  partition_key='small-appliances',
-  fields=['productid', 'name', 'description'],
-  selector={'type': {'$eq': 'product'}}
+  db='events',
+  partition_key='ns1HJS13AMkK',
+  fields=['productId', 'eventType', 'date'],
+  selector={'userId': {'$eq': 'abc123'}}
 ).get_result()
 
 print(response)
@@ -1669,6 +1693,8 @@ response = service.post_revs_diff(
 ).get_result()
 
 print(response)
+// section: markdown
+// This example requires the example revisions in the POST body to be replaced with valid revisions.
 ```
 
 ## getSecurity
@@ -1756,7 +1782,7 @@ service = CloudantV1.new_instance()
 
 response = service.get_document_shards_info(
   db='products',
-  doc_id='small-appliances:1000042'
+  doc_id='1000042'
 ).get_result()
 
 print(response)
@@ -1776,9 +1802,9 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 service = CloudantV1.new_instance()
 
 response = service.delete_document(
-  db='events',
-  doc_id='0007241142412418284',
-  rev='2-9a0d1cd9f40472509e9aac6461837367'
+  db='orders',
+  doc_id='order00058',
+  rev='1-99b02e08da151943c2dcb40090160bb8'
 ).get_result()
 
 print(response)
@@ -1799,7 +1825,7 @@ service = CloudantV1.new_instance()
 
 response = service.get_document(
   db='products',
-  doc_id='small-appliances:1000042'
+  doc_id='1000042'
 ).get_result()
 
 print(response)
@@ -1819,8 +1845,8 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 service = CloudantV1.new_instance()
 
 response = service.head_document(
-  db='events',
-  doc_id='0007241142412418284'
+  db='orders',
+  doc_id='order00058'
 )
 print(response.get_status_code())
 print(response.get_headers()['ETag'])
@@ -1841,14 +1867,14 @@ service = CloudantV1.new_instance()
 
 event_doc = Document(
   type='event',
-  userid='abc123',
+  userId='abc123',
   eventType='addedToBasket',
   productId='1000042',
   date='2019-01-28T10:44:22.000Z'
 )
 response = service.put_document(
   db='events',
-  doc_id='0007241142412418284',
+  doc_id='ns1HJS13AMkK:0007241142412418284',
   document=event_doc
 ).get_result()
 
@@ -1870,14 +1896,14 @@ service = CloudantV1.new_instance()
 
 response = service.delete_attachment(
   db='products',
-  doc_id='small-appliances:100001',
+  doc_id='1000042',
   attachment_name='product_details.txt',
   rev='4-1a0d1cd6f40472509e9aac646183736a'
 ).get_result()
 
 print(response)
 # section: markdown
-# This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
+# This example requires the `product_details.txt` attachment in `1000042` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 ```
 
 ## getAttachment
@@ -1895,13 +1921,13 @@ service = CloudantV1.new_instance()
 
 response_attachment = service.get_attachment(
   db='products',
-  doc_id='small-appliances:100001',
+  doc_id='1000042',
   attachment_name='product_details.txt'
 ).get_result().content
 
 print(response_attachment)
 # section: markdown
-# This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
+# This example requires the `product_details.txt` attachment in `1000042` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 ```
 
 ## headAttachment
@@ -1919,14 +1945,14 @@ service = CloudantV1.new_instance()
 
 response = service.head_attachment(
   db='products',
-  doc_id='small-appliances:100001',
+  doc_id='1000042',
   attachment_name='product_details.txt'
 )
 print(response.get_status_code())
 print(response.get_headers()['Content-Length'])
 print(response.get_headers()['Content-Type'])
 # section: markdown
-# This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
+# This example requires the `product_details.txt` attachment in `1000042` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 ```
 
 ## putAttachment
@@ -1945,7 +1971,7 @@ service = CloudantV1.new_instance()
 detailed_description = "This appliance includes..."
 response = service.put_attachment(
   db='products',
-  doc_id='small-appliances:100001',
+  doc_id='1000042',
   attachment_name='product_details.txt',
   attachment=detailed_description,
   content_type='text/plain'
