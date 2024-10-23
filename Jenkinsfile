@@ -64,8 +64,11 @@ pipeline {
       }
       // Scanning runs only on non-dependabot branches
       when {
-        not {
-          branch 'dependabot*'
+        allOf {
+          branch 'main'
+          not {
+            branch 'dependabot*'
+          }
         }
       }
       steps {
@@ -73,6 +76,9 @@ pipeline {
       }
     }
     stage('Publish[staging]') {
+      when {
+        branch 'main'
+      }
       environment {
         STAGE_ROOT = "${ARTIFACTORY_URL_UP}/api/"
       }
@@ -96,6 +102,9 @@ pipeline {
       }
     }
     stage('Run Gauge tests') {
+      when {
+        branch 'main'
+      }
       steps {
         script {
             buildResults = null
