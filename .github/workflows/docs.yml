@@ -2,6 +2,7 @@ name: docs
 on:
   pull_request:
     branches: ['main']
+permissions: {}
 jobs:
   docs:
     runs-on: ubuntu-latest
