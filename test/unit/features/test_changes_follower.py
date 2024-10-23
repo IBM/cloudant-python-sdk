@@ -36,6 +36,9 @@ from ibmcloudant.features.changes_follower import (
     _Mode,
 )
 
+import logging
+logging.basicConfig(level=logging.DEBUG, force=True)
+
 # the largest positive integer supported by the platform
 MAX_BATCHES = sys.maxsize / _BATCH_SIZE
 

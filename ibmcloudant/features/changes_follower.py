@@ -174,7 +174,7 @@ class _ChangesFollowerIterator:
                 if self.mode == _Mode.FINITE and self._pending == 0:
                     self._has_next = False
                 results = result['results']
-                self.logger.debug(f'_request_callback results {results}')
+                self.logger.debug(f'_request_callback results {len(results)}')
                 self._buffer.join()
                 if self._stop.is_set():
                     raise StopIteration
