@@ -182,7 +182,7 @@ class _ChangesFollowerIterator:
                     [ChangesResultItem.from_dict(item) for item in results]
                 )
             except Exception as e:
-                self.logger.debug(f'Exception getting changes {e}')
+                self.logger.debug(f'Exception getting changes {type(e)}: {e}')
                 if (
                     self._transient_suppression == _TransientErrorSuppression.NEVER
                     or (
