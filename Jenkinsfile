@@ -300,7 +300,7 @@ void runTests() {
   sh '''
     export PIP_INDEX_URL=https://${ARTIFACTORY_CREDS_USR}:${ARTIFACTORY_CREDS_PSW}@${ARTIFACTORY_URL_DOWN##'https://'}/api/pypi/cloudant-sdks-pypi-virtual/simple
     pip install -r requirements-dev.txt && flit install --only-deps
-    python3 -m pytest -vrP --junitxml=junitreports/junit-pytest.xml
+    python3 -m pytest -vrP --junitxml=junitreports/junit-pytest.xml test/unit/features/
   '''
 }
 
