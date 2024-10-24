@@ -41,11 +41,15 @@ pipeline {
                              usernameVariable: 'SERVER_USERNAME',
                              passwordVariable: 'SERVER_PASSWORD')
             ]) {
+              // script {
+              //     sh './scripts/setup_couch.sh'
+              //     sh './scripts/setup_wiremock.sh'
+              // }
               script {
-                  sh './scripts/setup_couch.sh'
-                  sh './scripts/setup_wiremock.sh'
+                for (int i = 0; i < 10; i++) {
+                  runTests()
+                }
               }
-              runTests()
           }
         }
       }
