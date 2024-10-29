@@ -62,10 +62,13 @@ pipeline {
       environment {
         scannerHome = tool 'SonarQubeScanner'
       }
-      // Scanning runs only on non-dependabot branches
+      // Scanning runs on dependabot core update and non-dependabot branches
       when {
-        not {
-          branch 'dependabot*'
+        anyOf {
+          branch pattern: /^dependabot.*(?i)(ibm)[\.-].+sdk-core.*$/, comparator: 'REGEXP'
+          not {
+            branch 'dependabot*'
+          }
         }
       }
       steps {
