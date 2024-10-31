@@ -157,7 +157,9 @@ class _ChangesFollowerIterator:
                     raise StopIteration from exc
                 if isinstance(data, Exception):
                     raise data from None
-                self._changes_iter = iter(data)
+                self._changes_iter = iter(
+                    (ChangesResultItem.from_dict(item) for item in data)
+                )
                 self._buffer.task_done()
 
     def _request_callback(self):
@@ -178,9 +180,7 @@ class _ChangesFollowerIterator:
                 self._buffer.join()
                 if self._stop.is_set():
                     raise StopIteration
-                self._buffer.put(
-                    [ChangesResultItem.from_dict(item) for item in results]
-                )
+                self._buffer.put(results)
             except Exception as e:
                 self.logger.debug(f'Exception getting changes {e}')
                 if (
