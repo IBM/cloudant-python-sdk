@@ -287,12 +287,12 @@ class TestChangesFollowerFinite(ChangesFollowerBaseCase):
             self.prepare_mock_changes(batches=MAX_BATCHES)
             follower = ChangesFollower(self.client, db="db")
             start = timeit.default_timer()
-            count = self.runner(follower, _Mode.FINITE, timeout=5, stop_after=1000)
+            count = self.runner(follower, _Mode.FINITE, timeout=2, stop_after=1000)
             stop = timeit.default_timer() - start
         except BaseException:
             self.fail("There should be no exception.")
         self.assertGreaterEqual(count, 1000, "There should be some changes.")
-        self.assertLess(stop, 5, "The thread should have stopped before the wait time.")
+        self.assertLess(stop, 2, "The thread should have stopped before the wait time.")
 
     @responses.activate
     def test_state_error(self):
@@ -324,7 +324,7 @@ class TestChangesFollowerFinite(ChangesFollowerBaseCase):
             try:
                 self.prepare_mock_changes(batches=MAX_BATCHES)
                 follower = ChangesFollower(self.client, db="db", limit=limit)
-                count = self.runner(follower, _Mode.FINITE, timeout=3600)
+                count = self.runner(follower, _Mode.FINITE, timeout=180)
             except BaseException:
                 self.fail("There should be no exception.")
             self.assertEqual(
@@ -446,7 +446,7 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
         try:
             self.prepare_mock_changes(batches=3)
             follower = ChangesFollower(self.client, db="db")
-            count = self.runner(follower, _Mode.LISTEN, timeout=5)
+            count = self.runner(follower, _Mode.LISTEN, timeout=2)
         except BaseException:
             self.fail("There should be no exception.")
         self.assertGreater(count, 2 * _BATCH_SIZE + 1, "There should be some changes.")
@@ -543,7 +543,7 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
         Checks that a LISTEN mode runs through transient errors
         with max suppression to receive changes until stopped.
         """
-        batches = 3
+        batches = 2
         self.prepare_mock_changes(
             batches=batches,
             errors=self.transient_errors,
@@ -568,12 +568,12 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
             self.prepare_mock_changes(batches=MAX_BATCHES)
             follower = ChangesFollower(self.client, db="db")
             start = timeit.default_timer()
-            count = self.runner(follower, _Mode.LISTEN, timeout=5, stop_after=1000)
+            count = self.runner(follower, _Mode.LISTEN, timeout=2, stop_after=1000)
             stop = timeit.default_timer() - start
         except BaseException:
             self.fail("There should be no exception.")
         self.assertGreaterEqual(count, 1000, "There should be some changes.")
-        self.assertLess(stop, 5, "The thread should have stopped before the wait time.")
+        self.assertLess(stop, 2, "The thread should have stopped before the wait time.")
 
     @responses.activate
     def test_state_error(self):
@@ -605,7 +605,7 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
             try:
                 self.prepare_mock_changes(batches=MAX_BATCHES)
                 follower = ChangesFollower(self.client, db="db", limit=limit)
-                count = self.runner(follower, _Mode.LISTEN, timeout=3600)
+                count = self.runner(follower, _Mode.LISTEN, timeout=180)
             except BaseException:
                 self.fail("There should be no exception.")
             self.assertEqual(
