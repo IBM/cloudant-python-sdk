@@ -23,10 +23,8 @@ import pytest
 import os
 import json
 import responses
-import time
 
-import threading
-import queue
+from threading import Timer
 
 import itertools
 
@@ -218,46 +216,27 @@ class ChangesFollowerBaseCase(unittest.TestCase):
                 json={'error': error},
             )
 
-    def runner(self, follower, mode, timeout=0, stop_after=0):
+    def runner(self, follower, mode, timeout=1, stop_after=0):
         """
         blocking runner with timeout
         """
-
-        class TimeoutError(Exception):
-            pass
-
-        def looper(changes, buf):
-            counter = 0
-            buf.put(counter)
-            try:
-                for _ in changes:
-                    counter += 1
-                    if stop_after > 0 and stop_after == counter:
-                        follower.stop()
-            except Exception as e:
-                buf.put(e)
-                return
-            buf.put(counter)
 
         def main():
             if mode == _Mode.LISTEN:
                 changes = follower.start()
             elif mode == _Mode.FINITE:
                 changes = follower.start_one_off()
-            buf = queue.Queue()
-            thread = threading.Thread(target=looper, args=(changes, buf))
-            thread.start()
-            thread.join(timeout)
-            while True:
-                time.sleep(0.2)
-                if thread.is_alive():
-                    follower.stop()
-                else:
-                    break
-            while not buf.empty():
-                data = buf.get()
-                if isinstance(data, Exception):
-                    raise data
-            return data
+            stop_timer = Timer(timeout, follower.stop)
+            stop_timer.start()
+            counter = 0
+            try:
+                for _ in changes:
+                    counter += 1
+                    if stop_after > 0 and stop_after == counter:
+                        follower.stop()
+                        break
+            finally:
+                stop_timer.cancel()
+            return counter
 
         return main()
