@@ -181,6 +181,11 @@ class _ChangesFollowerIterator:
                 if self._stop.is_set():
                     raise StopIteration
                 self._buffer.put(results)
+            except StopIteration as e:
+                self.logger.debug('Iterator stopped.')
+                self._buffer.join()
+                self._buffer.put(e)
+                break
             except Exception as e:
                 self.logger.debug(f'Exception getting changes {e}')
                 if (
@@ -196,10 +201,7 @@ class _ChangesFollowerIterator:
                     self._buffer.join()
                     self._buffer.put(e)
                     break
-                if (
-                    type(e) is ApiException and e.status_code in [400, 401, 403, 404]
-                    or type(e) is StopIteration
-                ):
+                if type(e) is ApiException and e.status_code in [400, 401, 403, 404]:
                     self.logger.debug('Terminal error.')
                     self._buffer.join()
                     self._buffer.put(e)
