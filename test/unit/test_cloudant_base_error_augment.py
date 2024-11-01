@@ -27,7 +27,6 @@ class MockResponse(TypedDict):
     body: Union[dict[str,Any], str, bytes, None]
     headers: dict[str, str]
     status: int
-    stream: bool
 
 class ExpectedResponse(TypedDict, total=False):
     body: Union[dict[str,Any], str, bytes, None]
@@ -85,10 +84,10 @@ class TestErrorAugment(unittest.TestCase):
               mock_response: MockResponse = {
                   'body': _error_reason_body,
                   'headers': _default_mock_headers,
-                  'status': 444,
-                  'stream': False
+                  'status': 444
                   },
-              expected_response: ExpectedResponse = None
+              expected_response: ExpectedResponse = None,
+              stream=False
         ) -> Union[Exception, None]:
 
             if expected_response is None:
@@ -122,7 +121,7 @@ class TestErrorAugment(unittest.TestCase):
                 )
                 if expect_raises:
                     with self.assertRaisesRegex(ApiException, expected_response['message']) as e_ctx:
-                        self._make_request(method, mock_response['stream'])
+                        self._make_request(method, stream)
                     caught_exception = e_ctx.exception
                     actual_status_code = caught_exception.status_code
                     actual_headers = caught_exception.http_response.headers
@@ -139,7 +138,7 @@ class TestErrorAugment(unittest.TestCase):
                             actual_body = caught_exception.http_response.text
                 else:
                     try:
-                        service_response = self._make_request(method, mock_response['stream'])
+                        service_response = self._make_request(method, stream)
                         actual_status_code = service_response.get_status_code()
                         actual_headers = service_response.get_headers()
                         actual_body = service_response.get_result()
@@ -189,8 +188,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': self._error_only_body,
                 'headers': self._content_type_header,
-                'status': 444,
-                'stream': False
+                'status': 444
             },
             expected_response={
                 'body': self._error_only_body | self._errors_error_only
@@ -202,8 +200,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': self._error_only_body,
                 'headers': self._default_mock_headers,
-                'status': 444,
-                'stream': False
+                'status': 444
             },
             expected_response={
                 'body': self._error_only_body | self._errors_error_only | self._trace
@@ -215,8 +212,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': self._error_reason_body,
                 'headers': self._content_type_header,
-                'status': 444,
-                'stream': False
+                'status': 444
             },
             expected_response={
                 'body': self._error_reason_body | self._errors_error_reason
@@ -228,8 +224,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': self._error_reason_body,
                 'headers': self._default_mock_headers,
-                'status': 444,
-                'stream': False
+                'status': 444
             },
             expected_response={
                 'body': self._error_reason_body | self._errors_error_reason | self._trace
@@ -241,12 +236,12 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': self._error_reason_body,
                 'headers': self._default_mock_headers,
-                'status': 444,
-                'stream': True
+                'status': 444
             },
             expected_response={
                 'body': self._error_reason_body | self._errors_error_reason | self._trace
-            }
+            },
+            stream = True
         )
 
     def test_augment_json_charset(self):
@@ -254,8 +249,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': self._error_reason_body,
                 'headers': self._request_id_header | {'content-type': 'application/json; charset=utf-8'},
-                'status': 444,
-                'stream': False
+                'status': 444
             },
             expected_response={
                 'body': self._error_reason_body | self._errors_error_reason | self._trace
@@ -267,8 +261,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': self._error_reason_body,
                 'headers': self._content_type_header,
-                'status': 444,
-                'stream': False
+                'status': 444
             },
             expected_response={
                 'body': self._error_reason_body | self._errors_error_reason
@@ -280,8 +273,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': {'_id': self._doc_id, '_rev': '1-abc', 'foo': 'bar'},
                 'headers': self._default_mock_headers,
-                'status': 200,
-                'stream': False
+                'status': 200
             }
         )
 
@@ -291,8 +283,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': None,
                 'headers': self._default_mock_headers,
-                'status': 444,
-                'stream': False
+                'status': 444
             },
             expected_response={
                 'body': b'', # no body content for HEAD
@@ -305,8 +296,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': {},
                 'headers': self._default_mock_headers,
-                'status': 444,
-                'stream': False
+                'status': 444
             },
             expected_response={
                 'body': {},
@@ -324,8 +314,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': test_body,
                 'headers': self._default_mock_headers,
-                'status': 429,
-                'stream': False
+                'status': 429
             },
             expected_response={
                 'body': test_body,
@@ -347,8 +336,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': test_body,
                 'headers': self._content_type_header,
-                'status': 403,
-                'stream': False
+                'status': 403
             },
             expected_response={
                 'body': test_body,
@@ -369,8 +357,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': test_body,
                 'headers': self._default_mock_headers,
-                'status': 403,
-                'stream': False
+                'status': 403
             },
             expected_response={
                 'body': test_body | self._trace
@@ -383,8 +370,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': test_body,
                 'headers': self._request_id_header | {'content-type': 'text/plain'},
-                'status': 400,
-                'stream': False
+                'status': 400
             },
             expected_response={
                 'body': test_body,
@@ -398,8 +384,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': test_body,
                 'headers': self._request_id_header,
-                'status': 444,
-                'stream': False
+                'status': 444
             },
             expected_response={
                 'body': test_body,
@@ -413,8 +398,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': test_body,
                 'headers': self._default_mock_headers,
-                'status': 400,
-                'stream': False
+                'status': 400
             },
             expected_response={
                 'body': test_body,
@@ -428,8 +412,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': test_body,
                 'headers': self._content_type_header,
-                'status': 400,
-                'stream': False
+                'status': 400
             },
             expected_response={
                 'body': test_body,
@@ -443,8 +426,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': test_body,
                 'headers': self._content_type_header,
-                'status': 400,
-                'stream': False
+                'status': 400
             },
             expected_response={
                 'body': test_body,
@@ -460,8 +442,7 @@ class TestErrorAugment(unittest.TestCase):
             mock_response={
                 'body': test_body,
                 'headers': self._default_mock_headers,
-                'status': 444,
-                'stream': False
+                'status': 444
             },
             expected_response={
                 'body': test_body | self._errors_error_only | self._trace,
