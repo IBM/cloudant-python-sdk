@@ -107,7 +107,6 @@ class _ChangesFollowerIterator:
         self._limit = None
         self._stop = Event()
         self.logger = logging.getLogger(__name__)
-        self._request_thread.start()
 
     @property
     def limit(self) -> int:
@@ -126,6 +125,9 @@ class _ChangesFollowerIterator:
     @since.setter
     def since(self, value: str) -> None:
         self._since = value
+
+    def _start(self) -> None:
+        self._request_thread.start()
 
     def stop(self) -> None:
         # shortcut limit and cancel in-flight
@@ -454,4 +456,5 @@ class ChangesFollower:
             self._iter.limit = self.limit
         if self.options.get('since') is not None:
             self._iter.since = self.options.get('since')
+        self._iter._start()
         return self._iter
