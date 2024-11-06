@@ -160,7 +160,10 @@ def _error_response_hook(response:Response, *args, **kwargs) -> Optional[Respons
                             error_json['errors'] = [error_model]
                             send_augmented_response = True
                     if 'errors' in error_json:
-                        trace = response.headers.get('x-couch-request-id')
+                        # Get the x-request-id header if available
+                        # otherwise try the x-couch-request-id header
+                        trace = response.headers.get('x-request-id',
+                                    response.headers.get('x-couch-request-id'))
                         if trace is not None:
                             # Augment trace if there was a value
                             error_json['trace'] = trace

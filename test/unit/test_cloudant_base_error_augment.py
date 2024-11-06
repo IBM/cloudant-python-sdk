@@ -231,6 +231,31 @@ class TestErrorAugment(unittest.TestCase):
             }
         )
 
+    def test_augment_error_reason_with_trace_request_id(self):
+        self._run_test(
+            mock_response={
+                'body': self._error_reason_body,
+                'headers': self._content_type_header | {'x-request-id': self._req_id},
+                'status': 444
+            },
+            expected_response={
+                'body': self._error_reason_body | self._errors_error_reason | self._trace
+            }
+        )
+
+    def test_augment_error_reason_with_trace_request_id_preferred(self):
+        expected_req_id = 'preferred_req_id'
+        self._run_test(
+            mock_response={
+                'body': self._error_reason_body,
+                'headers': self._default_mock_headers | {'x-request-id': expected_req_id},
+                'status': 444
+            },
+            expected_response={
+                'body': self._error_reason_body | self._errors_error_reason | {'trace': expected_req_id}
+            }
+        )
+
     def test_augment_error_reason_stream(self):
         self._run_test(
             mock_response={
