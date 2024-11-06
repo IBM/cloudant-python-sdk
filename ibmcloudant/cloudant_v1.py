@@ -4499,6 +4499,7 @@ class CloudantV1(BaseService):
         partition_key: str,
         selector: dict,
         *,
+        allow_fallback: Optional[bool] = None,
         bookmark: Optional[str] = None,
         conflicts: Optional[bool] = None,
         execution_stats: Optional[bool] = None,
@@ -4556,6 +4557,8 @@ class CloudantV1(BaseService):
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
+        :param bool allow_fallback: (optional) Whether to allow fallback to other
+               indexes.  Default is true.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4594,9 +4597,11 @@ class CloudantV1(BaseService):
                "my_index"]`.
                It’s recommended to specify indexes explicitly in your queries to prevent
                existing queries being affected by new indexes that might get added later.
-               If the specified index does not exist or cannot answer the query then the
-               value is ignored and another index or a full scan of all documents will
-               answer the query.
+               If the specified index doesn't exist or can't answer the query then the
+               server ignores the value and answers using another index or a full scan of
+               all documents. To change this behavior set `allow_fallback` to `false` and
+               the server responds instead with a `400` status code if the requested index
+               is unsuitable to answer the query.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `ExplainResult` object
@@ -4618,6 +4623,7 @@ class CloudantV1(BaseService):
 
         data = {
             'selector': selector,
+            'allow_fallback': allow_fallback,
             'bookmark': bookmark,
             'conflicts': conflicts,
             'execution_stats': execution_stats,
@@ -4658,6 +4664,7 @@ class CloudantV1(BaseService):
         partition_key: str,
         selector: dict,
         *,
+        allow_fallback: Optional[bool] = None,
         bookmark: Optional[str] = None,
         conflicts: Optional[bool] = None,
         execution_stats: Optional[bool] = None,
@@ -4676,10 +4683,15 @@ class CloudantV1(BaseService):
         Query documents by using a declarative JSON querying syntax. It's best practice to
         create an appropriate index for all fields in selector by using the `_index`
         endpoint.
-        Queries without an appropriate backing index will fallback to using the built-in
-        `_all_docs` index. This is not recommended because it has a noticeable performance
-        impact causing a full scan of the partition with each request. In this case the
-        response body will include a warning field recommending that an index is created.
+        Queries without an appropriate backing index by default fallback to using the
+        built-in `_all_docs` index. This isn't recommended because it has a significant
+        performance impact causing a full scan of the partition with each request. In this
+        case the response body includes a warning field recommending the creation of an
+        index.
+        To avoid the fallback behavior set the `allow_fallback` option to `false` and the
+        server responds with a `400` status code if no suitable index exists. If you want
+        to use only a specific index for your query set
+        `allow_fallback` to `false` and set the `use_index` option.
         Before using read the
         [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying)
         to understand the limitations and appropriate use cases.
@@ -4723,6 +4735,8 @@ class CloudantV1(BaseService):
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
+        :param bool allow_fallback: (optional) Whether to allow fallback to other
+               indexes.  Default is true.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4761,9 +4775,11 @@ class CloudantV1(BaseService):
                "my_index"]`.
                It’s recommended to specify indexes explicitly in your queries to prevent
                existing queries being affected by new indexes that might get added later.
-               If the specified index does not exist or cannot answer the query then the
-               value is ignored and another index or a full scan of all documents will
-               answer the query.
+               If the specified index doesn't exist or can't answer the query then the
+               server ignores the value and answers using another index or a full scan of
+               all documents. To change this behavior set `allow_fallback` to `false` and
+               the server responds instead with a `400` status code if the requested index
+               is unsuitable to answer the query.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `FindResult` object
@@ -4785,6 +4801,7 @@ class CloudantV1(BaseService):
 
         data = {
             'selector': selector,
+            'allow_fallback': allow_fallback,
             'bookmark': bookmark,
             'conflicts': conflicts,
             'execution_stats': execution_stats,
@@ -4825,6 +4842,7 @@ class CloudantV1(BaseService):
         partition_key: str,
         selector: dict,
         *,
+        allow_fallback: Optional[bool] = None,
         bookmark: Optional[str] = None,
         conflicts: Optional[bool] = None,
         execution_stats: Optional[bool] = None,
@@ -4843,10 +4861,15 @@ class CloudantV1(BaseService):
         Query documents by using a declarative JSON querying syntax. It's best practice to
         create an appropriate index for all fields in selector by using the `_index`
         endpoint.
-        Queries without an appropriate backing index will fallback to using the built-in
-        `_all_docs` index. This is not recommended because it has a noticeable performance
-        impact causing a full scan of the partition with each request. In this case the
-        response body will include a warning field recommending that an index is created.
+        Queries without an appropriate backing index by default fallback to using the
+        built-in `_all_docs` index. This isn't recommended because it has a significant
+        performance impact causing a full scan of the partition with each request. In this
+        case the response body includes a warning field recommending the creation of an
+        index.
+        To avoid the fallback behavior set the `allow_fallback` option to `false` and the
+        server responds with a `400` status code if no suitable index exists. If you want
+        to use only a specific index for your query set
+        `allow_fallback` to `false` and set the `use_index` option.
         Before using read the
         [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying)
         to understand the limitations and appropriate use cases.
@@ -4890,6 +4913,8 @@ class CloudantV1(BaseService):
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
+        :param bool allow_fallback: (optional) Whether to allow fallback to other
+               indexes.  Default is true.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4928,9 +4953,11 @@ class CloudantV1(BaseService):
                "my_index"]`.
                It’s recommended to specify indexes explicitly in your queries to prevent
                existing queries being affected by new indexes that might get added later.
-               If the specified index does not exist or cannot answer the query then the
-               value is ignored and another index or a full scan of all documents will
-               answer the query.
+               If the specified index doesn't exist or can't answer the query then the
+               server ignores the value and answers using another index or a full scan of
+               all documents. To change this behavior set `allow_fallback` to `false` and
+               the server responds instead with a `400` status code if the requested index
+               is unsuitable to answer the query.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `BinaryIO` result
@@ -4952,6 +4979,7 @@ class CloudantV1(BaseService):
 
         data = {
             'selector': selector,
+            'allow_fallback': allow_fallback,
             'bookmark': bookmark,
             'conflicts': conflicts,
             'execution_stats': execution_stats,
@@ -4995,6 +5023,7 @@ class CloudantV1(BaseService):
         db: str,
         selector: dict,
         *,
+        allow_fallback: Optional[bool] = None,
         bookmark: Optional[str] = None,
         conflicts: Optional[bool] = None,
         execution_stats: Optional[bool] = None,
@@ -5051,6 +5080,8 @@ class CloudantV1(BaseService):
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
+        :param bool allow_fallback: (optional) Whether to allow fallback to other
+               indexes.  Default is true.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -5089,9 +5120,11 @@ class CloudantV1(BaseService):
                "my_index"]`.
                It’s recommended to specify indexes explicitly in your queries to prevent
                existing queries being affected by new indexes that might get added later.
-               If the specified index does not exist or cannot answer the query then the
-               value is ignored and another index or a full scan of all documents will
-               answer the query.
+               If the specified index doesn't exist or can't answer the query then the
+               server ignores the value and answers using another index or a full scan of
+               all documents. To change this behavior set `allow_fallback` to `false` and
+               the server responds instead with a `400` status code if the requested index
+               is unsuitable to answer the query.
         :param int r: (optional) The read quorum that is needed for the result. The
                value defaults to 1, in which case the document that was found in the index
                is returned. If set to a higher value, each document is read from at least
@@ -5117,6 +5150,7 @@ class CloudantV1(BaseService):
 
         data = {
             'selector': selector,
+            'allow_fallback': allow_fallback,
             'bookmark': bookmark,
             'conflicts': conflicts,
             'execution_stats': execution_stats,
@@ -5157,6 +5191,7 @@ class CloudantV1(BaseService):
         db: str,
         selector: dict,
         *,
+        allow_fallback: Optional[bool] = None,
         bookmark: Optional[str] = None,
         conflicts: Optional[bool] = None,
         execution_stats: Optional[bool] = None,
@@ -5176,11 +5211,15 @@ class CloudantV1(BaseService):
         Query documents by using a declarative JSON querying syntax. It's best practice to
         create an appropriate index for all fields in selector by using the `_index`
         endpoint.
-        Queries without an appropriate backing index will fallback to using the built-in
-        `_all_docs` index. This is not recommended because it has a significant
+        Queries without an appropriate backing index by default fallback to using the
+        built-in `_all_docs` index. This isn't recommended because it has a significant
         performance impact causing a full scan of the database with each request. In this
-        case the response body will include a warning field recommending that an index is
-        created.
+        case the response body includes a warning field recommending the creation of an
+        index.
+        To avoid the fallback behavior set the `allow_fallback` option to `false` and the
+        server responds with a `400` status code if no suitable index exists. If you want
+        to use only a specific index for your query set
+        `allow_fallback` to `false` and set the `use_index` option.
 
         :param str db: Path parameter to specify the database name.
         :param dict selector: JSON object describing criteria used to select
@@ -5219,6 +5258,8 @@ class CloudantV1(BaseService):
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
+        :param bool allow_fallback: (optional) Whether to allow fallback to other
+               indexes.  Default is true.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -5257,9 +5298,11 @@ class CloudantV1(BaseService):
                "my_index"]`.
                It’s recommended to specify indexes explicitly in your queries to prevent
                existing queries being affected by new indexes that might get added later.
-               If the specified index does not exist or cannot answer the query then the
-               value is ignored and another index or a full scan of all documents will
-               answer the query.
+               If the specified index doesn't exist or can't answer the query then the
+               server ignores the value and answers using another index or a full scan of
+               all documents. To change this behavior set `allow_fallback` to `false` and
+               the server responds instead with a `400` status code if the requested index
+               is unsuitable to answer the query.
         :param int r: (optional) The read quorum that is needed for the result. The
                value defaults to 1, in which case the document that was found in the index
                is returned. If set to a higher value, each document is read from at least
@@ -5285,6 +5328,7 @@ class CloudantV1(BaseService):
 
         data = {
             'selector': selector,
+            'allow_fallback': allow_fallback,
             'bookmark': bookmark,
             'conflicts': conflicts,
             'execution_stats': execution_stats,
@@ -5325,6 +5369,7 @@ class CloudantV1(BaseService):
         db: str,
         selector: dict,
         *,
+        allow_fallback: Optional[bool] = None,
         bookmark: Optional[str] = None,
         conflicts: Optional[bool] = None,
         execution_stats: Optional[bool] = None,
@@ -5344,11 +5389,15 @@ class CloudantV1(BaseService):
         Query documents by using a declarative JSON querying syntax. It's best practice to
         create an appropriate index for all fields in selector by using the `_index`
         endpoint.
-        Queries without an appropriate backing index will fallback to using the built-in
-        `_all_docs` index. This is not recommended because it has a significant
+        Queries without an appropriate backing index by default fallback to using the
+        built-in `_all_docs` index. This isn't recommended because it has a significant
         performance impact causing a full scan of the database with each request. In this
-        case the response body will include a warning field recommending that an index is
-        created.
+        case the response body includes a warning field recommending the creation of an
+        index.
+        To avoid the fallback behavior set the `allow_fallback` option to `false` and the
+        server responds with a `400` status code if no suitable index exists. If you want
+        to use only a specific index for your query set
+        `allow_fallback` to `false` and set the `use_index` option.
 
         :param str db: Path parameter to specify the database name.
         :param dict selector: JSON object describing criteria used to select
@@ -5387,6 +5436,8 @@ class CloudantV1(BaseService):
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
+        :param bool allow_fallback: (optional) Whether to allow fallback to other
+               indexes.  Default is true.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -5425,9 +5476,11 @@ class CloudantV1(BaseService):
                "my_index"]`.
                It’s recommended to specify indexes explicitly in your queries to prevent
                existing queries being affected by new indexes that might get added later.
-               If the specified index does not exist or cannot answer the query then the
-               value is ignored and another index or a full scan of all documents will
-               answer the query.
+               If the specified index doesn't exist or can't answer the query then the
+               server ignores the value and answers using another index or a full scan of
+               all documents. To change this behavior set `allow_fallback` to `false` and
+               the server responds instead with a `400` status code if the requested index
+               is unsuitable to answer the query.
         :param int r: (optional) The read quorum that is needed for the result. The
                value defaults to 1, in which case the document that was found in the index
                is returned. If set to a higher value, each document is read from at least
@@ -5453,6 +5506,7 @@ class CloudantV1(BaseService):
 
         data = {
             'selector': selector,
+            'allow_fallback': allow_fallback,
             'bookmark': bookmark,
             'conflicts': conflicts,
             'execution_stats': execution_stats,
@@ -8495,8 +8549,7 @@ class ActiveTask:
           tasks.
     :param str type: Operation type.
     :param int updated_on: Schema for a Unix epoch timestamp.
-    :param str user: (optional) Name of user running replication or owning the
-          indexer. Available for `indexer`, `replication` type tasks.
+    :param str user: (optional) Name of user running the process.
     :param int view: (optional) Number of view indexes. Available for
           `view_compaction` type tasks.
     """
@@ -8607,8 +8660,7 @@ class ActiveTask:
         :param int total_changes: (optional) Total changes to process. Available
                for `database_compaction`, `indexer`, `search_indexer`, `view_compaction`
                type tasks.
-        :param str user: (optional) Name of user running replication or owning the
-               indexer. Available for `indexer`, `replication` type tasks.
+        :param str user: (optional) Name of user running the process.
         :param int view: (optional) Number of view indexes. Available for
                `view_compaction` type tasks.
         """
@@ -10940,7 +10992,7 @@ class DatabaseInformation:
           operating on this database.
     :param str compacted_seq: (optional) An opaque string that describes the
           compaction state of the database.
-    :param str db_name: The name of the database.
+    :param str db_name: Schema for a database name.
     :param int disk_format_version: The version of the physical format used for the
           data when it is stored on disk.
     :param int doc_count: A count of the documents in the specified database.
@@ -10985,7 +11037,7 @@ class DatabaseInformation:
                information.
         :param bool compact_running: True if the database compaction routine is
                operating on this database.
-        :param str db_name: The name of the database.
+        :param str db_name: Schema for a database name.
         :param int disk_format_version: The version of the physical format used for
                the data when it is stored on disk.
         :param int doc_count: A count of the documents in the specified database.
@@ -11313,7 +11365,7 @@ class DbEvent:
     """
     Schema for a database change event.
 
-    :param str db_name: Database name.
+    :param str db_name: Schema for a database name.
     :param str seq: Sequence number.
     :param str type: A database event.
     """
@@ -11327,7 +11379,7 @@ class DbEvent:
         """
         Initialize a DbEvent object.
 
-        :param str db_name: Database name.
+        :param str db_name: Schema for a database name.
         :param str seq: Sequence number.
         :param str type: A database event.
         """
@@ -11480,7 +11532,7 @@ class DbsInfoResult:
     :param str error: (optional) The name of the error.
     :param DatabaseInformation info: (optional) Schema for information about a
           database.
-    :param str key: Database name.
+    :param str key: Schema for a database name.
     """
 
     def __init__(
@@ -11493,7 +11545,7 @@ class DbsInfoResult:
         """
         Initialize a DbsInfoResult object.
 
-        :param str key: Database name.
+        :param str key: Schema for a database name.
         :param str error: (optional) The name of the error.
         :param DatabaseInformation info: (optional) Schema for information about a
                database.
@@ -11566,7 +11618,8 @@ class DesignDocument:
           removed.
     :param List[str] _deleted_conflicts: (optional) Schema for a list of document
           revision identifiers.
-    :param str _id: (optional) Schema for a design document ID.
+    :param str _id: (optional) Schema for a design document ID including a
+          `_design/` prefix.
     :param str _local_seq: (optional) Document's update sequence in current
           database. Available if requested with local_seq=true query parameter.
     :param str _rev: (optional) Schema for a document revision identifier.
@@ -11682,7 +11735,8 @@ class DesignDocument:
                removed.
         :param List[str] _deleted_conflicts: (optional) Schema for a list of
                document revision identifiers.
-        :param str _id: (optional) Schema for a design document ID.
+        :param str _id: (optional) Schema for a design document ID including a
+               `_design/` prefix.
         :param str _local_seq: (optional) Document's update sequence in current
                database. Available if requested with local_seq=true query parameter.
         :param str _rev: (optional) Schema for a document revision identifier.
@@ -12310,8 +12364,8 @@ class DocsResultRow:
     :param str reason: (optional) The reason the error occurred (if available).
     :param int ref: (optional) An internal error reference (if available).
     :param Document doc: (optional) Schema for a document.
-    :param str id: (optional) id.
-    :param str key: Document ID.
+    :param str id: (optional) Schema for a document ID.
+    :param str key: Schema for a document ID.
     :param DocsResultRowValue value: (optional) Value of built-in `/_all_docs` style
           view.
     """
@@ -12331,13 +12385,13 @@ class DocsResultRow:
         """
         Initialize a DocsResultRow object.
 
-        :param str key: Document ID.
+        :param str key: Schema for a document ID.
         :param str caused_by: (optional) The cause of the error (if available).
         :param str error: (optional) The name of the error.
         :param str reason: (optional) The reason the error occurred (if available).
         :param int ref: (optional) An internal error reference (if available).
         :param Document doc: (optional) Schema for a document.
-        :param str id: (optional) id.
+        :param str id: (optional) Schema for a document ID.
         :param DocsResultRowValue value: (optional) Value of built-in `/_all_docs`
                style view.
         """
@@ -13055,13 +13109,13 @@ class ExplainResult:
 
     :param bool covering: When `true`, the query is answered using the index only
           and no documents are fetched.
-    :param str dbname: Name of database.
+    :param str dbname: Schema for a database name.
     :param List[str] fields: Fields that were requested to be projected from the
           document. If no fields were requested to be projected this will be empty and all
           fields will be returned.
     :param IndexInformation index: Schema for information about an index.
-    :param List[IndexCandidate] index_candidates: (optional) Schema for the list of
-          all the other indexes that were not chosen for serving the query.
+    :param List[IndexCandidate] index_candidates: Schema for the list of all the
+          other indexes that were not chosen for serving the query.
     :param int limit: The used maximum number of results returned.
     :param ExplainResultMrArgs mrargs: (optional) Arguments passed to the underlying
           view.
@@ -13101,9 +13155,8 @@ class ExplainResult:
           all available combination and conditional operators.
           For further reference see [selector
           syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
-    :param List[SelectorHint] selector_hints: (optional) Schema for a list of
-          objects with extra information on the selector to provide insights about its
-          usability.
+    :param List[SelectorHint] selector_hints: Schema for a list of objects with
+          extra information on the selector to provide insights about its usability.
     :param int skip: Skip parameter used.
     """
 
@@ -13113,26 +13166,28 @@ class ExplainResult:
         dbname: str,
         fields: List[str],
         index: 'IndexInformation',
+        index_candidates: List['IndexCandidate'],
         limit: int,
         opts: 'ExplainResultOpts',
         selector: dict,
+        selector_hints: List['SelectorHint'],
         skip: int,
         *,
-        index_candidates: Optional[List['IndexCandidate']] = None,
         mrargs: Optional['ExplainResultMrArgs'] = None,
         partitioned: Optional[object] = None,
-        selector_hints: Optional[List['SelectorHint']] = None,
     ) -> None:
         """
         Initialize a ExplainResult object.
 
         :param bool covering: When `true`, the query is answered using the index
                only and no documents are fetched.
-        :param str dbname: Name of database.
+        :param str dbname: Schema for a database name.
         :param List[str] fields: Fields that were requested to be projected from
                the document. If no fields were requested to be projected this will be
                empty and all fields will be returned.
         :param IndexInformation index: Schema for information about an index.
+        :param List[IndexCandidate] index_candidates: Schema for the list of all
+               the other indexes that were not chosen for serving the query.
         :param int limit: The used maximum number of results returned.
         :param ExplainResultOpts opts: Options used for the request.
         :param dict selector: JSON object describing criteria used to select
@@ -13171,15 +13226,12 @@ class ExplainResult:
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
+        :param List[SelectorHint] selector_hints: Schema for a list of objects with
+               extra information on the selector to provide insights about its usability.
         :param int skip: Skip parameter used.
-        :param List[IndexCandidate] index_candidates: (optional) Schema for the
-               list of all the other indexes that were not chosen for serving the query.
         :param ExplainResultMrArgs mrargs: (optional) Arguments passed to the
                underlying view.
         :param object partitioned: (optional) Schema for any JSON type.
-        :param List[SelectorHint] selector_hints: (optional) Schema for a list of
-               objects with extra information on the selector to provide insights about
-               its usability.
         """
         self.covering = covering
         self.dbname = dbname
@@ -13216,6 +13268,8 @@ class ExplainResult:
             raise ValueError('Required property \'index\' not present in ExplainResult JSON')
         if (index_candidates := _dict.get('index_candidates')) is not None:
             args['index_candidates'] = [IndexCandidate.from_dict(v) for v in index_candidates]
+        else:
+            raise ValueError('Required property \'index_candidates\' not present in ExplainResult JSON')
         if (limit := _dict.get('limit')) is not None:
             args['limit'] = limit
         else:
@@ -13234,6 +13288,8 @@ class ExplainResult:
             raise ValueError('Required property \'selector\' not present in ExplainResult JSON')
         if (selector_hints := _dict.get('selector_hints')) is not None:
             args['selector_hints'] = [SelectorHint.from_dict(v) for v in selector_hints]
+        else:
+            raise ValueError('Required property \'selector_hints\' not present in ExplainResult JSON')
         if (skip := _dict.get('skip')) is not None:
             args['skip'] = skip
         else:
@@ -13456,6 +13512,15 @@ class ExplainResultMrArgs:
     def __ne__(self, other: 'ExplainResultMrArgs') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
+
+    class DirectionEnum(str, Enum):
+        """
+        Direction parameter passed to the underlying view.
+        """
+
+        ASC = 'asc'
+        DESC = 'desc'
+
 
     class ViewTypeEnum(str, Enum):
         """
@@ -14073,8 +14138,8 @@ class IndexDefinition:
     :param IndexTextOperatorDefaultField default_field: (optional) Schema for the
           text index default field configuration. The default field is used to index the
           text of all fields within a document for use with the `$text` operator.
-    :param List[IndexField] fields: (optional) List of field objects to index.
-          Nested fields are also allowed, e.g. `person.name`.
+    :param List[IndexField] fields: List of field objects to index.  Nested fields
+          are also allowed, e.g. `person.name`.
           For "json" type indexes each object is a mapping of field name to sort direction
           (asc or desc).
           For "text" type indexes each object has a `name` property of the field name and
@@ -14124,28 +14189,28 @@ class IndexDefinition:
 
     def __init__(
         self,
+        fields: List['IndexField'],
         *,
         default_analyzer: Optional['Analyzer'] = None,
         default_field: Optional['IndexTextOperatorDefaultField'] = None,
-        fields: Optional[List['IndexField']] = None,
         index_array_lengths: Optional[bool] = None,
         partial_filter_selector: Optional[dict] = None,
     ) -> None:
         """
         Initialize a IndexDefinition object.
 
+        :param List[IndexField] fields: List of field objects to index.  Nested
+               fields are also allowed, e.g. `person.name`.
+               For "json" type indexes each object is a mapping of field name to sort
+               direction (asc or desc).
+               For "text" type indexes each object has a `name` property of the field name
+               and a `type` property of the field type (string, number, or boolean).
         :param Analyzer default_analyzer: (optional) Schema for a full text search
                analyzer.
         :param IndexTextOperatorDefaultField default_field: (optional) Schema for
                the text index default field configuration. The default field is used to
                index the text of all fields within a document for use with the `$text`
                operator.
-        :param List[IndexField] fields: (optional) List of field objects to index.
-               Nested fields are also allowed, e.g. `person.name`.
-               For "json" type indexes each object is a mapping of field name to sort
-               direction (asc or desc).
-               For "text" type indexes each object has a `name` property of the field name
-               and a `type` property of the field type (string, number, or boolean).
         :param bool index_array_lengths: (optional) Whether to scan every document
                for arrays and store the length for each array found. Set the
                index_array_lengths field to false if:
@@ -14208,6 +14273,8 @@ class IndexDefinition:
             args['default_field'] = IndexTextOperatorDefaultField.from_dict(default_field)
         if (fields := _dict.get('fields')) is not None:
             args['fields'] = [IndexField.from_dict(v) for v in fields]
+        else:
+            raise ValueError('Required property \'fields\' not present in IndexDefinition JSON')
         if (index_array_lengths := _dict.get('index_array_lengths')) is not None:
             args['index_array_lengths'] = index_array_lengths
         if (partial_filter_selector := _dict.get('partial_filter_selector')) is not None:
@@ -14385,7 +14452,8 @@ class IndexInformation:
     """
     Schema for information about an index.
 
-    :param str ddoc: Design document ID including a `_design/` prefix.
+    :param str ddoc: Schema for a nullable design document ID including a `_design/`
+          prefix.
     :param IndexDefinition def_: Schema for a `json` or `text` query index
           definition. Indexes of type `text` have additional configuration properties that
           do not apply to `json` indexes, these are:
@@ -14409,7 +14477,8 @@ class IndexInformation:
         """
         Initialize a IndexInformation object.
 
-        :param str ddoc: Design document ID including a `_design/` prefix.
+        :param str ddoc: Schema for a nullable design document ID including a
+               `_design/` prefix.
         :param IndexDefinition def_: Schema for a `json` or `text` query index
                definition. Indexes of type `text` have additional configuration properties
                that do not apply to `json` indexes, these are:
@@ -14872,11 +14941,11 @@ class PartitionInformation:
     """
     Schema for information about a database partition.
 
-    :param str db_name: The name of the database.
+    :param str db_name: Schema for a database name.
     :param int doc_count: A count of the documents in the specified database
           partition.
     :param int doc_del_count: Number of deleted documents.
-    :param str partition: The name of the partition in the database.
+    :param str partition: Schema for a partition key.
     :param PartitionInformationIndexes partitioned_indexes: (optional) Schema for
           information about the partition index count and limit in a database.
     :param PartitionInformationSizes sizes: The size of active and external data, in
@@ -14896,11 +14965,11 @@ class PartitionInformation:
         """
         Initialize a PartitionInformation object.
 
-        :param str db_name: The name of the database.
+        :param str db_name: Schema for a database name.
         :param int doc_count: A count of the documents in the specified database
                partition.
         :param int doc_del_count: Number of deleted documents.
-        :param str partition: The name of the partition in the database.
+        :param str partition: Schema for a partition key.
         :param PartitionInformationSizes sizes: The size of active and external
                data, in bytes.
         :param PartitionInformationIndexes partitioned_indexes: (optional) Schema
@@ -15596,7 +15665,7 @@ class ReplicationDatabaseAuthBasic:
     Schema for basic authentication of replication source or target database.
 
     :param str password: The password associated with the username.
-    :param str username: The username.
+    :param str username: Schema for a username.
     """
 
     def __init__(
@@ -15608,7 +15677,7 @@ class ReplicationDatabaseAuthBasic:
         Initialize a ReplicationDatabaseAuthBasic object.
 
         :param str password: The password associated with the username.
-        :param str username: The username.
+        :param str username: Schema for a username.
         """
         self.password = password
         self.username = username
@@ -16867,7 +16936,7 @@ class SchedulerJob:
     :param str source: Replication source.
     :param datetime start_time: Timestamp of when the replication was started.
     :param str target: Replication target.
-    :param str user: Name of user running replication.
+    :param str user: Name of user running the process.
     """
 
     def __init__(
@@ -16900,7 +16969,7 @@ class SchedulerJob:
         :param str source: Replication source.
         :param datetime start_time: Timestamp of when the replication was started.
         :param str target: Replication target.
-        :param str user: Name of user running replication.
+        :param str user: Name of user running the process.
         """
         self.database = database
         self.doc_id = doc_id
@@ -17542,7 +17611,7 @@ class SearchResult:
     :param dict ranges: (optional) The range facet syntax reuses the standard Lucene
           syntax for ranges to return counts of results that fit into each specified
           category.
-    :param List[SearchResultRow] rows: (optional) Array of row objects.
+    :param List[SearchResultRow] rows: Array of row objects.
     :param List[SearchResultProperties] groups: (optional) Array of grouped search
           matches.
     """
@@ -17550,18 +17619,19 @@ class SearchResult:
     def __init__(
         self,
         total_rows: int,
+        rows: List['SearchResultRow'],
         *,
         bookmark: Optional[str] = None,
         by: Optional[str] = None,
         counts: Optional[dict] = None,
         ranges: Optional[dict] = None,
-        rows: Optional[List['SearchResultRow']] = None,
         groups: Optional[List['SearchResultProperties']] = None,
     ) -> None:
         """
         Initialize a SearchResult object.
 
         :param int total_rows: Number of total rows.
+        :param List[SearchResultRow] rows: Array of row objects.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param str by: (optional) Grouped search matches.
@@ -17570,7 +17640,6 @@ class SearchResult:
         :param dict ranges: (optional) The range facet syntax reuses the standard
                Lucene syntax for ranges to return counts of results that fit into each
                specified category.
-        :param List[SearchResultRow] rows: (optional) Array of row objects.
         :param List[SearchResultProperties] groups: (optional) Array of grouped
                search matches.
         """
@@ -17600,6 +17669,8 @@ class SearchResult:
             args['ranges'] = ranges
         if (rows := _dict.get('rows')) is not None:
             args['rows'] = [SearchResultRow.from_dict(v) for v in rows]
+        else:
+            raise ValueError('Required property \'rows\' not present in SearchResult JSON')
         if (groups := _dict.get('groups')) is not None:
             args['groups'] = [SearchResultProperties.from_dict(v) for v in groups]
         return cls(**args)
@@ -17672,23 +17743,24 @@ class SearchResultProperties:
     :param dict ranges: (optional) The range facet syntax reuses the standard Lucene
           syntax for ranges to return counts of results that fit into each specified
           category.
-    :param List[SearchResultRow] rows: (optional) Array of row objects.
+    :param List[SearchResultRow] rows: Array of row objects.
     """
 
     def __init__(
         self,
         total_rows: int,
+        rows: List['SearchResultRow'],
         *,
         bookmark: Optional[str] = None,
         by: Optional[str] = None,
         counts: Optional[dict] = None,
         ranges: Optional[dict] = None,
-        rows: Optional[List['SearchResultRow']] = None,
     ) -> None:
         """
         Initialize a SearchResultProperties object.
 
         :param int total_rows: Number of total rows.
+        :param List[SearchResultRow] rows: Array of row objects.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param str by: (optional) Grouped search matches.
@@ -17697,7 +17769,6 @@ class SearchResultProperties:
         :param dict ranges: (optional) The range facet syntax reuses the standard
                Lucene syntax for ranges to return counts of results that fit into each
                specified category.
-        :param List[SearchResultRow] rows: (optional) Array of row objects.
         """
         self.total_rows = total_rows
         self.bookmark = bookmark
@@ -17724,6 +17795,8 @@ class SearchResultProperties:
             args['ranges'] = ranges
         if (rows := _dict.get('rows')) is not None:
             args['rows'] = [SearchResultRow.from_dict(v) for v in rows]
+        else:
+            raise ValueError('Required property \'rows\' not present in SearchResultProperties JSON')
         return cls(**args)
 
     @classmethod
@@ -18356,6 +18429,14 @@ class ServerVendor:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
+    class VariantEnum(str, Enum):
+        """
+        Vendor variant.
+        """
+
+        PAAS = 'paas'
+
+
 
 class SessionAuthentication:
     """
@@ -18842,7 +18923,7 @@ class UserContext:
 
     :param str db: (optional) Database name in the context of the provided
           operation.
-    :param str name: User name.
+    :param str name: Name of user running the process.
     :param List[str] roles: List of user roles.
     """
 
@@ -18856,7 +18937,7 @@ class UserContext:
         """
         Initialize a UserContext object.
 
-        :param str name: User name.
+        :param str name: Name of user running the process.
         :param List[str] roles: List of user roles.
         :param str db: (optional) Database name in the context of the provided
                operation.
