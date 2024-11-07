@@ -1175,6 +1175,7 @@ class TestCloudantV1:
             db='testString',
             partition_key='testString',
             selector={'type': {'$eq': 'product'}},
+            allow_fallback=True,
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
@@ -1197,6 +1198,7 @@ class TestCloudantV1:
             db='testString',
             partition_key='testString',
             selector={'type': {'$eq': 'product'}},
+            allow_fallback=True,
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
@@ -1219,6 +1221,7 @@ class TestCloudantV1:
             db='testString',
             partition_key='testString',
             selector={'type': {'$eq': 'product'}},
+            allow_fallback=True,
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
@@ -1240,6 +1243,7 @@ class TestCloudantV1:
         response = self.cloudant_service.post_explain(
             db='testString',
             selector={'email_verified': {'$eq': True}},
+            allow_fallback=True,
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
@@ -1262,6 +1266,7 @@ class TestCloudantV1:
         response = self.cloudant_service.post_find(
             db='testString',
             selector={'email_verified': {'$eq': True}},
+            allow_fallback=True,
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
@@ -1284,6 +1289,7 @@ class TestCloudantV1:
         response = self.cloudant_service.post_find_as_stream(
             db='testString',
             selector={'email_verified': {'$eq': True}},
+            allow_fallback=True,
             bookmark='testString',
             conflicts=True,
             execution_stats=True,

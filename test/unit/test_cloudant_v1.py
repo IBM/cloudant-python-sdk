@@ -108,7 +108,7 @@ class TestGetServerInformation:
         """
         # Set up mock
         url = preprocess_url('/')
-        mock_response = '{"couchdb": "couchdb", "features": ["features"], "vendor": {"name": "name", "variant": "variant", "version": "version"}, "version": "version", "features_flags": ["features_flags"]}'
+        mock_response = '{"couchdb": "couchdb", "features": ["features"], "vendor": {"name": "name", "variant": "paas", "version": "version"}, "version": "version", "features_flags": ["features_flags"]}'
         responses.add(
             responses.GET,
             url,
@@ -7409,7 +7409,7 @@ class TestPostPartitionExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_explain')
-        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
+        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "asc", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -7422,6 +7422,7 @@ class TestPostPartitionExplain:
         db = 'testString'
         partition_key = 'testString'
         selector = {'type': {'$eq': 'product'}}
+        allow_fallback = True
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7438,6 +7439,7 @@ class TestPostPartitionExplain:
             db,
             partition_key,
             selector,
+            allow_fallback=allow_fallback,
             bookmark=bookmark,
             conflicts=conflicts,
             execution_stats=execution_stats,
@@ -7461,6 +7463,7 @@ class TestPostPartitionExplain:
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['selector'] == {'type': {'$eq': 'product'}}
+        assert req_body['allow_fallback'] == True
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
@@ -7488,7 +7491,7 @@ class TestPostPartitionExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_explain')
-        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
+        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "asc", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -7501,6 +7504,7 @@ class TestPostPartitionExplain:
         db = 'testString'
         partition_key = 'testString'
         selector = {'type': {'$eq': 'product'}}
+        allow_fallback = True
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7558,6 +7562,7 @@ class TestPostPartitionFind:
         db = 'testString'
         partition_key = 'testString'
         selector = {'type': {'$eq': 'product'}}
+        allow_fallback = True
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7574,6 +7579,7 @@ class TestPostPartitionFind:
             db,
             partition_key,
             selector,
+            allow_fallback=allow_fallback,
             bookmark=bookmark,
             conflicts=conflicts,
             execution_stats=execution_stats,
@@ -7597,6 +7603,7 @@ class TestPostPartitionFind:
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['selector'] == {'type': {'$eq': 'product'}}
+        assert req_body['allow_fallback'] == True
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
@@ -7637,6 +7644,7 @@ class TestPostPartitionFind:
         db = 'testString'
         partition_key = 'testString'
         selector = {'type': {'$eq': 'product'}}
+        allow_fallback = True
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7694,6 +7702,7 @@ class TestPostPartitionFindAsStream:
         db = 'testString'
         partition_key = 'testString'
         selector = {'type': {'$eq': 'product'}}
+        allow_fallback = True
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7710,6 +7719,7 @@ class TestPostPartitionFindAsStream:
             db,
             partition_key,
             selector,
+            allow_fallback=allow_fallback,
             bookmark=bookmark,
             conflicts=conflicts,
             execution_stats=execution_stats,
@@ -7733,6 +7743,7 @@ class TestPostPartitionFindAsStream:
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['selector'] == {'type': {'$eq': 'product'}}
+        assert req_body['allow_fallback'] == True
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
@@ -7779,6 +7790,7 @@ class TestPostPartitionFindAsStream:
         db = 'testString'
         partition_key = 'testString'
         selector = {'type': {'$eq': 'product'}}
+        allow_fallback = True
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7862,7 +7874,7 @@ class TestPostExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
+        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "asc", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -7874,6 +7886,7 @@ class TestPostExplain:
         # Set up parameter values
         db = 'testString'
         selector = {'email_verified': {'$eq': True}}
+        allow_fallback = True
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -7890,6 +7903,7 @@ class TestPostExplain:
         response = _service.post_explain(
             db,
             selector,
+            allow_fallback=allow_fallback,
             bookmark=bookmark,
             conflicts=conflicts,
             execution_stats=execution_stats,
@@ -7914,6 +7928,7 @@ class TestPostExplain:
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['selector'] == {'email_verified': {'$eq': True}}
+        assert req_body['allow_fallback'] == True
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
@@ -7942,7 +7957,7 @@ class TestPostExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "direction", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
+        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "asc", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -7954,6 +7969,7 @@ class TestPostExplain:
         # Set up parameter values
         db = 'testString'
         selector = {'email_verified': {'$eq': True}}
+        allow_fallback = True
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -8010,6 +8026,7 @@ class TestPostFind:
         # Set up parameter values
         db = 'testString'
         selector = {'email_verified': {'$eq': True}}
+        allow_fallback = True
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -8026,6 +8043,7 @@ class TestPostFind:
         response = _service.post_find(
             db,
             selector,
+            allow_fallback=allow_fallback,
             bookmark=bookmark,
             conflicts=conflicts,
             execution_stats=execution_stats,
@@ -8050,6 +8068,7 @@ class TestPostFind:
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['selector'] == {'email_verified': {'$eq': True}}
+        assert req_body['allow_fallback'] == True
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
@@ -8090,6 +8109,7 @@ class TestPostFind:
         # Set up parameter values
         db = 'testString'
         selector = {'email_verified': {'$eq': True}}
+        allow_fallback = True
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -8146,6 +8166,7 @@ class TestPostFindAsStream:
         # Set up parameter values
         db = 'testString'
         selector = {'email_verified': {'$eq': True}}
+        allow_fallback = True
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -8162,6 +8183,7 @@ class TestPostFindAsStream:
         response = _service.post_find_as_stream(
             db,
             selector,
+            allow_fallback=allow_fallback,
             bookmark=bookmark,
             conflicts=conflicts,
             execution_stats=execution_stats,
@@ -8186,6 +8208,7 @@ class TestPostFindAsStream:
         # Validate body params
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['selector'] == {'email_verified': {'$eq': True}}
+        assert req_body['allow_fallback'] == True
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
@@ -8232,6 +8255,7 @@ class TestPostFindAsStream:
         # Set up parameter values
         db = 'testString'
         selector = {'email_verified': {'$eq': True}}
+        allow_fallback = True
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
@@ -15214,7 +15238,7 @@ class TestModel_ExplainResult:
 
         explain_result_mr_args_model = {}  # ExplainResultMrArgs
         explain_result_mr_args_model['conflicts'] = 'testString'
-        explain_result_mr_args_model['direction'] = 'testString'
+        explain_result_mr_args_model['direction'] = 'asc'
         explain_result_mr_args_model['end_key'] = 'testString'
         explain_result_mr_args_model['include_docs'] = True
         explain_result_mr_args_model['partition'] = 'testString'
@@ -15288,7 +15312,7 @@ class TestModel_ExplainResultMrArgs:
         # Construct a json representation of a ExplainResultMrArgs model
         explain_result_mr_args_model_json = {}
         explain_result_mr_args_model_json['conflicts'] = 'testString'
-        explain_result_mr_args_model_json['direction'] = 'testString'
+        explain_result_mr_args_model_json['direction'] = 'asc'
         explain_result_mr_args_model_json['end_key'] = 'testString'
         explain_result_mr_args_model_json['include_docs'] = True
         explain_result_mr_args_model_json['partition'] = 'testString'
@@ -17279,7 +17303,7 @@ class TestModel_ServerInformation:
 
         server_vendor_model = {}  # ServerVendor
         server_vendor_model['name'] = 'testString'
-        server_vendor_model['variant'] = 'testString'
+        server_vendor_model['variant'] = 'paas'
         server_vendor_model['version'] = 'testString'
         server_vendor_model['foo'] = 'testString'
 
@@ -17320,7 +17344,7 @@ class TestModel_ServerVendor:
         # Construct a json representation of a ServerVendor model
         server_vendor_model_json = {}
         server_vendor_model_json['name'] = 'testString'
-        server_vendor_model_json['variant'] = 'testString'
+        server_vendor_model_json['variant'] = 'paas'
         server_vendor_model_json['version'] = 'testString'
         server_vendor_model_json['foo'] = 'testString'
 
