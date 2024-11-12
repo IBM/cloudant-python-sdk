@@ -6193,7 +6193,7 @@ class CloudantV1(BaseService):
         **kwargs,
     ) -> DetailedResponse:
         """
-        Retrieve the HTTP headers for a replication document.
+        Retrieve the HTTP headers for a persistent replication.
 
         Retrieves the HTTP headers containing minimal amount of information about the
         specified replication document from the `_replicator` database.  The method
@@ -6327,6 +6327,65 @@ class CloudantV1(BaseService):
         response = self.send(request, **kwargs)
         return response
 
+    def post_replicator(
+        self,
+        replication_document: 'ReplicationDocument',
+        *,
+        batch: Optional[str] = None,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Create a persistent replication with a generated ID.
+
+        Creates or modifies a document in the `_replicator` database to start a new
+        replication or to edit an existing replication.
+
+        :param ReplicationDocument replication_document: HTTP request body for
+               replication operations.
+        :param str batch: (optional) Query parameter to specify whether to store in
+               batch mode. The server will respond with a HTTP 202 Accepted response code
+               immediately.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `DocumentResult` object
+        """
+
+        if replication_document is None:
+            raise ValueError('replication_document must be provided')
+        if isinstance(replication_document, ReplicationDocument):
+            replication_document = convert_model(replication_document)
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_replicator',
+        )
+        headers.update(sdk_headers)
+
+        params = {
+            'batch': batch,
+        }
+
+        data = json.dumps(replication_document)
+        headers['content-type'] = 'application/json'
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_replicator'
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
     def delete_replication_document(
         self,
         doc_id: str,
@@ -6337,7 +6396,7 @@ class CloudantV1(BaseService):
         **kwargs,
     ) -> DetailedResponse:
         """
-        Cancel a replication.
+        Cancel a persistent replication.
 
         Cancels a replication by deleting the document that describes it from the
         `_replicator` database.
@@ -6408,7 +6467,7 @@ class CloudantV1(BaseService):
         **kwargs,
     ) -> DetailedResponse:
         """
-        Retrieve a replication document.
+        Retrieve the configuration for a persistent replication.
 
         Retrieves a replication document from the `_replicator` database to view the
         configuration of the replication. The status of the replication is no longer
@@ -6501,7 +6560,7 @@ class CloudantV1(BaseService):
         **kwargs,
     ) -> DetailedResponse:
         """
-        Create or modify a replication using a replication document.
+        Create or modify a persistent replication.
 
         Creates or modifies a document in the `_replicator` database to start a new
         replication or to edit an existing replication.
@@ -8363,6 +8422,20 @@ class DeleteIndexEnums:
         TEXT = 'text'
 
 
+class PostReplicatorEnums:
+    """
+    Enums for post_replicator parameters.
+    """
+
+    class Batch(str, Enum):
+        """
+        Query parameter to specify whether to store in batch mode. The server will respond
+        with a HTTP 202 Accepted response code immediately.
+        """
+
+        OK = 'ok'
+
+
 class DeleteReplicationDocumentEnums:
     """
     Enums for delete_replication_document parameters.
@@ -9328,8 +9401,8 @@ class Analyzer:
     """
     Schema for a full text search analyzer.
 
-    :param str name: (optional) Schema for the name of the Apache Lucene analyzer to
-          use for text indexing. The default value varies depending on the analyzer usage:
+    :param str name: Schema for the name of the Apache Lucene analyzer to use for
+          text indexing. The default value varies depending on the analyzer usage:
           * For search indexes the default is `standard` * For query text indexes the
           default is `keyword` * For a query text index default_field the default is
           `standard`.
@@ -9339,16 +9412,16 @@ class Analyzer:
 
     def __init__(
         self,
+        name: str,
         *,
-        name: Optional[str] = None,
         stopwords: Optional[List[str]] = None,
     ) -> None:
         """
         Initialize a Analyzer object.
 
-        :param str name: (optional) Schema for the name of the Apache Lucene
-               analyzer to use for text indexing. The default value varies depending on
-               the analyzer usage:
+        :param str name: Schema for the name of the Apache Lucene analyzer to use
+               for text indexing. The default value varies depending on the analyzer
+               usage:
                * For search indexes the default is `standard` * For query text indexes the
                default is `keyword` * For a query text index default_field the default is
                `standard`.
@@ -9364,6 +9437,8 @@ class Analyzer:
         args = {}
         if (name := _dict.get('name')) is not None:
             args['name'] = name
+        else:
+            raise ValueError('Required property \'name\' not present in Analyzer JSON')
         if (stopwords := _dict.get('stopwords')) is not None:
             args['stopwords'] = stopwords
         return cls(**args)
@@ -9457,8 +9532,8 @@ class AnalyzerConfiguration:
     """
     Schema for a search analyzer configuration.
 
-    :param str name: (optional) Schema for the name of the Apache Lucene analyzer to
-          use for text indexing. The default value varies depending on the analyzer usage:
+    :param str name: Schema for the name of the Apache Lucene analyzer to use for
+          text indexing. The default value varies depending on the analyzer usage:
           * For search indexes the default is `standard` * For query text indexes the
           default is `keyword` * For a query text index default_field the default is
           `standard`.
@@ -9470,17 +9545,17 @@ class AnalyzerConfiguration:
 
     def __init__(
         self,
+        name: str,
         *,
-        name: Optional[str] = None,
         stopwords: Optional[List[str]] = None,
         fields: Optional[dict] = None,
     ) -> None:
         """
         Initialize a AnalyzerConfiguration object.
 
-        :param str name: (optional) Schema for the name of the Apache Lucene
-               analyzer to use for text indexing. The default value varies depending on
-               the analyzer usage:
+        :param str name: Schema for the name of the Apache Lucene analyzer to use
+               for text indexing. The default value varies depending on the analyzer
+               usage:
                * For search indexes the default is `standard` * For query text indexes the
                default is `keyword` * For a query text index default_field the default is
                `standard`.
@@ -9499,6 +9574,8 @@ class AnalyzerConfiguration:
         args = {}
         if (name := _dict.get('name')) is not None:
             args['name'] = name
+        else:
+            raise ValueError('Required property \'name\' not present in AnalyzerConfiguration JSON')
         if (stopwords := _dict.get('stopwords')) is not None:
             args['stopwords'] = stopwords
         if (fields := _dict.get('fields')) is not None:
@@ -13374,59 +13451,52 @@ class ExplainResultMrArgs:
     """
     Arguments passed to the underlying view.
 
-    :param object conflicts: (optional) Schema for any JSON type.
-    :param str direction: (optional) Direction parameter passed to the underlying
-          view.
-    :param object end_key: (optional) Schema for any JSON type.
-    :param bool include_docs: (optional) A parameter that specifies whether to
-          include the full content of the documents in the response in the underlying
-          view.
-    :param str partition: (optional) Partition parameter passed to the underlying
-          view.
-    :param bool reduce: (optional) A parameter that specifies returning only
-          documents that match any of the specified keys in the underlying view.
-    :param bool stable: (optional) A parameter that specifies whether the view
-          results should be returned form a "stable" set of shards passed to the
-          underlying view.
+    :param object conflicts: Schema for any JSON type.
+    :param str direction: Direction parameter passed to the underlying view.
+    :param object end_key: Schema for any JSON type.
+    :param bool include_docs: A parameter that specifies whether to include the full
+          content of the documents in the response in the underlying view.
+    :param str partition: Partition parameter passed to the underlying view.
+    :param bool reduce: A parameter that specifies returning only documents that
+          match any of the specified keys in the underlying view.
+    :param bool stable: A parameter that specifies whether the view results should
+          be returned form a "stable" set of shards passed to the underlying view.
     :param object start_key: (optional) Schema for any JSON type.
-    :param object update: (optional) Schema for any JSON type.
-    :param str view_type: (optional) The type of the underlying view.
+    :param object update: Schema for any JSON type.
+    :param str view_type: The type of the underlying view.
     """
 
     def __init__(
         self,
+        conflicts: object,
+        direction: str,
+        end_key: object,
+        include_docs: bool,
+        partition: str,
+        reduce: bool,
+        stable: bool,
+        update: object,
+        view_type: str,
         *,
-        conflicts: Optional[object] = None,
-        direction: Optional[str] = None,
-        end_key: Optional[object] = None,
-        include_docs: Optional[bool] = None,
-        partition: Optional[str] = None,
-        reduce: Optional[bool] = None,
-        stable: Optional[bool] = None,
         start_key: Optional[object] = None,
-        update: Optional[object] = None,
-        view_type: Optional[str] = None,
     ) -> None:
         """
         Initialize a ExplainResultMrArgs object.
 
-        :param object conflicts: (optional) Schema for any JSON type.
-        :param str direction: (optional) Direction parameter passed to the
-               underlying view.
-        :param object end_key: (optional) Schema for any JSON type.
-        :param bool include_docs: (optional) A parameter that specifies whether to
-               include the full content of the documents in the response in the underlying
+        :param object conflicts: Schema for any JSON type.
+        :param str direction: Direction parameter passed to the underlying view.
+        :param object end_key: Schema for any JSON type.
+        :param bool include_docs: A parameter that specifies whether to include the
+               full content of the documents in the response in the underlying view.
+        :param str partition: Partition parameter passed to the underlying view.
+        :param bool reduce: A parameter that specifies returning only documents
+               that match any of the specified keys in the underlying view.
+        :param bool stable: A parameter that specifies whether the view results
+               should be returned form a "stable" set of shards passed to the underlying
                view.
-        :param str partition: (optional) Partition parameter passed to the
-               underlying view.
-        :param bool reduce: (optional) A parameter that specifies returning only
-               documents that match any of the specified keys in the underlying view.
-        :param bool stable: (optional) A parameter that specifies whether the view
-               results should be returned form a "stable" set of shards passed to the
-               underlying view.
+        :param object update: Schema for any JSON type.
+        :param str view_type: The type of the underlying view.
         :param object start_key: (optional) Schema for any JSON type.
-        :param object update: (optional) Schema for any JSON type.
-        :param str view_type: (optional) The type of the underlying view.
         """
         self.conflicts = conflicts
         self.direction = direction
@@ -13445,24 +13515,42 @@ class ExplainResultMrArgs:
         args = {}
         if (conflicts := _dict.get('conflicts')) is not None:
             args['conflicts'] = conflicts
+        else:
+            raise ValueError('Required property \'conflicts\' not present in ExplainResultMrArgs JSON')
         if (direction := _dict.get('direction')) is not None:
             args['direction'] = direction
+        else:
+            raise ValueError('Required property \'direction\' not present in ExplainResultMrArgs JSON')
         if (end_key := _dict.get('end_key')) is not None:
             args['end_key'] = end_key
+        else:
+            raise ValueError('Required property \'end_key\' not present in ExplainResultMrArgs JSON')
         if (include_docs := _dict.get('include_docs')) is not None:
             args['include_docs'] = include_docs
+        else:
+            raise ValueError('Required property \'include_docs\' not present in ExplainResultMrArgs JSON')
         if (partition := _dict.get('partition')) is not None:
             args['partition'] = partition
+        else:
+            raise ValueError('Required property \'partition\' not present in ExplainResultMrArgs JSON')
         if (reduce := _dict.get('reduce')) is not None:
             args['reduce'] = reduce
+        else:
+            raise ValueError('Required property \'reduce\' not present in ExplainResultMrArgs JSON')
         if (stable := _dict.get('stable')) is not None:
             args['stable'] = stable
+        else:
+            raise ValueError('Required property \'stable\' not present in ExplainResultMrArgs JSON')
         if (start_key := _dict.get('start_key')) is not None:
             args['start_key'] = start_key
         if (update := _dict.get('update')) is not None:
             args['update'] = update
+        else:
+            raise ValueError('Required property \'update\' not present in ExplainResultMrArgs JSON')
         if (view_type := _dict.get('view_type')) is not None:
             args['view_type'] = view_type
+        else:
+            raise ValueError('Required property \'view_type\' not present in ExplainResultMrArgs JSON')
         return cls(**args)
 
     @classmethod
@@ -13922,7 +14010,7 @@ class IndexAnalysisExclusionReason:
     """
     A reason for index's exclusion.
 
-    :param str name: (optional) A reason code for index's exclusion.
+    :param str name: A reason code for index's exclusion.
           The full list of possible reason codes is following:
           * alphabetically_comes_after: json
             There is another suitable index whose name comes before that of this index.
@@ -13944,13 +14032,12 @@ class IndexAnalysisExclusionReason:
 
     def __init__(
         self,
-        *,
-        name: Optional[str] = None,
+        name: str,
     ) -> None:
         """
         Initialize a IndexAnalysisExclusionReason object.
 
-        :param str name: (optional) A reason code for index's exclusion.
+        :param str name: A reason code for index's exclusion.
                The full list of possible reason codes is following:
                * alphabetically_comes_after: json
                  There is another suitable index whose name comes before that of this
@@ -13980,6 +14067,8 @@ class IndexAnalysisExclusionReason:
         args = {}
         if (name := _dict.get('name')) is not None:
             args['name'] = name
+        else:
+            raise ValueError('Required property \'name\' not present in IndexAnalysisExclusionReason JSON')
         return cls(**args)
 
     @classmethod

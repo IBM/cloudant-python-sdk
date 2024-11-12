@@ -9482,6 +9482,421 @@ class TestHeadSchedulerJob:
         self.test_head_scheduler_job_value_error()
 
 
+class TestPostReplicator:
+    """
+    Test Class for post_replicator
+    """
+
+    @responses.activate
+    def test_post_replicator_all_params(self):
+        """
+        post_replicator()
+        """
+        # Set up mock
+        url = preprocess_url('/_replicator')
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=201,
+        )
+
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a ReplicationCreateTargetParameters model
+        replication_create_target_parameters_model = {}
+        replication_create_target_parameters_model['n'] = 3
+        replication_create_target_parameters_model['partitioned'] = False
+        replication_create_target_parameters_model['q'] = 1
+
+        # Construct a dict representation of a ReplicationDatabaseAuthBasic model
+        replication_database_auth_basic_model = {}
+        replication_database_auth_basic_model['password'] = 'testString'
+        replication_database_auth_basic_model['username'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIam model
+        replication_database_auth_iam_model = {}
+        replication_database_auth_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuth model
+        replication_database_auth_model = {}
+        replication_database_auth_model['basic'] = replication_database_auth_basic_model
+        replication_database_auth_model['iam'] = replication_database_auth_iam_model
+
+        # Construct a dict representation of a ReplicationDatabase model
+        replication_database_model = {}
+        replication_database_model['auth'] = replication_database_auth_model
+        replication_database_model['headers'] = {'key1': 'testString'}
+        replication_database_model['url'] = 'https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb'
+
+        # Construct a dict representation of a UserContext model
+        user_context_model = {}
+        user_context_model['db'] = 'testString'
+        user_context_model['name'] = 'john'
+        user_context_model['roles'] = ['_replicator']
+
+        # Construct a dict representation of a ReplicationDocument model
+        replication_document_model = {}
+        replication_document_model['_attachments'] = {'key1': attachment_model}
+        replication_document_model['_conflicts'] = ['testString']
+        replication_document_model['_deleted'] = True
+        replication_document_model['_deleted_conflicts'] = ['testString']
+        replication_document_model['_id'] = 'testString'
+        replication_document_model['_local_seq'] = 'testString'
+        replication_document_model['_rev'] = 'testString'
+        replication_document_model['_revisions'] = revisions_model
+        replication_document_model['_revs_info'] = [document_revision_status_model]
+        replication_document_model['cancel'] = False
+        replication_document_model['checkpoint_interval'] = 4500
+        replication_document_model['connection_timeout'] = 15000
+        replication_document_model['continuous'] = True
+        replication_document_model['create_target'] = True
+        replication_document_model['create_target_params'] = replication_create_target_parameters_model
+        replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
+        replication_document_model['filter'] = 'ddoc/my_filter'
+        replication_document_model['http_connections'] = 10
+        replication_document_model['owner'] = 'testString'
+        replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['retries_per_request'] = 3
+        replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
+        replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
+        replication_document_model['socket_options'] = '[{keepalive, true}, {nodelay, false}]'
+        replication_document_model['source'] = replication_database_model
+        replication_document_model['source_proxy'] = 'testString'
+        replication_document_model['target'] = replication_database_model
+        replication_document_model['target_proxy'] = 'testString'
+        replication_document_model['use_bulk_get'] = True
+        replication_document_model['use_checkpoints'] = False
+        replication_document_model['user_ctx'] = user_context_model
+        replication_document_model['winning_revs_only'] = False
+        replication_document_model['worker_batch_size'] = 400
+        replication_document_model['worker_processes'] = 3
+        replication_document_model['foo'] = 'testString'
+
+        # Set up parameter values
+        replication_document = replication_document_model
+        batch = 'ok'
+
+        # Invoke method
+        response = _service.post_replicator(
+            replication_document,
+            batch=batch,
+            headers={},
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 201
+        # Validate query params
+        query_string = responses.calls[0].request.url.split('?', 1)[1]
+        query_string = urllib.parse.unquote_plus(query_string)
+        assert 'batch={}'.format(batch) in query_string
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body == replication_document
+
+    def test_post_replicator_all_params_with_retries(self):
+        # Enable retries and run test_post_replicator_all_params.
+        _service.enable_retries()
+        self.test_post_replicator_all_params()
+
+        # Disable retries and run test_post_replicator_all_params.
+        _service.disable_retries()
+        self.test_post_replicator_all_params()
+
+    @responses.activate
+    def test_post_replicator_required_params(self):
+        """
+        test_post_replicator_required_params()
+        """
+        # Set up mock
+        url = preprocess_url('/_replicator')
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=201,
+        )
+
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a ReplicationCreateTargetParameters model
+        replication_create_target_parameters_model = {}
+        replication_create_target_parameters_model['n'] = 3
+        replication_create_target_parameters_model['partitioned'] = False
+        replication_create_target_parameters_model['q'] = 1
+
+        # Construct a dict representation of a ReplicationDatabaseAuthBasic model
+        replication_database_auth_basic_model = {}
+        replication_database_auth_basic_model['password'] = 'testString'
+        replication_database_auth_basic_model['username'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIam model
+        replication_database_auth_iam_model = {}
+        replication_database_auth_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuth model
+        replication_database_auth_model = {}
+        replication_database_auth_model['basic'] = replication_database_auth_basic_model
+        replication_database_auth_model['iam'] = replication_database_auth_iam_model
+
+        # Construct a dict representation of a ReplicationDatabase model
+        replication_database_model = {}
+        replication_database_model['auth'] = replication_database_auth_model
+        replication_database_model['headers'] = {'key1': 'testString'}
+        replication_database_model['url'] = 'https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb'
+
+        # Construct a dict representation of a UserContext model
+        user_context_model = {}
+        user_context_model['db'] = 'testString'
+        user_context_model['name'] = 'john'
+        user_context_model['roles'] = ['_replicator']
+
+        # Construct a dict representation of a ReplicationDocument model
+        replication_document_model = {}
+        replication_document_model['_attachments'] = {'key1': attachment_model}
+        replication_document_model['_conflicts'] = ['testString']
+        replication_document_model['_deleted'] = True
+        replication_document_model['_deleted_conflicts'] = ['testString']
+        replication_document_model['_id'] = 'testString'
+        replication_document_model['_local_seq'] = 'testString'
+        replication_document_model['_rev'] = 'testString'
+        replication_document_model['_revisions'] = revisions_model
+        replication_document_model['_revs_info'] = [document_revision_status_model]
+        replication_document_model['cancel'] = False
+        replication_document_model['checkpoint_interval'] = 4500
+        replication_document_model['connection_timeout'] = 15000
+        replication_document_model['continuous'] = True
+        replication_document_model['create_target'] = True
+        replication_document_model['create_target_params'] = replication_create_target_parameters_model
+        replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
+        replication_document_model['filter'] = 'ddoc/my_filter'
+        replication_document_model['http_connections'] = 10
+        replication_document_model['owner'] = 'testString'
+        replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['retries_per_request'] = 3
+        replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
+        replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
+        replication_document_model['socket_options'] = '[{keepalive, true}, {nodelay, false}]'
+        replication_document_model['source'] = replication_database_model
+        replication_document_model['source_proxy'] = 'testString'
+        replication_document_model['target'] = replication_database_model
+        replication_document_model['target_proxy'] = 'testString'
+        replication_document_model['use_bulk_get'] = True
+        replication_document_model['use_checkpoints'] = False
+        replication_document_model['user_ctx'] = user_context_model
+        replication_document_model['winning_revs_only'] = False
+        replication_document_model['worker_batch_size'] = 400
+        replication_document_model['worker_processes'] = 3
+        replication_document_model['foo'] = 'testString'
+
+        # Set up parameter values
+        replication_document = replication_document_model
+
+        # Invoke method
+        response = _service.post_replicator(
+            replication_document,
+            headers={},
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 201
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body == replication_document
+
+    def test_post_replicator_required_params_with_retries(self):
+        # Enable retries and run test_post_replicator_required_params.
+        _service.enable_retries()
+        self.test_post_replicator_required_params()
+
+        # Disable retries and run test_post_replicator_required_params.
+        _service.disable_retries()
+        self.test_post_replicator_required_params()
+
+    @responses.activate
+    def test_post_replicator_value_error(self):
+        """
+        test_post_replicator_value_error()
+        """
+        # Set up mock
+        url = preprocess_url('/_replicator')
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=201,
+        )
+
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a ReplicationCreateTargetParameters model
+        replication_create_target_parameters_model = {}
+        replication_create_target_parameters_model['n'] = 3
+        replication_create_target_parameters_model['partitioned'] = False
+        replication_create_target_parameters_model['q'] = 1
+
+        # Construct a dict representation of a ReplicationDatabaseAuthBasic model
+        replication_database_auth_basic_model = {}
+        replication_database_auth_basic_model['password'] = 'testString'
+        replication_database_auth_basic_model['username'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIam model
+        replication_database_auth_iam_model = {}
+        replication_database_auth_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuth model
+        replication_database_auth_model = {}
+        replication_database_auth_model['basic'] = replication_database_auth_basic_model
+        replication_database_auth_model['iam'] = replication_database_auth_iam_model
+
+        # Construct a dict representation of a ReplicationDatabase model
+        replication_database_model = {}
+        replication_database_model['auth'] = replication_database_auth_model
+        replication_database_model['headers'] = {'key1': 'testString'}
+        replication_database_model['url'] = 'https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb'
+
+        # Construct a dict representation of a UserContext model
+        user_context_model = {}
+        user_context_model['db'] = 'testString'
+        user_context_model['name'] = 'john'
+        user_context_model['roles'] = ['_replicator']
+
+        # Construct a dict representation of a ReplicationDocument model
+        replication_document_model = {}
+        replication_document_model['_attachments'] = {'key1': attachment_model}
+        replication_document_model['_conflicts'] = ['testString']
+        replication_document_model['_deleted'] = True
+        replication_document_model['_deleted_conflicts'] = ['testString']
+        replication_document_model['_id'] = 'testString'
+        replication_document_model['_local_seq'] = 'testString'
+        replication_document_model['_rev'] = 'testString'
+        replication_document_model['_revisions'] = revisions_model
+        replication_document_model['_revs_info'] = [document_revision_status_model]
+        replication_document_model['cancel'] = False
+        replication_document_model['checkpoint_interval'] = 4500
+        replication_document_model['connection_timeout'] = 15000
+        replication_document_model['continuous'] = True
+        replication_document_model['create_target'] = True
+        replication_document_model['create_target_params'] = replication_create_target_parameters_model
+        replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
+        replication_document_model['filter'] = 'ddoc/my_filter'
+        replication_document_model['http_connections'] = 10
+        replication_document_model['owner'] = 'testString'
+        replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['retries_per_request'] = 3
+        replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
+        replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
+        replication_document_model['socket_options'] = '[{keepalive, true}, {nodelay, false}]'
+        replication_document_model['source'] = replication_database_model
+        replication_document_model['source_proxy'] = 'testString'
+        replication_document_model['target'] = replication_database_model
+        replication_document_model['target_proxy'] = 'testString'
+        replication_document_model['use_bulk_get'] = True
+        replication_document_model['use_checkpoints'] = False
+        replication_document_model['user_ctx'] = user_context_model
+        replication_document_model['winning_revs_only'] = False
+        replication_document_model['worker_batch_size'] = 400
+        replication_document_model['worker_processes'] = 3
+        replication_document_model['foo'] = 'testString'
+
+        # Set up parameter values
+        replication_document = replication_document_model
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "replication_document": replication_document,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key: val if key is not param else None for (key, val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                _service.post_replicator(**req_copy)
+
+    def test_post_replicator_value_error_with_retries(self):
+        # Enable retries and run test_post_replicator_value_error.
+        _service.enable_retries()
+        self.test_post_replicator_value_error()
+
+        # Disable retries and run test_post_replicator_value_error.
+        _service.disable_retries()
+        self.test_post_replicator_value_error()
+
+
 class TestDeleteReplicationDocument:
     """
     Test Class for delete_replication_document

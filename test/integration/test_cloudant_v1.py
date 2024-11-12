@@ -1466,6 +1466,110 @@ class TestCloudantV1:
         assert response.get_status_code() == 200
 
     @needscredentials
+    def test_post_replicator(self):
+        # Construct a dict representation of a Attachment model
+        attachment_model = {
+            'content_type': 'testString',
+            'data': 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=',
+            'digest': 'testString',
+            'encoded_length': 0,
+            'encoding': 'testString',
+            'follows': True,
+            'length': 0,
+            'revpos': 1,
+            'stub': True,
+        }
+        # Construct a dict representation of a Revisions model
+        revisions_model = {
+            'ids': ['testString'],
+            'start': 1,
+        }
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {
+            'rev': 'testString',
+            'status': 'available',
+        }
+        # Construct a dict representation of a ReplicationCreateTargetParameters model
+        replication_create_target_parameters_model = {
+            'n': 3,
+            'partitioned': False,
+            'q': 1,
+        }
+        # Construct a dict representation of a ReplicationDatabaseAuthBasic model
+        replication_database_auth_basic_model = {
+            'password': 'testString',
+            'username': 'testString',
+        }
+        # Construct a dict representation of a ReplicationDatabaseAuthIam model
+        replication_database_auth_iam_model = {
+            'api_key': 'testString',
+        }
+        # Construct a dict representation of a ReplicationDatabaseAuth model
+        replication_database_auth_model = {
+            'basic': replication_database_auth_basic_model,
+            'iam': replication_database_auth_iam_model,
+        }
+        # Construct a dict representation of a ReplicationDatabase model
+        replication_database_model = {
+            'auth': replication_database_auth_model,
+            'headers': {'key1': 'testString'},
+            'url': 'https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb',
+        }
+        # Construct a dict representation of a UserContext model
+        user_context_model = {
+            'db': 'testString',
+            'name': 'john',
+            'roles': ['_replicator'],
+        }
+        # Construct a dict representation of a ReplicationDocument model
+        replication_document_model = {
+            '_attachments': {'key1': attachment_model},
+            '_conflicts': ['testString'],
+            '_deleted': True,
+            '_deleted_conflicts': ['testString'],
+            '_id': 'testString',
+            '_local_seq': 'testString',
+            '_rev': 'testString',
+            '_revisions': revisions_model,
+            '_revs_info': [document_revision_status_model],
+            'cancel': False,
+            'checkpoint_interval': 4500,
+            'connection_timeout': 15000,
+            'continuous': True,
+            'create_target': True,
+            'create_target_params': replication_create_target_parameters_model,
+            'doc_ids': ['badger', 'lemur', 'llama'],
+            'filter': 'ddoc/my_filter',
+            'http_connections': 10,
+            'owner': 'testString',
+            'query_params': {'key1': 'testString'},
+            'retries_per_request': 3,
+            'selector': {'_id': {'$regex': 'docid'}},
+            'since_seq': '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU',
+            'socket_options': '[{keepalive, true}, {nodelay, false}]',
+            'source': replication_database_model,
+            'source_proxy': 'testString',
+            'target': replication_database_model,
+            'target_proxy': 'testString',
+            'use_bulk_get': True,
+            'use_checkpoints': False,
+            'user_ctx': user_context_model,
+            'winning_revs_only': False,
+            'worker_batch_size': 400,
+            'worker_processes': 3,
+            'foo': 'testString',
+        }
+
+        response = self.cloudant_service.post_replicator(
+            replication_document=replication_document_model,
+            batch='ok',
+        )
+
+        assert response.get_status_code() == 201
+        document_result = response.get_result()
+        assert document_result is not None
+
+    @needscredentials
     def test_get_replication_document(self):
         response = self.cloudant_service.get_replication_document(
             doc_id='testString',
