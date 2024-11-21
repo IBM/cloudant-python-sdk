@@ -11979,7 +11979,7 @@ class DesignDocument:
                     raise ValueError('Value for additional property {} must be of type object'.format(k))
                 setattr(self, k, v)
             else:
-                raise ValueError('Property {} cannot be specified as an additional property'.format(_key))
+                raise ValueError('Property {} cannot be specified as an additional property'.format(k))
 
     def __str__(self) -> str:
         """Return a `str` version of this DesignDocument object."""
@@ -12722,7 +12722,7 @@ class Document:
                     raise ValueError('Value for additional property {} must be of type object'.format(k))
                 setattr(self, k, v)
             else:
-                raise ValueError('Property {} cannot be specified as an additional property'.format(_key))
+                raise ValueError('Property {} cannot be specified as an additional property'.format(k))
 
     def __str__(self) -> str:
         """Return a `str` version of this Document object."""
@@ -14421,7 +14421,7 @@ class IndexField:
                     raise ValueError('Value for additional property {} must be of type str'.format(k))
                 setattr(self, k, v)
             else:
-                raise ValueError('Property {} cannot be specified as an additional property'.format(_key))
+                raise ValueError('Property {} cannot be specified as an additional property'.format(k))
 
     def __str__(self) -> str:
         """Return a `str` version of this IndexField object."""
@@ -16327,7 +16327,7 @@ class ReplicationDocument:
                     raise ValueError('Value for additional property {} must be of type object'.format(k))
                 setattr(self, k, v)
             else:
-                raise ValueError('Property {} cannot be specified as an additional property'.format(_key))
+                raise ValueError('Property {} cannot be specified as an additional property'.format(k))
 
     def __str__(self) -> str:
         """Return a `str` version of this ReplicationDocument object."""
@@ -18413,7 +18413,7 @@ class ServerVendor:
                     raise ValueError('Value for additional property {} must be of type str'.format(k))
                 setattr(self, k, v)
             else:
-                raise ValueError('Property {} cannot be specified as an additional property'.format(_key))
+                raise ValueError('Property {} cannot be specified as an additional property'.format(k))
 
     def __str__(self) -> str:
         """Return a `str` version of this ServerVendor object."""
