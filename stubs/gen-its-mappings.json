@@ -383,7 +383,7 @@
           "equalTo": "normal"
         },
         "heartbeat": {
-          "equalTo": "0"
+          "equalTo": "1"
         },
         "since": {
           "equalTo": "0"
@@ -475,6 +475,48 @@
       }
     },
     "uuid": "2da72265-1cef-3bc6-bb1b-2cdeb811ceba"
+  },
+  {
+    "id": "109ff4b5-4d2a-32b8-890d-f15cfe54173b",
+    "request": {
+      "urlPath": "/_replicator",
+      "method": "POST",
+      "queryParameters": {
+        "batch": {
+          "equalTo": "ok"
+        }
+      },
+      "bodyPatterns": [
+        {
+          "equalToJson": "{\"source\": {\"url\": \"https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb\"}, \"target\": {\"url\": \"https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb\"}}",
+          "ignoreArrayOrder": false,
+          "ignoreExtraElements": true
+        }
+      ]
+    },
+    "response": {
+      "status": 201,
+      "body": "{\"ok\":true,\"id\":\"testString\",\"rev\":\"1-257d246167d34fcc2ca07926ba0213d1\"}",
+      "headers": {
+        "Cache-Control": "must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Fri, 20 May 2022 16:54:50 GMT",
+        "ETag": "W/\"22-257d246167d34fcc2ca07926ba0213d1\"",
+        "Location": "https://84ab8038-d8f1-450c-9645-4d16b448eb31-bluemix.cloudant.com/_replicator/testString",
+        "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+        "transaction-id": "ce157aeb0e62a81f05c0e8c9e4d24c55",
+        "X-Cloudant-Action": "cloudantnosqldb.replication.write",
+        "X-Couch-Request-ID": "ce157aeb0e",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Cloudant-Request-Class": "write",
+        "X-Cloudant-Backend": "bm-cc-us-east-05",
+        "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.102.0)",
+        "Vary": "Accept-Encoding"
+      }
+    },
+    "uuid": "109ff4b5-4d2a-32b8-890d-f15cfe54173b"
   },
   {
     "id": "ea621c78-5215-34ac-94ce-95e13e1182bd",
@@ -1222,7 +1264,7 @@
           "equalTo": "testString"
         },
         "heartbeat": {
-          "equalTo": "0"
+          "equalTo": "1"
         },
         "include_docs": {
           "equalTo": "false"
@@ -2444,7 +2486,7 @@
           "equalTo": "false"
         },
         "q": {
-          "equalTo": "26"
+          "equalTo": "16"
         }
       }
     },

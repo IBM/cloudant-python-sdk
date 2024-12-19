@@ -108,7 +108,7 @@ class TestGetServerInformation:
         """
         # Set up mock
         url = preprocess_url('/')
-        mock_response = '{"couchdb": "couchdb", "features": ["features"], "vendor": {"name": "name", "variant": "paas", "version": "version"}, "version": "version", "features_flags": ["features_flags"]}'
+        mock_response = '{"couchdb": "couchdb", "features": ["features"], "features_flags": ["features_flags"], "vendor": {"name": "name", "variant": "paas", "version": "version"}, "version": "version"}'
         responses.add(
             responses.GET,
             url,
@@ -132,86 +132,6 @@ class TestGetServerInformation:
         # Disable retries and run test_get_server_information_all_params.
         _service.disable_retries()
         self.test_get_server_information_all_params()
-
-
-class TestGetUuids:
-    """
-    Test Class for get_uuids
-    """
-
-    @responses.activate
-    def test_get_uuids_all_params(self):
-        """
-        get_uuids()
-        """
-        # Set up mock
-        url = preprocess_url('/_uuids')
-        mock_response = '{"uuids": ["uuids"]}'
-        responses.add(
-            responses.GET,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Set up parameter values
-        count = 1
-
-        # Invoke method
-        response = _service.get_uuids(
-            count=count,
-            headers={},
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-        # Validate query params
-        query_string = responses.calls[0].request.url.split('?', 1)[1]
-        query_string = urllib.parse.unquote_plus(query_string)
-        assert 'count={}'.format(count) in query_string
-
-    def test_get_uuids_all_params_with_retries(self):
-        # Enable retries and run test_get_uuids_all_params.
-        _service.enable_retries()
-        self.test_get_uuids_all_params()
-
-        # Disable retries and run test_get_uuids_all_params.
-        _service.disable_retries()
-        self.test_get_uuids_all_params()
-
-    @responses.activate
-    def test_get_uuids_required_params(self):
-        """
-        test_get_uuids_required_params()
-        """
-        # Set up mock
-        url = preprocess_url('/_uuids')
-        mock_response = '{"uuids": ["uuids"]}'
-        responses.add(
-            responses.GET,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Invoke method
-        response = _service.get_uuids()
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_get_uuids_required_params_with_retries(self):
-        # Enable retries and run test_get_uuids_required_params.
-        _service.enable_retries()
-        self.test_get_uuids_required_params()
-
-        # Disable retries and run test_get_uuids_required_params.
-        _service.disable_retries()
-        self.test_get_uuids_required_params()
 
 
 class TestGetCapacityThroughputInformation:
@@ -340,6 +260,86 @@ class TestPutCapacityThroughputConfiguration:
         self.test_put_capacity_throughput_configuration_value_error()
 
 
+class TestGetUuids:
+    """
+    Test Class for get_uuids
+    """
+
+    @responses.activate
+    def test_get_uuids_all_params(self):
+        """
+        get_uuids()
+        """
+        # Set up mock
+        url = preprocess_url('/_uuids')
+        mock_response = '{"uuids": ["uuids"]}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        count = 1
+
+        # Invoke method
+        response = _service.get_uuids(
+            count=count,
+            headers={},
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # Validate query params
+        query_string = responses.calls[0].request.url.split('?', 1)[1]
+        query_string = urllib.parse.unquote_plus(query_string)
+        assert 'count={}'.format(count) in query_string
+
+    def test_get_uuids_all_params_with_retries(self):
+        # Enable retries and run test_get_uuids_all_params.
+        _service.enable_retries()
+        self.test_get_uuids_all_params()
+
+        # Disable retries and run test_get_uuids_all_params.
+        _service.disable_retries()
+        self.test_get_uuids_all_params()
+
+    @responses.activate
+    def test_get_uuids_required_params(self):
+        """
+        test_get_uuids_required_params()
+        """
+        # Set up mock
+        url = preprocess_url('/_uuids')
+        mock_response = '{"uuids": ["uuids"]}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Invoke method
+        response = _service.get_uuids()
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_uuids_required_params_with_retries(self):
+        # Enable retries and run test_get_uuids_required_params.
+        _service.enable_retries()
+        self.test_get_uuids_required_params()
+
+        # Disable retries and run test_get_uuids_required_params.
+        _service.disable_retries()
+        self.test_get_uuids_required_params()
+
+
 # endregion
 ##############################################################################
 # End of Service: Server
@@ -403,7 +403,7 @@ class TestGetDbUpdates:
         # Set up parameter values
         descending = False
         feed = 'normal'
-        heartbeat = 0
+        heartbeat = 1
         limit = 0
         timeout = 60000
         since = '0'
@@ -486,7 +486,7 @@ class TestPostChanges:
         """
         # Set up mock
         url = preprocess_url('/testString/_changes')
-        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
+        mock_response = '{"last_seq": "last_seq", "pending": 0, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
         responses.add(
             responses.POST,
             url,
@@ -507,7 +507,7 @@ class TestPostChanges:
         descending = False
         feed = 'normal'
         filter = 'testString'
-        heartbeat = 0
+        heartbeat = 1
         include_docs = False
         limit = 0
         seq_interval = 1
@@ -586,7 +586,7 @@ class TestPostChanges:
         """
         # Set up mock
         url = preprocess_url('/testString/_changes')
-        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
+        mock_response = '{"last_seq": "last_seq", "pending": 0, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
         responses.add(
             responses.POST,
             url,
@@ -639,7 +639,7 @@ class TestPostChanges:
         """
         # Set up mock
         url = preprocess_url('/testString/_changes')
-        mock_response = '{"last_seq": "last_seq", "pending": 7, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
+        mock_response = '{"last_seq": "last_seq", "pending": 0, "results": [{"changes": [{"rev": "rev"}], "deleted": false, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "seq": "seq"}]}'
         responses.add(
             responses.POST,
             url,
@@ -706,7 +706,7 @@ class TestPostChangesAsStream:
         descending = False
         feed = 'normal'
         filter = 'testString'
-        heartbeat = 0
+        heartbeat = 1
         include_docs = False
         limit = 0
         seq_interval = 1
@@ -1102,7 +1102,7 @@ class TestPostDbsInfo:
         """
         # Set up mock
         url = preprocess_url('/_dbs_info')
-        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "instance_start_time": "instance_start_time", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}, "key": "key"}]'
+        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 16, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 1, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "instance_start_time": "instance_start_time", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}, "props": {"partitioned": false}, "sizes": {"active": 0, "external": 0, "file": 0}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
         responses.add(
             responses.POST,
             url,
@@ -1147,7 +1147,7 @@ class TestPostDbsInfo:
         """
         # Set up mock
         url = preprocess_url('/_dbs_info')
-        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "instance_start_time": "instance_start_time", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}, "key": "key"}]'
+        mock_response = '[{"error": "error", "info": {"cluster": {"n": 3, "q": 16, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 1, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "instance_start_time": "instance_start_time", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}, "props": {"partitioned": false}, "sizes": {"active": 0, "external": 0, "file": 0}, "update_seq": "update_seq", "uuid": "uuid"}, "key": "key"}]'
         responses.add(
             responses.POST,
             url,
@@ -1271,7 +1271,7 @@ class TestGetDatabaseInformation:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "instance_start_time": "instance_start_time", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}'
+        mock_response = '{"cluster": {"n": 3, "q": 16, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 1, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "instance_start_time": "instance_start_time", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}, "props": {"partitioned": false}, "sizes": {"active": 0, "external": 0, "file": 0}, "update_seq": "update_seq", "uuid": "uuid"}'
         responses.add(
             responses.GET,
             url,
@@ -1309,7 +1309,7 @@ class TestGetDatabaseInformation:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"cluster": {"n": 3, "q": 1, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 19, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "instance_start_time": "instance_start_time", "props": {"partitioned": false}, "sizes": {"active": 6, "external": 8, "file": 4}, "update_seq": "update_seq", "uuid": "uuid", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}}'
+        mock_response = '{"cluster": {"n": 3, "q": 16, "r": 1, "w": 1}, "committed_update_seq": "committed_update_seq", "compact_running": false, "compacted_seq": "compacted_seq", "db_name": "db_name", "disk_format_version": 1, "doc_count": 0, "doc_del_count": 0, "engine": "engine", "instance_start_time": "instance_start_time", "partitioned_indexes": {"count": 0, "indexes": {"search": 0, "view": 0}, "limit": 10}, "props": {"partitioned": false}, "sizes": {"active": 0, "external": 0, "file": 0}, "update_seq": "update_seq", "uuid": "uuid"}'
         responses.add(
             responses.GET,
             url,
@@ -1364,7 +1364,7 @@ class TestPutDatabase:
         # Set up parameter values
         db = 'testString'
         partitioned = False
-        q = 26
+        q = 16
 
         # Invoke method
         response = _service.put_database(
@@ -1646,7 +1646,7 @@ class TestPostDocument:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.POST,
             url,
@@ -1743,7 +1743,7 @@ class TestPostDocument:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.POST,
             url,
@@ -1832,7 +1832,7 @@ class TestPostDocument:
         """
         # Set up mock
         url = preprocess_url('/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.POST,
             url,
@@ -1921,7 +1921,7 @@ class TestPostAllDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_all_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
+        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(
             responses.POST,
             url,
@@ -2004,7 +2004,7 @@ class TestPostAllDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_all_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
+        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(
             responses.POST,
             url,
@@ -2205,7 +2205,7 @@ class TestPostAllDocsQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_all_docs/queries')
-        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
+        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(
             responses.POST,
             url,
@@ -2268,7 +2268,7 @@ class TestPostAllDocsQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_all_docs/queries')
-        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
+        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(
             responses.POST,
             url,
@@ -2459,7 +2459,7 @@ class TestPostBulkDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_bulk_docs')
-        mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}]'
+        mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}]'
         responses.add(
             responses.POST,
             url,
@@ -2550,7 +2550,7 @@ class TestPostBulkDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_bulk_docs')
-        mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}]'
+        mock_response = '[{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}]'
         responses.add(
             responses.POST,
             url,
@@ -2639,7 +2639,7 @@ class TestPostBulkGet:
         """
         # Set up mock
         url = preprocess_url('/testString/_bulk_get')
-        mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
+        mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
         responses.add(
             responses.POST,
             url,
@@ -2707,7 +2707,7 @@ class TestPostBulkGet:
         """
         # Set up mock
         url = preprocess_url('/testString/_bulk_get')
-        mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
+        mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
         responses.add(
             responses.POST,
             url,
@@ -2760,7 +2760,7 @@ class TestPostBulkGet:
         """
         # Set up mock
         url = preprocess_url('/testString/_bulk_get')
-        mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
+        mock_response = '{"results": [{"docs": [{"error": {"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}, "ok": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}}], "id": "id"}]}'
         responses.add(
             responses.POST,
             url,
@@ -3339,7 +3339,7 @@ class TestDeleteDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -3390,7 +3390,7 @@ class TestDeleteDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -3430,7 +3430,7 @@ class TestDeleteDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -4127,7 +4127,7 @@ class TestPutDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -4234,7 +4234,7 @@ class TestPutDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -4325,7 +4325,7 @@ class TestPutDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -4573,7 +4573,7 @@ class TestDeleteDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -4624,7 +4624,7 @@ class TestDeleteDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -4664,7 +4664,7 @@ class TestDeleteDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -4869,7 +4869,7 @@ class TestPutDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -4999,7 +4999,7 @@ class TestPutDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -5115,7 +5115,7 @@ class TestPutDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -5229,7 +5229,7 @@ class TestGetDesignDocumentInformation:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_info')
-        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "updates_pending": {"minimum": 7, "preferred": 9, "total": 5}, "waiting_clients": 0, "waiting_commit": true}}'
+        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 0, "external": 0, "file": 0}, "updater_running": false, "updates_pending": {"minimum": 0, "preferred": 0, "total": 0}, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(
             responses.GET,
             url,
@@ -5269,7 +5269,7 @@ class TestGetDesignDocumentInformation:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_info')
-        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 6, "external": 8, "file": 4}, "updater_running": false, "updates_pending": {"minimum": 7, "preferred": 9, "total": 5}, "waiting_clients": 0, "waiting_commit": true}}'
+        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 0, "external": 0, "file": 0}, "updater_running": false, "updates_pending": {"minimum": 0, "preferred": 0, "total": 0}, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(
             responses.GET,
             url,
@@ -5314,7 +5314,7 @@ class TestPostDesignDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_design_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
+        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(
             responses.POST,
             url,
@@ -5397,7 +5397,7 @@ class TestPostDesignDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_design_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
+        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(
             responses.POST,
             url,
@@ -5453,7 +5453,7 @@ class TestPostDesignDocsQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_design_docs/queries')
-        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
+        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(
             responses.POST,
             url,
@@ -5518,7 +5518,7 @@ class TestPostDesignDocsQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_design_docs/queries')
-        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
+        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(
             responses.POST,
             url,
@@ -5581,7 +5581,7 @@ class TestPostDesignDocsQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_design_docs/queries')
-        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
+        mock_response = '{"results": [{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}]}'
         responses.add(
             responses.POST,
             url,
@@ -5681,7 +5681,7 @@ class TestPostView:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(
             responses.POST,
             url,
@@ -5789,7 +5789,7 @@ class TestPostView:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(
             responses.POST,
             url,
@@ -6037,7 +6037,7 @@ class TestPostViewQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_view/testString/queries')
-        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}]}'
+        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}]}'
         responses.add(
             responses.POST,
             url,
@@ -6111,7 +6111,7 @@ class TestPostViewQueries:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_view/testString/queries')
-        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}]}'
+        mock_response = '{"results": [{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}]}'
         responses.add(
             responses.POST,
             url,
@@ -6459,7 +6459,7 @@ class TestPostPartitionAllDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_all_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
+        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(
             responses.POST,
             url,
@@ -6544,7 +6544,7 @@ class TestPostPartitionAllDocs:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_all_docs')
-        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
+        mock_response = '{"total_rows": 0, "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "key", "value": {"deleted": false, "rev": "rev"}}], "update_seq": "update_seq"}'
         responses.add(
             responses.POST,
             url,
@@ -7053,7 +7053,7 @@ class TestPostPartitionView:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(
             responses.POST,
             url,
@@ -7160,7 +7160,7 @@ class TestPostPartitionView:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_design/testString/_view/testString')
-        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
+        mock_response = '{"total_rows": 0, "update_seq": "update_seq", "rows": [{"caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "doc": {"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}]}, "id": "id", "key": "anyValue", "value": "anyValue"}]}'
         responses.add(
             responses.POST,
             url,
@@ -7409,7 +7409,7 @@ class TestPostPartitionExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_explain')
-        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "asc", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
+        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "fwd", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -7491,7 +7491,7 @@ class TestPostPartitionExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_partition/testString/_explain')
-        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "asc", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
+        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "fwd", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -7874,7 +7874,7 @@ class TestPostExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "asc", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
+        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "fwd", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -7957,7 +7957,7 @@ class TestPostExplain:
         """
         # Set up mock
         url = preprocess_url('/testString/_explain')
-        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "asc", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
+        mock_response = '{"covering": true, "dbname": "dbname", "fields": ["fields"], "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}, "index_candidates": [{"analysis": {"covering": true, "ranking": 1, "reasons": [{"name": "alphabetically_comes_after"}], "usable": true}, "index": {"ddoc": "ddoc", "def": {"default_analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "default_field": {"analyzer": {"name": "classic", "stopwords": ["stopwords"]}, "enabled": true}, "fields": [{"name": "name", "type": "boolean"}], "index_array_lengths": true, "partial_filter_selector": {"anyKey": "anyValue"}}, "name": "name", "partitioned": false, "type": "json"}}], "limit": 25, "mrargs": {"conflicts": "anyValue", "direction": "fwd", "end_key": "anyValue", "include_docs": true, "partition": "partition", "reduce": true, "stable": true, "start_key": "anyValue", "update": "anyValue", "view_type": "map"}, "opts": {"bookmark": "bookmark", "conflicts": false, "execution_stats": false, "fields": ["fields"], "limit": 25, "partition": "partition", "r": 1, "skip": 0, "sort": "anyValue", "stable": false, "stale": false, "update": true, "use_index": ["use_index"]}, "partitioned": "anyValue", "selector": {"anyKey": "anyValue"}, "selector_hints": [{"indexable_fields": ["indexable_fields"], "type": "json", "unindexable_fields": ["unindexable_fields"]}], "skip": 0}'
         responses.add(
             responses.POST,
             url,
@@ -8792,7 +8792,7 @@ class TestPostSearch:
         group_field = 'testString'
         group_limit = 1
         group_sort = ['testString']
-        ranges = {'key1': {'key1': {'key1': 'testString'}}}
+        ranges = {'key1': {'key1': 'testString'}}
 
         # Invoke method
         response = _service.post_search(
@@ -8846,7 +8846,7 @@ class TestPostSearch:
         assert req_body['group_field'] == 'testString'
         assert req_body['group_limit'] == 1
         assert req_body['group_sort'] == ['testString']
-        assert req_body['ranges'] == {'key1': {'key1': {'key1': 'testString'}}}
+        assert req_body['ranges'] == {'key1': {'key1': 'testString'}}
 
     def test_post_search_all_params_with_retries(self):
         # Enable retries and run test_post_search_all_params.
@@ -8894,7 +8894,7 @@ class TestPostSearch:
         group_field = 'testString'
         group_limit = 1
         group_sort = ['testString']
-        ranges = {'key1': {'key1': {'key1': 'testString'}}}
+        ranges = {'key1': {'key1': 'testString'}}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -8960,7 +8960,7 @@ class TestPostSearchAsStream:
         group_field = 'testString'
         group_limit = 1
         group_sort = ['testString']
-        ranges = {'key1': {'key1': {'key1': 'testString'}}}
+        ranges = {'key1': {'key1': 'testString'}}
 
         # Invoke method
         response = _service.post_search_as_stream(
@@ -9014,7 +9014,7 @@ class TestPostSearchAsStream:
         assert req_body['group_field'] == 'testString'
         assert req_body['group_limit'] == 1
         assert req_body['group_sort'] == ['testString']
-        assert req_body['ranges'] == {'key1': {'key1': {'key1': 'testString'}}}
+        assert req_body['ranges'] == {'key1': {'key1': 'testString'}}
 
         # Verify streamed JSON response
         result = response.get_result()
@@ -9068,7 +9068,7 @@ class TestPostSearchAsStream:
         group_field = 'testString'
         group_limit = 1
         group_sort = ['testString']
-        ranges = {'key1': {'key1': {'key1': 'testString'}}}
+        ranges = {'key1': {'key1': 'testString'}}
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -9104,7 +9104,7 @@ class TestGetSearchInfo:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_search_info/testString')
-        mock_response = '{"name": "name", "search_index": {"committed_seq": 13, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 11, "signature": "signature"}}'
+        mock_response = '{"name": "name", "search_index": {"committed_seq": 0, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 0, "signature": "signature"}}'
         responses.add(
             responses.GET,
             url,
@@ -9146,7 +9146,7 @@ class TestGetSearchInfo:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_search_info/testString')
-        mock_response = '{"name": "name", "search_index": {"committed_seq": 13, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 11, "signature": "signature"}}'
+        mock_response = '{"name": "name", "search_index": {"committed_seq": 0, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 0, "signature": "signature"}}'
         responses.add(
             responses.GET,
             url,
@@ -9482,6 +9482,421 @@ class TestHeadSchedulerJob:
         self.test_head_scheduler_job_value_error()
 
 
+class TestPostReplicator:
+    """
+    Test Class for post_replicator
+    """
+
+    @responses.activate
+    def test_post_replicator_all_params(self):
+        """
+        post_replicator()
+        """
+        # Set up mock
+        url = preprocess_url('/_replicator')
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=201,
+        )
+
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a ReplicationCreateTargetParameters model
+        replication_create_target_parameters_model = {}
+        replication_create_target_parameters_model['n'] = 3
+        replication_create_target_parameters_model['partitioned'] = False
+        replication_create_target_parameters_model['q'] = 1
+
+        # Construct a dict representation of a ReplicationDatabaseAuthBasic model
+        replication_database_auth_basic_model = {}
+        replication_database_auth_basic_model['password'] = 'testString'
+        replication_database_auth_basic_model['username'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIam model
+        replication_database_auth_iam_model = {}
+        replication_database_auth_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuth model
+        replication_database_auth_model = {}
+        replication_database_auth_model['basic'] = replication_database_auth_basic_model
+        replication_database_auth_model['iam'] = replication_database_auth_iam_model
+
+        # Construct a dict representation of a ReplicationDatabase model
+        replication_database_model = {}
+        replication_database_model['auth'] = replication_database_auth_model
+        replication_database_model['headers'] = {'key1': 'testString'}
+        replication_database_model['url'] = 'https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb'
+
+        # Construct a dict representation of a UserContext model
+        user_context_model = {}
+        user_context_model['db'] = 'testString'
+        user_context_model['name'] = 'john'
+        user_context_model['roles'] = ['_replicator']
+
+        # Construct a dict representation of a ReplicationDocument model
+        replication_document_model = {}
+        replication_document_model['_attachments'] = {'key1': attachment_model}
+        replication_document_model['_conflicts'] = ['testString']
+        replication_document_model['_deleted'] = True
+        replication_document_model['_deleted_conflicts'] = ['testString']
+        replication_document_model['_id'] = 'testString'
+        replication_document_model['_local_seq'] = 'testString'
+        replication_document_model['_rev'] = 'testString'
+        replication_document_model['_revisions'] = revisions_model
+        replication_document_model['_revs_info'] = [document_revision_status_model]
+        replication_document_model['cancel'] = False
+        replication_document_model['checkpoint_interval'] = 4500
+        replication_document_model['connection_timeout'] = 15000
+        replication_document_model['continuous'] = True
+        replication_document_model['create_target'] = True
+        replication_document_model['create_target_params'] = replication_create_target_parameters_model
+        replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
+        replication_document_model['filter'] = 'ddoc/my_filter'
+        replication_document_model['http_connections'] = 10
+        replication_document_model['owner'] = 'testString'
+        replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['retries_per_request'] = 3
+        replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
+        replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
+        replication_document_model['socket_options'] = '[{keepalive, true}, {nodelay, false}]'
+        replication_document_model['source'] = replication_database_model
+        replication_document_model['source_proxy'] = 'testString'
+        replication_document_model['target'] = replication_database_model
+        replication_document_model['target_proxy'] = 'testString'
+        replication_document_model['use_bulk_get'] = True
+        replication_document_model['use_checkpoints'] = False
+        replication_document_model['user_ctx'] = user_context_model
+        replication_document_model['winning_revs_only'] = False
+        replication_document_model['worker_batch_size'] = 400
+        replication_document_model['worker_processes'] = 3
+        replication_document_model['foo'] = 'testString'
+
+        # Set up parameter values
+        replication_document = replication_document_model
+        batch = 'ok'
+
+        # Invoke method
+        response = _service.post_replicator(
+            replication_document,
+            batch=batch,
+            headers={},
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 201
+        # Validate query params
+        query_string = responses.calls[0].request.url.split('?', 1)[1]
+        query_string = urllib.parse.unquote_plus(query_string)
+        assert 'batch={}'.format(batch) in query_string
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body == replication_document
+
+    def test_post_replicator_all_params_with_retries(self):
+        # Enable retries and run test_post_replicator_all_params.
+        _service.enable_retries()
+        self.test_post_replicator_all_params()
+
+        # Disable retries and run test_post_replicator_all_params.
+        _service.disable_retries()
+        self.test_post_replicator_all_params()
+
+    @responses.activate
+    def test_post_replicator_required_params(self):
+        """
+        test_post_replicator_required_params()
+        """
+        # Set up mock
+        url = preprocess_url('/_replicator')
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=201,
+        )
+
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a ReplicationCreateTargetParameters model
+        replication_create_target_parameters_model = {}
+        replication_create_target_parameters_model['n'] = 3
+        replication_create_target_parameters_model['partitioned'] = False
+        replication_create_target_parameters_model['q'] = 1
+
+        # Construct a dict representation of a ReplicationDatabaseAuthBasic model
+        replication_database_auth_basic_model = {}
+        replication_database_auth_basic_model['password'] = 'testString'
+        replication_database_auth_basic_model['username'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIam model
+        replication_database_auth_iam_model = {}
+        replication_database_auth_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuth model
+        replication_database_auth_model = {}
+        replication_database_auth_model['basic'] = replication_database_auth_basic_model
+        replication_database_auth_model['iam'] = replication_database_auth_iam_model
+
+        # Construct a dict representation of a ReplicationDatabase model
+        replication_database_model = {}
+        replication_database_model['auth'] = replication_database_auth_model
+        replication_database_model['headers'] = {'key1': 'testString'}
+        replication_database_model['url'] = 'https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb'
+
+        # Construct a dict representation of a UserContext model
+        user_context_model = {}
+        user_context_model['db'] = 'testString'
+        user_context_model['name'] = 'john'
+        user_context_model['roles'] = ['_replicator']
+
+        # Construct a dict representation of a ReplicationDocument model
+        replication_document_model = {}
+        replication_document_model['_attachments'] = {'key1': attachment_model}
+        replication_document_model['_conflicts'] = ['testString']
+        replication_document_model['_deleted'] = True
+        replication_document_model['_deleted_conflicts'] = ['testString']
+        replication_document_model['_id'] = 'testString'
+        replication_document_model['_local_seq'] = 'testString'
+        replication_document_model['_rev'] = 'testString'
+        replication_document_model['_revisions'] = revisions_model
+        replication_document_model['_revs_info'] = [document_revision_status_model]
+        replication_document_model['cancel'] = False
+        replication_document_model['checkpoint_interval'] = 4500
+        replication_document_model['connection_timeout'] = 15000
+        replication_document_model['continuous'] = True
+        replication_document_model['create_target'] = True
+        replication_document_model['create_target_params'] = replication_create_target_parameters_model
+        replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
+        replication_document_model['filter'] = 'ddoc/my_filter'
+        replication_document_model['http_connections'] = 10
+        replication_document_model['owner'] = 'testString'
+        replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['retries_per_request'] = 3
+        replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
+        replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
+        replication_document_model['socket_options'] = '[{keepalive, true}, {nodelay, false}]'
+        replication_document_model['source'] = replication_database_model
+        replication_document_model['source_proxy'] = 'testString'
+        replication_document_model['target'] = replication_database_model
+        replication_document_model['target_proxy'] = 'testString'
+        replication_document_model['use_bulk_get'] = True
+        replication_document_model['use_checkpoints'] = False
+        replication_document_model['user_ctx'] = user_context_model
+        replication_document_model['winning_revs_only'] = False
+        replication_document_model['worker_batch_size'] = 400
+        replication_document_model['worker_processes'] = 3
+        replication_document_model['foo'] = 'testString'
+
+        # Set up parameter values
+        replication_document = replication_document_model
+
+        # Invoke method
+        response = _service.post_replicator(
+            replication_document,
+            headers={},
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 201
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body == replication_document
+
+    def test_post_replicator_required_params_with_retries(self):
+        # Enable retries and run test_post_replicator_required_params.
+        _service.enable_retries()
+        self.test_post_replicator_required_params()
+
+        # Disable retries and run test_post_replicator_required_params.
+        _service.disable_retries()
+        self.test_post_replicator_required_params()
+
+    @responses.activate
+    def test_post_replicator_value_error(self):
+        """
+        test_post_replicator_value_error()
+        """
+        # Set up mock
+        url = preprocess_url('/_replicator')
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=201,
+        )
+
+        # Construct a dict representation of a Attachment model
+        attachment_model = {}
+        attachment_model['content_type'] = 'testString'
+        attachment_model['data'] = 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4='
+        attachment_model['digest'] = 'testString'
+        attachment_model['encoded_length'] = 0
+        attachment_model['encoding'] = 'testString'
+        attachment_model['follows'] = True
+        attachment_model['length'] = 0
+        attachment_model['revpos'] = 1
+        attachment_model['stub'] = True
+
+        # Construct a dict representation of a Revisions model
+        revisions_model = {}
+        revisions_model['ids'] = ['testString']
+        revisions_model['start'] = 1
+
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {}
+        document_revision_status_model['rev'] = 'testString'
+        document_revision_status_model['status'] = 'available'
+
+        # Construct a dict representation of a ReplicationCreateTargetParameters model
+        replication_create_target_parameters_model = {}
+        replication_create_target_parameters_model['n'] = 3
+        replication_create_target_parameters_model['partitioned'] = False
+        replication_create_target_parameters_model['q'] = 1
+
+        # Construct a dict representation of a ReplicationDatabaseAuthBasic model
+        replication_database_auth_basic_model = {}
+        replication_database_auth_basic_model['password'] = 'testString'
+        replication_database_auth_basic_model['username'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIam model
+        replication_database_auth_iam_model = {}
+        replication_database_auth_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuth model
+        replication_database_auth_model = {}
+        replication_database_auth_model['basic'] = replication_database_auth_basic_model
+        replication_database_auth_model['iam'] = replication_database_auth_iam_model
+
+        # Construct a dict representation of a ReplicationDatabase model
+        replication_database_model = {}
+        replication_database_model['auth'] = replication_database_auth_model
+        replication_database_model['headers'] = {'key1': 'testString'}
+        replication_database_model['url'] = 'https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb'
+
+        # Construct a dict representation of a UserContext model
+        user_context_model = {}
+        user_context_model['db'] = 'testString'
+        user_context_model['name'] = 'john'
+        user_context_model['roles'] = ['_replicator']
+
+        # Construct a dict representation of a ReplicationDocument model
+        replication_document_model = {}
+        replication_document_model['_attachments'] = {'key1': attachment_model}
+        replication_document_model['_conflicts'] = ['testString']
+        replication_document_model['_deleted'] = True
+        replication_document_model['_deleted_conflicts'] = ['testString']
+        replication_document_model['_id'] = 'testString'
+        replication_document_model['_local_seq'] = 'testString'
+        replication_document_model['_rev'] = 'testString'
+        replication_document_model['_revisions'] = revisions_model
+        replication_document_model['_revs_info'] = [document_revision_status_model]
+        replication_document_model['cancel'] = False
+        replication_document_model['checkpoint_interval'] = 4500
+        replication_document_model['connection_timeout'] = 15000
+        replication_document_model['continuous'] = True
+        replication_document_model['create_target'] = True
+        replication_document_model['create_target_params'] = replication_create_target_parameters_model
+        replication_document_model['doc_ids'] = ['badger', 'lemur', 'llama']
+        replication_document_model['filter'] = 'ddoc/my_filter'
+        replication_document_model['http_connections'] = 10
+        replication_document_model['owner'] = 'testString'
+        replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['retries_per_request'] = 3
+        replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
+        replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
+        replication_document_model['socket_options'] = '[{keepalive, true}, {nodelay, false}]'
+        replication_document_model['source'] = replication_database_model
+        replication_document_model['source_proxy'] = 'testString'
+        replication_document_model['target'] = replication_database_model
+        replication_document_model['target_proxy'] = 'testString'
+        replication_document_model['use_bulk_get'] = True
+        replication_document_model['use_checkpoints'] = False
+        replication_document_model['user_ctx'] = user_context_model
+        replication_document_model['winning_revs_only'] = False
+        replication_document_model['worker_batch_size'] = 400
+        replication_document_model['worker_processes'] = 3
+        replication_document_model['foo'] = 'testString'
+
+        # Set up parameter values
+        replication_document = replication_document_model
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "replication_document": replication_document,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key: val if key is not param else None for (key, val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                _service.post_replicator(**req_copy)
+
+    def test_post_replicator_value_error_with_retries(self):
+        # Enable retries and run test_post_replicator_value_error.
+        _service.enable_retries()
+        self.test_post_replicator_value_error()
+
+        # Disable retries and run test_post_replicator_value_error.
+        _service.disable_retries()
+        self.test_post_replicator_value_error()
+
+
 class TestDeleteReplicationDocument:
     """
     Test Class for delete_replication_document
@@ -9494,7 +9909,7 @@ class TestDeleteReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -9543,7 +9958,7 @@ class TestDeleteReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -9581,7 +9996,7 @@ class TestDeleteReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -9624,7 +10039,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -9697,7 +10112,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -9735,7 +10150,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 1}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -9778,7 +10193,7 @@ class TestPutReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -9931,7 +10346,7 @@ class TestPutReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -10070,7 +10485,7 @@ class TestPutReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -10642,200 +11057,6 @@ class TestNewInstance:
             )
 
 
-class TestGetSecurity:
-    """
-    Test Class for get_security
-    """
-
-    @responses.activate
-    def test_get_security_all_params(self):
-        """
-        get_security()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_security')
-        mock_response = '{"admins": {"names": ["names"], "roles": ["roles"]}, "members": {"names": ["names"], "roles": ["roles"]}, "cloudant": {"mapKey": ["_reader"]}, "couchdb_auth_only": false}'
-        responses.add(
-            responses.GET,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Invoke method
-        response = _service.get_security(
-            db,
-            headers={},
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_get_security_all_params_with_retries(self):
-        # Enable retries and run test_get_security_all_params.
-        _service.enable_retries()
-        self.test_get_security_all_params()
-
-        # Disable retries and run test_get_security_all_params.
-        _service.disable_retries()
-        self.test_get_security_all_params()
-
-    @responses.activate
-    def test_get_security_value_error(self):
-        """
-        test_get_security_value_error()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_security')
-        mock_response = '{"admins": {"names": ["names"], "roles": ["roles"]}, "members": {"names": ["names"], "roles": ["roles"]}, "cloudant": {"mapKey": ["_reader"]}, "couchdb_auth_only": false}'
-        responses.add(
-            responses.GET,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Set up parameter values
-        db = 'testString'
-
-        # Pass in all but one required param and check for a ValueError
-        req_param_dict = {
-            "db": db,
-        }
-        for param in req_param_dict.keys():
-            req_copy = {key: val if key is not param else None for (key, val) in req_param_dict.items()}
-            with pytest.raises(ValueError):
-                _service.get_security(**req_copy)
-
-    def test_get_security_value_error_with_retries(self):
-        # Enable retries and run test_get_security_value_error.
-        _service.enable_retries()
-        self.test_get_security_value_error()
-
-        # Disable retries and run test_get_security_value_error.
-        _service.disable_retries()
-        self.test_get_security_value_error()
-
-
-class TestPutSecurity:
-    """
-    Test Class for put_security
-    """
-
-    @responses.activate
-    def test_put_security_all_params(self):
-        """
-        put_security()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_security')
-        mock_response = '{"ok": true}'
-        responses.add(
-            responses.PUT,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Construct a dict representation of a SecurityObject model
-        security_object_model = {}
-        security_object_model['names'] = ['superuser']
-        security_object_model['roles'] = ['admins']
-
-        # Set up parameter values
-        db = 'testString'
-        admins = security_object_model
-        members = security_object_model
-        cloudant = {'key1': ['_reader']}
-        couchdb_auth_only = True
-
-        # Invoke method
-        response = _service.put_security(
-            db,
-            admins=admins,
-            members=members,
-            cloudant=cloudant,
-            couchdb_auth_only=couchdb_auth_only,
-            headers={},
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-        # Decompress gzip compressed request body.
-        raw_body = responses.calls[0].request.body
-        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
-
-        # Validate body params
-        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['admins'] == security_object_model
-        assert req_body['members'] == security_object_model
-        assert req_body['cloudant'] == {'key1': ['_reader']}
-        assert req_body['couchdb_auth_only'] == True
-
-    def test_put_security_all_params_with_retries(self):
-        # Enable retries and run test_put_security_all_params.
-        _service.enable_retries()
-        self.test_put_security_all_params()
-
-        # Disable retries and run test_put_security_all_params.
-        _service.disable_retries()
-        self.test_put_security_all_params()
-
-    @responses.activate
-    def test_put_security_value_error(self):
-        """
-        test_put_security_value_error()
-        """
-        # Set up mock
-        url = preprocess_url('/testString/_security')
-        mock_response = '{"ok": true}'
-        responses.add(
-            responses.PUT,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Construct a dict representation of a SecurityObject model
-        security_object_model = {}
-        security_object_model['names'] = ['superuser']
-        security_object_model['roles'] = ['admins']
-
-        # Set up parameter values
-        db = 'testString'
-        admins = security_object_model
-        members = security_object_model
-        cloudant = {'key1': ['_reader']}
-        couchdb_auth_only = True
-
-        # Pass in all but one required param and check for a ValueError
-        req_param_dict = {
-            "db": db,
-        }
-        for param in req_param_dict.keys():
-            req_copy = {key: val if key is not param else None for (key, val) in req_param_dict.items()}
-            with pytest.raises(ValueError):
-                _service.put_security(**req_copy)
-
-    def test_put_security_value_error_with_retries(self):
-        # Enable retries and run test_put_security_value_error.
-        _service.enable_retries()
-        self.test_put_security_value_error()
-
-        # Disable retries and run test_put_security_value_error.
-        _service.disable_retries()
-        self.test_put_security_value_error()
-
-
 class TestPostApiKeys:
     """
     Test Class for post_api_keys
@@ -10904,16 +11125,16 @@ class TestPutCloudantSecurityConfiguration:
         db = 'testString'
         cloudant = {'key1': ['_reader']}
         admins = security_object_model
-        members = security_object_model
         couchdb_auth_only = True
+        members = security_object_model
 
         # Invoke method
         response = _service.put_cloudant_security_configuration(
             db,
             cloudant,
             admins=admins,
-            members=members,
             couchdb_auth_only=couchdb_auth_only,
+            members=members,
             headers={},
         )
 
@@ -10928,8 +11149,8 @@ class TestPutCloudantSecurityConfiguration:
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['cloudant'] == {'key1': ['_reader']}
         assert req_body['admins'] == security_object_model
-        assert req_body['members'] == security_object_model
         assert req_body['couchdb_auth_only'] == True
+        assert req_body['members'] == security_object_model
 
     def test_put_cloudant_security_configuration_all_params_with_retries(self):
         # Enable retries and run test_put_cloudant_security_configuration_all_params.
@@ -10965,8 +11186,8 @@ class TestPutCloudantSecurityConfiguration:
         db = 'testString'
         cloudant = {'key1': ['_reader']}
         admins = security_object_model
-        members = security_object_model
         couchdb_auth_only = True
+        members = security_object_model
 
         # Pass in all but one required param and check for a ValueError
         req_param_dict = {
@@ -10986,6 +11207,200 @@ class TestPutCloudantSecurityConfiguration:
         # Disable retries and run test_put_cloudant_security_configuration_value_error.
         _service.disable_retries()
         self.test_put_cloudant_security_configuration_value_error()
+
+
+class TestGetSecurity:
+    """
+    Test Class for get_security
+    """
+
+    @responses.activate
+    def test_get_security_all_params(self):
+        """
+        get_security()
+        """
+        # Set up mock
+        url = preprocess_url('/testString/_security')
+        mock_response = '{"admins": {"names": ["names"], "roles": ["roles"]}, "cloudant": {"mapKey": ["_reader"]}, "couchdb_auth_only": false, "members": {"names": ["names"], "roles": ["roles"]}}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        db = 'testString'
+
+        # Invoke method
+        response = _service.get_security(
+            db,
+            headers={},
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_security_all_params_with_retries(self):
+        # Enable retries and run test_get_security_all_params.
+        _service.enable_retries()
+        self.test_get_security_all_params()
+
+        # Disable retries and run test_get_security_all_params.
+        _service.disable_retries()
+        self.test_get_security_all_params()
+
+    @responses.activate
+    def test_get_security_value_error(self):
+        """
+        test_get_security_value_error()
+        """
+        # Set up mock
+        url = preprocess_url('/testString/_security')
+        mock_response = '{"admins": {"names": ["names"], "roles": ["roles"]}, "cloudant": {"mapKey": ["_reader"]}, "couchdb_auth_only": false, "members": {"names": ["names"], "roles": ["roles"]}}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        db = 'testString'
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "db": db,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key: val if key is not param else None for (key, val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                _service.get_security(**req_copy)
+
+    def test_get_security_value_error_with_retries(self):
+        # Enable retries and run test_get_security_value_error.
+        _service.enable_retries()
+        self.test_get_security_value_error()
+
+        # Disable retries and run test_get_security_value_error.
+        _service.disable_retries()
+        self.test_get_security_value_error()
+
+
+class TestPutSecurity:
+    """
+    Test Class for put_security
+    """
+
+    @responses.activate
+    def test_put_security_all_params(self):
+        """
+        put_security()
+        """
+        # Set up mock
+        url = preprocess_url('/testString/_security')
+        mock_response = '{"ok": true}'
+        responses.add(
+            responses.PUT,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Construct a dict representation of a SecurityObject model
+        security_object_model = {}
+        security_object_model['names'] = ['superuser']
+        security_object_model['roles'] = ['admins']
+
+        # Set up parameter values
+        db = 'testString'
+        admins = security_object_model
+        cloudant = {'key1': ['_reader']}
+        couchdb_auth_only = True
+        members = security_object_model
+
+        # Invoke method
+        response = _service.put_security(
+            db,
+            admins=admins,
+            cloudant=cloudant,
+            couchdb_auth_only=couchdb_auth_only,
+            members=members,
+            headers={},
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['admins'] == security_object_model
+        assert req_body['cloudant'] == {'key1': ['_reader']}
+        assert req_body['couchdb_auth_only'] == True
+        assert req_body['members'] == security_object_model
+
+    def test_put_security_all_params_with_retries(self):
+        # Enable retries and run test_put_security_all_params.
+        _service.enable_retries()
+        self.test_put_security_all_params()
+
+        # Disable retries and run test_put_security_all_params.
+        _service.disable_retries()
+        self.test_put_security_all_params()
+
+    @responses.activate
+    def test_put_security_value_error(self):
+        """
+        test_put_security_value_error()
+        """
+        # Set up mock
+        url = preprocess_url('/testString/_security')
+        mock_response = '{"ok": true}'
+        responses.add(
+            responses.PUT,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Construct a dict representation of a SecurityObject model
+        security_object_model = {}
+        security_object_model['names'] = ['superuser']
+        security_object_model['roles'] = ['admins']
+
+        # Set up parameter values
+        db = 'testString'
+        admins = security_object_model
+        cloudant = {'key1': ['_reader']}
+        couchdb_auth_only = True
+        members = security_object_model
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "db": db,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key: val if key is not param else None for (key, val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                _service.put_security(**req_copy)
+
+    def test_put_security_value_error_with_retries(self):
+        # Enable retries and run test_put_security_value_error.
+        _service.enable_retries()
+        self.test_put_security_value_error()
+
+        # Disable retries and run test_put_security_value_error.
+        _service.disable_retries()
+        self.test_put_security_value_error()
 
 
 # endregion
@@ -11344,7 +11759,7 @@ class TestDeleteAttachment:
         """
         # Set up mock
         url = preprocess_url('/testString/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -11397,7 +11812,7 @@ class TestDeleteAttachment:
         """
         # Set up mock
         url = preprocess_url('/testString/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -11439,7 +11854,7 @@ class TestDeleteAttachment:
         """
         # Set up mock
         url = preprocess_url('/testString/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -11629,7 +12044,7 @@ class TestPutAttachment:
         """
         # Set up mock
         url = preprocess_url('/testString/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -11688,7 +12103,7 @@ class TestPutAttachment:
         """
         # Set up mock
         url = preprocess_url('/testString/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -11739,7 +12154,7 @@ class TestPutAttachment:
         """
         # Set up mock
         url = preprocess_url('/testString/testString/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -11947,7 +12362,7 @@ class TestDeleteLocalDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_local/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -11993,7 +12408,7 @@ class TestDeleteLocalDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_local/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -12033,7 +12448,7 @@ class TestDeleteLocalDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_local/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.DELETE,
             url,
@@ -12219,7 +12634,7 @@ class TestPutLocalDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_local/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -12318,7 +12733,7 @@ class TestPutLocalDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_local/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -12409,7 +12824,7 @@ class TestPutLocalDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_local/testString')
-        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 3}'
+        mock_response = '{"id": "id", "rev": "rev", "ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0}'
         responses.add(
             responses.PUT,
             url,
@@ -12897,82 +13312,6 @@ class TestGetActiveTasks:
         self.test_get_active_tasks_all_params()
 
 
-class TestGetMembershipInformation:
-    """
-    Test Class for get_membership_information
-    """
-
-    @responses.activate
-    def test_get_membership_information_all_params(self):
-        """
-        get_membership_information()
-        """
-        # Set up mock
-        url = preprocess_url('/_membership')
-        mock_response = '{"all_nodes": ["all_nodes"], "cluster_nodes": ["cluster_nodes"]}'
-        responses.add(
-            responses.GET,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Invoke method
-        response = _service.get_membership_information()
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_get_membership_information_all_params_with_retries(self):
-        # Enable retries and run test_get_membership_information_all_params.
-        _service.enable_retries()
-        self.test_get_membership_information_all_params()
-
-        # Disable retries and run test_get_membership_information_all_params.
-        _service.disable_retries()
-        self.test_get_membership_information_all_params()
-
-
-class TestGetUpInformation:
-    """
-    Test Class for get_up_information
-    """
-
-    @responses.activate
-    def test_get_up_information_all_params(self):
-        """
-        get_up_information()
-        """
-        # Set up mock
-        url = preprocess_url('/_up')
-        mock_response = '{"seeds": {"anyKey": "anyValue"}, "status": "maintenance_mode"}'
-        responses.add(
-            responses.GET,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Invoke method
-        response = _service.get_up_information()
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_get_up_information_all_params_with_retries(self):
-        # Enable retries and run test_get_up_information_all_params.
-        _service.enable_retries()
-        self.test_get_up_information_all_params()
-
-        # Disable retries and run test_get_up_information_all_params.
-        _service.disable_retries()
-        self.test_get_up_information_all_params()
-
-
 class TestGetActivityTrackerEvents:
     """
     Test Class for get_activity_tracker_events
@@ -13137,6 +13476,82 @@ class TestGetCurrentThroughputInformation:
         self.test_get_current_throughput_information_all_params()
 
 
+class TestGetMembershipInformation:
+    """
+    Test Class for get_membership_information
+    """
+
+    @responses.activate
+    def test_get_membership_information_all_params(self):
+        """
+        get_membership_information()
+        """
+        # Set up mock
+        url = preprocess_url('/_membership')
+        mock_response = '{"all_nodes": ["all_nodes"], "cluster_nodes": ["cluster_nodes"]}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Invoke method
+        response = _service.get_membership_information()
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_membership_information_all_params_with_retries(self):
+        # Enable retries and run test_get_membership_information_all_params.
+        _service.enable_retries()
+        self.test_get_membership_information_all_params()
+
+        # Disable retries and run test_get_membership_information_all_params.
+        _service.disable_retries()
+        self.test_get_membership_information_all_params()
+
+
+class TestGetUpInformation:
+    """
+    Test Class for get_up_information
+    """
+
+    @responses.activate
+    def test_get_up_information_all_params(self):
+        """
+        get_up_information()
+        """
+        # Set up mock
+        url = preprocess_url('/_up')
+        mock_response = '{"seeds": {"anyKey": "anyValue"}, "status": "maintenance_mode"}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Invoke method
+        response = _service.get_up_information()
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_up_information_all_params_with_retries(self):
+        # Enable retries and run test_get_up_information_all_params.
+        _service.enable_retries()
+        self.test_get_up_information_all_params()
+
+        # Disable retries and run test_get_up_information_all_params.
+        _service.disable_retries()
+        self.test_get_up_information_all_params()
+
+
 # endregion
 ##############################################################################
 # End of Service: Monitoring
@@ -13293,7 +13708,7 @@ class TestModel_AllDocsQueriesResult:
         docs_result_row_model['caused_by'] = 'testString'
         docs_result_row_model['error'] = 'testString'
         docs_result_row_model['reason'] = 'testString'
-        docs_result_row_model['ref'] = 26
+        docs_result_row_model['ref'] = 0
         docs_result_row_model['doc'] = document_model
         docs_result_row_model['id'] = 'testString'
         docs_result_row_model['key'] = 'testString'
@@ -13417,7 +13832,7 @@ class TestModel_AllDocsResult:
         docs_result_row_model['caused_by'] = 'testString'
         docs_result_row_model['error'] = 'testString'
         docs_result_row_model['reason'] = 'testString'
-        docs_result_row_model['ref'] = 26
+        docs_result_row_model['ref'] = 0
         docs_result_row_model['doc'] = document_model
         docs_result_row_model['id'] = 'testString'
         docs_result_row_model['key'] = 'testString'
@@ -13699,7 +14114,7 @@ class TestModel_BulkGetResult:
         document_result_model['caused_by'] = 'testString'
         document_result_model['error'] = 'testString'
         document_result_model['reason'] = 'testString'
-        document_result_model['ref'] = 26
+        document_result_model['ref'] = 0
 
         attachment_model = {}  # Attachment
         attachment_model['content_type'] = 'testString'
@@ -13779,7 +14194,7 @@ class TestModel_BulkGetResultDocument:
         document_result_model['caused_by'] = 'testString'
         document_result_model['error'] = 'testString'
         document_result_model['reason'] = 'testString'
-        document_result_model['ref'] = 26
+        document_result_model['ref'] = 0
 
         attachment_model = {}  # Attachment
         attachment_model['content_type'] = 'testString'
@@ -13852,7 +14267,7 @@ class TestModel_BulkGetResultItem:
         document_result_model['caused_by'] = 'testString'
         document_result_model['error'] = 'testString'
         document_result_model['reason'] = 'testString'
-        document_result_model['ref'] = 26
+        document_result_model['ref'] = 0
 
         attachment_model = {}  # Attachment
         attachment_model['content_type'] = 'testString'
@@ -14117,7 +14532,7 @@ class TestModel_ChangesResult:
         # Construct a json representation of a ChangesResult model
         changes_result_model_json = {}
         changes_result_model_json['last_seq'] = 'testString'
-        changes_result_model_json['pending'] = 26
+        changes_result_model_json['pending'] = 0
         changes_result_model_json['results'] = [changes_result_item_model]
 
         # Construct a model instance of ChangesResult by calling from_dict on the json representation
@@ -14218,9 +14633,9 @@ class TestModel_ContentInformationSizes:
 
         # Construct a json representation of a ContentInformationSizes model
         content_information_sizes_model_json = {}
-        content_information_sizes_model_json['active'] = 26
-        content_information_sizes_model_json['external'] = 26
-        content_information_sizes_model_json['file'] = 26
+        content_information_sizes_model_json['active'] = 0
+        content_information_sizes_model_json['external'] = 0
+        content_information_sizes_model_json['file'] = 0
 
         # Construct a model instance of ContentInformationSizes by calling from_dict on the json representation
         content_information_sizes_model = ContentInformationSizes.from_dict(content_information_sizes_model_json)
@@ -14353,17 +14768,9 @@ class TestModel_DatabaseInformation:
 
         database_information_cluster_model = {}  # DatabaseInformationCluster
         database_information_cluster_model['n'] = 3
-        database_information_cluster_model['q'] = 26
+        database_information_cluster_model['q'] = 16
         database_information_cluster_model['r'] = 1
         database_information_cluster_model['w'] = 1
-
-        database_information_props_model = {}  # DatabaseInformationProps
-        database_information_props_model['partitioned'] = True
-
-        content_information_sizes_model = {}  # ContentInformationSizes
-        content_information_sizes_model['active'] = 26
-        content_information_sizes_model['external'] = 26
-        content_information_sizes_model['file'] = 26
 
         partitioned_indexes_detailed_information_model = {}  # PartitionedIndexesDetailedInformation
         partitioned_indexes_detailed_information_model['search'] = 0
@@ -14374,6 +14781,14 @@ class TestModel_DatabaseInformation:
         partitioned_indexes_information_model['indexes'] = partitioned_indexes_detailed_information_model
         partitioned_indexes_information_model['limit'] = 10
 
+        database_information_props_model = {}  # DatabaseInformationProps
+        database_information_props_model['partitioned'] = True
+
+        content_information_sizes_model = {}  # ContentInformationSizes
+        content_information_sizes_model['active'] = 0
+        content_information_sizes_model['external'] = 0
+        content_information_sizes_model['file'] = 0
+
         # Construct a json representation of a DatabaseInformation model
         database_information_model_json = {}
         database_information_model_json['cluster'] = database_information_cluster_model
@@ -14381,16 +14796,16 @@ class TestModel_DatabaseInformation:
         database_information_model_json['compact_running'] = True
         database_information_model_json['compacted_seq'] = 'testString'
         database_information_model_json['db_name'] = 'testString'
-        database_information_model_json['disk_format_version'] = 26
+        database_information_model_json['disk_format_version'] = 1
         database_information_model_json['doc_count'] = 0
         database_information_model_json['doc_del_count'] = 0
         database_information_model_json['engine'] = 'testString'
         database_information_model_json['instance_start_time'] = 'testString'
+        database_information_model_json['partitioned_indexes'] = partitioned_indexes_information_model
         database_information_model_json['props'] = database_information_props_model
         database_information_model_json['sizes'] = content_information_sizes_model
         database_information_model_json['update_seq'] = 'testString'
         database_information_model_json['uuid'] = 'testString'
-        database_information_model_json['partitioned_indexes'] = partitioned_indexes_information_model
 
         # Construct a model instance of DatabaseInformation by calling from_dict on the json representation
         database_information_model = DatabaseInformation.from_dict(database_information_model_json)
@@ -14421,7 +14836,7 @@ class TestModel_DatabaseInformationCluster:
         # Construct a json representation of a DatabaseInformationCluster model
         database_information_cluster_model_json = {}
         database_information_cluster_model_json['n'] = 3
-        database_information_cluster_model_json['q'] = 26
+        database_information_cluster_model_json['q'] = 16
         database_information_cluster_model_json['r'] = 1
         database_information_cluster_model_json['w'] = 1
 
@@ -14555,17 +14970,9 @@ class TestModel_DbsInfoResult:
 
         database_information_cluster_model = {}  # DatabaseInformationCluster
         database_information_cluster_model['n'] = 3
-        database_information_cluster_model['q'] = 26
+        database_information_cluster_model['q'] = 16
         database_information_cluster_model['r'] = 1
         database_information_cluster_model['w'] = 1
-
-        database_information_props_model = {}  # DatabaseInformationProps
-        database_information_props_model['partitioned'] = True
-
-        content_information_sizes_model = {}  # ContentInformationSizes
-        content_information_sizes_model['active'] = 26
-        content_information_sizes_model['external'] = 26
-        content_information_sizes_model['file'] = 26
 
         partitioned_indexes_detailed_information_model = {}  # PartitionedIndexesDetailedInformation
         partitioned_indexes_detailed_information_model['search'] = 0
@@ -14576,22 +14983,30 @@ class TestModel_DbsInfoResult:
         partitioned_indexes_information_model['indexes'] = partitioned_indexes_detailed_information_model
         partitioned_indexes_information_model['limit'] = 10
 
+        database_information_props_model = {}  # DatabaseInformationProps
+        database_information_props_model['partitioned'] = True
+
+        content_information_sizes_model = {}  # ContentInformationSizes
+        content_information_sizes_model['active'] = 0
+        content_information_sizes_model['external'] = 0
+        content_information_sizes_model['file'] = 0
+
         database_information_model = {}  # DatabaseInformation
         database_information_model['cluster'] = database_information_cluster_model
         database_information_model['committed_update_seq'] = 'testString'
         database_information_model['compact_running'] = True
         database_information_model['compacted_seq'] = 'testString'
         database_information_model['db_name'] = 'testString'
-        database_information_model['disk_format_version'] = 26
+        database_information_model['disk_format_version'] = 1
         database_information_model['doc_count'] = 0
         database_information_model['doc_del_count'] = 0
         database_information_model['engine'] = 'testString'
         database_information_model['instance_start_time'] = 'testString'
+        database_information_model['partitioned_indexes'] = partitioned_indexes_information_model
         database_information_model['props'] = database_information_props_model
         database_information_model['sizes'] = content_information_sizes_model
         database_information_model['update_seq'] = 'testString'
         database_information_model['uuid'] = 'testString'
-        database_information_model['partitioned_indexes'] = partitioned_indexes_information_model
 
         # Construct a json representation of a DbsInfoResult model
         dbs_info_result_model_json = {}
@@ -14725,14 +15140,14 @@ class TestModel_DesignDocumentInformation:
         # Construct dict forms of any model objects needed in order to build this model.
 
         content_information_sizes_model = {}  # ContentInformationSizes
-        content_information_sizes_model['active'] = 26
-        content_information_sizes_model['external'] = 26
-        content_information_sizes_model['file'] = 26
+        content_information_sizes_model['active'] = 0
+        content_information_sizes_model['external'] = 0
+        content_information_sizes_model['file'] = 0
 
         updates_pending_model = {}  # UpdatesPending
-        updates_pending_model['minimum'] = 26
-        updates_pending_model['preferred'] = 26
-        updates_pending_model['total'] = 26
+        updates_pending_model['minimum'] = 0
+        updates_pending_model['preferred'] = 0
+        updates_pending_model['total'] = 0
 
         design_document_view_index_model = {}  # DesignDocumentViewIndex
         design_document_view_index_model['collator_versions'] = ['testString']
@@ -14809,14 +15224,14 @@ class TestModel_DesignDocumentViewIndex:
         # Construct dict forms of any model objects needed in order to build this model.
 
         content_information_sizes_model = {}  # ContentInformationSizes
-        content_information_sizes_model['active'] = 26
-        content_information_sizes_model['external'] = 26
-        content_information_sizes_model['file'] = 26
+        content_information_sizes_model['active'] = 0
+        content_information_sizes_model['external'] = 0
+        content_information_sizes_model['file'] = 0
 
         updates_pending_model = {}  # UpdatesPending
-        updates_pending_model['minimum'] = 26
-        updates_pending_model['preferred'] = 26
-        updates_pending_model['total'] = 26
+        updates_pending_model['minimum'] = 0
+        updates_pending_model['preferred'] = 0
+        updates_pending_model['total'] = 0
 
         # Construct a json representation of a DesignDocumentViewIndex model
         design_document_view_index_model_json = {}
@@ -14929,7 +15344,7 @@ class TestModel_DocsResultRow:
         docs_result_row_model_json['caused_by'] = 'testString'
         docs_result_row_model_json['error'] = 'testString'
         docs_result_row_model_json['reason'] = 'testString'
-        docs_result_row_model_json['ref'] = 26
+        docs_result_row_model_json['ref'] = 0
         docs_result_row_model_json['doc'] = document_model
         docs_result_row_model_json['id'] = 'testString'
         docs_result_row_model_json['key'] = 'testString'
@@ -15070,7 +15485,7 @@ class TestModel_DocumentResult:
         document_result_model_json['caused_by'] = 'testString'
         document_result_model_json['error'] = 'testString'
         document_result_model_json['reason'] = 'testString'
-        document_result_model_json['ref'] = 26
+        document_result_model_json['ref'] = 0
 
         # Construct a model instance of DocumentResult by calling from_dict on the json representation
         document_result_model = DocumentResult.from_dict(document_result_model_json)
@@ -15238,7 +15653,7 @@ class TestModel_ExplainResult:
 
         explain_result_mr_args_model = {}  # ExplainResultMrArgs
         explain_result_mr_args_model['conflicts'] = 'testString'
-        explain_result_mr_args_model['direction'] = 'asc'
+        explain_result_mr_args_model['direction'] = 'fwd'
         explain_result_mr_args_model['end_key'] = 'testString'
         explain_result_mr_args_model['include_docs'] = True
         explain_result_mr_args_model['partition'] = 'testString'
@@ -15312,7 +15727,7 @@ class TestModel_ExplainResultMrArgs:
         # Construct a json representation of a ExplainResultMrArgs model
         explain_result_mr_args_model_json = {}
         explain_result_mr_args_model_json['conflicts'] = 'testString'
-        explain_result_mr_args_model_json['direction'] = 'asc'
+        explain_result_mr_args_model_json['direction'] = 'fwd'
         explain_result_mr_args_model_json['end_key'] = 'testString'
         explain_result_mr_args_model_json['include_docs'] = True
         explain_result_mr_args_model_json['partition'] = 'testString'
@@ -16160,7 +16575,7 @@ class TestModel_ReplicationCreateTargetParameters:
         replication_create_target_parameters_model_json = {}
         replication_create_target_parameters_model_json['n'] = 3
         replication_create_target_parameters_model_json['partitioned'] = False
-        replication_create_target_parameters_model_json['q'] = 26
+        replication_create_target_parameters_model_json['q'] = 16
 
         # Construct a model instance of ReplicationCreateTargetParameters by calling from_dict on the json representation
         replication_create_target_parameters_model = ReplicationCreateTargetParameters.from_dict(replication_create_target_parameters_model_json)
@@ -16358,7 +16773,7 @@ class TestModel_ReplicationDocument:
         replication_create_target_parameters_model = {}  # ReplicationCreateTargetParameters
         replication_create_target_parameters_model['n'] = 3
         replication_create_target_parameters_model['partitioned'] = False
-        replication_create_target_parameters_model['q'] = 26
+        replication_create_target_parameters_model['q'] = 16
 
         replication_database_auth_basic_model = {}  # ReplicationDatabaseAuthBasic
         replication_database_auth_basic_model['password'] = 'testString'
@@ -16900,11 +17315,11 @@ class TestModel_SearchIndexInfo:
 
         # Construct a json representation of a SearchIndexInfo model
         search_index_info_model_json = {}
-        search_index_info_model_json['committed_seq'] = 26
+        search_index_info_model_json['committed_seq'] = 0
         search_index_info_model_json['disk_size'] = 0
         search_index_info_model_json['doc_count'] = 0
         search_index_info_model_json['doc_del_count'] = 0
-        search_index_info_model_json['pending_seq'] = 26
+        search_index_info_model_json['pending_seq'] = 0
         search_index_info_model_json['signature'] = 'testString'
 
         # Construct a model instance of SearchIndexInfo by calling from_dict on the json representation
@@ -16936,11 +17351,11 @@ class TestModel_SearchInfoResult:
         # Construct dict forms of any model objects needed in order to build this model.
 
         search_index_info_model = {}  # SearchIndexInfo
-        search_index_info_model['committed_seq'] = 26
+        search_index_info_model['committed_seq'] = 0
         search_index_info_model['disk_size'] = 0
         search_index_info_model['doc_count'] = 0
         search_index_info_model['doc_del_count'] = 0
-        search_index_info_model['pending_seq'] = 26
+        search_index_info_model['pending_seq'] = 0
         search_index_info_model['signature'] = 'testString'
 
         # Construct a json representation of a SearchInfoResult model
@@ -17206,9 +17621,9 @@ class TestModel_Security:
         # Construct a json representation of a Security model
         security_model_json = {}
         security_model_json['admins'] = security_object_model
-        security_model_json['members'] = security_object_model
         security_model_json['cloudant'] = {'key1': ['_reader']}
         security_model_json['couchdb_auth_only'] = True
+        security_model_json['members'] = security_object_model
 
         # Construct a model instance of Security by calling from_dict on the json representation
         security_model = Security.from_dict(security_model_json)
@@ -17311,9 +17726,9 @@ class TestModel_ServerInformation:
         server_information_model_json = {}
         server_information_model_json['couchdb'] = 'testString'
         server_information_model_json['features'] = ['testString']
+        server_information_model_json['features_flags'] = ['testString']
         server_information_model_json['vendor'] = server_vendor_model
         server_information_model_json['version'] = 'testString'
-        server_information_model_json['features_flags'] = ['testString']
 
         # Construct a model instance of ServerInformation by calling from_dict on the json representation
         server_information_model = ServerInformation.from_dict(server_information_model_json)
@@ -17556,9 +17971,9 @@ class TestModel_UpdatesPending:
 
         # Construct a json representation of a UpdatesPending model
         updates_pending_model_json = {}
-        updates_pending_model_json['minimum'] = 26
-        updates_pending_model_json['preferred'] = 26
-        updates_pending_model_json['total'] = 26
+        updates_pending_model_json['minimum'] = 0
+        updates_pending_model_json['preferred'] = 0
+        updates_pending_model_json['total'] = 0
 
         # Construct a model instance of UpdatesPending by calling from_dict on the json representation
         updates_pending_model = UpdatesPending.from_dict(updates_pending_model_json)
@@ -17685,7 +18100,7 @@ class TestModel_ViewQueriesResult:
         view_result_row_model['caused_by'] = 'testString'
         view_result_row_model['error'] = 'testString'
         view_result_row_model['reason'] = 'testString'
-        view_result_row_model['ref'] = 26
+        view_result_row_model['ref'] = 0
         view_result_row_model['doc'] = document_model
         view_result_row_model['id'] = 'testString'
         view_result_row_model['key'] = 'testString'
@@ -17812,7 +18227,7 @@ class TestModel_ViewResult:
         view_result_row_model['caused_by'] = 'testString'
         view_result_row_model['error'] = 'testString'
         view_result_row_model['reason'] = 'testString'
-        view_result_row_model['ref'] = 26
+        view_result_row_model['ref'] = 0
         view_result_row_model['doc'] = document_model
         view_result_row_model['id'] = 'testString'
         view_result_row_model['key'] = 'testString'
@@ -17888,7 +18303,7 @@ class TestModel_ViewResultRow:
         view_result_row_model_json['caused_by'] = 'testString'
         view_result_row_model_json['error'] = 'testString'
         view_result_row_model_json['reason'] = 'testString'
-        view_result_row_model_json['ref'] = 26
+        view_result_row_model_json['ref'] = 0
         view_result_row_model_json['doc'] = document_model
         view_result_row_model_json['id'] = 'testString'
         view_result_row_model_json['key'] = 'testString'
