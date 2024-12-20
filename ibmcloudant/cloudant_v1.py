@@ -121,54 +121,6 @@ class CloudantV1(BaseService):
         response = self.send(request, **kwargs)
         return response
 
-    def get_uuids(
-        self,
-        *,
-        count: Optional[int] = None,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Retrieve one or more UUIDs.
-
-        Requests one or more Universally Unique Identifiers (UUIDs) from the instance. The
-        response is a JSON object that provides a list of UUIDs.
-        **Tip:**  The authentication for this endpoint is only enforced when using IAM.
-
-        :param int count: (optional) Query parameter to specify the number of UUIDs
-               to return.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `UuidsResult` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='get_uuids',
-        )
-        headers.update(sdk_headers)
-
-        params = {
-            'count': count,
-        }
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        url = '/_uuids'
-        request = self.prepare_request(
-            method='GET',
-            url=url,
-            headers=headers,
-            params=params,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
     def get_capacity_throughput_information(
         self,
         **kwargs,
@@ -255,6 +207,54 @@ class CloudantV1(BaseService):
             url=url,
             headers=headers,
             data=data,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def get_uuids(
+        self,
+        *,
+        count: Optional[int] = None,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve one or more UUIDs.
+
+        Requests one or more Universally Unique Identifiers (UUIDs) from the instance. The
+        response is a JSON object that provides a list of UUIDs.
+        **Tip:**  The authentication for this endpoint is only enforced when using IAM.
+
+        :param int count: (optional) Query parameter to specify the number of UUIDs
+               to return.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `UuidsResult` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_uuids',
+        )
+        headers.update(sdk_headers)
+
+        params = {
+            'count': count,
+        }
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_uuids'
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
         )
 
         response = self.send(request, **kwargs)
@@ -5887,12 +5887,11 @@ class CloudantV1(BaseService):
                relevance. This field can have the same values as the sort field, so single
                fields and arrays of fields are supported. This option is only available
                when making global queries.
-        :param dict ranges: (optional) This field defines ranges for faceted,
-               numeric search fields. The value is a JSON object where the fields names
-               are faceted numeric search fields, and the values of the fields are JSON
-               objects. The field names of the JSON objects are names for ranges. The
-               values are strings that describe the range, for example "[0 TO 10]". This
-               option is only available when making global queries.
+        :param dict ranges: (optional) Object mapping faceted, numeric search field
+               names to the required ranges. Each key is a field name and each value is
+               another object defining the ranges by mapping range name keys to string
+               values describing the numeric ranges, for example "[0 TO 10]". This option
+               is only available when making global queries.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `SearchResult` object
@@ -6057,12 +6056,11 @@ class CloudantV1(BaseService):
                relevance. This field can have the same values as the sort field, so single
                fields and arrays of fields are supported. This option is only available
                when making global queries.
-        :param dict ranges: (optional) This field defines ranges for faceted,
-               numeric search fields. The value is a JSON object where the fields names
-               are faceted numeric search fields, and the values of the fields are JSON
-               objects. The field names of the JSON objects are names for ranges. The
-               values are strings that describe the range, for example "[0 TO 10]". This
-               option is only available when making global queries.
+        :param dict ranges: (optional) Object mapping faceted, numeric search field
+               names to the required ranges. Each key is a field name and each value is
+               another object defining the ranges by mapping range name keys to string
+               values describing the numeric ranges, for example "[0 TO 10]". This option
+               is only available when making global queries.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `BinaryIO` result
@@ -6193,7 +6191,7 @@ class CloudantV1(BaseService):
         **kwargs,
     ) -> DetailedResponse:
         """
-        Retrieve the HTTP headers for a replication document.
+        Retrieve the HTTP headers for a persistent replication.
 
         Retrieves the HTTP headers containing minimal amount of information about the
         specified replication document from the `_replicator` database.  The method
@@ -6327,6 +6325,65 @@ class CloudantV1(BaseService):
         response = self.send(request, **kwargs)
         return response
 
+    def post_replicator(
+        self,
+        replication_document: 'ReplicationDocument',
+        *,
+        batch: Optional[str] = None,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Create a persistent replication with a generated ID.
+
+        Creates or modifies a document in the `_replicator` database to start a new
+        replication or to edit an existing replication.
+
+        :param ReplicationDocument replication_document: HTTP request body for
+               replication operations.
+        :param str batch: (optional) Query parameter to specify whether to store in
+               batch mode. The server will respond with a HTTP 202 Accepted response code
+               immediately.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `DocumentResult` object
+        """
+
+        if replication_document is None:
+            raise ValueError('replication_document must be provided')
+        if isinstance(replication_document, ReplicationDocument):
+            replication_document = convert_model(replication_document)
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_replicator',
+        )
+        headers.update(sdk_headers)
+
+        params = {
+            'batch': batch,
+        }
+
+        data = json.dumps(replication_document)
+        headers['content-type'] = 'application/json'
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_replicator'
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
     def delete_replication_document(
         self,
         doc_id: str,
@@ -6337,7 +6394,7 @@ class CloudantV1(BaseService):
         **kwargs,
     ) -> DetailedResponse:
         """
-        Cancel a replication.
+        Cancel a persistent replication.
 
         Cancels a replication by deleting the document that describes it from the
         `_replicator` database.
@@ -6408,7 +6465,7 @@ class CloudantV1(BaseService):
         **kwargs,
     ) -> DetailedResponse:
         """
-        Retrieve a replication document.
+        Retrieve the configuration for a persistent replication.
 
         Retrieves a replication document from the `_replicator` database to view the
         configuration of the replication. The status of the replication is no longer
@@ -6501,7 +6558,7 @@ class CloudantV1(BaseService):
         **kwargs,
     ) -> DetailedResponse:
         """
-        Create or modify a replication using a replication document.
+        Create or modify a persistent replication.
 
         Creates or modifies a document in the `_replicator` database to start a new
         replication or to edit an existing replication.
@@ -6819,6 +6876,127 @@ class CloudantV1(BaseService):
     # Authorization
     #########################
 
+    def post_api_keys(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Generates API keys for apps or persons to enable database access.
+
+        Generates API keys to enable database access for a person or application, but
+        without creating a new IBM Cloudant account for that person or application. An API
+        key is a randomly generated username and password. The key is given the wanted
+        access permissions for a database.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `ApiKeysResult` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_api_keys',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_api/v2/api_keys'
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def put_cloudant_security_configuration(
+        self,
+        db: str,
+        cloudant: dict,
+        *,
+        admins: Optional['SecurityObject'] = None,
+        couchdb_auth_only: Optional[bool] = None,
+        members: Optional['SecurityObject'] = None,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Modify only Cloudant related database permissions.
+
+        Modify only Cloudant related permissions to database. Be careful: by removing an
+        API key from the list, you remove the API key from the list of users that have
+        access to the database.
+        ### Note about nobody role
+        The `nobody` username applies to all unauthenticated connection attempts. For
+        example, if an application tries to read data from a database, but did not
+        identify itself, the task can continue only if the `nobody` user has the role
+        `_reader`.
+
+        :param str db: Path parameter to specify the database name.
+        :param dict cloudant: Database permissions for Cloudant users and/or API
+               keys.
+        :param SecurityObject admins: (optional) Schema for names and roles to map
+               to a database permission.
+        :param bool couchdb_auth_only: (optional) Manage permissions using the
+               `_users` database only.
+        :param SecurityObject members: (optional) Schema for names and roles to map
+               to a database permission.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `Ok` object
+        """
+
+        if not db:
+            raise ValueError('db must be provided')
+        if cloudant is None:
+            raise ValueError('cloudant must be provided')
+        if admins is not None:
+            admins = convert_model(admins)
+        if members is not None:
+            members = convert_model(members)
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='put_cloudant_security_configuration',
+        )
+        headers.update(sdk_headers)
+
+        data = {
+            'cloudant': cloudant,
+            'admins': admins,
+            'couchdb_auth_only': couchdb_auth_only,
+            'members': members,
+        }
+        data = {k: v for (k, v) in data.items() if v is not None}
+        data = json.dumps(data)
+        headers['content-type'] = 'application/json'
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/_api/v2/db/{db}/_security'.format(**path_param_dict)
+        request = self.prepare_request(
+            method='PUT',
+            url=url,
+            headers=headers,
+            data=data,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
     def get_security(
         self,
         db: str,
@@ -6872,9 +7050,9 @@ class CloudantV1(BaseService):
         db: str,
         *,
         admins: Optional['SecurityObject'] = None,
-        members: Optional['SecurityObject'] = None,
         cloudant: Optional[dict] = None,
         couchdb_auth_only: Optional[bool] = None,
+        members: Optional['SecurityObject'] = None,
         **kwargs,
     ) -> DetailedResponse:
         """
@@ -6894,12 +7072,12 @@ class CloudantV1(BaseService):
         :param str db: Path parameter to specify the database name.
         :param SecurityObject admins: (optional) Schema for names and roles to map
                to a database permission.
-        :param SecurityObject members: (optional) Schema for names and roles to map
-               to a database permission.
         :param dict cloudant: (optional) Database permissions for Cloudant users
                and/or API keys.
         :param bool couchdb_auth_only: (optional) Manage permissions using the
                `_users` database only.
+        :param SecurityObject members: (optional) Schema for names and roles to map
+               to a database permission.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `Ok` object
@@ -6921,9 +7099,9 @@ class CloudantV1(BaseService):
 
         data = {
             'admins': admins,
-            'members': members,
             'cloudant': cloudant,
             'couchdb_auth_only': couchdb_auth_only,
+            'members': members,
         }
         data = {k: v for (k, v) in data.items() if v is not None}
         data = json.dumps(data)
@@ -6938,127 +7116,6 @@ class CloudantV1(BaseService):
         path_param_values = self.encode_path_vars(db)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/{db}/_security'.format(**path_param_dict)
-        request = self.prepare_request(
-            method='PUT',
-            url=url,
-            headers=headers,
-            data=data,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
-    def post_api_keys(
-        self,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Generates API keys for apps or persons to enable database access.
-
-        Generates API keys to enable database access for a person or application, but
-        without creating a new IBM Cloudant account for that person or application. An API
-        key is a randomly generated username and password. The key is given the wanted
-        access permissions for a database.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `ApiKeysResult` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='post_api_keys',
-        )
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        url = '/_api/v2/api_keys'
-        request = self.prepare_request(
-            method='POST',
-            url=url,
-            headers=headers,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
-    def put_cloudant_security_configuration(
-        self,
-        db: str,
-        cloudant: dict,
-        *,
-        admins: Optional['SecurityObject'] = None,
-        members: Optional['SecurityObject'] = None,
-        couchdb_auth_only: Optional[bool] = None,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Modify only Cloudant related database permissions.
-
-        Modify only Cloudant related permissions to database. Be careful: by removing an
-        API key from the list, you remove the API key from the list of users that have
-        access to the database.
-        ### Note about nobody role
-        The `nobody` username applies to all unauthenticated connection attempts. For
-        example, if an application tries to read data from a database, but did not
-        identify itself, the task can continue only if the `nobody` user has the role
-        `_reader`.
-
-        :param str db: Path parameter to specify the database name.
-        :param dict cloudant: Database permissions for Cloudant users and/or API
-               keys.
-        :param SecurityObject admins: (optional) Schema for names and roles to map
-               to a database permission.
-        :param SecurityObject members: (optional) Schema for names and roles to map
-               to a database permission.
-        :param bool couchdb_auth_only: (optional) Manage permissions using the
-               `_users` database only.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `Ok` object
-        """
-
-        if not db:
-            raise ValueError('db must be provided')
-        if cloudant is None:
-            raise ValueError('cloudant must be provided')
-        if admins is not None:
-            admins = convert_model(admins)
-        if members is not None:
-            members = convert_model(members)
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='put_cloudant_security_configuration',
-        )
-        headers.update(sdk_headers)
-
-        data = {
-            'cloudant': cloudant,
-            'admins': admins,
-            'members': members,
-            'couchdb_auth_only': couchdb_auth_only,
-        }
-        data = {k: v for (k, v) in data.items() if v is not None}
-        data = json.dumps(data)
-        headers['content-type'] = 'application/json'
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        path_param_keys = ['db']
-        path_param_values = self.encode_path_vars(db)
-        path_param_dict = dict(zip(path_param_keys, path_param_values))
-        url = '/_api/v2/db/{db}/_security'.format(**path_param_dict)
         request = self.prepare_request(
             method='PUT',
             url=url,
@@ -7990,84 +8047,6 @@ class CloudantV1(BaseService):
         response = self.send(request, **kwargs)
         return response
 
-    def get_membership_information(
-        self,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Retrieve cluster membership information.
-
-        Displays the nodes that are part of the cluster as `cluster_nodes`. The field,
-        `all_nodes`, displays all nodes this node knows about, including the ones that are
-        part of the cluster. This endpoint is useful when you set up a cluster.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `MembershipInformation` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='get_membership_information',
-        )
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        url = '/_membership'
-        request = self.prepare_request(
-            method='GET',
-            url=url,
-            headers=headers,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
-    def get_up_information(
-        self,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Retrieve information about whether the server is up.
-
-        Confirms that the server is up, running, and ready to respond to requests. If
-        `maintenance_mode` is `true` or `nolb`, the endpoint returns a 404 response.
-        **Tip:**  The authentication for this endpoint is only enforced when using IAM.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `UpInformation` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='get_up_information',
-        )
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        url = '/_up'
-        request = self.prepare_request(
-            method='GET',
-            url=url,
-            headers=headers,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
     def get_activity_tracker_events(
         self,
         **kwargs,
@@ -8197,6 +8176,84 @@ class CloudantV1(BaseService):
         response = self.send(request, **kwargs)
         return response
 
+    def get_membership_information(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve cluster membership information.
+
+        Displays the nodes that are part of the cluster as `cluster_nodes`. The field,
+        `all_nodes`, displays all nodes this node knows about, including the ones that are
+        part of the cluster. This endpoint is useful when you set up a cluster.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `MembershipInformation` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_membership_information',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_membership'
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def get_up_information(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve information about whether the server is up.
+
+        Confirms that the server is up, running, and ready to respond to requests. If
+        `maintenance_mode` is `true` or `nolb`, the endpoint returns a 404 response.
+        **Tip:**  The authentication for this endpoint is only enforced when using IAM.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `UpInformation` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_up_information',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_up'
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
 
 class GetDbUpdatesEnums:
     """
@@ -8228,6 +8285,16 @@ class PostChangesEnums:
         EVENTSOURCE = 'eventsource'
         LONGPOLL = 'longpoll'
         NORMAL = 'normal'
+    class Style(str, Enum):
+        """
+        Query parameter to specify how many revisions are returned in the changes array.
+        The default, `main_only`, will only return the current "winning" revision;
+        all_docs will return all leaf revisions (including conflicts and deleted former
+        conflicts).
+        """
+
+        MAIN_ONLY = 'main_only'
+        ALL_DOCS = 'all_docs'
 
 
 class PostChangesAsStreamEnums:
@@ -8244,6 +8311,16 @@ class PostChangesAsStreamEnums:
         EVENTSOURCE = 'eventsource'
         LONGPOLL = 'longpoll'
         NORMAL = 'normal'
+    class Style(str, Enum):
+        """
+        Query parameter to specify how many revisions are returned in the changes array.
+        The default, `main_only`, will only return the current "winning" revision;
+        all_docs will return all leaf revisions (including conflicts and deleted former
+        conflicts).
+        """
+
+        MAIN_ONLY = 'main_only'
+        ALL_DOCS = 'all_docs'
 
 
 class PostDocumentEnums:
@@ -8361,6 +8438,20 @@ class DeleteIndexEnums:
         JSON = 'json'
         SPECIAL = 'special'
         TEXT = 'text'
+
+
+class PostReplicatorEnums:
+    """
+    Enums for post_replicator parameters.
+    """
+
+    class Batch(str, Enum):
+        """
+        Query parameter to specify whether to store in batch mode. The server will respond
+        with a HTTP 202 Accepted response code immediately.
+        """
+
+        OK = 'ok'
 
 
 class DeleteReplicationDocumentEnums:
@@ -9244,7 +9335,7 @@ class AllDocsResult:
     """
     Schema for the result of an all documents operation.
 
-    :param int total_rows: Number of total rows.
+    :param int total_rows: Total number of document results.
     :param List[DocsResultRow] rows: List of doc results.
     :param str update_seq: (optional) Current update sequence for the database.
     """
@@ -9259,7 +9350,7 @@ class AllDocsResult:
         """
         Initialize a AllDocsResult object.
 
-        :param int total_rows: Number of total rows.
+        :param int total_rows: Total number of document results.
         :param List[DocsResultRow] rows: List of doc results.
         :param str update_seq: (optional) Current update sequence for the database.
         """
@@ -9328,8 +9419,8 @@ class Analyzer:
     """
     Schema for a full text search analyzer.
 
-    :param str name: (optional) Schema for the name of the Apache Lucene analyzer to
-          use for text indexing. The default value varies depending on the analyzer usage:
+    :param str name: Schema for the name of the Apache Lucene analyzer to use for
+          text indexing. The default value varies depending on the analyzer usage:
           * For search indexes the default is `standard` * For query text indexes the
           default is `keyword` * For a query text index default_field the default is
           `standard`.
@@ -9339,16 +9430,16 @@ class Analyzer:
 
     def __init__(
         self,
+        name: str,
         *,
-        name: Optional[str] = None,
         stopwords: Optional[List[str]] = None,
     ) -> None:
         """
         Initialize a Analyzer object.
 
-        :param str name: (optional) Schema for the name of the Apache Lucene
-               analyzer to use for text indexing. The default value varies depending on
-               the analyzer usage:
+        :param str name: Schema for the name of the Apache Lucene analyzer to use
+               for text indexing. The default value varies depending on the analyzer
+               usage:
                * For search indexes the default is `standard` * For query text indexes the
                default is `keyword` * For a query text index default_field the default is
                `standard`.
@@ -9364,6 +9455,8 @@ class Analyzer:
         args = {}
         if (name := _dict.get('name')) is not None:
             args['name'] = name
+        else:
+            raise ValueError('Required property \'name\' not present in Analyzer JSON')
         if (stopwords := _dict.get('stopwords')) is not None:
             args['stopwords'] = stopwords
         return cls(**args)
@@ -9457,8 +9550,8 @@ class AnalyzerConfiguration:
     """
     Schema for a search analyzer configuration.
 
-    :param str name: (optional) Schema for the name of the Apache Lucene analyzer to
-          use for text indexing. The default value varies depending on the analyzer usage:
+    :param str name: Schema for the name of the Apache Lucene analyzer to use for
+          text indexing. The default value varies depending on the analyzer usage:
           * For search indexes the default is `standard` * For query text indexes the
           default is `keyword` * For a query text index default_field the default is
           `standard`.
@@ -9470,17 +9563,17 @@ class AnalyzerConfiguration:
 
     def __init__(
         self,
+        name: str,
         *,
-        name: Optional[str] = None,
         stopwords: Optional[List[str]] = None,
         fields: Optional[dict] = None,
     ) -> None:
         """
         Initialize a AnalyzerConfiguration object.
 
-        :param str name: (optional) Schema for the name of the Apache Lucene
-               analyzer to use for text indexing. The default value varies depending on
-               the analyzer usage:
+        :param str name: Schema for the name of the Apache Lucene analyzer to use
+               for text indexing. The default value varies depending on the analyzer
+               usage:
                * For search indexes the default is `standard` * For query text indexes the
                default is `keyword` * For a query text index default_field the default is
                `standard`.
@@ -9499,6 +9592,8 @@ class AnalyzerConfiguration:
         args = {}
         if (name := _dict.get('name')) is not None:
             args['name'] = name
+        else:
+            raise ValueError('Required property \'name\' not present in AnalyzerConfiguration JSON')
         if (stopwords := _dict.get('stopwords')) is not None:
             args['stopwords'] = stopwords
         if (fields := _dict.get('fields')) is not None:
@@ -11002,13 +11097,13 @@ class DatabaseInformation:
           has been recreated. The field name is for compatibility with old replicator
           versions. Do not use the value to infer timing infromation. Typically only used
           by replicators.
+    :param PartitionedIndexesInformation partitioned_indexes: (optional) Information
+          about database's partitioned indexes.
     :param DatabaseInformationProps props: Schema for database properties.
     :param ContentInformationSizes sizes: Schema for size information of content.
     :param str update_seq: An opaque string that describes the state of the
           database. Do not rely on this string for counting the number of updates.
     :param str uuid: (optional) The UUID of the database.
-    :param PartitionedIndexesInformation partitioned_indexes: (optional) Information
-          about database's partitioned indexes.
     """
 
     def __init__(
@@ -11027,8 +11122,8 @@ class DatabaseInformation:
         committed_update_seq: Optional[str] = None,
         compacted_seq: Optional[str] = None,
         engine: Optional[str] = None,
-        uuid: Optional[str] = None,
         partitioned_indexes: Optional['PartitionedIndexesInformation'] = None,
+        uuid: Optional[str] = None,
     ) -> None:
         """
         Initialize a DatabaseInformation object.
@@ -11056,9 +11151,9 @@ class DatabaseInformation:
         :param str compacted_seq: (optional) An opaque string that describes the
                compaction state of the database.
         :param str engine: (optional) The engine used for the database.
-        :param str uuid: (optional) The UUID of the database.
         :param PartitionedIndexesInformation partitioned_indexes: (optional)
                Information about database's partitioned indexes.
+        :param str uuid: (optional) The UUID of the database.
         """
         self.cluster = cluster
         self.committed_update_seq = committed_update_seq
@@ -11070,11 +11165,11 @@ class DatabaseInformation:
         self.doc_del_count = doc_del_count
         self.engine = engine
         self.instance_start_time = instance_start_time
+        self.partitioned_indexes = partitioned_indexes
         self.props = props
         self.sizes = sizes
         self.update_seq = update_seq
         self.uuid = uuid
-        self.partitioned_indexes = partitioned_indexes
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'DatabaseInformation':
@@ -11114,6 +11209,8 @@ class DatabaseInformation:
             args['instance_start_time'] = instance_start_time
         else:
             raise ValueError('Required property \'instance_start_time\' not present in DatabaseInformation JSON')
+        if (partitioned_indexes := _dict.get('partitioned_indexes')) is not None:
+            args['partitioned_indexes'] = PartitionedIndexesInformation.from_dict(partitioned_indexes)
         if (props := _dict.get('props')) is not None:
             args['props'] = DatabaseInformationProps.from_dict(props)
         else:
@@ -11128,8 +11225,6 @@ class DatabaseInformation:
             raise ValueError('Required property \'update_seq\' not present in DatabaseInformation JSON')
         if (uuid := _dict.get('uuid')) is not None:
             args['uuid'] = uuid
-        if (partitioned_indexes := _dict.get('partitioned_indexes')) is not None:
-            args['partitioned_indexes'] = PartitionedIndexesInformation.from_dict(partitioned_indexes)
         return cls(**args)
 
     @classmethod
@@ -11163,6 +11258,11 @@ class DatabaseInformation:
             _dict['engine'] = self.engine
         if hasattr(self, 'instance_start_time') and self.instance_start_time is not None:
             _dict['instance_start_time'] = self.instance_start_time
+        if hasattr(self, 'partitioned_indexes') and self.partitioned_indexes is not None:
+            if isinstance(self.partitioned_indexes, dict):
+                _dict['partitioned_indexes'] = self.partitioned_indexes
+            else:
+                _dict['partitioned_indexes'] = self.partitioned_indexes.to_dict()
         if hasattr(self, 'props') and self.props is not None:
             if isinstance(self.props, dict):
                 _dict['props'] = self.props
@@ -11177,11 +11277,6 @@ class DatabaseInformation:
             _dict['update_seq'] = self.update_seq
         if hasattr(self, 'uuid') and self.uuid is not None:
             _dict['uuid'] = self.uuid
-        if hasattr(self, 'partitioned_indexes') and self.partitioned_indexes is not None:
-            if isinstance(self.partitioned_indexes, dict):
-                _dict['partitioned_indexes'] = self.partitioned_indexes
-            else:
-                _dict['partitioned_indexes'] = self.partitioned_indexes.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -13374,59 +13469,52 @@ class ExplainResultMrArgs:
     """
     Arguments passed to the underlying view.
 
-    :param object conflicts: (optional) Schema for any JSON type.
-    :param str direction: (optional) Direction parameter passed to the underlying
-          view.
-    :param object end_key: (optional) Schema for any JSON type.
-    :param bool include_docs: (optional) A parameter that specifies whether to
-          include the full content of the documents in the response in the underlying
-          view.
-    :param str partition: (optional) Partition parameter passed to the underlying
-          view.
-    :param bool reduce: (optional) A parameter that specifies returning only
-          documents that match any of the specified keys in the underlying view.
-    :param bool stable: (optional) A parameter that specifies whether the view
-          results should be returned form a "stable" set of shards passed to the
-          underlying view.
+    :param object conflicts: Schema for any JSON type.
+    :param str direction: Direction parameter passed to the underlying view.
+    :param object end_key: Schema for any JSON type.
+    :param bool include_docs: A parameter that specifies whether to include the full
+          content of the documents in the response in the underlying view.
+    :param str partition: Partition parameter passed to the underlying view.
+    :param bool reduce: A parameter that specifies returning only documents that
+          match any of the specified keys in the underlying view.
+    :param bool stable: A parameter that specifies whether the view results should
+          be returned form a "stable" set of shards passed to the underlying view.
     :param object start_key: (optional) Schema for any JSON type.
-    :param object update: (optional) Schema for any JSON type.
-    :param str view_type: (optional) The type of the underlying view.
+    :param object update: Schema for any JSON type.
+    :param str view_type: The type of the underlying view.
     """
 
     def __init__(
         self,
+        conflicts: object,
+        direction: str,
+        end_key: object,
+        include_docs: bool,
+        partition: str,
+        reduce: bool,
+        stable: bool,
+        update: object,
+        view_type: str,
         *,
-        conflicts: Optional[object] = None,
-        direction: Optional[str] = None,
-        end_key: Optional[object] = None,
-        include_docs: Optional[bool] = None,
-        partition: Optional[str] = None,
-        reduce: Optional[bool] = None,
-        stable: Optional[bool] = None,
         start_key: Optional[object] = None,
-        update: Optional[object] = None,
-        view_type: Optional[str] = None,
     ) -> None:
         """
         Initialize a ExplainResultMrArgs object.
 
-        :param object conflicts: (optional) Schema for any JSON type.
-        :param str direction: (optional) Direction parameter passed to the
-               underlying view.
-        :param object end_key: (optional) Schema for any JSON type.
-        :param bool include_docs: (optional) A parameter that specifies whether to
-               include the full content of the documents in the response in the underlying
+        :param object conflicts: Schema for any JSON type.
+        :param str direction: Direction parameter passed to the underlying view.
+        :param object end_key: Schema for any JSON type.
+        :param bool include_docs: A parameter that specifies whether to include the
+               full content of the documents in the response in the underlying view.
+        :param str partition: Partition parameter passed to the underlying view.
+        :param bool reduce: A parameter that specifies returning only documents
+               that match any of the specified keys in the underlying view.
+        :param bool stable: A parameter that specifies whether the view results
+               should be returned form a "stable" set of shards passed to the underlying
                view.
-        :param str partition: (optional) Partition parameter passed to the
-               underlying view.
-        :param bool reduce: (optional) A parameter that specifies returning only
-               documents that match any of the specified keys in the underlying view.
-        :param bool stable: (optional) A parameter that specifies whether the view
-               results should be returned form a "stable" set of shards passed to the
-               underlying view.
+        :param object update: Schema for any JSON type.
+        :param str view_type: The type of the underlying view.
         :param object start_key: (optional) Schema for any JSON type.
-        :param object update: (optional) Schema for any JSON type.
-        :param str view_type: (optional) The type of the underlying view.
         """
         self.conflicts = conflicts
         self.direction = direction
@@ -13445,24 +13533,42 @@ class ExplainResultMrArgs:
         args = {}
         if (conflicts := _dict.get('conflicts')) is not None:
             args['conflicts'] = conflicts
+        else:
+            raise ValueError('Required property \'conflicts\' not present in ExplainResultMrArgs JSON')
         if (direction := _dict.get('direction')) is not None:
             args['direction'] = direction
+        else:
+            raise ValueError('Required property \'direction\' not present in ExplainResultMrArgs JSON')
         if (end_key := _dict.get('end_key')) is not None:
             args['end_key'] = end_key
+        else:
+            raise ValueError('Required property \'end_key\' not present in ExplainResultMrArgs JSON')
         if (include_docs := _dict.get('include_docs')) is not None:
             args['include_docs'] = include_docs
+        else:
+            raise ValueError('Required property \'include_docs\' not present in ExplainResultMrArgs JSON')
         if (partition := _dict.get('partition')) is not None:
             args['partition'] = partition
+        else:
+            raise ValueError('Required property \'partition\' not present in ExplainResultMrArgs JSON')
         if (reduce := _dict.get('reduce')) is not None:
             args['reduce'] = reduce
+        else:
+            raise ValueError('Required property \'reduce\' not present in ExplainResultMrArgs JSON')
         if (stable := _dict.get('stable')) is not None:
             args['stable'] = stable
+        else:
+            raise ValueError('Required property \'stable\' not present in ExplainResultMrArgs JSON')
         if (start_key := _dict.get('start_key')) is not None:
             args['start_key'] = start_key
         if (update := _dict.get('update')) is not None:
             args['update'] = update
+        else:
+            raise ValueError('Required property \'update\' not present in ExplainResultMrArgs JSON')
         if (view_type := _dict.get('view_type')) is not None:
             args['view_type'] = view_type
+        else:
+            raise ValueError('Required property \'view_type\' not present in ExplainResultMrArgs JSON')
         return cls(**args)
 
     @classmethod
@@ -13518,8 +13624,8 @@ class ExplainResultMrArgs:
         Direction parameter passed to the underlying view.
         """
 
-        ASC = 'asc'
-        DESC = 'desc'
+        FWD = 'fwd'
+        REV = 'rev'
 
 
     class ViewTypeEnum(str, Enum):
@@ -13922,7 +14028,7 @@ class IndexAnalysisExclusionReason:
     """
     A reason for index's exclusion.
 
-    :param str name: (optional) A reason code for index's exclusion.
+    :param str name: A reason code for index's exclusion.
           The full list of possible reason codes is following:
           * alphabetically_comes_after: json
             There is another suitable index whose name comes before that of this index.
@@ -13944,13 +14050,12 @@ class IndexAnalysisExclusionReason:
 
     def __init__(
         self,
-        *,
-        name: Optional[str] = None,
+        name: str,
     ) -> None:
         """
         Initialize a IndexAnalysisExclusionReason object.
 
-        :param str name: (optional) A reason code for index's exclusion.
+        :param str name: A reason code for index's exclusion.
                The full list of possible reason codes is following:
                * alphabetically_comes_after: json
                  There is another suitable index whose name comes before that of this
@@ -13980,6 +14085,8 @@ class IndexAnalysisExclusionReason:
         args = {}
         if (name := _dict.get('name')) is not None:
             args['name'] = name
+        else:
+            raise ValueError('Required property \'name\' not present in IndexAnalysisExclusionReason JSON')
         return cls(**args)
 
     @classmethod
@@ -14737,7 +14844,7 @@ class IndexesInformation:
     """
     Schema for information about the indexes in a database.
 
-    :param int total_rows: Number of total rows.
+    :param int total_rows: Total number of query indexes in the database.
     :param List[IndexInformation] indexes: Indexes.
     """
 
@@ -14749,7 +14856,7 @@ class IndexesInformation:
         """
         Initialize a IndexesInformation object.
 
-        :param int total_rows: Number of total rows.
+        :param int total_rows: Total number of query indexes in the database.
         :param List[IndexInformation] indexes: Indexes.
         """
         self.total_rows = total_rows
@@ -16487,7 +16594,7 @@ class SchedulerDocsResult:
     """
     Schema for a listing of replication scheduler documents.
 
-    :param int total_rows: Number of total rows.
+    :param int total_rows: Total number of replication scheduler documents.
     :param List[SchedulerDocument] docs: Array of replication scheduler doc objects.
     """
 
@@ -16499,7 +16606,7 @@ class SchedulerDocsResult:
         """
         Initialize a SchedulerDocsResult object.
 
-        :param int total_rows: Number of total rows.
+        :param int total_rows: Total number of replication scheduler documents.
         :param List[SchedulerDocument] docs: Array of replication scheduler doc
                objects.
         """
@@ -17175,7 +17282,7 @@ class SchedulerJobsResult:
     """
     Schema for a listing of replication scheduler jobs.
 
-    :param int total_rows: Number of total rows.
+    :param int total_rows: Total number of replication jobs.
     :param List[SchedulerJob] jobs: Array of replication job objects.
     """
 
@@ -17187,7 +17294,7 @@ class SchedulerJobsResult:
         """
         Initialize a SchedulerJobsResult object.
 
-        :param int total_rows: Number of total rows.
+        :param int total_rows: Total number of replication jobs.
         :param List[SchedulerJob] jobs: Array of replication job objects.
         """
         self.total_rows = total_rows
@@ -17602,7 +17709,8 @@ class SearchResult:
     """
     Schema for the result of a query search operation.
 
-    :param int total_rows: Number of total rows.
+    :param int total_rows: Total number of rows in the index matching the search
+          query. The limit may truncate the number of matches returned.
     :param str bookmark: (optional) Opaque bookmark token used when paginating
           results.
     :param str by: (optional) Grouped search matches.
@@ -17630,7 +17738,8 @@ class SearchResult:
         """
         Initialize a SearchResult object.
 
-        :param int total_rows: Number of total rows.
+        :param int total_rows: Total number of rows in the index matching the
+               search query. The limit may truncate the number of matches returned.
         :param List[SearchResultRow] rows: Array of row objects.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
@@ -17734,7 +17843,8 @@ class SearchResultProperties:
     """
     Schema for the result of a query search operation.
 
-    :param int total_rows: Number of total rows.
+    :param int total_rows: Total number of rows in the index matching the search
+          query. The limit may truncate the number of matches returned.
     :param str bookmark: (optional) Opaque bookmark token used when paginating
           results.
     :param str by: (optional) Grouped search matches.
@@ -17759,7 +17869,8 @@ class SearchResultProperties:
         """
         Initialize a SearchResultProperties object.
 
-        :param int total_rows: Number of total rows.
+        :param int total_rows: Total number of rows in the index matching the
+               search query. The limit may truncate the number of matches returned.
         :param List[SearchResultRow] rows: Array of row objects.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
@@ -17946,38 +18057,38 @@ class Security:
 
     :param SecurityObject admins: (optional) Schema for names and roles to map to a
           database permission.
-    :param SecurityObject members: (optional) Schema for names and roles to map to a
-          database permission.
     :param dict cloudant: (optional) Database permissions for Cloudant users and/or
           API keys.
     :param bool couchdb_auth_only: (optional) Manage permissions using the `_users`
           database only.
+    :param SecurityObject members: (optional) Schema for names and roles to map to a
+          database permission.
     """
 
     def __init__(
         self,
         *,
         admins: Optional['SecurityObject'] = None,
-        members: Optional['SecurityObject'] = None,
         cloudant: Optional[dict] = None,
         couchdb_auth_only: Optional[bool] = None,
+        members: Optional['SecurityObject'] = None,
     ) -> None:
         """
         Initialize a Security object.
 
         :param SecurityObject admins: (optional) Schema for names and roles to map
                to a database permission.
-        :param SecurityObject members: (optional) Schema for names and roles to map
-               to a database permission.
         :param dict cloudant: (optional) Database permissions for Cloudant users
                and/or API keys.
         :param bool couchdb_auth_only: (optional) Manage permissions using the
                `_users` database only.
+        :param SecurityObject members: (optional) Schema for names and roles to map
+               to a database permission.
         """
         self.admins = admins
-        self.members = members
         self.cloudant = cloudant
         self.couchdb_auth_only = couchdb_auth_only
+        self.members = members
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'Security':
@@ -17985,12 +18096,12 @@ class Security:
         args = {}
         if (admins := _dict.get('admins')) is not None:
             args['admins'] = SecurityObject.from_dict(admins)
-        if (members := _dict.get('members')) is not None:
-            args['members'] = SecurityObject.from_dict(members)
         if (cloudant := _dict.get('cloudant')) is not None:
             args['cloudant'] = cloudant
         if (couchdb_auth_only := _dict.get('couchdb_auth_only')) is not None:
             args['couchdb_auth_only'] = couchdb_auth_only
+        if (members := _dict.get('members')) is not None:
+            args['members'] = SecurityObject.from_dict(members)
         return cls(**args)
 
     @classmethod
@@ -18006,15 +18117,15 @@ class Security:
                 _dict['admins'] = self.admins
             else:
                 _dict['admins'] = self.admins.to_dict()
+        if hasattr(self, 'cloudant') and self.cloudant is not None:
+            _dict['cloudant'] = self.cloudant
+        if hasattr(self, 'couchdb_auth_only') and self.couchdb_auth_only is not None:
+            _dict['couchdb_auth_only'] = self.couchdb_auth_only
         if hasattr(self, 'members') and self.members is not None:
             if isinstance(self.members, dict):
                 _dict['members'] = self.members
             else:
                 _dict['members'] = self.members.to_dict()
-        if hasattr(self, 'cloudant') and self.cloudant is not None:
-            _dict['cloudant'] = self.cloudant
-        if hasattr(self, 'couchdb_auth_only') and self.couchdb_auth_only is not None:
-            _dict['couchdb_auth_only'] = self.couchdb_auth_only
         return _dict
 
     def _to_dict(self):
@@ -18215,33 +18326,33 @@ class ServerInformation:
 
     :param str couchdb: Welcome message.
     :param List[str] features: List of enabled optional features.
+    :param List[str] features_flags: List of feature flags.
     :param ServerVendor vendor: Schema for server vendor information.
     :param str version: Apache CouchDB version.
-    :param List[str] features_flags: List of feature flags.
     """
 
     def __init__(
         self,
         couchdb: str,
         features: List[str],
+        features_flags: List[str],
         vendor: 'ServerVendor',
         version: str,
-        features_flags: List[str],
     ) -> None:
         """
         Initialize a ServerInformation object.
 
         :param str couchdb: Welcome message.
         :param List[str] features: List of enabled optional features.
+        :param List[str] features_flags: List of feature flags.
         :param ServerVendor vendor: Schema for server vendor information.
         :param str version: Apache CouchDB version.
-        :param List[str] features_flags: List of feature flags.
         """
         self.couchdb = couchdb
         self.features = features
+        self.features_flags = features_flags
         self.vendor = vendor
         self.version = version
-        self.features_flags = features_flags
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'ServerInformation':
@@ -18255,6 +18366,10 @@ class ServerInformation:
             args['features'] = features
         else:
             raise ValueError('Required property \'features\' not present in ServerInformation JSON')
+        if (features_flags := _dict.get('features_flags')) is not None:
+            args['features_flags'] = features_flags
+        else:
+            raise ValueError('Required property \'features_flags\' not present in ServerInformation JSON')
         if (vendor := _dict.get('vendor')) is not None:
             args['vendor'] = ServerVendor.from_dict(vendor)
         else:
@@ -18263,10 +18378,6 @@ class ServerInformation:
             args['version'] = version
         else:
             raise ValueError('Required property \'version\' not present in ServerInformation JSON')
-        if (features_flags := _dict.get('features_flags')) is not None:
-            args['features_flags'] = features_flags
-        else:
-            raise ValueError('Required property \'features_flags\' not present in ServerInformation JSON')
         return cls(**args)
 
     @classmethod
@@ -18281,6 +18392,8 @@ class ServerInformation:
             _dict['couchdb'] = self.couchdb
         if hasattr(self, 'features') and self.features is not None:
             _dict['features'] = self.features
+        if hasattr(self, 'features_flags') and self.features_flags is not None:
+            _dict['features_flags'] = self.features_flags
         if hasattr(self, 'vendor') and self.vendor is not None:
             if isinstance(self.vendor, dict):
                 _dict['vendor'] = self.vendor
@@ -18288,8 +18401,6 @@ class ServerInformation:
                 _dict['vendor'] = self.vendor.to_dict()
         if hasattr(self, 'version') and self.version is not None:
             _dict['version'] = self.version
-        if hasattr(self, 'features_flags') and self.features_flags is not None:
-            _dict['features_flags'] = self.features_flags
         return _dict
 
     def _to_dict(self):
@@ -19447,7 +19558,10 @@ class ViewResult:
     """
     Schema for the result of a query view operation.
 
-    :param int total_rows: (optional) Number of total rows.
+    :param int total_rows: (optional) Total number of rows in the view index. Note
+          that if the request query narrows the view this is not the number of matching
+          rows. The number of matching rows, up to the specified `limit`, is the size of
+          the `rows` array.
     :param str update_seq: (optional) Current update sequence for the database.
     :param List[ViewResultRow] rows: rows.
     """
@@ -19463,7 +19577,10 @@ class ViewResult:
         Initialize a ViewResult object.
 
         :param List[ViewResultRow] rows: rows.
-        :param int total_rows: (optional) Number of total rows.
+        :param int total_rows: (optional) Total number of rows in the view index.
+               Note that if the request query narrows the view this is not the number of
+               matching rows. The number of matching rows, up to the specified `limit`, is
+               the size of the `rows` array.
         :param str update_seq: (optional) Current update sequence for the database.
         """
         self.total_rows = total_rows

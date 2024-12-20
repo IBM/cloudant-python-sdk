@@ -61,16 +61,6 @@ class TestCloudantV1:
         assert server_information is not None
 
     @needscredentials
-    def test_get_uuids(self):
-        response = self.cloudant_service.get_uuids(
-            count=1,
-        )
-
-        assert response.get_status_code() == 200
-        uuids_result = response.get_result()
-        assert uuids_result is not None
-
-    @needscredentials
     def test_get_capacity_throughput_information(self):
         response = self.cloudant_service.get_capacity_throughput_information()
 
@@ -89,11 +79,21 @@ class TestCloudantV1:
         assert capacity_throughput_information is not None
 
     @needscredentials
+    def test_get_uuids(self):
+        response = self.cloudant_service.get_uuids(
+            count=1,
+        )
+
+        assert response.get_status_code() == 200
+        uuids_result = response.get_result()
+        assert uuids_result is not None
+
+    @needscredentials
     def test_get_db_updates(self):
         response = self.cloudant_service.get_db_updates(
             descending=False,
             feed='normal',
-            heartbeat=0,
+            heartbeat=1,
             limit=0,
             timeout=60000,
             since='0',
@@ -117,7 +117,7 @@ class TestCloudantV1:
             descending=False,
             feed='normal',
             filter='testString',
-            heartbeat=0,
+            heartbeat=1,
             include_docs=False,
             limit=0,
             seq_interval=1,
@@ -145,7 +145,7 @@ class TestCloudantV1:
             descending=False,
             feed='normal',
             filter='testString',
-            heartbeat=0,
+            heartbeat=1,
             include_docs=False,
             limit=0,
             seq_interval=1,
@@ -206,7 +206,7 @@ class TestCloudantV1:
         response = self.cloudant_service.put_database(
             db='testString',
             partitioned=False,
-            q=26,
+            q=16,
         )
 
         assert response.get_status_code() == 201
@@ -1391,7 +1391,7 @@ class TestCloudantV1:
             group_field='testString',
             group_limit=1,
             group_sort=['testString'],
-            ranges={'key1': {'key1': {'key1': 'testString'}}},
+            ranges={'key1': {'key1': 'testString'}},
         )
 
         assert response.get_status_code() == 200
@@ -1421,7 +1421,7 @@ class TestCloudantV1:
             group_field='testString',
             group_limit=1,
             group_sort=['testString'],
-            ranges={'key1': {'key1': {'key1': 'testString'}}},
+            ranges={'key1': {'key1': 'testString'}},
         )
 
         assert response.get_status_code() == 200
@@ -1464,6 +1464,110 @@ class TestCloudantV1:
         )
 
         assert response.get_status_code() == 200
+
+    @needscredentials
+    def test_post_replicator(self):
+        # Construct a dict representation of a Attachment model
+        attachment_model = {
+            'content_type': 'testString',
+            'data': 'VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=',
+            'digest': 'testString',
+            'encoded_length': 0,
+            'encoding': 'testString',
+            'follows': True,
+            'length': 0,
+            'revpos': 1,
+            'stub': True,
+        }
+        # Construct a dict representation of a Revisions model
+        revisions_model = {
+            'ids': ['testString'],
+            'start': 1,
+        }
+        # Construct a dict representation of a DocumentRevisionStatus model
+        document_revision_status_model = {
+            'rev': 'testString',
+            'status': 'available',
+        }
+        # Construct a dict representation of a ReplicationCreateTargetParameters model
+        replication_create_target_parameters_model = {
+            'n': 3,
+            'partitioned': False,
+            'q': 1,
+        }
+        # Construct a dict representation of a ReplicationDatabaseAuthBasic model
+        replication_database_auth_basic_model = {
+            'password': 'testString',
+            'username': 'testString',
+        }
+        # Construct a dict representation of a ReplicationDatabaseAuthIam model
+        replication_database_auth_iam_model = {
+            'api_key': 'testString',
+        }
+        # Construct a dict representation of a ReplicationDatabaseAuth model
+        replication_database_auth_model = {
+            'basic': replication_database_auth_basic_model,
+            'iam': replication_database_auth_iam_model,
+        }
+        # Construct a dict representation of a ReplicationDatabase model
+        replication_database_model = {
+            'auth': replication_database_auth_model,
+            'headers': {'key1': 'testString'},
+            'url': 'https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb',
+        }
+        # Construct a dict representation of a UserContext model
+        user_context_model = {
+            'db': 'testString',
+            'name': 'john',
+            'roles': ['_replicator'],
+        }
+        # Construct a dict representation of a ReplicationDocument model
+        replication_document_model = {
+            '_attachments': {'key1': attachment_model},
+            '_conflicts': ['testString'],
+            '_deleted': True,
+            '_deleted_conflicts': ['testString'],
+            '_id': 'testString',
+            '_local_seq': 'testString',
+            '_rev': 'testString',
+            '_revisions': revisions_model,
+            '_revs_info': [document_revision_status_model],
+            'cancel': False,
+            'checkpoint_interval': 4500,
+            'connection_timeout': 15000,
+            'continuous': True,
+            'create_target': True,
+            'create_target_params': replication_create_target_parameters_model,
+            'doc_ids': ['badger', 'lemur', 'llama'],
+            'filter': 'ddoc/my_filter',
+            'http_connections': 10,
+            'owner': 'testString',
+            'query_params': {'key1': 'testString'},
+            'retries_per_request': 3,
+            'selector': {'_id': {'$regex': 'docid'}},
+            'since_seq': '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU',
+            'socket_options': '[{keepalive, true}, {nodelay, false}]',
+            'source': replication_database_model,
+            'source_proxy': 'testString',
+            'target': replication_database_model,
+            'target_proxy': 'testString',
+            'use_bulk_get': True,
+            'use_checkpoints': False,
+            'user_ctx': user_context_model,
+            'winning_revs_only': False,
+            'worker_batch_size': 400,
+            'worker_processes': 3,
+            'foo': 'testString',
+        }
+
+        response = self.cloudant_service.post_replicator(
+            replication_document=replication_document_model,
+            batch='ok',
+        )
+
+        assert response.get_status_code() == 201
+        document_result = response.get_result()
+        assert document_result is not None
 
     @needscredentials
     def test_get_replication_document(self):
@@ -1646,6 +1750,34 @@ class TestCloudantV1:
         assert session_information is not None
 
     @needscredentials
+    def test_post_api_keys(self):
+        response = self.cloudant_service.post_api_keys()
+
+        assert response.get_status_code() == 201
+        api_keys_result = response.get_result()
+        assert api_keys_result is not None
+
+    @needscredentials
+    def test_put_cloudant_security_configuration(self):
+        # Construct a dict representation of a SecurityObject model
+        security_object_model = {
+            'names': ['testString'],
+            'roles': ['testString'],
+        }
+
+        response = self.cloudant_service.put_cloudant_security_configuration(
+            db='testString',
+            cloudant={'antsellseadespecteposene': ['_reader', '_writer', '_admin'], 'garbados': ['_reader', '_writer'], 'nobody': ['_reader']},
+            admins=security_object_model,
+            couchdb_auth_only=True,
+            members=security_object_model,
+        )
+
+        assert response.get_status_code() == 200
+        ok = response.get_result()
+        assert ok is not None
+
+    @needscredentials
     def test_get_security(self):
         response = self.cloudant_service.get_security(
             db='testString',
@@ -1666,37 +1798,9 @@ class TestCloudantV1:
         response = self.cloudant_service.put_security(
             db='testString',
             admins=security_object_model,
-            members=security_object_model,
             cloudant={'key1': ['_reader']},
             couchdb_auth_only=True,
-        )
-
-        assert response.get_status_code() == 200
-        ok = response.get_result()
-        assert ok is not None
-
-    @needscredentials
-    def test_post_api_keys(self):
-        response = self.cloudant_service.post_api_keys()
-
-        assert response.get_status_code() == 201
-        api_keys_result = response.get_result()
-        assert api_keys_result is not None
-
-    @needscredentials
-    def test_put_cloudant_security_configuration(self):
-        # Construct a dict representation of a SecurityObject model
-        security_object_model = {
-            'names': ['testString'],
-            'roles': ['testString'],
-        }
-
-        response = self.cloudant_service.put_cloudant_security_configuration(
-            db='testString',
-            cloudant={'antsellseadespecteposene': ['_reader', '_writer', '_admin'], 'garbados': ['_reader', '_writer'], 'nobody': ['_reader']},
-            admins=security_object_model,
             members=security_object_model,
-            couchdb_auth_only=True,
         )
 
         assert response.get_status_code() == 200
@@ -1900,22 +2004,6 @@ class TestCloudantV1:
         assert list_active_task is not None
 
     @needscredentials
-    def test_get_membership_information(self):
-        response = self.cloudant_service.get_membership_information()
-
-        assert response.get_status_code() == 200
-        membership_information = response.get_result()
-        assert membership_information is not None
-
-    @needscredentials
-    def test_get_up_information(self):
-        response = self.cloudant_service.get_up_information()
-
-        assert response.get_status_code() == 200
-        up_information = response.get_result()
-        assert up_information is not None
-
-    @needscredentials
     def test_get_activity_tracker_events(self):
         response = self.cloudant_service.get_activity_tracker_events()
 
@@ -1940,6 +2028,22 @@ class TestCloudantV1:
         assert response.get_status_code() == 200
         current_throughput_information = response.get_result()
         assert current_throughput_information is not None
+
+    @needscredentials
+    def test_get_membership_information(self):
+        response = self.cloudant_service.get_membership_information()
+
+        assert response.get_status_code() == 200
+        membership_information = response.get_result()
+        assert membership_information is not None
+
+    @needscredentials
+    def test_get_up_information(self):
+        response = self.cloudant_service.get_up_information()
+
+        assert response.get_status_code() == 200
+        up_information = response.get_result()
+        assert up_information is not None
 
     @needscredentials
     def test_delete_database(self):
