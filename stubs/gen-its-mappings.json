@@ -1520,6 +1520,32 @@
     "uuid": "8e817ede-8647-3ada-ab72-58dfc263fc30"
   },
   {
+    "id" : "bbecd8e4-e759-3d2a-959b-d5e9f94b7dd9",
+    "request" : {
+      "url" : "/testString/_design/testString/_search_disk_size/testString",
+      "method" : "GET"
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "{\"name\":\"_design/testString/testString\",\"search_index\":{\"disk_size\":11906}}",
+      "headers" : {
+        "X-Frame-Options" : "DENY",
+        "X-Cloudant-Action" : "cloudantnosqldb.any-document.read",
+        "Strict-Transport-Security" : "max-age=31536000",
+        "Server" : "Cloudant",
+        "Cache-Control" : "must-revalidate",
+        "X-Content-Type-Options" : "nosniff",
+        "X-Cloudant-Backend" : "bigblue",
+        "X-Couch-Request-ID" : "6b16a74e",
+        "X-Cloudant-Request-Class" : "unlimited",
+        "Date" : "Wed, 08 Jan 2025 17:25:47 GMT",
+        "Via" : "1.1 lb3.bigblue (Glum)",
+        "Content-Type" : "application/json"
+      }
+    },
+    "uuid" : "bbecd8e4-e759-3d2a-959b-d5e9f94b7dd9"
+  },
+  {
     "id": "e6c0db1b-cd2e-379e-b7a6-27ec75049831",
     "request": {
       "url": "/testString/_design/testString/_search_info/testString",
