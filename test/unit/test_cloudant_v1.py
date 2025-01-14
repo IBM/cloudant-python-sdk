@@ -9092,6 +9092,95 @@ class TestPostSearchAsStream:
         self.test_post_search_as_stream_value_error()
 
 
+class TestGetSearchDiskSize:
+    """
+    Test Class for get_search_disk_size
+    """
+
+    @responses.activate
+    def test_get_search_disk_size_all_params(self):
+        """
+        get_search_disk_size()
+        """
+        # Set up mock
+        url = preprocess_url('/testString/_design/testString/_search_disk_size/testString')
+        mock_response = '{"name": "name", "search_index": {"disk_size": 0}}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        db = 'testString'
+        ddoc = 'testString'
+        index = 'testString'
+
+        # Invoke method
+        response = _service.get_search_disk_size(
+            db,
+            ddoc,
+            index,
+            headers={},
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_search_disk_size_all_params_with_retries(self):
+        # Enable retries and run test_get_search_disk_size_all_params.
+        _service.enable_retries()
+        self.test_get_search_disk_size_all_params()
+
+        # Disable retries and run test_get_search_disk_size_all_params.
+        _service.disable_retries()
+        self.test_get_search_disk_size_all_params()
+
+    @responses.activate
+    def test_get_search_disk_size_value_error(self):
+        """
+        test_get_search_disk_size_value_error()
+        """
+        # Set up mock
+        url = preprocess_url('/testString/_design/testString/_search_disk_size/testString')
+        mock_response = '{"name": "name", "search_index": {"disk_size": 0}}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        db = 'testString'
+        ddoc = 'testString'
+        index = 'testString'
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "db": db,
+            "ddoc": ddoc,
+            "index": index,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key: val if key is not param else None for (key, val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                _service.get_search_disk_size(**req_copy)
+
+    def test_get_search_disk_size_value_error_with_retries(self):
+        # Enable retries and run test_get_search_disk_size_value_error.
+        _service.enable_retries()
+        self.test_get_search_disk_size_value_error()
+
+        # Disable retries and run test_get_search_disk_size_value_error.
+        _service.disable_retries()
+        self.test_get_search_disk_size_value_error()
+
+
 class TestGetSearchInfo:
     """
     Test Class for get_search_info
@@ -17261,6 +17350,42 @@ class TestModel_SearchAnalyzeResult:
         assert search_analyze_result_model_json2 == search_analyze_result_model_json
 
 
+class TestModel_SearchDiskSizeInformation:
+    """
+    Test Class for SearchDiskSizeInformation
+    """
+
+    def test_search_disk_size_information_serialization(self):
+        """
+        Test serialization/deserialization for SearchDiskSizeInformation
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        search_index_disk_size_model = {}  # SearchIndexDiskSize
+        search_index_disk_size_model['disk_size'] = 0
+
+        # Construct a json representation of a SearchDiskSizeInformation model
+        search_disk_size_information_model_json = {}
+        search_disk_size_information_model_json['name'] = 'testString'
+        search_disk_size_information_model_json['search_index'] = search_index_disk_size_model
+
+        # Construct a model instance of SearchDiskSizeInformation by calling from_dict on the json representation
+        search_disk_size_information_model = SearchDiskSizeInformation.from_dict(search_disk_size_information_model_json)
+        assert search_disk_size_information_model != False
+
+        # Construct a model instance of SearchDiskSizeInformation by calling from_dict on the json representation
+        search_disk_size_information_model_dict = SearchDiskSizeInformation.from_dict(search_disk_size_information_model_json).__dict__
+        search_disk_size_information_model2 = SearchDiskSizeInformation(**search_disk_size_information_model_dict)
+
+        # Verify the model instances are equivalent
+        assert search_disk_size_information_model == search_disk_size_information_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        search_disk_size_information_model_json2 = search_disk_size_information_model.to_dict()
+        assert search_disk_size_information_model_json2 == search_disk_size_information_model_json
+
+
 class TestModel_SearchIndexDefinition:
     """
     Test Class for SearchIndexDefinition
@@ -17301,6 +17426,36 @@ class TestModel_SearchIndexDefinition:
         # Convert model instance back to dict and verify no loss of data
         search_index_definition_model_json2 = search_index_definition_model.to_dict()
         assert search_index_definition_model_json2 == search_index_definition_model_json
+
+
+class TestModel_SearchIndexDiskSize:
+    """
+    Test Class for SearchIndexDiskSize
+    """
+
+    def test_search_index_disk_size_serialization(self):
+        """
+        Test serialization/deserialization for SearchIndexDiskSize
+        """
+
+        # Construct a json representation of a SearchIndexDiskSize model
+        search_index_disk_size_model_json = {}
+        search_index_disk_size_model_json['disk_size'] = 0
+
+        # Construct a model instance of SearchIndexDiskSize by calling from_dict on the json representation
+        search_index_disk_size_model = SearchIndexDiskSize.from_dict(search_index_disk_size_model_json)
+        assert search_index_disk_size_model != False
+
+        # Construct a model instance of SearchIndexDiskSize by calling from_dict on the json representation
+        search_index_disk_size_model_dict = SearchIndexDiskSize.from_dict(search_index_disk_size_model_json).__dict__
+        search_index_disk_size_model2 = SearchIndexDiskSize(**search_index_disk_size_model_dict)
+
+        # Verify the model instances are equivalent
+        assert search_index_disk_size_model == search_index_disk_size_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        search_index_disk_size_model_json2 = search_index_disk_size_model.to_dict()
+        assert search_index_disk_size_model_json2 == search_index_disk_size_model_json
 
 
 class TestModel_SearchIndexInfo:
