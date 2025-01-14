@@ -1429,6 +1429,18 @@ class TestCloudantV1:
         assert result is not None
 
     @needscredentials
+    def test_get_search_disk_size(self):
+        response = self.cloudant_service.get_search_disk_size(
+            db='testString',
+            ddoc='testString',
+            index='testString',
+        )
+
+        assert response.get_status_code() == 200
+        search_disk_size_information = response.get_result()
+        assert search_disk_size_information is not None
+
+    @needscredentials
     def test_get_search_info(self):
         response = self.cloudant_service.get_search_info(
             db='testString',

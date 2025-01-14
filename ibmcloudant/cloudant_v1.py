@@ -6125,6 +6125,60 @@ class CloudantV1(BaseService):
         response = self.send(request, stream=True, **kwargs)
         return response
 
+    def get_search_disk_size(
+        self,
+        db: str,
+        ddoc: str,
+        index: str,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve information about the search index disk size.
+
+        Retrieve size of the search index on disk.
+
+        :param str db: Path parameter to specify the database name.
+        :param str ddoc: Path parameter to specify the design document name. The
+               design document name is the design document ID excluding the `_design/`
+               prefix.
+        :param str index: Path parameter to specify the index name.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `SearchDiskSizeInformation` object
+        """
+
+        if not db:
+            raise ValueError('db must be provided')
+        if not ddoc:
+            raise ValueError('ddoc must be provided')
+        if not index:
+            raise ValueError('index must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_search_disk_size',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        path_param_keys = ['db', 'ddoc', 'index']
+        path_param_values = self.encode_path_vars(db, ddoc, index)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_design/{ddoc}/_search_disk_size/{index}'.format(**path_param_dict)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
     def get_search_info(
         self,
         db: str,
@@ -6198,7 +6252,8 @@ class CloudantV1(BaseService):
         supports the same query arguments as the `GET /_replicator/{doc_id}` method, but
         only headers like content length and the revision (ETag header) are returned.
 
-        :param str doc_id: Path parameter to specify the document ID.
+        :param str doc_id: Path parameter to specify the ID of the stored
+               replication configuration in the `_replicator` database.
         :param str if_none_match: (optional) Header parameter for a conditional
                HTTP request not matching an ETag.
         :param dict headers: A `dict` containing the request headers
@@ -6399,7 +6454,8 @@ class CloudantV1(BaseService):
         Cancels a replication by deleting the document that describes it from the
         `_replicator` database.
 
-        :param str doc_id: Path parameter to specify the document ID.
+        :param str doc_id: Path parameter to specify the ID of the stored
+               replication configuration in the `_replicator` database.
         :param str if_match: (optional) Header parameter for a conditional HTTP
                request matching an ETag.
         :param str batch: (optional) Query parameter to specify whether to store in
@@ -6471,7 +6527,8 @@ class CloudantV1(BaseService):
         configuration of the replication. The status of the replication is no longer
         recorded in the document but can be checked via the replication scheduler.
 
-        :param str doc_id: Path parameter to specify the document ID.
+        :param str doc_id: Path parameter to specify the ID of the stored
+               replication configuration in the `_replicator` database.
         :param str if_none_match: (optional) Header parameter for a conditional
                HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
@@ -6563,7 +6620,8 @@ class CloudantV1(BaseService):
         Creates or modifies a document in the `_replicator` database to start a new
         replication or to edit an existing replication.
 
-        :param str doc_id: Path parameter to specify the document ID.
+        :param str doc_id: Path parameter to specify the ID of the stored
+               replication configuration in the `_replicator` database.
         :param ReplicationDocument replication_document: HTTP request body for
                replication operations.
         :param str if_match: (optional) Header parameter for a conditional HTTP
@@ -17412,6 +17470,80 @@ class SearchAnalyzeResult:
         return not self == other
 
 
+class SearchDiskSizeInformation:
+    """
+    Schema for search index disk size.
+
+    :param str name: The name of the search index prefixed by the design document ID
+          where the index is stored.
+    :param SearchIndexDiskSize search_index: Schema for search index disk size.
+    """
+
+    def __init__(
+        self,
+        name: str,
+        search_index: 'SearchIndexDiskSize',
+    ) -> None:
+        """
+        Initialize a SearchDiskSizeInformation object.
+
+        :param str name: The name of the search index prefixed by the design
+               document ID where the index is stored.
+        :param SearchIndexDiskSize search_index: Schema for search index disk size.
+        """
+        self.name = name
+        self.search_index = search_index
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'SearchDiskSizeInformation':
+        """Initialize a SearchDiskSizeInformation object from a json dictionary."""
+        args = {}
+        if (name := _dict.get('name')) is not None:
+            args['name'] = name
+        else:
+            raise ValueError('Required property \'name\' not present in SearchDiskSizeInformation JSON')
+        if (search_index := _dict.get('search_index')) is not None:
+            args['search_index'] = SearchIndexDiskSize.from_dict(search_index)
+        else:
+            raise ValueError('Required property \'search_index\' not present in SearchDiskSizeInformation JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a SearchDiskSizeInformation object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'name') and self.name is not None:
+            _dict['name'] = self.name
+        if hasattr(self, 'search_index') and self.search_index is not None:
+            if isinstance(self.search_index, dict):
+                _dict['search_index'] = self.search_index
+            else:
+                _dict['search_index'] = self.search_index.to_dict()
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this SearchDiskSizeInformation object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'SearchDiskSizeInformation') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'SearchDiskSizeInformation') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
 class SearchIndexDefinition:
     """
     Schema for a search index definition.
@@ -17516,6 +17648,64 @@ class SearchIndexDefinition:
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'SearchIndexDefinition') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class SearchIndexDiskSize:
+    """
+    Schema for search index disk size.
+
+    :param int disk_size: (optional) The size of the search index on disk.
+    """
+
+    def __init__(
+        self,
+        *,
+        disk_size: Optional[int] = None,
+    ) -> None:
+        """
+        Initialize a SearchIndexDiskSize object.
+
+        :param int disk_size: (optional) The size of the search index on disk.
+        """
+        self.disk_size = disk_size
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'SearchIndexDiskSize':
+        """Initialize a SearchIndexDiskSize object from a json dictionary."""
+        args = {}
+        if (disk_size := _dict.get('disk_size')) is not None:
+            args['disk_size'] = disk_size
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a SearchIndexDiskSize object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'disk_size') and self.disk_size is not None:
+            _dict['disk_size'] = self.disk_size
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this SearchIndexDiskSize object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'SearchIndexDiskSize') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'SearchIndexDiskSize') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
