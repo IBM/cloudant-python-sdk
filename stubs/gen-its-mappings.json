@@ -215,6 +215,33 @@
     "uuid": "e42d0204-7e2b-3850-bab6-3188dad08068"
   },
   {
+    "id" : "8593b1aa-6297-3120-a04e-c199e2808167",
+    "request" : {
+      "url" : "/_api/v2/user/capacity/databases",
+      "method" : "GET"
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "{\"current\": {\"databases\":{\"total\":200}}}",
+      "headers" : {
+        "Server" : "Cloudant",
+        "X-Content-Type-Options" : "nosniff",
+        "X-Cloudant-Backend" : "bigblue",
+        "X-Couch-Request-ID" : "686418ce",
+        "X-Cloudant-Request-Class" : "unlimited",
+        "Date" : "Wed, 29 Jan 2025 00:26:57 GMT",
+        "Via" : "1.1 lb4.bigblue (Glum)",
+        "X-Frame-Options" : "DENY",
+        "X-Cloudant-Action" : "cloudantnosqldb.account-capacity-dbs.read",
+        "Strict-Transport-Security" : "max-age=31536000",
+        "content-security-policy" : "sandbox",
+        "Cache-Control" : "must-revalidate",
+        "Content-Type" : "application/json"
+      }
+    },
+    "uuid" : "8593b1aa-6297-3120-a04e-c199e2808167"
+  },
+  {
     "id": "f3eef08d-1cac-3c95-90bb-e1d95690c74b",
     "request": {
       "url": "/_api/v2/user/capacity/throughput",
@@ -343,6 +370,33 @@
       }
     },
     "uuid": "a2e4e696-e631-33f8-b168-5015048cdad8"
+  },
+  {
+    "id" : "8593b1aa-6297-3120-a04e-c199e2808167",
+    "request" : {
+      "url" : "/_api/v2/user/current/databases",
+      "method" : "GET"
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "{\"databases\":{\"total\":42}}",
+      "headers" : {
+        "Server" : "Cloudant",
+        "X-Content-Type-Options" : "nosniff",
+        "X-Cloudant-Backend" : "bigblue",
+        "X-Couch-Request-ID" : "686418ce",
+        "X-Cloudant-Request-Class" : "unlimited",
+        "Date" : "Wed, 29 Jan 2025 00:26:57 GMT",
+        "Via" : "1.1 lb4.bigblue (Glum)",
+        "X-Frame-Options" : "DENY",
+        "X-Cloudant-Action" : "cloudantnosqldb.account-current-dbs.read",
+        "Strict-Transport-Security" : "max-age=31536000",
+        "content-security-policy" : "sandbox",
+        "Cache-Control" : "must-revalidate",
+        "Content-Type" : "application/json"
+      }
+    },
+    "uuid" : "8593b1aa-6297-3120-a04e-c199e2808167"
   },
   {
     "id": "8c38b725-a6ac-3f63-a723-9f4925ae23fd",
