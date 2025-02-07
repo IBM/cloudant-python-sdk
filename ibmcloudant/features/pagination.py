@@ -24,6 +24,7 @@ from abc import abstractmethod
 from collections.abc import Callable
 from enum import auto, Enum
 from functools import partial
+from types import MappingProxyType
 from typing import Generic, Protocol, TypeVar
 
 from ibm_cloud_sdk_core import DetailedResponse
@@ -58,24 +59,26 @@ class Pager(Protocol[R, I]):
   the operation types in PagerType.
   """
 
+  @abstractmethod
   def has_next(self) -> bool:
     """
-    returns True if there may be another page of results, False otherwise
+    returns False if there are no more pages
     """
-    pass
+    ...
 
   @abstractmethod
   def get_next(self) -> list[I]:
     """
     returns the next page of results
     """
-    pass
+    ...
 
+  @abstractmethod
   def get_all(self) -> list[I]:
     """
     returns all the pages of results in single list
     """
-    pass
+    ...
 
   @classmethod
   def new_pager(cls, client:CloudantV1, type: PagerType, **kwargs,):
@@ -95,16 +98,53 @@ class _BasePager(Pager):
                page_opts: list[str],
                opts:dict):
     self._client = client
-    # TODO split the opts into fixed and page parts based on page_opts
+    self._has_next = True
+    # split the opts into fixed and page parts based on page_opts
     self._next_page_opts = {}
     fixed_opts = {}
+    fixed_opts |= opts
+    self._page_size = self.page_size_from_opts_limit(fixed_opts)
+    fixed_opts['limit'] = self._page_size
+    for k in page_opts:
+      if v := fixed_opts.pop(k, None):
+        self._next_page_opts[k] = v
+    fixed_opts = MappingProxyType(fixed_opts)
     # Partial method with the fixed ops
     self._next_request_function = partial(operation, **fixed_opts)
 
-  def _next_request(self) -> R:
+  def has_next(self) -> bool:
+    return self._has_next
+
+  def get_next(self) -> list[I]:
+    if self.has_next():
+      return self._next_request()
+    raise StopIteration()
+
+  def get_all(self) -> list[I]:
+    all_items = []
+    for page in self:
+      all_items.extend(page)
+    return all_items
+
+  def __iter__(self):
+    return self
+
+  def __next__(self):
+    return self.get_next()
+
+  def _next_request(self) -> list[I]:
     response: DetailedResponse = self._next_request_function(**self._next_page_opts)
     result: dict = response.get_result()
-    return self._result_converter()(result)
+    typed_result: R = self._result_converter()(result)
+    items: list[I] = self._items(typed_result)
+    if len(items) < self._page_size:
+      self._has_next = False
+    else:
+      self._next_page_opts = self._get_next_page_options(typed_result)
+    return items
+
+  def page_size_from_opts_limit(self, opts:dict) -> int:
+    return opts.get('limit', 20)
 
   @abstractmethod
   def _result_converter(self) -> Callable[[dict], R]:
@@ -123,7 +163,7 @@ class _KeyPager(_BasePager, Generic[K]):
   def __init__(self, client: CloudantV1, operation: Callable[..., DetailedResponse], opts: dict):
     super().__init__(client, operation, ['start_key', 'start_key_doc_id'], opts)
 
-  def get_next(self) -> list[I]:
+  def _next_request(self) -> list[I]:
     pass
 
   def _get_next_page_options(self, result: R):
@@ -138,8 +178,14 @@ class _KeyPager(_BasePager, Generic[K]):
   def _get_id(self, item: I) -> str:
     return item.id
 
+  def _set_key(self, opts: dict, next_key: K):
+    opts['start_key'] = next_key
+
   def _set_id(self, opts: dict, next_id: str):
     opts['start_key_doc_id'] = next_id
+
+  def _page_size_from_opts_limit(self, opts:dict) -> int:
+    return super()._page_size_from_opts_limit(opts) + 1
 
 class _BookmarkPager(_BasePager):
 
@@ -158,7 +204,7 @@ class _BookmarkPager(_BasePager):
 class _AllDocsBasePager(_KeyPager[str]):
 
   def _result_converter(self):
-    return AllDocsResult.from_dict
+    pass
 
   def _set_id(self, opts: dict, next_id: str):
     # no-op for AllDocs paging
