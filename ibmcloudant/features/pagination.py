@@ -164,7 +164,10 @@ class _KeyPager(_BasePager, Generic[K]):
     super().__init__(client, operation, ['start_key', 'start_key_doc_id'], opts)
 
   def _next_request(self) -> list[I]:
-    pass
+    items: list[I] = super()._next_request()
+    if self.has_next():
+      return items[:-1]
+    return items
 
   def _get_next_page_options(self, result: R):
     pass
