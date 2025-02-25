@@ -106,8 +106,7 @@ def limits(request):
         _BATCH_SIZE + 123,
     ]
 
-
-class ChangesFollowerBaseCase(unittest.TestCase):
+class MockClientBaseCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Setup client env config
@@ -116,6 +115,8 @@ class ChangesFollowerBaseCase(unittest.TestCase):
         cls.client = CloudantV1.new_instance(
             service_name='TEST_SERVICE',
         )
+
+class ChangesFollowerBaseCase(MockClientBaseCase):
 
     def prepare_mock_changes(
         self,
