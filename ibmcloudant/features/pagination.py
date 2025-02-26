@@ -67,14 +67,14 @@ class Pager(Protocol[R, I]):
     ...
 
   @abstractmethod
-  def get_next(self) -> list[I]:
+  def get_next(self) -> tuple[I]:
     """
     returns the next page of results
     """
     ...
 
   @abstractmethod
-  def get_all(self) -> list[I]:
+  def get_all(self) -> tuple[I]:
     """
     returns all the pages of results in single list
     """
@@ -115,16 +115,16 @@ class _BasePager(Pager):
   def has_next(self) -> bool:
     return self._has_next
 
-  def get_next(self) -> list[I]:
+  def get_next(self) -> tuple[I]:
     if self.has_next():
-      return self._next_request()
+      return (*self._next_request(),)
     raise StopIteration()
 
-  def get_all(self) -> list[I]:
+  def get_all(self) -> tuple[I]:
     all_items = []
     for page in self:
       all_items.extend(page)
-    return all_items
+    return (*all_items,)
 
   def __iter__(self):
     return self
