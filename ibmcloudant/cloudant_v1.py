@@ -8195,6 +8195,80 @@ class CloudantV1(BaseService):
         response = self.send(request, **kwargs)
         return response
 
+    def get_capacity_databases_information(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve maximum allowed database count.
+
+        Retrieves the maximum number of databases currently allowed in the instance.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `CapacityDatabasesInformation` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_capacity_databases_information',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_api/v2/user/capacity/databases'
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def get_current_databases_information(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve current database count.
+
+        Retrieves the current number of databases that exist in the instance.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `CurrentDatabasesInformation` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_current_databases_information',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_api/v2/user/current/databases'
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
     def get_current_throughput_information(
         self,
         **kwargs,
@@ -10358,6 +10432,132 @@ class BulkGetResultItem:
         return not self == other
 
 
+class CapacityDatabasesInformation:
+    """
+    Schema for information about maximum total database count.
+
+    :param CapacityDatabasesInformationCurrent current: (optional) Schema for
+          information about the current database capacity.
+    """
+
+    def __init__(
+        self,
+        *,
+        current: Optional['CapacityDatabasesInformationCurrent'] = None,
+    ) -> None:
+        """
+        Initialize a CapacityDatabasesInformation object.
+
+        :param CapacityDatabasesInformationCurrent current: (optional) Schema for
+               information about the current database capacity.
+        """
+        self.current = current
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'CapacityDatabasesInformation':
+        """Initialize a CapacityDatabasesInformation object from a json dictionary."""
+        args = {}
+        if (current := _dict.get('current')) is not None:
+            args['current'] = CapacityDatabasesInformationCurrent.from_dict(current)
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a CapacityDatabasesInformation object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'current') and self.current is not None:
+            if isinstance(self.current, dict):
+                _dict['current'] = self.current
+            else:
+                _dict['current'] = self.current.to_dict()
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this CapacityDatabasesInformation object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'CapacityDatabasesInformation') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'CapacityDatabasesInformation') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class CapacityDatabasesInformationCurrent:
+    """
+    Schema for information about the current database capacity.
+
+    :param DatabasesCountInformation databases: (optional) Schema for databases
+          count.
+    """
+
+    def __init__(
+        self,
+        *,
+        databases: Optional['DatabasesCountInformation'] = None,
+    ) -> None:
+        """
+        Initialize a CapacityDatabasesInformationCurrent object.
+
+        :param DatabasesCountInformation databases: (optional) Schema for databases
+               count.
+        """
+        self.databases = databases
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'CapacityDatabasesInformationCurrent':
+        """Initialize a CapacityDatabasesInformationCurrent object from a json dictionary."""
+        args = {}
+        if (databases := _dict.get('databases')) is not None:
+            args['databases'] = DatabasesCountInformation.from_dict(databases)
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a CapacityDatabasesInformationCurrent object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'databases') and self.databases is not None:
+            if isinstance(self.databases, dict):
+                _dict['databases'] = self.databases
+            else:
+                _dict['databases'] = self.databases.to_dict()
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this CapacityDatabasesInformationCurrent object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'CapacityDatabasesInformationCurrent') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'CapacityDatabasesInformationCurrent') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
 class CapacityThroughputInformation:
     """
     Schema for information about the currently provisioned and target throughput capacity.
@@ -10984,6 +11184,69 @@ class CorsInformation:
         return not self == other
 
 
+class CurrentDatabasesInformation:
+    """
+    Schema for information about the current database counts.
+
+    :param DatabasesCountInformation databases: (optional) Schema for databases
+          count.
+    """
+
+    def __init__(
+        self,
+        *,
+        databases: Optional['DatabasesCountInformation'] = None,
+    ) -> None:
+        """
+        Initialize a CurrentDatabasesInformation object.
+
+        :param DatabasesCountInformation databases: (optional) Schema for databases
+               count.
+        """
+        self.databases = databases
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'CurrentDatabasesInformation':
+        """Initialize a CurrentDatabasesInformation object from a json dictionary."""
+        args = {}
+        if (databases := _dict.get('databases')) is not None:
+            args['databases'] = DatabasesCountInformation.from_dict(databases)
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a CurrentDatabasesInformation object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'databases') and self.databases is not None:
+            if isinstance(self.databases, dict):
+                _dict['databases'] = self.databases
+            else:
+                _dict['databases'] = self.databases.to_dict()
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this CurrentDatabasesInformation object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'CurrentDatabasesInformation') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'CurrentDatabasesInformation') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
 class CurrentThroughputInformation:
     """
     Schema for information about current consumption of a provisioned throughput capacity.
@@ -11510,6 +11773,64 @@ class DatabaseInformationProps:
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'DatabaseInformationProps') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class DatabasesCountInformation:
+    """
+    Schema for databases count.
+
+    :param int total: (optional) The total number of databases.
+    """
+
+    def __init__(
+        self,
+        *,
+        total: Optional[int] = None,
+    ) -> None:
+        """
+        Initialize a DatabasesCountInformation object.
+
+        :param int total: (optional) The total number of databases.
+        """
+        self.total = total
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'DatabasesCountInformation':
+        """Initialize a DatabasesCountInformation object from a json dictionary."""
+        args = {}
+        if (total := _dict.get('total')) is not None:
+            args['total'] = total
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a DatabasesCountInformation object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'total') and self.total is not None:
+            _dict['total'] = self.total
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this DatabasesCountInformation object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'DatabasesCountInformation') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'DatabasesCountInformation') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 

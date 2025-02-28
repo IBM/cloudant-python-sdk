@@ -13527,6 +13527,82 @@ class TestPostActivityTrackerEvents:
         self.test_post_activity_tracker_events_value_error()
 
 
+class TestGetCapacityDatabasesInformation:
+    """
+    Test Class for get_capacity_databases_information
+    """
+
+    @responses.activate
+    def test_get_capacity_databases_information_all_params(self):
+        """
+        get_capacity_databases_information()
+        """
+        # Set up mock
+        url = preprocess_url('/_api/v2/user/capacity/databases')
+        mock_response = '{"current": {"databases": {"total": 0}}}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Invoke method
+        response = _service.get_capacity_databases_information()
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_capacity_databases_information_all_params_with_retries(self):
+        # Enable retries and run test_get_capacity_databases_information_all_params.
+        _service.enable_retries()
+        self.test_get_capacity_databases_information_all_params()
+
+        # Disable retries and run test_get_capacity_databases_information_all_params.
+        _service.disable_retries()
+        self.test_get_capacity_databases_information_all_params()
+
+
+class TestGetCurrentDatabasesInformation:
+    """
+    Test Class for get_current_databases_information
+    """
+
+    @responses.activate
+    def test_get_current_databases_information_all_params(self):
+        """
+        get_current_databases_information()
+        """
+        # Set up mock
+        url = preprocess_url('/_api/v2/user/current/databases')
+        mock_response = '{"databases": {"total": 0}}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Invoke method
+        response = _service.get_current_databases_information()
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_current_databases_information_all_params_with_retries(self):
+        # Enable retries and run test_get_current_databases_information_all_params.
+        _service.enable_retries()
+        self.test_get_current_databases_information_all_params()
+
+        # Disable retries and run test_get_current_databases_information_all_params.
+        _service.disable_retries()
+        self.test_get_current_databases_information_all_params()
+
+
 class TestGetCurrentThroughputInformation:
     """
     Test Class for get_current_throughput_information
@@ -14414,6 +14490,79 @@ class TestModel_BulkGetResultItem:
         assert bulk_get_result_item_model_json2 == bulk_get_result_item_model_json
 
 
+class TestModel_CapacityDatabasesInformation:
+    """
+    Test Class for CapacityDatabasesInformation
+    """
+
+    def test_capacity_databases_information_serialization(self):
+        """
+        Test serialization/deserialization for CapacityDatabasesInformation
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        databases_count_information_model = {}  # DatabasesCountInformation
+        databases_count_information_model['total'] = 0
+
+        capacity_databases_information_current_model = {}  # CapacityDatabasesInformationCurrent
+        capacity_databases_information_current_model['databases'] = databases_count_information_model
+
+        # Construct a json representation of a CapacityDatabasesInformation model
+        capacity_databases_information_model_json = {}
+        capacity_databases_information_model_json['current'] = capacity_databases_information_current_model
+
+        # Construct a model instance of CapacityDatabasesInformation by calling from_dict on the json representation
+        capacity_databases_information_model = CapacityDatabasesInformation.from_dict(capacity_databases_information_model_json)
+        assert capacity_databases_information_model != False
+
+        # Construct a model instance of CapacityDatabasesInformation by calling from_dict on the json representation
+        capacity_databases_information_model_dict = CapacityDatabasesInformation.from_dict(capacity_databases_information_model_json).__dict__
+        capacity_databases_information_model2 = CapacityDatabasesInformation(**capacity_databases_information_model_dict)
+
+        # Verify the model instances are equivalent
+        assert capacity_databases_information_model == capacity_databases_information_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        capacity_databases_information_model_json2 = capacity_databases_information_model.to_dict()
+        assert capacity_databases_information_model_json2 == capacity_databases_information_model_json
+
+
+class TestModel_CapacityDatabasesInformationCurrent:
+    """
+    Test Class for CapacityDatabasesInformationCurrent
+    """
+
+    def test_capacity_databases_information_current_serialization(self):
+        """
+        Test serialization/deserialization for CapacityDatabasesInformationCurrent
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        databases_count_information_model = {}  # DatabasesCountInformation
+        databases_count_information_model['total'] = 0
+
+        # Construct a json representation of a CapacityDatabasesInformationCurrent model
+        capacity_databases_information_current_model_json = {}
+        capacity_databases_information_current_model_json['databases'] = databases_count_information_model
+
+        # Construct a model instance of CapacityDatabasesInformationCurrent by calling from_dict on the json representation
+        capacity_databases_information_current_model = CapacityDatabasesInformationCurrent.from_dict(capacity_databases_information_current_model_json)
+        assert capacity_databases_information_current_model != False
+
+        # Construct a model instance of CapacityDatabasesInformationCurrent by calling from_dict on the json representation
+        capacity_databases_information_current_model_dict = CapacityDatabasesInformationCurrent.from_dict(capacity_databases_information_current_model_json).__dict__
+        capacity_databases_information_current_model2 = CapacityDatabasesInformationCurrent(**capacity_databases_information_current_model_dict)
+
+        # Verify the model instances are equivalent
+        assert capacity_databases_information_current_model == capacity_databases_information_current_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        capacity_databases_information_current_model_json2 = capacity_databases_information_current_model.to_dict()
+        assert capacity_databases_information_current_model_json2 == capacity_databases_information_current_model_json
+
+
 class TestModel_CapacityThroughputInformation:
     """
     Test Class for CapacityThroughputInformation
@@ -14774,6 +14923,41 @@ class TestModel_CorsInformation:
         assert cors_information_model_json2 == cors_information_model_json
 
 
+class TestModel_CurrentDatabasesInformation:
+    """
+    Test Class for CurrentDatabasesInformation
+    """
+
+    def test_current_databases_information_serialization(self):
+        """
+        Test serialization/deserialization for CurrentDatabasesInformation
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        databases_count_information_model = {}  # DatabasesCountInformation
+        databases_count_information_model['total'] = 0
+
+        # Construct a json representation of a CurrentDatabasesInformation model
+        current_databases_information_model_json = {}
+        current_databases_information_model_json['databases'] = databases_count_information_model
+
+        # Construct a model instance of CurrentDatabasesInformation by calling from_dict on the json representation
+        current_databases_information_model = CurrentDatabasesInformation.from_dict(current_databases_information_model_json)
+        assert current_databases_information_model != False
+
+        # Construct a model instance of CurrentDatabasesInformation by calling from_dict on the json representation
+        current_databases_information_model_dict = CurrentDatabasesInformation.from_dict(current_databases_information_model_json).__dict__
+        current_databases_information_model2 = CurrentDatabasesInformation(**current_databases_information_model_dict)
+
+        # Verify the model instances are equivalent
+        assert current_databases_information_model == current_databases_information_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        current_databases_information_model_json2 = current_databases_information_model.to_dict()
+        assert current_databases_information_model_json2 == current_databases_information_model_json
+
+
 class TestModel_CurrentThroughputInformation:
     """
     Test Class for CurrentThroughputInformation
@@ -14973,6 +15157,36 @@ class TestModel_DatabaseInformationProps:
         # Convert model instance back to dict and verify no loss of data
         database_information_props_model_json2 = database_information_props_model.to_dict()
         assert database_information_props_model_json2 == database_information_props_model_json
+
+
+class TestModel_DatabasesCountInformation:
+    """
+    Test Class for DatabasesCountInformation
+    """
+
+    def test_databases_count_information_serialization(self):
+        """
+        Test serialization/deserialization for DatabasesCountInformation
+        """
+
+        # Construct a json representation of a DatabasesCountInformation model
+        databases_count_information_model_json = {}
+        databases_count_information_model_json['total'] = 0
+
+        # Construct a model instance of DatabasesCountInformation by calling from_dict on the json representation
+        databases_count_information_model = DatabasesCountInformation.from_dict(databases_count_information_model_json)
+        assert databases_count_information_model != False
+
+        # Construct a model instance of DatabasesCountInformation by calling from_dict on the json representation
+        databases_count_information_model_dict = DatabasesCountInformation.from_dict(databases_count_information_model_json).__dict__
+        databases_count_information_model2 = DatabasesCountInformation(**databases_count_information_model_dict)
+
+        # Verify the model instances are equivalent
+        assert databases_count_information_model == databases_count_information_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        databases_count_information_model_json2 = databases_count_information_model.to_dict()
+        assert databases_count_information_model_json2 == databases_count_information_model_json
 
 
 class TestModel_DbEvent:

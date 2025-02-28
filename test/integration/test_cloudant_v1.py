@@ -2034,6 +2034,22 @@ class TestCloudantV1:
         assert ok is not None
 
     @needscredentials
+    def test_get_capacity_databases_information(self):
+        response = self.cloudant_service.get_capacity_databases_information()
+
+        assert response.get_status_code() == 200
+        capacity_databases_information = response.get_result()
+        assert capacity_databases_information is not None
+
+    @needscredentials
+    def test_get_current_databases_information(self):
+        response = self.cloudant_service.get_current_databases_information()
+
+        assert response.get_status_code() == 200
+        current_databases_information = response.get_result()
+        assert current_databases_information is not None
+
+    @needscredentials
     def test_get_current_throughput_information(self):
         response = self.cloudant_service.get_current_throughput_information()
 
