@@ -103,7 +103,7 @@ class _BasePager(Pager):
     self._next_page_opts: dict = {}
     fixed_opts: dict = dict(opts)
     # Get the page size and set the limit acoordingly
-    self._page_size: int = self.page_size_from_opts_limit(fixed_opts)
+    self._page_size: int = self._page_size_from_opts_limit(fixed_opts)
     fixed_opts['limit'] = self._page_size
     # Remove the options that change per page
     for k in page_opts:
@@ -152,7 +152,7 @@ class _BasePager(Pager):
       self._next_page_opts = self._get_next_page_options(typed_result)
     return items
 
-  def page_size_from_opts_limit(self, opts:dict) -> int:
+  def _page_size_from_opts_limit(self, opts:dict) -> int:
     return opts.get('limit', 200)
 
   @abstractmethod
@@ -171,33 +171,37 @@ class _KeyPager(_BasePager, Generic[K]):
 
   def __init__(self, client: CloudantV1, operation: Callable[..., DetailedResponse], opts: dict):
     super().__init__(client, operation, ['start_key', 'start_key_doc_id'], opts)
+    self._boundary_failure: str | None = None
 
   def _next_request(self) -> list[I]:
+    if self._boundary_failure is not None:
+      raise Exception(self._boundary_failure)
     items: list[I] = super()._next_request()
     if self.has_next():
-      return items[:-1]
+      last_item: I = items.pop()
+      if len(items) > 0:
+        # Get, but don't remove the last item from the list
+        penultimate_item: I = items[-1]
+        self._boundary_failure: str | None = self.check_boundary(penultimate_item, last_item)
     return items
 
   def _get_next_page_options(self, result: R) -> dict:
-    pass
+    # last item is used for next page options
+    last_item = self._items(result)[-1]
+    return {
+      'start_key': last_item.key,
+      'start_key_doc_id': last_item.id,
+    }
 
   def _items(self, result: R) -> list[I]:
     return result.rows
 
-  def _get_key(self, item: I) -> K:
-    return item.key
-
-  def _get_id(self, item: I) -> str:
-    return item.id
-
-  def _set_key(self, opts: dict, next_key: K):
-    opts['start_key'] = next_key
-
-  def _set_id(self, opts: dict, next_id: str):
-    opts['start_key_doc_id'] = next_id
-
   def _page_size_from_opts_limit(self, opts:dict) -> int:
     return super()._page_size_from_opts_limit(opts) + 1
+
+  @abstractmethod
+  def check_boundary(self, penultimate_item: I, last_item: I) -> str | None:
+    raise NotImplementedError()
 
 class _BookmarkPager(_BasePager):
 
@@ -218,9 +222,14 @@ class _AllDocsBasePager(_KeyPager[str]):
   def _result_converter(self) -> Callable[[dict], AllDocsResult]:
     return AllDocsResult.from_dict
 
-  def _set_id(self, opts: dict, next_id: str):
-    # no-op for AllDocs paging
-    pass
+  def _get_next_page_options(self, result: R) -> dict:
+    # Remove start_key_doc_id for all_docs paging
+    opts: dict = super()._get_next_page_options(result)
+    del opts.start_key_doc_id
+
+  def check_boundary(self, penultimate_item: I, last_item: I) -> str | None:
+    # IDs are always unique in _all_docs pagers so return None
+    return None
 
 class _AllDocsPager(_AllDocsBasePager):
 
@@ -276,7 +285,13 @@ class _SearchPartitionPager(_SearchBasePager):
 class _ViewBasePager(_KeyPager[any]):
 
   def _result_converter(self):
-    return AllDocsResult.from_dict
+    return ViewResult.from_dict
+
+  def check_boundary(self, penultimate_item: I, last_item: I) -> str | None:
+    if penultimate_item.id == (boundary_id:= last_item.id) \
+      and penultimate_item.key == (boundary_key:= last_item.key):
+      return f'Cannot paginate on a boundary containing identical keys {boundary_key} and document IDs {boundary_id}'
+    return None
 
 class _ViewPager(_ViewBasePager):
 
