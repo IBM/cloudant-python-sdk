@@ -144,7 +144,7 @@ class _BasePager(Pager):
     return items
 
   def page_size_from_opts_limit(self, opts:dict) -> int:
-    return opts.get('limit', 20)
+    return opts.get('limit', 200)
 
   @abstractmethod
   def _result_converter(self) -> Callable[[dict], R]:

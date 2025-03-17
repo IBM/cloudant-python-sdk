@@ -100,7 +100,7 @@ class TestBasePager(MockClientBaseCase):
     opts = {'db': 'test'}
     pager: Pager = TestPager(self.client, operation, [], opts)
     # Assert the default page size
-    expected_page_size = 20
+    expected_page_size = 200
     self.assertEqual(pager._page_size, expected_page_size, 'The default page size should be set.')
     self.assertEqual(pager._next_request_function.keywords, opts | {'limit': expected_page_size}, 'The default page size should be present in the options.')
 
