@@ -37,7 +37,7 @@ class TestPager(_BasePager):
     else:
       return {'start_key': result.rows[-1].key}
 
-class MockPageReponses:
+class MockPageResponses:
   """
   Test class for mocking page responses.
   """
@@ -125,7 +125,7 @@ class TestBasePager(MockClientBaseCase):
     # Init with mock that returns only a single row
     pager: Pager = TestPager(
         self.client,
-        MockPageReponses(1, page_size).get_next_page,
+        MockPageResponses(1, page_size).get_next_page,
         [],
         {'limit': page_size})
     # Get first page with 1 result
@@ -138,7 +138,7 @@ class TestBasePager(MockClientBaseCase):
     # Init with mock that returns zero rows
     pager: Pager = TestPager(
         self.client,
-        MockPageReponses(0, page_size).get_next_page,
+        MockPageResponses(0, page_size).get_next_page,
         [],
         {'limit': page_size})
     # Get first page with 0 result
@@ -149,7 +149,7 @@ class TestBasePager(MockClientBaseCase):
   def test_get_next_first_page(self):
     page_size = 25
     # Mock that returns one page of 25 items
-    mock = MockPageReponses(page_size, page_size)
+    mock = MockPageResponses(page_size, page_size)
     pager: Pager = TestPager(
         self.client,
         mock.get_next_page,
@@ -163,7 +163,7 @@ class TestBasePager(MockClientBaseCase):
   def test_get_next_two_pages(self):
     page_size = 3
     # Mock that returns two pages of 3 items
-    mock = MockPageReponses(2*page_size, page_size)
+    mock = MockPageResponses(2*page_size, page_size)
     pager: Pager = TestPager(
         self.client,
         mock.get_next_page,
@@ -185,7 +185,7 @@ class TestBasePager(MockClientBaseCase):
   def test_get_next_until_empty(self):
     page_size = 3
     # Mock that returns 3 pages of 3 items
-    mock = MockPageReponses(3*page_size, page_size)
+    mock = MockPageResponses(3*page_size, page_size)
     pager: Pager = TestPager(
         self.client,
         mock.get_next_page,
@@ -205,7 +205,7 @@ class TestBasePager(MockClientBaseCase):
   def test_get_next_until_smaller(self):
     page_size = 3
     # Mock that returns 3 pages of 3 items, then 1 more page with 1 item
-    mock = MockPageReponses(3*page_size + 1, page_size)
+    mock = MockPageResponses(3*page_size + 1, page_size)
     pager: Pager = TestPager(
         self.client,
         mock.get_next_page,
@@ -225,7 +225,7 @@ class TestBasePager(MockClientBaseCase):
   def test_get_next_exception(self):
     page_size = 2
     # Mock that returns one page of one item
-    mock = MockPageReponses(page_size - 1, page_size)
+    mock = MockPageResponses(page_size - 1, page_size)
     pager: Pager = TestPager(
         self.client,
         mock.get_next_page,
@@ -244,7 +244,7 @@ class TestBasePager(MockClientBaseCase):
   def test_get_all(self):
     page_size = 11
     # Mock that returns 6 pages of 11 items, then 1 more page with 5 items
-    mock = MockPageReponses(71, page_size)
+    mock = MockPageResponses(71, page_size)
     pager: Pager = TestPager(
         self.client,
         mock.get_next_page,
@@ -256,7 +256,7 @@ class TestBasePager(MockClientBaseCase):
   def test_iter_next_first_page(self):
     page_size = 7
     # Mock that returns two pages of 7 items
-    mock = MockPageReponses(2*page_size, page_size)
+    mock = MockPageResponses(2*page_size, page_size)
     pager: Pager = TestPager(
         self.client,
         mock.get_next_page,
@@ -268,7 +268,7 @@ class TestBasePager(MockClientBaseCase):
 
   def test_iter(self):
     page_size = 23
-    mock = MockPageReponses(3*page_size-1, page_size)
+    mock = MockPageResponses(3*page_size-1, page_size)
     pager: Pager = TestPager(
         self.client,
         mock.get_next_page,
@@ -284,7 +284,7 @@ class TestBasePager(MockClientBaseCase):
 
   def test_pages_immutable(self):
     page_size = 1
-    mock = MockPageReponses(page_size, page_size)
+    mock = MockPageResponses(page_size, page_size)
     pager: Pager = TestPager(
         self.client,
         mock.get_next_page,
@@ -297,7 +297,7 @@ class TestBasePager(MockClientBaseCase):
 
   def test_set_next_page_options(self):
     page_size = 1
-    mock = MockPageReponses(5*page_size, page_size)
+    mock = MockPageResponses(5*page_size, page_size)
     pager: Pager = TestPager(
         self.client,
         mock.get_next_page,

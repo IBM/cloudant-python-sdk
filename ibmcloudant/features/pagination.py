@@ -64,21 +64,21 @@ class Pager(Protocol[R, I]):
     """
     returns False if there are no more pages
     """
-    ...
+    raise NotImplementedError()
 
   @abstractmethod
   def get_next(self) -> tuple[I]:
     """
     returns the next page of results
     """
-    ...
+    raise NotImplementedError()
 
   @abstractmethod
   def get_all(self) -> tuple[I]:
     """
     returns all the pages of results in single list
     """
-    ...
+    raise NotImplementedError()
 
   @classmethod
   def new_pager(cls, client:CloudantV1, type: PagerType, **kwargs,):
@@ -88,7 +88,7 @@ class Pager(Protocol[R, I]):
     type: PagerType - the operation type to paginate
     kwargs: dict - the options for the operation
     """
-    pass
+    raise NotImplementedError()
 
 class _BasePager(Pager):
 
@@ -97,20 +97,20 @@ class _BasePager(Pager):
                operation: Callable[..., DetailedResponse],
                page_opts: list[str],
                opts:dict):
-    self._client = client
-    self._has_next = True
+    self._client: CloudantV1 = client
+    self._has_next: bool = True
     # split the opts into fixed and page parts based on page_opts
-    self._next_page_opts = {}
-    fixed_opts = {}
+    self._next_page_opts: dict = {}
+    fixed_opts: dict = {}
     fixed_opts |= opts
-    self._page_size = self.page_size_from_opts_limit(fixed_opts)
+    self._page_size: int = self.page_size_from_opts_limit(fixed_opts)
     fixed_opts['limit'] = self._page_size
     for k in page_opts:
       if v := fixed_opts.pop(k, None):
         self._next_page_opts[k] = v
     fixed_opts = MappingProxyType(fixed_opts)
     # Partial method with the fixed ops
-    self._next_request_function = partial(operation, **fixed_opts)
+    self._next_request_function: function = partial(operation, **fixed_opts)
 
   def has_next(self) -> bool:
     return self._has_next
@@ -148,15 +148,15 @@ class _BasePager(Pager):
 
   @abstractmethod
   def _result_converter(self) -> Callable[[dict], R]:
-    ...
+    raise NotImplementedError()
 
   @abstractmethod
   def _items(self, result: R) -> list[I]:
-    ...
+    raise NotImplementedError()
 
   @abstractmethod
   def _get_next_page_options(self, result: R) -> dict:
-    ...
+    raise NotImplementedError()
 
 class _KeyPager(_BasePager, Generic[K]):
 
@@ -169,7 +169,7 @@ class _KeyPager(_BasePager, Generic[K]):
       return items[:-1]
     return items
 
-  def _get_next_page_options(self, result: R):
+  def _get_next_page_options(self, result: R) -> dict:
     pass
 
   def _items(self, result: R) -> list[I]:
@@ -206,8 +206,9 @@ class _BookmarkPager(_BasePager):
 
 class _AllDocsBasePager(_KeyPager[str]):
 
+  @abstractmethod
   def _result_converter(self):
-    pass
+    raise NotImplementedError()
 
   def _set_id(self, opts: dict, next_id: str):
     # no-op for AllDocs paging
