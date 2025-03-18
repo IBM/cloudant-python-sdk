@@ -96,21 +96,30 @@ class _BasePager(Pager):
                client: CloudantV1,
                operation: Callable[..., DetailedResponse],
                page_opts: list[str],
-               opts:dict):
+               opts: dict):
     self._client: CloudantV1 = client
     self._has_next: bool = True
     # split the opts into fixed and page parts based on page_opts
     self._next_page_opts: dict = {}
-    fixed_opts: dict = {}
-    fixed_opts |= opts
+    fixed_opts: dict = dict(opts)
+    # Get the page size and set the limit acoordingly
     self._page_size: int = self.page_size_from_opts_limit(fixed_opts)
     fixed_opts['limit'] = self._page_size
+    # Remove the options that change per page
     for k in page_opts:
       if v := fixed_opts.pop(k, None):
         self._next_page_opts[k] = v
+    self._initial_opts = dict(opts)
     fixed_opts = MappingProxyType(fixed_opts)
     # Partial method with the fixed ops
-    self._next_request_function: function = partial(operation, **fixed_opts)
+    self._next_request_function: Callable[..., DetailedResponse] = partial(operation, **fixed_opts)
+
+  def _new_copy(self) -> Pager:
+    # Make and return new instance of the specific sub-class in use
+    return type(self)(
+      self._client,
+      { **self._next_request_function.keywords, **self._initial_opts })
+
 
   def has_next(self) -> bool:
     return self._has_next
@@ -127,7 +136,7 @@ class _BasePager(Pager):
     return (*all_items,)
 
   def __iter__(self):
-    return self
+    return self._new_copy()
 
   def __next__(self):
     return self.get_next()
@@ -206,9 +215,8 @@ class _BookmarkPager(_BasePager):
 
 class _AllDocsBasePager(_KeyPager[str]):
 
-  @abstractmethod
-  def _result_converter(self):
-    raise NotImplementedError()
+  def _result_converter(self) -> Callable[[dict], AllDocsResult]:
+    return AllDocsResult.from_dict
 
   def _set_id(self, opts: dict, next_id: str):
     # no-op for AllDocs paging
