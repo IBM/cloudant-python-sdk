@@ -209,13 +209,7 @@ class _BookmarkPager(_BasePager):
     super().__init__(client, operation, ['bookmark'], opts)
 
   def _get_next_page_options(self, result: R) -> dict:
-    pass
-
-  def _get_bookmark(self, result: R):
-    return result.bookmark
-
-  def _set_bookmark(self, opts:dict, bookmark:str) -> str:
-    opts['bookmark'] = bookmark
+    return {'bookmark': result.bookmark}
 
 class _AllDocsBasePager(_KeyPager[str]):
 
