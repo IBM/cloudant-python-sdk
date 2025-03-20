@@ -4,7 +4,7 @@ flit==3.11.0
 pytest==8.3.5
 responses==0.25.7
 python_dotenv==1.0.1
-pylint==3.3.4
+pylint==3.3.6
 # code coverage
 coverage==7.7.0
 pytest-cov==6.0.0
