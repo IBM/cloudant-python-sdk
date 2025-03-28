@@ -15,13 +15,14 @@
 """
  Feature for paginating requests.
  
- Import :class:`~ibmcloudant.Pager` and :class:`~ibmcloudant.PagerType`
+ Import :class:`~ibmcloudant.Pagination` and :class:`~ibmcloudant.PagerType`
  from :mod:`ibmcloudant`.
- Use :meth:`Pager.new_pager` to create a :class:`Pager` for different
- :class:`PagerType` operations.
+ Use :meth:`Pagination.new_pagination` to create a :class:`Pagination`
+ for the specific :class:`PagerType` operation and options.
 """
+
 from abc import abstractmethod
-from collections.abc import Callable
+from collections.abc import Callable, Iterable, Iterator
 from enum import auto, Enum
 from functools import partial
 from types import MappingProxyType
@@ -42,6 +43,7 @@ class PagerType(Enum):
   """
   Enumeration of the available Pager types
   """
+
   POST_ALL_DOCS = auto()
   POST_DESIGN_DOCS = auto()
   POST_FIND = auto()
@@ -52,9 +54,10 @@ class PagerType(Enum):
   POST_SEARCH = auto()
   POST_VIEW = auto()
 
-class Pager(Protocol[R, I]):
+class Pager(Protocol[I]):
   """
   Protocol for pagination of Cloudant operations.
+
   Use Pager.new_pager to create a new pager for one of
   the operation types in PagerType.
   """
@@ -64,6 +67,7 @@ class Pager(Protocol[R, I]):
     """
     returns False if there are no more pages
     """
+
     raise NotImplementedError()
 
   @abstractmethod
@@ -71,6 +75,7 @@ class Pager(Protocol[R, I]):
     """
     returns the next page of results
     """
+
     raise NotImplementedError()
 
   @abstractmethod
@@ -78,19 +83,143 @@ class Pager(Protocol[R, I]):
     """
     returns all the pages of results in single list
     """
+
     raise NotImplementedError()
 
-  @classmethod
-  def new_pager(cls, client:CloudantV1, type: PagerType, **kwargs,):
+class Pagination:
+  """
+  Entry point for the pagination features.
+
+  Use :meth:`Pagination.new_pagination` to create a :class:`Pagination`
+  instance for the specific :class:`PagerType` operation and options.
+
+  Then create a Pager or Iterable using one of the functions:
+   * :meth:`pager` - for an IBM Cloud SDK style Pager
+   * :meth:`pages` - for a page Iterable
+   * :meth:`rows` - for a row Iterable
+  """
+
+  def __init__(self, client: CloudantV1, type, opts: dict):
+    self._client = client
+    self._operation_type = type
+    self._initial_opts = dict(opts)
+
+  def pager(self) -> Pager[I]:
     """
-    Create a new Pager.
+    Create a new IBM Cloud SDK style Pager.
+    This type is useful for retrieving one page at a time from a function call.
+    """
+
+    return _IteratorPager(self.pages)
+
+  def pages(self) -> Iterable[tuple[I]]:
+    """
+    Create a new Iterable for all the pages.
+    This type is useful for handling pages in a for loop.
+
+    for page in Pagination.new_pagination(client, **opts).pages():
+      ...
+    """
+
+    return self._operation_type(self._client, self._initial_opts)
+
+  def rows(self) -> Iterable[I]:
+    """
+    Create a new Iterable for all the rows from all the pages.
+    This type is useful for handling rows in a for loop.
+
+    for row in Pagination.new_pagination(client, **opts).rows():
+      ...
+    """
+
+    for page in self.pages():
+      yield from page
+
+  @classmethod
+  def new_pagination(cls, client:CloudantV1, type: PagerType, **kwargs):
+    """
+    Create a new Pagination.
     client: CloudantV1 - the Cloudant service client
     type: PagerType - the operation type to paginate
     kwargs: dict - the options for the operation
     """
-    raise NotImplementedError()
 
-class _BasePager(Pager):
+    if type == PagerType.POST_ALL_DOCS:
+      return Pagination(client, _AllDocsPager, kwargs)
+    if type == PagerType.POST_DESIGN_DOCS:
+      return Pagination(client, _DesignDocsPager, kwargs)
+    if type == PagerType.POST_FIND:
+      return Pagination(client, _FindPager, kwargs)
+    if type == PagerType.POST_PARTITION_ALL_DOCS:
+      return Pagination(client, _AllDocsPartitionPager, kwargs)
+    if type == PagerType.POST_PARTITION_FIND:
+      return Pagination(client, _FindPartitionPager, kwargs)
+    if type == PagerType.POST_PARTITION_SEARCH:
+      return Pagination(client, _SearchPartitionPager, kwargs)
+    if type == PagerType.POST_PARTITION_VIEW:
+      return Pagination(client, _ViewPartitionPager, kwargs)
+    if type == PagerType.POST_SEARCH:
+      return Pagination(client, _SearchPager, kwargs)
+    if type == PagerType.POST_VIEW:
+      return Pagination(client, _ViewPager, kwargs)
+
+# TODO state checks
+class _IteratorPagerState(Enum):
+  NEW = auto()
+  GET_NEXT = auto()
+  GET_ALL = auto()
+  CONSUMED = auto()
+
+class _IteratorPager(Pager[I]):
+
+  _state_mixed_msg = 'This pager has been consumed, use a new Pager.'
+  _state_consumed_msg = 'Cannot mix get_all() and get_next() use only one method or make a new Pager.'
+
+  def __init__(self, iterable_func: Callable[[], Iterator[tuple[I]]]):
+    self._iterable_func: Callable[[], Iterator[tuple[I]]] = iterable_func
+    self._iterator: Iterator[tuple[I]] = iter(self._iterable_func())
+    self._state: _IteratorPagerState = _IteratorPagerState.NEW
+
+  def has_next(self) -> bool:
+    """
+    returns False if there are no more pages
+    """
+
+    return self._iterator._has_next
+
+  def get_next(self) -> tuple[I]:
+    """
+    returns the next page of results
+    """
+    self._check_state(mode=_IteratorPagerState.GET_NEXT)
+    page: tuple[I] = next(self._iterator)
+    if not self._iterator._has_next:
+      self._state = _IteratorPagerState.CONSUMED
+    return page
+
+  def get_all(self) -> tuple[I]:
+    """
+    returns all the pages of results in single list
+    """
+
+    self._check_state(mode=_IteratorPagerState.GET_ALL)
+    all_items: list[I] = []
+    for page in self._iterable_func():
+      all_items.extend(page)
+    self._state = _IteratorPagerState.CONSUMED
+    return (*all_items,)
+
+  def _check_state(self, mode: _IteratorPagerState):
+    if self._state == mode:
+      return
+    if self._state == _IteratorPagerState.NEW:
+      self._state = mode
+      return
+    if self._state == _IteratorPagerState.CONSUMED:
+      raise Exception(_IteratorPager._state_consumed_msg)
+    raise Exception(_IteratorPager._state_mixed_msg)
+
+class _BasePager(Iterator[tuple[I]]):
 
   def __init__(self,
                client: CloudantV1,
@@ -109,37 +238,17 @@ class _BasePager(Pager):
     for k in page_opts:
       if v := fixed_opts.pop(k, None):
         self._next_page_opts[k] = v
-    self._initial_opts = dict(opts)
     fixed_opts = MappingProxyType(fixed_opts)
     # Partial method with the fixed ops
     self._next_request_function: Callable[..., DetailedResponse] = partial(operation, **fixed_opts)
 
-  def _new_copy(self) -> Pager:
-    # Make and return new instance of the specific sub-class in use
-    return type(self)(
-      self._client,
-      { **self._next_request_function.keywords, **self._initial_opts })
+  def __iter__(self) -> Iterator[tuple[I]]:
+    return self
 
-
-  def has_next(self) -> bool:
-    return self._has_next
-
-  def get_next(self) -> tuple[I]:
-    if self.has_next():
+  def __next__(self) -> tuple[I]:
+    if self._has_next:
       return (*self._next_request(),)
     raise StopIteration()
-
-  def get_all(self) -> tuple[I]:
-    all_items = []
-    for page in self:
-      all_items.extend(page)
-    return (*all_items,)
-
-  def __iter__(self):
-    return self._new_copy()
-
-  def __next__(self):
-    return self.get_next()
 
   def _next_request(self) -> list[I]:
     response: DetailedResponse = self._next_request_function(**self._next_page_opts)
@@ -177,7 +286,7 @@ class _KeyPager(_BasePager, Generic[K]):
     if self._boundary_failure is not None:
       raise Exception(self._boundary_failure)
     items: list[I] = super()._next_request()
-    if self.has_next():
+    if self._has_next:
       last_item: I = items.pop()
       if len(items) > 0:
         # Get, but don't remove the last item from the list
@@ -282,8 +391,8 @@ class _ViewBasePager(_KeyPager[any]):
     return ViewResult.from_dict
 
   def check_boundary(self, penultimate_item: I, last_item: I) -> str | None:
-    if penultimate_item.id == (boundary_id:= last_item.id) \
-      and penultimate_item.key == (boundary_key:= last_item.key):
+    if penultimate_item.id == (boundary_id := last_item.id) \
+      and penultimate_item.key == (boundary_key := last_item.key):
       return f'Cannot paginate on a boundary containing identical keys {boundary_key} and document IDs {boundary_id}'
     return None
 
