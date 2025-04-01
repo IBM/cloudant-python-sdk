@@ -19,10 +19,10 @@ from itertools import batched
 from unittest.mock import Mock, patch
 from ibm_cloud_sdk_core import DetailedResponse
 from ibmcloudant.cloudant_v1 import ViewResult, ViewResultRow
-from ibmcloudant.features.pagination import _KeyPager, Pager
+from ibmcloudant.features.pagination import _KeyPageIterator, Pager
 from conftest import MockClientBaseCase
 
-class KeyTestPager(_KeyPager):
+class KeyTestPageIterator(_KeyPageIterator):
   """
   A test subclass of the _KeyPager under test.
   """
@@ -30,7 +30,7 @@ class KeyTestPager(_KeyPager):
   boundary_func: Callable = lambda p,l: None
 
   def __init__(self, client, opts):
-    super().__init__(client, KeyTestPager.operation or client.post_view, opts)
+    super().__init__(client, KeyTestPageIterator.operation or client.post_view, opts)
 
   def _result_converter(self) -> Callable[[dict], ViewResult]:
     return lambda d: ViewResult.from_dict(d)
@@ -45,7 +45,7 @@ class KeyTestPager(_KeyPager):
       return {'start_key': result.rows[-1].key}
   
   def check_boundary(self, penultimate_item, last_item):
-    return KeyTestPager.boundary_func(penultimate_item, last_item)
+    return KeyTestPageIterator.boundary_func(penultimate_item, last_item)
 
 class MockPageResponses:
   """
@@ -87,17 +87,17 @@ class MockPageResponses:
       all_items.extend(page)
     return all_items
 
-class TestKeyPager(MockClientBaseCase):
+class TestKeyPageIterator(MockClientBaseCase):
 
   # Test page size default (+1)
   def test_default_page_size(self):
-    pager: Pager = KeyTestPager(self.client, {})
+    pager: Pager = KeyTestPageIterator(self.client, {})
     # Assert the limit default as page size
     self.assertEqual(pager._page_size, 201, 'The page size should be one more than the default limit.')
 
   # Test page size limit (+1)
   def test_limit_page_size(self):
-    pager: Pager = KeyTestPager(self.client, {'limit': 42})
+    pager: Pager = KeyTestPageIterator(self.client, {'limit': 42})
     # Assert the limit provided as page size
     self.assertEqual(pager._page_size, 43, 'The page size should be one more than the default limit.')
 
@@ -106,7 +106,7 @@ class TestKeyPager(MockClientBaseCase):
     page_size = 21
     mock = MockPageResponses(page_size, page_size)
     with patch('test_pagination_key.KeyTestPager.operation', mock.get_next_page):
-      pager = KeyTestPager(self.client, {'limit': page_size})
+      pager = KeyTestPageIterator(self.client, {'limit': page_size})
       # Get and assert first page
       actual_page = pager.get_next()
       self.assertSequenceEqual(actual_page, mock.get_expected_page(1), 'The actual page should match the expected page')
@@ -120,7 +120,7 @@ class TestKeyPager(MockClientBaseCase):
     page_size = 14
     mock = MockPageResponses(page_size+1, page_size)
     with patch('test_pagination_key.KeyTestPager.operation', mock.get_next_page):
-      pager = KeyTestPager(self.client, {'limit': page_size})
+      pager = KeyTestPageIterator(self.client, {'limit': page_size})
       # Get and assert first page
       actual_page = pager.get_next()
       self.assertSequenceEqual(actual_page, mock.get_expected_page(1), 'The actual page should match the expected page.')
@@ -141,7 +141,7 @@ class TestKeyPager(MockClientBaseCase):
     page_size = 7
     mock = MockPageResponses(page_size+2, page_size)
     with patch('test_pagination_key.KeyTestPager.operation', mock.get_next_page):
-      pager = KeyTestPager(self.client, {'limit': page_size})
+      pager = KeyTestPageIterator(self.client, {'limit': page_size})
       # Get and assert first page
       actual_page = pager.get_next()
       self.assertSequenceEqual(actual_page, mock.get_expected_page(1), 'The actual page should match the expected page.')
@@ -162,7 +162,7 @@ class TestKeyPager(MockClientBaseCase):
     page_size = 3
     mock = MockPageResponses(page_size*12, page_size)
     with patch('test_pagination_key.KeyTestPager.operation', mock.get_next_page):
-      pager = KeyTestPager(self.client, {'limit': page_size})
+      pager = KeyTestPageIterator(self.client, {'limit': page_size})
       # Get and assert all items
       self.assertSequenceEqual(pager.get_all(), mock.all_expected_items(), 'The results should match all the pages.')
 
@@ -174,7 +174,7 @@ class TestKeyPager(MockClientBaseCase):
       expected_rows = ViewResult.from_dict({'rows': mock_rows}).rows
       mockmock = Mock(return_value=DetailedResponse(response={'rows': mock_rows}))
       with patch('test_pagination_key.KeyTestPager.operation', mockmock):
-        pager = KeyTestPager(self.client, {'limit': 1})
+        pager = KeyTestPageIterator(self.client, {'limit': 1})
         # Get and assert page
         self.assertSequenceEqual(pager.get_next(), (expected_rows[0],))
 
@@ -186,7 +186,7 @@ class TestKeyPager(MockClientBaseCase):
       expected_rows = ViewResult.from_dict({'rows': mock_rows}).rows
       mockmock = Mock(return_value=DetailedResponse(response={'rows': mock_rows}))
       with patch('test_pagination_key.KeyTestPager.operation', mockmock):
-        pager = KeyTestPager(self.client, {'limit': 1})
+        pager = KeyTestPageIterator(self.client, {'limit': 1})
       with patch(
         'test_pagination_key.KeyTestPager.boundary_func',
         lambda p,l: 'test error' if p.id == l.id and p.key == l.key else None):
@@ -204,7 +204,7 @@ class TestKeyPager(MockClientBaseCase):
       expected_rows = ViewResult.from_dict({'rows': mock_rows}).rows
       mockmock = Mock(return_value=DetailedResponse(response={'rows': mock_rows}))
       with patch('test_pagination_key.KeyTestPager.operation', mockmock):
-        pager = KeyTestPager(self.client, {'limit': 1})
+        pager = KeyTestPageIterator(self.client, {'limit': 1})
       with patch(
         'test_pagination_key.KeyTestPager.boundary_func',
         Exception('Check boundary should not be called.')):

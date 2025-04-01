@@ -145,23 +145,23 @@ class Pagination:
     """
 
     if type == PagerType.POST_ALL_DOCS:
-      return Pagination(client, _AllDocsPager, kwargs)
+      return Pagination(client, _AllDocsPageIterator, kwargs)
     if type == PagerType.POST_DESIGN_DOCS:
-      return Pagination(client, _DesignDocsPager, kwargs)
+      return Pagination(client, _DesignDocsPageIterator, kwargs)
     if type == PagerType.POST_FIND:
-      return Pagination(client, _FindPager, kwargs)
+      return Pagination(client, _FindPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_ALL_DOCS:
-      return Pagination(client, _AllDocsPartitionPager, kwargs)
+      return Pagination(client, _AllDocsPartitionPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_FIND:
-      return Pagination(client, _FindPartitionPager, kwargs)
+      return Pagination(client, _FindPartitionPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_SEARCH:
-      return Pagination(client, _SearchPartitionPager, kwargs)
+      return Pagination(client, _SearchPartitionPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_VIEW:
-      return Pagination(client, _ViewPartitionPager, kwargs)
+      return Pagination(client, _ViewPartitionPageIterator, kwargs)
     if type == PagerType.POST_SEARCH:
-      return Pagination(client, _SearchPager, kwargs)
+      return Pagination(client, _SearchPageIterator, kwargs)
     if type == PagerType.POST_VIEW:
-      return Pagination(client, _ViewPager, kwargs)
+      return Pagination(client, _ViewPageIterator, kwargs)
 
 # TODO state checks
 class _IteratorPagerState(Enum):
@@ -219,7 +219,7 @@ class _IteratorPager(Pager[I]):
       raise Exception(_IteratorPager._state_consumed_msg)
     raise Exception(_IteratorPager._state_mixed_msg)
 
-class _BasePager(Iterator[tuple[I]]):
+class _BasePageIterator(Iterator[tuple[I]]):
 
   def __init__(self,
                client: CloudantV1,
@@ -276,7 +276,7 @@ class _BasePager(Iterator[tuple[I]]):
   def _get_next_page_options(self, result: R) -> dict:
     raise NotImplementedError()
 
-class _KeyPager(_BasePager, Generic[K]):
+class _KeyPageIterator(_BasePageIterator, Generic[K]):
 
   def __init__(self, client: CloudantV1, operation: Callable[..., DetailedResponse], opts: dict):
     super().__init__(client, operation, ['start_key', 'start_key_doc_id'], opts)
@@ -312,7 +312,7 @@ class _KeyPager(_BasePager, Generic[K]):
   def check_boundary(self, penultimate_item: I, last_item: I) -> str | None:
     raise NotImplementedError()
 
-class _BookmarkPager(_BasePager):
+class _BookmarkPageIterator(_BasePageIterator):
 
   def __init__(self, client: CloudantV1, operation: Callable[..., DetailedResponse], opts: dict):
     super().__init__(client, operation, ['bookmark'], opts)
@@ -320,7 +320,7 @@ class _BookmarkPager(_BasePager):
   def _get_next_page_options(self, result: R) -> dict:
     return {'bookmark': result.bookmark}
 
-class _AllDocsBasePager(_KeyPager[str]):
+class _AllDocsBasePageIterator(_KeyPageIterator[str]):
 
   def _result_converter(self) -> Callable[[dict], AllDocsResult]:
     return AllDocsResult.from_dict
@@ -334,22 +334,22 @@ class _AllDocsBasePager(_KeyPager[str]):
     # IDs are always unique in _all_docs pagers so return None
     return None
 
-class _AllDocsPager(_AllDocsBasePager):
+class _AllDocsPageIterator(_AllDocsBasePageIterator):
 
   def __init__(self, client: CloudantV1, opts: dict):
     super().__init__(client, client.post_all_docs, opts)
 
-class _AllDocsPartitionPager(_AllDocsBasePager):
+class _AllDocsPartitionPageIterator(_AllDocsBasePageIterator):
 
   def __init__(self, client: CloudantV1, opts: dict):
     super().__init__(client, client.post_partition_all_docs, opts)
 
-class _DesignDocsPager(_AllDocsBasePager):
+class _DesignDocsPageIterator(_AllDocsBasePageIterator):
 
   def __init__(self, client: CloudantV1, opts: dict):
     super().__init__(client, client.post_design_docs, opts)
 
-class _FindBasePager(_BookmarkPager):
+class _FindBasePageIterator(_BookmarkPageIterator):
 
   def _items(self, result: FindResult):
     return result.docs
@@ -357,17 +357,17 @@ class _FindBasePager(_BookmarkPager):
   def _result_converter(self):
     return FindResult.from_dict
 
-class _FindPager(_FindBasePager):
+class _FindPageIterator(_FindBasePageIterator):
 
   def __init__(self, client: CloudantV1, opts: dict):
     super().__init__(client, client.post_find, opts)
 
-class _FindPartitionPager(_FindBasePager):
+class _FindPartitionPageIterator(_FindBasePageIterator):
 
   def __init__(self, client: CloudantV1, opts: dict):
     super().__init__(client, client.post_partition_find, opts)
 
-class _SearchBasePager(_BookmarkPager):
+class _SearchBasePageIterator(_BookmarkPageIterator):
 
   def _items(self, result: SearchResult):
     return result.rows
@@ -375,17 +375,17 @@ class _SearchBasePager(_BookmarkPager):
   def _result_converter(self):
     return SearchResult.from_dict
 
-class _SearchPager(_SearchBasePager):
+class _SearchPageIterator(_SearchBasePageIterator):
 
   def __init__(self, client: CloudantV1, opts: dict):
     super().__init__(client, client.post_search, opts)
 
-class _SearchPartitionPager(_SearchBasePager):
+class _SearchPartitionPageIterator(_SearchBasePageIterator):
 
   def __init__(self, client: CloudantV1, opts: dict):
     super().__init__(client, client.post_partition_search, opts)
 
-class _ViewBasePager(_KeyPager[any]):
+class _ViewBasePageIterator(_KeyPageIterator[any]):
 
   def _result_converter(self):
     return ViewResult.from_dict
@@ -396,12 +396,12 @@ class _ViewBasePager(_KeyPager[any]):
       return f'Cannot paginate on a boundary containing identical keys {boundary_key} and document IDs {boundary_id}'
     return None
 
-class _ViewPager(_ViewBasePager):
+class _ViewPageIterator(_ViewBasePageIterator):
 
   def __init__(self, client: CloudantV1, opts: dict):
     super().__init__(client, client.post_view, opts)
 
-class _ViewPartitionPager(_ViewBasePager):
+class _ViewPartitionPageIterator(_ViewBasePageIterator):
 
   def __init__(self, client: CloudantV1, opts: dict):
     super().__init__(client, client.post_partition_view, opts)

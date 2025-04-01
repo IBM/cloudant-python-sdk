@@ -19,10 +19,10 @@ from itertools import batched
 from unittest.mock import Mock, patch
 from ibm_cloud_sdk_core import DetailedResponse
 from ibmcloudant.cloudant_v1 import SearchResult, SearchResultRow
-from ibmcloudant.features.pagination import _BookmarkPager, Pager
+from ibmcloudant.features.pagination import _BookmarkPageIterator, Pager
 from conftest import MockClientBaseCase
 
-class BookmarkTestPager(_BookmarkPager):
+class BookmarkTestPageIterator(_BookmarkPageIterator):
   """
   A test subclass of the _BookmarkPager under test.
   """
@@ -30,7 +30,7 @@ class BookmarkTestPager(_BookmarkPager):
   boundary_func: Callable = lambda p,l: None
 
   def __init__(self, client, opts):
-    super().__init__(client, BookmarkTestPager.operation or client.post_view, opts)
+    super().__init__(client, BookmarkTestPageIterator.operation or client.post_view, opts)
 
   def _result_converter(self) -> Callable[[dict], SearchResult]:
     return lambda d: SearchResult.from_dict(d)
@@ -71,17 +71,17 @@ class MockPageResponses:
       all_items.extend(page)
     return all_items
 
-class TestBookmarkPager(MockClientBaseCase):
+class TestBookmarkPageIterator(MockClientBaseCase):
 
   # Test page size default
   def test_default_page_size(self):
-    pager: Pager = BookmarkTestPager(self.client, {})
+    pager: Pager = BookmarkTestPageIterator(self.client, {})
     # Assert the limit default as page size
     self.assertEqual(pager._page_size, 200, 'The page size should be one more than the default limit.')
 
   # Test page size limit
   def test_limit_page_size(self):
-    pager: Pager = BookmarkTestPager(self.client, {'limit': 42})
+    pager: Pager = BookmarkTestPageIterator(self.client, {'limit': 42})
     # Assert the limit provided as page size
     self.assertEqual(pager._page_size, 42, 'The page size should be one more than the default limit.')
 
@@ -90,7 +90,7 @@ class TestBookmarkPager(MockClientBaseCase):
     page_size = 21
     mock = MockPageResponses(page_size - 1, page_size)
     with patch('test_pagination_bookmark.BookmarkTestPager.operation', mock.get_next_page):
-      pager = BookmarkTestPager(self.client, {'limit': page_size})
+      pager = BookmarkTestPageIterator(self.client, {'limit': page_size})
       # Get and assert first page
       actual_page = pager.get_next()
       self.assertSequenceEqual(actual_page, mock.get_expected_page(1), 'The actual page should match the expected page')
@@ -104,7 +104,7 @@ class TestBookmarkPager(MockClientBaseCase):
     page_size = 14
     mock = MockPageResponses(page_size, page_size)
     with patch('test_pagination_bookmark.BookmarkTestPager.operation', mock.get_next_page):
-      pager = BookmarkTestPager(self.client, {'limit': page_size})
+      pager = BookmarkTestPageIterator(self.client, {'limit': page_size})
       # Get and assert first page
       actual_page = pager.get_next()
       self.assertSequenceEqual(actual_page, mock.get_expected_page(1), 'The actual page should match the expected page.')
@@ -125,7 +125,7 @@ class TestBookmarkPager(MockClientBaseCase):
     page_size = 7
     mock = MockPageResponses(page_size+2, page_size)
     with patch('test_pagination_bookmark.BookmarkTestPager.operation', mock.get_next_page):
-      pager = BookmarkTestPager(self.client, {'limit': page_size})
+      pager = BookmarkTestPageIterator(self.client, {'limit': page_size})
       # Get and assert first page
       actual_page = pager.get_next()
       self.assertSequenceEqual(actual_page, mock.get_expected_page(1), 'The actual page should match the expected page.')
@@ -146,6 +146,6 @@ class TestBookmarkPager(MockClientBaseCase):
     page_size = 3
     mock = MockPageResponses(page_size*12, page_size)
     with patch('test_pagination_bookmark.BookmarkTestPager.operation', mock.get_next_page):
-      pager = BookmarkTestPager(self.client, {'limit': page_size})
+      pager = BookmarkTestPageIterator(self.client, {'limit': page_size})
       # Get and assert all items
       self.assertSequenceEqual(pager.get_all(), mock.all_expected_items(), 'The results should match all the pages.')
