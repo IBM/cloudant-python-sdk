@@ -163,7 +163,6 @@ class Pagination:
     if type == PagerType.POST_VIEW:
       return Pagination(client, _ViewPageIterator, kwargs)
 
-# TODO state checks
 class _IteratorPagerState(Enum):
   NEW = auto()
   GET_NEXT = auto()
