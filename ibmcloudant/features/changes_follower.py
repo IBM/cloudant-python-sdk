@@ -359,16 +359,15 @@ class ChangesFollower:
         self._options = value
 
     def _set_defaults(self, mode: _Mode, limit: int = None):
-        match mode:
-            case _Mode.FINITE:
-                defaults = {
-                    'feed': PostChangesEnums.Feed.NORMAL
-                }
-            case _Mode.LISTEN:
-                defaults = {
-                    'feed': PostChangesEnums.Feed.LONGPOLL,
-                    'timeout': _LONGPOLL_TIMEOUT,
-                }
+        if mode == _Mode.FINITE:
+            defaults = {
+                'feed': PostChangesEnums.Feed.NORMAL
+            }
+        elif mode == _Mode.LISTEN:
+            defaults = {
+                'feed': PostChangesEnums.Feed.LONGPOLL,
+                'timeout': _LONGPOLL_TIMEOUT,
+            }
         if limit is not None:
             self.logger.debug(f'Applying changes limit {limit}')
             defaults['limit'] = limit
