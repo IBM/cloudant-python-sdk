@@ -113,6 +113,16 @@ class TestChangesFollowerOptions(ChangesFollowerBaseCase):
     def test_set_defaults(self):
         follower = ChangesFollower(self.client, db="db", **self.kwarg_valid)
         expected = {
+            "feed": PostChangesEnums.Feed.NORMAL,
+            "timeout": None,
+        }
+        for opt, val in expected.items():
+            self.assertEqual(follower.options.get(opt), val)
+
+    def test_set_defaults_listen(self):
+        follower = ChangesFollower(self.client, db="db", **self.kwarg_valid)
+        follower._set_defaults(_Mode.LISTEN)
+        expected = {
             "feed": PostChangesEnums.Feed.LONGPOLL,
             "timeout": _LONGPOLL_TIMEOUT,
         }
@@ -121,7 +131,18 @@ class TestChangesFollowerOptions(ChangesFollowerBaseCase):
 
     def test_set_defaults_with_limit(self):
         follower = ChangesFollower(self.client, db="db", **self.kwarg_valid)
-        follower._set_defaults(limit=12)
+        follower._set_defaults(_Mode.FINITE, limit=12)
+        expected = {
+            "feed": PostChangesEnums.Feed.NORMAL,
+            "timeout": None,
+            "limit": 12,
+        }
+        for opt, val in expected.items():
+            self.assertEqual(follower.options.get(opt), val)
+
+    def test_set_defaults_listen_with_limit(self):
+        follower = ChangesFollower(self.client, db="db", **self.kwarg_valid)
+        follower._set_defaults(_Mode.LISTEN, limit=12)
         expected = {
             "feed": PostChangesEnums.Feed.LONGPOLL,
             "timeout": _LONGPOLL_TIMEOUT,
@@ -133,7 +154,7 @@ class TestChangesFollowerOptions(ChangesFollowerBaseCase):
     def test_set_defaults_with_kwarg_limit(self):
         kwarg = {**self.kwarg_valid, **{"limit": 24}}
         follower = ChangesFollower(self.client, db="db", **kwarg)
-        follower._set_defaults(limit=12)
+        follower._set_defaults(_Mode.LISTEN, limit=12)
         self.assertEqual(follower.options.get("limit"), 12)
 
 
