@@ -293,7 +293,7 @@ class ChangesFollower:
     ) -> None:
         self.options = kwargs
         self.limit = self.options.get('limit')
-        self._set_defaults()
+        self._set_defaults(_Mode.FINITE)
         self.service = service
         self.error_tolerance = error_tolerance
         self._iter = None
@@ -358,11 +358,16 @@ class ChangesFollower:
             raise ValueError(error_fmt.format(invalid_opts_list, class_name))
         self._options = value
 
-    def _set_defaults(self, limit: int = None):
-        defaults = {
-            'feed': PostChangesEnums.Feed.LONGPOLL,
-            'timeout': _LONGPOLL_TIMEOUT,
-        }
+    def _set_defaults(self, mode: _Mode, limit: int = None):
+        if mode == _Mode.FINITE:
+            defaults = {
+                'feed': PostChangesEnums.Feed.NORMAL
+            }
+        elif mode == _Mode.LISTEN:
+            defaults = {
+                'feed': PostChangesEnums.Feed.LONGPOLL,
+                'timeout': _LONGPOLL_TIMEOUT,
+            }
         if limit is not None:
             self.logger.debug(f'Applying changes limit {limit}')
             defaults['limit'] = limit
@@ -445,7 +450,7 @@ class ChangesFollower:
         if self.limit is not None:
             batch_size = self.limit if self.limit < batch_size else batch_size
 
-        self._set_defaults(batch_size)
+        self._set_defaults(mode, batch_size)
         changes_caller = functools.partial(
             self.service.post_changes, **self.options
         )
