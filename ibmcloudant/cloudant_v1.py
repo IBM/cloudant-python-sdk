@@ -8110,9 +8110,9 @@ class CloudantV1(BaseService):
         **kwargs,
     ) -> DetailedResponse:
         """
-        Retrieve Activity Tracker events information.
+        Retrieve activity tracking events information.
 
-        Check event types that are being sent to IBM Cloud Activity Tracker for the IBM
+        Check event types sent to IBM Cloud Activity Tracker Event Routing for the IBM
         Cloudant instance.
 
         :param dict headers: A `dict` containing the request headers
@@ -8149,13 +8149,13 @@ class CloudantV1(BaseService):
         **kwargs,
     ) -> DetailedResponse:
         """
-        Modify Activity Tracker events configuration.
+        Modify activity tracking events configuration.
 
-        Configure event types that are being sent to IBM Cloud Activity Tracker for the
-        IBM Cloudant instance.
+        Configure event types sent to IBM Cloud Activity Tracker Event Routing for the IBM
+        Cloudant instance.
 
-        :param List[str] types: An array of event types that are being sent to IBM
-               Cloud Activity Tracker for the IBM Cloudant instance. "management" is a
+        :param List[str] types: An array of event types sent to IBM Cloud Activity
+               Tracker Event Routing for the IBM Cloudant instance. "management" is a
                required element of this array.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
@@ -9146,10 +9146,10 @@ class ActiveTask:
 
 class ActivityTrackerEvents:
     """
-    Schema for Activity Tracker events.
+    Schema for activity tracking events.
 
-    :param List[str] types: An array of event types that are being sent to IBM Cloud
-          Activity Tracker for the IBM Cloudant instance. "management" is a required
+    :param List[str] types: An array of event types sent to IBM Cloud Activity
+          Tracker Event Routing for the IBM Cloudant instance. "management" is a required
           element of this array.
     """
 
@@ -9160,8 +9160,8 @@ class ActivityTrackerEvents:
         """
         Initialize a ActivityTrackerEvents object.
 
-        :param List[str] types: An array of event types that are being sent to IBM
-               Cloud Activity Tracker for the IBM Cloudant instance. "management" is a
+        :param List[str] types: An array of event types sent to IBM Cloud Activity
+               Tracker Event Routing for the IBM Cloudant instance. "management" is a
                required element of this array.
         """
         self.types = types
@@ -9637,26 +9637,28 @@ class Analyzer:
         CLASSIC = 'classic'
         EMAIL = 'email'
         KEYWORD = 'keyword'
+        PERFIELD = 'perfield'
         SIMPLE = 'simple'
+        SIMPLE_ASCIIFOLDING = 'simple_asciifolding'
         STANDARD = 'standard'
         WHITESPACE = 'whitespace'
         ARABIC = 'arabic'
         ARMENIAN = 'armenian'
         BASQUE = 'basque'
-        BULGARIAN = 'bulgarian'
         BRAZILIAN = 'brazilian'
+        BULGARIAN = 'bulgarian'
         CATALAN = 'catalan'
-        CJK = 'cjk'
         CHINESE = 'chinese'
+        CJK = 'cjk'
         CZECH = 'czech'
         DANISH = 'danish'
         DUTCH = 'dutch'
         ENGLISH = 'english'
         FINNISH = 'finnish'
         FRENCH = 'french'
+        GALICIAN = 'galician'
         GERMAN = 'german'
         GREEK = 'greek'
-        GALICIAN = 'galician'
         HINDI = 'hindi'
         HUNGARIAN = 'hungarian'
         INDONESIAN = 'indonesian'
@@ -9674,7 +9676,6 @@ class Analyzer:
         SWEDISH = 'swedish'
         THAI = 'thai'
         TURKISH = 'turkish'
-        PERFIELD = 'perfield'
 
 
 
@@ -9784,26 +9785,28 @@ class AnalyzerConfiguration:
         CLASSIC = 'classic'
         EMAIL = 'email'
         KEYWORD = 'keyword'
+        PERFIELD = 'perfield'
         SIMPLE = 'simple'
+        SIMPLE_ASCIIFOLDING = 'simple_asciifolding'
         STANDARD = 'standard'
         WHITESPACE = 'whitespace'
         ARABIC = 'arabic'
         ARMENIAN = 'armenian'
         BASQUE = 'basque'
-        BULGARIAN = 'bulgarian'
         BRAZILIAN = 'brazilian'
+        BULGARIAN = 'bulgarian'
         CATALAN = 'catalan'
-        CJK = 'cjk'
         CHINESE = 'chinese'
+        CJK = 'cjk'
         CZECH = 'czech'
         DANISH = 'danish'
         DUTCH = 'dutch'
         ENGLISH = 'english'
         FINNISH = 'finnish'
         FRENCH = 'french'
+        GALICIAN = 'galician'
         GERMAN = 'german'
         GREEK = 'greek'
-        GALICIAN = 'galician'
         HINDI = 'hindi'
         HUNGARIAN = 'hungarian'
         INDONESIAN = 'indonesian'
@@ -9821,7 +9824,6 @@ class AnalyzerConfiguration:
         SWEDISH = 'swedish'
         THAI = 'thai'
         TURKISH = 'turkish'
-        PERFIELD = 'perfield'
 
 
 
