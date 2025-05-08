@@ -22,7 +22,7 @@
 """
 
 from abc import abstractmethod
-from collections.abc import Callable, Iterable, Iterator
+from collections.abc import Callable, Iterable, Iterator, Sequence
 from enum import auto, Enum
 from functools import partial
 from types import MappingProxyType
@@ -38,6 +38,9 @@ R = TypeVar('R', AllDocsResult, FindResult, SearchResult, ViewResult)
 I = TypeVar('I', DocsResultRow, Document, SearchResultRow, ViewResultRow)
 # Type variable for the key in key based paging
 K = TypeVar('K')
+
+_MAX_LIMIT = 200
+_MIN_LIMIT = 1
 
 class PagerType(Enum):
   """
@@ -136,6 +139,23 @@ class Pagination:
       yield from page
 
   @classmethod
+  def _validate_limit(cls, opts: dict):
+    limit: int | None = opts.get('limit')
+    # For None case the valid default limit of _MAX_LIMIT will be applied later
+    if limit is not None:
+      if limit > _MAX_LIMIT:
+        raise ValueError(f'The provided limit {limit} exceeds the maximum page size value of {_MAX_LIMIT}.')
+      if limit < _MIN_LIMIT:
+        raise ValueError(f'The provided limit {limit} is lower than the minimum page size value of {_MIN_LIMIT}.')
+
+  @classmethod
+  def _validate_options_absent(cls, invalid_opts: Sequence[str], opts: dict):
+    # for each invalid_opts entry check if it is present in opts dict
+    for invalid_opt in invalid_opts:
+      if invalid_opt in opts:
+        raise ValueError(f"The option '{invalid_opt}' is invalid when using pagination.")
+
+  @classmethod
   def new_pagination(cls, client:CloudantV1, type: PagerType, **kwargs):
     """
     Create a new Pagination.
@@ -144,23 +164,31 @@ class Pagination:
     kwargs: dict - the options for the operation
     """
 
+    # Validate the limit
+    cls._validate_limit(kwargs)
     if type == PagerType.POST_ALL_DOCS:
+      cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _AllDocsPageIterator, kwargs)
     if type == PagerType.POST_DESIGN_DOCS:
+      cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _DesignDocsPageIterator, kwargs)
     if type == PagerType.POST_FIND:
       return Pagination(client, _FindPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_ALL_DOCS:
+      cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _AllDocsPartitionPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_FIND:
       return Pagination(client, _FindPartitionPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_SEARCH:
       return Pagination(client, _SearchPartitionPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_VIEW:
+      cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _ViewPartitionPageIterator, kwargs)
     if type == PagerType.POST_SEARCH:
+      cls._validate_options_absent(('counts', 'group_field', 'group_limit', 'group_sort', 'ranges',), kwargs)
       return Pagination(client, _SearchPageIterator, kwargs)
     if type == PagerType.POST_VIEW:
+      cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _ViewPageIterator, kwargs)
 
 class _IteratorPagerState(Enum):
@@ -261,7 +289,7 @@ class _BasePageIterator(Iterator[tuple[I]]):
     return items
 
   def _page_size_from_opts_limit(self, opts:dict) -> int:
-    return opts.get('limit', 200)
+    return opts.get('limit', _MAX_LIMIT)
 
   @abstractmethod
   def _result_converter(self) -> Callable[[dict], R]:
