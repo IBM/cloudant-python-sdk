@@ -356,6 +356,7 @@ class _AllDocsBasePageIterator(_KeyPageIterator[str]):
     # Remove start_key_doc_id for all_docs paging
     opts: dict = super()._get_next_page_options(result)
     del opts['start_key_doc_id']
+    return opts
 
   def check_boundary(self, penultimate_item: I, last_item: I) -> str | None:
     # IDs are always unique in _all_docs pagers so return None
