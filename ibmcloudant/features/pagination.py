@@ -102,7 +102,7 @@ class Pagination:
    * :meth:`rows` - for a row Iterable
   """
 
-  def __init__(self, client: CloudantV1, type, opts: dict):
+  def __init__(self, client: CloudantV1, type: PagerType, opts: dict):
     self._client = client
     self._operation_type = type
     self._initial_opts = dict(opts)
