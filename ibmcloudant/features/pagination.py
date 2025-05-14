@@ -74,7 +74,7 @@ class Pager(Protocol[I]):
     raise NotImplementedError()
 
   @abstractmethod
-  def get_next(self) -> tuple[I]:
+  def get_next(self) -> Sequence[I]:
     """
     returns the next page of results
     """
@@ -82,7 +82,7 @@ class Pager(Protocol[I]):
     raise NotImplementedError()
 
   @abstractmethod
-  def get_all(self) -> tuple[I]:
+  def get_all(self) -> Sequence[I]:
     """
     returns all the pages of results in single list
     """
@@ -115,7 +115,7 @@ class Pagination:
 
     return _IteratorPager(self.pages)
 
-  def pages(self) -> Iterable[tuple[I]]:
+  def pages(self) -> Iterable[Sequence[I]]:
     """
     Create a new Iterable for all the pages.
     This type is useful for handling pages in a for loop.
@@ -202,9 +202,9 @@ class _IteratorPager(Pager[I]):
   _state_mixed_msg = 'This pager has been consumed, use a new Pager.'
   _state_consumed_msg = 'Cannot mix get_all() and get_next() use only one method or make a new Pager.'
 
-  def __init__(self, iterable_func: Callable[[], Iterator[tuple[I]]]):
-    self._iterable_func: Callable[[], Iterator[tuple[I]]] = iterable_func
-    self._iterator: Iterator[tuple[I]] = iter(self._iterable_func())
+  def __init__(self, iterable_func: Callable[[], Iterator[Sequence[I]]]):
+    self._iterable_func: Callable[[], Iterator[Sequence[I]]] = iterable_func
+    self._iterator: Iterator[Sequence[I]] = iter(self._iterable_func())
     self._state: _IteratorPagerState = _IteratorPagerState.NEW
 
   def has_next(self) -> bool:
@@ -214,17 +214,17 @@ class _IteratorPager(Pager[I]):
 
     return self._iterator._has_next
 
-  def get_next(self) -> tuple[I]:
+  def get_next(self) -> Sequence[I]:
     """
     returns the next page of results
     """
     self._check_state(mode=_IteratorPagerState.GET_NEXT)
-    page: tuple[I] = next(self._iterator)
+    page: Sequence[I] = next(self._iterator)
     if not self._iterator._has_next:
       self._state = _IteratorPagerState.CONSUMED
     return page
 
-  def get_all(self) -> tuple[I]:
+  def get_all(self) -> Sequence[I]:
     """
     returns all the pages of results in single list
     """
@@ -246,7 +246,7 @@ class _IteratorPager(Pager[I]):
       raise Exception(_IteratorPager._state_consumed_msg)
     raise Exception(_IteratorPager._state_mixed_msg)
 
-class _BasePageIterator(Iterator[tuple[I]]):
+class _BasePageIterator(Iterator[Sequence[I]]):
 
   def __init__(self,
                client: CloudantV1,
@@ -269,10 +269,10 @@ class _BasePageIterator(Iterator[tuple[I]]):
     # Partial method with the fixed ops
     self._next_request_function: Callable[..., DetailedResponse] = partial(operation, **fixed_opts)
 
-  def __iter__(self) -> Iterator[tuple[I]]:
+  def __iter__(self) -> Iterator[Sequence[I]]:
     return self
 
-  def __next__(self) -> tuple[I]:
+  def __next__(self) -> Sequence[I]:
     if self._has_next:
       return (*self._next_request(),)
     raise StopIteration()
