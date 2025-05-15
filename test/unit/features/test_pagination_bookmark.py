@@ -15,12 +15,10 @@
 # limitations under the License.
 
 from collections.abc import Callable, Iterator
-from itertools import batched
-from unittest.mock import Mock, patch
-from ibm_cloud_sdk_core import DetailedResponse
+from unittest.mock import patch
 from ibmcloudant.cloudant_v1 import SearchResult, SearchResultRow
-from ibmcloudant.features.pagination import _BookmarkPageIterator, Pager, Pagination
-from conftest import MockClientBaseCase
+from ibmcloudant.features.pagination import _BookmarkPageIterator, PagerType, Pagination
+from conftest import MockClientBaseCase, PaginationMockResponse
 
 class BookmarkTestPageIterator(_BookmarkPageIterator):
   """
@@ -38,38 +36,12 @@ class BookmarkTestPageIterator(_BookmarkPageIterator):
   def _items(self, result: SearchResult) -> tuple[SearchResultRow]:
     return result.rows
 
-class MockPageResponses:
+class BookmarkPaginationMockResponses(PaginationMockResponse):
   """
   Test class for mocking page responses.
   """
   def __init__(self, total_items: int, page_size: int):
-    self.total_items: int = total_items
-    self.page_size: int = page_size
-    self.pages = self.generator()
-    self.expected_pages: list[list[SearchResultRow]] = []
-
-  def generator(self):
-    for page in batched(range(0, self.total_items), self.page_size):
-      rows = [{'id':str(i), 'fields': {'value': i}} for i in page]
-      yield DetailedResponse(response={'total_rows': self.total_items, 'bookmark': rows[-1]['id'], 'rows': rows})
-    yield DetailedResponse(response={'total_rows': self.total_items, 'bookmark': 'last', 'rows': []})
-
-  def get_next_page(self, **kwargs):
-    # ignore kwargs
-    # get next page
-    page = next(self.pages)
-    # convert to an expected page
-    self.expected_pages.append(SearchResult.from_dict(page.get_result()).rows)
-    return page
-
-  def get_expected_page(self, page: int) -> list[SearchResultRow]:
-    return self.expected_pages[page - 1]
-
-  def all_expected_items(self) -> list[SearchResultRow]:
-    all_items: list[SearchResultRow] = []
-    for page in self.expected_pages:
-      all_items.extend(page)
-    return all_items
+    super().__init__(total_items, page_size, PagerType.POST_SEARCH)
 
 class TestBookmarkPageIterator(MockClientBaseCase):
 
@@ -88,7 +60,7 @@ class TestBookmarkPageIterator(MockClientBaseCase):
   # Test all items on page when no more pages
   def test_get_next_page_less_than_limit(self):
     page_size = 21
-    mock = MockPageResponses(page_size - 1, page_size)
+    mock = BookmarkPaginationMockResponses(page_size - 1, page_size)
     with patch('test_pagination_bookmark.BookmarkTestPageIterator.operation', mock.get_next_page):
       page_iterator = BookmarkTestPageIterator(self.client, {'limit': page_size})
       # Get and assert first page
@@ -102,7 +74,7 @@ class TestBookmarkPageIterator(MockClientBaseCase):
   # Test correct items on page when limit
   def test_get_next_page_equal_to_limit(self):
     page_size = 14
-    mock = MockPageResponses(page_size, page_size)
+    mock = BookmarkPaginationMockResponses(page_size, page_size)
     with patch('test_pagination_bookmark.BookmarkTestPageIterator.operation', mock.get_next_page):
       page_iterator = BookmarkTestPageIterator(self.client, {'limit': page_size})
       # Get and assert first page
@@ -113,7 +85,7 @@ class TestBookmarkPageIterator(MockClientBaseCase):
       # Assert has_next True
       self.assertTrue(page_iterator._has_next, '_has_next should return True.')
       # Assert bookmark
-      self.assertEqual(page_iterator._next_page_opts['bookmark'], str(page_size - 1), 'The bookmark should be one less than the page size.')
+      self.assertEqual(page_iterator._next_page_opts['bookmark'], f'testdoc{page_size - 1}', 'The bookmark should be one less than the page size.')
       # Get and assert second page
       second_page = next(page_iterator)
       # Note row keys are zero indexed so page size - 1
@@ -123,7 +95,7 @@ class TestBookmarkPageIterator(MockClientBaseCase):
   # Test correct items on page when n+more  
   def test_get_next_page_greater_than_limit(self):
     page_size = 7
-    mock = MockPageResponses(page_size+2, page_size)
+    mock = BookmarkPaginationMockResponses(page_size+2, page_size)
     with patch('test_pagination_bookmark.BookmarkTestPageIterator.operation', mock.get_next_page):
       page_iterator = BookmarkTestPageIterator(self.client, {'limit': page_size})
       # Get and assert first page
@@ -137,14 +109,14 @@ class TestBookmarkPageIterator(MockClientBaseCase):
       second_page = next(page_iterator)
       self.assertEqual(len(second_page), 2 , 'The second page should have two items.')
       # Note row keys are zero indexed so n+1 element that is first item on second page matches page size
-      self.assertEqual(second_page[0].id, str(page_size), 'The first item key on the second page should match the page size number.')
+      self.assertEqual(second_page[0].id, f'testdoc{page_size}', 'The first item key on the second page should match the page size number.')
       self.assertSequenceEqual(second_page, mock.get_expected_page(2), "The actual page should match the expected page")
       self.assertFalse(page_iterator._has_next, '_has_next should return False.')
 
   # Test getting all items
   def test_get_all(self):
     page_size = 3
-    mock = MockPageResponses(page_size*12, page_size)
+    mock = BookmarkPaginationMockResponses(page_size*12, page_size)
     pagination = Pagination(self.client, BookmarkTestPageIterator, {'limit': page_size})
     with patch('test_pagination_bookmark.BookmarkTestPageIterator.operation', mock.get_next_page):
       pager = pagination.pager()

@@ -15,12 +15,11 @@
 # limitations under the License.
 
 from collections.abc import Callable, Iterator
-from itertools import batched
 from unittest.mock import Mock, patch
 from ibm_cloud_sdk_core import DetailedResponse
 from ibmcloudant.cloudant_v1 import ViewResult, ViewResultRow
-from ibmcloudant.features.pagination import _KeyPageIterator, Pager, Pagination
-from conftest import MockClientBaseCase
+from ibmcloudant.features.pagination import _KeyPageIterator, PagerType, Pagination
+from conftest import MockClientBaseCase, PaginationMockResponse
 
 class KeyTestPageIterator(_KeyPageIterator):
   """
@@ -47,45 +46,12 @@ class KeyTestPageIterator(_KeyPageIterator):
   def check_boundary(self, penultimate_item, last_item):
     return KeyTestPageIterator.boundary_func(penultimate_item, last_item)
 
-class MockPageResponses:
+class KeyPaginationMockResponses(PaginationMockResponse):
   """
   Test class for mocking page responses.
   """
   def __init__(self, total_items: int, page_size: int):
-    self.total_items: int = total_items
-    self.page_size: int = page_size
-    self.pages = self.generator()
-    self.expected_pages: list[list[ViewResultRow]] = []
-
-  def generator(self):
-    for page in batched(range(0, self.total_items), self.page_size):
-      rows = [{'id':str(i), 'key':i, 'value':i} for i in page]
-      # Add an n+1 row for key based paging if more pages
-      if (n_plus_one := page[-1] + 1) < self.total_items:
-        rows.append({'id':str(n_plus_one), 'key':n_plus_one, 'value':n_plus_one})
-      yield DetailedResponse(response={'rows': rows})
-    yield DetailedResponse(response={'rows': []})
-
-  def get_next_page(self, **kwargs):
-    # ignore kwargs
-    # get next page
-    page = next(self.pages)
-    # convert to an expected page, removing the n+1 row if needed
-    result = ViewResult.from_dict(page.get_result())
-    if len(result.rows) > self.page_size:
-      self.expected_pages.append(result.rows[:-1])
-    else:
-      self.expected_pages.append(result.rows)
-    return page
-
-  def get_expected_page(self, page: int) -> list[ViewResultRow]:
-    return self.expected_pages[page - 1]
-  
-  def all_expected_items(self) -> list[ViewResultRow]:
-    all_items: list[ViewResultRow] = []
-    for page in self.expected_pages:
-      all_items.extend(page)
-    return all_items
+    super().__init__(total_items, page_size, PagerType.POST_VIEW)
 
 class TestKeyPageIterator(MockClientBaseCase):
 
@@ -104,7 +70,7 @@ class TestKeyPageIterator(MockClientBaseCase):
   # Test all items on page when no more pages
   def test_get_next_page_less_than_limit(self):
     page_size = 21
-    mock = MockPageResponses(page_size, page_size)
+    mock = KeyPaginationMockResponses(page_size, page_size)
     with patch('test_pagination_key.KeyTestPageIterator.operation', mock.get_next_page):
       page_iterator = KeyTestPageIterator(self.client, {'limit': page_size})
       # Get and assert first page
@@ -118,7 +84,7 @@ class TestKeyPageIterator(MockClientBaseCase):
   # Test correct items on page when n+1
   def test_get_next_page_equal_to_limit(self):
     page_size = 14
-    mock = MockPageResponses(page_size+1, page_size)
+    mock = KeyPaginationMockResponses(page_size+1, page_size)
     with patch('test_pagination_key.KeyTestPageIterator.operation', mock.get_next_page):
       page_iterator = KeyTestPageIterator(self.client, {'limit': page_size})
       # Get and assert first page
@@ -139,7 +105,7 @@ class TestKeyPageIterator(MockClientBaseCase):
   # Test correct items on page when n+more  
   def test_get_next_page_greater_than_limit(self):
     page_size = 7
-    mock = MockPageResponses(page_size+2, page_size)
+    mock = KeyPaginationMockResponses(page_size+2, page_size)
     with patch('test_pagination_key.KeyTestPageIterator.operation', mock.get_next_page):
       page_iterator = KeyTestPageIterator(self.client, {'limit': page_size})
       # Get and assert first page
@@ -160,7 +126,7 @@ class TestKeyPageIterator(MockClientBaseCase):
   # Test getting all items
   def test_get_all(self):
     page_size = 3
-    mock = MockPageResponses(page_size*12, page_size)
+    mock = KeyPaginationMockResponses(page_size*12, page_size)
     pagination = Pagination(self.client, KeyTestPageIterator, {'limit': page_size})
     with patch('test_pagination_key.KeyTestPageIterator.operation', mock.get_next_page):
       pager = pagination.pager()
