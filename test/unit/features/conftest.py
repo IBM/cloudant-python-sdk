@@ -32,7 +32,7 @@ import itertools
 from requests import codes
 from requests.exceptions import ConnectionError
 
-from ibm_cloud_sdk_core import DetailedResponse
+from ibm_cloud_sdk_core import ApiException, DetailedResponse
 
 from ibmcloudant.cloudant_v1 import (
     AllDocsResult,
@@ -124,6 +124,38 @@ class MockClientBaseCase(unittest.TestCase):
             service_name='TEST_SERVICE',
         )
 
+    def make_error_tuple(self, error: str) -> tuple[any]:
+        if error == 'bad_io':
+            return (200, {}, ConnectionError('peer reset'))
+        elif error == 'bad_json':
+            return (200, {}, '{')
+        else:
+            return (
+                codes[error],
+                {},
+                json.dumps({'error': error}),
+            )
+
+    def make_error(self, error: str) -> dict[str:any]:
+        error_tuple = self.make_error_tuple(error)
+        if error == 'bad_io':
+            return {'body': error_tuple[2]}
+        else:
+            return {
+                'status': error_tuple[0],
+                'content_type': 'application/json',
+                'body': error_tuple[2],
+            }
+
+    def make_error_exception(self, error: str) -> Exception:
+        error_dict = self.make_error(error)
+        if error == 'bad_io':
+            return error_dict['body']
+        elif error == 'bad_json':
+            return ApiException(code=error_dict['status'],
+                    message='Error processing the HTTP response',)
+        return ApiException(error_dict['status'])
+
 class ChangesFollowerBaseCase(MockClientBaseCase):
 
     def prepare_mock_changes(
@@ -143,16 +175,7 @@ class ChangesFollowerBaseCase(MockClientBaseCase):
                 if self._return_error:
                     self._return_error = False
                     error = next(self._errors)
-                    if error == 'bad_io':
-                        return (200, {}, ConnectionError('peer reset'))
-                    elif error == 'bad_json':
-                        return (200, {}, '{')
-                    else:
-                        return (
-                            codes[error],
-                            {},
-                            json.dumps({'error': error}),
-                        )
+                    return self.make_error_tuple(error)
                 # this stands for "large" seq in empty result case
                 last_seq = f'{batches * _BATCH_SIZE}-abcdef'
                 pending = 0
@@ -208,22 +231,7 @@ class ChangesFollowerBaseCase(MockClientBaseCase):
     def prepare_mock_with_error(self, error: str):
         _base_url = os.environ.get('TEST_SERVER_URL', 'http://localhost:5984')
         url = _base_url + '/db/_changes'
-        if error == 'bad_io':
-            return responses.post(url, body=ConnectionError('peer reset'))
-        elif error == 'bad_json':
-            return responses.post(
-                url,
-                status=200,
-                content_type='application/json',
-                body='{',
-            )
-        else:
-            return responses.post(
-                url,
-                status=codes[error],
-                content_type='application/json',
-                json={'error': error},
-            )
+        return responses.post(url, **self.make_error(error))
 
     def runner(self, follower, mode, timeout=1, stop_after=0):
         """
