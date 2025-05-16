@@ -15,9 +15,12 @@
 # limitations under the License.
 
 from unittest.mock import patch
-from conftest import MockClientBaseCase, PaginationMockSupport, PaginationMockResponse
-from ibmcloudant.features.pagination import Pager, PagerType, Pagination
 
+import pytest
+from conftest import MockClientBaseCase, PaginationMockSupport, PaginationMockResponse
+from ibmcloudant.features.pagination import _MAX_LIMIT, Pager, PagerType, Pagination
+
+@pytest.mark.usefixtures("errors")
 class TestPaginationOperations(MockClientBaseCase):
 
   test_page_size = 10
@@ -116,3 +119,75 @@ class TestPaginationOperations(MockClientBaseCase):
                 actual_items.add(id)
               self.assertEqual(actual_item_count, expected_items_count, 'There should be the expected number of items.')
               self.assertEqual(len(actual_items), expected_items_count, 'The items should be unique.')
+
+  def test_pager_errors(self):
+    page_size = _MAX_LIMIT
+    for pager_type in PagerType:
+      with self.subTest(pager_type):
+        for error in (*self.terminal_errors, *self.transient_errors):
+          expected_exception = self.make_error_exception(error)
+          with self.subTest(error):
+            # mock responses
+            mock_pages = PaginationMockResponse(2*page_size, page_size, pager_type)
+            mock_first_page = mock_pages.get_next_page()
+            mock_second_page = mock_pages.get_next_page()
+            mock_third_page = mock_pages.get_next_page() # empty
+            for responses in (
+                # first sub-test, error on first page
+                (expected_exception, mock_first_page, mock_second_page, mock_third_page),
+                # second sub-test error on second page
+                (mock_first_page, expected_exception, mock_second_page, mock_third_page),
+              ):
+              with patch(PaginationMockSupport.operation_map[pager_type], side_effect=iter(responses)):
+                pager: Pager = Pagination.new_pagination(self.client, pager_type, limit=page_size).pager()
+                expect_exception_on_page: int = responses.index(expected_exception) + 1
+                actual_page_count: int = 0
+                while (pager.has_next()):
+                  actual_page_count += 1
+                  if actual_page_count == expect_exception_on_page:
+                    with self.assertRaises(type(expected_exception), msg='There should be an exception while paging.'):
+                      pager.get_next()
+                  else:
+                    pager.get_next()
+
+  def test_pages_errors(self):
+    page_size = _MAX_LIMIT
+    for pager_type in PagerType:
+      with self.subTest(pager_type):
+        for error in (*self.terminal_errors, *self.transient_errors):
+          expected_exception = self.make_error_exception(error)
+          with self.subTest(error):
+            for responses in (
+                # first sub-test, error on first page
+                (expected_exception,),
+                # second sub-test error on second page
+                (PaginationMockResponse(2*page_size, page_size, pager_type).get_next_page(), expected_exception),
+              ):
+              with patch(PaginationMockSupport.operation_map[pager_type], side_effect=iter(responses)):
+                actual_page_count: int = 0
+                expected_page_count: int = len(responses) - 1
+                with self.assertRaises(type(expected_exception), msg='There should be an exception while paging.'):
+                  for page in Pagination.new_pagination(self.client, pager_type, limit=page_size).pages():
+                    actual_page_count += 1
+                self.assertEqual(actual_page_count, expected_page_count, 'Should have got the correct number of pages before error.')
+
+  def test_rows_errors(self):
+    page_size = _MAX_LIMIT
+    for pager_type in PagerType:
+      with self.subTest(pager_type):
+        for error in (*self.terminal_errors, *self.transient_errors):
+          expected_exception = self.make_error_exception(error)
+          with self.subTest(error):
+            for responses in (
+                # first sub-test, error on first page
+                (expected_exception,),
+                # second sub-test error on second page
+                (PaginationMockResponse(2*page_size, page_size, pager_type).get_next_page(), expected_exception),
+              ):
+              with patch(PaginationMockSupport.operation_map[pager_type], side_effect=iter(responses)):
+                actual_item_count: int = 0
+                expected_item_count: int = page_size * (len(responses) - 1)
+                with self.assertRaises(type(expected_exception), msg='There should be an exception while paging.'):
+                  for row in Pagination.new_pagination(self.client, pager_type, limit=page_size).rows():
+                    actual_item_count += 1
+                self.assertEqual(actual_item_count, expected_item_count, 'Should have got the correct number of items before error.')
