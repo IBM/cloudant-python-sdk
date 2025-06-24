@@ -19,6 +19,8 @@ are often inappropriate and we may need to make changes to the specification
 instead. Please, first [look at the list of files](.github/CODEOWNERS) that
 _should not_ be modified.
 
+Before submitting your pull request, please ensure you've reviewed and adhere to our [AI policy](AI_CODE_POLICY.md).
+
 # General Information
 For general guidance on contributing to this project, please see the
 [general guidance for contributing](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/CONTRIBUTING_python.md).
