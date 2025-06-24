@@ -6,6 +6,7 @@
 .github/dependabot.yml @IBM/cloudant-sdks
 .github/pull_request_template.md @IBM/cloudant-sdks
 .whitesource @IBM/cloudant-sdks
+AI_CODE_POLICY.md @IBM/cloudant-sdks
 CODE_OF_CONDUCT.md @IBM/cloudant-sdks
 CONTRIBUTING.md @IBM/cloudant-sdks
 Jenkinsfile @IBM/cloudant-sdks
