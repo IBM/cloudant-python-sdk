@@ -26,7 +26,7 @@ from collections.abc import Callable, Iterable, Iterator, Sequence
 from enum import auto, Enum
 from functools import partial
 from types import MappingProxyType
-from typing import Generic, Protocol, TypeVar
+from typing import Generic, Optional, Protocol, TypeVar
 
 from ibm_cloud_sdk_core import DetailedResponse
 from ibmcloudant.cloudant_v1 import CloudantV1,\
@@ -307,7 +307,7 @@ class _KeyPageIterator(_BasePageIterator, Generic[K]):
 
   def __init__(self, client: CloudantV1, operation: Callable[..., DetailedResponse], opts: dict):
     super().__init__(client, operation, ['start_key', 'start_key_doc_id'], opts)
-    self._boundary_failure: str | None = None
+    self._boundary_failure: Optional[str] = None
 
   def _next_request(self) -> list[I]:
     if self._boundary_failure is not None:
@@ -318,7 +318,7 @@ class _KeyPageIterator(_BasePageIterator, Generic[K]):
       if len(items) > 0:
         # Get, but don't remove the last item from the list
         penultimate_item: I = items[-1]
-        self._boundary_failure: str | None = self.check_boundary(penultimate_item, last_item)
+        self._boundary_failure: Optional[str] = self.check_boundary(penultimate_item, last_item)
     return items
 
   def _get_next_page_options(self, result: R) -> dict:
@@ -336,7 +336,7 @@ class _KeyPageIterator(_BasePageIterator, Generic[K]):
     return super()._page_size_from_opts_limit(opts) + 1
 
   @abstractmethod
-  def check_boundary(self, penultimate_item: I, last_item: I) -> str | None:
+  def check_boundary(self, penultimate_item: I, last_item: I) -> Optional[str]:
     raise NotImplementedError()
 
 class _BookmarkPageIterator(_BasePageIterator):
@@ -358,7 +358,7 @@ class _AllDocsBasePageIterator(_KeyPageIterator[str]):
     del opts['start_key_doc_id']
     return opts
 
-  def check_boundary(self, penultimate_item: I, last_item: I) -> str | None:
+  def check_boundary(self, penultimate_item: I, last_item: I) -> Optional[str]:
     # IDs are always unique in _all_docs pagers so return None
     return None
 
@@ -418,7 +418,7 @@ class _ViewBasePageIterator(_KeyPageIterator[any]):
   def _result_converter(self):
     return ViewResult.from_dict
 
-  def check_boundary(self, penultimate_item: I, last_item: I) -> str | None:
+  def check_boundary(self, penultimate_item: I, last_item: I) -> Optional[str]:
     if penultimate_item.id == (boundary_id := last_item.id) \
       and penultimate_item.key == (boundary_key := last_item.key):
       return f'Cannot paginate on a boundary containing identical keys {boundary_key} and document IDs {boundary_id}'
