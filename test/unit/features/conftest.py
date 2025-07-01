@@ -28,6 +28,7 @@ import responses
 from threading import Timer
 
 import itertools
+from itertools import islice
 
 from requests import codes
 from requests.exceptions import ConnectionError
@@ -337,8 +338,18 @@ class PaginationMockResponse:
         self.plus_one_paging: bool = self.pager_type in PaginationMockSupport.key_pagers
         self.expected_pages: list[list] = []
 
+    # for compatibility with python <= 3.12
+    def batched(self, iterable, n):
+        """Batch data into tuples of length n. The last batch may be shorter."""
+        it = iter(iterable)
+        while True:
+            batch = tuple(islice(it, n))
+            if not batch:
+                break
+            yield batch
+
     def generator(self):
-        for page in itertools.batched(range(0, self.total_items), self.page_size):
+        for page in self.batched(range(0, self.total_items), self.page_size):
             rows = [PaginationMockSupport.make_row(self.pager_type, i) for i in page]
             if self.plus_one_paging:
                 # Add an n+1 row for key based paging if more pages
