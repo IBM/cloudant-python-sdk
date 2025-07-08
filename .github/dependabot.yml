@@ -14,3 +14,11 @@ updates:
     pull-request-branch-name:
       separator: "-"
 # Custom settings
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "gh-pages"
+    pull-request-branch-name:
+      separator: "-"
+
