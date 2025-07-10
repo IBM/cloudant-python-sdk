@@ -41,6 +41,8 @@ K = TypeVar('K')
 
 _MAX_LIMIT = 200
 _MIN_LIMIT = 1
+_DOCS_KEY_ERROR = "No need to paginate as 'key' returns a single result for an ID."
+_VIEW_KEY_ERROR = "Use 'start_key' and 'end_key' instead."
 
 class PagerType(Enum):
   """
@@ -149,11 +151,16 @@ class Pagination:
         raise ValueError(f'The provided limit {limit} is lower than the minimum page size value of {_MIN_LIMIT}.')
 
   @classmethod
+  def _validate_option_absent(cls, invalid_opt: str, opts: dict, message_suffix: Optional[str]=None):
+    # check if the invalid_opt is present in opts dict
+    if invalid_opt in opts:
+      raise ValueError(f"The option '{invalid_opt}' is invalid when using pagination.{' ' + message_suffix if message_suffix else ''}")
+
+  @classmethod
   def _validate_options_absent(cls, invalid_opts: Sequence[str], opts: dict):
     # for each invalid_opts entry check if it is present in opts dict
     for invalid_opt in invalid_opts:
-      if invalid_opt in opts:
-        raise ValueError(f"The option '{invalid_opt}' is invalid when using pagination.")
+      cls._validate_option_absent(invalid_opt, opts)
 
   @classmethod
   def new_pagination(cls, client:CloudantV1, type: PagerType, **kwargs):
@@ -167,14 +174,17 @@ class Pagination:
     # Validate the limit
     cls._validate_limit(kwargs)
     if type == PagerType.POST_ALL_DOCS:
+      cls._validate_option_absent('key', kwargs, _DOCS_KEY_ERROR)
       cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _AllDocsPageIterator, kwargs)
     if type == PagerType.POST_DESIGN_DOCS:
+      cls._validate_option_absent('key', kwargs, _DOCS_KEY_ERROR)
       cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _DesignDocsPageIterator, kwargs)
     if type == PagerType.POST_FIND:
       return Pagination(client, _FindPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_ALL_DOCS:
+      cls._validate_option_absent('key', kwargs, _DOCS_KEY_ERROR)
       cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _AllDocsPartitionPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_FIND:
@@ -182,12 +192,14 @@ class Pagination:
     if type == PagerType.POST_PARTITION_SEARCH:
       return Pagination(client, _SearchPartitionPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_VIEW:
+      cls._validate_option_absent('key', kwargs, _VIEW_KEY_ERROR)
       cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _ViewPartitionPageIterator, kwargs)
     if type == PagerType.POST_SEARCH:
       cls._validate_options_absent(('counts', 'group_field', 'group_limit', 'group_sort', 'ranges',), kwargs)
       return Pagination(client, _SearchPageIterator, kwargs)
     if type == PagerType.POST_VIEW:
+      cls._validate_option_absent('key', kwargs, _VIEW_KEY_ERROR)
       cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _ViewPageIterator, kwargs)
 

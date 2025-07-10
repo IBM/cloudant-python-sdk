@@ -55,3 +55,15 @@ class TestPaginationOptionValidation(TestCase):
       with self.subTest(invalid_opt):
         with self.assertRaises(ValueError, msg=f'There should be a ValueError for search with option {invalid_opt}.'):
           Pagination.new_pagination(None, PagerType.POST_SEARCH, **{invalid_opt: 'test value'})
+
+  def test_key_value_error_for_docs(self):
+      for pager_type in self.all_doc_paginations:
+        with self.subTest(pager_type):
+          with self.assertRaises(ValueError, msg=f'There should be a ValueError for {pager_type} with key.'):
+            Pagination.new_pagination(None, pager_type, key='a')
+
+  def test_key_value_error_for_views(self):
+      for pager_type in self.view_paginations:
+        with self.subTest(pager_type):
+          with self.assertRaises(ValueError, msg=f'There should be a ValueError for {pager_type} with key.'):
+            Pagination.new_pagination(None, pager_type, key={})
