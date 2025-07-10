@@ -199,8 +199,8 @@ class _IteratorPagerState(Enum):
 
 class _IteratorPager(Pager[I]):
 
-  _state_mixed_msg = 'This pager has been consumed, use a new Pager.'
-  _state_consumed_msg = 'Cannot mix get_all() and get_next() use only one method or make a new Pager.'
+  _state_consumed_msg = 'This pager has been consumed, use a new Pager.'
+  _state_mixed_msg = 'Cannot mix get_all() and get_next() use only one method or make a new Pager.'
 
   def __init__(self, iterable_func: Callable[[], Iterator[Sequence[I]]]):
     self._iterable_func: Callable[[], Iterator[Sequence[I]]] = iterable_func
