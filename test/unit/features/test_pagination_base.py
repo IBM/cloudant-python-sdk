@@ -15,6 +15,7 @@
 # limitations under the License.
 
 from collections.abc import Callable
+from re import escape
 from typing import Iterable
 from unittest.mock import Mock, patch
 from ibmcloudant.cloudant_v1 import ViewResult, ViewResultRow
@@ -309,8 +310,11 @@ class TestBasePageIterator(MockClientBaseCase):
       pager: Pager[ViewResultRow] = pagination.pager()
       actual_items = pager.get_all()
       self.assertSequenceEqual(actual_items, mock.all_expected_items(), "The results should match all the pages.")
+    # Assert that we are going to assert the correct msg
+    expected_msg = _IteratorPager._state_consumed_msg
+    self.assertIn('consumed', expected_msg)
     # Assert consumed state prevents calling again
-    with self.assertRaises(Exception, msg=_IteratorPager._state_consumed_msg):
+    with self.assertRaisesRegex(Exception, escape(expected_msg)):
       pager.get_all()
 
   def test_as_pager_get_all_restarts_after_error(self):
@@ -332,7 +336,7 @@ class TestBasePageIterator(MockClientBaseCase):
         pager.get_all()
       self.assertSequenceEqual(pager.get_all(), mock.all_expected_items(), "The results should match all the pages.")
 
-  def test_as_pager_get_next_get_all_throws(self):
+  def test_as_pager_get_next_get_all_raises(self):
     page_size = 11
     # Mock that returns 6 pages of 11 items, then 1 more page with 5 items
     mock = BasePageMockResponses(71, page_size)
@@ -341,13 +345,16 @@ class TestBasePageIterator(MockClientBaseCase):
       pager: Pager[ViewResultRow] = pagination.pager()
       first_page = pager.get_next()
       self.assertSequenceEqual(first_page, mock.get_expected_page(1), "The actual page should match the expected page")
-      # Assert throws
-      with self.assertRaises(Exception, msg=_IteratorPager._state_mixed_msg):
+      # Assert that we are going to assert the correct msg
+      expected_msg = _IteratorPager._state_mixed_msg
+      self.assertIn('mix', expected_msg)
+      # Assert raises
+      with self.assertRaisesRegex(Exception, escape(expected_msg)):
         pager.get_all()
       # Assert second page ok
       self.assertSequenceEqual(pager.get_next(), mock.get_expected_page(2), "The actual page should match the expected page")
 
-  def test_as_pager_get_all_get_next_throws(self):
+  def test_as_pager_get_all_get_next_raises(self):
     page_size = 1
     mock = BasePageMockResponses(2*page_size, page_size)
     first_page = mock.get_next_page()
@@ -363,8 +370,11 @@ class TestBasePageIterator(MockClientBaseCase):
       # Stop get all part way through so it isn't consumed when we call get Next
       with self.assertRaises(Exception):
         pager.get_all()
-      # Assert calling get_next() throws
-      with self.assertRaises(Exception, msg=_IteratorPager._state_mixed_msg):
+      # Assert that we are going to assert the correct msg
+      expected_msg = _IteratorPager._state_mixed_msg
+      self.assertIn('mix', expected_msg)
+      # Assert calling get_next() raises
+      with self.assertRaisesRegex(Exception, escape(expected_msg)):
         pager.get_next()
 
   def test_as_pager_get_next_resumes_after_error(self):
@@ -400,6 +410,10 @@ class TestBasePageIterator(MockClientBaseCase):
         self.assertSequenceEqual(pager.get_next(), mock.get_expected_page(page_count), "The actual page should match the expected page")
       # Note 3 because third page is empty
       self.assertEqual(page_count, 3, 'There should be the expected number of pages.')
+    # Assert that we are going to assert the correct msg
+      # Assert that we are going to assert the correct msg
+    expected_msg = _IteratorPager._state_consumed_msg
+    self.assertIn('consumed', expected_msg)
     # Assert consumed state prevents calling again
-    with self.assertRaises(Exception, msg=_IteratorPager._state_consumed_msg):
+    with self.assertRaisesRegex(Exception, escape(expected_msg)):
       pager.get_next()
