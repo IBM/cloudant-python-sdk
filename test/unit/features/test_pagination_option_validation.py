@@ -15,7 +15,7 @@
 # limitations under the License.
 
 from unittest import TestCase
-from ibmcloudant.features.pagination import _MIN_LIMIT, _MAX_LIMIT, PagerType, Pagination
+from ibmcloudant.features.pagination import _DOCS_KEY_ERROR, _MIN_LIMIT, _MAX_LIMIT, _VIEW_KEY_ERROR, PagerType, Pagination
 
 class TestPaginationOptionValidation(TestCase):
 
@@ -39,19 +39,35 @@ class TestPaginationOptionValidation(TestCase):
   def test_invalid_limits(self):
       test_limits = (_MIN_LIMIT - 1, _MAX_LIMIT + 1)
       for limit in test_limits:
+        if (limit == _MIN_LIMIT -1):
+          msg_regex = f'The provided limit {limit} is lower than the minimum page size value of 1.'
+        elif (limit == _MAX_LIMIT + 1):
+          msg_regex= f'The provided limit {limit} exceeds the maximum page size value of 200.'
         for pager_type in self.all_paginations:
           with self.subTest(pager_type):
-            with self.assertRaises(ValueError, msg='There should be a ValueError for invalid limits.'):
+            with self.assertRaisesRegex(ValueError, msg_regex):
               Pagination.new_pagination(None, pager_type, limit=limit)
 
   def test_keys_value_error_for_view_like(self):
       for pager_type in self.view_like_paginations:
         with self.subTest(pager_type):
-          with self.assertRaises(ValueError, msg=f'There should be a ValueError for {pager_type} with keys.'):
+          with self.assertRaisesRegex(ValueError, 'The option \'keys\' is invalid when using pagination.'):
             Pagination.new_pagination(None, pager_type, keys=['a','b','c'])
 
   def test_facet_value_errors_for_search(self):
     for invalid_opt in ('counts', 'group_field', 'group_limit', 'group_sort', 'ranges',):
       with self.subTest(invalid_opt):
-        with self.assertRaises(ValueError, msg=f'There should be a ValueError for search with option {invalid_opt}.'):
+        with self.assertRaisesRegex(ValueError, f'The option \'{invalid_opt}\' is invalid when using pagination.'):
           Pagination.new_pagination(None, PagerType.POST_SEARCH, **{invalid_opt: 'test value'})
+
+  def test_key_value_error_for_docs(self):
+      for pager_type in self.all_doc_paginations:
+        with self.subTest(pager_type):
+          with self.assertRaisesRegex(ValueError, f'The option \'key\' is invalid when using pagination. {_DOCS_KEY_ERROR}'):
+            Pagination.new_pagination(None, pager_type, key='a')
+
+  def test_key_value_error_for_views(self):
+      for pager_type in self.view_paginations:
+        with self.subTest(pager_type):
+          with self.assertRaisesRegex(ValueError, f'The option \'key\' is invalid when using pagination. {_VIEW_KEY_ERROR}'):
+            Pagination.new_pagination(None, pager_type, key={})
