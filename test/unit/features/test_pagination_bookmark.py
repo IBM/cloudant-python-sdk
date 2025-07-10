@@ -28,7 +28,7 @@ class BookmarkTestPageIterator(_BookmarkPageIterator):
   boundary_func: Callable = lambda p,l: None
 
   def __init__(self, client, opts):
-    super().__init__(client, BookmarkTestPageIterator.operation or client.post_view, opts)
+    super().__init__(client, BookmarkTestPageIterator.operation or client.post_search, opts)
 
   def _result_converter(self) -> Callable[[dict], SearchResult]:
     return lambda d: SearchResult.from_dict(d)
