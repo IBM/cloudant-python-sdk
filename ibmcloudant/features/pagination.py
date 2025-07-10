@@ -263,7 +263,7 @@ class _BasePageIterator(Iterator[Sequence[I]]):
   def __init__(self,
                client: CloudantV1,
                operation: Callable[..., DetailedResponse],
-               page_opts: list[str],
+               page_opts: Sequence[str],
                opts: dict):
     self._client: CloudantV1 = client
     self._has_next: bool = True
@@ -318,7 +318,7 @@ class _BasePageIterator(Iterator[Sequence[I]]):
 class _KeyPageIterator(_BasePageIterator, Generic[K]):
 
   def __init__(self, client: CloudantV1, operation: Callable[..., DetailedResponse], opts: dict):
-    super().__init__(client, operation, ['start_key', 'start_key_doc_id'], opts)
+    super().__init__(client, operation, ('skip', 'start_key', 'start_key_doc_id',), opts)
     self._boundary_failure: Optional[str] = None
 
   def _next_request(self) -> list[I]:
@@ -353,8 +353,8 @@ class _KeyPageIterator(_BasePageIterator, Generic[K]):
 
 class _BookmarkPageIterator(_BasePageIterator):
 
-  def __init__(self, client: CloudantV1, operation: Callable[..., DetailedResponse], opts: dict):
-    super().__init__(client, operation, ['bookmark'], opts)
+  def __init__(self, client: CloudantV1, operation: Callable[..., DetailedResponse], opts: dict, extra_page_opts:Sequence[str]=()):
+    super().__init__(client, operation, ('bookmark',) + extra_page_opts, opts)
 
   def _get_next_page_options(self, result: R) -> dict:
     return {'bookmark': result.bookmark}
@@ -390,6 +390,12 @@ class _DesignDocsPageIterator(_AllDocsBasePageIterator):
     super().__init__(client, client.post_design_docs, opts)
 
 class _FindBasePageIterator(_BookmarkPageIterator):
+
+  def __init__(self, client: CloudantV1, operation: Callable[..., DetailedResponse], opts: dict):
+    # Find requests allow skip, but it should only be used on the first request.
+    # Since we don't want it on subsequent page requests we need to exclude it from
+    # fixed opts used for the partial function.
+    super().__init__(client, operation, opts, extra_page_opts=('skip',))
 
   def _items(self, result: FindResult):
     return result.docs
