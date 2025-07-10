@@ -191,3 +191,17 @@ class TestPaginationOperations(MockClientBaseCase):
                   for row in Pagination.new_pagination(self.client, pager_type, limit=page_size).rows():
                     actual_item_count += 1
                 self.assertEqual(actual_item_count, expected_item_count, 'Should have got the correct number of items before error.')
+
+  # Test skip omitted from subsequent page requests
+  # Applies to key pagers and find pagers
+  def test_skip_removed_for_subsquent_page(self):
+    page_size = 14
+    for pager_type in (PaginationMockSupport.key_pagers + PaginationMockSupport.find_pagers):
+      with self.subTest(pager_type):
+        with patch(PaginationMockSupport.operation_map[pager_type], PaginationMockResponse(2*page_size, page_size, pager_type).get_next_page):
+          pager = Pagination.new_pagination(self.client, pager_type, limit=page_size, skip=1).pager()
+          # Assert first page has skip option
+          self.assertEqual(pager._iterator._next_page_opts['skip'], 1, 'The skip option should be 1 for the first page')
+          pager.get_next()
+          # Assert second page has no skip option
+          self.assertIsNone(pager._iterator._next_page_opts.get('skip'), 'The skip option should be absent for the next page')
