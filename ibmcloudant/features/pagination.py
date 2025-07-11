@@ -41,6 +41,8 @@ K = TypeVar('K')
 
 _MAX_LIMIT = 200
 _MIN_LIMIT = 1
+_DOCS_KEY_ERROR = "No need to paginate as 'key' returns a single result for an ID."
+_VIEW_KEY_ERROR = "Use 'start_key' and 'end_key' instead."
 
 class PagerType(Enum):
   """
@@ -149,11 +151,16 @@ class Pagination:
         raise ValueError(f'The provided limit {limit} is lower than the minimum page size value of {_MIN_LIMIT}.')
 
   @classmethod
+  def _validate_option_absent(cls, invalid_opt: str, opts: dict, message_suffix: Optional[str]=None):
+    # check if the invalid_opt is present in opts dict
+    if invalid_opt in opts:
+      raise ValueError(f"The option '{invalid_opt}' is invalid when using pagination.{' ' + message_suffix if message_suffix else ''}")
+
+  @classmethod
   def _validate_options_absent(cls, invalid_opts: Sequence[str], opts: dict):
     # for each invalid_opts entry check if it is present in opts dict
     for invalid_opt in invalid_opts:
-      if invalid_opt in opts:
-        raise ValueError(f"The option '{invalid_opt}' is invalid when using pagination.")
+      cls._validate_option_absent(invalid_opt, opts)
 
   @classmethod
   def new_pagination(cls, client:CloudantV1, type: PagerType, **kwargs):
@@ -167,14 +174,17 @@ class Pagination:
     # Validate the limit
     cls._validate_limit(kwargs)
     if type == PagerType.POST_ALL_DOCS:
+      cls._validate_option_absent('key', kwargs, _DOCS_KEY_ERROR)
       cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _AllDocsPageIterator, kwargs)
     if type == PagerType.POST_DESIGN_DOCS:
+      cls._validate_option_absent('key', kwargs, _DOCS_KEY_ERROR)
       cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _DesignDocsPageIterator, kwargs)
     if type == PagerType.POST_FIND:
       return Pagination(client, _FindPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_ALL_DOCS:
+      cls._validate_option_absent('key', kwargs, _DOCS_KEY_ERROR)
       cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _AllDocsPartitionPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_FIND:
@@ -182,12 +192,14 @@ class Pagination:
     if type == PagerType.POST_PARTITION_SEARCH:
       return Pagination(client, _SearchPartitionPageIterator, kwargs)
     if type == PagerType.POST_PARTITION_VIEW:
+      cls._validate_option_absent('key', kwargs, _VIEW_KEY_ERROR)
       cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _ViewPartitionPageIterator, kwargs)
     if type == PagerType.POST_SEARCH:
       cls._validate_options_absent(('counts', 'group_field', 'group_limit', 'group_sort', 'ranges',), kwargs)
       return Pagination(client, _SearchPageIterator, kwargs)
     if type == PagerType.POST_VIEW:
+      cls._validate_option_absent('key', kwargs, _VIEW_KEY_ERROR)
       cls._validate_options_absent(('keys',), kwargs)
       return Pagination(client, _ViewPageIterator, kwargs)
 
@@ -199,8 +211,8 @@ class _IteratorPagerState(Enum):
 
 class _IteratorPager(Pager[I]):
 
-  _state_mixed_msg = 'This pager has been consumed, use a new Pager.'
-  _state_consumed_msg = 'Cannot mix get_all() and get_next() use only one method or make a new Pager.'
+  _state_consumed_msg = 'This pager has been consumed, use a new Pager.'
+  _state_mixed_msg = 'Cannot mix get_all() and get_next() use only one method or make a new Pager.'
 
   def __init__(self, iterable_func: Callable[[], Iterator[Sequence[I]]]):
     self._iterable_func: Callable[[], Iterator[Sequence[I]]] = iterable_func
@@ -251,7 +263,7 @@ class _BasePageIterator(Iterator[Sequence[I]]):
   def __init__(self,
                client: CloudantV1,
                operation: Callable[..., DetailedResponse],
-               page_opts: list[str],
+               page_opts: Sequence[str],
                opts: dict):
     self._client: CloudantV1 = client
     self._has_next: bool = True
@@ -306,7 +318,7 @@ class _BasePageIterator(Iterator[Sequence[I]]):
 class _KeyPageIterator(_BasePageIterator, Generic[K]):
 
   def __init__(self, client: CloudantV1, operation: Callable[..., DetailedResponse], opts: dict):
-    super().__init__(client, operation, ['start_key', 'start_key_doc_id'], opts)
+    super().__init__(client, operation, ('skip', 'start_key', 'start_key_doc_id',), opts)
     self._boundary_failure: Optional[str] = None
 
   def _next_request(self) -> list[I]:
@@ -341,8 +353,8 @@ class _KeyPageIterator(_BasePageIterator, Generic[K]):
 
 class _BookmarkPageIterator(_BasePageIterator):
 
-  def __init__(self, client: CloudantV1, operation: Callable[..., DetailedResponse], opts: dict):
-    super().__init__(client, operation, ['bookmark'], opts)
+  def __init__(self, client: CloudantV1, operation: Callable[..., DetailedResponse], opts: dict, extra_page_opts:Sequence[str]=()):
+    super().__init__(client, operation, ('bookmark',) + extra_page_opts, opts)
 
   def _get_next_page_options(self, result: R) -> dict:
     return {'bookmark': result.bookmark}
@@ -378,6 +390,12 @@ class _DesignDocsPageIterator(_AllDocsBasePageIterator):
     super().__init__(client, client.post_design_docs, opts)
 
 class _FindBasePageIterator(_BookmarkPageIterator):
+
+  def __init__(self, client: CloudantV1, operation: Callable[..., DetailedResponse], opts: dict):
+    # Find requests allow skip, but it should only be used on the first request.
+    # Since we don't want it on subsequent page requests we need to exclude it from
+    # fixed opts used for the partial function.
+    super().__init__(client, operation, opts, extra_page_opts=('skip',))
 
   def _items(self, result: FindResult):
     return result.docs

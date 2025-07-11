@@ -46,7 +46,7 @@ for row in pagination.rows():
 
 # For retrieving one page at a time with a method call.
 pager: Pager = pagination.pager()
-if pager.get_next():
+if pager.has_next():
     page = pager.get_next()
     # Do something with page
 
