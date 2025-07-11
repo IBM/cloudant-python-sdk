@@ -19,6 +19,12 @@ pipeline {
     ARTIFACTORY_URL_DOWN = "${Artifactory.server('taas-artifactory').getUrl()}"
   }
   stages {
+    stage('Detect Secrets') {
+      steps {
+        detectSecrets()
+      }
+    }
+
     stage('Init') {
       steps {
         script {
