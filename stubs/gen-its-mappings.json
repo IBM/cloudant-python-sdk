@@ -132,8 +132,8 @@
         },
         "jsonBody": {
           "ok": true,
-          "key": "apikey-98d494672e2c47beaec43f4633411189",
-          "password": "54fcd98b4bb1206afb7d9be049e81234c768ab4d"
+          "key": "apikey-00112233445566778899aabbccddeeff",
+          "password": "0000112233445566778899aaabbbcccdddeeefff"
         }
       },
       "uuid": "544965f4-c99a-38ac-8b9d-b8ae4eafc952"
