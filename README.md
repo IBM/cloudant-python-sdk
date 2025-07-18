@@ -2,7 +2,7 @@
 [![Release](https://img.shields.io/github/v/release/IBM/cloudant-python-sdk?include_prereleases&sort=semver)](https://github.com/IBM/cloudant-python-sdk/releases/latest)
 [![Docs](https://img.shields.io/static/v1?label=Pydoc&message=latest&color=blue)](https://ibm.github.io/cloudant-python-sdk/)
 
-# IBM Cloudant Python SDK Version 0.10.4
+# IBM Cloudant Python SDK Version 0.10.5
 
 IBM Cloudant Python SDK is a client library that interacts with the
 [IBM Cloudant APIs](https://cloud.ibm.com/apidocs/cloudant?code=python).
@@ -128,13 +128,13 @@ project:
 To install, use `pip` or `easy_install`:
 
 ```bash
-pip install --upgrade "ibmcloudant>=0.10.4"
+pip install --upgrade "ibmcloudant>=0.10.5"
 ```
 
 or
 
 ```bash
-easy_install --upgrade "ibmcloudant>=0.10.4"
+easy_install --upgrade "ibmcloudant>=0.10.5"
 ```
 
 ## Using the SDK
@@ -599,7 +599,7 @@ You have deleted the document.
 
 #### Further code examples
 
-For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/examples#examples-for-python).
+For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/examples#examples-for-python).
 
 ### Error handling
 
@@ -789,7 +789,7 @@ The changes follower requires the client to have HTTP timeouts of at least 1 min
 instantiation if it is insufficient. The default client configuration has sufficiently long timeouts.
 
 For use-cases where these configuration limitations are too restrictive then write code to use the SDK's
-[POST `_changes` API](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/examples#postchanges) instead of the follower.
+[POST `_changes` API](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/examples#postchanges) instead of the follower.
 
 #### Error suppression
 
@@ -823,7 +823,7 @@ The follower is not optimized for some use cases and it is not recommended to us
 * Setting `include_docs` and larger document sizes (for example > 10 kiB).
 * The volume of changes is very high (if the rate of changes in the database exceeds the follower's rate of pulling them it can never catch-up).
 
-In these use-cases use the SDK's [POST `_changes` API](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/examples#postchanges)
+In these use-cases use the SDK's [POST `_changes` API](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/examples#postchanges)
 for  specific control over the number of change requests made and the content size of the responses.
 
 #### Checkpoints
@@ -1055,22 +1055,22 @@ then a `429 Too Many Requests` error occurs.
 Pagination is available for these operations:
 * Query all documents [global](https://cloud.ibm.com/apidocs/cloudant?code=python#postalldocs)
   and [partitioned](https://cloud.ibm.com/apidocs/cloudant?code=python#postpartitionalldocs)
-  * [Global all documents examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/test/examples/src/features/pagination/AllDocsPagination.py)
-  * [Partitioned all documents examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/test/examples/src/features/pagination/partition_all_docs_pagination.py)
+  * [Global all documents examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/test/examples/src/features/pagination/AllDocsPagination.py)
+  * [Partitioned all documents examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/test/examples/src/features/pagination/partition_all_docs_pagination.py)
 * Query all [design documents](https://cloud.ibm.com/apidocs/cloudant?code=python#postdesigndocs)
-  * [Design documents examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/test/examples/src/features/pagination/design_docs_pagination.py)
+  * [Design documents examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/test/examples/src/features/pagination/design_docs_pagination.py)
 * Query with selector syntax [global](https://cloud.ibm.com/apidocs/cloudant?code=python#postfind)
   and [partitioned](https://cloud.ibm.com/apidocs/cloudant?code=python#postpartitionfind)
-  * [Global find selector query examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/test/examples/src/features/pagination/find_pagination.py)
-  * [Partitioned find selector query examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/test/examples/src/features/pagination/partition_find_pagination.py)
+  * [Global find selector query examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/test/examples/src/features/pagination/find_pagination.py)
+  * [Partitioned find selector query examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/test/examples/src/features/pagination/partition_find_pagination.py)
 * Query a search index [global](https://cloud.ibm.com/apidocs/cloudant?code=python#postsearch)
   and [partitioned](https://cloud.ibm.com/apidocs/cloudant?code=python#postpartitionsearch)
-  * [Global search examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/test/examples/src/features/pagination/search_pagination.py)
-  * [Partitioned search examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/test/examples/src/features/pagination/partition_search_pagination.py)
+  * [Global search examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/test/examples/src/features/pagination/search_pagination.py)
+  * [Partitioned search examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/test/examples/src/features/pagination/partition_search_pagination.py)
 * Query a MapReduce view [global](https://cloud.ibm.com/apidocs/cloudant?code=python#postview)
   and [partitioned](https://cloud.ibm.com/apidocs/cloudant?code=python#postpartitionview)
-  * [Global view examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/test/examples/src/features/pagination/view_pagination.py)
-  * [Partitioned view examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/test/examples/src/features/pagination/partition_view_pagination.py)
+  * [Global view examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/test/examples/src/features/pagination/view_pagination.py)
+  * [Partitioned view examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/test/examples/src/features/pagination/partition_view_pagination.py)
 
 The examples presented in this `README` are for all documents in a partition.
 The links in the list are to equivalent examples for each of the other available operations.
@@ -1263,7 +1263,7 @@ If you encounter an issue with the project, you are welcome to submit a
 
 Before you submit a bug report, search for
 [similar issues](https://github.com/IBM/cloudant-python-sdk/issues?q=is%3Aissue) and review the
-[KNOWN_ISSUES file](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
+[KNOWN_ISSUES file](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
 
 Please consult the [security policy](https://github.com/IBM/cloudant-python-sdk/security/policy) before opening security related issues.
 
@@ -1293,8 +1293,8 @@ Find more open source projects on the [IBM GitHub](http://ibm.github.io/) page.
 
 ## Contributing
 
-For more information, see [CONTRIBUTING](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/CONTRIBUTING.md).
+For more information, see [CONTRIBUTING](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/CONTRIBUTING.md).
 
 ## License
 
-This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.4/LICENSE).
+This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/LICENSE).
