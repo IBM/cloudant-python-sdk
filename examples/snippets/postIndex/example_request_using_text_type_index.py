@@ -6,7 +6,7 @@ service = CloudantV1.new_instance()
 # Type "text" index fields require an object with a name and type properties for the field.
 index_field = IndexField(
   name="address",
-  type="string"
+  type=IndexField.TypeEnum.STRING
 )
 index = IndexDefinition(
   fields=[index_field]
