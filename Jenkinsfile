@@ -68,12 +68,18 @@ pipeline {
       environment {
         scannerHome = tool 'SonarQubeScanner'
       }
-      // Scanning runs on dependabot core update and non-dependabot branches
+      // Scanning runs on PRs (except dependabot for non-core updates) and primary branch
       when {
         anyOf {
-          branch pattern: /^dependabot.*(?i)(ibm)[\.-].+sdk-core.*$/, comparator: 'REGEXP'
-          not {
-            branch 'dependabot*'
+          changeRequest()
+          expression { env.BRANCH_IS_PRIMARY }
+        }
+        not {
+          allOf {
+            changeRequest branch: 'dependabot*', comparator: 'GLOB'
+            not {
+              changeRequest branch: /^dependabot.*(?i)(ibm)[\.-].+sdk-core.*$/, comparator: 'REGEXP'
+            }
           }
         }
       }
@@ -82,6 +88,11 @@ pipeline {
       }
     }
     stage('Publish[staging]') {
+      when {
+        not {
+          buildingTag()
+        }
+      }
       environment {
         STAGE_ROOT = "${ARTIFACTORY_URL_UP}/api/"
       }
@@ -105,6 +116,11 @@ pipeline {
       }
     }
     stage('Run Gauge tests') {
+      when {
+        not {
+          buildingTag()
+        }
+      }
       steps {
         script {
             buildResults = null
@@ -270,7 +286,7 @@ void defaultInit() {
 
   scanCode = {
     withSonarQubeEnv(installationName: 'SonarQubeServer') {
-      sh "${scannerHome}/bin/sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.projectKey=cloudant-${libName}-sdk -Dsonar.branch.name=${env.BRANCH_NAME} -Dsonar.exclusions=examples/**"
+      sh "${scannerHome}/bin/sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.projectKey=cloudant-${libName}-sdk -Dsonar.exclusions=examples/**"
     }
   }
 }
