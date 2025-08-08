@@ -14,6 +14,11 @@ KNOWN_ISSUES.md @IBM/cloudant-sdks
 LICENSE @IBM/cloudant-sdks
 README.md @IBM/cloudant-sdks
 SECURITY.md @IBM/cloudant-sdks
+docs/Authentication.md @IBM/cloudant-sdks
+docs/Changes_Follower.md @IBM/cloudant-sdks
+docs/Examples.md @IBM/cloudant-sdks
+docs/Pagination.md @IBM/cloudant-sdks
+docs/README.md @IBM/cloudant-sdks
 scripts/publish_buildinfo.sh @IBM/cloudant-sdks
 scripts/pydoc/generate-index-html.sh @IBM/cloudant-sdks
 scripts/pydoc/publish-doc.sh @IBM/cloudant-sdks
