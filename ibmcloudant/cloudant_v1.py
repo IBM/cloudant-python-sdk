@@ -9400,7 +9400,7 @@ class AllDocsQuery:
             args['update_seq'] = update_seq
         if (end_key := _dict.get('end_key')) is not None:
             args['end_key'] = end_key
-        if (key := _dict.get('key')) is not None:
+        if (key := _dict.get('key')) is not None or 'key' in _dict:
             args['key'] = key
         if (keys := _dict.get('keys')) is not None:
             args['keys'] = keys
@@ -9861,7 +9861,7 @@ class ApiKeysResult:
             args['ok'] = ok
         else:
             raise ValueError('Required property \'ok\' not present in ApiKeysResult JSON')
-        if (key := _dict.get('key')) is not None:
+        if (key := _dict.get('key')) is not None or 'key' in _dict:
             args['key'] = key
         else:
             raise ValueError('Required property \'key\' not present in ApiKeysResult JSON')
@@ -12038,7 +12038,7 @@ class DbsInfoResult:
             args['error'] = error
         if (info := _dict.get('info')) is not None:
             args['info'] = DatabaseInformation.from_dict(info)
-        if (key := _dict.get('key')) is not None:
+        if (key := _dict.get('key')) is not None or 'key' in _dict:
             args['key'] = key
         else:
             raise ValueError('Required property \'key\' not present in DbsInfoResult JSON')
@@ -12896,11 +12896,11 @@ class DocsResultRow:
             args['doc'] = Document.from_dict(doc)
         if (id := _dict.get('id')) is not None:
             args['id'] = id
-        if (key := _dict.get('key')) is not None:
+        if (key := _dict.get('key')) is not None or 'key' in _dict:
             args['key'] = key
         else:
             raise ValueError('Required property \'key\' not present in DocsResultRow JSON')
-        if (value := _dict.get('value')) is not None:
+        if (value := _dict.get('value')) is not None or 'value' in _dict:
             args['value'] = DocsResultRowValue.from_dict(value)
         return cls(**args)
 
@@ -19967,7 +19967,7 @@ class ViewQuery:
             args['group'] = group
         if (group_level := _dict.get('group_level')) is not None:
             args['group_level'] = group_level
-        if (key := _dict.get('key')) is not None:
+        if (key := _dict.get('key')) is not None or 'key' in _dict:
             args['key'] = key
         if (keys := _dict.get('keys')) is not None:
             args['keys'] = keys
@@ -20218,11 +20218,11 @@ class ViewResultRow:
             args['doc'] = Document.from_dict(doc)
         if (id := _dict.get('id')) is not None:
             args['id'] = id
-        if (key := _dict.get('key')) is not None:
+        if (key := _dict.get('key')) is not None or 'key' in _dict:
             args['key'] = key
         else:
             raise ValueError('Required property \'key\' not present in ViewResultRow JSON')
-        if (value := _dict.get('value')) is not None:
+        if (value := _dict.get('value')) is not None or 'value' in _dict:
             args['value'] = value
         else:
             raise ValueError('Required property \'value\' not present in ViewResultRow JSON')
