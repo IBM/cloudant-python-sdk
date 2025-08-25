@@ -13915,7 +13915,7 @@ class ExplainResultMrArgs:
         if (conflicts := _dict.get('conflicts')) is not None:
             args['conflicts'] = conflicts
         else:
-            raise ValueError('Required property \'conflicts\' not present in ExplainResultMrArgs JSON')
+            args['conflicts'] = None
         if (direction := _dict.get('direction')) is not None:
             args['direction'] = direction
         else:
@@ -13923,7 +13923,7 @@ class ExplainResultMrArgs:
         if (end_key := _dict.get('end_key')) is not None:
             args['end_key'] = end_key
         else:
-            raise ValueError('Required property \'end_key\' not present in ExplainResultMrArgs JSON')
+            args['end_key'] = None
         if (include_docs := _dict.get('include_docs')) is not None:
             args['include_docs'] = include_docs
         else:
@@ -13931,7 +13931,7 @@ class ExplainResultMrArgs:
         if (partition := _dict.get('partition')) is not None:
             args['partition'] = partition
         else:
-            raise ValueError('Required property \'partition\' not present in ExplainResultMrArgs JSON')
+            args['partition'] = None
         if (reduce := _dict.get('reduce')) is not None:
             args['reduce'] = reduce
         else:
@@ -13945,7 +13945,7 @@ class ExplainResultMrArgs:
         if (update := _dict.get('update')) is not None:
             args['update'] = update
         else:
-            raise ValueError('Required property \'update\' not present in ExplainResultMrArgs JSON')
+            args['update'] = None
         if (view_type := _dict.get('view_type')) is not None:
             args['view_type'] = view_type
         else:
@@ -14131,7 +14131,7 @@ class ExplainResultOpts:
         if (sort := _dict.get('sort')) is not None:
             args['sort'] = sort
         else:
-            raise ValueError('Required property \'sort\' not present in ExplainResultOpts JSON')
+            args['sort'] = None
         if (stable := _dict.get('stable')) is not None:
             args['stable'] = stable
         else:
@@ -14347,7 +14347,7 @@ class IndexAnalysis:
         if (covering := _dict.get('covering')) is not None:
             args['covering'] = covering
         else:
-            raise ValueError('Required property \'covering\' not present in IndexAnalysis JSON')
+            args['covering'] = None
         if (ranking := _dict.get('ranking')) is not None:
             args['ranking'] = ranking
         else:
@@ -14990,7 +14990,7 @@ class IndexInformation:
         if (ddoc := _dict.get('ddoc')) is not None:
             args['ddoc'] = ddoc
         else:
-            raise ValueError('Required property \'ddoc\' not present in IndexInformation JSON')
+            args['ddoc'] = None
         if (def_ := _dict.get('def')) is not None:
             args['def_'] = IndexDefinition.from_dict(def_)
         else:
@@ -17157,11 +17157,11 @@ class SchedulerDocument:
         if (id := _dict.get('id')) is not None:
             args['id'] = id
         else:
-            raise ValueError('Required property \'id\' not present in SchedulerDocument JSON')
+            args['id'] = None
         if (info := _dict.get('info')) is not None:
             args['info'] = SchedulerInfo.from_dict(info)
         else:
-            raise ValueError('Required property \'info\' not present in SchedulerDocument JSON')
+            args['info'] = None
         if (last_updated := _dict.get('last_updated')) is not None:
             args['last_updated'] = string_to_datetime(last_updated)
         else:
@@ -17494,7 +17494,7 @@ class SchedulerJob:
         if (info := _dict.get('info')) is not None:
             args['info'] = SchedulerInfo.from_dict(info)
         else:
-            raise ValueError('Required property \'info\' not present in SchedulerJob JSON')
+            args['info'] = None
         if (node := _dict.get('node')) is not None:
             args['node'] = node
         else:
@@ -17502,7 +17502,7 @@ class SchedulerJob:
         if (pid := _dict.get('pid')) is not None:
             args['pid'] = pid
         else:
-            raise ValueError('Required property \'pid\' not present in SchedulerJob JSON')
+            args['pid'] = None
         if (source := _dict.get('source')) is not None:
             args['source'] = source
         else:
@@ -17518,7 +17518,7 @@ class SchedulerJob:
         if (user := _dict.get('user')) is not None:
             args['user'] = user
         else:
-            raise ValueError('Required property \'user\' not present in SchedulerJob JSON')
+            args['user'] = None
         return cls(**args)
 
     @classmethod
@@ -19579,7 +19579,7 @@ class UserContext:
         if (name := _dict.get('name')) is not None:
             args['name'] = name
         else:
-            raise ValueError('Required property \'name\' not present in UserContext JSON')
+            args['name'] = None
         if (roles := _dict.get('roles')) is not None:
             args['roles'] = roles
         else:
@@ -20221,11 +20221,11 @@ class ViewResultRow:
         if (key := _dict.get('key')) is not None:
             args['key'] = key
         else:
-            raise ValueError('Required property \'key\' not present in ViewResultRow JSON')
+            args['key'] = None
         if (value := _dict.get('value')) is not None:
             args['value'] = value
         else:
-            raise ValueError('Required property \'value\' not present in ViewResultRow JSON')
+            args['value'] = None
         return cls(**args)
 
     @classmethod
