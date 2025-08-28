@@ -324,4 +324,4 @@ You have deleted the document.
 
 ## Further code examples
 
-For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.5/examples#examples-for-python).
+For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.6/examples#examples-for-python).
