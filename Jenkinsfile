@@ -64,6 +64,7 @@ pipeline {
         }
       }
     }
+
     stage('SonarQube analysis') {
       environment {
         scannerHome = tool 'SonarQubeScanner'
@@ -87,6 +88,7 @@ pipeline {
         scanCode()
       }
     }
+
     stage('Publish[staging]') {
       when {
         not {
@@ -115,6 +117,7 @@ pipeline {
         }
       }
     }
+
     stage('Run Gauge tests') {
       when {
         not {
@@ -154,6 +157,19 @@ pipeline {
         }
       }
     }
+
+    stage('Mend scan') {
+      when {
+        expression { env.BRANCH_IS_PRIMARY }
+      }
+      environment {
+        WS_PROJECTNAME="cloudant-${libName}-sdk"
+      }
+      steps {
+        mendScan()
+      }
+    }
+
     stage('Update version and tag') {
       when {
         beforeAgent true
