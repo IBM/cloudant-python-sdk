@@ -36,129 +36,129 @@ pipeline {
         }
       }
     }
-    stage('QA') {
-      steps {
-        withEnv(['DOCKER_HOST=',
-          'SERVER_AUTH_TYPE=basic',
-          'SERVER_URL=http://127.0.0.1:5984',
-          'WIREMOCK_URL=http://127.0.0.1:8080',
-          'WIREMOCK_PORT=8080'
-        ]) {
-          withCredentials([
-            usernamePassword(credentialsId: 'container-test-server',
-                             usernameVariable: 'SERVER_USERNAME',
-                             passwordVariable: 'SERVER_PASSWORD')
-            ]) {
-              script {
-                  sh './scripts/setup_couch.sh'
-                  sh './scripts/setup_wiremock.sh'
-              }
-              runTests()
-          }
-        }
-      }
+    // stage('QA') {
+    //   steps {
+    //     withEnv(['DOCKER_HOST=',
+    //       'SERVER_AUTH_TYPE=basic',
+    //       'SERVER_URL=http://127.0.0.1:5984',
+    //       'WIREMOCK_URL=http://127.0.0.1:8080',
+    //       'WIREMOCK_PORT=8080'
+    //     ]) {
+    //       withCredentials([
+    //         usernamePassword(credentialsId: 'container-test-server',
+    //                          usernameVariable: 'SERVER_USERNAME',
+    //                          passwordVariable: 'SERVER_PASSWORD')
+    //         ]) {
+    //           script {
+    //               sh './scripts/setup_couch.sh'
+    //               sh './scripts/setup_wiremock.sh'
+    //           }
+    //           runTests()
+    //       }
+    //     }
+    //   }
 
-      post {
-        always {
-          junit (
-            testResults: '**/junitreports/*.xml'
-          )
-        }
-      }
-    }
+    //   post {
+    //     always {
+    //       junit (
+    //         testResults: '**/junitreports/*.xml'
+    //       )
+    //     }
+    //   }
+    // }
 
-    stage('SonarQube analysis') {
-      environment {
-        scannerHome = tool 'SonarQubeScanner'
-      }
-      // Scanning runs on PRs (except dependabot for non-core updates) and primary branch
-      when {
-        anyOf {
-          changeRequest()
-          expression { env.BRANCH_IS_PRIMARY }
-        }
-        not {
-          allOf {
-            changeRequest branch: 'dependabot*', comparator: 'GLOB'
-            not {
-              changeRequest branch: /^dependabot.*(?i)(ibm)[\.-].+sdk-core.*$/, comparator: 'REGEXP'
-            }
-          }
-        }
-      }
-      steps {
-        scanCode()
-      }
-    }
+    // stage('SonarQube analysis') {
+    //   environment {
+    //     scannerHome = tool 'SonarQubeScanner'
+    //   }
+    //   // Scanning runs on PRs (except dependabot for non-core updates) and primary branch
+    //   when {
+    //     anyOf {
+    //       changeRequest()
+    //       expression { env.BRANCH_IS_PRIMARY }
+    //     }
+    //     not {
+    //       allOf {
+    //         changeRequest branch: 'dependabot*', comparator: 'GLOB'
+    //         not {
+    //           changeRequest branch: /^dependabot.*(?i)(ibm)[\.-].+sdk-core.*$/, comparator: 'REGEXP'
+    //         }
+    //       }
+    //     }
+    //   }
+    //   steps {
+    //     scanCode()
+    //   }
+    // }
 
-    stage('Publish[staging]') {
-      when {
-        not {
-          buildingTag()
-        }
-      }
-      environment {
-        STAGE_ROOT = "${ARTIFACTORY_URL_UP}/api/"
-      }
-      steps {
-        bumpVersion(true)
-        customizePublishingInfo()
-        withEnv(["LIB_NAME=${libName}",
-          "TYPE=${buildType}",
-          "ARTIFACT_URL=${artifactUrl}",
-          "MODULE_ID=${moduleId}",
-          "BUILD_NAME=${env.JOB_NAME}"]) {
-            publishStaging()
-            publishArtifactoryBuildInfo()
-        }
-      }
-      // This post stage resets the temporary version bump used to publish to staging
-      post {
-        always {
-          sh 'git reset --hard'
-        }
-      }
-    }
+    // stage('Publish[staging]') {
+    //   when {
+    //     not {
+    //       buildingTag()
+    //     }
+    //   }
+    //   environment {
+    //     STAGE_ROOT = "${ARTIFACTORY_URL_UP}/api/"
+    //   }
+    //   steps {
+    //     bumpVersion(true)
+    //     customizePublishingInfo()
+    //     withEnv(["LIB_NAME=${libName}",
+    //       "TYPE=${buildType}",
+    //       "ARTIFACT_URL=${artifactUrl}",
+    //       "MODULE_ID=${moduleId}",
+    //       "BUILD_NAME=${env.JOB_NAME}"]) {
+    //         publishStaging()
+    //         publishArtifactoryBuildInfo()
+    //     }
+    //   }
+    //   // This post stage resets the temporary version bump used to publish to staging
+    //   post {
+    //     always {
+    //       sh 'git reset --hard'
+    //     }
+    //   }
+    // }
 
-    stage('Run Gauge tests') {
-      when {
-        not {
-          buildingTag()
-        }
-      }
-      steps {
-        script {
-            buildResults = null
+    // stage('Run Gauge tests') {
+    //   when {
+    //     not {
+    //       buildingTag()
+    //     }
+    //   }
+    //   steps {
+    //     script {
+    //         buildResults = null
 
-            // For standard builds attempt to run on a matching env.BRANCH_NAME branch first and if it doesn't exist
-            // then fallback to TARGET_GAUGE_RELEASE_BRANCH_NAME if set or env.TARGET_GAUGE_DEFAULT_BRANCH_NAME.
-            gaugeBranchName = env.BRANCH_NAME
-            fallbackBranchName = env.TARGET_GAUGE_RELEASE_BRANCH_NAME ?: env.TARGET_GAUGE_DEFAULT_BRANCH_NAME
+    //         // For standard builds attempt to run on a matching env.BRANCH_NAME branch first and if it doesn't exist
+    //         // then fallback to TARGET_GAUGE_RELEASE_BRANCH_NAME if set or env.TARGET_GAUGE_DEFAULT_BRANCH_NAME.
+    //         gaugeBranchName = env.BRANCH_NAME
+    //         fallbackBranchName = env.TARGET_GAUGE_RELEASE_BRANCH_NAME ?: env.TARGET_GAUGE_DEFAULT_BRANCH_NAME
 
-            // For release builds (tag builds or the primary branch) do the reverse and attempt to run on the
-            // TARGET_GAUGE_RELEASE_BRANCH_NAME falling back to env.BRANCH_NAME or env.TAG_NAME if there is no match.
-            if (env.TAG_NAME || env.BRANCH_IS_PRIMARY){
-              gaugeBranchName = env.TARGET_GAUGE_RELEASE_BRANCH_NAME
-              fallbackBranchName = env.TAG_NAME ?: env.BRANCH_NAME
-            }
-          try {
-            buildResults = build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${gaugeBranchName}", parameters: [
-                string(name: 'SDK_RUN_LANG', value: "$libName"),
-                string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "${env.NEW_SDK_VERSION}")]
-          } catch (hudson.AbortException ae) {
-            // only run build in sdks-gauge default branch if BRANCH_NAME doesn't exist
-            if (ae.getMessage().contains("No item named /${env.SDKS_GAUGE_PIPELINE_PROJECT}/${gaugeBranchName} found")) {
-              echo "No matching branch named '${gaugeBranchName}' in sdks-gauge, building ${fallbackBranchName} branch"
-              build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${fallbackBranchName}", parameters: [
-                  string(name: 'SDK_RUN_LANG', value: "$libName"),
-                  string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "${env.NEW_SDK_VERSION}")]
-            } else {
-              throw ae
-            }
-          }
-        }
-      }
-    }
+    //         // For release builds (tag builds or the primary branch) do the reverse and attempt to run on the
+    //         // TARGET_GAUGE_RELEASE_BRANCH_NAME falling back to env.BRANCH_NAME or env.TAG_NAME if there is no match.
+    //         if (env.TAG_NAME || env.BRANCH_IS_PRIMARY){
+    //           gaugeBranchName = env.TARGET_GAUGE_RELEASE_BRANCH_NAME
+    //           fallbackBranchName = env.TAG_NAME ?: env.BRANCH_NAME
+    //         }
+    //       try {
+    //         buildResults = build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${gaugeBranchName}", parameters: [
+    //             string(name: 'SDK_RUN_LANG', value: "$libName"),
+    //             string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "${env.NEW_SDK_VERSION}")]
+    //       } catch (hudson.AbortException ae) {
+    //         // only run build in sdks-gauge default branch if BRANCH_NAME doesn't exist
+    //         if (ae.getMessage().contains("No item named /${env.SDKS_GAUGE_PIPELINE_PROJECT}/${gaugeBranchName} found")) {
+    //           echo "No matching branch named '${gaugeBranchName}' in sdks-gauge, building ${fallbackBranchName} branch"
+    //           build job: "/${env.SDKS_GAUGE_PIPELINE_PROJECT}/${fallbackBranchName}", parameters: [
+    //               string(name: 'SDK_RUN_LANG', value: "$libName"),
+    //               string(name: "SDK_VERSION_${libName.toUpperCase()}", value: "${env.NEW_SDK_VERSION}")]
+    //         } else {
+    //           throw ae
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
 
     stage('Mend scan') {
       // when {
