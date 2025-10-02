@@ -1,5 +1,7 @@
 #!groovy
 
+@Library('integrations-pipeline@s872-mend-python-workaround') _
+
 pipeline {
   agent {
     kubernetes {
@@ -159,9 +161,9 @@ pipeline {
     }
 
     stage('Mend scan') {
-      when {
-        expression { env.BRANCH_IS_PRIMARY }
-      }
+      // when {
+      //   expression { env.BRANCH_IS_PRIMARY }
+      // }
       environment {
         WS_PROJECTNAME="cloudant-${libName}-sdk"
       }
@@ -364,4 +366,3 @@ void publishDocs() {
     ./scripts/pydoc/publish-doc.sh
   '''
 }
-
