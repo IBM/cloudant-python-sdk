@@ -308,7 +308,7 @@ service = CloudantV1.new_instance()
 
 response = service.delete_replication_document(
 doc_id='repldoc-example',
-rev='3-a0ccbdc6fe95b4184f9031d086034d85'
+rev='1-00000000000000000000000000000000'
 ).get_result()
 
 print(response)
@@ -368,18 +368,18 @@ from ibmcloudant.cloudant_v1 import CloudantV1, ReplicationDocument, Replication
 service = CloudantV1.new_instance()
 
 source_db = ReplicationDatabase(
-  url='<your-source-service-url>/animaldb'
+  url='https://~replace-with-source-host~.cloudantnosqldb.appdomain.cloud/animaldb'
 )
 
 target_auth_iam = ReplicationDatabaseAuthIam(
-  api_key='<your-iam-api-key>'
+  api_key='a1b2c3d4e5f6f1g4h7j3k6l9m2p5q8s1t4v7x0z3' #use your own IAM API key
 )
 target_auth = ReplicationDatabaseAuth(
   iam=target_auth_iam
 )
 target_db = ReplicationDatabase(
   auth=target_auth,
-  url='<your-target-service-url>/animaldb-target'
+  url='https://~replace-with-target-host~.cloudantnosqldb.appdomain.cloud/animaldb-target'
 )
 
 replication_document = ReplicationDocument(
@@ -586,7 +586,7 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
 
-response = service.delete_database(db='<db-name>').get_result()
+response = service.delete_database(db='products').get_result()
 
 print(response)
 ```
@@ -797,12 +797,12 @@ service = CloudantV1.new_instance()
 
 event_doc_1 = Document(
   _id="ns1HJS13AMkK:0007241142412418284",
-  _rev="1-5005d65514fe9e90f8eccf174af5dd64",
+  _rev="1-00000000000000000000000000000000",
   _deleted=True,
 )
 event_doc_2 = Document(
   _id="H8tDIwfadxp9:0007241142412418285",
-  _rev="1-2d7810b054babeda4812b3924428d6d6",
+  _rev="1-00000000000000000000000000000000",
   _deleted=True,
 )
 
@@ -873,10 +873,10 @@ service = CloudantV1.new_instance()
 doc_id = 'order00067'
 bulk_get_doc_1 = BulkGetQueryDocument(
     id=doc_id,
-    rev='3-917fa2381192822767f010b95b45325b')
+    rev='3-22222222222222222222222222222222')
 bulk_get_doc_2 = BulkGetQueryDocument(
     id=doc_id,
-    rev='4-a5be949eeb7296747cc271766e9a498b')
+    rev='4-33333333333333333333333333333333')
 
 response = service.post_bulk_get(
     db='orders',
@@ -915,7 +915,7 @@ service = CloudantV1.new_instance()
 
 bulk_get_doc = BulkGetQueryDocument(
     id='order00058',
-    atts_since=['1-99b02e08da151943c2dcb40090160bb8'])
+    atts_since=['1-00000000000000000000000000000000'])
 response = service.post_bulk_get(
     db='orders',
     docs=[bulk_get_doc]
@@ -977,7 +977,7 @@ service = CloudantV1.new_instance()
 response = service.delete_design_document(
   db='products',
   ddoc='appliances',
-  rev='1-98e6a25b3b45df62e7d47095ac15b16a'
+  rev='1-00000000000000000000000000000000'
 ).get_result()
 
 print(response)
@@ -1681,9 +1681,9 @@ service = CloudantV1.new_instance()
 
 revs_diff = DocumentRevisions(
   order00077=[
-      "<1-missing-revision>",
-      "<2-missing-revision>",
-      "<3-possible-ancestor-revision>"
+      "1-00000000000000000000000000000000", # missing revision
+      "2-11111111111111111111111111111111", # missing revision
+      "3-22222222222222222222222222222222"  # possible ancestor revision
 ]
 )
 
@@ -1804,7 +1804,7 @@ service = CloudantV1.new_instance()
 response = service.delete_document(
   db='orders',
   doc_id='order00058',
-  rev='1-99b02e08da151943c2dcb40090160bb8'
+  rev='1-00000000000000000000000000000000'
 ).get_result()
 
 print(response)
@@ -1898,7 +1898,7 @@ response = service.delete_attachment(
   db='products',
   doc_id='1000042',
   attachment_name='product_details.txt',
-  rev='4-1a0d1cd6f40472509e9aac646183736a'
+  rev='4-33333333333333333333333333333333'
 ).get_result()
 
 print(response)
