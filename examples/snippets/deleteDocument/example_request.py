@@ -6,7 +6,7 @@ service = CloudantV1.new_instance()
 response = service.delete_document(
   db='orders',
   doc_id='order00058',
-  rev='1-99b02e08da151943c2dcb40090160bb8'
+  rev='1-00000000000000000000000000000000'
 ).get_result()
 
 print(response)

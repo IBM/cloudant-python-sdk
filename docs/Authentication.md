@@ -58,7 +58,7 @@ amending the values with your own
 `CLOUDANT_AUTH_TYPE` to `IAM` because it is the default when supplying an `APIKEY`.
 
 ```sh
-CLOUDANT_URL=https://~replaceWithYourUniqueHost~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
+CLOUDANT_URL=https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
 CLOUDANT_APIKEY=a1b2c3d4e5f6f1g4h7j3k6l9m2p5q8s1t4v7x0z3 # use your own IAM API key
 ```
 
@@ -69,8 +69,8 @@ amending with your own correct values. There is no need to set
 `CLOUDANT_AUTH_TYPE` to `CONTAINER` because it is the default.
 
 ```sh
-CLOUDANT_URL=https://~replaceWithYourUniqueHost~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
-CLOUDANT_IAM_PROFILE_ID=iam-Profile-00000000-aaaa-4444-bbbb-0123456789ab # use your own IAM profile ID
+CLOUDANT_URL=https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
+CLOUDANT_IAM_PROFILE_ID=iam-Profile-00000000-0000-0000-0000-000000000000 # use your own IAM profile ID
 ```
 
 Alternatives to `CLOUDANT_IAM_PROFILE_ID`:
@@ -83,8 +83,8 @@ amending with your own correct values.
 
 ```sh
 CLOUDANT_AUTH_TYPE=VPC
-CLOUDANT_URL=https://~replaceWithYourUniqueHost~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
-CLOUDANT_IAM_PROFILE_ID=iam-Profile-00000000-aaaa-4444-bbbb-0123456789ab # use your own IAM profile ID
+CLOUDANT_URL=https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
+CLOUDANT_IAM_PROFILE_ID=iam-Profile-00000000-0000-0000-0000-000000000000 # use your own IAM profile ID
 ```
 
 Alternatives to `CLOUDANT_IAM_PROFILE_ID`:
@@ -98,8 +98,8 @@ amending with your own correct values.
 
 ```sh
 CLOUDANT_AUTH_TYPE=IAMASSUME
-CLOUDANT_URL=https://~replaceWithYourUniqueHost~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
-CLOUDANT_IAM_PROFILE_ID=iam-Profile-00000000-aaaa-4444-bbbb-0123456789ab # use your own IAM profile ID
+CLOUDANT_URL=https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
+CLOUDANT_IAM_PROFILE_ID=iam-Profile-00000000-0000-0000-0000-000000000000 # use your own IAM profile ID
 ```
 
 Alternatives to `CLOUDANT_IAM_PROFILE_ID`:
@@ -113,7 +113,7 @@ amending with your own [service credentials](https://cloud.ibm.com/docs/Cloudant
 
 ```sh
 CLOUDANT_AUTH_TYPE=COUCHDB_SESSION
-CLOUDANT_URL=https://~replaceWithYourUniqueHost~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
+CLOUDANT_URL=https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
 CLOUDANT_USERNAME=username # replace with your Cloudant legacy username
 CLOUDANT_PASSWORD=password # replace with your Cloudant legacy password or API key (not IAM)
 ```
@@ -127,7 +127,7 @@ amending with your own correct values.
 
 ```sh
 CLOUDANT_AUTH_TYPE=BEARERTOKEN
-CLOUDANT_URL=https://~replaceWithYourUniqueHost~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
+CLOUDANT_URL=https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
 CLOUDANT_BEARER_TOKEN=A1b2C3QiOiIyMDE4MDgxNDAwMDAwMDAwMDAwMDBjNzYwNzY2YjYxYjYwYjYwIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsImF1ZCI6Imh0dHBzOi8vaWF1LmNsb3VkLmlibS5jb20iLCJpYXQiOjE2ODg4ODg4ODgsImV4cCI6MTY4ODg5MjQ4OCwiaXNzIjoiaHR0cHM6Ly9pYXUuY2xvdWQuaWJtLmNvbSIsInNjb3BlIjpbImNsb3VkLnJlYWRlciJdfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c # replace with your bearer token
 ```
 
@@ -140,7 +140,7 @@ amending with your own correct values.
 
 ```sh
 CLOUDANT_AUTH_TYPE=BASIC
-CLOUDANT_URL=https://~replaceWithYourUniqueHost~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
+CLOUDANT_URL=https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
 CLOUDANT_USERNAME=username # replace with your Cloudant legacy username
 CLOUDANT_PASSWORD=password # replace with your Cloudant legacy password or API key (not IAM)
 ```

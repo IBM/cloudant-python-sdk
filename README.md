@@ -118,14 +118,14 @@ or programmatically.
 
 Quick start for Cloudant with an IAM API key:
 ```sh
-CLOUDANT_URL=https://~replaceWithYourUniqueHost~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL # use your own Cloudant public or private URL
+CLOUDANT_URL=https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
 CLOUDANT_APIKEY=a1b2c3d4e5f6f1g4h7j3k6l9m2p5q8s1t4v7x0z3 # use your own IAM API key
 ```
 
 Quick start for Apache CouchDB with a username/password session:
 ```sh
 CLOUDANT_AUTH_TYPE=COUCHDB_SESSION
-CLOUDANT_URL=http://~replaceWithYourUniqueHost~.example:5984 # use your CouchDB URL
+CLOUDANT_URL=https://~replace-with-your-unique-host~.example:6984 # use your CouchDB URL
 CLOUDANT_USERNAME=username # replace with your username
 CLOUDANT_PASSWORD=password # replace with your password
 ```

@@ -6,10 +6,10 @@ service = CloudantV1.new_instance()
 doc_id = 'order00067'
 bulk_get_doc_1 = BulkGetQueryDocument(
     id=doc_id,
-    rev='3-917fa2381192822767f010b95b45325b')
+    rev='3-22222222222222222222222222222222')
 bulk_get_doc_2 = BulkGetQueryDocument(
     id=doc_id,
-    rev='4-a5be949eeb7296747cc271766e9a498b')
+    rev='4-33333333333333333333333333333333')
 
 response = service.post_bulk_get(
     db='orders',

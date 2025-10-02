@@ -7,7 +7,7 @@ response = service.delete_attachment(
   db='products',
   doc_id='1000042',
   attachment_name='product_details.txt',
-  rev='4-1a0d1cd6f40472509e9aac646183736a'
+  rev='4-33333333333333333333333333333333'
 ).get_result()
 
 print(response)
