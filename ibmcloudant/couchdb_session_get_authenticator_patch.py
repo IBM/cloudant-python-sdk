@@ -34,8 +34,6 @@ def new_construct_authenticator(config):  # pylint: disable=missing-docstring
         return CouchDbSessionAuthenticator(
             username=config.get('USERNAME'),
             password=config.get('PASSWORD'),
-            disable_ssl_verification=config.get(
-                'AUTH_DISABLE_SSL',
-                config.get('DISABLE_SSL', 'false')).lower() == 'true'
+            disable_ssl_verification=config.get('DISABLE_SSL', 'false').lower() == 'true'
         )
     return old_construct_authenticator(config)
