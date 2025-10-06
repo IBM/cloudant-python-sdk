@@ -19,7 +19,7 @@
 from ibm_cloud_sdk_core import IAMTokenManager, DetailedResponse, BaseService, ApiException, get_authenticator
 from .couchdb_session_authenticator import CouchDbSessionAuthenticator
 from .couchdb_session_get_authenticator_patch import new_construct_authenticator
-from .cloudant_base_service import new_init, new_prepare_request, new_set_default_headers, new_set_http_client, new_set_service_url
+from .cloudant_base_service import new_init, new_prepare_request, new_set_default_headers, new_set_http_client, new_set_service_url, new_set_disable_ssl_verification
 from .couchdb_session_token_manager import CouchDbSessionTokenManager
 from .cloudant_v1 import CloudantV1
 from .features.changes_follower import ChangesFollower
@@ -37,3 +37,5 @@ CloudantV1.set_default_headers = new_set_default_headers
 CloudantV1.prepare_request = new_prepare_request
 
 CloudantV1.set_http_client = new_set_http_client
+
+CloudantV1.set_disable_ssl_verification = new_set_disable_ssl_verification

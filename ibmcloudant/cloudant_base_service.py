@@ -114,9 +114,6 @@ def new_set_default_headers(self, headers: Dict[str, str]):
 
 _old_set_disable_ssl_verification = CloudantV1.set_disable_ssl_verification
 
-# Note this is currently unused, but probably should be enabled.
-# To enable it we need to resolve whether CouchDbSessionAuthenticator
-# should ever be allowed to have a different value from the service client.
 def new_set_disable_ssl_verification(self, status: bool = False) -> None:
     _old_set_disable_ssl_verification(self, status)
     if isinstance(self.authenticator, CouchDbSessionAuthenticator):
