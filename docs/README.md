@@ -1,4 +1,4 @@
-# IBM Cloudant Python SDK Version 0.10.7 Detailed Documentation
+# IBM Cloudant Python SDK Version 0.11.0 Detailed Documentation
 
 ## Table of Contents
 
