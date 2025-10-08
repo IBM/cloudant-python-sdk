@@ -71,7 +71,7 @@ then a `429 Too Many Requests` error occurs.
 Pagination is available for these operations:
 * Query all documents [global](https://cloud.ibm.com/apidocs/cloudant?code=python#postalldocs)
   and [partitioned](https://cloud.ibm.com/apidocs/cloudant?code=python#postpartitionalldocs)
-  * [Global all documents examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.7/test/examples/src/features/pagination/AllDocsPagination.py)
+  * [Global all documents examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.7/test/examples/src/features/pagination/all_docs_pagination.py)
   * [Partitioned all documents examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.7/test/examples/src/features/pagination/partition_all_docs_pagination.py)
 * Query all [design documents](https://cloud.ibm.com/apidocs/cloudant?code=python#postdesigndocs)
   * [Design documents examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.10.7/test/examples/src/features/pagination/design_docs_pagination.py)
