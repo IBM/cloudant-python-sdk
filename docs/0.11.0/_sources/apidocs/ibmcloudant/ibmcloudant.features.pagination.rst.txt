@@ -1,0 +1,216 @@
+:py:mod:`ibmcloudant.features.pagination`
+=========================================
+
+.. py:module:: ibmcloudant.features.pagination
+
+.. autodoc2-docstring:: ibmcloudant.features.pagination
+   :parser: myst
+   :allowtitles:
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. list-table::
+   :class: autosummary longtable
+   :align: left
+
+   * - :py:obj:`Pager <ibmcloudant.features.pagination.Pager>`
+     - .. autodoc2-docstring:: ibmcloudant.features.pagination.Pager
+          :parser: myst
+          :summary:
+   * - :py:obj:`PagerType <ibmcloudant.features.pagination.PagerType>`
+     - .. autodoc2-docstring:: ibmcloudant.features.pagination.PagerType
+          :parser: myst
+          :summary:
+   * - :py:obj:`Pagination <ibmcloudant.features.pagination.Pagination>`
+     - .. autodoc2-docstring:: ibmcloudant.features.pagination.Pagination
+          :parser: myst
+          :summary:
+
+Data
+~~~~
+
+.. list-table::
+   :class: autosummary longtable
+   :align: left
+
+   * - :py:obj:`I <ibmcloudant.features.pagination.I>`
+     - .. autodoc2-docstring:: ibmcloudant.features.pagination.I
+          :parser: myst
+          :summary:
+   * - :py:obj:`K <ibmcloudant.features.pagination.K>`
+     - .. autodoc2-docstring:: ibmcloudant.features.pagination.K
+          :parser: myst
+          :summary:
+   * - :py:obj:`R <ibmcloudant.features.pagination.R>`
+     - .. autodoc2-docstring:: ibmcloudant.features.pagination.R
+          :parser: myst
+          :summary:
+
+API
+~~~
+
+.. py:data:: I
+   :canonical: ibmcloudant.features.pagination.I
+   :value: 'TypeVar(...)'
+
+   .. autodoc2-docstring:: ibmcloudant.features.pagination.I
+      :parser: myst
+
+.. py:data:: K
+   :canonical: ibmcloudant.features.pagination.K
+   :value: 'TypeVar(...)'
+
+   .. autodoc2-docstring:: ibmcloudant.features.pagination.K
+      :parser: myst
+
+.. py:class:: Pager
+   :canonical: ibmcloudant.features.pagination.Pager
+
+   Bases: :py:obj:`typing.Protocol`\ [\ :py:obj:`ibmcloudant.features.pagination.I`\ ]
+
+   .. autodoc2-docstring:: ibmcloudant.features.pagination.Pager
+      :parser: myst
+
+   .. py:method:: get_all() -> collections.abc.Sequence[ibmcloudant.features.pagination.I]
+      :canonical: ibmcloudant.features.pagination.Pager.get_all
+      :abstractmethod:
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.Pager.get_all
+         :parser: myst
+
+   .. py:method:: get_next() -> collections.abc.Sequence[ibmcloudant.features.pagination.I]
+      :canonical: ibmcloudant.features.pagination.Pager.get_next
+      :abstractmethod:
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.Pager.get_next
+         :parser: myst
+
+   .. py:method:: has_next() -> bool
+      :canonical: ibmcloudant.features.pagination.Pager.has_next
+      :abstractmethod:
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.Pager.has_next
+         :parser: myst
+
+.. py:class:: PagerType(*args, **kwds)
+   :canonical: ibmcloudant.features.pagination.PagerType
+
+   Bases: :py:obj:`enum.Enum`
+
+   .. autodoc2-docstring:: ibmcloudant.features.pagination.PagerType
+      :parser: myst
+
+   .. rubric:: Initialization
+
+   .. autodoc2-docstring:: ibmcloudant.features.pagination.PagerType.__init__
+      :parser: myst
+
+   .. py:attribute:: POST_ALL_DOCS
+      :canonical: ibmcloudant.features.pagination.PagerType.POST_ALL_DOCS
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.PagerType.POST_ALL_DOCS
+         :parser: myst
+
+   .. py:attribute:: POST_DESIGN_DOCS
+      :canonical: ibmcloudant.features.pagination.PagerType.POST_DESIGN_DOCS
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.PagerType.POST_DESIGN_DOCS
+         :parser: myst
+
+   .. py:attribute:: POST_FIND
+      :canonical: ibmcloudant.features.pagination.PagerType.POST_FIND
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.PagerType.POST_FIND
+         :parser: myst
+
+   .. py:attribute:: POST_PARTITION_ALL_DOCS
+      :canonical: ibmcloudant.features.pagination.PagerType.POST_PARTITION_ALL_DOCS
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.PagerType.POST_PARTITION_ALL_DOCS
+         :parser: myst
+
+   .. py:attribute:: POST_PARTITION_FIND
+      :canonical: ibmcloudant.features.pagination.PagerType.POST_PARTITION_FIND
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.PagerType.POST_PARTITION_FIND
+         :parser: myst
+
+   .. py:attribute:: POST_PARTITION_SEARCH
+      :canonical: ibmcloudant.features.pagination.PagerType.POST_PARTITION_SEARCH
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.PagerType.POST_PARTITION_SEARCH
+         :parser: myst
+
+   .. py:attribute:: POST_PARTITION_VIEW
+      :canonical: ibmcloudant.features.pagination.PagerType.POST_PARTITION_VIEW
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.PagerType.POST_PARTITION_VIEW
+         :parser: myst
+
+   .. py:attribute:: POST_SEARCH
+      :canonical: ibmcloudant.features.pagination.PagerType.POST_SEARCH
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.PagerType.POST_SEARCH
+         :parser: myst
+
+   .. py:attribute:: POST_VIEW
+      :canonical: ibmcloudant.features.pagination.PagerType.POST_VIEW
+      :value: 'auto(...)'
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.PagerType.POST_VIEW
+         :parser: myst
+
+.. py:class:: Pagination(client: ibmcloudant.cloudant_v1.CloudantV1, type: ibmcloudant.features.pagination.PagerType, opts: dict)
+   :canonical: ibmcloudant.features.pagination.Pagination
+
+   .. autodoc2-docstring:: ibmcloudant.features.pagination.Pagination
+      :parser: myst
+
+   .. rubric:: Initialization
+
+   .. autodoc2-docstring:: ibmcloudant.features.pagination.Pagination.__init__
+      :parser: myst
+
+   .. py:method:: new_pagination(client: ibmcloudant.cloudant_v1.CloudantV1, type: ibmcloudant.features.pagination.PagerType, **kwargs)
+      :canonical: ibmcloudant.features.pagination.Pagination.new_pagination
+      :classmethod:
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.Pagination.new_pagination
+         :parser: myst
+
+   .. py:method:: pager() -> ibmcloudant.features.pagination.Pager[ibmcloudant.features.pagination.I]
+      :canonical: ibmcloudant.features.pagination.Pagination.pager
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.Pagination.pager
+         :parser: myst
+
+   .. py:method:: pages() -> collections.abc.Iterable[collections.abc.Sequence[ibmcloudant.features.pagination.I]]
+      :canonical: ibmcloudant.features.pagination.Pagination.pages
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.Pagination.pages
+         :parser: myst
+
+   .. py:method:: rows() -> collections.abc.Iterable[ibmcloudant.features.pagination.I]
+      :canonical: ibmcloudant.features.pagination.Pagination.rows
+
+      .. autodoc2-docstring:: ibmcloudant.features.pagination.Pagination.rows
+         :parser: myst
+
+.. py:data:: R
+   :canonical: ibmcloudant.features.pagination.R
+   :value: 'TypeVar(...)'
+
+   .. autodoc2-docstring:: ibmcloudant.features.pagination.R
+      :parser: myst
