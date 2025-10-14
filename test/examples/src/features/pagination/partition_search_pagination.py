@@ -45,12 +45,17 @@ for row in pagination.rows():
     # Do something with row
     pass
 
+# Option: use pager next page
 # For retrieving one page at a time with a method call.
 pager: Pager = pagination.pager()
 if pager.has_next():
     page = pager.get_next()
     # Do something with page
 
+# Option: use pager all results
+# For retrieving all result rows in a single list
+# Note: all result rows may be very large!
+# Preferably use iterables instead of get_all for memory efficiency with large result sets.
 all_pager: Pager = pagination.pager()
 all_rows = all_pager.get_all()
 for page in all_rows:
