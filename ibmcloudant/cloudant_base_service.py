@@ -98,7 +98,8 @@ class CloudantBaseService(BaseService):
         if isinstance(authenticator, CouchDbSessionAuthenticator):
             # Replacing BaseService's http.cookiejar.CookieJar as RequestsCookieJar supports update(CookieJar)
             self.jar = RequestsCookieJar(self.jar)
-            self.authenticator.set_jar(self.jar)  # Authenticators don't have access to cookie jars by default
+            # Make token manager of CouchDbSessionAuthenticator to use the same http client as main service
+            self.authenticator.set_http_client(self.get_http_client())
         add_hooks(self)
 
     def set_service_url(self, service_url: str):
