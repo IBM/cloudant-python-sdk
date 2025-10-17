@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2020, 2024.
+# © Copyright IBM Corporation 2020, 2025.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,12 +24,12 @@ from json import dumps
 from json.decoder import JSONDecodeError
 from io import BytesIO
 
+from ibm_cloud_sdk_core import BaseService
 from ibm_cloud_sdk_core.authenticators import Authenticator
 from requests import Response, Session
 from requests.cookies import RequestsCookieJar
 
 from .common import get_sdk_headers
-from .cloudant_v1 import CloudantV1
 from .couchdb_session_authenticator import CouchDbSessionAuthenticator
 
 # pylint: disable=missing-docstring
@@ -72,52 +72,99 @@ for rule in [doc_id_rule, att_name_rule]:
         # Since Py3.6 dict is ordered so use a key only dict for our set
         rules_by_operation.setdefault(operation_id, dict()).setdefault(rule)
 
-_old_init = CloudantV1.__init__
+class CloudantBaseService(BaseService):
+    """
+    The base class for service classes.
+    """
+    def __init__(
+        self,
+        service_url: str = None,
+        authenticator: Authenticator = None,
+    ) -> None:
+        """
+        Construct a new client for the Cloudant service.
 
-def new_init(self, authenticator: Authenticator = None):
-    _old_init(self, authenticator)
-    # Overwrite default read timeout to 2.5 minutes
-    if not ('timeout' in self.http_config):
-        new_http_config = self.http_config.copy()
-        new_http_config['timeout'] = (CONNECT_TIMEOUT, READ_TIMEOUT)
-        self.set_http_config(new_http_config)
-    # Custom actions for CouchDbSessionAuthenticator
-    if isinstance(authenticator, CouchDbSessionAuthenticator):
-        # Replacing BaseService's http.cookiejar.CookieJar as RequestsCookieJar supports update(CookieJar)
-        self.jar = RequestsCookieJar(self.jar)
-        self.authenticator.set_jar(self.jar)  # Authenticators don't have access to cookie jars by default
-    add_hooks(self)
+        :param Authenticator authenticator: The authenticator specifies the authentication mechanism.
+               Get up to date information from https://github.com/IBM/python-sdk-core/blob/main/README.md
+               about initializing the authenticator of your choice.
+        """
+        BaseService.__init__(self, service_url=service_url, authenticator=authenticator)
+        # Overwrite default read timeout to 2.5 minutes
+        if not ('timeout' in self.http_config):
+            new_http_config = self.http_config.copy()
+            new_http_config['timeout'] = (CONNECT_TIMEOUT, READ_TIMEOUT)
+            self.set_http_config(new_http_config)
+        # Custom actions for CouchDbSessionAuthenticator
+        if isinstance(authenticator, CouchDbSessionAuthenticator):
+            # Replacing BaseService's http.cookiejar.CookieJar as RequestsCookieJar supports update(CookieJar)
+            self.jar = RequestsCookieJar(self.jar)
+            self.authenticator.set_jar(self.jar)  # Authenticators don't have access to cookie jars by default
+        add_hooks(self)
 
-_old_set_service_url = CloudantV1.set_service_url
+    def set_service_url(self, service_url: str):
+        super().set_service_url(service_url)
+        try:
+            if isinstance(self.authenticator, CouchDbSessionAuthenticator):
+                self.authenticator.token_manager.set_service_url(service_url)
+        except AttributeError:
+            pass  # in case no authenticator is configured yet, pass
 
-def new_set_service_url(self, service_url: str):
-    _old_set_service_url(self, service_url)
-    try:
+    def set_default_headers(self, headers: Dict[str, str]):
+        super().set_default_headers(headers)
         if isinstance(self.authenticator, CouchDbSessionAuthenticator):
-            self.authenticator.token_manager.set_service_url(service_url)
-    except AttributeError:
-        pass  # in case no authenticator is configured yet, pass
+            combined_headers = {}
+            combined_headers.update(headers)
+            combined_headers.update(get_sdk_headers(
+                service_name=self.DEFAULT_SERVICE_NAME,
+                service_version='V1',
+                operation_id='authenticator_post_session')
+            )
+            self.authenticator.token_manager.set_default_headers(combined_headers)
 
-_old_set_default_headers = CloudantV1.set_default_headers
+    def set_disable_ssl_verification(self, status: bool = False) -> None:
+        super().set_disable_ssl_verification(status)
+        if isinstance(self.authenticator, CouchDbSessionAuthenticator):
+            self.authenticator.token_manager.set_disable_ssl_verification(status)
 
-def new_set_default_headers(self, headers: Dict[str, str]):
-    _old_set_default_headers(self, headers)
-    if isinstance(self.authenticator, CouchDbSessionAuthenticator):
-        combined_headers = {}
-        combined_headers.update(headers)
-        combined_headers.update(get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='authenticator_post_session')
-        )
-        self.authenticator.token_manager.set_default_headers(combined_headers)
+    def set_http_client(self, http_client: Session) -> None:
+        super().set_http_client(http_client)
+        add_hooks(self)
 
-_old_set_disable_ssl_verification = CloudantV1.set_disable_ssl_verification
-
-def new_set_disable_ssl_verification(self, status: bool = False) -> None:
-    _old_set_disable_ssl_verification(self, status)
-    if isinstance(self.authenticator, CouchDbSessionAuthenticator):
-        self.authenticator.token_manager.set_disable_ssl_verification(status)
+    def prepare_request(self,
+                            method: str,
+                            url: str,
+                            *args,
+                            headers: Optional[dict] = None,
+                            params: Optional[dict] = None,
+                            data: Optional[Union[str, dict]] = None,
+                            files: Optional[Union[Dict[str, Tuple[str]],
+                                                List[Tuple[str,
+                                                            Tuple[str,
+                                                                ...]]]]] = None,
+                            **kwargs) -> dict:
+        # Extract the operation ID from the request headers.
+        operation_id = None
+        header = headers.get('X-IBMCloud-SDK-Analytics')
+        if header is not None:
+            for element in header.split(';'):
+                if element.startswith('operation_id'):
+                    operation_id = element.split('=')[1]
+                    break
+        if operation_id is not None:
+            # Check each validation rule that applies to the operation.
+            # Until the request URL is passed to old_prepare_request it does not include the
+            # service URL and is relative to it
+            request_url_path_segments = urlsplit(url).path.strip('/').split('/')
+            if len(request_url_path_segments) == 1 and request_url_path_segments[0] == '':
+                request_url_path_segments = []
+            # Note the get returns a value-less dict, we are iterating only the keys
+            for rule in rules_by_operation.get(operation_id, {}):
+                if len(request_url_path_segments) > rule.path_segment_index:
+                    segment_to_validate = request_url_path_segments[rule.path_segment_index]
+                    if segment_to_validate.startswith('_'):
+                        raise ValueError('{0} {1} starts with the invalid _ character.'.format(rule.error_parameter_name,
+                            unquote(segment_to_validate)))
+        return super().prepare_request(method, url, *args, headers=headers, params=params, data=data, files=files, **kwargs)
 
 def _error_response_hook(response:Response, *args, **kwargs) -> Optional[Response]:
     # pylint: disable=W0613
@@ -186,52 +233,7 @@ def _error_response_hook(response:Response, *args, **kwargs) -> Optional[Respons
                 # so the exception can surface elsewhere.
                 pass
     return response
-
-_old_prepare_request = CloudantV1.prepare_request
-
-def new_prepare_request(self,
-                        method: str,
-                        url: str,
-                        *args,
-                        headers: Optional[dict] = None,
-                        params: Optional[dict] = None,
-                        data: Optional[Union[str, dict]] = None,
-                        files: Optional[Union[Dict[str, Tuple[str]],
-                                              List[Tuple[str,
-                                                         Tuple[str,
-                                                               ...]]]]] = None,
-                        **kwargs) -> dict:
-    # Extract the operation ID from the request headers.
-    operation_id = None
-    header = headers.get('X-IBMCloud-SDK-Analytics')
-    if header is not None:
-        for element in header.split(';'):
-            if element.startswith('operation_id'):
-                operation_id = element.split('=')[1]
-                break
-    if operation_id is not None:
-        # Check each validation rule that applies to the operation.
-        # Until the request URL is passed to old_prepare_request it does not include the
-        # service URL and is relative to it
-        request_url_path_segments = urlsplit(url).path.strip('/').split('/')
-        if len(request_url_path_segments) == 1 and request_url_path_segments[0] == '':
-            request_url_path_segments = []
-        # Note the get returns a value-less dict, we are iterating only the keys
-        for rule in rules_by_operation.get(operation_id, {}):
-            if len(request_url_path_segments) > rule.path_segment_index:
-                segment_to_validate = request_url_path_segments[rule.path_segment_index]
-                if segment_to_validate.startswith('_'):
-                    raise ValueError('{0} {1} starts with the invalid _ character.'.format(rule.error_parameter_name,
-                        unquote(segment_to_validate)))
-    return _old_prepare_request(self, method, url, *args, headers=headers, params=params, data=data, files=files, **kwargs)
-
 def add_hooks(self):
     response_hooks = self.get_http_client().hooks['response']
     if _error_response_hook not in response_hooks:
         response_hooks.append(_error_response_hook)
-
-_old_set_http_client = CloudantV1.set_http_client
-
-def new_set_http_client(self, http_client: Session) -> None:
-    _old_set_http_client(self, http_client)
-    add_hooks(self)
