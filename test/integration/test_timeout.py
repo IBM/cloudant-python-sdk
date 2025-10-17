@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#  © Copyright IBM Corporation 2021.
+#  © Copyright IBM Corporation 2021, 2025.
 #  #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -86,8 +86,24 @@ class Helpers():
         return req.mock_calls[0]
 
     @staticmethod
-    def get_request_arguments(tci, srv, idx):
-        tci.assertEqual(srv.http_client.request.call_count, idx + 1)
+    def get_request_arguments(tci, srv, idx, call_count=None):
+        """
+        Retrieve the arguments passed to a mocked HTTP request.
+
+        Parameters:
+        tci (unittest.mock.Mock): A Mock object used for assertions.
+        srv (Service): The instance of CloudantV1 service.
+        idx (int): The index of the request in srv.http_client.request.mock_calls.
+        call_count (int, optional): The total call count for the request. Defaults to None.
+
+        Returns:
+        list: The arguments passed to the HTTP request at the specified index.
+
+        Raises:
+        AssertionError: If the actual call count of the request does not match the provided or calculated call_count.
+        """
+        call_count = idx + 1 if call_count is None else call_count
+        tci.assertEqual(srv.http_client.request.call_count, call_count)
         return srv.http_client.request.mock_calls[idx]
 
 # Every method tests an authenticator.
@@ -142,31 +158,27 @@ class TestTimeout(unittest.TestCase):
         )
         my_service.set_service_url("http://cloudant.example")
 
-        # Mock out authentication
-        orig_request = requests.request
-        requests.request = Mock(return_value=Helpers.get_mocked_response())
-
         # Mock out request response
         Helpers.mock_out_cloudant_request(my_service)
 
-        testcases = Helpers.defineTestCases(my_service)
+        # Call the server
+        my_service.get_server_information()
 
-        for tc_num, tc in enumerate(testcases):
-            tc['set_timeout'](CUSTOM_TIMEOUT_CONFIG)
+        # Assert timeout is set to the authenticator
+        auth_args = Helpers.get_request_arguments(self, my_service.authenticator.token_manager, 0, call_count=2)
+        self.assertEqual(auth_args.kwargs['timeout'], DEFAULT_TIMEOUT)
 
-            # Call the server
-            my_service.get_server_information()
+        # Assert timeout is set to the server request
+        req_args = Helpers.get_request_arguments(self, my_service, 1, call_count=2)
+        self.assertEqual(req_args.kwargs['timeout'], DEFAULT_TIMEOUT)
 
-            # Assert timeout is set to the authenticator
-            auth_args = Helpers.get_authenticate_arguments(requests.request)
-            Helpers.assert_default_timeout_setting(self, auth_args)
+        # Set a custom timeout and repeat the request. Client should be already authenticated.
+        my_service.set_http_config(CUSTOM_TIMEOUT_CONFIG)
+        my_service.get_server_information()
 
-            # Assert timeout is set in the server request
-            req_args = Helpers.get_request_arguments(self, my_service, tc_num)
-            tc['assert_func'](self, req_args)
-
-        # Set back requests.request
-        requests.request = orig_request
+        # Assert the custom timeout is set to the server request
+        req_args = Helpers.get_request_arguments(self, my_service, 2, call_count=3)
+        self.assertEqual(req_args.kwargs['timeout'], CUSTOM_TIMEOUT)
 
     def test_timeout_cloudantv1_iamauth(self):
         authenticator = IAMAuthenticator('apikey')
