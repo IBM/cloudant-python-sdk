@@ -32,7 +32,7 @@ class BasePageMockResponses(PaginationMockResponse):
     # Override plus_one_paging to accommodate this weird hybrid
     self.plus_one_paging = False
 
-class TestPageIterator(_BasePageIterator):
+class BaseTestPageIterator(_BasePageIterator):
   """
   A test subclass of the _BasePager under test.
   """
@@ -40,7 +40,7 @@ class TestPageIterator(_BasePageIterator):
   page_keys: list[str] = []
 
   def __init__(self, client, opts):
-    super().__init__(client, TestPageIterator.operation or client.post_view, TestPageIterator.page_keys, opts)
+    super().__init__(client, BaseTestPageIterator.operation or client.post_view, BaseTestPageIterator.page_keys, opts)
 
   def _result_converter(self) -> Callable[[dict], ViewResult]:
     return lambda d: ViewResult.from_dict(d)
@@ -58,7 +58,7 @@ class TestBasePageIterator(MockClientBaseCase):
   def test_init(self):
     operation = self.client.post_view
     opts = {'db': 'test', 'limit': 20}
-    page_iterator: Iterable[ViewResultRow] = TestPageIterator(self.client, opts)
+    page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(self.client, opts)
     # Assert client is set
     self.assertEqual(page_iterator._client, self.client, 'The supplied client should be set.')
     # Assert operation is set
@@ -72,8 +72,8 @@ class TestBasePageIterator(MockClientBaseCase):
     page_opts = {'foo': 'boo', 'bar': 'far'}
     opts = {**static_opts, **page_opts}
     # Use page_opts.keys() to pass the list of names for page options
-    with patch('test_pagination_base.TestPageIterator.page_keys', page_opts.keys()):
-      page_iterator: Iterable[ViewResultRow] = TestPageIterator(self.client, opts)
+    with patch('test_pagination_base.BaseTestPageIterator.page_keys', page_opts.keys()):
+      page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(self.client, opts)
     # Assert partial function has only static opts
     self.assertEqual(page_iterator._next_request_function.keywords, static_opts, 'The partial function kwargs should be only the static options.')
     # Assert next page options
@@ -81,7 +81,7 @@ class TestBasePageIterator(MockClientBaseCase):
 
   def test_default_page_size(self):
     opts = {'db': 'test'}
-    page_iterator: Iterable[ViewResultRow] = TestPageIterator(self.client, opts)
+    page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(self.client, opts)
     # Assert the default page size
     expected_page_size = 200
     self.assertEqual(page_iterator._page_size, expected_page_size, 'The default page size should be set.')
@@ -89,7 +89,7 @@ class TestBasePageIterator(MockClientBaseCase):
 
   def test_limit_page_size(self):
     opts = {'db': 'test', 'limit': 42}
-    page_iterator: Iterable[ViewResultRow] = TestPageIterator(self.client, opts)
+    page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(self.client, opts)
     # Assert the provided page size
     expected_page_size = 42
     self.assertEqual(page_iterator._page_size, expected_page_size, 'The default page size should be set.')
@@ -97,15 +97,15 @@ class TestBasePageIterator(MockClientBaseCase):
 
   def test_has_next_initially_true(self):
     opts = {'limit': 1}
-    page_iterator: Iterable[ViewResultRow] = TestPageIterator(self.client, opts)
+    page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(self.client, opts)
     # Assert _has_next
     self.assertTrue(page_iterator._has_next, '_has_next should initially return True.')
 
   def test_has_next_true_for_result_equal_to_limit(self):
     page_size = 1
     # Init with mock that returns only a single row
-    with patch('test_pagination_base.TestPageIterator.operation', BasePageMockResponses(1, page_size).get_next_page):
-      page_iterator: Iterable[ViewResultRow] = TestPageIterator(
+    with patch('test_pagination_base.BaseTestPageIterator.operation', BasePageMockResponses(1, page_size).get_next_page):
+      page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(
           self.client,
           {'limit': page_size})
       # Get first page with 1 result
@@ -116,8 +116,8 @@ class TestBasePageIterator(MockClientBaseCase):
   def test_has_next_false_for_result_less_than_limit(self):
     page_size = 1
     # Init with mock that returns zero rows
-    with patch('test_pagination_base.TestPageIterator.operation', BasePageMockResponses(0, page_size).get_next_page):
-      page_iterator: Iterable[ViewResultRow] = TestPageIterator(
+    with patch('test_pagination_base.BaseTestPageIterator.operation', BasePageMockResponses(0, page_size).get_next_page):
+      page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(
           self.client,
           {'limit': page_size})
       # Get first page with 0 result
@@ -129,8 +129,8 @@ class TestBasePageIterator(MockClientBaseCase):
     page_size = 25
     # Mock that returns one page of 25 items
     mock = BasePageMockResponses(page_size, page_size)
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
-      page_iterator: Iterable[ViewResultRow] = TestPageIterator(
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
+      page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(
           self.client,
           {'limit': page_size})
       # Get first page
@@ -142,8 +142,8 @@ class TestBasePageIterator(MockClientBaseCase):
     page_size = 3
     # Mock that returns two pages of 3 items
     mock = BasePageMockResponses(2*page_size, page_size)
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
-      page_iterator: Iterable[ViewResultRow] = TestPageIterator(
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
+      page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(
           self.client,
           {'limit': page_size})
       # Get first page
@@ -163,8 +163,8 @@ class TestBasePageIterator(MockClientBaseCase):
     page_size = 3
     # Mock that returns 3 pages of 3 items
     mock = BasePageMockResponses(3*page_size, page_size)
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
-      page_iterator: Iterable[ViewResultRow] = TestPageIterator(
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
+      page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(
           self.client,
           {'limit': page_size})
       page_count = 0
@@ -182,8 +182,8 @@ class TestBasePageIterator(MockClientBaseCase):
     page_size = 3
     # Mock that returns 3 pages of 3 items, then 1 more page with 1 item
     mock = BasePageMockResponses(3*page_size + 1, page_size)
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
-      page_iterator: Iterable[ViewResultRow] = TestPageIterator(
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
+      page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(
           self.client,
           {'limit': page_size})
       page_count = 0
@@ -201,8 +201,8 @@ class TestBasePageIterator(MockClientBaseCase):
     page_size = 2
     # Mock that returns one page of one item
     mock = BasePageMockResponses(page_size - 1, page_size)
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
-      page_iterator: Iterable[ViewResultRow] = TestPageIterator(
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
+      page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(
           self.client,
           {'limit': page_size})
       # Get first and only page
@@ -218,8 +218,8 @@ class TestBasePageIterator(MockClientBaseCase):
   def test_pages_immutable(self):
     page_size = 1
     mock = BasePageMockResponses(page_size, page_size)
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
-      page_iterator: Iterable[ViewResultRow] = TestPageIterator(
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
+      page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(
           self.client,
           {'limit': page_size})
       # Get page
@@ -230,8 +230,8 @@ class TestBasePageIterator(MockClientBaseCase):
   def test_set_next_page_options(self):
     page_size = 1
     mock = BasePageMockResponses(5*page_size, page_size)
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
-      page_iterator: Iterable[ViewResultRow] = TestPageIterator(
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
+      page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(
           self.client,
           {'limit': page_size})
       self.assertIsNone(page_iterator._next_page_opts.get('start_key'), "The start key should intially be None.")
@@ -248,8 +248,8 @@ class TestBasePageIterator(MockClientBaseCase):
   def test_next_resumes_after_error(self):
     page_size = 1
     mock = BasePageMockResponses(3*page_size, page_size)
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
-      page_iterator: Iterable[ViewResultRow] = TestPageIterator(
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
+      page_iterator: Iterable[ViewResultRow] = BaseTestPageIterator(
           self.client,
           {'limit': page_size})
       self.assertIsNone(page_iterator._next_page_opts.get('start_key'), "The start key should intially be None.")
@@ -269,8 +269,8 @@ class TestBasePageIterator(MockClientBaseCase):
   def test_pages_iterable(self):
     page_size = 23
     mock = BasePageMockResponses(3*page_size-1, page_size)
-    pagination = Pagination(self.client, TestPageIterator, {'limit': page_size})
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
+    pagination = Pagination(self.client, BaseTestPageIterator, {'limit': page_size})
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
       # Check pages are iterable
       page_number = 0
       for page in pagination.pages():
@@ -282,8 +282,8 @@ class TestBasePageIterator(MockClientBaseCase):
   def test_rows_iterable(self):
     page_size = 23
     mock = BasePageMockResponses(3*page_size-1, page_size)
-    pagination = Pagination(self.client, TestPageIterator, {'limit': page_size})
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
+    pagination = Pagination(self.client, BaseTestPageIterator, {'limit': page_size})
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
       actual_items = []
       # Check rows are iterable
       for row in pagination.rows():
@@ -294,8 +294,8 @@ class TestBasePageIterator(MockClientBaseCase):
     page_size = 7
     # Mock that returns two pages of 7 items
     mock = BasePageMockResponses(2*page_size, page_size)
-    pagination = Pagination(self.client, TestPageIterator, {'limit': page_size})
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
+    pagination = Pagination(self.client, BaseTestPageIterator, {'limit': page_size})
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
       pager = pagination.pager()
       # Get first page
       actual_page: list[ViewResultRow] = pager.get_next()
@@ -305,8 +305,8 @@ class TestBasePageIterator(MockClientBaseCase):
     page_size = 11
     # Mock that returns 6 pages of 11 items, then 1 more page with 5 items
     mock = BasePageMockResponses(71, page_size)
-    pagination = Pagination(self.client, TestPageIterator, {'limit': page_size})
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
+    pagination = Pagination(self.client, BaseTestPageIterator, {'limit': page_size})
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
       pager: Pager[ViewResultRow] = pagination.pager()
       actual_items = pager.get_all()
       self.assertSequenceEqual(actual_items, mock.all_expected_items(), "The results should match all the pages.")
@@ -326,8 +326,8 @@ class TestBasePageIterator(MockClientBaseCase):
       first_page,
       mock.get_next_page()
     ])
-    pagination = Pagination(self.client, TestPageIterator, {'limit': page_size})
-    with patch('test_pagination_base.TestPageIterator.operation', mockmock):
+    pagination = Pagination(self.client, BaseTestPageIterator, {'limit': page_size})
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mockmock):
       pager = pagination.pager()
       with self.assertRaises(Exception):
         pager.get_all()
@@ -337,8 +337,8 @@ class TestBasePageIterator(MockClientBaseCase):
     page_size = 11
     # Mock that returns 6 pages of 11 items, then 1 more page with 5 items
     mock = BasePageMockResponses(71, page_size)
-    pagination = Pagination(self.client, TestPageIterator, {'limit': page_size})
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
+    pagination = Pagination(self.client, BaseTestPageIterator, {'limit': page_size})
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
       pager: Pager[ViewResultRow] = pagination.pager()
       first_page = pager.get_next()
       self.assertSequenceEqual(first_page, mock.get_expected_page(1), "The actual page should match the expected page")
@@ -358,8 +358,8 @@ class TestBasePageIterator(MockClientBaseCase):
       first_page,
       Exception('test exception')
     ])
-    pagination = Pagination(self.client, TestPageIterator, {'limit': page_size})
-    with patch('test_pagination_base.TestPageIterator.operation', mockmock):
+    pagination = Pagination(self.client, BaseTestPageIterator, {'limit': page_size})
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mockmock):
       pager = pagination.pager()
       # Stop get all part way through so it isn't consumed when we call get Next
       with self.assertRaises(Exception):
@@ -378,8 +378,8 @@ class TestBasePageIterator(MockClientBaseCase):
       Exception('test exception'),
       mock.get_next_page()
     ])
-    pagination = Pagination(self.client, TestPageIterator, {'limit': page_size})
-    with patch('test_pagination_base.TestPageIterator.operation', mockmock):
+    pagination = Pagination(self.client, BaseTestPageIterator, {'limit': page_size})
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mockmock):
       pager = pagination.pager()
       # Assert first page
       self.assertSequenceEqual(pager.get_next(), mock.get_expected_page(1), "The actual page should match the expected page")
@@ -392,8 +392,8 @@ class TestBasePageIterator(MockClientBaseCase):
     page_size = 7
     # Mock that returns two pages of 7 items
     mock = BasePageMockResponses(2*page_size, page_size)
-    pagination = Pagination(self.client, TestPageIterator, {'limit': page_size})
-    with patch('test_pagination_base.TestPageIterator.operation', mock.get_next_page):
+    pagination = Pagination(self.client, BaseTestPageIterator, {'limit': page_size})
+    with patch('test_pagination_base.BaseTestPageIterator.operation', mock.get_next_page):
       pager = pagination.pager()
       page_count = 0
       while pager.has_next():
