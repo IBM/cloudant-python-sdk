@@ -27,11 +27,12 @@ import base64
 import json
 import logging
 
-from ibm_cloud_sdk_core import BaseService, DetailedResponse
+from ibm_cloud_sdk_core import DetailedResponse
 from ibm_cloud_sdk_core.authenticators.authenticator import Authenticator
 from ibm_cloud_sdk_core.get_authenticator import get_authenticator_from_environment
 from ibm_cloud_sdk_core.utils import convert_list, convert_model, datetime_to_string, string_to_datetime
 
+from .cloudant_base_service import CloudantBaseService
 from .common import get_sdk_headers
 
 ##############################################################################
@@ -39,7 +40,7 @@ from .common import get_sdk_headers
 ##############################################################################
 
 
-class CloudantV1(BaseService):
+class CloudantV1(CloudantBaseService):
     """The Cloudant V1 service."""
 
     DEFAULT_SERVICE_URL = 'https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud'
@@ -72,7 +73,7 @@ class CloudantV1(BaseService):
                Get up to date information from https://github.com/IBM/python-sdk-core/blob/main/README.md
                about initializing the authenticator of your choice.
         """
-        BaseService.__init__(self, service_url=self.DEFAULT_SERVICE_URL, authenticator=authenticator)
+        CloudantBaseService.__init__(self, service_url=self.DEFAULT_SERVICE_URL, authenticator=authenticator)
         # enable gzip compression of request bodies
         self.set_enable_gzip_compression(True)
 

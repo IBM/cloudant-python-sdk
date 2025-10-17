@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2020, 2022.
+# © Copyright IBM Corporation 2020, 2025.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 """
 Module for handling session authentication
 """
-from requests import Request
+from requests import Request, Session
 
 from ibm_cloud_sdk_core.authenticators import Authenticator
 from .couchdb_session_token_manager import CouchDbSessionTokenManager
@@ -46,8 +46,6 @@ class CouchDbSessionAuthenticator(Authenticator):
         if not isinstance(disable_ssl_verification, bool):
             raise TypeError('disable_ssl_verification must be a bool')
 
-        self.jar = None
-
         self.token_manager = CouchDbSessionTokenManager(
             username,
             password,
@@ -55,11 +53,14 @@ class CouchDbSessionAuthenticator(Authenticator):
         )
         self.validate()
 
-    def set_jar(self, jar):
-        """Sets the cookie jar for the authenticator.
+    def set_http_client(self, http_client: Session) -> None:
+        """Sets base serivice's http client for the authenticator.
         This is an internal method called by BaseService. Not to be called directly.
         """
-        self.jar = jar
+        if isinstance(http_client, Session):
+            self.token_manager.http_client = http_client
+        else:
+            raise TypeError("http_client parameter must be a requests.sessions.Session")
 
     def validate(self):
         """Validates the username, and password for session token requests.
@@ -82,11 +83,7 @@ class CouchDbSessionAuthenticator(Authenticator):
         Args:
             req: Ignored. BaseService uses the cookie jar for every request
         """
-        jar = self.token_manager.get_token()
-        # Requests seem to save cookies only for Sessions. BaseService is
-        # hard-coded to work with "regular" requests requests so updating
-        # the jar manually is necessary
-        self.jar.update(jar)
+        self.token_manager.get_token()
 
     def authentication_type(self) -> str:
         """Returns this authenticator's type ('COUCHDB_SESSION')."""
