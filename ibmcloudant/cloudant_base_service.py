@@ -27,7 +27,6 @@ from io import BytesIO
 from ibm_cloud_sdk_core import BaseService
 from ibm_cloud_sdk_core.authenticators import Authenticator
 from requests import Response, Session
-from requests.cookies import RequestsCookieJar
 
 from .common import get_sdk_headers
 from .couchdb_session_authenticator import CouchDbSessionAuthenticator
@@ -96,9 +95,8 @@ class CloudantBaseService(BaseService):
             self.set_http_config(new_http_config)
         # Custom actions for CouchDbSessionAuthenticator
         if isinstance(authenticator, CouchDbSessionAuthenticator):
-            # Replacing BaseService's http.cookiejar.CookieJar as RequestsCookieJar supports update(CookieJar)
-            self.jar = RequestsCookieJar(self.jar)
-            self.authenticator.set_jar(self.jar)  # Authenticators don't have access to cookie jars by default
+            # Make token manager of CouchDbSessionAuthenticator to use the same http client as main service
+            self.authenticator._set_http_client(self.get_http_client(), self.jar)
         add_hooks(self)
 
     def set_service_url(self, service_url: str):
@@ -128,6 +126,8 @@ class CloudantBaseService(BaseService):
 
     def set_http_client(self, http_client: Session) -> None:
         super().set_http_client(http_client)
+        if isinstance(self.authenticator, CouchDbSessionAuthenticator):
+            self.authenticator._set_http_client(self.get_http_client(), self.jar)
         add_hooks(self)
 
     def prepare_request(self,

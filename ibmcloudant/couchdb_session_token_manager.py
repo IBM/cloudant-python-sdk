@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# © Copyright IBM Corporation 2020, 2022.
+# © Copyright IBM Corporation 2020, 2025.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,6 +16,8 @@
 """
 Module for managing session authentication token
 """
+from requests import Session
+
 from ibm_cloud_sdk_core.token_managers.token_manager import TokenManager
 
 
@@ -52,7 +54,9 @@ class CouchDbSessionTokenManager(TokenManager):
 
         self.token = None
 
+        self.http_client = None
         self.http_config = {}
+        self.jar = None
         self.headers = None
 
     def request_token(self):
@@ -63,14 +67,19 @@ class CouchDbSessionTokenManager(TokenManager):
              A CookieJar of Cookies the server sent back.
         """
 
-        response = self._request(
+        if not isinstance(self.http_client, Session):
+            raise TypeError("http_client parameter must be a requests.sessions.Session")
+
+        response = self.http_client.request(
             method='POST',
             url=self.url + "/_session",
             headers=self.headers,
             json={
                 'username': self.username,
                 'password': self.password,
-            }
+            },
+            cookies=self.jar,
+            **self.http_config
         )
 
         return response
