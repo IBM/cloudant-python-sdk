@@ -249,7 +249,6 @@ service = CloudantV1.new_instance()
 
 response = service.get_db_updates(
   feed='normal',
-  heartbeat=10000,
   since='now'
 ).get_result()
 
@@ -1001,8 +1000,7 @@ service = CloudantV1.new_instance()
 
 response = service.get_design_document(
   db='products',
-  ddoc='appliances',
-  latest=True
+  ddoc='appliances'
 ).get_result()
 
 print(response)
@@ -1237,7 +1235,7 @@ from ibmcloudant.cloudant_v1 import CloudantV1
 service = CloudantV1.new_instance()
 
 response = service.post_design_docs(
-  attachments=True,
+  descending=True,
   db='users'
 ).get_result()
 
@@ -1264,7 +1262,7 @@ doc1 = AllDocsQuery(
 )
 doc2 = AllDocsQuery(
   inclusive_end=True,
-  key='_design/allusers',
+  start_key='_design/allusers',
   skip=1
 )
 
@@ -1335,7 +1333,7 @@ service = CloudantV1.new_instance()
 
 response = service.post_find(
   db='users',
-  selector={'address': {'$regex': 'Street'}},
+  selector={'address': {'$exists': True}},
   fields=["_id", "type", "name", "email", "address"],
   limit=3
 ).get_result()

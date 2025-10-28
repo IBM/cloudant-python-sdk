@@ -5,7 +5,7 @@ service = CloudantV1.new_instance()
 
 response = service.post_find(
   db='users',
-  selector={'address': {'$regex': 'Street'}},
+  selector={'address': {'$exists': True}},
   fields=["_id", "type", "name", "email", "address"],
   limit=3
 ).get_result()

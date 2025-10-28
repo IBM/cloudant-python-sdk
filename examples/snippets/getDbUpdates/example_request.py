@@ -5,7 +5,6 @@ service = CloudantV1.new_instance()
 
 response = service.get_db_updates(
   feed='normal',
-  heartbeat=10000,
   since='now'
 ).get_result()
 
