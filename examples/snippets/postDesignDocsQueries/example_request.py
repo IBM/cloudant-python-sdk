@@ -10,7 +10,7 @@ doc1 = AllDocsQuery(
 )
 doc2 = AllDocsQuery(
   inclusive_end=True,
-  key='_design/allusers',
+  start_key='_design/allusers',
   skip=1
 )
 

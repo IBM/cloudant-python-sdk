@@ -5,8 +5,7 @@ service = CloudantV1.new_instance()
 
 response = service.get_design_document(
   db='products',
-  ddoc='appliances',
-  latest=True
+  ddoc='appliances'
 ).get_result()
 
 print(response)
