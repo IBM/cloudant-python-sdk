@@ -656,6 +656,25 @@ response = service.post_document(db='products', document=products_doc).get_resul
 print(response)
 ```
 
+### [Example request as a stream](snippets/postDocument/example_request_as_a_stream.py)
+
+[embedmd]:# (snippets/postDocument/example_request_as_a_stream.py)
+```py
+# section: code
+from ibmcloudant.cloudant_v1 import Document, CloudantV1
+
+service = CloudantV1.new_instance()
+
+with open("products_doc.json", "rb") as products_doc:
+  response = service.post_document(
+      db='products',
+      document=products_doc_binary,
+      content_type="application/json"
+  ).get_result()
+
+print(response)
+```
+
 ## putDatabase
 
 _PUT `/{db}`_
