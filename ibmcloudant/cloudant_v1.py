@@ -292,18 +292,17 @@ class CloudantV1(CloudantBaseService):
                type.
         :param int heartbeat: (optional) Query parameter to specify the period in
                milliseconds after which an empty line is sent in the results. Off by
-               default and only applicable for
-               `continuous` and `eventsource` feeds. Overrides any timeout to keep the
-               feed alive indefinitely. May also be `true` to use a value of `60000`.
+               default and only applicable for `continuous` and `eventsource` feeds.
+               Overrides any timeout to keep the feed alive indefinitely. May also be
+               `true` to use a value of `60000`.
                **Note:** Delivery of heartbeats cannot be relied on at specific intervals.
                If your application runs in an environment where idle network connections
                may break, `heartbeat` is not suitable as a keepalive mechanism. Instead,
                consider one of the following options:
-                 * Use the `timeout` parameter with a value that is compatible with your
-               network environment.
+                 * Use the `timeout` parameter with a value that is compatible with
+                   your network environment.
                  * Switch to scheduled usage of one of the non-continuous changes feed
-               types
-                   (`normal` or `longpoll`).
+                   types (`normal` or `longpoll`).
                  * Use TCP keepalive.
         :param int limit: (optional) Query parameter to specify the number of
                returned documents to limit the result to.
@@ -314,8 +313,12 @@ class CloudantV1(CloudantBaseService):
                configuration option. Note that `60000` value is also the default maximum
                timeout to prevent undetected dead connections.
         :param str since: (optional) Query parameter to specify to start the
-               results from the change immediately after the given update sequence. Can be
-               a valid update sequence or `now` value. Default is `0` i.e. all changes.
+               results from the change immediately after the given update sequence.
+               Possible values are:
+                 * `0` for all available changes (default).
+                 * `now` for future changes.
+                 * A valid update sequence, for example, from the `seq` value of a
+                   change received before.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `DbUpdates` object
@@ -426,9 +429,9 @@ class CloudantV1(CloudantBaseService):
                matches when the specified field contains a value that is equal to the
                supplied argument.
                It is important for query performance to use appropriate selectors:
-               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
-               (but not `$ne`) can be used as the basis of a query. You should include at
-               least one of these in a selector.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+               `$lte` (but not `$ne`) can be used as the basis of a query. You should
+               include at least one of these in a selector.
                * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
                answered from an index. For query selectors use these operators in
                conjunction with equality operators or create and use a partial index to
@@ -458,11 +461,10 @@ class CloudantV1(CloudantBaseService):
                The built-in filter types are:
                  * `_design` - Returns only changes to design documents.
                  * `_doc_ids` - Returns changes for documents with an ID matching one
-               specified in
-                     `doc_ids` request body parameter. (`POST` only)
-                 * `_selector` - Returns changes for documents that match the `selector`
-                     request body parameter. The selector syntax is the same as used for
-                     `_find`. (`POST` only)
+                     specified in `doc_ids` request body parameter. (`POST` only)
+                 * `_selector` - Returns changes for documents that match the
+                     `selector` request body parameter. The selector syntax is the same
+                     as used for `_find`. (`POST` only)
                  * `_view` - Returns changes for documents that match an existing map
                      function in the view specified by the query parameter `view`.
                Additionally, the value can be the name of a JS filter function from a
@@ -473,18 +475,17 @@ class CloudantV1(CloudantBaseService):
                `_selector` filter type.
         :param int heartbeat: (optional) Query parameter to specify the period in
                milliseconds after which an empty line is sent in the results. Off by
-               default and only applicable for
-               `continuous` and `eventsource` feeds. Overrides any timeout to keep the
-               feed alive indefinitely. May also be `true` to use a value of `60000`.
+               default and only applicable for `continuous` and `eventsource` feeds.
+               Overrides any timeout to keep the feed alive indefinitely. May also be
+               `true` to use a value of `60000`.
                **Note:** Delivery of heartbeats cannot be relied on at specific intervals.
                If your application runs in an environment where idle network connections
                may break, `heartbeat` is not suitable as a keepalive mechanism. Instead,
                consider one of the following options:
-                 * Use the `timeout` parameter with a value that is compatible with your
-               network environment.
+                 * Use the `timeout` parameter with a value that is compatible with
+                   your network environment.
                  * Switch to scheduled usage of one of the non-continuous changes feed
-               types
-                   (`normal` or `longpoll`).
+                   types (`normal` or `longpoll`).
                  * Use TCP keepalive.
         :param bool include_docs: (optional) Query parameter to specify whether to
                include the full content of the documents in the response.
@@ -498,8 +499,12 @@ class CloudantV1(CloudantBaseService):
                computing the seq value across many shards (especially in highly-sharded
                databases) is expensive.
         :param str since: (optional) Query parameter to specify to start the
-               results from the change immediately after the given update sequence. Can be
-               a valid update sequence or `now` value. Default is `0` i.e. all changes.
+               results from the change immediately after the given update sequence.
+               Possible values are:
+                 * `0` for all available changes (default).
+                 * `now` for future changes.
+                 * A valid update sequence, for example, from the `seq` value of a
+                   change received before.
         :param str style: (optional) Query parameter to specify how many revisions
                are returned in the changes array. The default, `main_only`, will only
                return the current "winning" revision; all_docs will return all leaf
@@ -644,9 +649,9 @@ class CloudantV1(CloudantBaseService):
                matches when the specified field contains a value that is equal to the
                supplied argument.
                It is important for query performance to use appropriate selectors:
-               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
-               (but not `$ne`) can be used as the basis of a query. You should include at
-               least one of these in a selector.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+               `$lte` (but not `$ne`) can be used as the basis of a query. You should
+               include at least one of these in a selector.
                * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
                answered from an index. For query selectors use these operators in
                conjunction with equality operators or create and use a partial index to
@@ -676,11 +681,10 @@ class CloudantV1(CloudantBaseService):
                The built-in filter types are:
                  * `_design` - Returns only changes to design documents.
                  * `_doc_ids` - Returns changes for documents with an ID matching one
-               specified in
-                     `doc_ids` request body parameter. (`POST` only)
-                 * `_selector` - Returns changes for documents that match the `selector`
-                     request body parameter. The selector syntax is the same as used for
-                     `_find`. (`POST` only)
+                     specified in `doc_ids` request body parameter. (`POST` only)
+                 * `_selector` - Returns changes for documents that match the
+                     `selector` request body parameter. The selector syntax is the same
+                     as used for `_find`. (`POST` only)
                  * `_view` - Returns changes for documents that match an existing map
                      function in the view specified by the query parameter `view`.
                Additionally, the value can be the name of a JS filter function from a
@@ -691,18 +695,17 @@ class CloudantV1(CloudantBaseService):
                `_selector` filter type.
         :param int heartbeat: (optional) Query parameter to specify the period in
                milliseconds after which an empty line is sent in the results. Off by
-               default and only applicable for
-               `continuous` and `eventsource` feeds. Overrides any timeout to keep the
-               feed alive indefinitely. May also be `true` to use a value of `60000`.
+               default and only applicable for `continuous` and `eventsource` feeds.
+               Overrides any timeout to keep the feed alive indefinitely. May also be
+               `true` to use a value of `60000`.
                **Note:** Delivery of heartbeats cannot be relied on at specific intervals.
                If your application runs in an environment where idle network connections
                may break, `heartbeat` is not suitable as a keepalive mechanism. Instead,
                consider one of the following options:
-                 * Use the `timeout` parameter with a value that is compatible with your
-               network environment.
+                 * Use the `timeout` parameter with a value that is compatible with
+                   your network environment.
                  * Switch to scheduled usage of one of the non-continuous changes feed
-               types
-                   (`normal` or `longpoll`).
+                   types (`normal` or `longpoll`).
                  * Use TCP keepalive.
         :param bool include_docs: (optional) Query parameter to specify whether to
                include the full content of the documents in the response.
@@ -716,8 +719,12 @@ class CloudantV1(CloudantBaseService):
                computing the seq value across many shards (especially in highly-sharded
                databases) is expensive.
         :param str since: (optional) Query parameter to specify to start the
-               results from the change immediately after the given update sequence. Can be
-               a valid update sequence or `now` value. Default is `0` i.e. all changes.
+               results from the change immediately after the given update sequence.
+               Possible values are:
+                 * `0` for all available changes (default).
+                 * `now` for future changes.
+                 * A valid update sequence, for example, from the `seq` value of a
+                   change received before.
         :param str style: (optional) Query parameter to specify how many revisions
                are returned in the changes array. The default, `main_only`, will only
                return the current "winning" revision; all_docs will return all leaf
@@ -2497,7 +2504,7 @@ class CloudantV1(CloudantBaseService):
         Creates or modifies a document in the specified database.
         For creation, you must specify the document ID but you should not specify the
         revision.
-        For modification, you must specify the document ID and a revision  identifier.
+        For modification, you must specify the document ID and a revision identifier.
 
         :param str db: Path parameter to specify the database name.
         :param str doc_id: Path parameter to specify the document ID.
@@ -3204,7 +3211,8 @@ class CloudantV1(CloudantBaseService):
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
         :param object end_key: (optional) Schema for any JSON type.
-        :param str end_key_doc_id: (optional) Schema for a document ID.
+        :param str end_key_doc_id: (optional) Stop returning rows at the specified
+               document ID. No effect if using `group` or not providing end key.
         :param bool group: (optional) Parameter to specify whether to group reduced
                results by key. Valid only if a reduce function defined in the view. If the
                view emits key in JSON array format, then it is possible to reduce groups
@@ -3215,27 +3223,32 @@ class CloudantV1(CloudantBaseService):
                group is `true`. Group level groups the reduced results by the specified
                number of array elements. If unset, results are grouped by the entire array
                key, returning a reduced value for each complete key.
-        :param object key: (optional) Schema for any JSON type.
+        :param object key: (optional) Parameter to specify to return only rows that
+               match the specified key. String representation of any JSON type that
+               matches the key type emitted by the view function.
         :param List[object] keys: (optional) Parameter to specify returning only
-               documents that match any of the specified keys. A JSON array of keys that
-               match the key type emitted by the view function.
+               rows that match any of the specified keys. A JSON array of keys that match
+               the key type emitted by the view function.
         :param bool reduce: (optional) Parameter to specify whether to use the
                reduce function in a map-reduce view. Default is true when a reduce
                function is defined.
-               A default `reduce` view type can be disabled to behave like a `map` by
-               setting `reduce=false` explicitly.
-               Be aware that `include_docs=true` can only be used with `map` views.
+               A default `reduce` view type can be disabled to behave like a
+               `map` by setting `reduce=false` explicitly.
+               Be aware that `include_docs=true` is only for `map` views. Reduced views do
+               not include document IDs in view rows.
         :param bool stable: (optional) Query parameter to specify whether use the
-               same replica of  the index on each request. The default value `false`
-               contacts all  replicas and returns the result from the first, fastest,
+               same replica of the index on each request. The default value `false`
+               contacts all replicas and returns the result from the first, fastest,
                responder. Setting it to `true` when used in conjunction with
-               `update=false`  may improve consistency at the expense of increased latency
+               `update=false` may improve consistency at the expense of increased latency
                and decreased throughput if the selected replica is not the fastest of the
-               available  replicas.
+               available replicas.
                **Note:** In general setting `true` is discouraged and is strictly not
                recommended when using `update=true`.
         :param object start_key: (optional) Schema for any JSON type.
-        :param str start_key_doc_id: (optional) Schema for a document ID.
+        :param str start_key_doc_id: (optional) Start returning rows at the
+               specified document ID. No effect if using `group` or not providing start
+               key.
         :param str update: (optional) Parameter to specify whether or not the view
                in question should be updated prior to responding to the user.
                * `true` - Return results after the view is updated.
@@ -3372,7 +3385,8 @@ class CloudantV1(CloudantBaseService):
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
         :param object end_key: (optional) Schema for any JSON type.
-        :param str end_key_doc_id: (optional) Schema for a document ID.
+        :param str end_key_doc_id: (optional) Stop returning rows at the specified
+               document ID. No effect if using `group` or not providing end key.
         :param bool group: (optional) Parameter to specify whether to group reduced
                results by key. Valid only if a reduce function defined in the view. If the
                view emits key in JSON array format, then it is possible to reduce groups
@@ -3383,27 +3397,32 @@ class CloudantV1(CloudantBaseService):
                group is `true`. Group level groups the reduced results by the specified
                number of array elements. If unset, results are grouped by the entire array
                key, returning a reduced value for each complete key.
-        :param object key: (optional) Schema for any JSON type.
+        :param object key: (optional) Parameter to specify to return only rows that
+               match the specified key. String representation of any JSON type that
+               matches the key type emitted by the view function.
         :param List[object] keys: (optional) Parameter to specify returning only
-               documents that match any of the specified keys. A JSON array of keys that
-               match the key type emitted by the view function.
+               rows that match any of the specified keys. A JSON array of keys that match
+               the key type emitted by the view function.
         :param bool reduce: (optional) Parameter to specify whether to use the
                reduce function in a map-reduce view. Default is true when a reduce
                function is defined.
-               A default `reduce` view type can be disabled to behave like a `map` by
-               setting `reduce=false` explicitly.
-               Be aware that `include_docs=true` can only be used with `map` views.
+               A default `reduce` view type can be disabled to behave like a
+               `map` by setting `reduce=false` explicitly.
+               Be aware that `include_docs=true` is only for `map` views. Reduced views do
+               not include document IDs in view rows.
         :param bool stable: (optional) Query parameter to specify whether use the
-               same replica of  the index on each request. The default value `false`
-               contacts all  replicas and returns the result from the first, fastest,
+               same replica of the index on each request. The default value `false`
+               contacts all replicas and returns the result from the first, fastest,
                responder. Setting it to `true` when used in conjunction with
-               `update=false`  may improve consistency at the expense of increased latency
+               `update=false` may improve consistency at the expense of increased latency
                and decreased throughput if the selected replica is not the fastest of the
-               available  replicas.
+               available replicas.
                **Note:** In general setting `true` is discouraged and is strictly not
                recommended when using `update=true`.
         :param object start_key: (optional) Schema for any JSON type.
-        :param str start_key_doc_id: (optional) Schema for a document ID.
+        :param str start_key_doc_id: (optional) Start returning rows at the
+               specified document ID. No effect if using `group` or not providing start
+               key.
         :param str update: (optional) Parameter to specify whether or not the view
                in question should be updated prior to responding to the user.
                * `true` - Return results after the view is updated.
@@ -3961,7 +3980,7 @@ class CloudantV1(CloudantBaseService):
                the specified number.
         :param List[str] sort: (optional) Specifies the sort order of the results.
                In a grouped search (when group_field is used), this parameter specifies
-               the sort order within a group. The default sort order is relevance.  A JSON
+               the sort order within a group. The default sort order is relevance. A JSON
                string of the form "fieldname&lt;type&gt;" or "-fieldname&lt;type&gt;" for
                descending order, where fieldname is the name of a string or number field,
                and type is either a number, a string, or a JSON array of strings. The type
@@ -4095,7 +4114,7 @@ class CloudantV1(CloudantBaseService):
                the specified number.
         :param List[str] sort: (optional) Specifies the sort order of the results.
                In a grouped search (when group_field is used), this parameter specifies
-               the sort order within a group. The default sort order is relevance.  A JSON
+               the sort order within a group. The default sort order is relevance. A JSON
                string of the form "fieldname&lt;type&gt;" or "-fieldname&lt;type&gt;" for
                descending order, where fieldname is the name of a string or number field,
                and type is either a number, a string, or a JSON array of strings. The type
@@ -4236,7 +4255,8 @@ class CloudantV1(CloudantBaseService):
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
         :param object end_key: (optional) Schema for any JSON type.
-        :param str end_key_doc_id: (optional) Schema for a document ID.
+        :param str end_key_doc_id: (optional) Stop returning rows at the specified
+               document ID. No effect if using `group` or not providing end key.
         :param bool group: (optional) Parameter to specify whether to group reduced
                results by key. Valid only if a reduce function defined in the view. If the
                view emits key in JSON array format, then it is possible to reduce groups
@@ -4247,18 +4267,23 @@ class CloudantV1(CloudantBaseService):
                group is `true`. Group level groups the reduced results by the specified
                number of array elements. If unset, results are grouped by the entire array
                key, returning a reduced value for each complete key.
-        :param object key: (optional) Schema for any JSON type.
+        :param object key: (optional) Parameter to specify to return only rows that
+               match the specified key. String representation of any JSON type that
+               matches the key type emitted by the view function.
         :param List[object] keys: (optional) Parameter to specify returning only
-               documents that match any of the specified keys. A JSON array of keys that
-               match the key type emitted by the view function.
+               rows that match any of the specified keys. A JSON array of keys that match
+               the key type emitted by the view function.
         :param bool reduce: (optional) Parameter to specify whether to use the
                reduce function in a map-reduce view. Default is true when a reduce
                function is defined.
-               A default `reduce` view type can be disabled to behave like a `map` by
-               setting `reduce=false` explicitly.
-               Be aware that `include_docs=true` can only be used with `map` views.
+               A default `reduce` view type can be disabled to behave like a
+               `map` by setting `reduce=false` explicitly.
+               Be aware that `include_docs=true` is only for `map` views. Reduced views do
+               not include document IDs in view rows.
         :param object start_key: (optional) Schema for any JSON type.
-        :param str start_key_doc_id: (optional) Schema for a document ID.
+        :param str start_key_doc_id: (optional) Start returning rows at the
+               specified document ID. No effect if using `group` or not providing start
+               key.
         :param str update: (optional) Parameter to specify whether or not the view
                in question should be updated prior to responding to the user.
                * `true` - Return results after the view is updated.
@@ -4400,7 +4425,8 @@ class CloudantV1(CloudantBaseService):
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
         :param object end_key: (optional) Schema for any JSON type.
-        :param str end_key_doc_id: (optional) Schema for a document ID.
+        :param str end_key_doc_id: (optional) Stop returning rows at the specified
+               document ID. No effect if using `group` or not providing end key.
         :param bool group: (optional) Parameter to specify whether to group reduced
                results by key. Valid only if a reduce function defined in the view. If the
                view emits key in JSON array format, then it is possible to reduce groups
@@ -4411,18 +4437,23 @@ class CloudantV1(CloudantBaseService):
                group is `true`. Group level groups the reduced results by the specified
                number of array elements. If unset, results are grouped by the entire array
                key, returning a reduced value for each complete key.
-        :param object key: (optional) Schema for any JSON type.
+        :param object key: (optional) Parameter to specify to return only rows that
+               match the specified key. String representation of any JSON type that
+               matches the key type emitted by the view function.
         :param List[object] keys: (optional) Parameter to specify returning only
-               documents that match any of the specified keys. A JSON array of keys that
-               match the key type emitted by the view function.
+               rows that match any of the specified keys. A JSON array of keys that match
+               the key type emitted by the view function.
         :param bool reduce: (optional) Parameter to specify whether to use the
                reduce function in a map-reduce view. Default is true when a reduce
                function is defined.
-               A default `reduce` view type can be disabled to behave like a `map` by
-               setting `reduce=false` explicitly.
-               Be aware that `include_docs=true` can only be used with `map` views.
+               A default `reduce` view type can be disabled to behave like a
+               `map` by setting `reduce=false` explicitly.
+               Be aware that `include_docs=true` is only for `map` views. Reduced views do
+               not include document IDs in view rows.
         :param object start_key: (optional) Schema for any JSON type.
-        :param str start_key_doc_id: (optional) Schema for a document ID.
+        :param str start_key_doc_id: (optional) Start returning rows at the
+               specified document ID. No effect if using `group` or not providing start
+               key.
         :param str update: (optional) Parameter to specify whether or not the view
                in question should be updated prior to responding to the user.
                * `true` - Return results after the view is updated.
@@ -4546,9 +4577,9 @@ class CloudantV1(CloudantBaseService):
                matches when the specified field contains a value that is equal to the
                supplied argument.
                It is important for query performance to use appropriate selectors:
-               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
-               (but not `$ne`) can be used as the basis of a query. You should include at
-               least one of these in a selector.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+               `$lte` (but not `$ne`) can be used as the basis of a query. You should
+               include at least one of these in a selector.
                * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
                answered from an index. For query selectors use these operators in
                conjunction with equality operators or create and use a partial index to
@@ -4559,7 +4590,7 @@ class CloudantV1(CloudantBaseService):
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param bool allow_fallback: (optional) Whether to allow fallback to other
-               indexes.  Default is true.
+               indexes. Default is true.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4580,8 +4611,8 @@ class CloudantV1(CloudantBaseService):
                field name and direction pair is the topmost level of sort. The second
                pair, if provided, is the next level of sort. The field can be any field,
                using dotted notation if desired for sub-document fields.
-               For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
-               "desc"}]`
+               For example in JSON:
+               `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1": "desc"}]`
                When sorting with multiple fields, ensure that there is an index already
                defined with all the sort fields in the same order and each object in the
                sort array has a single key or at least one of the sort fields is included
@@ -4724,9 +4755,9 @@ class CloudantV1(CloudantBaseService):
                matches when the specified field contains a value that is equal to the
                supplied argument.
                It is important for query performance to use appropriate selectors:
-               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
-               (but not `$ne`) can be used as the basis of a query. You should include at
-               least one of these in a selector.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+               `$lte` (but not `$ne`) can be used as the basis of a query. You should
+               include at least one of these in a selector.
                * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
                answered from an index. For query selectors use these operators in
                conjunction with equality operators or create and use a partial index to
@@ -4737,7 +4768,7 @@ class CloudantV1(CloudantBaseService):
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param bool allow_fallback: (optional) Whether to allow fallback to other
-               indexes.  Default is true.
+               indexes. Default is true.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4758,8 +4789,8 @@ class CloudantV1(CloudantBaseService):
                field name and direction pair is the topmost level of sort. The second
                pair, if provided, is the next level of sort. The field can be any field,
                using dotted notation if desired for sub-document fields.
-               For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
-               "desc"}]`
+               For example in JSON:
+               `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1": "desc"}]`
                When sorting with multiple fields, ensure that there is an index already
                defined with all the sort fields in the same order and each object in the
                sort array has a single key or at least one of the sort fields is included
@@ -4902,9 +4933,9 @@ class CloudantV1(CloudantBaseService):
                matches when the specified field contains a value that is equal to the
                supplied argument.
                It is important for query performance to use appropriate selectors:
-               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
-               (but not `$ne`) can be used as the basis of a query. You should include at
-               least one of these in a selector.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+               `$lte` (but not `$ne`) can be used as the basis of a query. You should
+               include at least one of these in a selector.
                * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
                answered from an index. For query selectors use these operators in
                conjunction with equality operators or create and use a partial index to
@@ -4915,7 +4946,7 @@ class CloudantV1(CloudantBaseService):
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param bool allow_fallback: (optional) Whether to allow fallback to other
-               indexes.  Default is true.
+               indexes. Default is true.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -4936,8 +4967,8 @@ class CloudantV1(CloudantBaseService):
                field name and direction pair is the topmost level of sort. The second
                pair, if provided, is the next level of sort. The field can be any field,
                using dotted notation if desired for sub-document fields.
-               For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
-               "desc"}]`
+               For example in JSON:
+               `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1": "desc"}]`
                When sorting with multiple fields, ensure that there is an index already
                defined with all the sort fields in the same order and each object in the
                sort array has a single key or at least one of the sort fields is included
@@ -5069,9 +5100,9 @@ class CloudantV1(CloudantBaseService):
                matches when the specified field contains a value that is equal to the
                supplied argument.
                It is important for query performance to use appropriate selectors:
-               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
-               (but not `$ne`) can be used as the basis of a query. You should include at
-               least one of these in a selector.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+               `$lte` (but not `$ne`) can be used as the basis of a query. You should
+               include at least one of these in a selector.
                * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
                answered from an index. For query selectors use these operators in
                conjunction with equality operators or create and use a partial index to
@@ -5082,7 +5113,7 @@ class CloudantV1(CloudantBaseService):
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param bool allow_fallback: (optional) Whether to allow fallback to other
-               indexes.  Default is true.
+               indexes. Default is true.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -5103,8 +5134,8 @@ class CloudantV1(CloudantBaseService):
                field name and direction pair is the topmost level of sort. The second
                pair, if provided, is the next level of sort. The field can be any field,
                using dotted notation if desired for sub-document fields.
-               For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
-               "desc"}]`
+               For example in JSON:
+               `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1": "desc"}]`
                When sorting with multiple fields, ensure that there is an index already
                defined with all the sort fields in the same order and each object in the
                sort array has a single key or at least one of the sort fields is included
@@ -5247,9 +5278,9 @@ class CloudantV1(CloudantBaseService):
                matches when the specified field contains a value that is equal to the
                supplied argument.
                It is important for query performance to use appropriate selectors:
-               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
-               (but not `$ne`) can be used as the basis of a query. You should include at
-               least one of these in a selector.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+               `$lte` (but not `$ne`) can be used as the basis of a query. You should
+               include at least one of these in a selector.
                * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
                answered from an index. For query selectors use these operators in
                conjunction with equality operators or create and use a partial index to
@@ -5260,7 +5291,7 @@ class CloudantV1(CloudantBaseService):
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param bool allow_fallback: (optional) Whether to allow fallback to other
-               indexes.  Default is true.
+               indexes. Default is true.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -5281,8 +5312,8 @@ class CloudantV1(CloudantBaseService):
                field name and direction pair is the topmost level of sort. The second
                pair, if provided, is the next level of sort. The field can be any field,
                using dotted notation if desired for sub-document fields.
-               For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
-               "desc"}]`
+               For example in JSON:
+               `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1": "desc"}]`
                When sorting with multiple fields, ensure that there is an index already
                defined with all the sort fields in the same order and each object in the
                sort array has a single key or at least one of the sort fields is included
@@ -5425,9 +5456,9 @@ class CloudantV1(CloudantBaseService):
                matches when the specified field contains a value that is equal to the
                supplied argument.
                It is important for query performance to use appropriate selectors:
-               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
-               (but not `$ne`) can be used as the basis of a query. You should include at
-               least one of these in a selector.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+               `$lte` (but not `$ne`) can be used as the basis of a query. You should
+               include at least one of these in a selector.
                * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
                answered from an index. For query selectors use these operators in
                conjunction with equality operators or create and use a partial index to
@@ -5438,7 +5469,7 @@ class CloudantV1(CloudantBaseService):
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
         :param bool allow_fallback: (optional) Whether to allow fallback to other
-               indexes.  Default is true.
+               indexes. Default is true.
         :param str bookmark: (optional) Opaque bookmark token used when paginating
                results.
         :param bool conflicts: (optional) A boolean value that indicates whether or
@@ -5459,8 +5490,8 @@ class CloudantV1(CloudantBaseService):
                field name and direction pair is the topmost level of sort. The second
                pair, if provided, is the next level of sort. The field can be any field,
                using dotted notation if desired for sub-document fields.
-               For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1":
-               "desc"}]`
+               For example in JSON:
+               `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1": "desc"}]`
                When sorting with multiple fields, ensure that there is an index already
                defined with all the sort fields in the same order and each object in the
                sort array has a single key or at least one of the sort fields is included
@@ -5854,7 +5885,7 @@ class CloudantV1(CloudantBaseService):
                the specified number.
         :param List[str] sort: (optional) Specifies the sort order of the results.
                In a grouped search (when group_field is used), this parameter specifies
-               the sort order within a group. The default sort order is relevance.  A JSON
+               the sort order within a group. The default sort order is relevance. A JSON
                string of the form "fieldname&lt;type&gt;" or "-fieldname&lt;type&gt;" for
                descending order, where fieldname is the name of a string or number field,
                and type is either a number, a string, or a JSON array of strings. The type
@@ -6023,7 +6054,7 @@ class CloudantV1(CloudantBaseService):
                the specified number.
         :param List[str] sort: (optional) Specifies the sort order of the results.
                In a grouped search (when group_field is used), this parameter specifies
-               the sort order within a group. The default sort order is relevance.  A JSON
+               the sort order within a group. The default sort order is relevance. A JSON
                string of the form "fieldname&lt;type&gt;" or "-fieldname&lt;type&gt;" for
                descending order, where fieldname is the name of a string or number field,
                and type is either a number, a string, or a JSON array of strings. The type
@@ -8355,8 +8386,8 @@ class CloudantV1(CloudantBaseService):
         """
         Retrieve information about whether the server is up.
 
-        Confirms that the server is up, running, and ready to respond to requests. If
-        `maintenance_mode` is `true` or `nolb`, the endpoint returns a 404 response.
+        Confirms that the server is up, running, and ready to respond to requests. If the
+        cluster is unavailable the endpoint returns a `503` response code.
         **Tip:**  The authentication for this endpoint is only enforced when using IAM.
 
         :param dict headers: A `dict` containing the request headers
@@ -11419,7 +11450,7 @@ class DatabaseInformation:
     :param str engine: (optional) The engine used for the database.
     :param str instance_start_time: An opaque string to detect whether a database
           has been recreated. The field name is for compatibility with old replicator
-          versions. Do not use the value to infer timing infromation. Typically only used
+          versions. Do not use the value to infer timing information. Typically only used
           by replicators.
     :param PartitionedIndexesInformation partitioned_indexes: (optional) Information
           about database's partitioned indexes.
@@ -11463,7 +11494,7 @@ class DatabaseInformation:
         :param int doc_del_count: Number of deleted documents.
         :param str instance_start_time: An opaque string to detect whether a
                database has been recreated. The field name is for compatibility with old
-               replicator versions. Do not use the value to infer timing infromation.
+               replicator versions. Do not use the value to infer timing information.
                Typically only used by replicators.
         :param DatabaseInformationProps props: Schema for database properties.
         :param ContentInformationSizes sizes: Schema for size information of
@@ -12167,11 +12198,13 @@ class DesignDocument:
           The function takes 4 parameters:
             * `newDoc` - New version of document that will be stored
               from the update request.
-            * `oldDoc` - Previous version of document that is already stored.
-            * `userCtx` - User Context Object, containing information about the
-              user writing the document (if present), see the `UserContext`.
-            * `secObj` - Security Object, with lists of database security roles,
-              see the `SecurityObject`.
+            * `oldDoc` - Previous version of document that is already
+              stored.
+            * `userCtx` - User Context Object, containing information
+              about the user writing the document (if present), see the
+              `UserContext`.
+            * `secObj` - Security Object, with lists of database security
+              roles, see the `SecurityObject`.
     :param dict views: (optional) Schema for design document views.
 
     This type supports additional properties of type object.
@@ -12286,11 +12319,13 @@ class DesignDocument:
                The function takes 4 parameters:
                  * `newDoc` - New version of document that will be stored
                    from the update request.
-                 * `oldDoc` - Previous version of document that is already stored.
-                 * `userCtx` - User Context Object, containing information about the
-                   user writing the document (if present), see the `UserContext`.
-                 * `secObj` - Security Object, with lists of database security roles,
-                   see the `SecurityObject`.
+                 * `oldDoc` - Previous version of document that is already
+                   stored.
+                 * `userCtx` - User Context Object, containing information
+                   about the user writing the document (if present), see the
+                   `UserContext`.
+                 * `secObj` - Security Object, with lists of database security
+                   roles, see the `SecurityObject`.
         :param dict views: (optional) Schema for design document views.
         :param object **kwargs: (optional) Additional properties of type object
         """
@@ -13620,9 +13655,9 @@ class ExplainResult:
           value stored in that field. For instance, the basic `$eq` operator matches when
           the specified field contains a value that is equal to the supplied argument.
           It is important for query performance to use appropriate selectors:
-          * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but
-          not `$ne`) can be used as the basis of a query. You should include at least one
-          of these in a selector.
+          * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+          `$lte` (but not `$ne`) can be used as the basis of a query. You should include
+          at least one of these in a selector.
           * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be answered
           from an index. For query selectors use these operators in conjunction with
           equality operators or create and use a partial index to reduce the number of
@@ -13691,9 +13726,9 @@ class ExplainResult:
                matches when the specified field contains a value that is equal to the
                supplied argument.
                It is important for query performance to use appropriate selectors:
-               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
-               (but not `$ne`) can be used as the basis of a query. You should include at
-               least one of these in a selector.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+               `$lte` (but not `$ne`) can be used as the basis of a query. You should
+               include at least one of these in a selector.
                * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
                answered from an index. For query selectors use these operators in
                conjunction with equality operators or create and use a partial index to
@@ -14413,7 +14448,8 @@ class IndexAnalysisExclusionReason:
     :param str name: A reason code for index's exclusion.
           The full list of possible reason codes is following:
           * alphabetically_comes_after: json
-            There is another suitable index whose name comes before that of this index.
+            There is another suitable index whose name comes before that of
+            this index.
           * empty_selector: text
           "text" indexes do not support queries with empty selectors.
           * excluded_by_user: any use_index was used to manually specify the index.
@@ -14440,8 +14476,8 @@ class IndexAnalysisExclusionReason:
         :param str name: A reason code for index's exclusion.
                The full list of possible reason codes is following:
                * alphabetically_comes_after: json
-                 There is another suitable index whose name comes before that of this
-               index.
+                 There is another suitable index whose name comes before that of
+                 this index.
                * empty_selector: text
                "text" indexes do not support queries with empty selectors.
                * excluded_by_user: any use_index was used to manually specify the index.
@@ -14506,7 +14542,8 @@ class IndexAnalysisExclusionReason:
         A reason code for index's exclusion.
         The full list of possible reason codes is following:
         * alphabetically_comes_after: json
-          There is another suitable index whose name comes before that of this index.
+          There is another suitable index whose name comes before that of
+          this index.
         * empty_selector: text
         "text" indexes do not support queries with empty selectors.
         * excluded_by_user: any use_index was used to manually specify the index.
@@ -14662,9 +14699,9 @@ class IndexDefinition:
           value stored in that field. For instance, the basic `$eq` operator matches when
           the specified field contains a value that is equal to the supplied argument.
           It is important for query performance to use appropriate selectors:
-          * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but
-          not `$ne`) can be used as the basis of a query. You should include at least one
-          of these in a selector.
+          * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+          `$lte` (but not `$ne`) can be used as the basis of a query. You should include
+          at least one of these in a selector.
           * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be answered
           from an index. For query selectors use these operators in conjunction with
           equality operators or create and use a partial index to reduce the number of
@@ -14733,9 +14770,9 @@ class IndexDefinition:
                matches when the specified field contains a value that is equal to the
                supplied argument.
                It is important for query performance to use appropriate selectors:
-               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
-               (but not `$ne`) can be used as the basis of a query. You should include at
-               least one of these in a selector.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+               `$lte` (but not `$ne`) can be used as the basis of a query. You should
+               include at least one of these in a selector.
                * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
                answered from an index. For query selectors use these operators in
                conjunction with equality operators or create and use a partial index to
@@ -16346,9 +16383,9 @@ class ReplicationDocument:
           value stored in that field. For instance, the basic `$eq` operator matches when
           the specified field contains a value that is equal to the supplied argument.
           It is important for query performance to use appropriate selectors:
-          * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but
-          not `$ne`) can be used as the basis of a query. You should include at least one
-          of these in a selector.
+          * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+          `$lte` (but not `$ne`) can be used as the basis of a query. You should include
+          at least one of these in a selector.
           * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be answered
           from an index. For query selectors use these operators in conjunction with
           equality operators or create and use a partial index to reduce the number of
@@ -16516,9 +16553,9 @@ class ReplicationDocument:
                matches when the specified field contains a value that is equal to the
                supplied argument.
                It is important for query performance to use appropriate selectors:
-               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte`
-               (but not `$ne`) can be used as the basis of a query. You should include at
-               least one of these in a selector.
+               * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+               `$lte` (but not `$ne`) can be used as the basis of a query. You should
+               include at least one of these in a selector.
                * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be
                answered from an index. For query selectors use these operators in
                conjunction with equality operators or create and use a partial index to
@@ -17878,20 +17915,22 @@ class SearchIndexDefinition:
           document in the database. The function takes the document as a parameter,
           extracts some data from it, and then calls the `index` function to index that
           data. The index function takes 2, or optionally 3, parameters.
-          * The first parameter is the name of the field you intend to use when
-            querying the index. If the special value `"default"` is used when you
-            define the name, you do not have to specify a field name at query time.
-          * The second parameter is the data to be indexed. This data must be only a
-            string, number, or boolean. Other types will cause an error to be thrown
-            by the index function call.
+          * The first parameter is the name of the field you intend to use
+            when querying the index. If the special value `"default"` is used
+            when you define the name, you do not have to specify a field name
+            at query time.
+          * The second parameter is the data to be indexed. This data must be
+            only a string, number, or boolean. Other types will cause an error
+            to be thrown by the index function call.
           * The optional third parameter is a JavaScript object with these
             properties:
               * `facet` - boolean, default `false` - Creates a faceted index.
-              * `index` - boolean, default `true` - If set to `false`, the data
-                cannot be used for searches, but can still be retrieved from the
-                index if `store` is set to `true`.
-              * `store` - boolean, default `true` - If true, the value is returned
-                in the search result; otherwise, the value is not returned.
+              * `index` - boolean, default `true` - If set to `false`, the
+                data cannot be used for searches, but can still be retrieved
+                from the index if `store` is set to `true`.
+              * `store` - boolean, default `true` - If true, the value is
+                returned in the search result; otherwise, the value is not
+                returned.
     """
 
     def __init__(
@@ -17908,20 +17947,22 @@ class SearchIndexDefinition:
                parameter, extracts some data from it, and then calls the `index` function
                to index that data. The index function takes 2, or optionally 3,
                parameters.
-               * The first parameter is the name of the field you intend to use when
-                 querying the index. If the special value `"default"` is used when you
-                 define the name, you do not have to specify a field name at query time.
-               * The second parameter is the data to be indexed. This data must be only a
-                 string, number, or boolean. Other types will cause an error to be thrown
-                 by the index function call.
+               * The first parameter is the name of the field you intend to use
+                 when querying the index. If the special value `"default"` is used
+                 when you define the name, you do not have to specify a field name
+                 at query time.
+               * The second parameter is the data to be indexed. This data must be
+                 only a string, number, or boolean. Other types will cause an error
+                 to be thrown by the index function call.
                * The optional third parameter is a JavaScript object with these
                  properties:
                    * `facet` - boolean, default `false` - Creates a faceted index.
-                   * `index` - boolean, default `true` - If set to `false`, the data
-                     cannot be used for searches, but can still be retrieved from the
-                     index if `store` is set to `true`.
-                   * `store` - boolean, default `true` - If true, the value is returned
-                     in the search result; otherwise, the value is not returned.
+                   * `index` - boolean, default `true` - If set to `false`, the
+                     data cannot be used for searches, but can still be retrieved
+                     from the index if `store` is set to `true`.
+                   * `store` - boolean, default `true` - If true, the value is
+                     returned in the search result; otherwise, the value is not
+                     returned.
         :param AnalyzerConfiguration analyzer: (optional) Schema for a search
                analyzer configuration.
         """
@@ -18567,7 +18608,7 @@ class SearchResultRow:
 
 class Security:
     """
-    Schema for a security document.
+    Schema for a Cloudant security document.
 
     :param SecurityObject admins: (optional) Schema for names and roles to map to a
           database permission.
@@ -19384,6 +19425,7 @@ class UpInformation:
     """
     Schema for information about the up state of the server.
 
+    :param str cluster: (optional) cluster.
     :param dict seeds: (optional) seeds.
     :param str status: status.
     """
@@ -19392,14 +19434,17 @@ class UpInformation:
         self,
         status: str,
         *,
+        cluster: Optional[str] = None,
         seeds: Optional[dict] = None,
     ) -> None:
         """
         Initialize a UpInformation object.
 
         :param str status: status.
+        :param str cluster: (optional) cluster.
         :param dict seeds: (optional) seeds.
         """
+        self.cluster = cluster
         self.seeds = seeds
         self.status = status
 
@@ -19407,6 +19452,8 @@ class UpInformation:
     def from_dict(cls, _dict: Dict) -> 'UpInformation':
         """Initialize a UpInformation object from a json dictionary."""
         args = {}
+        if (cluster := _dict.get('cluster')) is not None:
+            args['cluster'] = cluster
         if (seeds := _dict.get('seeds')) is not None:
             args['seeds'] = seeds
         if (status := _dict.get('status')) is not None:
@@ -19423,6 +19470,8 @@ class UpInformation:
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
+        if hasattr(self, 'cluster') and self.cluster is not None:
+            _dict['cluster'] = self.cluster
         if hasattr(self, 'seeds') and self.seeds is not None:
             _dict['seeds'] = self.seeds
         if hasattr(self, 'status') and self.status is not None:
@@ -19791,7 +19840,8 @@ class ViewQuery:
           the response an update_seq value indicating the sequence id of the database the
           view reflects.
     :param object end_key: (optional) Schema for any JSON type.
-    :param str end_key_doc_id: (optional) Schema for a document ID.
+    :param str end_key_doc_id: (optional) Stop returning rows at the specified
+          document ID. No effect if using `group` or not providing end key.
     :param bool group: (optional) Parameter to specify whether to group reduced
           results by key. Valid only if a reduce function defined in the view. If the view
           emits key in JSON array format, then it is possible to reduce groups further
@@ -19801,26 +19851,31 @@ class ViewQuery:
           is `true`. Group level groups the reduced results by the specified number of
           array elements. If unset, results are grouped by the entire array key, returning
           a reduced value for each complete key.
-    :param object key: (optional) Schema for any JSON type.
-    :param List[object] keys: (optional) Parameter to specify returning only
-          documents that match any of the specified keys. A JSON array of keys that match
-          the key type emitted by the view function.
+    :param object key: (optional) Parameter to specify to return only rows that
+          match the specified key. String representation of any JSON type that matches the
+          key type emitted by the view function.
+    :param List[object] keys: (optional) Parameter to specify returning only rows
+          that match any of the specified keys. A JSON array of keys that match the key
+          type emitted by the view function.
     :param bool reduce: (optional) Parameter to specify whether to use the reduce
           function in a map-reduce view. Default is true when a reduce function is
           defined.
-          A default `reduce` view type can be disabled to behave like a `map` by setting
-          `reduce=false` explicitly.
-          Be aware that `include_docs=true` can only be used with `map` views.
+          A default `reduce` view type can be disabled to behave like a
+          `map` by setting `reduce=false` explicitly.
+          Be aware that `include_docs=true` is only for `map` views. Reduced views do not
+          include document IDs in view rows.
     :param bool stable: (optional) Query parameter to specify whether use the same
-          replica of  the index on each request. The default value `false` contacts all
+          replica of the index on each request. The default value `false` contacts all
           replicas and returns the result from the first, fastest, responder. Setting it
-          to `true` when used in conjunction with `update=false`  may improve consistency
-          at the expense of increased latency and decreased throughput if the selected
-          replica is not the fastest of the available  replicas.
+          to `true` when used in conjunction with
+          `update=false` may improve consistency at the expense of increased latency and
+          decreased throughput if the selected replica is not the fastest of the available
+          replicas.
           **Note:** In general setting `true` is discouraged and is strictly not
           recommended when using `update=true`.
     :param object start_key: (optional) Schema for any JSON type.
-    :param str start_key_doc_id: (optional) Schema for a document ID.
+    :param str start_key_doc_id: (optional) Start returning rows at the specified
+          document ID. No effect if using `group` or not providing start key.
     :param str update: (optional) Parameter to specify whether or not the view in
           question should be updated prior to responding to the user.
           * `true` - Return results after the view is updated.
@@ -19878,7 +19933,8 @@ class ViewQuery:
                in the response an update_seq value indicating the sequence id of the
                database the view reflects.
         :param object end_key: (optional) Schema for any JSON type.
-        :param str end_key_doc_id: (optional) Schema for a document ID.
+        :param str end_key_doc_id: (optional) Stop returning rows at the specified
+               document ID. No effect if using `group` or not providing end key.
         :param bool group: (optional) Parameter to specify whether to group reduced
                results by key. Valid only if a reduce function defined in the view. If the
                view emits key in JSON array format, then it is possible to reduce groups
@@ -19889,27 +19945,32 @@ class ViewQuery:
                group is `true`. Group level groups the reduced results by the specified
                number of array elements. If unset, results are grouped by the entire array
                key, returning a reduced value for each complete key.
-        :param object key: (optional) Schema for any JSON type.
+        :param object key: (optional) Parameter to specify to return only rows that
+               match the specified key. String representation of any JSON type that
+               matches the key type emitted by the view function.
         :param List[object] keys: (optional) Parameter to specify returning only
-               documents that match any of the specified keys. A JSON array of keys that
-               match the key type emitted by the view function.
+               rows that match any of the specified keys. A JSON array of keys that match
+               the key type emitted by the view function.
         :param bool reduce: (optional) Parameter to specify whether to use the
                reduce function in a map-reduce view. Default is true when a reduce
                function is defined.
-               A default `reduce` view type can be disabled to behave like a `map` by
-               setting `reduce=false` explicitly.
-               Be aware that `include_docs=true` can only be used with `map` views.
+               A default `reduce` view type can be disabled to behave like a
+               `map` by setting `reduce=false` explicitly.
+               Be aware that `include_docs=true` is only for `map` views. Reduced views do
+               not include document IDs in view rows.
         :param bool stable: (optional) Query parameter to specify whether use the
-               same replica of  the index on each request. The default value `false`
-               contacts all  replicas and returns the result from the first, fastest,
+               same replica of the index on each request. The default value `false`
+               contacts all replicas and returns the result from the first, fastest,
                responder. Setting it to `true` when used in conjunction with
-               `update=false`  may improve consistency at the expense of increased latency
+               `update=false` may improve consistency at the expense of increased latency
                and decreased throughput if the selected replica is not the fastest of the
-               available  replicas.
+               available replicas.
                **Note:** In general setting `true` is discouraged and is strictly not
                recommended when using `update=true`.
         :param object start_key: (optional) Schema for any JSON type.
-        :param str start_key_doc_id: (optional) Schema for a document ID.
+        :param str start_key_doc_id: (optional) Start returning rows at the
+               specified document ID. No effect if using `group` or not providing start
+               key.
         :param str update: (optional) Parameter to specify whether or not the view
                in question should be updated prior to responding to the user.
                * `true` - Return results after the view is updated.
