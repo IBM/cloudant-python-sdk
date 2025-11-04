@@ -1695,7 +1695,7 @@ class TestPostDocument:
         document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
         document_model['name'] = 'Digital Kitchen Scales'
         document_model['price'] = '14.99'
-        document_model['productid'] = '1000042'
+        document_model['productId'] = '1000042'
         document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
         document_model['type'] = 'product'
 
@@ -1792,7 +1792,7 @@ class TestPostDocument:
         document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
         document_model['name'] = 'Digital Kitchen Scales'
         document_model['price'] = '14.99'
-        document_model['productid'] = '1000042'
+        document_model['productId'] = '1000042'
         document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
         document_model['type'] = 'product'
 
@@ -1881,7 +1881,7 @@ class TestPostDocument:
         document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
         document_model['name'] = 'Digital Kitchen Scales'
         document_model['price'] = '14.99'
-        document_model['productid'] = '1000042'
+        document_model['productId'] = '1000042'
         document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
         document_model['type'] = 'product'
 
@@ -4176,7 +4176,7 @@ class TestPutDocument:
         document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
         document_model['name'] = 'Digital Kitchen Scales'
         document_model['price'] = '14.99'
-        document_model['productid'] = '1000042'
+        document_model['productId'] = '1000042'
         document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
         document_model['type'] = 'product'
 
@@ -4283,7 +4283,7 @@ class TestPutDocument:
         document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
         document_model['name'] = 'Digital Kitchen Scales'
         document_model['price'] = '14.99'
-        document_model['productid'] = '1000042'
+        document_model['productId'] = '1000042'
         document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
         document_model['type'] = 'product'
 
@@ -4374,7 +4374,7 @@ class TestPutDocument:
         document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
         document_model['name'] = 'Digital Kitchen Scales'
         document_model['price'] = '14.99'
-        document_model['productid'] = '1000042'
+        document_model['productId'] = '1000042'
         document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
         document_model['type'] = 'product'
 
@@ -4922,7 +4922,7 @@ class TestPutDesignDocument:
 
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {}
-        design_document_views_map_reduce_model['map'] = 'function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}'
+        design_document_views_map_reduce_model['map'] = 'function(doc) {\n  emit(doc.productId, [doc.brand, doc.name, doc.description])\n}'
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
         # Construct a dict representation of a DesignDocument model
@@ -5052,7 +5052,7 @@ class TestPutDesignDocument:
 
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {}
-        design_document_views_map_reduce_model['map'] = 'function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}'
+        design_document_views_map_reduce_model['map'] = 'function(doc) {\n  emit(doc.productId, [doc.brand, doc.name, doc.description])\n}'
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
         # Construct a dict representation of a DesignDocument model
@@ -5168,7 +5168,7 @@ class TestPutDesignDocument:
 
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {}
-        design_document_views_map_reduce_model['map'] = 'function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}'
+        design_document_views_map_reduce_model['map'] = 'function(doc) {\n  emit(doc.productId, [doc.brand, doc.name, doc.description])\n}'
         design_document_views_map_reduce_model['reduce'] = 'testString'
 
         # Construct a dict representation of a DesignDocument model
@@ -7426,7 +7426,7 @@ class TestPostPartitionExplain:
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['productid', 'name', 'description']
+        fields = ['productId', 'name', 'description']
         limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
@@ -7467,7 +7467,7 @@ class TestPostPartitionExplain:
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
-        assert req_body['fields'] == ['productid', 'name', 'description']
+        assert req_body['fields'] == ['productId', 'name', 'description']
         assert req_body['limit'] == 25
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
@@ -7508,7 +7508,7 @@ class TestPostPartitionExplain:
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['productid', 'name', 'description']
+        fields = ['productId', 'name', 'description']
         limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
@@ -7566,7 +7566,7 @@ class TestPostPartitionFind:
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['productid', 'name', 'description']
+        fields = ['productId', 'name', 'description']
         limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
@@ -7607,7 +7607,7 @@ class TestPostPartitionFind:
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
-        assert req_body['fields'] == ['productid', 'name', 'description']
+        assert req_body['fields'] == ['productId', 'name', 'description']
         assert req_body['limit'] == 25
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
@@ -7648,7 +7648,7 @@ class TestPostPartitionFind:
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['productid', 'name', 'description']
+        fields = ['productId', 'name', 'description']
         limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
@@ -7706,7 +7706,7 @@ class TestPostPartitionFindAsStream:
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['productid', 'name', 'description']
+        fields = ['productId', 'name', 'description']
         limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
@@ -7747,7 +7747,7 @@ class TestPostPartitionFindAsStream:
         assert req_body['bookmark'] == 'testString'
         assert req_body['conflicts'] == True
         assert req_body['execution_stats'] == True
-        assert req_body['fields'] == ['productid', 'name', 'description']
+        assert req_body['fields'] == ['productId', 'name', 'description']
         assert req_body['limit'] == 25
         assert req_body['skip'] == 0
         assert req_body['sort'] == [{'key1': 'asc'}]
@@ -7794,7 +7794,7 @@ class TestPostPartitionFindAsStream:
         bookmark = 'testString'
         conflicts = True
         execution_stats = True
-        fields = ['productid', 'name', 'description']
+        fields = ['productId', 'name', 'description']
         limit = 25
         skip = 0
         sort = [{'key1': 'asc'}]
@@ -12772,7 +12772,7 @@ class TestPutLocalDocument:
         document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
         document_model['name'] = 'Digital Kitchen Scales'
         document_model['price'] = '14.99'
-        document_model['productid'] = '1000042'
+        document_model['productId'] = '1000042'
         document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
         document_model['type'] = 'product'
 
@@ -12871,7 +12871,7 @@ class TestPutLocalDocument:
         document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
         document_model['name'] = 'Digital Kitchen Scales'
         document_model['price'] = '14.99'
-        document_model['productid'] = '1000042'
+        document_model['productId'] = '1000042'
         document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
         document_model['type'] = 'product'
 
@@ -12962,7 +12962,7 @@ class TestPutLocalDocument:
         document_model['keywords'] = '["Foo","Scales","Weight","Digital","Kitchen"]'
         document_model['name'] = 'Digital Kitchen Scales'
         document_model['price'] = '14.99'
-        document_model['productid'] = '1000042'
+        document_model['productId'] = '1000042'
         document_model['taxonomy'] = '["Home","Kitchen","Small Appliances"]'
         document_model['type'] = 'product'
 
@@ -13691,7 +13691,7 @@ class TestGetUpInformation:
         """
         # Set up mock
         url = preprocess_url('/_up')
-        mock_response = '{"seeds": {"anyKey": "anyValue"}, "status": "maintenance_mode"}'
+        mock_response = '{"cluster": "cluster", "seeds": {"anyKey": "anyValue"}, "status": "maintenance_mode"}'
         responses.add(
             responses.GET,
             url,
@@ -18309,6 +18309,7 @@ class TestModel_UpInformation:
 
         # Construct a json representation of a UpInformation model
         up_information_model_json = {}
+        up_information_model_json['cluster'] = 'testString'
         up_information_model_json['seeds'] = {'anyKey': 'anyValue'}
         up_information_model_json['status'] = 'maintenance_mode'
 

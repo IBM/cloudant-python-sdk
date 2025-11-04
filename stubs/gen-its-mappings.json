@@ -2829,7 +2829,7 @@
         "method": "POST",
         "bodyPatterns": [
           {
-            "equalToJson": "{\"bookmark\": \"testString\",\"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"productid\", \"name\", \"description\" ], \"limit\" : 25, \"selector\" : { }, \"skip\" : 0, \"sort\" : [ { \"key1\": \"asc\" } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
+            "equalToJson": "{\"bookmark\": \"testString\",\"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"productId\", \"name\", \"description\" ], \"limit\" : 25, \"selector\" : { }, \"skip\" : 0, \"sort\" : [ { \"key1\": \"asc\" } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
             "ignoreArrayOrder": false,
             "ignoreExtraElements": true
           }
@@ -2918,7 +2918,7 @@
         "method": "POST",
         "bodyPatterns": [
           {
-            "equalToJson": "{\"bookmark\" : \"testString\",\"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"productid\", \"name\", \"description\" ], \"limit\" : 25, \"selector\" : { }, \"skip\" : 0, \"sort\" :  [ { \"key1\": \"asc\" } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
+            "equalToJson": "{\"bookmark\" : \"testString\",\"conflicts\" : true, \"execution_stats\" : true, \"fields\" : [ \"productId\", \"name\", \"description\" ], \"limit\" : 25, \"selector\" : { }, \"skip\" : 0, \"sort\" :  [ { \"key1\": \"asc\" } ], \"stable\" : true, \"update\" : \"true\", \"use_index\" : [ \"testString\" ]}",
             "ignoreArrayOrder": false,
             "ignoreExtraElements": true
           }

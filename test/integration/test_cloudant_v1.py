@@ -267,7 +267,7 @@ class TestCloudantV1:
             'keywords': '["Foo","Scales","Weight","Digital","Kitchen"]',
             'name': 'Digital Kitchen Scales',
             'price': '14.99',
-            'productid': '1000042',
+            'productId': '1000042',
             'taxonomy': '["Home","Kitchen","Small Appliances"]',
             'type': 'product',
         }
@@ -659,7 +659,7 @@ class TestCloudantV1:
             'keywords': '["Foo","Scales","Weight","Digital","Kitchen"]',
             'name': 'Digital Kitchen Scales',
             'price': '14.99',
-            'productid': '1000042',
+            'productId': '1000042',
             'taxonomy': '["Home","Kitchen","Small Appliances"]',
             'type': 'product',
         }
@@ -757,7 +757,7 @@ class TestCloudantV1:
         }
         # Construct a dict representation of a DesignDocumentViewsMapReduce model
         design_document_views_map_reduce_model = {
-            'map': 'function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}',
+            'map': 'function(doc) {\n  emit(doc.productId, [doc.brand, doc.name, doc.description])\n}',
             'reduce': 'testString',
         }
         # Construct a dict representation of a DesignDocument model
@@ -1179,7 +1179,7 @@ class TestCloudantV1:
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
-            fields=['productid', 'name', 'description'],
+            fields=['productId', 'name', 'description'],
             limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
@@ -1202,7 +1202,7 @@ class TestCloudantV1:
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
-            fields=['productid', 'name', 'description'],
+            fields=['productId', 'name', 'description'],
             limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
@@ -1225,7 +1225,7 @@ class TestCloudantV1:
             bookmark='testString',
             conflicts=True,
             execution_stats=True,
-            fields=['productid', 'name', 'description'],
+            fields=['productId', 'name', 'description'],
             limit=25,
             skip=0,
             sort=[{'key1': 'asc'}],
@@ -1952,7 +1952,7 @@ class TestCloudantV1:
             'keywords': '["Foo","Scales","Weight","Digital","Kitchen"]',
             'name': 'Digital Kitchen Scales',
             'price': '14.99',
-            'productid': '1000042',
+            'productId': '1000042',
             'taxonomy': '["Home","Kitchen","Small Appliances"]',
             'type': 'product',
         }
