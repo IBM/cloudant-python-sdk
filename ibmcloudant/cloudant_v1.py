@@ -287,7 +287,7 @@ class CloudantV1(CloudantBaseService):
         feed.
 
         :param bool descending: (optional) Query parameter to specify whether to
-               return the documents in descending by key order.
+               return rows in descending by key order.
         :param str feed: (optional) Query parameter to specify the changes feed
                type.
         :param int heartbeat: (optional) Query parameter to specify the period in
@@ -445,15 +445,20 @@ class CloudantV1(CloudantBaseService):
                the last events received by the server on a previous connection. Overrides
                `since` query parameter.
         :param bool att_encoding_info: (optional) Query parameter to specify
-               whether to include the encoding information in attachment stubs if the
-               particular attachment is compressed.
+               whether to include the encoding information for compressed attachments.
+               Note that when used with a view-style query or changes feed this only
+               applies when requesting documents in the response.
         :param bool attachments: (optional) Query parameter to specify whether to
-               include attachments bodies in a response.
+               include attachment content in the response. Note that when used with a
+               view-style query or changes feed this only applies when requesting
+               documents in the response.
         :param bool conflicts: (optional) Query parameter to specify whether to
-               include a list of conflicted revisions in each returned document. Active
-               only when `include_docs` is `true`.
+               include a list of conflicted revisions in each returned document. Note that
+               when used with a view-style query or changes feed this only applies when
+               requesting documents in the response.
         :param bool descending: (optional) Query parameter to specify whether to
-               return the documents in descending by key order.
+               return changes in the descending order with most recent change first. The
+               `since` parameter has no effect when using descending order.
         :param str feed: (optional) Query parameter to specify the changes feed
                type.
         :param str filter: (optional) Query parameter to specify a filter to emit
@@ -665,15 +670,20 @@ class CloudantV1(CloudantBaseService):
                the last events received by the server on a previous connection. Overrides
                `since` query parameter.
         :param bool att_encoding_info: (optional) Query parameter to specify
-               whether to include the encoding information in attachment stubs if the
-               particular attachment is compressed.
+               whether to include the encoding information for compressed attachments.
+               Note that when used with a view-style query or changes feed this only
+               applies when requesting documents in the response.
         :param bool attachments: (optional) Query parameter to specify whether to
-               include attachments bodies in a response.
+               include attachment content in the response. Note that when used with a
+               view-style query or changes feed this only applies when requesting
+               documents in the response.
         :param bool conflicts: (optional) Query parameter to specify whether to
-               include a list of conflicted revisions in each returned document. Active
-               only when `include_docs` is `true`.
+               include a list of conflicted revisions in each returned document. Note that
+               when used with a view-style query or changes feed this only applies when
+               requesting documents in the response.
         :param bool descending: (optional) Query parameter to specify whether to
-               return the documents in descending by key order.
+               return changes in the descending order with most recent change first. The
+               `since` parameter has no effect when using descending order.
         :param str feed: (optional) Query parameter to specify the changes feed
                type.
         :param str filter: (optional) Query parameter to specify a filter to emit
@@ -866,7 +876,7 @@ class CloudantV1(CloudantBaseService):
         Query to retrieve a list of database names from the instance.
 
         :param bool descending: (optional) Query parameter to specify whether to
-               return the documents in descending by key order.
+               return rows in descending by key order.
         :param str end_key: (optional) Query parameter to specify to stop returning
                records when the specified key is reached. String representation of any
                JSON type that matches the key type emitted by the view function.
@@ -1306,19 +1316,20 @@ class CloudantV1(CloudantBaseService):
 
         :param str db: Path parameter to specify the database name.
         :param bool att_encoding_info: (optional) Parameter to specify whether to
-               include the encoding information in attachment stubs if the particular
-               attachment is compressed.
+               include the encoding information for compressed attachments. This only
+               applies when requesting documents in the response.
         :param bool attachments: (optional) Parameter to specify whether to include
-               attachments bodies in a response.
+               attachment content in included document content or only the attachment
+               metadata. This only applies when requesting documents in the response.
         :param bool conflicts: (optional) Parameter to specify whether to include a
-               list of conflicted revisions in each returned document. Active only when
-               `include_docs` is `true`.
+               list of conflicted revisions in each returned document. This only applies
+               when requesting documents in the response.
         :param bool descending: (optional) Parameter to specify whether to return
                the documents in descending by key order.
         :param bool include_docs: (optional) Parameter to specify whether to
                include the full content of the documents in the response.
-        :param bool inclusive_end: (optional) Parameter to specify whether the
-               specified end key should be included in the result.
+        :param bool inclusive_end: (optional) Parameter to specify whether to
+               include the specified end key in the result.
         :param int limit: (optional) Parameter to specify the number of returned
                documents to limit the result to.
         :param int skip: (optional) Parameter to specify the number of records
@@ -1414,19 +1425,20 @@ class CloudantV1(CloudantBaseService):
 
         :param str db: Path parameter to specify the database name.
         :param bool att_encoding_info: (optional) Parameter to specify whether to
-               include the encoding information in attachment stubs if the particular
-               attachment is compressed.
+               include the encoding information for compressed attachments. This only
+               applies when requesting documents in the response.
         :param bool attachments: (optional) Parameter to specify whether to include
-               attachments bodies in a response.
+               attachment content in included document content or only the attachment
+               metadata. This only applies when requesting documents in the response.
         :param bool conflicts: (optional) Parameter to specify whether to include a
-               list of conflicted revisions in each returned document. Active only when
-               `include_docs` is `true`.
+               list of conflicted revisions in each returned document. This only applies
+               when requesting documents in the response.
         :param bool descending: (optional) Parameter to specify whether to return
                the documents in descending by key order.
         :param bool include_docs: (optional) Parameter to specify whether to
                include the full content of the documents in the response.
-        :param bool inclusive_end: (optional) Parameter to specify whether the
-               specified end key should be included in the result.
+        :param bool inclusive_end: (optional) Parameter to specify whether to
+               include the specified end key in the result.
         :param int limit: (optional) Parameter to specify the number of returned
                documents to limit the result to.
         :param int skip: (optional) Parameter to specify the number of records
@@ -1700,10 +1712,13 @@ class CloudantV1(CloudantBaseService):
         :param List[BulkGetQueryDocument] docs: List of document items to get in
                bulk.
         :param bool attachments: (optional) Query parameter to specify whether to
-               include attachments bodies in a response.
+               include attachment content in the response. Note that when used with a
+               view-style query or changes feed this only applies when requesting
+               documents in the response.
         :param bool att_encoding_info: (optional) Query parameter to specify
-               whether to include the encoding information in attachment stubs if the
-               particular attachment is compressed.
+               whether to include the encoding information for compressed attachments.
+               Note that when used with a view-style query or changes feed this only
+               applies when requesting documents in the response.
         :param bool latest: (optional) Query parameter to specify whether to force
                retrieving latest leaf revision, no matter what rev was requested.
         :param bool revs: (optional) Query parameter to specify whether to include
@@ -1781,10 +1796,13 @@ class CloudantV1(CloudantBaseService):
         :param List[BulkGetQueryDocument] docs: List of document items to get in
                bulk.
         :param bool attachments: (optional) Query parameter to specify whether to
-               include attachments bodies in a response.
+               include attachment content in the response. Note that when used with a
+               view-style query or changes feed this only applies when requesting
+               documents in the response.
         :param bool att_encoding_info: (optional) Query parameter to specify
-               whether to include the encoding information in attachment stubs if the
-               particular attachment is compressed.
+               whether to include the encoding information for compressed attachments.
+               Note that when used with a view-style query or changes feed this only
+               applies when requesting documents in the response.
         :param bool latest: (optional) Query parameter to specify whether to force
                retrieving latest leaf revision, no matter what rev was requested.
         :param bool revs: (optional) Query parameter to specify whether to include
@@ -1862,10 +1880,13 @@ class CloudantV1(CloudantBaseService):
         :param List[BulkGetQueryDocument] docs: List of document items to get in
                bulk.
         :param bool attachments: (optional) Query parameter to specify whether to
-               include attachments bodies in a response.
+               include attachment content in the response. Note that when used with a
+               view-style query or changes feed this only applies when requesting
+               documents in the response.
         :param bool att_encoding_info: (optional) Query parameter to specify
-               whether to include the encoding information in attachment stubs if the
-               particular attachment is compressed.
+               whether to include the encoding information for compressed attachments.
+               Note that when used with a view-style query or changes feed this only
+               applies when requesting documents in the response.
         :param bool latest: (optional) Query parameter to specify whether to force
                retrieving latest leaf revision, no matter what rev was requested.
         :param bool revs: (optional) Query parameter to specify whether to include
@@ -1943,10 +1964,13 @@ class CloudantV1(CloudantBaseService):
         :param List[BulkGetQueryDocument] docs: List of document items to get in
                bulk.
         :param bool attachments: (optional) Query parameter to specify whether to
-               include attachments bodies in a response.
+               include attachment content in the response. Note that when used with a
+               view-style query or changes feed this only applies when requesting
+               documents in the response.
         :param bool att_encoding_info: (optional) Query parameter to specify
-               whether to include the encoding information in attachment stubs if the
-               particular attachment is compressed.
+               whether to include the encoding information for compressed attachments.
+               Note that when used with a view-style query or changes feed this only
+               applies when requesting documents in the response.
         :param bool latest: (optional) Query parameter to specify whether to force
                retrieving latest leaf revision, no matter what rev was requested.
         :param bool revs: (optional) Query parameter to specify whether to include
@@ -2103,13 +2127,17 @@ class CloudantV1(CloudantBaseService):
         :param str if_none_match: (optional) Header parameter for a conditional
                HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
-               include attachments bodies in a response.
+               include attachment content in the response. Note that when used with a
+               view-style query or changes feed this only applies when requesting
+               documents in the response.
         :param bool att_encoding_info: (optional) Query parameter to specify
-               whether to include the encoding information in attachment stubs if the
-               particular attachment is compressed.
+               whether to include the encoding information for compressed attachments.
+               Note that when used with a view-style query or changes feed this only
+               applies when requesting documents in the response.
         :param bool conflicts: (optional) Query parameter to specify whether to
-               include a list of conflicted revisions in each returned document. Active
-               only when `include_docs` is `true`.
+               include a list of conflicted revisions in each returned document. Note that
+               when used with a view-style query or changes feed this only applies when
+               requesting documents in the response.
         :param bool deleted_conflicts: (optional) Query parameter to specify
                whether to include a list of deleted conflicted revisions in the
                `_deleted_conflicts` property of the returned document.
@@ -2206,13 +2234,17 @@ class CloudantV1(CloudantBaseService):
         :param str if_none_match: (optional) Header parameter for a conditional
                HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
-               include attachments bodies in a response.
+               include attachment content in the response. Note that when used with a
+               view-style query or changes feed this only applies when requesting
+               documents in the response.
         :param bool att_encoding_info: (optional) Query parameter to specify
-               whether to include the encoding information in attachment stubs if the
-               particular attachment is compressed.
+               whether to include the encoding information for compressed attachments.
+               Note that when used with a view-style query or changes feed this only
+               applies when requesting documents in the response.
         :param bool conflicts: (optional) Query parameter to specify whether to
-               include a list of conflicted revisions in each returned document. Active
-               only when `include_docs` is `true`.
+               include a list of conflicted revisions in each returned document. Note that
+               when used with a view-style query or changes feed this only applies when
+               requesting documents in the response.
         :param bool deleted_conflicts: (optional) Query parameter to specify
                whether to include a list of deleted conflicted revisions in the
                `_deleted_conflicts` property of the returned document.
@@ -2309,13 +2341,17 @@ class CloudantV1(CloudantBaseService):
         :param str if_none_match: (optional) Header parameter for a conditional
                HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
-               include attachments bodies in a response.
+               include attachment content in the response. Note that when used with a
+               view-style query or changes feed this only applies when requesting
+               documents in the response.
         :param bool att_encoding_info: (optional) Query parameter to specify
-               whether to include the encoding information in attachment stubs if the
-               particular attachment is compressed.
+               whether to include the encoding information for compressed attachments.
+               Note that when used with a view-style query or changes feed this only
+               applies when requesting documents in the response.
         :param bool conflicts: (optional) Query parameter to specify whether to
-               include a list of conflicted revisions in each returned document. Active
-               only when `include_docs` is `true`.
+               include a list of conflicted revisions in each returned document. Note that
+               when used with a view-style query or changes feed this only applies when
+               requesting documents in the response.
         :param bool deleted_conflicts: (optional) Query parameter to specify
                whether to include a list of deleted conflicted revisions in the
                `_deleted_conflicts` property of the returned document.
@@ -2412,13 +2448,17 @@ class CloudantV1(CloudantBaseService):
         :param str if_none_match: (optional) Header parameter for a conditional
                HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
-               include attachments bodies in a response.
+               include attachment content in the response. Note that when used with a
+               view-style query or changes feed this only applies when requesting
+               documents in the response.
         :param bool att_encoding_info: (optional) Query parameter to specify
-               whether to include the encoding information in attachment stubs if the
-               particular attachment is compressed.
+               whether to include the encoding information for compressed attachments.
+               Note that when used with a view-style query or changes feed this only
+               applies when requesting documents in the response.
         :param bool conflicts: (optional) Query parameter to specify whether to
-               include a list of conflicted revisions in each returned document. Active
-               only when `include_docs` is `true`.
+               include a list of conflicted revisions in each returned document. Note that
+               when used with a view-style query or changes feed this only applies when
+               requesting documents in the response.
         :param bool deleted_conflicts: (optional) Query parameter to specify
                whether to include a list of deleted conflicted revisions in the
                `_deleted_conflicts` property of the returned document.
@@ -2751,13 +2791,17 @@ class CloudantV1(CloudantBaseService):
         :param str if_none_match: (optional) Header parameter for a conditional
                HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
-               include attachments bodies in a response.
+               include attachment content in the response. Note that when used with a
+               view-style query or changes feed this only applies when requesting
+               documents in the response.
         :param bool att_encoding_info: (optional) Query parameter to specify
-               whether to include the encoding information in attachment stubs if the
-               particular attachment is compressed.
+               whether to include the encoding information for compressed attachments.
+               Note that when used with a view-style query or changes feed this only
+               applies when requesting documents in the response.
         :param bool conflicts: (optional) Query parameter to specify whether to
-               include a list of conflicted revisions in each returned document. Active
-               only when `include_docs` is `true`.
+               include a list of conflicted revisions in each returned document. Note that
+               when used with a view-style query or changes feed this only applies when
+               requesting documents in the response.
         :param bool deleted_conflicts: (optional) Query parameter to specify
                whether to include a list of deleted conflicted revisions in the
                `_deleted_conflicts` property of the returned document.
@@ -2997,19 +3041,20 @@ class CloudantV1(CloudantBaseService):
 
         :param str db: Path parameter to specify the database name.
         :param bool att_encoding_info: (optional) Parameter to specify whether to
-               include the encoding information in attachment stubs if the particular
-               attachment is compressed.
+               include the encoding information for compressed attachments. This only
+               applies when requesting documents in the response.
         :param bool attachments: (optional) Parameter to specify whether to include
-               attachments bodies in a response.
+               attachment content in included document content or only the attachment
+               metadata. This only applies when requesting documents in the response.
         :param bool conflicts: (optional) Parameter to specify whether to include a
-               list of conflicted revisions in each returned document. Active only when
-               `include_docs` is `true`.
+               list of conflicted revisions in each returned document. This only applies
+               when requesting documents in the response.
         :param bool descending: (optional) Parameter to specify whether to return
                the documents in descending by key order.
         :param bool include_docs: (optional) Parameter to specify whether to
                include the full content of the documents in the response.
-        :param bool inclusive_end: (optional) Parameter to specify whether the
-               specified end key should be included in the result.
+        :param bool inclusive_end: (optional) Parameter to specify whether to
+               include the specified end key in the result.
         :param int limit: (optional) Parameter to specify the number of returned
                documents to limit the result to.
         :param int skip: (optional) Parameter to specify the number of records
@@ -3190,19 +3235,20 @@ class CloudantV1(CloudantBaseService):
         :param str view: Path parameter to specify the map reduce view function
                name.
         :param bool att_encoding_info: (optional) Parameter to specify whether to
-               include the encoding information in attachment stubs if the particular
-               attachment is compressed.
+               include the encoding information for compressed attachments. This only
+               applies when requesting documents in the response.
         :param bool attachments: (optional) Parameter to specify whether to include
-               attachments bodies in a response.
+               attachment content in included document content or only the attachment
+               metadata. This only applies when requesting documents in the response.
         :param bool conflicts: (optional) Parameter to specify whether to include a
-               list of conflicted revisions in each returned document. Active only when
-               `include_docs` is `true`.
+               list of conflicted revisions in each returned document. This only applies
+               when requesting documents in the response.
         :param bool descending: (optional) Parameter to specify whether to return
                the documents in descending by key order.
         :param bool include_docs: (optional) Parameter to specify whether to
                include the full content of the documents in the response.
-        :param bool inclusive_end: (optional) Parameter to specify whether the
-               specified end key should be included in the result.
+        :param bool inclusive_end: (optional) Parameter to specify whether to
+               include the specified end key in the result.
         :param int limit: (optional) Parameter to specify the number of returned
                documents to limit the result to.
         :param int skip: (optional) Parameter to specify the number of records
@@ -3364,19 +3410,20 @@ class CloudantV1(CloudantBaseService):
         :param str view: Path parameter to specify the map reduce view function
                name.
         :param bool att_encoding_info: (optional) Parameter to specify whether to
-               include the encoding information in attachment stubs if the particular
-               attachment is compressed.
+               include the encoding information for compressed attachments. This only
+               applies when requesting documents in the response.
         :param bool attachments: (optional) Parameter to specify whether to include
-               attachments bodies in a response.
+               attachment content in included document content or only the attachment
+               metadata. This only applies when requesting documents in the response.
         :param bool conflicts: (optional) Parameter to specify whether to include a
-               list of conflicted revisions in each returned document. Active only when
-               `include_docs` is `true`.
+               list of conflicted revisions in each returned document. This only applies
+               when requesting documents in the response.
         :param bool descending: (optional) Parameter to specify whether to return
                the documents in descending by key order.
         :param bool include_docs: (optional) Parameter to specify whether to
                include the full content of the documents in the response.
-        :param bool inclusive_end: (optional) Parameter to specify whether the
-               specified end key should be included in the result.
+        :param bool inclusive_end: (optional) Parameter to specify whether to
+               include the specified end key in the result.
         :param int limit: (optional) Parameter to specify the number of returned
                documents to limit the result to.
         :param int skip: (optional) Parameter to specify the number of records
@@ -3725,19 +3772,20 @@ class CloudantV1(CloudantBaseService):
         :param str partition_key: Path parameter to specify the database partition
                key.
         :param bool att_encoding_info: (optional) Parameter to specify whether to
-               include the encoding information in attachment stubs if the particular
-               attachment is compressed.
+               include the encoding information for compressed attachments. This only
+               applies when requesting documents in the response.
         :param bool attachments: (optional) Parameter to specify whether to include
-               attachments bodies in a response.
+               attachment content in included document content or only the attachment
+               metadata. This only applies when requesting documents in the response.
         :param bool conflicts: (optional) Parameter to specify whether to include a
-               list of conflicted revisions in each returned document. Active only when
-               `include_docs` is `true`.
+               list of conflicted revisions in each returned document. This only applies
+               when requesting documents in the response.
         :param bool descending: (optional) Parameter to specify whether to return
                the documents in descending by key order.
         :param bool include_docs: (optional) Parameter to specify whether to
                include the full content of the documents in the response.
-        :param bool inclusive_end: (optional) Parameter to specify whether the
-               specified end key should be included in the result.
+        :param bool inclusive_end: (optional) Parameter to specify whether to
+               include the specified end key in the result.
         :param int limit: (optional) Parameter to specify the number of returned
                documents to limit the result to.
         :param int skip: (optional) Parameter to specify the number of records
@@ -3838,19 +3886,20 @@ class CloudantV1(CloudantBaseService):
         :param str partition_key: Path parameter to specify the database partition
                key.
         :param bool att_encoding_info: (optional) Parameter to specify whether to
-               include the encoding information in attachment stubs if the particular
-               attachment is compressed.
+               include the encoding information for compressed attachments. This only
+               applies when requesting documents in the response.
         :param bool attachments: (optional) Parameter to specify whether to include
-               attachments bodies in a response.
+               attachment content in included document content or only the attachment
+               metadata. This only applies when requesting documents in the response.
         :param bool conflicts: (optional) Parameter to specify whether to include a
-               list of conflicted revisions in each returned document. Active only when
-               `include_docs` is `true`.
+               list of conflicted revisions in each returned document. This only applies
+               when requesting documents in the response.
         :param bool descending: (optional) Parameter to specify whether to return
                the documents in descending by key order.
         :param bool include_docs: (optional) Parameter to specify whether to
                include the full content of the documents in the response.
-        :param bool inclusive_end: (optional) Parameter to specify whether the
-               specified end key should be included in the result.
+        :param bool inclusive_end: (optional) Parameter to specify whether to
+               include the specified end key in the result.
         :param int limit: (optional) Parameter to specify the number of returned
                documents to limit the result to.
         :param int skip: (optional) Parameter to specify the number of records
@@ -4234,19 +4283,20 @@ class CloudantV1(CloudantBaseService):
         :param str view: Path parameter to specify the map reduce view function
                name.
         :param bool att_encoding_info: (optional) Parameter to specify whether to
-               include the encoding information in attachment stubs if the particular
-               attachment is compressed.
+               include the encoding information for compressed attachments. This only
+               applies when requesting documents in the response.
         :param bool attachments: (optional) Parameter to specify whether to include
-               attachments bodies in a response.
+               attachment content in included document content or only the attachment
+               metadata. This only applies when requesting documents in the response.
         :param bool conflicts: (optional) Parameter to specify whether to include a
-               list of conflicted revisions in each returned document. Active only when
-               `include_docs` is `true`.
+               list of conflicted revisions in each returned document. This only applies
+               when requesting documents in the response.
         :param bool descending: (optional) Parameter to specify whether to return
                the documents in descending by key order.
         :param bool include_docs: (optional) Parameter to specify whether to
                include the full content of the documents in the response.
-        :param bool inclusive_end: (optional) Parameter to specify whether the
-               specified end key should be included in the result.
+        :param bool inclusive_end: (optional) Parameter to specify whether to
+               include the specified end key in the result.
         :param int limit: (optional) Parameter to specify the number of returned
                documents to limit the result to.
         :param int skip: (optional) Parameter to specify the number of records
@@ -4404,19 +4454,20 @@ class CloudantV1(CloudantBaseService):
         :param str view: Path parameter to specify the map reduce view function
                name.
         :param bool att_encoding_info: (optional) Parameter to specify whether to
-               include the encoding information in attachment stubs if the particular
-               attachment is compressed.
+               include the encoding information for compressed attachments. This only
+               applies when requesting documents in the response.
         :param bool attachments: (optional) Parameter to specify whether to include
-               attachments bodies in a response.
+               attachment content in included document content or only the attachment
+               metadata. This only applies when requesting documents in the response.
         :param bool conflicts: (optional) Parameter to specify whether to include a
-               list of conflicted revisions in each returned document. Active only when
-               `include_docs` is `true`.
+               list of conflicted revisions in each returned document. This only applies
+               when requesting documents in the response.
         :param bool descending: (optional) Parameter to specify whether to return
                the documents in descending by key order.
         :param bool include_docs: (optional) Parameter to specify whether to
                include the full content of the documents in the response.
-        :param bool inclusive_end: (optional) Parameter to specify whether the
-               specified end key should be included in the result.
+        :param bool inclusive_end: (optional) Parameter to specify whether to
+               include the specified end key in the result.
         :param int limit: (optional) Parameter to specify the number of returned
                documents to limit the result to.
         :param int skip: (optional) Parameter to specify the number of records
@@ -6564,13 +6615,17 @@ class CloudantV1(CloudantBaseService):
         :param str if_none_match: (optional) Header parameter for a conditional
                HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
-               include attachments bodies in a response.
+               include attachment content in the response. Note that when used with a
+               view-style query or changes feed this only applies when requesting
+               documents in the response.
         :param bool att_encoding_info: (optional) Query parameter to specify
-               whether to include the encoding information in attachment stubs if the
-               particular attachment is compressed.
+               whether to include the encoding information for compressed attachments.
+               Note that when used with a view-style query or changes feed this only
+               applies when requesting documents in the response.
         :param bool conflicts: (optional) Query parameter to specify whether to
-               include a list of conflicted revisions in each returned document. Active
-               only when `include_docs` is `true`.
+               include a list of conflicted revisions in each returned document. Note that
+               when used with a view-style query or changes feed this only applies when
+               requesting documents in the response.
         :param bool deleted_conflicts: (optional) Query parameter to specify
                whether to include a list of deleted conflicted revisions in the
                `_deleted_conflicts` property of the returned document.
@@ -7775,10 +7830,13 @@ class CloudantV1(CloudantBaseService):
         :param str if_none_match: (optional) Header parameter for a conditional
                HTTP request not matching an ETag.
         :param bool attachments: (optional) Query parameter to specify whether to
-               include attachments bodies in a response.
+               include attachment content in the response. Note that when used with a
+               view-style query or changes feed this only applies when requesting
+               documents in the response.
         :param bool att_encoding_info: (optional) Query parameter to specify
-               whether to include the encoding information in attachment stubs if the
-               particular attachment is compressed.
+               whether to include the encoding information for compressed attachments.
+               Note that when used with a view-style query or changes feed this only
+               applies when requesting documents in the response.
         :param bool local_seq: (optional) Query parameter to specify whether to
                include the last update sequence for the document.
         :param dict headers: A `dict` containing the request headers
@@ -9322,19 +9380,20 @@ class AllDocsQuery:
     Schema for an all documents query operation.
 
     :param bool att_encoding_info: (optional) Parameter to specify whether to
-          include the encoding information in attachment stubs if the particular
-          attachment is compressed.
+          include the encoding information for compressed attachments. This only applies
+          when requesting documents in the response.
     :param bool attachments: (optional) Parameter to specify whether to include
-          attachments bodies in a response.
+          attachment content in included document content or only the attachment metadata.
+          This only applies when requesting documents in the response.
     :param bool conflicts: (optional) Parameter to specify whether to include a list
-          of conflicted revisions in each returned document. Active only when
-          `include_docs` is `true`.
+          of conflicted revisions in each returned document. This only applies when
+          requesting documents in the response.
     :param bool descending: (optional) Parameter to specify whether to return the
           documents in descending by key order.
     :param bool include_docs: (optional) Parameter to specify whether to include the
           full content of the documents in the response.
-    :param bool inclusive_end: (optional) Parameter to specify whether the specified
-          end key should be included in the result.
+    :param bool inclusive_end: (optional) Parameter to specify whether to include
+          the specified end key in the result.
     :param int limit: (optional) Parameter to specify the number of returned
           documents to limit the result to.
     :param int skip: (optional) Parameter to specify the number of records before
@@ -9369,19 +9428,20 @@ class AllDocsQuery:
         Initialize a AllDocsQuery object.
 
         :param bool att_encoding_info: (optional) Parameter to specify whether to
-               include the encoding information in attachment stubs if the particular
-               attachment is compressed.
+               include the encoding information for compressed attachments. This only
+               applies when requesting documents in the response.
         :param bool attachments: (optional) Parameter to specify whether to include
-               attachments bodies in a response.
+               attachment content in included document content or only the attachment
+               metadata. This only applies when requesting documents in the response.
         :param bool conflicts: (optional) Parameter to specify whether to include a
-               list of conflicted revisions in each returned document. Active only when
-               `include_docs` is `true`.
+               list of conflicted revisions in each returned document. This only applies
+               when requesting documents in the response.
         :param bool descending: (optional) Parameter to specify whether to return
                the documents in descending by key order.
         :param bool include_docs: (optional) Parameter to specify whether to
                include the full content of the documents in the response.
-        :param bool inclusive_end: (optional) Parameter to specify whether the
-               specified end key should be included in the result.
+        :param bool inclusive_end: (optional) Parameter to specify whether to
+               include the specified end key in the result.
         :param int limit: (optional) Parameter to specify the number of returned
                documents to limit the result to.
         :param int skip: (optional) Parameter to specify the number of records
@@ -9943,27 +10003,30 @@ class Attachment:
     Schema for an attachment.
 
     :param str content_type: (optional) Attachment MIME type.
-    :param bytes data: (optional) Base64-encoded content. Available if attachment
-          content is requested by using the query parameters `attachments=true` or
-          `atts_since`. Note that when used with a view or changes feed `include_docs`
-          must also be `true`.
-    :param str digest: (optional) Content hash digest. It starts with prefix which
-          announce hash type (e.g. `md5-`) and continues with Base64-encoded hash digest.
+    :param bytes data: (optional) Base64-encoded content. Available when requested
+          with `attachments=true` or `atts_since`. When retrieving attachments for a
+          single document this field is only avialable when accepting an application/json
+          response. For multipart responses each attachment is instead included in a
+          separate part of the response (see `follows`).
+          Note that SDK deserialization of documents with included attachments
+          automatically decodes the Base64 encoded attachment content string to bytes.
+    :param str digest: (optional) Content hash digest. It starts with prefix
+          declaring the hash type, `md5-` for example, and continues with the
+          Base64-encoded hash digest.
     :param int encoded_length: (optional) Compressed attachment size in bytes.
-          Available if content_type was in list of compressible types when the attachment
-          was added and the query parameter `att_encoding_info` is `true`. Note that when
-          used with a view or changes feed `include_docs` must also be `true`.
-    :param str encoding: (optional) Compression codec. Available if content_type was
-          in list of compressible types when the attachment was added and the and the
-          query parameter `att_encoding_info` is `true`. Note that when used with a view
-          or changes feed `include_docs` must also be `true`.
+          Available for compressed attachments when requested with `att_encoding_info`.
+          The database compresses attachments if the content_type is in the list of
+          compressible types when added.
+    :param str encoding: (optional) Compression codec. Available for compressed
+          attachments when requested with `att_encoding_info`. The database compresses
+          attachments if the content_type is in the list of compressible types when added.
     :param bool follows: (optional) True if the attachment follows in a multipart
           request or response.
     :param int length: (optional) Real attachment size in bytes. Not available if
           inline attachment content requested.
-    :param int revpos: (optional) Revision number when attachment was added.
-    :param bool stub: (optional) Has `true` value if object contains stub info and
-          no content. Otherwise omitted in response.
+    :param int revpos: (optional) Revision number at attachment addition.
+    :param bool stub: (optional) Has `true` value if object has stub attachment
+          metadata, but not attachment content. Otherwise omitted in response.
     """
 
     def __init__(
@@ -9983,30 +10046,33 @@ class Attachment:
         Initialize a Attachment object.
 
         :param str content_type: (optional) Attachment MIME type.
-        :param bytes data: (optional) Base64-encoded content. Available if
-               attachment content is requested by using the query parameters
-               `attachments=true` or `atts_since`. Note that when used with a view or
-               changes feed `include_docs` must also be `true`.
+        :param bytes data: (optional) Base64-encoded content. Available when
+               requested with `attachments=true` or `atts_since`. When retrieving
+               attachments for a single document this field is only avialable when
+               accepting an application/json response. For multipart responses each
+               attachment is instead included in a separate part of the response (see
+               `follows`).
+               Note that SDK deserialization of documents with included attachments
+               automatically decodes the Base64 encoded attachment content string to
+               bytes.
         :param str digest: (optional) Content hash digest. It starts with prefix
-               which announce hash type (e.g. `md5-`) and continues with Base64-encoded
-               hash digest.
+               declaring the hash type, `md5-` for example, and continues with the
+               Base64-encoded hash digest.
         :param int encoded_length: (optional) Compressed attachment size in bytes.
-               Available if content_type was in list of compressible types when the
-               attachment was added and the query parameter `att_encoding_info` is `true`.
-               Note that when used with a view or changes feed `include_docs` must also be
-               `true`.
-        :param str encoding: (optional) Compression codec. Available if
-               content_type was in list of compressible types when the attachment was
-               added and the and the query parameter `att_encoding_info` is `true`. Note
-               that when used with a view or changes feed `include_docs` must also be
-               `true`.
+               Available for compressed attachments when requested with
+               `att_encoding_info`. The database compresses attachments if the
+               content_type is in the list of compressible types when added.
+        :param str encoding: (optional) Compression codec. Available for compressed
+               attachments when requested with `att_encoding_info`. The database
+               compresses attachments if the content_type is in the list of compressible
+               types when added.
         :param bool follows: (optional) True if the attachment follows in a
                multipart request or response.
         :param int length: (optional) Real attachment size in bytes. Not available
                if inline attachment content requested.
-        :param int revpos: (optional) Revision number when attachment was added.
-        :param bool stub: (optional) Has `true` value if object contains stub info
-               and no content. Otherwise omitted in response.
+        :param int revpos: (optional) Revision number at attachment addition.
+        :param bool stub: (optional) Has `true` value if object has stub attachment
+               metadata, but not attachment content. Otherwise omitted in response.
         """
         self.content_type = content_type
         self.data = data
@@ -11056,6 +11122,7 @@ class ContentInformationSizes:
 
     :param int active: The active size of the content, in bytes.
     :param int external: The total uncompressed size of the content, in bytes.
+          This is the value used for IBM Cloudant storage billing.
     :param int file: The total size of the content as stored on disk, in bytes.
     """
 
@@ -11070,6 +11137,7 @@ class ContentInformationSizes:
 
         :param int active: The active size of the content, in bytes.
         :param int external: The total uncompressed size of the content, in bytes.
+               This is the value used for IBM Cloudant storage billing.
         :param int file: The total size of the content as stored on disk, in bytes.
         """
         self.active = active
@@ -12585,7 +12653,15 @@ class DesignDocumentOptions:
     Schema for design document options.
 
     :param bool partitioned: (optional) Whether this design document describes
-          partitioned or global indexes.
+          partitioned or global indexes. Set this option to `false` for a design document
+          that describes global indexes in a partitioned database. A design document
+          describes either global or partitioned indexes, but not both. By default, for a
+          partitioned database this option is `true` and the design document describes
+          partitioned indexes for queries on a single partition at a time. When set to
+          `false` this option allows creating global indexes in this design document for
+          queries spanning many partitions. For non-partitioned databases, the default is
+          `false` and design documents default to global. Only partitioned databases can
+          have partitioned indexes.
     """
 
     def __init__(
@@ -12597,7 +12673,15 @@ class DesignDocumentOptions:
         Initialize a DesignDocumentOptions object.
 
         :param bool partitioned: (optional) Whether this design document describes
-               partitioned or global indexes.
+               partitioned or global indexes. Set this option to `false` for a design
+               document that describes global indexes in a partitioned database. A design
+               document describes either global or partitioned indexes, but not both. By
+               default, for a partitioned database this option is `true` and the design
+               document describes partitioned indexes for queries on a single partition at
+               a time. When set to `false` this option allows creating global indexes in
+               this design document for queries spanning many partitions. For
+               non-partitioned databases, the default is `false` and design documents
+               default to global. Only partitioned databases can have partitioned indexes.
         """
         self.partitioned = partitioned
 
@@ -19819,19 +19903,20 @@ class ViewQuery:
     Schema for a query view operation.
 
     :param bool att_encoding_info: (optional) Parameter to specify whether to
-          include the encoding information in attachment stubs if the particular
-          attachment is compressed.
+          include the encoding information for compressed attachments. This only applies
+          when requesting documents in the response.
     :param bool attachments: (optional) Parameter to specify whether to include
-          attachments bodies in a response.
+          attachment content in included document content or only the attachment metadata.
+          This only applies when requesting documents in the response.
     :param bool conflicts: (optional) Parameter to specify whether to include a list
-          of conflicted revisions in each returned document. Active only when
-          `include_docs` is `true`.
+          of conflicted revisions in each returned document. This only applies when
+          requesting documents in the response.
     :param bool descending: (optional) Parameter to specify whether to return the
           documents in descending by key order.
     :param bool include_docs: (optional) Parameter to specify whether to include the
           full content of the documents in the response.
-    :param bool inclusive_end: (optional) Parameter to specify whether the specified
-          end key should be included in the result.
+    :param bool inclusive_end: (optional) Parameter to specify whether to include
+          the specified end key in the result.
     :param int limit: (optional) Parameter to specify the number of returned
           documents to limit the result to.
     :param int skip: (optional) Parameter to specify the number of records before
@@ -19912,19 +19997,20 @@ class ViewQuery:
         Initialize a ViewQuery object.
 
         :param bool att_encoding_info: (optional) Parameter to specify whether to
-               include the encoding information in attachment stubs if the particular
-               attachment is compressed.
+               include the encoding information for compressed attachments. This only
+               applies when requesting documents in the response.
         :param bool attachments: (optional) Parameter to specify whether to include
-               attachments bodies in a response.
+               attachment content in included document content or only the attachment
+               metadata. This only applies when requesting documents in the response.
         :param bool conflicts: (optional) Parameter to specify whether to include a
-               list of conflicted revisions in each returned document. Active only when
-               `include_docs` is `true`.
+               list of conflicted revisions in each returned document. This only applies
+               when requesting documents in the response.
         :param bool descending: (optional) Parameter to specify whether to return
                the documents in descending by key order.
         :param bool include_docs: (optional) Parameter to specify whether to
                include the full content of the documents in the response.
-        :param bool inclusive_end: (optional) Parameter to specify whether the
-               specified end key should be included in the result.
+        :param bool inclusive_end: (optional) Parameter to specify whether to
+               include the specified end key in the result.
         :param int limit: (optional) Parameter to specify the number of returned
                documents to limit the result to.
         :param int skip: (optional) Parameter to specify the number of records
