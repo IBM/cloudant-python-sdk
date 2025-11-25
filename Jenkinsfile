@@ -364,4 +364,3 @@ void publishDocs() {
     ./scripts/pydoc/publish-doc.sh
   '''
 }
-
