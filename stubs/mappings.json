@@ -206,7 +206,7 @@
       "persistent": true,
       "scenarioName": "scenario-2-orders-example",
       "requiredScenarioState": "scenario-2-orders-example-4",
-      "newScenarioState": "scenario-2-orders-example-5",
+      "newScenarioState": "scenario-2-orders-example-6",
       "insertionIndex": 12
     },
     {
