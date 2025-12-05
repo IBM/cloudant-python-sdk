@@ -41,7 +41,7 @@ example_doc_id = "example"
 # Setting `id` for the document is optional when "post_document"
 # function is used for CREATE. When `id` is not provided the server
 # will generate one for your document.
-example_document: Document = Document(id=example_doc_id)
+example_document: Document = Document(_id=example_doc_id)
 
 # Add "name" and "joined" fields to the document
 example_document.name = "Bob Smith"
