@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import json
+
 from ibm_cloud_sdk_core import ApiException
 from ibmcloudant.cloudant_v1 import CloudantV1, Document
 
@@ -65,7 +67,5 @@ create_document_response = client.put_document(
 """
 # =====================================================================
 
-# Keeping track of the revision number of the document object
-# is necessary for further UPDATE/DELETE operations:
-example_document.rev = create_document_response["rev"]
-print(f'You have created the document:\n{example_document}')
+response_body = json.dumps(create_document_response, indent=2)
+print(f'You have created the document. Response body:\n{response_body}')

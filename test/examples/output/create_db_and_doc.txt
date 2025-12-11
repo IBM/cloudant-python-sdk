@@ -1,8 +1,7 @@
 "orders" database created.
-You have created the document:
+You have created the document. Response body:
 {
-  "_id": "example",
-  "_rev": "1-1b403633540686aa32d013fda9041a5d",
-  "name": "Bob Smith",
-  "joined": "2019-01-24T10:42:99.000Z"
+  "ok": true,
+  "id": "example",
+  "rev": "1-1b403633540686aa32d013fda9041a5d"
 }

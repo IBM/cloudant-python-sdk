@@ -89,6 +89,6 @@ try:
 
 except ApiException as ae:
     if ae.status_code == 404:
-        print('Cannot delete document because either ' +
+        print('Cannot update document because either ' +
               f'"{example_db_name}" database or "{example_doc_id}" ' +
               'document was not found.')
