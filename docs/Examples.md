@@ -57,10 +57,10 @@ except ApiException as ae:
 # 3. Create a document ================================================
 # Create a document object with "example" id
 example_doc_id = "example"
-# Setting `id` for the document is optional when "post_document"
-# function is used for CREATE. When `id` is not provided the server
+# Setting `_id` for the document is optional when "post_document"
+# function is used for CREATE. When `_id` is not provided the server
 # will generate one for your document.
-example_document: Document = Document(id=example_doc_id)
+example_document: Document = Document(_id=example_doc_id)
 
 # Add "name" and "joined" fields to the document
 example_document.name = "Bob Smith"
@@ -84,22 +84,19 @@ create_document_response = client.put_document(
 """
 # =====================================================================
 
-# Keeping track of the revision number of the document object
-# is necessary for further UPDATE/DELETE operations:
-example_document.rev = create_document_response["rev"]
-print(f'You have created the document:\n{example_document}')
+response_body = json.dumps(create_document_response, indent=2)
+print(f'You have created the document. Response body:\n{response_body}')
 ```
 
 When you run the code, you see a result similar to the following output.
 
 ```text
 "orders" database created.
-You have created the document:
+You have created the document. Response body:
 {
-  "_id": "example",
-  "_rev": "1-1b403633540686aa32d013fda9041a5d",
-  "name": "Bob Smith",
-  "joined": "2019-01-24T10:42:99.000Z"
+  "ok": true,
+  "id": "example",
+  "rev": "1-1b403633540686aa32d013fda9041a5d"
 }
 ```
 
@@ -155,14 +152,14 @@ print(f'Document retrieved from database:\n'
 When you run the code, you see a result similar to the following output.
 
 ```text
-Server Version: 2.1.1
+Server Version: 3.2.1
 Document count in "orders" database is 1.
 Document retrieved from database:
 {
   "_id": "example",
   "_rev": "1-1b403633540686aa32d013fda9041a5d",
   "name": "Bob Smith",
-  "joined": "2019-01-24T10:42:99.000Z"
+  "joined": "2019-01-24T10:42:59.000Z"
 }
 ```
 
@@ -253,7 +250,7 @@ try:
 
 except ApiException as ae:
     if ae.status_code == 404:
-        print('Cannot delete document because either ' +
+        print('Cannot update document because either ' +
               f'"{example_db_name}" database or "{example_doc_id}" ' +
               'document was not found.')
 ```
@@ -262,6 +259,7 @@ except ApiException as ae:
 When you run the code, you see a result similar to the following output.
 
 ```text
+You have updated the document:
 {
   "_id": "example",
   "_rev": "2-4e2178e85cffb32d38ba4e451f6ca376",
@@ -311,7 +309,7 @@ try:
 except ApiException as ae:
     if ae.status_code == 404:
         print('Cannot delete document because either ' +
-              f'"{example_db_name}" database or "{example_doc_id}"' +
+              f'"{example_db_name}" database or "{example_doc_id}" ' +
               'document was not found.')
 ```
 
