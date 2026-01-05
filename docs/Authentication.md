@@ -32,7 +32,7 @@ This library requires credentials to authenticate with IBM Cloudant. These crede
 
 | Authentication type | Recommended for | `AUTH_TYPE` | Description |
 | --- | --- | --- | --- |
-| IAM Trusted Profiles (compute resource [container](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#container-authentication)) | Cloudant<BR>(SDK running in IBM Cloud IKS) | `CONTAINER` | Obtains a compute resource (CR) token from the container.<BR>Exchanges the CR token for an IAM `access_token`.<BR>Adds an `Authorization` header to each HTTP request with the `access_token` bearer.<BR>Automatically renews the access token when needed. |
+| IAM Trusted Profiles (compute resource [container](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#container-authentication)) | Cloudant<BR>(SDK running in IBM Cloud Containers, including Serverless) | `CONTAINER` | Obtains a compute resource (CR) token from the container.<BR>Exchanges the CR token for an IAM `access_token`.<BR>Adds an `Authorization` header to each HTTP request with the `access_token` bearer.<BR>Automatically renews the access token when needed. |
 | IAM Trusted Profiles (compute resource [VPC](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#vpc-instance-authentication)) | Cloudant<BR>(SDK running in IBM Cloud VPC) | `VPC` | Obtains an identity token from the VPC instance metadata.<BR>Exchanges the identity token for an IAM `access_token`.<BR>Adds an `Authorization` header to each HTTP request with the `access_token` bearer.<BR>Automatically renews the access token when needed. |
 | IAM Trusted Profiles ([assume identity](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#identity-and-access-management-iam-authentication-grant-type-assume)) | Cloudant | `IAMASSUME` | Exchanges an IAM API key for an IAM `access_token` (same as `IAM` auth type).<BR>Uses that initial token to obtain a second `access_token` from IAM with the assumed identity information.<BR>Adds an `Authorization` header to each HTTP request with the `access_token` bearer.<BR>Automatically renews the access token when needed. |
 | [IAM API key](https://github.com/IBM/python-sdk-core/blob/main/Authentication.md#identity-and-access-management-iam-authentication-grant-type-apikey) | Cloudant | `IAM` | Exchanges an IAM API key for an IAM `access_token`.<BR>Adds an `Authorization` header to each HTTP request with the `access_token` bearer.<BR>Automatically renews the access token when needed. |
@@ -70,7 +70,7 @@ amending with your own correct values. There is no need to set
 
 ```sh
 CLOUDANT_URL=https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
-CLOUDANT_IAM_PROFILE_ID=iam-Profile-00000000-0000-0000-0000-000000000000 # use your own IAM profile ID
+CLOUDANT_IAM_PROFILE_ID=Profile-00000000-0000-0000-0000-000000000000 # use your own IAM Profile ID
 ```
 
 Alternatives to `CLOUDANT_IAM_PROFILE_ID`:
@@ -84,7 +84,7 @@ amending with your own correct values.
 ```sh
 CLOUDANT_AUTH_TYPE=VPC
 CLOUDANT_URL=https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
-CLOUDANT_IAM_PROFILE_ID=iam-Profile-00000000-0000-0000-0000-000000000000 # use your own IAM profile ID
+CLOUDANT_IAM_PROFILE_ID=Profile-00000000-0000-0000-0000-000000000000 # use your own IAM Profile ID
 ```
 
 Alternatives to `CLOUDANT_IAM_PROFILE_ID`:
@@ -99,7 +99,7 @@ amending with your own correct values.
 ```sh
 CLOUDANT_AUTH_TYPE=IAMASSUME
 CLOUDANT_URL=https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud # use your own Cloudant public or private URL
-CLOUDANT_IAM_PROFILE_ID=iam-Profile-00000000-0000-0000-0000-000000000000 # use your own IAM profile ID
+CLOUDANT_IAM_PROFILE_ID=Profile-00000000-0000-0000-0000-000000000000 # use your own IAM Profile ID
 ```
 
 Alternatives to `CLOUDANT_IAM_PROFILE_ID`:
