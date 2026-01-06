@@ -4709,7 +4709,7 @@ class TestGetDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "default": {"name": "classic", "stopwords": ["stopwords"]}, "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}}'
         responses.add(
             responses.GET,
             url,
@@ -4784,7 +4784,7 @@ class TestGetDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "default": {"name": "classic", "stopwords": ["stopwords"]}, "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}}'
         responses.add(
             responses.GET,
             url,
@@ -4824,7 +4824,7 @@ class TestGetDesignDocument:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "autoupdate": true, "filters": {"mapKey": "inner"}, "indexes": {"mapKey": {"analyzer": {"name": "classic", "stopwords": ["stopwords"], "default": {"name": "classic", "stopwords": ["stopwords"]}, "fields": {"mapKey": {"name": "classic", "stopwords": ["stopwords"]}}}, "index": "index"}}, "language": "javascript", "options": {"partitioned": false}, "validate_doc_update": "validate_doc_update", "views": {"mapKey": {"map": "map", "reduce": "reduce"}}}'
         responses.add(
             responses.GET,
             url,
@@ -4909,6 +4909,7 @@ class TestPutDesignDocument:
         analyzer_configuration_model = {}
         analyzer_configuration_model['name'] = 'standard'
         analyzer_configuration_model['stopwords'] = ['testString']
+        analyzer_configuration_model['default'] = analyzer_model
         analyzer_configuration_model['fields'] = {'key1': analyzer_model}
 
         # Construct a dict representation of a SearchIndexDefinition model
@@ -5039,6 +5040,7 @@ class TestPutDesignDocument:
         analyzer_configuration_model = {}
         analyzer_configuration_model['name'] = 'standard'
         analyzer_configuration_model['stopwords'] = ['testString']
+        analyzer_configuration_model['default'] = analyzer_model
         analyzer_configuration_model['fields'] = {'key1': analyzer_model}
 
         # Construct a dict representation of a SearchIndexDefinition model
@@ -5155,6 +5157,7 @@ class TestPutDesignDocument:
         analyzer_configuration_model = {}
         analyzer_configuration_model['name'] = 'standard'
         analyzer_configuration_model['stopwords'] = ['testString']
+        analyzer_configuration_model['default'] = analyzer_model
         analyzer_configuration_model['fields'] = {'key1': analyzer_model}
 
         # Construct a dict representation of a SearchIndexDefinition model
@@ -14076,6 +14079,7 @@ class TestModel_AnalyzerConfiguration:
         analyzer_configuration_model_json = {}
         analyzer_configuration_model_json['name'] = 'classic'
         analyzer_configuration_model_json['stopwords'] = ['testString']
+        analyzer_configuration_model_json['default'] = analyzer_model
         analyzer_configuration_model_json['fields'] = {'key1': analyzer_model}
 
         # Construct a model instance of AnalyzerConfiguration by calling from_dict on the json representation
@@ -15371,6 +15375,7 @@ class TestModel_DesignDocument:
         analyzer_configuration_model = {}  # AnalyzerConfiguration
         analyzer_configuration_model['name'] = 'classic'
         analyzer_configuration_model['stopwords'] = ['testString']
+        analyzer_configuration_model['default'] = analyzer_model
         analyzer_configuration_model['fields'] = {'key1': analyzer_model}
 
         search_index_definition_model = {}  # SearchIndexDefinition
@@ -17619,6 +17624,7 @@ class TestModel_SearchIndexDefinition:
         analyzer_configuration_model = {}  # AnalyzerConfiguration
         analyzer_configuration_model['name'] = 'classic'
         analyzer_configuration_model['stopwords'] = ['testString']
+        analyzer_configuration_model['default'] = analyzer_model
         analyzer_configuration_model['fields'] = {'key1': analyzer_model}
 
         # Construct a json representation of a SearchIndexDefinition model
