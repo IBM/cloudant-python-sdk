@@ -5692,9 +5692,9 @@ class CloudantV1(CloudantBaseService):
         :param IndexDefinition index: Schema for a `json` or `text` query index
                definition. Indexes of type `text` have additional configuration properties
                that do not apply to `json` indexes, these are:
-               * `default_analyzer` - the default text analyzer to use * `default_field` -
-               whether to index the text in all document fields and what analyzer to use
-               for that purpose.
+               * `default_analyzer` - the default text analyzer to use
+               * `default_field` - whether to index the text in all document fields and
+               what analyzer to use for that purpose.
         :param str ddoc: (optional) Specifies the design document name in which the
                index will be created. The design document name is the design document ID
                excluding the `_design/` prefix.
@@ -9645,9 +9645,9 @@ class Analyzer:
 
     :param str name: Schema for the name of the Apache Lucene analyzer to use for
           text indexing. The default value varies depending on the analyzer usage:
-          * For search indexes the default is `standard` * For query text indexes the
-          default is `keyword` * For a query text index default_field the default is
-          `standard`.
+          * For search indexes the default is `standard`
+          * For query text indexes the default is `keyword`
+          * For a query text index default_field the default is `standard`.
     :param List[str] stopwords: (optional) Custom stopwords to use with the named
           analyzer.
     """
@@ -9664,9 +9664,9 @@ class Analyzer:
         :param str name: Schema for the name of the Apache Lucene analyzer to use
                for text indexing. The default value varies depending on the analyzer
                usage:
-               * For search indexes the default is `standard` * For query text indexes the
-               default is `keyword` * For a query text index default_field the default is
-               `standard`.
+               * For search indexes the default is `standard`
+               * For query text indexes the default is `keyword`
+               * For a query text index default_field the default is `standard`.
         :param List[str] stopwords: (optional) Custom stopwords to use with the
                named analyzer.
         """
@@ -9721,9 +9721,9 @@ class Analyzer:
         """
         Schema for the name of the Apache Lucene analyzer to use for text indexing. The
         default value varies depending on the analyzer usage:
-        * For search indexes the default is `standard` * For query text indexes the
-        default is `keyword` * For a query text index default_field the default is
-        `standard`.
+        * For search indexes the default is `standard`
+        * For query text indexes the default is `keyword`
+        * For a query text index default_field the default is `standard`.
         """
 
         CLASSIC = 'classic'
@@ -9773,15 +9773,17 @@ class Analyzer:
 
 class AnalyzerConfiguration:
     """
-    Schema for a search analyzer configuration.
+    Analyzer configuration for search indexes. The default and fields properties are only
+    applicable for the `perfield` analyzer name.
 
     :param str name: Schema for the name of the Apache Lucene analyzer to use for
           text indexing. The default value varies depending on the analyzer usage:
-          * For search indexes the default is `standard` * For query text indexes the
-          default is `keyword` * For a query text index default_field the default is
-          `standard`.
+          * For search indexes the default is `standard`
+          * For query text indexes the default is `keyword`
+          * For a query text index default_field the default is `standard`.
     :param List[str] stopwords: (optional) Custom stopwords to use with the named
           analyzer.
+    :param Analyzer default: (optional) Schema for a full text search analyzer.
     :param dict fields: (optional) Schema for mapping a field name to a per field
           analyzer.
     """
@@ -9791,6 +9793,7 @@ class AnalyzerConfiguration:
         name: str,
         *,
         stopwords: Optional[List[str]] = None,
+        default: Optional['Analyzer'] = None,
         fields: Optional[dict] = None,
     ) -> None:
         """
@@ -9799,16 +9802,18 @@ class AnalyzerConfiguration:
         :param str name: Schema for the name of the Apache Lucene analyzer to use
                for text indexing. The default value varies depending on the analyzer
                usage:
-               * For search indexes the default is `standard` * For query text indexes the
-               default is `keyword` * For a query text index default_field the default is
-               `standard`.
+               * For search indexes the default is `standard`
+               * For query text indexes the default is `keyword`
+               * For a query text index default_field the default is `standard`.
         :param List[str] stopwords: (optional) Custom stopwords to use with the
                named analyzer.
+        :param Analyzer default: (optional) Schema for a full text search analyzer.
         :param dict fields: (optional) Schema for mapping a field name to a per
                field analyzer.
         """
         self.name = name
         self.stopwords = stopwords
+        self.default = default
         self.fields = fields
 
     @classmethod
@@ -9821,6 +9826,8 @@ class AnalyzerConfiguration:
             raise ValueError('Required property \'name\' not present in AnalyzerConfiguration JSON')
         if (stopwords := _dict.get('stopwords')) is not None:
             args['stopwords'] = stopwords
+        if (default := _dict.get('default')) is not None:
+            args['default'] = Analyzer.from_dict(default)
         if (fields := _dict.get('fields')) is not None:
             args['fields'] = {k: Analyzer.from_dict(v) for k, v in fields.items()}
         return cls(**args)
@@ -9837,6 +9844,11 @@ class AnalyzerConfiguration:
             _dict['name'] = self.name
         if hasattr(self, 'stopwords') and self.stopwords is not None:
             _dict['stopwords'] = self.stopwords
+        if hasattr(self, 'default') and self.default is not None:
+            if isinstance(self.default, dict):
+                _dict['default'] = self.default
+            else:
+                _dict['default'] = self.default.to_dict()
         if hasattr(self, 'fields') and self.fields is not None:
             fields_map = {}
             for k, v in self.fields.items():
@@ -9869,9 +9881,9 @@ class AnalyzerConfiguration:
         """
         Schema for the name of the Apache Lucene analyzer to use for text indexing. The
         default value varies depending on the analyzer usage:
-        * For search indexes the default is `standard` * For query text indexes the
-        default is `keyword` * For a query text index default_field the default is
-        `standard`.
+        * For search indexes the default is `standard`
+        * For query text indexes the default is `keyword`
+        * For a query text index default_field the default is `standard`.
         """
 
         CLASSIC = 'classic'
@@ -14740,8 +14752,9 @@ class IndexDefinition:
     """
     Schema for a `json` or `text` query index definition. Indexes of type `text` have
     additional configuration properties that do not apply to `json` indexes, these are:
-    * `default_analyzer` - the default text analyzer to use * `default_field` - whether to
-    index the text in all document fields and what analyzer to use for that purpose.
+    * `default_analyzer` - the default text analyzer to use
+    * `default_field` - whether to index the text in all document fields and what analyzer
+    to use for that purpose.
 
     :param Analyzer default_analyzer: (optional) Schema for a full text search
           analyzer.
@@ -14757,9 +14770,10 @@ class IndexDefinition:
     :param bool index_array_lengths: (optional) Whether to scan every document for
           arrays and store the length for each array found. Set the index_array_lengths
           field to false if:
-          * You do not need to know the length of an array. * You do not use the `$size`
-          operator. * The documents in your database are complex, or not completely under
-          your control. As a result, it is difficult to estimate the impact of the extra
+          * You do not need to know the length of an array.
+          * You do not use the `$size` operator.
+          * The documents in your database are complex, or not completely under your
+          control. As a result, it is difficult to estimate the impact of the extra
           processing that is needed to determine and store the arrays lengths.
     :param dict partial_filter_selector: (optional) JSON object describing criteria
           used to select documents. The selector specifies fields in the document, and
@@ -14824,11 +14838,11 @@ class IndexDefinition:
         :param bool index_array_lengths: (optional) Whether to scan every document
                for arrays and store the length for each array found. Set the
                index_array_lengths field to false if:
-               * You do not need to know the length of an array. * You do not use the
-               `$size` operator. * The documents in your database are complex, or not
-               completely under your control. As a result, it is difficult to estimate the
-               impact of the extra processing that is needed to determine and store the
-               arrays lengths.
+               * You do not need to know the length of an array.
+               * You do not use the `$size` operator.
+               * The documents in your database are complex, or not completely under your
+               control. As a result, it is difficult to estimate the impact of the extra
+               processing that is needed to determine and store the arrays lengths.
         :param dict partial_filter_selector: (optional) JSON object describing
                criteria used to select documents. The selector specifies fields in the
                document, and provides an expression to evaluate with the field content or
@@ -15067,9 +15081,9 @@ class IndexInformation:
     :param IndexDefinition def_: Schema for a `json` or `text` query index
           definition. Indexes of type `text` have additional configuration properties that
           do not apply to `json` indexes, these are:
-          * `default_analyzer` - the default text analyzer to use * `default_field` -
-          whether to index the text in all document fields and what analyzer to use for
-          that purpose.
+          * `default_analyzer` - the default text analyzer to use
+          * `default_field` - whether to index the text in all document fields and what
+          analyzer to use for that purpose.
     :param str name: Index name.
     :param bool partitioned: (optional) Indicates if index is partitioned.
     :param str type: Schema for the type of an index.
@@ -15092,9 +15106,9 @@ class IndexInformation:
         :param IndexDefinition def_: Schema for a `json` or `text` query index
                definition. Indexes of type `text` have additional configuration properties
                that do not apply to `json` indexes, these are:
-               * `default_analyzer` - the default text analyzer to use * `default_field` -
-               whether to index the text in all document fields and what analyzer to use
-               for that purpose.
+               * `default_analyzer` - the default text analyzer to use
+               * `default_field` - whether to index the text in all document fields and
+               what analyzer to use for that purpose.
         :param str name: Index name.
         :param str type: Schema for the type of an index.
         :param bool partitioned: (optional) Indicates if index is partitioned.
@@ -17993,8 +18007,9 @@ class SearchIndexDefinition:
     """
     Schema for a search index definition.
 
-    :param AnalyzerConfiguration analyzer: (optional) Schema for a search analyzer
-          configuration.
+    :param AnalyzerConfiguration analyzer: (optional) Analyzer configuration for
+          search indexes. The default and fields properties are only applicable for the
+          `perfield` analyzer name.
     :param str index: String form of a JavaScript function that is called for each
           document in the database. The function takes the document as a parameter,
           extracts some data from it, and then calls the `index` function to index that
@@ -18047,8 +18062,9 @@ class SearchIndexDefinition:
                    * `store` - boolean, default `true` - If true, the value is
                      returned in the search result; otherwise, the value is not
                      returned.
-        :param AnalyzerConfiguration analyzer: (optional) Schema for a search
-               analyzer configuration.
+        :param AnalyzerConfiguration analyzer: (optional) Analyzer configuration
+               for search indexes. The default and fields properties are only applicable
+               for the `perfield` analyzer name.
         """
         self.analyzer = analyzer
         self.index = index

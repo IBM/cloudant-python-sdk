@@ -744,6 +744,7 @@ class TestCloudantV1:
         analyzer_configuration_model = {
             'name': 'standard',
             'stopwords': ['testString'],
+            'default': analyzer_model,
             'fields': {'key1': analyzer_model},
         }
         # Construct a dict representation of a SearchIndexDefinition model
