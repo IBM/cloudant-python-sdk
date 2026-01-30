@@ -6,7 +6,7 @@ service = CloudantV1.new_instance()
 with open("products_doc.json", "rb") as products_doc:
   response = service.post_document(
       db='products',
-      document=products_doc_binary,
+      document=products_doc,
       content_type="application/json"
   ).get_result()
 
