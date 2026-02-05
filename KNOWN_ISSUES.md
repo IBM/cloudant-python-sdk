@@ -143,3 +143,26 @@ client = CloudantV1.new_instance(service_name="YOUR_SERVICE_NAME")
 client.set_enable_gzip_compression(False)
 ...
 ```
+
+### Attachments with `content-type: application/json`
+
+Calling [`get_attachment`](https://ibm.github.io/cloudant-python-sdk/docs/latest/apidocs/ibmcloudant/ibmcloudant.cloudant_v1.html#ibmcloudant.cloudant_v1.CloudantV1.get_attachment)
+typically returns a `DetailedResponse` with `BinaryIO` result.
+For attachments uploaded with a `content-type: application/json`
+header or as a `.json` file in the dashboard then calls to `get_attachment`
+return a `DetailedResponse` with, for example, a `dict` result for a JSON
+object.
+The JSON is automatically loaded by the underlying SDK core
+and client to the default Python object types.
+
+To get a `BinaryIO` result with an `application/json` attachment
+pass `stream=True` on the `get_attachment` request.
+
+```python
+json_attachment: bytes = service.get_attachment(
+  db='products',
+  doc_id='1000042',
+  attachment_name='product_details.json',
+  stream=True
+).get_result().content # content bytes that can be decoded
+```
