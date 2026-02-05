@@ -67,7 +67,7 @@ project:
 - Familiar user experience with IBM Cloud SDKs.
 - Flexibility to use either built-in models or byte-based requests and responses for documents.
 - Built-in [Changes feed follower](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.3/docs/Changes_Follower.md)
-- Built-in [Pagination](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.3/docs/Pagination.md) (beta)
+- Built-in [Pagination](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.3/docs/Pagination.md)
 - Instances of the client are unconditionally thread-safe.
 
 ## Prerequisites
