@@ -22,7 +22,7 @@
 
 ## Introduction
 
-The pagination feature (currently beta) accepts options for a single operation and automatically
+The pagination feature accepts options for a single operation and automatically
 creates the multiple requests to the server necessary to page through the results a fixed number at a time.
 
 Pagination is a best-practice to break apart large queries into multiple server requests.
