@@ -67,7 +67,7 @@ The changes follower requires the client to have HTTP timeouts of at least 1 min
 instantiation if it is insufficient. The default client configuration has sufficiently long timeouts.
 
 For use-cases where these configuration limitations are too restrictive then write code to use the SDK's
-[POST `_changes` API](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.3/examples#postchanges) instead of the follower.
+[POST `_changes` API](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.4/examples#postchanges) instead of the follower.
 
 ## Error suppression
 
@@ -101,7 +101,7 @@ The follower is not optimized for some use cases and it is not recommended to us
 * Setting `include_docs` and larger document sizes (for example > 10 kiB).
 * The volume of changes is very high (if the rate of changes in the database exceeds the follower's rate of pulling them it can never catch-up).
 
-In these use-cases use the SDK's [POST `_changes` API](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.3/examples#postchanges)
+In these use-cases use the SDK's [POST `_changes` API](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.4/examples#postchanges)
 for  specific control over the number of change requests made and the content size of the responses.
 
 ## Checkpoints
