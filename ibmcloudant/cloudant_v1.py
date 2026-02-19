@@ -9649,7 +9649,9 @@ class Analyzer:
           * For query text indexes the default is `keyword`
           * For a query text index default_field the default is `standard`.
     :param List[str] stopwords: (optional) Custom stopwords to use with the named
-          analyzer.
+          analyzer where supported. Not used for `keyword`, `simple`, `whitespace`,
+          `simple_asciifolding` or `perfield` analyzers. Ensure stopwords match the folded
+          case for analyzers that perform folding.
     """
 
     def __init__(
@@ -9668,7 +9670,9 @@ class Analyzer:
                * For query text indexes the default is `keyword`
                * For a query text index default_field the default is `standard`.
         :param List[str] stopwords: (optional) Custom stopwords to use with the
-               named analyzer.
+               named analyzer where supported. Not used for `keyword`, `simple`,
+               `whitespace`, `simple_asciifolding` or `perfield` analyzers. Ensure
+               stopwords match the folded case for analyzers that perform folding.
         """
         self.name = name
         self.stopwords = stopwords
@@ -9782,7 +9786,9 @@ class AnalyzerConfiguration:
           * For query text indexes the default is `keyword`
           * For a query text index default_field the default is `standard`.
     :param List[str] stopwords: (optional) Custom stopwords to use with the named
-          analyzer.
+          analyzer where supported. Not used for `keyword`, `simple`, `whitespace`,
+          `simple_asciifolding` or `perfield` analyzers. Ensure stopwords match the folded
+          case for analyzers that perform folding.
     :param Analyzer default: (optional) Schema for a full text search analyzer.
     :param dict fields: (optional) Schema for mapping a field name to a per field
           analyzer.
@@ -9806,7 +9812,9 @@ class AnalyzerConfiguration:
                * For query text indexes the default is `keyword`
                * For a query text index default_field the default is `standard`.
         :param List[str] stopwords: (optional) Custom stopwords to use with the
-               named analyzer.
+               named analyzer where supported. Not used for `keyword`, `simple`,
+               `whitespace`, `simple_asciifolding` or `perfield` analyzers. Ensure
+               stopwords match the folded case for analyzers that perform folding.
         :param Analyzer default: (optional) Schema for a full text search analyzer.
         :param dict fields: (optional) Schema for mapping a field name to a per
                field analyzer.
@@ -12271,8 +12279,8 @@ class DesignDocument:
           The validation function can abort the pending document write by throwing one of
           two error objects:
           ```
-          // user is not authorized to make the change but may re-authenticate throw({
-          unauthorized: 'Error message here.' });
+          // user is not authorized to make the change but may
+          // re-authenticate throw({ unauthorized: 'Error message here.' });
           // change is not allowed throw({ forbidden: 'Error message here.' });
           ```
           The function takes 4 parameters:
@@ -12392,8 +12400,8 @@ class DesignDocument:
                The validation function can abort the pending document write by throwing
                one of two error objects:
                ```
-               // user is not authorized to make the change but may re-authenticate
-               throw({ unauthorized: 'Error message here.' });
+               // user is not authorized to make the change but may
+               // re-authenticate throw({ unauthorized: 'Error message here.' });
                // change is not allowed throw({ forbidden: 'Error message here.' });
                ```
                The function takes 4 parameters:
