@@ -1,0 +1,69 @@
+:py:mod:`ibmcloudant.features.changes_follower`
+===============================================
+
+.. py:module:: ibmcloudant.features.changes_follower
+
+.. autodoc2-docstring:: ibmcloudant.features.changes_follower
+   :parser: myst
+   :allowtitles:
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. list-table::
+   :class: autosummary longtable
+   :align: left
+
+   * - :py:obj:`ChangesFollower <ibmcloudant.features.changes_follower.ChangesFollower>`
+     - .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower
+          :parser: myst
+          :summary:
+
+API
+~~~
+
+.. py:class:: ChangesFollower(service: ibmcloudant.cloudant_v1.CloudantV1, *, error_tolerance: int = _FOREVER, **kwargs)
+   :canonical: ibmcloudant.features.changes_follower.ChangesFollower
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower
+      :parser: myst
+
+   .. rubric:: Initialization
+
+   .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower.__init__
+      :parser: myst
+
+   .. py:property:: error_tolerance
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollower.error_tolerance
+      :type: int
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower.error_tolerance
+         :parser: myst
+
+   .. py:property:: options
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollower.options
+      :type: typing.Dict
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower.options
+         :parser: myst
+
+   .. py:method:: start() -> typing.Iterator[ibmcloudant.cloudant_v1.ChangesResultItem]
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollower.start
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower.start
+         :parser: myst
+
+   .. py:method:: start_one_off() -> typing.Iterator[ibmcloudant.cloudant_v1.ChangesResultItem]
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollower.start_one_off
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower.start_one_off
+         :parser: myst
+
+   .. py:method:: stop() -> None
+      :canonical: ibmcloudant.features.changes_follower.ChangesFollower.stop
+
+      .. autodoc2-docstring:: ibmcloudant.features.changes_follower.ChangesFollower.stop
+         :parser: myst
