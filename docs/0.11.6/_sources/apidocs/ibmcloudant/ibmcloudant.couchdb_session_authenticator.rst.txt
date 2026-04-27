@@ -1,0 +1,64 @@
+:py:mod:`ibmcloudant.couchdb_session_authenticator`
+===================================================
+
+.. py:module:: ibmcloudant.couchdb_session_authenticator
+
+.. autodoc2-docstring:: ibmcloudant.couchdb_session_authenticator
+   :parser: myst
+   :allowtitles:
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. list-table::
+   :class: autosummary longtable
+   :align: left
+
+   * - :py:obj:`CouchDbSessionAuthenticator <ibmcloudant.couchdb_session_authenticator.CouchDbSessionAuthenticator>`
+     - .. autodoc2-docstring:: ibmcloudant.couchdb_session_authenticator.CouchDbSessionAuthenticator
+          :parser: myst
+          :summary:
+
+API
+~~~
+
+.. py:class:: CouchDbSessionAuthenticator(username: str, password: str, disable_ssl_verification: bool = False)
+   :canonical: ibmcloudant.couchdb_session_authenticator.CouchDbSessionAuthenticator
+
+   Bases: :py:obj:`ibm_cloud_sdk_core.authenticators.Authenticator`
+
+   .. autodoc2-docstring:: ibmcloudant.couchdb_session_authenticator.CouchDbSessionAuthenticator
+      :parser: myst
+
+   .. rubric:: Initialization
+
+   .. autodoc2-docstring:: ibmcloudant.couchdb_session_authenticator.CouchDbSessionAuthenticator.__init__
+      :parser: myst
+
+   .. py:attribute:: AUTHTYPE_COUCHDB_SESSION
+      :canonical: ibmcloudant.couchdb_session_authenticator.CouchDbSessionAuthenticator.AUTHTYPE_COUCHDB_SESSION
+      :value: 'COUCHDB_SESSION'
+
+      .. autodoc2-docstring:: ibmcloudant.couchdb_session_authenticator.CouchDbSessionAuthenticator.AUTHTYPE_COUCHDB_SESSION
+         :parser: myst
+
+   .. py:method:: authenticate(req: requests.Request)
+      :canonical: ibmcloudant.couchdb_session_authenticator.CouchDbSessionAuthenticator.authenticate
+
+      .. autodoc2-docstring:: ibmcloudant.couchdb_session_authenticator.CouchDbSessionAuthenticator.authenticate
+         :parser: myst
+
+   .. py:method:: authentication_type() -> str
+      :canonical: ibmcloudant.couchdb_session_authenticator.CouchDbSessionAuthenticator.authentication_type
+
+      .. autodoc2-docstring:: ibmcloudant.couchdb_session_authenticator.CouchDbSessionAuthenticator.authentication_type
+         :parser: myst
+
+   .. py:method:: validate()
+      :canonical: ibmcloudant.couchdb_session_authenticator.CouchDbSessionAuthenticator.validate
+
+      .. autodoc2-docstring:: ibmcloudant.couchdb_session_authenticator.CouchDbSessionAuthenticator.validate
+         :parser: myst
