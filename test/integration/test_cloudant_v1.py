@@ -1811,7 +1811,7 @@ class TestCloudantV1:
         response = self.cloudant_service.put_security(
             db='testString',
             admins=security_object_model,
-            cloudant={'key1': ['_reader']},
+            cloudant={'antsellseadespecteposene': ['_reader', '_writer', '_admin']},
             couchdb_auth_only=True,
             members=security_object_model,
         )
