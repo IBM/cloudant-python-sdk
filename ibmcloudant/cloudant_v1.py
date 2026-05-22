@@ -17,7 +17,7 @@
 """
 NoSQL database based on Apache CouchDB
 
-See: https://cloud.ibm.com/docs/services/Cloudant/
+See: https://cloud.ibm.com/docs/Cloudant
 """
 
 from datetime import datetime
@@ -437,7 +437,7 @@ class CloudantV1(CloudantBaseService):
                conjunction with equality operators or create and use a partial index to
                reduce the number of documents that will need to be scanned.
                See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
@@ -662,7 +662,7 @@ class CloudantV1(CloudantBaseService):
                conjunction with equality operators or create and use a partial index to
                reduce the number of documents that will need to be scanned.
                See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
@@ -4636,7 +4636,7 @@ class CloudantV1(CloudantBaseService):
                conjunction with equality operators or create and use a partial index to
                reduce the number of documents that will need to be scanned.
                See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
@@ -4814,7 +4814,7 @@ class CloudantV1(CloudantBaseService):
                conjunction with equality operators or create and use a partial index to
                reduce the number of documents that will need to be scanned.
                See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
@@ -4992,7 +4992,7 @@ class CloudantV1(CloudantBaseService):
                conjunction with equality operators or create and use a partial index to
                reduce the number of documents that will need to be scanned.
                See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
@@ -5159,7 +5159,7 @@ class CloudantV1(CloudantBaseService):
                conjunction with equality operators or create and use a partial index to
                reduce the number of documents that will need to be scanned.
                See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
@@ -5337,7 +5337,7 @@ class CloudantV1(CloudantBaseService):
                conjunction with equality operators or create and use a partial index to
                reduce the number of documents that will need to be scanned.
                See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
@@ -5515,7 +5515,7 @@ class CloudantV1(CloudantBaseService):
                conjunction with equality operators or create and use a partial index to
                reduce the number of documents that will need to be scanned.
                See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
@@ -7084,8 +7084,8 @@ class CloudantV1(CloudantBaseService):
         `_reader`.
 
         :param str db: Path parameter to specify the database name.
-        :param dict cloudant: Database permissions for Cloudant users and/or API
-               keys.
+        :param dict cloudant: Database permissions for Cloudant users, API keys or
+               both.
         :param SecurityObject admins: (optional) Schema for names and roles to map
                to a database permission.
         :param bool couchdb_auth_only: (optional) Manage permissions using the
@@ -7217,8 +7217,8 @@ class CloudantV1(CloudantBaseService):
         :param str db: Path parameter to specify the database name.
         :param SecurityObject admins: (optional) Schema for names and roles to map
                to a database permission.
-        :param dict cloudant: (optional) Database permissions for Cloudant users
-               and/or API keys.
+        :param dict cloudant: (optional) Database permissions for Cloudant users,
+               API keys or both.
         :param bool couchdb_auth_only: (optional) Manage permissions using the
                `_users` database only.
         :param SecurityObject members: (optional) Schema for names and roles to map
@@ -13767,8 +13767,8 @@ class ExplainResult:
           equality operators or create and use a partial index to reduce the number of
           documents that will need to be scanned.
           See [the Cloudant
-          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a list of
-          all available combination and conditional operators.
+          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list
+          of all available combination and conditional operators.
           For further reference see [selector
           syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
     :param List[SelectorHint] selector_hints: Schema for a list of objects with
@@ -13838,7 +13838,7 @@ class ExplainResult:
                conjunction with equality operators or create and use a partial index to
                reduce the number of documents that will need to be scanned.
                See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
@@ -14813,8 +14813,8 @@ class IndexDefinition:
           equality operators or create and use a partial index to reduce the number of
           documents that will need to be scanned.
           See [the Cloudant
-          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a list of
-          all available combination and conditional operators.
+          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list
+          of all available combination and conditional operators.
           For further reference see [selector
           syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
     """
@@ -14884,7 +14884,7 @@ class IndexDefinition:
                conjunction with equality operators or create and use a partial index to
                reduce the number of documents that will need to be scanned.
                See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
@@ -16497,8 +16497,8 @@ class ReplicationDocument:
           equality operators or create and use a partial index to reduce the number of
           documents that will need to be scanned.
           See [the Cloudant
-          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a list of
-          all available combination and conditional operators.
+          Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list
+          of all available combination and conditional operators.
           For further reference see [selector
           syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
     :param str since_seq: (optional) Start the replication at a specific sequence
@@ -16667,7 +16667,7 @@ class ReplicationDocument:
                conjunction with equality operators or create and use a partial index to
                reduce the number of documents that will need to be scanned.
                See [the Cloudant
-               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a
+               Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a
                list of all available combination and conditional operators.
                For further reference see [selector
                syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
@@ -18720,8 +18720,8 @@ class Security:
 
     :param SecurityObject admins: (optional) Schema for names and roles to map to a
           database permission.
-    :param dict cloudant: (optional) Database permissions for Cloudant users and/or
-          API keys.
+    :param dict cloudant: (optional) Database permissions for Cloudant users, API
+          keys or both.
     :param bool couchdb_auth_only: (optional) Manage permissions using the `_users`
           database only.
     :param SecurityObject members: (optional) Schema for names and roles to map to a
@@ -18741,8 +18741,8 @@ class Security:
 
         :param SecurityObject admins: (optional) Schema for names and roles to map
                to a database permission.
-        :param dict cloudant: (optional) Database permissions for Cloudant users
-               and/or API keys.
+        :param dict cloudant: (optional) Database permissions for Cloudant users,
+               API keys or both.
         :param bool couchdb_auth_only: (optional) Manage permissions using the
                `_users` database only.
         :param SecurityObject members: (optional) Schema for names and roles to map
@@ -18811,7 +18811,7 @@ class Security:
 
     class CloudantEnum(str, Enum):
         """
-        Database permissions for Cloudant users and/or API keys.
+        Database permissions for Cloudant users, API keys or both.
         """
 
         READER = '_reader'
