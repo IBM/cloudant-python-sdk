@@ -1269,7 +1269,7 @@
               "local"
             ],
             "authenticated": "iam",
-            "authentication_db": "bm-cc-us-east-05/users"
+            "authentication_db": "redacted_auth_db"
           }
         }
       },
