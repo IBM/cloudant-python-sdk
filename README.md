@@ -2,7 +2,7 @@
 [![Release](https://img.shields.io/github/v/release/IBM/cloudant-python-sdk?include_prereleases&sort=semver)](https://github.com/IBM/cloudant-python-sdk/releases/latest)
 [![Docs](https://img.shields.io/static/v1?label=Pydoc&message=latest&color=blue)](https://ibm.github.io/cloudant-python-sdk/)
 
-# IBM Cloudant Python SDK Version 0.11.8
+# IBM Cloudant Python SDK Version 0.11.9
 
 IBM Cloudant Python SDK is a client library that interacts with the
 [IBM Cloudant APIs](https://cloud.ibm.com/apidocs/cloudant?code=python).
@@ -60,15 +60,15 @@ project:
 - Supported by IBM Cloudant.
 - Server compatibility with:
   - IBM Cloudant (Gen 1).
-  - IBM Cloudant (Gen 2) - see [compatibility notes](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/KNOWN_ISSUES.md#cloudant-gen-2-compatibility).
+  - IBM Cloudant (Gen 2) - see [compatibility notes](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/KNOWN_ISSUES.md#cloudant-gen-2-compatibility).
   - [Apache CouchDB 3.x](https://docs.couchdb.org/en/stable/) for data operations.
 - Includes all the most popular and latest supported endpoints for
   applications.
 - Handles the authentication.
 - Familiar user experience with IBM Cloud SDKs.
 - Flexibility to use either built-in models or byte-based requests and responses for documents.
-- Built-in [Changes feed follower](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/docs/Changes_Follower.md)
-- Built-in [Pagination](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/docs/Pagination.md)
+- Built-in [Changes feed follower](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/docs/Changes_Follower.md)
+- Built-in [Pagination](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/docs/Pagination.md)
 - Instances of the client are unconditionally thread-safe.
 
 ## Prerequisites
@@ -85,13 +85,13 @@ project:
 To install, use `pip` or `easy_install`:
 
 ```bash
-pip install --upgrade "ibmcloudant>=0.11.8"
+pip install --upgrade "ibmcloudant>=0.11.9"
 ```
 
 or
 
 ```bash
-easy_install --upgrade "ibmcloudant>=0.11.8"
+easy_install --upgrade "ibmcloudant>=0.11.9"
 ```
 
 ## Using the SDK
@@ -104,16 +104,16 @@ account.
 
 There are several ways to **set** these authentication properties:
 
-1. As [environment variables](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/docs/Authentication.md#authentication-with-environment-variables)
-2. The [programmatic approach](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/docs/Authentication.md#programmatic-authentication)
-3. With an [external credentials file](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/docs/Authentication.md#authentication-with-external-configuration)
+1. As [environment variables](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/docs/Authentication.md#authentication-with-environment-variables)
+2. The [programmatic approach](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/docs/Authentication.md#programmatic-authentication)
+3. With an [external credentials file](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/docs/Authentication.md#authentication-with-external-configuration)
 
 The following section describes the different authentication types and provides environment variable examples.
 Examples for other configuration methods are available by following the provided links.
 
 ### Authentication
 
-Consult the [authentication document](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/docs/Authentication.md)
+Consult the [authentication document](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/docs/Authentication.md)
 for comprehensive details of all the available authentication methods and how to configure them with environment settings
 or programmatically.
 
@@ -159,10 +159,10 @@ response = service.get_all_dbs().get_result()
 print(response)
 ```
 
-[More tutorial examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/docs/Examples.md) for creating a database
+[More tutorial examples](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/docs/Examples.md) for creating a database
 and document create, read, update and delete operations.
 
-For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/examples#examples-for-python).
+For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/examples#examples-for-python).
 
 ### Error handling
 
@@ -185,7 +185,7 @@ Response byte stream is supported in functions with the suffix of `_as_stream`.
 The returned byte stream allows the response body to be consumed
 without triggering JSON unmarshalling that is typically performed by the SDK.
 
-The [update document](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/docs/Examples.md#3-update-your-previously-created-document) section
+The [update document](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/docs/Examples.md#3-update-your-previously-created-document) section
 contains examples for both request and response byte stream cases.
 
 The API reference contains further examples of using byte streams.
@@ -295,7 +295,7 @@ print(response)
 
 ### Further resources
 
-- [Cloudant Python SDK feature docs](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/docs)
+- [Cloudant Python SDK feature docs](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/docs)
 - [Cloudant API docs](https://cloud.ibm.com/apidocs/cloudant?code=python):
   API reference including usage examples for Cloudant Python SDK API.
 - [Pydoc](https://ibm.github.io/cloudant-python-sdk/):
@@ -318,7 +318,7 @@ If you encounter an issue with the project, you are welcome to submit a
 
 Before you submit a bug report, search for
 [similar issues](https://github.com/IBM/cloudant-python-sdk/issues?q=is%3Aissue) and review the
-[KNOWN_ISSUES file](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
+[KNOWN_ISSUES file](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
 
 Please consult the [security policy](https://github.com/IBM/cloudant-python-sdk/security/policy) before opening security related issues.
 
@@ -348,8 +348,8 @@ Find more open source projects on the [IBM GitHub](http://ibm.github.io/) page.
 
 ## Contributing
 
-For more information, see [CONTRIBUTING](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/CONTRIBUTING.md).
+For more information, see [CONTRIBUTING](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/CONTRIBUTING.md).
 
 ## License
 
-This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.8/LICENSE).
+This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](https://github.com/IBM/cloudant-python-sdk/tree/v0.11.9/LICENSE).
