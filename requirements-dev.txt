@@ -1,5 +1,5 @@
 # build dependencies
-flit==3.12.0
+flit==4.0.2
 # test dependencies
 pytest==9.1.1
 responses==0.26.2
