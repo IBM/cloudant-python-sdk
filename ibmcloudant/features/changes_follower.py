@@ -23,7 +23,7 @@ import math
 from datetime import datetime, timezone, timedelta
 import functools
 from queue import Queue
-from threading import Thread, Event
+from threading import Thread, Event, Lock
 
 from enum import Enum, auto
 from typing import Dict, Iterator
@@ -118,6 +118,7 @@ class _ChangesFollowerIterator:
         self._stop = Event()
         self.logger = logging.getLogger(__name__)
         self._seq_markers: list = []
+        self._seq_markers_lock = Lock()
 
     @property
     def limit(self) -> int:
@@ -187,9 +188,11 @@ class _ChangesFollowerIterator:
 
         Returns last_persisted_seq unchanged if not found in the markers.
         """
+        with self._seq_markers_lock:
+            markers = list(self._seq_markers)
         found = False
         result = None
-        for entry in self._seq_markers:
+        for entry in markers:
             if found:
                 if entry['type'] == _SeqEntryType.ROW:
                     break
@@ -207,11 +210,12 @@ class _ChangesFollowerIterator:
         a ROW entry for the last change item (if any) and a PAGE entry for
         the page's last_seq.
         """
-        if len(self._seq_markers) >= _SEQ_MARKERS_CAPACITY:
-            del self._seq_markers[:_SEQ_MARKERS_EVICTION_COUNT]
-        if len(results) > 0:
-            self._seq_markers.append({'type': _SeqEntryType.ROW, 'seq': results[-1].get('seq')})
-        self._seq_markers.append({'type': _SeqEntryType.PAGE, 'seq': last_seq})
+        with self._seq_markers_lock:
+            if len(self._seq_markers) >= _SEQ_MARKERS_CAPACITY:
+                del self._seq_markers[:_SEQ_MARKERS_EVICTION_COUNT]
+            if len(results) > 0:
+                self._seq_markers.append({'type': _SeqEntryType.ROW, 'seq': results[-1].get('seq')})
+            self._seq_markers.append({'type': _SeqEntryType.PAGE, 'seq': last_seq})
 
     def _request_callback(self):
         while True:

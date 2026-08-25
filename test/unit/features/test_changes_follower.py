@@ -714,9 +714,11 @@ def _populate_iterator(pages):
     _update_seq_markers for each page.
     """
     from ibmcloudant.features.changes_follower import _ChangesFollowerIterator
+    from threading import Lock
 
     iterator = _ChangesFollowerIterator.__new__(_ChangesFollowerIterator)
     iterator._seq_markers = []
+    iterator._seq_markers_lock = Lock()
 
     for page in pages:
         iterator._update_seq_markers(page['results'], page['last_seq'])
