@@ -84,6 +84,8 @@ class CouchDbSessionTokenManager(TokenManager):
 
         return response
 
+    _DEFAULT_SESSION_COOKIE_TTL_SECONDS = 24 * 60 * 60
+
     def _save_token_info(self, token_response) -> None:
         """
         Decode the access token and save the response from the service to the object's state
@@ -100,6 +102,8 @@ class CouchDbSessionTokenManager(TokenManager):
         cookie = next(x for x in self.access_token if x.name == 'AuthSession')
         exp = cookie.expires
         iat = self._get_current_time()
+        if exp is None:
+            exp = iat + self._DEFAULT_SESSION_COOKIE_TTL_SECONDS
         self.expire_time = exp
         ttl = exp - iat
         buffer = ttl * 0.2
