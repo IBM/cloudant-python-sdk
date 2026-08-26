@@ -25,6 +25,7 @@ import time
 
 from ibmcloudant import CouchDbSessionAuthenticator
 from ibmcloudant.cloudant_v1 import CloudantV1
+from ibmcloudant.couchdb_session_token_manager import CouchDbSessionTokenManager
 
 request = requests.request
 request_args = None
@@ -55,9 +56,12 @@ class TestCouchDbSessionAuth(unittest.TestCase):
 
     def prepare_for_url(self, url):
         def post_session(request):
-            return (200, {
-                "Set-Cookie": "AuthSession=" + self.cookie_value + ";  Version=1; Expires=" +
-                              self.cookie_expire_time + "; Max-Age=600; Path=/; HttpOnly"},
+            if self.cookie_expire_time is None:
+                set_cookie = "AuthSession=" + self.cookie_value + ";  Version=1; Path=/; HttpOnly"
+            else:
+                set_cookie = ("AuthSession=" + self.cookie_value + ";  Version=1; Expires=" +
+                              self.cookie_expire_time + "; Max-Age=600; Path=/; HttpOnly")
+            return (200, {"Set-Cookie": set_cookie},
                     json.dumps({"ok": True, "name": "adm", "roles": ["_admin"]}))
 
         responses.add_callback(responses.POST, url + '/_session', post_session)
@@ -70,6 +74,7 @@ class TestCouchDbSessionAuth(unittest.TestCase):
 
     @responses.activate
     def test_header_passing(self):
+        self.cookie_expire_time = None
         self.client.set_default_headers({"yes": "works"})
         response = self.client.get_session_information(headers={"foo": "bar"})
         self.assertIsNotNone(response)
@@ -86,6 +91,7 @@ class TestCouchDbSessionAuth(unittest.TestCase):
 
     @responses.activate
     def test_disable_ssl_verification_on(self):
+        self.cookie_expire_time = None
         original_http_client = self.client.get_http_client()
         mock_session = MockSession()
         try:
@@ -98,6 +104,7 @@ class TestCouchDbSessionAuth(unittest.TestCase):
 
     @responses.activate
     def test_disable_ssl_verification_off(self):
+        self.cookie_expire_time = None
         original_http_client = self.client.get_http_client()
         mock_session = MockSession()
         try:
@@ -136,6 +143,7 @@ class TestCouchDbSessionAuth(unittest.TestCase):
 
     @responses.activate
     def test_cookie_refresh(self):
+        self.cookie_expire_time = None
         self.client.get_session_information()
         self.assertEqual(responses.calls[-1].request.headers["Cookie"], "AuthSession=foobar")
         self.cookie_value = "bar"
@@ -151,6 +159,7 @@ class TestCouchDbSessionAuth(unittest.TestCase):
 
     @responses.activate
     def test_cookie_expired(self):
+        self.cookie_expire_time = None
         self.client.get_session_information()
         self.assertEqual(responses.calls[-1].request.headers["Cookie"], "AuthSession=foobar")
         self.cookie_value = "bar"
@@ -161,6 +170,7 @@ class TestCouchDbSessionAuth(unittest.TestCase):
 
     @responses.activate
     def test_cookie_not_yet_expired(self):
+        self.cookie_expire_time = None
         self.client.get_session_information()
         self.assertEqual(responses.calls[-1].request.headers["Cookie"], "AuthSession=foobar")
         self.cookie_value = "bar"
@@ -178,7 +188,34 @@ class TestCouchDbSessionAuth(unittest.TestCase):
                                self.authenticator.token_manager._get_current_time() + 8 * 60, delta=3)
 
     @responses.activate
+    def test_refresh_time_calculation_no_expiry(self):
+        self.cookie_expire_time = None
+        self.client.get_session_information()
+        token_manager = self.authenticator.token_manager
+        default_ttl = CouchDbSessionTokenManager._DEFAULT_SESSION_COOKIE_TTL_SECONDS
+        self.assertAlmostEqual(token_manager.expire_time,
+                               token_manager._get_current_time() + default_ttl, delta=3)
+        self.assertAlmostEqual(token_manager.refresh_time,
+                               token_manager._get_current_time() + default_ttl * 0.8, delta=3)
+
+    @responses.activate
+    def test_cookie_without_expiry(self):
+        self.cookie_expire_time = None
+        self.client.get_session_information()
+        self.assertEqual(responses.calls[-1].request.headers["Cookie"], "AuthSession=foobar")
+        self.cookie_value = "bar"
+        self.authenticator.token_manager.refresh_time = 0
+        self.client.get_session_information()
+        self.assertEqual(responses.calls[-1].request.headers["Cookie"], "AuthSession=bar")
+        token_manager = self.authenticator.token_manager
+        self.assertIsNotNone(token_manager.expire_time)
+        self.assertIsNotNone(token_manager.refresh_time)
+        self.assertFalse(token_manager._is_token_expired())
+        self.assertGreater(token_manager.expire_time, token_manager._get_current_time())
+
+    @responses.activate
     def test_set_service_url(self):
+        self.cookie_expire_time = None
         self.client.get_session_information()
         self.assertEqual(responses.calls[-2].request.url, "http://cloudant.example/_session")
         self.assertEqual(responses.calls[-2].request.method, "POST")
