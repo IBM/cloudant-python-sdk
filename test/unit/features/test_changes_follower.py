@@ -666,7 +666,7 @@ def _make_row(seq):
 
 def _page_type(page_type, base):
     """
-    Factory for the 9 page types.
+    Factory for the 10 page types.
 
     Type 1: rows=[b, b+1],     last_seq=b+1  (last row == last_seq, no nulls)
     Type 2: rows=[b, b+1],     last_seq=b+2  (last row != last_seq, no nulls)
@@ -677,6 +677,7 @@ def _page_type(page_type, base):
     Type 7: rows=[null, null], last_seq=b+1  (all nulls)
     Type 8: rows=[null, null], last_seq=b+2  (all nulls, last_seq beyond)
     Type 9: rows=[],           last_seq=b    (empty page)
+    Type 10: rows=[b, b+1],    last_seq=None  (None last_seq)
     """
     if page_type == 1:
         return {'results': [_make_row(_seq(base)), _make_row(_seq(base + 1))],
@@ -704,6 +705,9 @@ def _page_type(page_type, base):
                 'last_seq': _seq(base + 2), 'pending': 0}
     elif page_type == 9:
         return {'results': [], 'last_seq': _seq(base), 'pending': 0}
+    elif page_type == 10:
+        return {'results': [_make_row(_seq(base)), _make_row(_seq(base + 1))],
+                'last_seq': None, 'pending': 0}
     else:
         raise ValueError(f'Unknown page type: {page_type}')
 
@@ -873,6 +877,66 @@ class TestSeqMarkers(unittest.TestCase):
         # Most recent page (base=1000): row=_seq(1001), page=_seq(1002) — still present
         self.assertEqual(iterator.last_seq_since(_seq(1001)), _seq(1002))
         self.assertEqual(iterator.last_seq_since(_seq(1002)), _seq(1002))
+
+    # -----------------------------------------------------------------------
+    # None seq row (seq_interval scenario) — skipped, returns input unchanged
+    # -----------------------------------------------------------------------
+
+    def test_last_seq_since_none_row_seq_does_not_raise(self):
+        """Types 5/6/7/8 store ROW(None). Querying a seq not in the markers must return input unchanged without raising."""
+        pages = [_page_type(5, 10)]
+        try:
+            result = _last_seq_since(pages, _seq(10))
+            self.assertEqual(result, _seq(10))
+        except Exception as e:
+            self.fail(f"last_seq_since raised {type(e).__name__} unexpectedly!")
+
+    # -----------------------------------------------------------------------
+    # None last_seq page (type 10) — page entry skipped, no error
+    # -----------------------------------------------------------------------
+
+    def test_last_seq_since_none_last_seq_page_does_not_raise(self):
+        """Querying a page with a None last_seq does not raise."""
+        pages = [_page_type(10, 10)]
+        try:
+            result = _last_seq_since(pages, _seq(11))
+            self.assertEqual(result, _seq(11))
+        except Exception as e:
+            self.fail(f"last_seq_since raised {type(e).__name__} unexpectedly!")
+
+    def test_last_seq_since_none_last_seq_middle_page(self):
+        """Querying with a None last_seq page in the middle of pages."""
+        pages = [_page_type(1, 10), _page_type(10, 20), _page_type(9, 30)]
+        result = _last_seq_since(pages, _seq(11))
+        self.assertEqual(result, _seq(11))
+
+    def test_last_seq_since_none_last_seq_last_page(self):
+        """Querying with a None last_seq page at the end of pages."""
+        pages = [_page_type(9, 10), _page_type(10, 20)]
+        result = _last_seq_since(pages, _seq(10))
+        self.assertEqual(result, _seq(10))
+
+    def test_last_seq_since_consecutive_none_last_seq_pages(self):
+        """Querying with consecutive None last_seq pages."""
+        pages = [
+            _page_type(9, 10),
+            _page_type(10, 20),
+            _page_type(10, 30),
+            _page_type(9, 40),
+        ]
+        result = _last_seq_since(pages, _seq(10))
+        self.assertEqual(result, _seq(10))
+
+    def test_last_seq_since_none_last_seq_advances_beyond(self):
+        """
+        p1 (type 9, base=10): PAGE('10-aa')
+        p2 (None last_seq):   PAGE(None)     — skipped, scan continues
+        p3 (type 9, base=30): PAGE('30-aa')  — advances to here
+        """
+        none_page = {'results': [], 'last_seq': None, 'pending': 0}
+        pages = [_page_type(9, 10), none_page, _page_type(9, 30)]
+        result = _last_seq_since(pages, _seq(10))
+        self.assertEqual(result, _seq(30))
 
 
 # ---------------------------------------------------------------------------
