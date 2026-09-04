@@ -196,7 +196,8 @@ class _ChangesFollowerIterator:
             if found:
                 if entry['type'] == _SeqEntryType.ROW:
                     break
-                result = entry['seq']
+                if entry['seq'] is not None:
+                    result = entry['seq']
             elif entry['seq'] == last_persisted_seq:
                 found = True
                 result = entry['seq']
