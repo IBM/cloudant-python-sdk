@@ -20,6 +20,7 @@ Test methods in the changes follower module
 
 import sys
 import timeit
+import unittest
 
 import pytest
 import responses
@@ -32,6 +33,8 @@ from ibmcloudant.features.changes_follower import (
     _BATCH_SIZE,
     _FOREVER,
     _LONGPOLL_TIMEOUT,
+    _SEQ_MARKERS_CAPACITY,
+    _SEQ_MARKERS_EVICTION_COUNT,
     ChangesFollower,
     _Mode,
 )
@@ -650,3 +653,350 @@ class TestChangesFollowerListen(ChangesFollowerBaseCase):
             self.fail("There should be no exception.")
         self.assertEqual(count, 0, "There should be no changes.")
         self.assertLessEqual(resp.call_count, 15, "Call count should not exceed limit.")
+
+def _seq(n):
+    """Build a seq string from an integer, e.g. _seq(11) -> '11-aa'."""
+    return f'{n}-aa'
+
+
+def _make_row(seq):
+    """Build a raw changes result item dict."""
+    return {'id': 'doc', 'seq': seq, 'changes': []}
+
+
+def _page_type(page_type, base):
+    """
+    Factory for the 10 page types.
+
+    Type 1: rows=[b, b+1],     last_seq=b+1  (last row == last_seq, no nulls)
+    Type 2: rows=[b, b+1],     last_seq=b+2  (last row != last_seq, no nulls)
+    Type 3: rows=[null, b+1],  last_seq=b+1  (leading null, last row == last_seq)
+    Type 4: rows=[null, b+1],  last_seq=b+2  (leading null, last row != last_seq)
+    Type 5: rows=[b, null],    last_seq=b+1  (trailing null last row)
+    Type 6: rows=[b, null],    last_seq=b+2  (trailing null last row, last_seq beyond)
+    Type 7: rows=[null, null], last_seq=b+1  (all nulls)
+    Type 8: rows=[null, null], last_seq=b+2  (all nulls, last_seq beyond)
+    Type 9: rows=[],           last_seq=b    (empty page)
+    Type 10: rows=[b, b+1],    last_seq=None  (None last_seq)
+    """
+    if page_type == 1:
+        return {'results': [_make_row(_seq(base)), _make_row(_seq(base + 1))],
+                'last_seq': _seq(base + 1), 'pending': 0}
+    elif page_type == 2:
+        return {'results': [_make_row(_seq(base)), _make_row(_seq(base + 1))],
+                'last_seq': _seq(base + 2), 'pending': 0}
+    elif page_type == 3:
+        return {'results': [_make_row(None), _make_row(_seq(base + 1))],
+                'last_seq': _seq(base + 1), 'pending': 0}
+    elif page_type == 4:
+        return {'results': [_make_row(None), _make_row(_seq(base + 1))],
+                'last_seq': _seq(base + 2), 'pending': 0}
+    elif page_type == 5:
+        return {'results': [_make_row(_seq(base)), _make_row(None)],
+                'last_seq': _seq(base + 1), 'pending': 0}
+    elif page_type == 6:
+        return {'results': [_make_row(_seq(base)), _make_row(None)],
+                'last_seq': _seq(base + 2), 'pending': 0}
+    elif page_type == 7:
+        return {'results': [_make_row(None), _make_row(None)],
+                'last_seq': _seq(base + 1), 'pending': 0}
+    elif page_type == 8:
+        return {'results': [_make_row(None), _make_row(None)],
+                'last_seq': _seq(base + 2), 'pending': 0}
+    elif page_type == 9:
+        return {'results': [], 'last_seq': _seq(base), 'pending': 0}
+    elif page_type == 10:
+        return {'results': [_make_row(_seq(base)), _make_row(_seq(base + 1))],
+                'last_seq': None, 'pending': 0}
+    else:
+        raise ValueError(f'Unknown page type: {page_type}')
+
+
+def _populate_iterator(pages):
+    """
+    Build a _ChangesFollowerIterator and populate its _seq_markers by calling
+    _update_seq_markers for each page.
+    """
+    from ibmcloudant.features.changes_follower import _ChangesFollowerIterator
+    from threading import Lock
+
+    iterator = _ChangesFollowerIterator.__new__(_ChangesFollowerIterator)
+    iterator._seq_markers = []
+    iterator._seq_markers_lock = Lock()
+
+    for page in pages:
+        iterator._update_seq_markers(page['results'], page['last_seq'])
+
+    return iterator
+
+
+def _last_seq_since(pages, query_seq):
+    """Populate an iterator with pages and call last_seq_since directly."""
+    return _populate_iterator(pages).last_seq_since(query_seq)
+
+
+# ---------------------------------------------------------------------------
+# TestSeqMarkers — unit tests for _ChangesFollowerIterator.last_seq_since
+# ---------------------------------------------------------------------------
+
+class TestSeqMarkers(unittest.TestCase):
+
+    # -----------------------------------------------------------------------
+    # Not-found / empty edge cases
+    # -----------------------------------------------------------------------
+
+    def test_last_seq_since_not_found(self):
+        """Returns the input seq unchanged when not found in markers."""
+        result = _last_seq_since([_page_type(1, 10)], '999-ff')
+        self.assertEqual(result, '999-ff')
+
+    def test_last_seq_since_empty_seq_markers(self):
+        """Returns the input seq unchanged when markers are empty."""
+        result = _last_seq_since([], '1-aa')
+        self.assertEqual(result, '1-aa')
+
+    # -----------------------------------------------------------------------
+    # Per-page-type: single page
+    # -----------------------------------------------------------------------
+
+    def test_last_seq_since_single_page(self):
+        cases = [
+            ('Type 1: last row seq (== last_seq)',     1, 10, _seq(11), _seq(11)),
+            ('Type 3: last row seq (== last_seq)',     3, 10, _seq(11), _seq(11)),
+            ('Type 2: last row seq -> last_seq',       2, 10, _seq(11), _seq(12)),
+            ('Type 2: last_seq key -> itself',         2, 10, _seq(12), _seq(12)),
+            ('Type 4: last row seq -> last_seq',       4, 10, _seq(11), _seq(12)),
+            ('Type 4: last_seq key -> itself',         4, 10, _seq(12), _seq(12)),
+            ('Type 5: non-stored row seq unchanged',   5, 10, _seq(10), _seq(10)),
+            ('Type 5: last_seq key -> itself',         5, 10, _seq(11), _seq(11)),
+            ('Type 6: non-stored row seq unchanged',   6, 10, _seq(10), _seq(10)),
+            ('Type 6: last_seq key -> itself',         6, 10, _seq(12), _seq(12)),
+            ('Type 7: last_seq key -> itself',         7, 10, _seq(11), _seq(11)),
+            ('Type 8: last_seq key -> itself',         8, 10, _seq(12), _seq(12)),
+            ('Type 9: last_seq key -> itself',         9, 10, _seq(10), _seq(10)),
+        ]
+        for name, page_type, base, query_seq, expected in cases:
+            with self.subTest(name):
+                result = _last_seq_since([_page_type(page_type, base)], query_seq)
+                self.assertEqual(result, expected)
+
+    # -----------------------------------------------------------------------
+    # Per-page-type: followed by a non-empty page (type 1 at base 20)
+    # Page 2 inserts ROW('21-aa') which blocks advancement.
+    # -----------------------------------------------------------------------
+
+    def test_last_seq_since_followed_by_non_empty(self):
+        cases = [
+            ('Type 1 + non-empty: blocked by p2 ROW',           1, 10, _seq(11), _seq(11)),
+            ('Type 2 + non-empty: last row seq -> p1 last_seq', 2, 10, _seq(11), _seq(12)),
+            ('Type 2 + non-empty: last_seq key -> p1 last_seq', 2, 10, _seq(12), _seq(12)),
+            ('Type 3 + non-empty: blocked by p2 ROW',           3, 10, _seq(11), _seq(11)),
+            ('Type 4 + non-empty: last row seq -> p1 last_seq', 4, 10, _seq(11), _seq(12)),
+            ('Type 4 + non-empty: last_seq key -> p1 last_seq', 4, 10, _seq(12), _seq(12)),
+            ('Type 5 + non-empty: blocked by p2 ROW',           5, 10, _seq(11), _seq(11)),
+            ('Type 6 + non-empty: blocked by p2 ROW',           6, 10, _seq(12), _seq(12)),
+            ('Type 7 + non-empty: blocked by p2 ROW',           7, 10, _seq(11), _seq(11)),
+            ('Type 8 + non-empty: blocked by p2 ROW',           8, 10, _seq(12), _seq(12)),
+            ('Type 9 + non-empty: blocked by p2 ROW',           9, 10, _seq(10), _seq(10)),
+        ]
+        for name, page_type, base, query_seq, expected in cases:
+            with self.subTest(name):
+                result = _last_seq_since([_page_type(page_type, base), _page_type(1, 20)], query_seq)
+                self.assertEqual(result, expected)
+
+    # -----------------------------------------------------------------------
+    # Per-page-type: followed by an empty page (type 9 at base 20)
+    # Page 2 inserts only PAGE('20-aa') — no ROW to block, advances to '20-aa'.
+    # -----------------------------------------------------------------------
+
+    def test_last_seq_since_followed_by_empty(self):
+        cases = [
+            ('Type 1 + empty: advances to p2 last_seq',     1, 10, _seq(11), _seq(20)),
+            ('Type 2 + empty: last row seq advances to p2', 2, 10, _seq(11), _seq(20)),
+            ('Type 2 + empty: last_seq key advances to p2', 2, 10, _seq(12), _seq(20)),
+            ('Type 3 + empty: advances to p2 last_seq',     3, 10, _seq(11), _seq(20)),
+            ('Type 4 + empty: last row seq advances to p2', 4, 10, _seq(11), _seq(20)),
+            ('Type 4 + empty: last_seq key advances to p2', 4, 10, _seq(12), _seq(20)),
+            ('Type 5 + empty: last_seq advances to p2',     5, 10, _seq(11), _seq(20)),
+            ('Type 6 + empty: last_seq advances to p2',     6, 10, _seq(12), _seq(20)),
+            ('Type 7 + empty: last_seq advances to p2',     7, 10, _seq(11), _seq(20)),
+            ('Type 8 + empty: last_seq advances to p2',     8, 10, _seq(12), _seq(20)),
+            ('Type 9 + empty: advances to p2 last_seq',     9, 10, _seq(10), _seq(20)),
+        ]
+        for name, page_type, base, query_seq, expected in cases:
+            with self.subTest(name):
+                result = _last_seq_since([_page_type(page_type, base), _page_type(9, 20)], query_seq)
+                self.assertEqual(result, expected)
+
+    # -----------------------------------------------------------------------
+    # All 8 three-page sequences of empty (E=type 9) and non-empty (N=type 1).
+    # Query from page 1's last_seq key. E adds only PAGE; N adds ROW+PAGE.
+    # -----------------------------------------------------------------------
+
+    def test_last_seq_since_3_page_sequence(self):
+        cases = [
+            ('NNN: blocked by p2 ROW -> p1 last_seq',
+             [1, 1, 1], [10, 20, 30], _seq(11), _seq(11)),
+            ('NNE: blocked by p2 ROW -> p1 last_seq',
+             [1, 1, 9], [10, 20, 30], _seq(11), _seq(11)),
+            ('NEE: advances through both empty pages',
+             [1, 9, 9], [10, 20, 30], _seq(11), _seq(30)),
+            ('NEN: advances through p2 empty, stops at p3 ROW',
+             [1, 9, 1], [10, 20, 30], _seq(11), _seq(20)),
+            ('ENN: blocked by p2 ROW -> p1 last_seq',
+             [9, 1, 1], [10, 20, 30], _seq(10), _seq(10)),
+            ('ENE: blocked by p2 ROW -> p1 last_seq',
+             [9, 1, 9], [10, 20, 30], _seq(10), _seq(10)),
+            ('EEN: advances through p2, stops at p3 ROW',
+             [9, 9, 1], [10, 20, 30], _seq(10), _seq(20)),
+            ('EEE: advances through all three empty pages',
+             [9, 9, 9], [10, 20, 30], _seq(10), _seq(30)),
+        ]
+        for name, types, bases, query_seq, expected in cases:
+            with self.subTest(name):
+                pages = [_page_type(t, b) for t, b in zip(types, bases)]
+                result = _last_seq_since(pages, query_seq)
+                self.assertEqual(result, expected)
+
+    # -----------------------------------------------------------------------
+    # Eviction
+    # Each non-empty page (type 2) adds 2 entries (ROW + PAGE).
+    # With CAPACITY=200 and EVICTION_COUNT=20, adding 101 pages triggers one
+    # eviction of the oldest 20 entries (first 10 pages).
+    # Entries for page 0 (base=0) should be gone; most recent should remain.
+    # -----------------------------------------------------------------------
+
+    def test_last_seq_since_eviction(self):
+        pages = [_page_type(2, i * 10) for i in range(101)]
+        iterator = _populate_iterator(pages)
+
+        # Page 0 (base=0): row=_seq(1), page=_seq(2) — evicted
+        self.assertEqual(iterator.last_seq_since(_seq(1)), _seq(1))
+        self.assertEqual(iterator.last_seq_since(_seq(2)), _seq(2))
+
+        # Most recent page (base=1000): row=_seq(1001), page=_seq(1002) — still present
+        self.assertEqual(iterator.last_seq_since(_seq(1001)), _seq(1002))
+        self.assertEqual(iterator.last_seq_since(_seq(1002)), _seq(1002))
+
+    # -----------------------------------------------------------------------
+    # None seq row (seq_interval scenario) — skipped, returns input unchanged
+    # -----------------------------------------------------------------------
+
+    def test_last_seq_since_none_row_seq_does_not_raise(self):
+        """Types 5/6/7/8 store ROW(None). Querying a seq not in the markers must return input unchanged without raising."""
+        pages = [_page_type(5, 10)]
+        try:
+            result = _last_seq_since(pages, _seq(10))
+            self.assertEqual(result, _seq(10))
+        except Exception as e:
+            self.fail(f"last_seq_since raised {type(e).__name__} unexpectedly!")
+
+    # -----------------------------------------------------------------------
+    # None last_seq page (type 10) — page entry skipped, no error
+    # -----------------------------------------------------------------------
+
+    def test_last_seq_since_none_last_seq_page_does_not_raise(self):
+        """Querying a page with a None last_seq does not raise."""
+        pages = [_page_type(10, 10)]
+        try:
+            result = _last_seq_since(pages, _seq(11))
+            self.assertEqual(result, _seq(11))
+        except Exception as e:
+            self.fail(f"last_seq_since raised {type(e).__name__} unexpectedly!")
+
+    def test_last_seq_since_none_last_seq_middle_page(self):
+        """Querying with a None last_seq page in the middle of pages."""
+        pages = [_page_type(1, 10), _page_type(10, 20), _page_type(9, 30)]
+        result = _last_seq_since(pages, _seq(11))
+        self.assertEqual(result, _seq(11))
+
+    def test_last_seq_since_none_last_seq_last_page(self):
+        """Querying with a None last_seq page at the end of pages."""
+        pages = [_page_type(9, 10), _page_type(10, 20)]
+        result = _last_seq_since(pages, _seq(10))
+        self.assertEqual(result, _seq(10))
+
+    def test_last_seq_since_consecutive_none_last_seq_pages(self):
+        """Querying with consecutive None last_seq pages."""
+        pages = [
+            _page_type(9, 10),
+            _page_type(10, 20),
+            _page_type(10, 30),
+            _page_type(9, 40),
+        ]
+        result = _last_seq_since(pages, _seq(10))
+        self.assertEqual(result, _seq(10))
+
+    def test_last_seq_since_none_last_seq_advances_beyond(self):
+        """
+        p1 (type 9, base=10): PAGE('10-aa')
+        p2 (None last_seq):   PAGE(None)     — skipped, scan continues
+        p3 (type 9, base=30): PAGE('30-aa')  — advances to here
+        """
+        none_page = {'results': [], 'last_seq': None, 'pending': 0}
+        pages = [_page_type(9, 10), none_page, _page_type(9, 30)]
+        result = _last_seq_since(pages, _seq(10))
+        self.assertEqual(result, _seq(30))
+
+
+# ---------------------------------------------------------------------------
+# TestGetLastSeqNewerThan — unit tests for ChangesFollower.get_last_seq_newer_than
+# ---------------------------------------------------------------------------
+
+class TestGetLastSeqNewerThan(ChangesFollowerBaseCase):
+
+    def test_get_last_seq_newer_than_with_none(self):
+        """Raises ValueError when passed None."""
+        follower = ChangesFollower(self.client, db='db')
+        with self.assertRaisesRegex(ValueError, 'The provided sequence ID cannot be null or empty'):
+            follower.get_last_seq_newer_than(None)
+
+    def test_get_last_seq_newer_than_with_empty_string(self):
+        """Raises ValueError when passed an empty string."""
+        follower = ChangesFollower(self.client, db='db')
+        with self.assertRaisesRegex(ValueError, 'The provided sequence ID cannot be null or empty'):
+            follower.get_last_seq_newer_than('')
+
+    def test_get_last_seq_newer_than_before_feed_starts(self):
+        """Returns the input seq unchanged when the feed has not started yet."""
+        follower = ChangesFollower(self.client, db='db')
+        self.assertEqual(follower.get_last_seq_newer_than('seq-a'), 'seq-a')
+
+    @responses.activate
+    def test_get_last_seq_newer_than_unknown_seq(self):
+        """Returns the input seq unchanged when it was never seen by this follower."""
+        self.prepare_mock_changes(batches=1)
+        follower = ChangesFollower(self.client, db='db')
+        changes = follower.start_one_off()
+        for _ in changes:
+            pass
+        self.assertEqual(follower.get_last_seq_newer_than('seq-unknown'), 'seq-unknown')
+
+    @responses.activate
+    def test_get_last_seq_newer_than_middle_of_batch(self):
+        """
+        Returns the input seq unchanged when querying with a seq from the
+        middle of a batch — only the last item's seq is stored in seq_markers.
+        """
+        self.prepare_mock_changes(batches=1)
+        follower = ChangesFollower(self.client, db='db')
+        changes = follower.start_one_off()
+        items = list(changes)
+        # seq-a and seq-b are middle items — not stored in seq_markers
+        seq_a = items[0].seq
+        seq_b = items[1].seq
+        self.assertEqual(follower.get_last_seq_newer_than(seq_a), seq_a)
+        self.assertEqual(follower.get_last_seq_newer_than(seq_b), seq_b)
+
+    @responses.activate
+    def test_get_last_seq_newer_than_end_to_end(self):
+        """Returns the correct last_seq through a completed stream."""
+        self.prepare_mock_changes(batches=1)
+        follower = ChangesFollower(self.client, db='db')
+        changes = follower.start_one_off()
+        items = list(changes)
+        # Last item's seq should map to the page's last_seq
+        last_item_seq = items[-1].seq
+        result = follower.get_last_seq_newer_than(last_item_seq)
+        # The last item seq IS the last_seq for a normal page (type 1 equivalent)
+        self.assertEqual(result, last_item_seq)
