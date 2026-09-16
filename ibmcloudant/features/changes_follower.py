@@ -487,39 +487,34 @@ class ChangesFollower:
         """
         self._iter.stop()
 
-    def get_last_seq_newer_than(self, last_persisted_seq: str) -> str:
+    def latest_sequence_from(self, checkpoint_sequence_id: str) -> str:
         """
-        Return the newest sequence ID that is safe to use as a checkpoint
-        after the given persisted sequence ID.
+        Returns the most recent sequence ID that is safe to use as a
+        checkpoint, advancing beyond the supplied checkpoint sequence ID
+        where possible.
 
-        Use this after fully processing a ``ChangesResultItem`` to determine
-        whether this ``ChangesFollower`` has observed a later safe checkpoint.
-        This is useful for filtered or sparse changes feeds, where the feed
-        can advance across pages even when no additional user-processable
-        change rows are returned.
+        With highly filtered changes feeds, multiple pages can pass through
+        the follower without returning any changes. Using only the ``seq``
+        of the last processed ``ChangesResultItem`` in those cases causes a
+        long changes feed rewind on the next run. To avoid this, call this
+        method after fully processing each ``ChangesResultItem`` with a
+        non-``None`` ``seq`` and persist the returned value to use as the
+        ``since`` parameter for the next run.
 
-        The supplied sequence ID must be the ``seq`` of a
-        ``ChangesResultItem`` that your application has fully processed and
-        already persisted. This method returns a newer sequence only when
-        doing so does not advance past later change rows that might not yet
-        have been processed by your application.
-
-        :param str last_persisted_seq: The ``seq`` of the last
-            ``ChangesResultItem`` that your application has fully processed
-            and persisted.
-        :raises ValueError: If the provided sequence ID is null or empty.
-        :return: The newest safe sequence ID to persist as
-            ``PostChangesParams.since``. Returns the supplied ID unchanged
-            if no newer safe checkpoint is available, the feed has not
-            started yet, or the supplied ID is not present in this
-            ``ChangesFollower`` instance's retained sequence history.
+        :param str checkpoint_sequence_id: The last checkpoint sequence ID
+            — either the non-``None`` ``seq`` of the last ``ChangesResultItem``
+            fully processed, or a value previously returned by this method.
+        :return: The most recent safe sequence ID to use as a checkpoint,
+            or the supplied value if no newer sequence is available.
         :rtype: str
+
+        Throws ValueError if ``checkpoint_sequence_id`` is ``None`` or empty.
         """
-        if not last_persisted_seq:
-            raise ValueError('The provided sequence ID cannot be null or empty.')
+        if not checkpoint_sequence_id:
+            raise ValueError('Provided sequence ID must be a non-empty string.')
         if self._iter is None:
-            return last_persisted_seq
-        return self._iter.last_seq_since(last_persisted_seq)
+            return checkpoint_sequence_id
+        return self._iter.last_seq_since(checkpoint_sequence_id)
 
     def _run(self, mode: _Mode):
         if self._iter is not None:

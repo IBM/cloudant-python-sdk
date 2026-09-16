@@ -940,40 +940,40 @@ class TestSeqMarkers(unittest.TestCase):
 
 
 # ---------------------------------------------------------------------------
-# TestGetLastSeqNewerThan — unit tests for ChangesFollower.get_last_seq_newer_than
+# TestLatestSequenceFrom — unit tests for ChangesFollower.latest_sequence_from
 # ---------------------------------------------------------------------------
 
-class TestGetLastSeqNewerThan(ChangesFollowerBaseCase):
+class TestLatestSequenceFrom(ChangesFollowerBaseCase):
 
-    def test_get_last_seq_newer_than_with_none(self):
+    def test_latest_sequence_from_with_none(self):
         """Raises ValueError when passed None."""
         follower = ChangesFollower(self.client, db='db')
-        with self.assertRaisesRegex(ValueError, 'The provided sequence ID cannot be null or empty'):
-            follower.get_last_seq_newer_than(None)
+        with self.assertRaisesRegex(ValueError, 'Provided sequence ID must be a non-empty string'):
+            follower.latest_sequence_from(None)
 
-    def test_get_last_seq_newer_than_with_empty_string(self):
+    def test_latest_sequence_from_with_empty_string(self):
         """Raises ValueError when passed an empty string."""
         follower = ChangesFollower(self.client, db='db')
-        with self.assertRaisesRegex(ValueError, 'The provided sequence ID cannot be null or empty'):
-            follower.get_last_seq_newer_than('')
+        with self.assertRaisesRegex(ValueError, 'Provided sequence ID must be a non-empty string'):
+            follower.latest_sequence_from('')
 
-    def test_get_last_seq_newer_than_before_feed_starts(self):
+    def test_latest_sequence_from_before_feed_starts(self):
         """Returns the input seq unchanged when the feed has not started yet."""
         follower = ChangesFollower(self.client, db='db')
-        self.assertEqual(follower.get_last_seq_newer_than('seq-a'), 'seq-a')
+        self.assertEqual(follower.latest_sequence_from('seq-a'), 'seq-a')
 
     @responses.activate
-    def test_get_last_seq_newer_than_unknown_seq(self):
+    def test_latest_sequence_from_unknown_seq(self):
         """Returns the input seq unchanged when it was never seen by this follower."""
         self.prepare_mock_changes(batches=1)
         follower = ChangesFollower(self.client, db='db')
         changes = follower.start_one_off()
         for _ in changes:
             pass
-        self.assertEqual(follower.get_last_seq_newer_than('seq-unknown'), 'seq-unknown')
+        self.assertEqual(follower.latest_sequence_from('seq-unknown'), 'seq-unknown')
 
     @responses.activate
-    def test_get_last_seq_newer_than_middle_of_batch(self):
+    def test_latest_sequence_from_middle_of_batch(self):
         """
         Returns the input seq unchanged when querying with a seq from the
         middle of a batch — only the last item's seq is stored in seq_markers.
@@ -985,11 +985,11 @@ class TestGetLastSeqNewerThan(ChangesFollowerBaseCase):
         # seq-a and seq-b are middle items — not stored in seq_markers
         seq_a = items[0].seq
         seq_b = items[1].seq
-        self.assertEqual(follower.get_last_seq_newer_than(seq_a), seq_a)
-        self.assertEqual(follower.get_last_seq_newer_than(seq_b), seq_b)
+        self.assertEqual(follower.latest_sequence_from(seq_a), seq_a)
+        self.assertEqual(follower.latest_sequence_from(seq_b), seq_b)
 
     @responses.activate
-    def test_get_last_seq_newer_than_end_to_end(self):
+    def test_latest_sequence_from_end_to_end(self):
         """Returns the correct last_seq through a completed stream."""
         self.prepare_mock_changes(batches=1)
         follower = ChangesFollower(self.client, db='db')
@@ -997,6 +997,6 @@ class TestGetLastSeqNewerThan(ChangesFollowerBaseCase):
         items = list(changes)
         # Last item's seq should map to the page's last_seq
         last_item_seq = items[-1].seq
-        result = follower.get_last_seq_newer_than(last_item_seq)
+        result = follower.latest_sequence_from(last_item_seq)
         # The last item seq IS the last_seq for a normal page (type 1 equivalent)
         self.assertEqual(result, last_item_seq)
