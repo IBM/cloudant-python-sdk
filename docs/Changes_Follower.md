@@ -122,7 +122,15 @@ preferable to restart from an older `since` value and receive changes again than
 The sequence IDs are available on each change item by default. However, the server omits sequence IDs from
 some change items when using the `seq_interval` configuration option.
 Infrequent sequence IDs may improve performance by reducing the amount of data transfer and server load,
-but the tradeoff is repeating more changes if it is necessary to resume the changes follower.
+but the tradeoff is repeating more changes if it is necessary to resume the changes follower. To minimize
+this tradeoff, use the follower's latest sequence helper as described below.
+
+With highly filtered changes feeds, multiple pages can pass through the follower without returning any
+change items. Using only the sequence ID of the last processed change item in those cases causes a long
+changes feed rewind on the next run. To avoid this, call the follower's `latestSequenceFrom` method (or
+language equivalent) after fully processing each change item that has a non-empty sequence ID. Supply the
+last fully processed sequence ID or a value previously returned by `latestSequenceFrom`, and persist the
+returned value to use as the `since` parameter when restarting the follower.
 
 Take extreme care persisting sequences if choosing to process change items in parallel as there
 is a considerable risk of missing changes on a restart if the recorded sequence is out of order.
