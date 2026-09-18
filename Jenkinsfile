@@ -1,4 +1,5 @@
 #!groovy
+@Library('integrations-pipeline@108-mend-cli') _
 
 pipeline {
   agent {
@@ -159,9 +160,6 @@ pipeline {
     }
 
     stage('Mend scan') {
-      when {
-        expression { env.BRANCH_IS_PRIMARY }
-      }
       environment {
         WS_PROJECTNAME="cloudant-${libName}-sdk"
       }
