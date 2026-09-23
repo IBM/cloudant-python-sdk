@@ -1653,17 +1653,18 @@ _POST `/{db}/_partition/{partition_key}/_explain`_
 
 ### [Example request](snippets/postPartitionExplain/example_request.py)
 
-[embedmd]:# (snippets/postPartitionFind/example_request.py)
+[embedmd]:# (snippets/postPartitionExplain/example_request.py)
 ```py
 # section: code
 from ibmcloudant.cloudant_v1 import CloudantV1
 
 service = CloudantV1.new_instance()
 
-response = service.post_partition_find(
+response = service.post_partition_explain(
   db='events',
+  execution_stats=True,
+  limit=10,
   partition_key='ns1HJS13AMkK',
-  fields=['productId', 'eventType', 'date'],
   selector={'userId': {'$eq': 'abc123'}}
 ).get_result()
 
