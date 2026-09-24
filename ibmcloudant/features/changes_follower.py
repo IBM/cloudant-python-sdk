@@ -23,7 +23,7 @@ import math
 from datetime import datetime, timezone, timedelta
 import functools
 from queue import Queue
-from threading import Thread, Event
+from threading import Thread, Event, Lock
 
 from enum import Enum, auto
 from typing import Dict, Iterator
@@ -44,6 +44,8 @@ _MIN_CLIENT_TIMEOUT = 60000
 # before the client timeout it is set to 3 seconds less.
 _LONGPOLL_TIMEOUT = _MIN_CLIENT_TIMEOUT - 3000
 _BATCH_SIZE = 10000
+_SEQ_MARKERS_CAPACITY = 200
+_SEQ_MARKERS_EVICTION_COUNT = _SEQ_MARKERS_CAPACITY // 10
 
 # Base delay in milliseconds between unsuccessful attempts to pull changes feed
 # in presence of transient errors
@@ -58,6 +60,14 @@ class _Mode(Enum):
     """
     FINITE = auto()
     LISTEN = auto()
+
+
+class _SeqEntryType(Enum):
+    """
+    Enum for the type of a seq marker entry tracked by the changes follower.
+    """
+    ROW = auto()
+    PAGE = auto()
 
 
 class _TransientErrorSuppression(Enum):
@@ -107,6 +117,8 @@ class _ChangesFollowerIterator:
         self._limit = None
         self._stop = Event()
         self.logger = logging.getLogger(__name__)
+        self._seq_markers: list = []
+        self._seq_markers_lock = Lock()
 
     @property
     def limit(self) -> int:
@@ -164,6 +176,48 @@ class _ChangesFollowerIterator:
                 )
                 self._buffer.task_done()
 
+    def last_seq_since(self, last_persisted_seq: str) -> str:
+        """
+        Return the newest sequence ID that is safe to use as a checkpoint
+        after the given persisted sequence ID.
+
+        Walks forward through the retained seq markers from the given
+        last_persisted_seq, fast-forwarding through consecutive page entries
+        to return the furthest safe last_seq without advancing past later
+        change rows that might not yet have been processed.
+
+        Returns last_persisted_seq unchanged if not found in the markers.
+        """
+        with self._seq_markers_lock:
+            markers = list(self._seq_markers)
+        found = False
+        result = None
+        for entry in markers:
+            if found:
+                if entry['type'] == _SeqEntryType.ROW:
+                    break
+                if entry['seq'] is not None:
+                    result = entry['seq']
+            elif entry['seq'] == last_persisted_seq:
+                found = True
+                result = entry['seq']
+        return result if found else last_persisted_seq
+
+    def _update_seq_markers(self, results: list, last_seq: str) -> None:
+        """
+        Update the seq markers list with entries from a completed page.
+
+        Evicts the oldest entries if the list is at capacity, then appends
+        a ROW entry for the last change item (if any) and a PAGE entry for
+        the page's last_seq.
+        """
+        with self._seq_markers_lock:
+            if len(self._seq_markers) >= _SEQ_MARKERS_CAPACITY:
+                del self._seq_markers[:_SEQ_MARKERS_EVICTION_COUNT]
+            if len(results) > 0:
+                self._seq_markers.append({'type': _SeqEntryType.ROW, 'seq': results[-1].get('seq')})
+            self._seq_markers.append({'type': _SeqEntryType.PAGE, 'seq': last_seq})
+
     def _request_callback(self):
         while True:
             try:
@@ -179,6 +233,7 @@ class _ChangesFollowerIterator:
                     self._has_next = False
                 results = result['results']
                 self.logger.debug(f'_request_callback results {results}')
+                self._update_seq_markers(results, self.since)
                 self._buffer.join()
                 if self._stop.is_set():
                     raise StopIteration
@@ -431,6 +486,35 @@ class ChangesFollower:
         needs to be called from a different thread to have any effect.
         """
         self._iter.stop()
+
+    def latest_sequence_from(self, checkpoint_sequence_id: str) -> str:
+        """
+        Returns the most recent sequence ID that is safe to use as a
+        checkpoint, advancing beyond the supplied checkpoint sequence ID
+        where possible.
+
+        With highly filtered changes feeds, multiple pages can pass through
+        the follower without returning any changes. Using only the ``seq``
+        of the last processed ``ChangesResultItem`` in those cases causes a
+        long changes feed rewind on the next run. To avoid this, call this
+        method after fully processing each ``ChangesResultItem`` with a
+        non-``None`` ``seq`` and persist the returned value to use as the
+        ``since`` parameter for the next run.
+
+        :param str checkpoint_sequence_id: The last checkpoint sequence ID
+            — either the non-``None`` ``seq`` of the last ``ChangesResultItem``
+            fully processed, or a value previously returned by this method.
+        :return: The most recent safe sequence ID to use as a checkpoint,
+            or the supplied value if no newer sequence is available.
+        :rtype: str
+
+        Throws ValueError if ``checkpoint_sequence_id`` is ``None`` or empty.
+        """
+        if not checkpoint_sequence_id:
+            raise ValueError('Provided sequence ID must be a non-empty string.')
+        if self._iter is None:
+            return checkpoint_sequence_id
+        return self._iter.last_seq_since(checkpoint_sequence_id)
 
     def _run(self, mode: _Mode):
         if self._iter is not None:
