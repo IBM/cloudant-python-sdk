@@ -10,6 +10,7 @@
 - [Error suppression](#error-suppression)
 - [Follower operation](#follower-operation)
 - [Checkpoints](#checkpoints)
+  * [Checkpointing filtered changes](#checkpointing-filtered-changes)
 - [Code examples](#code-examples)
   * [Initializing a changes follower](#initializing-a-changes-follower)
   * [Starting the changes follower](#starting-the-changes-follower)
@@ -126,6 +127,23 @@ but the tradeoff is repeating more changes if it is necessary to resume the chan
 
 Take extreme care persisting sequences if choosing to process change items in parallel as there
 is a considerable risk of missing changes on a restart if the recorded sequence is out of order.
+
+### Checkpointing filtered changes
+
+With highly filtered changes feeds, multiple pages can pass through the follower without returning any
+change items. Using only the sequence ID of the last processed change item in those cases causes a long
+changes feed rewind on the next run.
+
+To avoid this, periodically get the latest sequence from the follower.
+Supply the last fully processed sequence ID or a previously returned sequence value,
+and persist the returned value to use as the `since` parameter when restarting the follower.
+The follower retains a bounded window of recent sequence IDs. If subsequent page fetches displace
+the supplied sequence ID from that window, the follower returns the supplied value unchanged.
+Call it and persist the result regularly to obtain a fresh sequence ID.
+
+```python
+latest_seq = changes_follower.latest_sequence_from(checkpoint_sequence_id)
+```
 
 ## Code examples
 
