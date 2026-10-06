@@ -361,10 +361,8 @@ class ChangesFollower:
             call_timeout, read_timeout = timeouts
         call_timeout, read_timeout = call_timeout * 1000, read_timeout * 1000
         if (
-            call_timeout > 0
-            and call_timeout < _MIN_CLIENT_TIMEOUT
-            or read_timeout > 0
-            and read_timeout < _MIN_CLIENT_TIMEOUT
+            0 < call_timeout < _MIN_CLIENT_TIMEOUT
+            or 0 < read_timeout < _MIN_CLIENT_TIMEOUT
         ):
             raise ValueError(
                 'To use {} the client read and call timeouts must be at least'
