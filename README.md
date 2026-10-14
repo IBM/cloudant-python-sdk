@@ -78,7 +78,7 @@ project:
   service instance or a
   [CouchDB](https://docs.couchdb.org/en/latest/install/index.html)
   server.
-- Python 3.10, 3.11, 3.12, 3.13 or 3.14
+- Python 3.11, 3.12, 3.13, 3.14 or 3.15
 
 ## Installation
 
