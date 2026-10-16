@@ -3187,6 +3187,614 @@ class CloudantV1(CloudantBaseService):
         return response
 
     #########################
+    # Design Documents
+    #########################
+
+    def head_index_info(
+        self,
+        db: str,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve HTTP headers for index status for all design documents.
+
+        **EXPERIMENTAL** Returns the HTTP headers for the index status of all design
+        documents.
+
+        :param str db: Path parameter to specify the database name.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse
+        """
+
+        if not db:
+            raise ValueError('db must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='head_index_info',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_index_info'.format(**path_param_dict)
+        request = self.prepare_request(
+            method='HEAD',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def head_up_information(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve HTTP headers about whether the server is up.
+
+        Retrieves the HTTP headers about whether the server is up.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='head_up_information',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+
+        url = '/_up'
+        request = self.prepare_request(
+            method='HEAD',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def get_active_tasks(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve list of running tasks.
+
+        Lists running tasks, including the task type, name, status, and process ID. The
+        result includes a JSON array of the currently running tasks, with each task
+        described as a single object. Depending on the operation type, the set of response
+        object fields might be different.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `List[ActiveTask]` result
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_active_tasks',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_active_tasks'
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def get_activity_tracker_events(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve activity tracking events information.
+
+        Check event types sent to IBM Cloud Activity Tracker Event Routing for the IBM
+        Cloudant instance.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `ActivityTrackerEvents` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_activity_tracker_events',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_api/v2/user/activity_tracker/events'
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def post_activity_tracker_events(
+        self,
+        types: List[str],
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Modify activity tracking events configuration.
+
+        Configure event types sent to IBM Cloud Activity Tracker Event Routing for the IBM
+        Cloudant instance.
+
+        :param List[str] types: An array of event types sent to IBM Cloud Activity
+               Tracker Event Routing for the IBM Cloudant instance. "management" is a
+               required element of this array.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `Ok` object
+        """
+
+        if types is None:
+            raise ValueError('types must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_activity_tracker_events',
+        )
+        headers.update(sdk_headers)
+
+        data = {
+            'types': types,
+        }
+        data = {k: v for (k, v) in data.items() if v is not None}
+        data = json.dumps(data)
+        headers['content-type'] = 'application/json'
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_api/v2/user/activity_tracker/events'
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def get_capacity_databases_information(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve maximum allowed database count.
+
+        Retrieves the maximum number of databases currently allowed in the instance.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `CapacityDatabasesInformation` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_capacity_databases_information',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_api/v2/user/capacity/databases'
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def get_current_databases_information(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve current database count.
+
+        Retrieves the current number of databases that exist in the instance.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `CurrentDatabasesInformation` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_current_databases_information',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_api/v2/user/current/databases'
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def get_current_throughput_information(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve the current provisioned throughput capacity consumption.
+
+        View the current consumption of provisioned throughput capacity for an IBM
+        Cloudant instance. The current consumption shows the quantities of reads, writes,
+        and global queries conducted against the instance for a given second.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `CurrentThroughputInformation` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_current_throughput_information',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_api/v2/user/current/throughput'
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def get_membership_information(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve cluster membership information.
+
+        Displays the nodes that are part of the cluster as `cluster_nodes`. The field,
+        `all_nodes`, displays all nodes this node knows about, including the ones that are
+        part of the cluster. This endpoint is useful when you set up a cluster.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `MembershipInformation` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_membership_information',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_membership'
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def get_up_information(
+        self,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve information about whether the server is up.
+
+        Confirms that the server is up, running, and ready to respond to requests. If the
+        cluster is unavailable the endpoint returns a `503` response code.
+        **Tip:**  The authentication for this endpoint is only enforced when using IAM.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `UpInformation` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_up_information',
+        )
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        url = '/_up'
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def get_index_info(
+        self,
+        db: str,
+        *,
+        descending: Optional[bool] = None,
+        end_key: Optional[str] = None,
+        inclusive_end: Optional[bool] = None,
+        keys: Optional[str] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        start_key: Optional[str] = None,
+        type: Optional[List[str]] = None,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve index status for all design documents (GET).
+
+        **EXPERIMENTAL** Returns index status grouped by type for all design documents in
+        the database or a filtered subset. Equivalent to `POST /{db}/_index_info` but
+        accepts parameters as query parameters instead of a request body. Use this
+        endpoint to verify whether a database's indexes are fully built, for example
+        before switching traffic to a replica.
+
+        :param str db: Path parameter to specify the database name.
+        :param bool descending: (optional) Query parameter to specify whether to
+               return rows in descending by key order.
+        :param str end_key: (optional) Query parameter to specify to stop returning
+               records when the specified key is reached. String representation of any
+               JSON type that matches the key type emitted by the view function.
+        :param bool inclusive_end: (optional) Query parameter to specify whether
+               the specified end key should be included in the result.
+        :param str keys: (optional) Query parameter to specify returning only rows
+               that match any of the specified keys. String representation of a JSON array
+               of keys that match the key type emitted by the view function. Must be URL
+               encoded.
+        :param int limit: (optional) Query parameter to specify the number of
+               returned documents to limit the result to.
+        :param int skip: (optional) Query parameter to specify the number of
+               records before starting to return the results.
+        :param str start_key: (optional) Query parameter to specify to start
+               returning records from the specified key. String representation of any JSON
+               type that matches the key type emitted by the view function.
+        :param List[str] type: (optional) Index types to filter results by. Can be
+               `view`, `search`, or both values comma-separated. If omitted, the response
+               includes all index types.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `IndexInfoResult` object
+        """
+
+        if not db:
+            raise ValueError('db must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_index_info',
+        )
+        headers.update(sdk_headers)
+
+        params = {
+            'descending': descending,
+            'end_key': end_key,
+            'inclusive_end': inclusive_end,
+            'keys': keys,
+            'limit': limit,
+            'skip': skip,
+            'start_key': start_key,
+            'type': convert_list(type),
+        }
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_index_info'.format(**path_param_dict)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+            params=params,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    def post_index_info(
+        self,
+        db: str,
+        *,
+        att_encoding_info: Optional[bool] = None,
+        attachments: Optional[bool] = None,
+        conflicts: Optional[bool] = None,
+        descending: Optional[bool] = None,
+        include_docs: Optional[bool] = None,
+        inclusive_end: Optional[bool] = None,
+        limit: Optional[int] = None,
+        skip: Optional[int] = None,
+        update_seq: Optional[bool] = None,
+        end_key: Optional[str] = None,
+        key: Optional[str] = None,
+        keys: Optional[List[str]] = None,
+        start_key: Optional[str] = None,
+        type: Optional[List[str]] = None,
+        **kwargs,
+    ) -> DetailedResponse:
+        """
+        Retrieve index status for all design documents.
+
+        **EXPERIMENTAL** Returns index status grouped by type for all design documents in
+        the database or a filtered subset. Results are grouped into `view_indexes` and
+        `search_indexes`. Each entry identifies the index by its design document and, for
+        search indexes, its `name`. Use a `keys` array in the request body to select
+        design documents by ID. Use this endpoint to verify whether a database's indexes
+        are fully built, for example before switching traffic to a replica.
+
+        :param str db: Path parameter to specify the database name.
+        :param bool att_encoding_info: (optional) Parameter to specify whether to
+               include the encoding information for compressed attachments. This only
+               applies when requesting documents in the response.
+        :param bool attachments: (optional) Parameter to specify whether to include
+               attachment content in included document content or only the attachment
+               metadata. This only applies when requesting documents in the response.
+        :param bool conflicts: (optional) Parameter to specify whether to include a
+               list of conflicted revisions in each returned document. This only applies
+               when requesting documents in the response.
+        :param bool descending: (optional) Parameter to specify whether to return
+               the documents in descending by key order.
+        :param bool include_docs: (optional) Parameter to specify whether to
+               include the full content of the documents in the response.
+        :param bool inclusive_end: (optional) Parameter to specify whether to
+               include the specified end key in the result.
+        :param int limit: (optional) Parameter to specify the number of returned
+               documents to limit the result to.
+        :param int skip: (optional) Parameter to specify the number of records
+               before starting to return the results.
+        :param bool update_seq: (optional) Parameter to specify whether to include
+               in the response an update_seq value indicating the sequence id of the
+               database the view reflects.
+        :param str end_key: (optional) Schema for a document ID.
+        :param str key: (optional) Schema for a document ID.
+        :param List[str] keys: (optional) Schema for a list of document IDs.
+        :param str start_key: (optional) Schema for a document ID.
+        :param List[str] type: (optional) Index types to filter results by. If
+               omitted, the response includes all index types.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `IndexInfoResult` object
+        """
+
+        if not db:
+            raise ValueError('db must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='post_index_info',
+        )
+        headers.update(sdk_headers)
+
+        data = {
+            'att_encoding_info': att_encoding_info,
+            'attachments': attachments,
+            'conflicts': conflicts,
+            'descending': descending,
+            'include_docs': include_docs,
+            'inclusive_end': inclusive_end,
+            'limit': limit,
+            'skip': skip,
+            'update_seq': update_seq,
+            'end_key': end_key,
+            'key': key,
+            'keys': keys,
+            'start_key': start_key,
+            'type': type,
+        }
+        data = {k: v for (k, v) in data.items() if v is not None}
+        data = json.dumps(data)
+        headers['content-type'] = 'application/json'
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+            del kwargs['headers']
+        headers['Accept'] = 'application/json'
+
+        path_param_keys = ['db']
+        path_param_values = self.encode_path_vars(db)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/{db}/_index_info'.format(**path_param_dict)
+        request = self.prepare_request(
+            method='POST',
+            url=url,
+            headers=headers,
+            data=data,
+        )
+
+        response = self.send(request, **kwargs)
+        return response
+
+    #########################
     # Views
     #########################
 
@@ -8115,367 +8723,6 @@ class CloudantV1(CloudantBaseService):
         response = self.send(request, **kwargs)
         return response
 
-    #########################
-    # Monitoring
-    #########################
-
-    def head_up_information(
-        self,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Retrieve HTTP headers about whether the server is up.
-
-        Retrieves the HTTP headers about whether the server is up.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='head_up_information',
-        )
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-
-        url = '/_up'
-        request = self.prepare_request(
-            method='HEAD',
-            url=url,
-            headers=headers,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
-    def get_active_tasks(
-        self,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Retrieve list of running tasks.
-
-        Lists running tasks, including the task type, name, status, and process ID. The
-        result includes a JSON array of the currently running tasks, with each task
-        described as a single object. Depending on the operation type, the set of response
-        object fields might be different.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `List[ActiveTask]` result
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='get_active_tasks',
-        )
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        url = '/_active_tasks'
-        request = self.prepare_request(
-            method='GET',
-            url=url,
-            headers=headers,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
-    def get_activity_tracker_events(
-        self,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Retrieve activity tracking events information.
-
-        Check event types sent to IBM Cloud Activity Tracker Event Routing for the IBM
-        Cloudant instance.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `ActivityTrackerEvents` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='get_activity_tracker_events',
-        )
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        url = '/_api/v2/user/activity_tracker/events'
-        request = self.prepare_request(
-            method='GET',
-            url=url,
-            headers=headers,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
-    def post_activity_tracker_events(
-        self,
-        types: List[str],
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Modify activity tracking events configuration.
-
-        Configure event types sent to IBM Cloud Activity Tracker Event Routing for the IBM
-        Cloudant instance.
-
-        :param List[str] types: An array of event types sent to IBM Cloud Activity
-               Tracker Event Routing for the IBM Cloudant instance. "management" is a
-               required element of this array.
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `Ok` object
-        """
-
-        if types is None:
-            raise ValueError('types must be provided')
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='post_activity_tracker_events',
-        )
-        headers.update(sdk_headers)
-
-        data = {
-            'types': types,
-        }
-        data = {k: v for (k, v) in data.items() if v is not None}
-        data = json.dumps(data)
-        headers['content-type'] = 'application/json'
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        url = '/_api/v2/user/activity_tracker/events'
-        request = self.prepare_request(
-            method='POST',
-            url=url,
-            headers=headers,
-            data=data,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
-    def get_capacity_databases_information(
-        self,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Retrieve maximum allowed database count.
-
-        Retrieves the maximum number of databases currently allowed in the instance.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `CapacityDatabasesInformation` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='get_capacity_databases_information',
-        )
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        url = '/_api/v2/user/capacity/databases'
-        request = self.prepare_request(
-            method='GET',
-            url=url,
-            headers=headers,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
-    def get_current_databases_information(
-        self,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Retrieve current database count.
-
-        Retrieves the current number of databases that exist in the instance.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `CurrentDatabasesInformation` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='get_current_databases_information',
-        )
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        url = '/_api/v2/user/current/databases'
-        request = self.prepare_request(
-            method='GET',
-            url=url,
-            headers=headers,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
-    def get_current_throughput_information(
-        self,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Retrieve the current provisioned throughput capacity consumption.
-
-        View the current consumption of provisioned throughput capacity for an IBM
-        Cloudant instance. The current consumption shows the quantities of reads, writes,
-        and global queries conducted against the instance for a given second.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `CurrentThroughputInformation` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='get_current_throughput_information',
-        )
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        url = '/_api/v2/user/current/throughput'
-        request = self.prepare_request(
-            method='GET',
-            url=url,
-            headers=headers,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
-    def get_membership_information(
-        self,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Retrieve cluster membership information.
-
-        Displays the nodes that are part of the cluster as `cluster_nodes`. The field,
-        `all_nodes`, displays all nodes this node knows about, including the ones that are
-        part of the cluster. This endpoint is useful when you set up a cluster.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `MembershipInformation` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='get_membership_information',
-        )
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        url = '/_membership'
-        request = self.prepare_request(
-            method='GET',
-            url=url,
-            headers=headers,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
-    def get_up_information(
-        self,
-        **kwargs,
-    ) -> DetailedResponse:
-        """
-        Retrieve information about whether the server is up.
-
-        Confirms that the server is up, running, and ready to respond to requests. If the
-        cluster is unavailable the endpoint returns a `503` response code.
-        **Tip:**  The authentication for this endpoint is only enforced when using IAM.
-
-        :param dict headers: A `dict` containing the request headers
-        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
-        :rtype: DetailedResponse with `dict` result representing a `UpInformation` object
-        """
-
-        headers = {}
-        sdk_headers = get_sdk_headers(
-            service_name=self.DEFAULT_SERVICE_NAME,
-            service_version='V1',
-            operation_id='get_up_information',
-        )
-        headers.update(sdk_headers)
-
-        if 'headers' in kwargs:
-            headers.update(kwargs.get('headers'))
-            del kwargs['headers']
-        headers['Accept'] = 'application/json'
-
-        url = '/_up'
-        request = self.prepare_request(
-            method='GET',
-            url=url,
-            headers=headers,
-        )
-
-        response = self.send(request, **kwargs)
-        return response
-
 
 class GetDbUpdatesEnums:
     """
@@ -8645,6 +8892,21 @@ class PostDesignDocsQueriesEnums:
 
         APPLICATION_JSON = 'application/json'
         APPLICATION_OCTET_STREAM = 'application/octet-stream'
+
+
+class GetIndexInfoEnums:
+    """
+    Enums for get_index_info parameters.
+    """
+
+    class Type(str, Enum):
+        """
+        Index types to filter results by. Can be `view`, `search`, or both values
+        comma-separated. If omitted, the response includes all index types.
+        """
+
+        SEARCH = 'search'
+        VIEW = 'view'
 
 
 class DeleteIndexEnums:
@@ -12757,8 +13019,8 @@ class DesignDocumentViewIndex:
     :param str signature: MD5 signature of the views for the design document.
     :param ContentInformationSizes sizes: Schema for size information of content.
     :param bool updater_running: Indicates if the view is currently being updated.
-    :param UpdatesPending updates_pending: Schema for an ability to tell if view is
-          up-to-date without querying it.
+    :param UpdatesPending updates_pending: Schema for information about pending
+          updates for an index, calculated across all available copies of all shards.
     :param int waiting_clients: Number of clients waiting on views from this design
           document.
     :param bool waiting_commit: Indicates if there are outstanding commits to the
@@ -12791,8 +13053,8 @@ class DesignDocumentViewIndex:
                content.
         :param bool updater_running: Indicates if the view is currently being
                updated.
-        :param UpdatesPending updates_pending: Schema for an ability to tell if
-               view is up-to-date without querying it.
+        :param UpdatesPending updates_pending: Schema for information about pending
+               updates for an index, calculated across all available copies of all shards.
         :param int waiting_clients: Number of clients waiting on views from this
                design document.
         :param bool waiting_commit: Indicates if there are outstanding commits to
@@ -15080,6 +15342,119 @@ class IndexField:
 
 
 
+class IndexInfoResult:
+    """
+    Schema for the result of an _index_info request.
+
+    :param str bookmark: The ID of the first design document after the current page
+          of results. Pass this value as `start_key` to retrieve the next page. This field
+          is `null` when no more design documents are available, or when the request
+          includes a `keys` parameter.
+    :param List[SearchIndexInformation] search_indexes: The status of each search
+          index across the design documents in the current page of results.
+    :param int total_rows: The total number of design documents in the database. A
+          design document can contain multiple indexes.
+    :param List[ViewIndexInformation] view_indexes: The view index status for each
+          design document in the current page of results.
+    """
+
+    def __init__(
+        self,
+        bookmark: str,
+        search_indexes: List['SearchIndexInformation'],
+        total_rows: int,
+        view_indexes: List['ViewIndexInformation'],
+    ) -> None:
+        """
+        Initialize a IndexInfoResult object.
+
+        :param str bookmark: The ID of the first design document after the current
+               page of results. Pass this value as `start_key` to retrieve the next page.
+               This field is `null` when no more design documents are available, or when
+               the request includes a `keys` parameter.
+        :param List[SearchIndexInformation] search_indexes: The status of each
+               search index across the design documents in the current page of results.
+        :param int total_rows: The total number of design documents in the
+               database. A design document can contain multiple indexes.
+        :param List[ViewIndexInformation] view_indexes: The view index status for
+               each design document in the current page of results.
+        """
+        self.bookmark = bookmark
+        self.search_indexes = search_indexes
+        self.total_rows = total_rows
+        self.view_indexes = view_indexes
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'IndexInfoResult':
+        """Initialize a IndexInfoResult object from a json dictionary."""
+        args = {}
+        if (bookmark := _dict.get('bookmark')) is not None:
+            args['bookmark'] = bookmark
+        else:
+            args['bookmark'] = None
+        if (search_indexes := _dict.get('search_indexes')) is not None:
+            args['search_indexes'] = [SearchIndexInformation.from_dict(v) for v in search_indexes]
+        else:
+            raise ValueError('Required property \'search_indexes\' not present in IndexInfoResult JSON')
+        if (total_rows := _dict.get('total_rows')) is not None:
+            args['total_rows'] = total_rows
+        else:
+            raise ValueError('Required property \'total_rows\' not present in IndexInfoResult JSON')
+        if (view_indexes := _dict.get('view_indexes')) is not None:
+            args['view_indexes'] = [ViewIndexInformation.from_dict(v) for v in view_indexes]
+        else:
+            raise ValueError('Required property \'view_indexes\' not present in IndexInfoResult JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a IndexInfoResult object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'bookmark') and self.bookmark is not None:
+            _dict['bookmark'] = self.bookmark
+        if hasattr(self, 'search_indexes') and self.search_indexes is not None:
+            search_indexes_list = []
+            for v in self.search_indexes:
+                if isinstance(v, dict):
+                    search_indexes_list.append(v)
+                else:
+                    search_indexes_list.append(v.to_dict())
+            _dict['search_indexes'] = search_indexes_list
+        if hasattr(self, 'total_rows') and self.total_rows is not None:
+            _dict['total_rows'] = self.total_rows
+        if hasattr(self, 'view_indexes') and self.view_indexes is not None:
+            view_indexes_list = []
+            for v in self.view_indexes:
+                if isinstance(v, dict):
+                    view_indexes_list.append(v)
+                else:
+                    view_indexes_list.append(v.to_dict())
+            _dict['view_indexes'] = view_indexes_list
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this IndexInfoResult object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'IndexInfoResult') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'IndexInfoResult') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
 class IndexInformation:
     """
     Schema for information about an index.
@@ -16222,8 +16597,10 @@ class ReplicationDatabaseAuth:
 
     :param ReplicationDatabaseAuthBasic basic: (optional) Schema for basic
           authentication of replication source or target database.
-    :param ReplicationDatabaseAuthIam iam: (optional) Schema for an IAM API key for
-          replication database authentication.
+    :param ReplicationDatabaseAuthIam iam: (optional) Deprecated: use the `ibm`
+          property instead to configure IAM for replication database authentication.
+    :param ReplicationDatabaseAuthIBM ibm: (optional) IBM IAM replication auth for
+          CouchDB or Cloudant.
     """
 
     def __init__(
@@ -16231,17 +16608,21 @@ class ReplicationDatabaseAuth:
         *,
         basic: Optional['ReplicationDatabaseAuthBasic'] = None,
         iam: Optional['ReplicationDatabaseAuthIam'] = None,
+        ibm: Optional['ReplicationDatabaseAuthIBM'] = None,
     ) -> None:
         """
         Initialize a ReplicationDatabaseAuth object.
 
         :param ReplicationDatabaseAuthBasic basic: (optional) Schema for basic
                authentication of replication source or target database.
-        :param ReplicationDatabaseAuthIam iam: (optional) Schema for an IAM API key
-               for replication database authentication.
+        :param ReplicationDatabaseAuthIam iam: (optional) Deprecated: use the `ibm`
+               property instead to configure IAM for replication database authentication.
+        :param ReplicationDatabaseAuthIBM ibm: (optional) IBM IAM replication auth
+               for CouchDB or Cloudant.
         """
         self.basic = basic
         self.iam = iam
+        self.ibm = ibm
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'ReplicationDatabaseAuth':
@@ -16251,6 +16632,8 @@ class ReplicationDatabaseAuth:
             args['basic'] = ReplicationDatabaseAuthBasic.from_dict(basic)
         if (iam := _dict.get('iam')) is not None:
             args['iam'] = ReplicationDatabaseAuthIam.from_dict(iam)
+        if (ibm := _dict.get('ibm')) is not None:
+            args['ibm'] = ReplicationDatabaseAuthIBM.from_dict(ibm)
         return cls(**args)
 
     @classmethod
@@ -16271,6 +16654,11 @@ class ReplicationDatabaseAuth:
                 _dict['iam'] = self.iam
             else:
                 _dict['iam'] = self.iam.to_dict()
+        if hasattr(self, 'ibm') and self.ibm is not None:
+            if isinstance(self.ibm, dict):
+                _dict['ibm'] = self.ibm
+            else:
+                _dict['ibm'] = self.ibm.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -16361,9 +16749,133 @@ class ReplicationDatabaseAuthBasic:
         return not self == other
 
 
+class ReplicationDatabaseAuthIBM:
+    """
+    IBM IAM replication auth for CouchDB or Cloudant.
+
+    :param ReplicationDatabaseAuthIBMIam iam: IAM API key for replication database
+          authentication.
+    """
+
+    def __init__(
+        self,
+        iam: 'ReplicationDatabaseAuthIBMIam',
+    ) -> None:
+        """
+        Initialize a ReplicationDatabaseAuthIBM object.
+
+        :param ReplicationDatabaseAuthIBMIam iam: IAM API key for replication
+               database authentication.
+        """
+        self.iam = iam
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ReplicationDatabaseAuthIBM':
+        """Initialize a ReplicationDatabaseAuthIBM object from a json dictionary."""
+        args = {}
+        if (iam := _dict.get('iam')) is not None:
+            args['iam'] = ReplicationDatabaseAuthIBMIam.from_dict(iam)
+        else:
+            raise ValueError('Required property \'iam\' not present in ReplicationDatabaseAuthIBM JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ReplicationDatabaseAuthIBM object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'iam') and self.iam is not None:
+            if isinstance(self.iam, dict):
+                _dict['iam'] = self.iam
+            else:
+                _dict['iam'] = self.iam.to_dict()
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ReplicationDatabaseAuthIBM object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ReplicationDatabaseAuthIBM') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ReplicationDatabaseAuthIBM') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class ReplicationDatabaseAuthIBMIam:
+    """
+    IAM API key for replication database authentication.
+
+    :param str api_key: IAM API key.
+    """
+
+    def __init__(
+        self,
+        api_key: str,
+    ) -> None:
+        """
+        Initialize a ReplicationDatabaseAuthIBMIam object.
+
+        :param str api_key: IAM API key.
+        """
+        self.api_key = api_key
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ReplicationDatabaseAuthIBMIam':
+        """Initialize a ReplicationDatabaseAuthIBMIam object from a json dictionary."""
+        args = {}
+        if (api_key := _dict.get('api_key')) is not None:
+            args['api_key'] = api_key
+        else:
+            raise ValueError('Required property \'api_key\' not present in ReplicationDatabaseAuthIBMIam JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ReplicationDatabaseAuthIBMIam object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'api_key') and self.api_key is not None:
+            _dict['api_key'] = self.api_key
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ReplicationDatabaseAuthIBMIam object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ReplicationDatabaseAuthIBMIam') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ReplicationDatabaseAuthIBMIam') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
 class ReplicationDatabaseAuthIam:
     """
-    Schema for an IAM API key for replication database authentication.
+    Deprecated: use the `ibm` property instead to configure IAM for replication database
+    authentication.
 
     :param str api_key: IAM API key.
     """
@@ -18193,6 +18705,9 @@ class SearchIndexInfo:
     :param int doc_del_count: The number of deleted documents.
     :param int pending_seq: The pending sequence identifier.
     :param str signature: Unique signature of the search index.
+    :param UpdatesPending updates_pending: (optional) Schema for information about
+          pending updates for an index, calculated across all available copies of all
+          shards.
     """
 
     def __init__(
@@ -18203,6 +18718,8 @@ class SearchIndexInfo:
         doc_del_count: int,
         pending_seq: int,
         signature: str,
+        *,
+        updates_pending: Optional['UpdatesPending'] = None,
     ) -> None:
         """
         Initialize a SearchIndexInfo object.
@@ -18213,6 +18730,9 @@ class SearchIndexInfo:
         :param int doc_del_count: The number of deleted documents.
         :param int pending_seq: The pending sequence identifier.
         :param str signature: Unique signature of the search index.
+        :param UpdatesPending updates_pending: (optional) Schema for information
+               about pending updates for an index, calculated across all available copies
+               of all shards.
         """
         self.committed_seq = committed_seq
         self.disk_size = disk_size
@@ -18220,6 +18740,7 @@ class SearchIndexInfo:
         self.doc_del_count = doc_del_count
         self.pending_seq = pending_seq
         self.signature = signature
+        self.updates_pending = updates_pending
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'SearchIndexInfo':
@@ -18249,6 +18770,8 @@ class SearchIndexInfo:
             args['signature'] = signature
         else:
             raise ValueError('Required property \'signature\' not present in SearchIndexInfo JSON')
+        if (updates_pending := _dict.get('updates_pending')) is not None:
+            args['updates_pending'] = UpdatesPending.from_dict(updates_pending)
         return cls(**args)
 
     @classmethod
@@ -18271,6 +18794,11 @@ class SearchIndexInfo:
             _dict['pending_seq'] = self.pending_seq
         if hasattr(self, 'signature') and self.signature is not None:
             _dict['signature'] = self.signature
+        if hasattr(self, 'updates_pending') and self.updates_pending is not None:
+            if isinstance(self.updates_pending, dict):
+                _dict['updates_pending'] = self.updates_pending
+            else:
+                _dict['updates_pending'] = self.updates_pending.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -18288,6 +18816,132 @@ class SearchIndexInfo:
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'SearchIndexInfo') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class SearchIndexInformation:
+    """
+    Schema for search index status for a named index within a design document.
+
+    :param bool ok: ok.
+    :param str caused_by: (optional) The cause of the error (if available).
+    :param str error: (optional) The name of the error.
+    :param str reason: (optional) The reason the error occurred (if available).
+    :param int ref: (optional) An internal error reference (if available).
+    :param str ddoc: Schema for a design document ID including a `_design/` prefix.
+    :param SearchIndexInfo info: (optional) Schema for metadata information about a
+          search index.
+    :param str name: The name of the search index.
+    """
+
+    def __init__(
+        self,
+        ok: bool,
+        ddoc: str,
+        name: str,
+        *,
+        caused_by: Optional[str] = None,
+        error: Optional[str] = None,
+        reason: Optional[str] = None,
+        ref: Optional[int] = None,
+        info: Optional['SearchIndexInfo'] = None,
+    ) -> None:
+        """
+        Initialize a SearchIndexInformation object.
+
+        :param bool ok: ok.
+        :param str ddoc: Schema for a design document ID including a `_design/`
+               prefix.
+        :param str name: The name of the search index.
+        :param str caused_by: (optional) The cause of the error (if available).
+        :param str error: (optional) The name of the error.
+        :param str reason: (optional) The reason the error occurred (if available).
+        :param int ref: (optional) An internal error reference (if available).
+        :param SearchIndexInfo info: (optional) Schema for metadata information
+               about a search index.
+        """
+        self.ok = ok
+        self.caused_by = caused_by
+        self.error = error
+        self.reason = reason
+        self.ref = ref
+        self.ddoc = ddoc
+        self.info = info
+        self.name = name
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'SearchIndexInformation':
+        """Initialize a SearchIndexInformation object from a json dictionary."""
+        args = {}
+        if (ok := _dict.get('ok')) is not None:
+            args['ok'] = ok
+        else:
+            raise ValueError('Required property \'ok\' not present in SearchIndexInformation JSON')
+        if (caused_by := _dict.get('caused_by')) is not None:
+            args['caused_by'] = caused_by
+        if (error := _dict.get('error')) is not None:
+            args['error'] = error
+        if (reason := _dict.get('reason')) is not None:
+            args['reason'] = reason
+        if (ref := _dict.get('ref')) is not None:
+            args['ref'] = ref
+        if (ddoc := _dict.get('ddoc')) is not None:
+            args['ddoc'] = ddoc
+        else:
+            raise ValueError('Required property \'ddoc\' not present in SearchIndexInformation JSON')
+        if (info := _dict.get('info')) is not None:
+            args['info'] = SearchIndexInfo.from_dict(info)
+        if (name := _dict.get('name')) is not None:
+            args['name'] = name
+        else:
+            raise ValueError('Required property \'name\' not present in SearchIndexInformation JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a SearchIndexInformation object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'ok') and self.ok is not None:
+            _dict['ok'] = self.ok
+        if hasattr(self, 'caused_by') and self.caused_by is not None:
+            _dict['caused_by'] = self.caused_by
+        if hasattr(self, 'error') and self.error is not None:
+            _dict['error'] = self.error
+        if hasattr(self, 'reason') and self.reason is not None:
+            _dict['reason'] = self.reason
+        if hasattr(self, 'ref') and self.ref is not None:
+            _dict['ref'] = self.ref
+        if hasattr(self, 'ddoc') and self.ddoc is not None:
+            _dict['ddoc'] = self.ddoc
+        if hasattr(self, 'info') and self.info is not None:
+            if isinstance(self.info, dict):
+                _dict['info'] = self.info
+            else:
+                _dict['info'] = self.info.to_dict()
+        if hasattr(self, 'name') and self.name is not None:
+            _dict['name'] = self.name
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this SearchIndexInformation object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'SearchIndexInformation') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'SearchIndexInformation') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
@@ -19617,13 +20271,23 @@ class UpInformation:
 
 class UpdatesPending:
     """
-    Schema for an ability to tell if view is up-to-date without querying it.
+    Schema for information about pending updates for an index, calculated across all
+    available copies of all shards.
 
-    :param int minimum: Sum of shard copies with the least amount of work to do.
-    :param int preferred: Sum of unique shards. This value is zero when at least one
-          copy of every shard range is up-to-date and the view is able to answer a query
-          without index building delays.
-    :param int total: Sum of all shard copies.
+    :param int copies: (optional) The number of shard copies that reported an
+          answer. Copies that are unreachable or in maintenance mode are not included.
+          Compare with the `copies_expected` value.
+    :param int copies_expected: (optional) The expected number of shard copy
+          responses. If `copies` is less than this value, the results might be partial and
+          `maximum` might not represent the true backlog.
+    :param int maximum: (optional) The backlog of the least up-to-date copy of each
+          shard range. A value of `0` means the index is fully built on every copy.
+    :param int minimum: The backlog of the most up-to-date copy of each shard range.
+          A value of `0` means that at least one complete copy exists for every shard
+          range.
+    :param int preferred: The backlog of the preferred shard copies, which are the
+          copies that queries are routed to by default.
+    :param int total: The total backlog across all shard copies.
     """
 
     def __init__(
@@ -19631,17 +20295,33 @@ class UpdatesPending:
         minimum: int,
         preferred: int,
         total: int,
+        *,
+        copies: Optional[int] = None,
+        copies_expected: Optional[int] = None,
+        maximum: Optional[int] = None,
     ) -> None:
         """
         Initialize a UpdatesPending object.
 
-        :param int minimum: Sum of shard copies with the least amount of work to
-               do.
-        :param int preferred: Sum of unique shards. This value is zero when at
-               least one copy of every shard range is up-to-date and the view is able to
-               answer a query without index building delays.
-        :param int total: Sum of all shard copies.
+        :param int minimum: The backlog of the most up-to-date copy of each shard
+               range. A value of `0` means that at least one complete copy exists for
+               every shard range.
+        :param int preferred: The backlog of the preferred shard copies, which are
+               the copies that queries are routed to by default.
+        :param int total: The total backlog across all shard copies.
+        :param int copies: (optional) The number of shard copies that reported an
+               answer. Copies that are unreachable or in maintenance mode are not
+               included. Compare with the `copies_expected` value.
+        :param int copies_expected: (optional) The expected number of shard copy
+               responses. If `copies` is less than this value, the results might be
+               partial and `maximum` might not represent the true backlog.
+        :param int maximum: (optional) The backlog of the least up-to-date copy of
+               each shard range. A value of `0` means the index is fully built on every
+               copy.
         """
+        self.copies = copies
+        self.copies_expected = copies_expected
+        self.maximum = maximum
         self.minimum = minimum
         self.preferred = preferred
         self.total = total
@@ -19650,6 +20330,12 @@ class UpdatesPending:
     def from_dict(cls, _dict: Dict) -> 'UpdatesPending':
         """Initialize a UpdatesPending object from a json dictionary."""
         args = {}
+        if (copies := _dict.get('copies')) is not None:
+            args['copies'] = copies
+        if (copies_expected := _dict.get('copies_expected')) is not None:
+            args['copies_expected'] = copies_expected
+        if (maximum := _dict.get('maximum')) is not None:
+            args['maximum'] = maximum
         if (minimum := _dict.get('minimum')) is not None:
             args['minimum'] = minimum
         else:
@@ -19672,6 +20358,12 @@ class UpdatesPending:
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
+        if hasattr(self, 'copies') and self.copies is not None:
+            _dict['copies'] = self.copies
+        if hasattr(self, 'copies_expected') and self.copies_expected is not None:
+            _dict['copies_expected'] = self.copies_expected
+        if hasattr(self, 'maximum') and self.maximum is not None:
+            _dict['maximum'] = self.maximum
         if hasattr(self, 'minimum') and self.minimum is not None:
             _dict['minimum'] = self.minimum
         if hasattr(self, 'preferred') and self.preferred is not None:
@@ -19849,6 +20541,130 @@ class UuidsResult:
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'UuidsResult') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class ViewIndexInformation:
+    """
+    Schema for view index status for a design document.
+
+    :param bool ok: ok.
+    :param str caused_by: (optional) The cause of the error (if available).
+    :param str error: (optional) The name of the error.
+    :param str reason: (optional) The reason the error occurred (if available).
+    :param int ref: (optional) An internal error reference (if available).
+    :param str ddoc: Schema for a design document ID including a `_design/` prefix.
+    :param DesignDocumentViewIndex info: (optional) View index information.
+    :param List[str] views: The map-reduce view names in the design document.
+    """
+
+    def __init__(
+        self,
+        ok: bool,
+        ddoc: str,
+        views: List[str],
+        *,
+        caused_by: Optional[str] = None,
+        error: Optional[str] = None,
+        reason: Optional[str] = None,
+        ref: Optional[int] = None,
+        info: Optional['DesignDocumentViewIndex'] = None,
+    ) -> None:
+        """
+        Initialize a ViewIndexInformation object.
+
+        :param bool ok: ok.
+        :param str ddoc: Schema for a design document ID including a `_design/`
+               prefix.
+        :param List[str] views: The map-reduce view names in the design document.
+        :param str caused_by: (optional) The cause of the error (if available).
+        :param str error: (optional) The name of the error.
+        :param str reason: (optional) The reason the error occurred (if available).
+        :param int ref: (optional) An internal error reference (if available).
+        :param DesignDocumentViewIndex info: (optional) View index information.
+        """
+        self.ok = ok
+        self.caused_by = caused_by
+        self.error = error
+        self.reason = reason
+        self.ref = ref
+        self.ddoc = ddoc
+        self.info = info
+        self.views = views
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ViewIndexInformation':
+        """Initialize a ViewIndexInformation object from a json dictionary."""
+        args = {}
+        if (ok := _dict.get('ok')) is not None:
+            args['ok'] = ok
+        else:
+            raise ValueError('Required property \'ok\' not present in ViewIndexInformation JSON')
+        if (caused_by := _dict.get('caused_by')) is not None:
+            args['caused_by'] = caused_by
+        if (error := _dict.get('error')) is not None:
+            args['error'] = error
+        if (reason := _dict.get('reason')) is not None:
+            args['reason'] = reason
+        if (ref := _dict.get('ref')) is not None:
+            args['ref'] = ref
+        if (ddoc := _dict.get('ddoc')) is not None:
+            args['ddoc'] = ddoc
+        else:
+            raise ValueError('Required property \'ddoc\' not present in ViewIndexInformation JSON')
+        if (info := _dict.get('info')) is not None:
+            args['info'] = DesignDocumentViewIndex.from_dict(info)
+        if (views := _dict.get('views')) is not None:
+            args['views'] = views
+        else:
+            raise ValueError('Required property \'views\' not present in ViewIndexInformation JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ViewIndexInformation object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'ok') and self.ok is not None:
+            _dict['ok'] = self.ok
+        if hasattr(self, 'caused_by') and self.caused_by is not None:
+            _dict['caused_by'] = self.caused_by
+        if hasattr(self, 'error') and self.error is not None:
+            _dict['error'] = self.error
+        if hasattr(self, 'reason') and self.reason is not None:
+            _dict['reason'] = self.reason
+        if hasattr(self, 'ref') and self.ref is not None:
+            _dict['ref'] = self.ref
+        if hasattr(self, 'ddoc') and self.ddoc is not None:
+            _dict['ddoc'] = self.ddoc
+        if hasattr(self, 'info') and self.info is not None:
+            if isinstance(self.info, dict):
+                _dict['info'] = self.info
+            else:
+                _dict['info'] = self.info.to_dict()
+        if hasattr(self, 'views') and self.views is not None:
+            _dict['views'] = self.views
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ViewIndexInformation object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ViewIndexInformation') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ViewIndexInformation') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
