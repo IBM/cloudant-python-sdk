@@ -5232,7 +5232,7 @@ class TestGetDesignDocumentInformation:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_info')
-        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 0, "external": 0, "file": 0}, "updater_running": false, "updates_pending": {"minimum": 0, "preferred": 0, "total": 0}, "waiting_clients": 0, "waiting_commit": true}}'
+        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 0, "external": 0, "file": 0}, "updater_running": false, "updates_pending": {"copies": 0, "copies_expected": 0, "maximum": 0, "minimum": 0, "preferred": 0, "total": 0}, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(
             responses.GET,
             url,
@@ -5272,7 +5272,7 @@ class TestGetDesignDocumentInformation:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_info')
-        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 0, "external": 0, "file": 0}, "updater_running": false, "updates_pending": {"minimum": 0, "preferred": 0, "total": 0}, "waiting_clients": 0, "waiting_commit": true}}'
+        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 0, "external": 0, "file": 0}, "updater_running": false, "updates_pending": {"copies": 0, "copies_expected": 0, "maximum": 0, "minimum": 0, "preferred": 0, "total": 0}, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(
             responses.GET,
             url,
@@ -9196,7 +9196,7 @@ class TestGetSearchInfo:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_search_info/testString')
-        mock_response = '{"name": "name", "search_index": {"committed_seq": 0, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 0, "signature": "signature"}}'
+        mock_response = '{"name": "name", "search_index": {"committed_seq": 0, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 0, "signature": "signature", "updates_pending": {"copies": 0, "copies_expected": 0, "maximum": 0, "minimum": 0, "preferred": 0, "total": 0}}}'
         responses.add(
             responses.GET,
             url,
@@ -9238,7 +9238,7 @@ class TestGetSearchInfo:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_search_info/testString')
-        mock_response = '{"name": "name", "search_index": {"committed_seq": 0, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 0, "signature": "signature"}}'
+        mock_response = '{"name": "name", "search_index": {"committed_seq": 0, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 0, "signature": "signature", "updates_pending": {"copies": 0, "copies_expected": 0, "maximum": 0, "minimum": 0, "preferred": 0, "total": 0}}}'
         responses.add(
             responses.GET,
             url,
@@ -9632,10 +9632,19 @@ class TestPostReplicator:
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {}
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {}
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
@@ -9671,6 +9680,7 @@ class TestPostReplicator:
         replication_document_model['http_connections'] = 10
         replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['request_compression'] = 'gzip'
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
         replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
@@ -9775,10 +9785,19 @@ class TestPostReplicator:
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {}
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {}
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
@@ -9814,6 +9833,7 @@ class TestPostReplicator:
         replication_document_model['http_connections'] = 10
         replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['request_compression'] = 'gzip'
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
         replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
@@ -9912,10 +9932,19 @@ class TestPostReplicator:
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {}
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {}
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
@@ -9951,6 +9980,7 @@ class TestPostReplicator:
         replication_document_model['http_connections'] = 10
         replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['request_compression'] = 'gzip'
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
         replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
@@ -10131,7 +10161,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "request_compression": "none", "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}, "ibm": {"iam": {"api_key": "api_key"}}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}, "ibm": {"iam": {"api_key": "api_key"}}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -10204,7 +10234,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "request_compression": "none", "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}, "ibm": {"iam": {"api_key": "api_key"}}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}, "ibm": {"iam": {"api_key": "api_key"}}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -10242,7 +10272,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "request_compression": "none", "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}, "ibm": {"iam": {"api_key": "api_key"}}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}, "ibm": {"iam": {"api_key": "api_key"}}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -10331,10 +10361,19 @@ class TestPutReplicationDocument:
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {}
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {}
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
@@ -10370,6 +10409,7 @@ class TestPutReplicationDocument:
         replication_document_model['http_connections'] = 10
         replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['request_compression'] = 'gzip'
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
         replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
@@ -10484,10 +10524,19 @@ class TestPutReplicationDocument:
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {}
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {}
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
@@ -10523,6 +10572,7 @@ class TestPutReplicationDocument:
         replication_document_model['http_connections'] = 10
         replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['request_compression'] = 'gzip'
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
         replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
@@ -10623,10 +10673,19 @@ class TestPutReplicationDocument:
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {}
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {}
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
@@ -10662,6 +10721,7 @@ class TestPutReplicationDocument:
         replication_document_model['http_connections'] = 10
         replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['request_compression'] = 'gzip'
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
         replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
@@ -15453,6 +15513,9 @@ class TestModel_DesignDocumentInformation:
         content_information_sizes_model['file'] = 0
 
         updates_pending_model = {}  # UpdatesPending
+        updates_pending_model['copies'] = 0
+        updates_pending_model['copies_expected'] = 0
+        updates_pending_model['maximum'] = 0
         updates_pending_model['minimum'] = 0
         updates_pending_model['preferred'] = 0
         updates_pending_model['total'] = 0
@@ -15537,6 +15600,9 @@ class TestModel_DesignDocumentViewIndex:
         content_information_sizes_model['file'] = 0
 
         updates_pending_model = {}  # UpdatesPending
+        updates_pending_model['copies'] = 0
+        updates_pending_model['copies_expected'] = 0
+        updates_pending_model['maximum'] = 0
         updates_pending_model['minimum'] = 0
         updates_pending_model['preferred'] = 0
         updates_pending_model['total'] = 0
@@ -16920,9 +16986,16 @@ class TestModel_ReplicationDatabase:
         replication_database_auth_iam_model = {}  # ReplicationDatabaseAuthIam
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        replication_database_auth_ibm_iam_model = {}  # ReplicationDatabaseAuthIBMIam
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        replication_database_auth_ibm_model = {}  # ReplicationDatabaseAuthIBM
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         replication_database_auth_model = {}  # ReplicationDatabaseAuth
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a json representation of a ReplicationDatabase model
         replication_database_model_json = {}
@@ -16965,10 +17038,17 @@ class TestModel_ReplicationDatabaseAuth:
         replication_database_auth_iam_model = {}  # ReplicationDatabaseAuthIam
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        replication_database_auth_ibm_iam_model = {}  # ReplicationDatabaseAuthIBMIam
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        replication_database_auth_ibm_model = {}  # ReplicationDatabaseAuthIBM
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a json representation of a ReplicationDatabaseAuth model
         replication_database_auth_model_json = {}
         replication_database_auth_model_json['basic'] = replication_database_auth_basic_model
         replication_database_auth_model_json['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model_json['ibm'] = replication_database_auth_ibm_model
 
         # Construct a model instance of ReplicationDatabaseAuth by calling from_dict on the json representation
         replication_database_auth_model = ReplicationDatabaseAuth.from_dict(replication_database_auth_model_json)
@@ -17015,6 +17095,71 @@ class TestModel_ReplicationDatabaseAuthBasic:
         # Convert model instance back to dict and verify no loss of data
         replication_database_auth_basic_model_json2 = replication_database_auth_basic_model.to_dict()
         assert replication_database_auth_basic_model_json2 == replication_database_auth_basic_model_json
+
+
+class TestModel_ReplicationDatabaseAuthIBM:
+    """
+    Test Class for ReplicationDatabaseAuthIBM
+    """
+
+    def test_replication_database_auth_ibm_serialization(self):
+        """
+        Test serialization/deserialization for ReplicationDatabaseAuthIBM
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        replication_database_auth_ibm_iam_model = {}  # ReplicationDatabaseAuthIBMIam
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a json representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model_json = {}
+        replication_database_auth_ibm_model_json['iam'] = replication_database_auth_ibm_iam_model
+
+        # Construct a model instance of ReplicationDatabaseAuthIBM by calling from_dict on the json representation
+        replication_database_auth_ibm_model = ReplicationDatabaseAuthIBM.from_dict(replication_database_auth_ibm_model_json)
+        assert replication_database_auth_ibm_model != False
+
+        # Construct a model instance of ReplicationDatabaseAuthIBM by calling from_dict on the json representation
+        replication_database_auth_ibm_model_dict = ReplicationDatabaseAuthIBM.from_dict(replication_database_auth_ibm_model_json).__dict__
+        replication_database_auth_ibm_model2 = ReplicationDatabaseAuthIBM(**replication_database_auth_ibm_model_dict)
+
+        # Verify the model instances are equivalent
+        assert replication_database_auth_ibm_model == replication_database_auth_ibm_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        replication_database_auth_ibm_model_json2 = replication_database_auth_ibm_model.to_dict()
+        assert replication_database_auth_ibm_model_json2 == replication_database_auth_ibm_model_json
+
+
+class TestModel_ReplicationDatabaseAuthIBMIam:
+    """
+    Test Class for ReplicationDatabaseAuthIBMIam
+    """
+
+    def test_replication_database_auth_ibm_iam_serialization(self):
+        """
+        Test serialization/deserialization for ReplicationDatabaseAuthIBMIam
+        """
+
+        # Construct a json representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model_json = {}
+        replication_database_auth_ibm_iam_model_json['api_key'] = 'testString'
+
+        # Construct a model instance of ReplicationDatabaseAuthIBMIam by calling from_dict on the json representation
+        replication_database_auth_ibm_iam_model = ReplicationDatabaseAuthIBMIam.from_dict(replication_database_auth_ibm_iam_model_json)
+        assert replication_database_auth_ibm_iam_model != False
+
+        # Construct a model instance of ReplicationDatabaseAuthIBMIam by calling from_dict on the json representation
+        replication_database_auth_ibm_iam_model_dict = ReplicationDatabaseAuthIBMIam.from_dict(replication_database_auth_ibm_iam_model_json).__dict__
+        replication_database_auth_ibm_iam_model2 = ReplicationDatabaseAuthIBMIam(**replication_database_auth_ibm_iam_model_dict)
+
+        # Verify the model instances are equivalent
+        assert replication_database_auth_ibm_iam_model == replication_database_auth_ibm_iam_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        replication_database_auth_ibm_iam_model_json2 = replication_database_auth_ibm_iam_model.to_dict()
+        assert replication_database_auth_ibm_iam_model_json2 == replication_database_auth_ibm_iam_model_json
 
 
 class TestModel_ReplicationDatabaseAuthIam:
@@ -17090,9 +17235,16 @@ class TestModel_ReplicationDocument:
         replication_database_auth_iam_model = {}  # ReplicationDatabaseAuthIam
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        replication_database_auth_ibm_iam_model = {}  # ReplicationDatabaseAuthIBMIam
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        replication_database_auth_ibm_model = {}  # ReplicationDatabaseAuthIBM
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         replication_database_auth_model = {}  # ReplicationDatabaseAuth
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         replication_database_model = {}  # ReplicationDatabase
         replication_database_model['auth'] = replication_database_auth_model
@@ -17126,6 +17278,7 @@ class TestModel_ReplicationDocument:
         replication_document_model_json['http_connections'] = 20
         replication_document_model_json['owner'] = 'testString'
         replication_document_model_json['query_params'] = {'key1': 'testString'}
+        replication_document_model_json['request_compression'] = 'none'
         replication_document_model_json['retries_per_request'] = 5
         replication_document_model_json['selector'] = {'anyKey': 'anyValue'}
         replication_document_model_json['since_seq'] = 'testString'
@@ -17688,6 +17841,16 @@ class TestModel_SearchIndexInfo:
         Test serialization/deserialization for SearchIndexInfo
         """
 
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        updates_pending_model = {}  # UpdatesPending
+        updates_pending_model['copies'] = 0
+        updates_pending_model['copies_expected'] = 0
+        updates_pending_model['maximum'] = 0
+        updates_pending_model['minimum'] = 0
+        updates_pending_model['preferred'] = 0
+        updates_pending_model['total'] = 0
+
         # Construct a json representation of a SearchIndexInfo model
         search_index_info_model_json = {}
         search_index_info_model_json['committed_seq'] = 0
@@ -17696,6 +17859,7 @@ class TestModel_SearchIndexInfo:
         search_index_info_model_json['doc_del_count'] = 0
         search_index_info_model_json['pending_seq'] = 0
         search_index_info_model_json['signature'] = 'testString'
+        search_index_info_model_json['updates_pending'] = updates_pending_model
 
         # Construct a model instance of SearchIndexInfo by calling from_dict on the json representation
         search_index_info_model = SearchIndexInfo.from_dict(search_index_info_model_json)
@@ -17725,6 +17889,14 @@ class TestModel_SearchInfoResult:
 
         # Construct dict forms of any model objects needed in order to build this model.
 
+        updates_pending_model = {}  # UpdatesPending
+        updates_pending_model['copies'] = 0
+        updates_pending_model['copies_expected'] = 0
+        updates_pending_model['maximum'] = 0
+        updates_pending_model['minimum'] = 0
+        updates_pending_model['preferred'] = 0
+        updates_pending_model['total'] = 0
+
         search_index_info_model = {}  # SearchIndexInfo
         search_index_info_model['committed_seq'] = 0
         search_index_info_model['disk_size'] = 0
@@ -17732,6 +17904,7 @@ class TestModel_SearchInfoResult:
         search_index_info_model['doc_del_count'] = 0
         search_index_info_model['pending_seq'] = 0
         search_index_info_model['signature'] = 'testString'
+        search_index_info_model['updates_pending'] = updates_pending_model
 
         # Construct a json representation of a SearchInfoResult model
         search_info_result_model_json = {}
@@ -18347,6 +18520,9 @@ class TestModel_UpdatesPending:
 
         # Construct a json representation of a UpdatesPending model
         updates_pending_model_json = {}
+        updates_pending_model_json['copies'] = 0
+        updates_pending_model_json['copies_expected'] = 0
+        updates_pending_model_json['maximum'] = 0
         updates_pending_model_json['minimum'] = 0
         updates_pending_model_json['preferred'] = 0
         updates_pending_model_json['total'] = 0

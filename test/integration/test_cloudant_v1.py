@@ -1517,10 +1517,19 @@ class TestCloudantV1:
         replication_database_auth_iam_model = {
             'api_key': 'testString',
         }
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {
+            'api_key': 'testString',
+        }
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {
+            'iam': replication_database_auth_ibm_iam_model,
+        }
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {
             'basic': replication_database_auth_basic_model,
             'iam': replication_database_auth_iam_model,
+            'ibm': replication_database_auth_ibm_model,
         }
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {
@@ -1556,6 +1565,7 @@ class TestCloudantV1:
             'http_connections': 10,
             'owner': 'testString',
             'query_params': {'key1': 'testString'},
+            'request_compression': 'gzip',
             'retries_per_request': 3,
             'selector': {'_id': {'$regex': 'docid'}},
             'since_seq': '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU',
@@ -1642,10 +1652,19 @@ class TestCloudantV1:
         replication_database_auth_iam_model = {
             'api_key': 'testString',
         }
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {
+            'api_key': 'testString',
+        }
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {
+            'iam': replication_database_auth_ibm_iam_model,
+        }
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {
             'basic': replication_database_auth_basic_model,
             'iam': replication_database_auth_iam_model,
+            'ibm': replication_database_auth_ibm_model,
         }
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {
@@ -1681,6 +1700,7 @@ class TestCloudantV1:
             'http_connections': 10,
             'owner': 'testString',
             'query_params': {'key1': 'testString'},
+            'request_compression': 'gzip',
             'retries_per_request': 3,
             'selector': {'_id': {'$regex': 'docid'}},
             'since_seq': '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU',

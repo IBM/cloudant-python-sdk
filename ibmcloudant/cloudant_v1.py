@@ -12757,8 +12757,8 @@ class DesignDocumentViewIndex:
     :param str signature: MD5 signature of the views for the design document.
     :param ContentInformationSizes sizes: Schema for size information of content.
     :param bool updater_running: Indicates if the view is currently being updated.
-    :param UpdatesPending updates_pending: Schema for an ability to tell if view is
-          up-to-date without querying it.
+    :param UpdatesPending updates_pending: Schema for information about pending
+          updates for an index, calculated across all available copies of all shards.
     :param int waiting_clients: Number of clients waiting on views from this design
           document.
     :param bool waiting_commit: Indicates if there are outstanding commits to the
@@ -12791,8 +12791,8 @@ class DesignDocumentViewIndex:
                content.
         :param bool updater_running: Indicates if the view is currently being
                updated.
-        :param UpdatesPending updates_pending: Schema for an ability to tell if
-               view is up-to-date without querying it.
+        :param UpdatesPending updates_pending: Schema for information about pending
+               updates for an index, calculated across all available copies of all shards.
         :param int waiting_clients: Number of clients waiting on views from this
                design document.
         :param bool waiting_commit: Indicates if there are outstanding commits to
@@ -16222,8 +16222,10 @@ class ReplicationDatabaseAuth:
 
     :param ReplicationDatabaseAuthBasic basic: (optional) Schema for basic
           authentication of replication source or target database.
-    :param ReplicationDatabaseAuthIam iam: (optional) Schema for an IAM API key for
-          replication database authentication.
+    :param ReplicationDatabaseAuthIam iam: (optional) Deprecated: use the `ibm`
+          property instead to configure IAM for replication database authentication.
+    :param ReplicationDatabaseAuthIBM ibm: (optional) IBM IAM replication auth for
+          CouchDB or Cloudant.
     """
 
     def __init__(
@@ -16231,17 +16233,21 @@ class ReplicationDatabaseAuth:
         *,
         basic: Optional['ReplicationDatabaseAuthBasic'] = None,
         iam: Optional['ReplicationDatabaseAuthIam'] = None,
+        ibm: Optional['ReplicationDatabaseAuthIBM'] = None,
     ) -> None:
         """
         Initialize a ReplicationDatabaseAuth object.
 
         :param ReplicationDatabaseAuthBasic basic: (optional) Schema for basic
                authentication of replication source or target database.
-        :param ReplicationDatabaseAuthIam iam: (optional) Schema for an IAM API key
-               for replication database authentication.
+        :param ReplicationDatabaseAuthIam iam: (optional) Deprecated: use the `ibm`
+               property instead to configure IAM for replication database authentication.
+        :param ReplicationDatabaseAuthIBM ibm: (optional) IBM IAM replication auth
+               for CouchDB or Cloudant.
         """
         self.basic = basic
         self.iam = iam
+        self.ibm = ibm
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'ReplicationDatabaseAuth':
@@ -16251,6 +16257,8 @@ class ReplicationDatabaseAuth:
             args['basic'] = ReplicationDatabaseAuthBasic.from_dict(basic)
         if (iam := _dict.get('iam')) is not None:
             args['iam'] = ReplicationDatabaseAuthIam.from_dict(iam)
+        if (ibm := _dict.get('ibm')) is not None:
+            args['ibm'] = ReplicationDatabaseAuthIBM.from_dict(ibm)
         return cls(**args)
 
     @classmethod
@@ -16271,6 +16279,11 @@ class ReplicationDatabaseAuth:
                 _dict['iam'] = self.iam
             else:
                 _dict['iam'] = self.iam.to_dict()
+        if hasattr(self, 'ibm') and self.ibm is not None:
+            if isinstance(self.ibm, dict):
+                _dict['ibm'] = self.ibm
+            else:
+                _dict['ibm'] = self.ibm.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -16361,9 +16374,133 @@ class ReplicationDatabaseAuthBasic:
         return not self == other
 
 
+class ReplicationDatabaseAuthIBM:
+    """
+    IBM IAM replication auth for CouchDB or Cloudant.
+
+    :param ReplicationDatabaseAuthIBMIam iam: IAM API key for replication database
+          authentication.
+    """
+
+    def __init__(
+        self,
+        iam: 'ReplicationDatabaseAuthIBMIam',
+    ) -> None:
+        """
+        Initialize a ReplicationDatabaseAuthIBM object.
+
+        :param ReplicationDatabaseAuthIBMIam iam: IAM API key for replication
+               database authentication.
+        """
+        self.iam = iam
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ReplicationDatabaseAuthIBM':
+        """Initialize a ReplicationDatabaseAuthIBM object from a json dictionary."""
+        args = {}
+        if (iam := _dict.get('iam')) is not None:
+            args['iam'] = ReplicationDatabaseAuthIBMIam.from_dict(iam)
+        else:
+            raise ValueError('Required property \'iam\' not present in ReplicationDatabaseAuthIBM JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ReplicationDatabaseAuthIBM object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'iam') and self.iam is not None:
+            if isinstance(self.iam, dict):
+                _dict['iam'] = self.iam
+            else:
+                _dict['iam'] = self.iam.to_dict()
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ReplicationDatabaseAuthIBM object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ReplicationDatabaseAuthIBM') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ReplicationDatabaseAuthIBM') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class ReplicationDatabaseAuthIBMIam:
+    """
+    IAM API key for replication database authentication.
+
+    :param str api_key: IAM API key.
+    """
+
+    def __init__(
+        self,
+        api_key: str,
+    ) -> None:
+        """
+        Initialize a ReplicationDatabaseAuthIBMIam object.
+
+        :param str api_key: IAM API key.
+        """
+        self.api_key = api_key
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ReplicationDatabaseAuthIBMIam':
+        """Initialize a ReplicationDatabaseAuthIBMIam object from a json dictionary."""
+        args = {}
+        if (api_key := _dict.get('api_key')) is not None:
+            args['api_key'] = api_key
+        else:
+            raise ValueError('Required property \'api_key\' not present in ReplicationDatabaseAuthIBMIam JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ReplicationDatabaseAuthIBMIam object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'api_key') and self.api_key is not None:
+            _dict['api_key'] = self.api_key
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ReplicationDatabaseAuthIBMIam object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ReplicationDatabaseAuthIBMIam') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ReplicationDatabaseAuthIBMIam') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
 class ReplicationDatabaseAuthIam:
     """
-    Schema for an IAM API key for replication database authentication.
+    Deprecated: use the `ibm` property instead to configure IAM for replication database
+    authentication.
 
     :param str api_key: IAM API key.
     """
@@ -16464,6 +16601,11 @@ class ReplicationDocument:
           Only administrators can modify the value to an owner other than themselves.
     :param dict query_params: (optional) Schema for a map of string key value pairs,
           such as query parameters.
+    :param str request_compression: (optional) Specify whether to compress HTTP
+          request bodies during replication. Set to `gzip` to compress request bodies or
+          `none` to disable compression. Only use `gzip` if the remote server accepts
+          compressed requests. If unset, the default is determined by the server
+          administrator.
     :param int retries_per_request: (optional) Number of times a replication request
           is retried. The requests are retried with a doubling exponential backoff
           starting at 0.25 seconds, with a cap at 5 minutes.
@@ -16542,7 +16684,7 @@ class ReplicationDocument:
     """
 
     # The set of defined properties for the class
-    _properties = frozenset(['_attachments', '_conflicts', '_deleted', '_deleted_conflicts', '_id', '_local_seq', '_rev', '_revisions', '_revs_info', 'cancel', 'checkpoint_interval', 'connection_timeout', 'continuous', 'create_target', 'create_target_params', 'doc_ids', 'filter', 'http_connections', 'owner', 'query_params', 'retries_per_request', 'selector', 'since_seq', 'socket_options', 'source', 'source_proxy', 'target', 'target_proxy', 'use_bulk_get', 'use_checkpoints', 'user_ctx', 'winning_revs_only', 'worker_batch_size', 'worker_processes'])
+    _properties = frozenset(['_attachments', '_conflicts', '_deleted', '_deleted_conflicts', '_id', '_local_seq', '_rev', '_revisions', '_revs_info', 'cancel', 'checkpoint_interval', 'connection_timeout', 'continuous', 'create_target', 'create_target_params', 'doc_ids', 'filter', 'http_connections', 'owner', 'query_params', 'request_compression', 'retries_per_request', 'selector', 'since_seq', 'socket_options', 'source', 'source_proxy', 'target', 'target_proxy', 'use_bulk_get', 'use_checkpoints', 'user_ctx', 'winning_revs_only', 'worker_batch_size', 'worker_processes'])
 
     def __init__(
         self,
@@ -16569,6 +16711,7 @@ class ReplicationDocument:
         http_connections: Optional[int] = None,
         owner: Optional[str] = None,
         query_params: Optional[dict] = None,
+        request_compression: Optional[str] = None,
         retries_per_request: Optional[int] = None,
         selector: Optional[dict] = None,
         since_seq: Optional[str] = None,
@@ -16632,6 +16775,11 @@ class ReplicationDocument:
                themselves.
         :param dict query_params: (optional) Schema for a map of string key value
                pairs, such as query parameters.
+        :param str request_compression: (optional) Specify whether to compress HTTP
+               request bodies during replication. Set to `gzip` to compress request bodies
+               or `none` to disable compression. Only use `gzip` if the remote server
+               accepts compressed requests. If unset, the default is determined by the
+               server administrator.
         :param int retries_per_request: (optional) Number of times a replication
                request is retried. The requests are retried with a doubling exponential
                backoff starting at 0.25 seconds, with a cap at 5 minutes.
@@ -16726,6 +16874,7 @@ class ReplicationDocument:
         self.http_connections = http_connections
         self.owner = owner
         self.query_params = query_params
+        self.request_compression = request_compression
         self.retries_per_request = retries_per_request
         self.selector = selector
         self.since_seq = since_seq
@@ -16792,6 +16941,8 @@ class ReplicationDocument:
             args['owner'] = owner
         if (query_params := _dict.get('query_params')) is not None:
             args['query_params'] = query_params
+        if (request_compression := _dict.get('request_compression')) is not None:
+            args['request_compression'] = request_compression
         if (retries_per_request := _dict.get('retries_per_request')) is not None:
             args['retries_per_request'] = retries_per_request
         if (selector := _dict.get('selector')) is not None:
@@ -16897,6 +17048,8 @@ class ReplicationDocument:
             _dict['owner'] = self.owner
         if hasattr(self, 'query_params') and self.query_params is not None:
             _dict['query_params'] = self.query_params
+        if hasattr(self, 'request_compression') and self.request_compression is not None:
+            _dict['request_compression'] = self.request_compression
         if hasattr(self, 'retries_per_request') and self.retries_per_request is not None:
             _dict['retries_per_request'] = self.retries_per_request
         if hasattr(self, 'selector') and self.selector is not None:
@@ -16974,6 +17127,18 @@ class ReplicationDocument:
     def __ne__(self, other: 'ReplicationDocument') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
+
+    class RequestCompressionEnum(str, Enum):
+        """
+        Specify whether to compress HTTP request bodies during replication. Set to `gzip`
+        to compress request bodies or `none` to disable compression. Only use `gzip` if
+        the remote server accepts compressed requests. If unset, the default is determined
+        by the server administrator.
+        """
+
+        NONE = 'none'
+        GZIP = 'gzip'
+
 
 
 class Revisions:
@@ -18193,6 +18358,9 @@ class SearchIndexInfo:
     :param int doc_del_count: The number of deleted documents.
     :param int pending_seq: The pending sequence identifier.
     :param str signature: Unique signature of the search index.
+    :param UpdatesPending updates_pending: (optional) Schema for information about
+          pending updates for an index, calculated across all available copies of all
+          shards.
     """
 
     def __init__(
@@ -18203,6 +18371,8 @@ class SearchIndexInfo:
         doc_del_count: int,
         pending_seq: int,
         signature: str,
+        *,
+        updates_pending: Optional['UpdatesPending'] = None,
     ) -> None:
         """
         Initialize a SearchIndexInfo object.
@@ -18213,6 +18383,9 @@ class SearchIndexInfo:
         :param int doc_del_count: The number of deleted documents.
         :param int pending_seq: The pending sequence identifier.
         :param str signature: Unique signature of the search index.
+        :param UpdatesPending updates_pending: (optional) Schema for information
+               about pending updates for an index, calculated across all available copies
+               of all shards.
         """
         self.committed_seq = committed_seq
         self.disk_size = disk_size
@@ -18220,6 +18393,7 @@ class SearchIndexInfo:
         self.doc_del_count = doc_del_count
         self.pending_seq = pending_seq
         self.signature = signature
+        self.updates_pending = updates_pending
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'SearchIndexInfo':
@@ -18249,6 +18423,8 @@ class SearchIndexInfo:
             args['signature'] = signature
         else:
             raise ValueError('Required property \'signature\' not present in SearchIndexInfo JSON')
+        if (updates_pending := _dict.get('updates_pending')) is not None:
+            args['updates_pending'] = UpdatesPending.from_dict(updates_pending)
         return cls(**args)
 
     @classmethod
@@ -18271,6 +18447,11 @@ class SearchIndexInfo:
             _dict['pending_seq'] = self.pending_seq
         if hasattr(self, 'signature') and self.signature is not None:
             _dict['signature'] = self.signature
+        if hasattr(self, 'updates_pending') and self.updates_pending is not None:
+            if isinstance(self.updates_pending, dict):
+                _dict['updates_pending'] = self.updates_pending
+            else:
+                _dict['updates_pending'] = self.updates_pending.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -19617,13 +19798,23 @@ class UpInformation:
 
 class UpdatesPending:
     """
-    Schema for an ability to tell if view is up-to-date without querying it.
+    Schema for information about pending updates for an index, calculated across all
+    available copies of all shards.
 
-    :param int minimum: Sum of shard copies with the least amount of work to do.
-    :param int preferred: Sum of unique shards. This value is zero when at least one
-          copy of every shard range is up-to-date and the view is able to answer a query
-          without index building delays.
-    :param int total: Sum of all shard copies.
+    :param int copies: (optional) The number of shard copies that reported an
+          answer. Copies that are unreachable or in maintenance mode are not included.
+          Compare with the `copies_expected` value.
+    :param int copies_expected: (optional) The expected number of shard copy
+          responses. If `copies` is less than this value, the results might be partial and
+          `maximum` might not represent the true backlog.
+    :param int maximum: (optional) The backlog of the least up-to-date copy of each
+          shard range. A value of `0` means the index is fully built on every copy.
+    :param int minimum: The backlog of the most up-to-date copy of each shard range.
+          A value of `0` means that at least one complete copy exists for every shard
+          range.
+    :param int preferred: The backlog of the preferred shard copies, which are the
+          copies that queries are routed to by default.
+    :param int total: The total backlog across all shard copies.
     """
 
     def __init__(
@@ -19631,17 +19822,33 @@ class UpdatesPending:
         minimum: int,
         preferred: int,
         total: int,
+        *,
+        copies: Optional[int] = None,
+        copies_expected: Optional[int] = None,
+        maximum: Optional[int] = None,
     ) -> None:
         """
         Initialize a UpdatesPending object.
 
-        :param int minimum: Sum of shard copies with the least amount of work to
-               do.
-        :param int preferred: Sum of unique shards. This value is zero when at
-               least one copy of every shard range is up-to-date and the view is able to
-               answer a query without index building delays.
-        :param int total: Sum of all shard copies.
+        :param int minimum: The backlog of the most up-to-date copy of each shard
+               range. A value of `0` means that at least one complete copy exists for
+               every shard range.
+        :param int preferred: The backlog of the preferred shard copies, which are
+               the copies that queries are routed to by default.
+        :param int total: The total backlog across all shard copies.
+        :param int copies: (optional) The number of shard copies that reported an
+               answer. Copies that are unreachable or in maintenance mode are not
+               included. Compare with the `copies_expected` value.
+        :param int copies_expected: (optional) The expected number of shard copy
+               responses. If `copies` is less than this value, the results might be
+               partial and `maximum` might not represent the true backlog.
+        :param int maximum: (optional) The backlog of the least up-to-date copy of
+               each shard range. A value of `0` means the index is fully built on every
+               copy.
         """
+        self.copies = copies
+        self.copies_expected = copies_expected
+        self.maximum = maximum
         self.minimum = minimum
         self.preferred = preferred
         self.total = total
@@ -19650,6 +19857,12 @@ class UpdatesPending:
     def from_dict(cls, _dict: Dict) -> 'UpdatesPending':
         """Initialize a UpdatesPending object from a json dictionary."""
         args = {}
+        if (copies := _dict.get('copies')) is not None:
+            args['copies'] = copies
+        if (copies_expected := _dict.get('copies_expected')) is not None:
+            args['copies_expected'] = copies_expected
+        if (maximum := _dict.get('maximum')) is not None:
+            args['maximum'] = maximum
         if (minimum := _dict.get('minimum')) is not None:
             args['minimum'] = minimum
         else:
@@ -19672,6 +19885,12 @@ class UpdatesPending:
     def to_dict(self) -> Dict:
         """Return a json dictionary representing this model."""
         _dict = {}
+        if hasattr(self, 'copies') and self.copies is not None:
+            _dict['copies'] = self.copies
+        if hasattr(self, 'copies_expected') and self.copies_expected is not None:
+            _dict['copies_expected'] = self.copies_expected
+        if hasattr(self, 'maximum') and self.maximum is not None:
+            _dict['maximum'] = self.maximum
         if hasattr(self, 'minimum') and self.minimum is not None:
             _dict['minimum'] = self.minimum
         if hasattr(self, 'preferred') and self.preferred is not None:
