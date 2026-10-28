@@ -34,6 +34,13 @@ pipeline {
         }
       }
     }
+
+    stage('Build') {
+      steps {
+        buildSdk()
+      }
+    }
+
     stage('QA') {
       steps {
         withEnv(['DOCKER_HOST=',
@@ -86,6 +93,12 @@ pipeline {
       }
       steps {
         scanCode()
+      }
+    }
+
+    stage('Package') {
+      steps {
+        packageArtifacts()
       }
     }
 
@@ -309,7 +322,9 @@ void defaultInit() {
 
 // Language specific implementations of the methods:
 // applyCustomizations()
+// buildSdk()
 // runTests()
+// packageArtifacts()
 // publishStaging()
 // publishPublic()
 // publishDocs()
@@ -328,13 +343,25 @@ void applyCustomizations() {
   }
 }
 
-void runTests() {
+void buildSdk() {
   sh '''
     export PIP_INDEX_URL=https://${ARTIFACTORY_CREDS_USR}:${ARTIFACTORY_CREDS_PSW}@${ARTIFACTORY_URL_DOWN##'https://'}/api/pypi/cloudant-sdks-pypi-virtual/simple
     pip install -r requirements-dev.txt && flit install --only-deps
+  '''
+}
+
+void runTests() {
+  sh '''
     pylint --rcfile=.pylintrc ibmcloudant
     python3 -m pytest --junitxml=junitreports/junit-pytest.xml --cov=ibmcloudant
   '''
+}
+
+void packageArtifacts() {
+  dir('dist') {
+    deleteDir()
+  }
+  sh 'flit build'
 }
 
 void publishStaging() {
