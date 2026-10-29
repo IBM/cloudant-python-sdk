@@ -5232,7 +5232,7 @@ class TestGetDesignDocumentInformation:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_info')
-        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 0, "external": 0, "file": 0}, "updater_running": false, "updates_pending": {"minimum": 0, "preferred": 0, "total": 0}, "waiting_clients": 0, "waiting_commit": true}}'
+        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 0, "external": 0, "file": 0}, "updater_running": false, "updates_pending": {"copies": 0, "copies_expected": 0, "maximum": 0, "minimum": 0, "preferred": 0, "total": 0}, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(
             responses.GET,
             url,
@@ -5272,7 +5272,7 @@ class TestGetDesignDocumentInformation:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_info')
-        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 0, "external": 0, "file": 0}, "updater_running": false, "updates_pending": {"minimum": 0, "preferred": 0, "total": 0}, "waiting_clients": 0, "waiting_commit": true}}'
+        mock_response = '{"name": "name", "view_index": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 0, "external": 0, "file": 0}, "updater_running": false, "updates_pending": {"copies": 0, "copies_expected": 0, "maximum": 0, "minimum": 0, "preferred": 0, "total": 0}, "waiting_clients": 0, "waiting_commit": true}}'
         responses.add(
             responses.GET,
             url,
@@ -5636,6 +5636,577 @@ class TestPostDesignDocsQueries:
 # endregion
 ##############################################################################
 # End of Service: DesignDocuments
+##############################################################################
+
+##############################################################################
+# Start of Service: Monitoring
+##############################################################################
+# region
+
+
+class TestNewInstance:
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = CloudantV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, CloudantV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = CloudantV1.new_instance(
+                service_name='TEST_SERVICE_NOT_FOUND',
+            )
+
+
+class TestHeadUpInformation:
+    """
+    Test Class for head_up_information
+    """
+
+    @responses.activate
+    def test_head_up_information_all_params(self):
+        """
+        head_up_information()
+        """
+        # Set up mock
+        url = preprocess_url('/_up')
+        responses.add(
+            responses.HEAD,
+            url,
+            status=200,
+        )
+
+        # Invoke method
+        response = _service.head_up_information()
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_head_up_information_all_params_with_retries(self):
+        # Enable retries and run test_head_up_information_all_params.
+        _service.enable_retries()
+        self.test_head_up_information_all_params()
+
+        # Disable retries and run test_head_up_information_all_params.
+        _service.disable_retries()
+        self.test_head_up_information_all_params()
+
+
+class TestGetActiveTasks:
+    """
+    Test Class for get_active_tasks
+    """
+
+    @responses.activate
+    def test_get_active_tasks_all_params(self):
+        """
+        get_active_tasks()
+        """
+        # Set up mock
+        url = preprocess_url('/_active_tasks')
+        mock_response = '[{"bulk_get_attempts": 0, "bulk_get_docs": 0, "changes_done": 0, "changes_pending": 0, "checkpoint_interval": 30000, "checkpointed_source_seq": "checkpointed_source_seq", "continuous": false, "database": "database", "design_document": "design_document", "doc_id": "doc_id", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "index": "index", "indexer_pid": "indexer_pid", "missing_revisions_found": 0, "node": "node", "phase": "docid_sort", "pid": "pid", "process_status": "exiting", "progress": 0, "replication_id": "replication_id", "retry": false, "revisions_checked": 0, "source": "source", "source_seq": "source_seq", "started_on": 0, "target": "target", "through_seq": "through_seq", "total_changes": 0, "type": "database_compaction", "updated_on": 0, "user": "user", "view": 0}]'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Invoke method
+        response = _service.get_active_tasks()
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_active_tasks_all_params_with_retries(self):
+        # Enable retries and run test_get_active_tasks_all_params.
+        _service.enable_retries()
+        self.test_get_active_tasks_all_params()
+
+        # Disable retries and run test_get_active_tasks_all_params.
+        _service.disable_retries()
+        self.test_get_active_tasks_all_params()
+
+
+class TestGetActivityTrackerEvents:
+    """
+    Test Class for get_activity_tracker_events
+    """
+
+    @responses.activate
+    def test_get_activity_tracker_events_all_params(self):
+        """
+        get_activity_tracker_events()
+        """
+        # Set up mock
+        url = preprocess_url('/_api/v2/user/activity_tracker/events')
+        mock_response = '{"types": ["management"]}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Invoke method
+        response = _service.get_activity_tracker_events()
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_activity_tracker_events_all_params_with_retries(self):
+        # Enable retries and run test_get_activity_tracker_events_all_params.
+        _service.enable_retries()
+        self.test_get_activity_tracker_events_all_params()
+
+        # Disable retries and run test_get_activity_tracker_events_all_params.
+        _service.disable_retries()
+        self.test_get_activity_tracker_events_all_params()
+
+
+class TestPostActivityTrackerEvents:
+    """
+    Test Class for post_activity_tracker_events
+    """
+
+    @responses.activate
+    def test_post_activity_tracker_events_all_params(self):
+        """
+        post_activity_tracker_events()
+        """
+        # Set up mock
+        url = preprocess_url('/_api/v2/user/activity_tracker/events')
+        mock_response = '{"ok": true}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        types = ['management', 'data']
+
+        # Invoke method
+        response = _service.post_activity_tracker_events(
+            types,
+            headers={},
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['types'] == ['management', 'data']
+
+    def test_post_activity_tracker_events_all_params_with_retries(self):
+        # Enable retries and run test_post_activity_tracker_events_all_params.
+        _service.enable_retries()
+        self.test_post_activity_tracker_events_all_params()
+
+        # Disable retries and run test_post_activity_tracker_events_all_params.
+        _service.disable_retries()
+        self.test_post_activity_tracker_events_all_params()
+
+    @responses.activate
+    def test_post_activity_tracker_events_value_error(self):
+        """
+        test_post_activity_tracker_events_value_error()
+        """
+        # Set up mock
+        url = preprocess_url('/_api/v2/user/activity_tracker/events')
+        mock_response = '{"ok": true}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        types = ['management', 'data']
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "types": types,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key: val if key is not param else None for (key, val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                _service.post_activity_tracker_events(**req_copy)
+
+    def test_post_activity_tracker_events_value_error_with_retries(self):
+        # Enable retries and run test_post_activity_tracker_events_value_error.
+        _service.enable_retries()
+        self.test_post_activity_tracker_events_value_error()
+
+        # Disable retries and run test_post_activity_tracker_events_value_error.
+        _service.disable_retries()
+        self.test_post_activity_tracker_events_value_error()
+
+
+class TestGetCapacityDatabasesInformation:
+    """
+    Test Class for get_capacity_databases_information
+    """
+
+    @responses.activate
+    def test_get_capacity_databases_information_all_params(self):
+        """
+        get_capacity_databases_information()
+        """
+        # Set up mock
+        url = preprocess_url('/_api/v2/user/capacity/databases')
+        mock_response = '{"current": {"databases": {"total": 0}}}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Invoke method
+        response = _service.get_capacity_databases_information()
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_capacity_databases_information_all_params_with_retries(self):
+        # Enable retries and run test_get_capacity_databases_information_all_params.
+        _service.enable_retries()
+        self.test_get_capacity_databases_information_all_params()
+
+        # Disable retries and run test_get_capacity_databases_information_all_params.
+        _service.disable_retries()
+        self.test_get_capacity_databases_information_all_params()
+
+
+class TestGetCurrentDatabasesInformation:
+    """
+    Test Class for get_current_databases_information
+    """
+
+    @responses.activate
+    def test_get_current_databases_information_all_params(self):
+        """
+        get_current_databases_information()
+        """
+        # Set up mock
+        url = preprocess_url('/_api/v2/user/current/databases')
+        mock_response = '{"databases": {"total": 0}}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Invoke method
+        response = _service.get_current_databases_information()
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_current_databases_information_all_params_with_retries(self):
+        # Enable retries and run test_get_current_databases_information_all_params.
+        _service.enable_retries()
+        self.test_get_current_databases_information_all_params()
+
+        # Disable retries and run test_get_current_databases_information_all_params.
+        _service.disable_retries()
+        self.test_get_current_databases_information_all_params()
+
+
+class TestGetCurrentThroughputInformation:
+    """
+    Test Class for get_current_throughput_information
+    """
+
+    @responses.activate
+    def test_get_current_throughput_information_all_params(self):
+        """
+        get_current_throughput_information()
+        """
+        # Set up mock
+        url = preprocess_url('/_api/v2/user/current/throughput')
+        mock_response = '{"throughput": {"query": 0, "read": 0, "write": 0}}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Invoke method
+        response = _service.get_current_throughput_information()
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_current_throughput_information_all_params_with_retries(self):
+        # Enable retries and run test_get_current_throughput_information_all_params.
+        _service.enable_retries()
+        self.test_get_current_throughput_information_all_params()
+
+        # Disable retries and run test_get_current_throughput_information_all_params.
+        _service.disable_retries()
+        self.test_get_current_throughput_information_all_params()
+
+
+class TestGetMembershipInformation:
+    """
+    Test Class for get_membership_information
+    """
+
+    @responses.activate
+    def test_get_membership_information_all_params(self):
+        """
+        get_membership_information()
+        """
+        # Set up mock
+        url = preprocess_url('/_membership')
+        mock_response = '{"all_nodes": ["all_nodes"], "cluster_nodes": ["cluster_nodes"]}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Invoke method
+        response = _service.get_membership_information()
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_membership_information_all_params_with_retries(self):
+        # Enable retries and run test_get_membership_information_all_params.
+        _service.enable_retries()
+        self.test_get_membership_information_all_params()
+
+        # Disable retries and run test_get_membership_information_all_params.
+        _service.disable_retries()
+        self.test_get_membership_information_all_params()
+
+
+class TestGetUpInformation:
+    """
+    Test Class for get_up_information
+    """
+
+    @responses.activate
+    def test_get_up_information_all_params(self):
+        """
+        get_up_information()
+        """
+        # Set up mock
+        url = preprocess_url('/_up')
+        mock_response = '{"cluster": "cluster", "seeds": {"anyKey": "anyValue"}, "status": "maintenance_mode"}'
+        responses.add(
+            responses.GET,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Invoke method
+        response = _service.get_up_information()
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_up_information_all_params_with_retries(self):
+        # Enable retries and run test_get_up_information_all_params.
+        _service.enable_retries()
+        self.test_get_up_information_all_params()
+
+        # Disable retries and run test_get_up_information_all_params.
+        _service.disable_retries()
+        self.test_get_up_information_all_params()
+
+
+class TestPostIndexInfo:
+    """
+    Test Class for post_index_info
+    """
+
+    @responses.activate
+    def test_post_index_info_all_params(self):
+        """
+        post_index_info()
+        """
+        # Set up mock
+        url = preprocess_url('/testString/_index_info')
+        mock_response = '{"bookmark": "bookmark", "search_indexes": [{"ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "ddoc": "ddoc", "info": {"committed_seq": 0, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 0, "signature": "signature", "updates_pending": {"copies": 0, "copies_expected": 0, "maximum": 0, "minimum": 0, "preferred": 0, "total": 0}}, "name": "name"}], "total_rows": 0, "view_indexes": [{"ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "ddoc": "ddoc", "info": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 0, "external": 0, "file": 0}, "updater_running": false, "updates_pending": {"copies": 0, "copies_expected": 0, "maximum": 0, "minimum": 0, "preferred": 0, "total": 0}, "waiting_clients": 0, "waiting_commit": true}, "views": ["views"]}]}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        db = 'testString'
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = False
+        end_key = 'testString'
+        key = 'testString'
+        keys = ['_design/cookbook']
+        start_key = 'testString'
+        type = ['search']
+
+        # Invoke method
+        response = _service.post_index_info(
+            db,
+            att_encoding_info=att_encoding_info,
+            attachments=attachments,
+            conflicts=conflicts,
+            descending=descending,
+            include_docs=include_docs,
+            inclusive_end=inclusive_end,
+            limit=limit,
+            skip=skip,
+            update_seq=update_seq,
+            end_key=end_key,
+            key=key,
+            keys=keys,
+            start_key=start_key,
+            type=type,
+            headers={},
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # Decompress gzip compressed request body.
+        raw_body = responses.calls[0].request.body
+        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
+
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['att_encoding_info'] == False
+        assert req_body['attachments'] == False
+        assert req_body['conflicts'] == False
+        assert req_body['descending'] == False
+        assert req_body['include_docs'] == False
+        assert req_body['inclusive_end'] == True
+        assert req_body['limit'] == 0
+        assert req_body['skip'] == 0
+        assert req_body['update_seq'] == False
+        assert req_body['end_key'] == 'testString'
+        assert req_body['key'] == 'testString'
+        assert req_body['keys'] == ['_design/cookbook']
+        assert req_body['start_key'] == 'testString'
+        assert req_body['type'] == ['search']
+
+    def test_post_index_info_all_params_with_retries(self):
+        # Enable retries and run test_post_index_info_all_params.
+        _service.enable_retries()
+        self.test_post_index_info_all_params()
+
+        # Disable retries and run test_post_index_info_all_params.
+        _service.disable_retries()
+        self.test_post_index_info_all_params()
+
+    @responses.activate
+    def test_post_index_info_value_error(self):
+        """
+        test_post_index_info_value_error()
+        """
+        # Set up mock
+        url = preprocess_url('/testString/_index_info')
+        mock_response = '{"bookmark": "bookmark", "search_indexes": [{"ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "ddoc": "ddoc", "info": {"committed_seq": 0, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 0, "signature": "signature", "updates_pending": {"copies": 0, "copies_expected": 0, "maximum": 0, "minimum": 0, "preferred": 0, "total": 0}}, "name": "name"}], "total_rows": 0, "view_indexes": [{"ok": true, "caused_by": "caused_by", "error": "error", "reason": "reason", "ref": 0, "ddoc": "ddoc", "info": {"collator_versions": ["collator_versions"], "compact_running": false, "language": "language", "signature": "signature", "sizes": {"active": 0, "external": 0, "file": 0}, "updater_running": false, "updates_pending": {"copies": 0, "copies_expected": 0, "maximum": 0, "minimum": 0, "preferred": 0, "total": 0}, "waiting_clients": 0, "waiting_commit": true}, "views": ["views"]}]}'
+        responses.add(
+            responses.POST,
+            url,
+            body=mock_response,
+            content_type='application/json',
+            status=200,
+        )
+
+        # Set up parameter values
+        db = 'testString'
+        att_encoding_info = False
+        attachments = False
+        conflicts = False
+        descending = False
+        include_docs = False
+        inclusive_end = True
+        limit = 0
+        skip = 0
+        update_seq = False
+        end_key = 'testString'
+        key = 'testString'
+        keys = ['_design/cookbook']
+        start_key = 'testString'
+        type = ['search']
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "db": db,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key: val if key is not param else None for (key, val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                _service.post_index_info(**req_copy)
+
+    def test_post_index_info_value_error_with_retries(self):
+        # Enable retries and run test_post_index_info_value_error.
+        _service.enable_retries()
+        self.test_post_index_info_value_error()
+
+        # Disable retries and run test_post_index_info_value_error.
+        _service.disable_retries()
+        self.test_post_index_info_value_error()
+
+
+# endregion
+##############################################################################
+# End of Service: Monitoring
 ##############################################################################
 
 ##############################################################################
@@ -9196,7 +9767,7 @@ class TestGetSearchInfo:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_search_info/testString')
-        mock_response = '{"name": "name", "search_index": {"committed_seq": 0, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 0, "signature": "signature"}}'
+        mock_response = '{"name": "name", "search_index": {"committed_seq": 0, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 0, "signature": "signature", "updates_pending": {"copies": 0, "copies_expected": 0, "maximum": 0, "minimum": 0, "preferred": 0, "total": 0}}}'
         responses.add(
             responses.GET,
             url,
@@ -9238,7 +9809,7 @@ class TestGetSearchInfo:
         """
         # Set up mock
         url = preprocess_url('/testString/_design/testString/_search_info/testString')
-        mock_response = '{"name": "name", "search_index": {"committed_seq": 0, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 0, "signature": "signature"}}'
+        mock_response = '{"name": "name", "search_index": {"committed_seq": 0, "disk_size": 0, "doc_count": 0, "doc_del_count": 0, "pending_seq": 0, "signature": "signature", "updates_pending": {"copies": 0, "copies_expected": 0, "maximum": 0, "minimum": 0, "preferred": 0, "total": 0}}}'
         responses.add(
             responses.GET,
             url,
@@ -9632,10 +10203,19 @@ class TestPostReplicator:
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {}
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {}
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
@@ -9671,6 +10251,7 @@ class TestPostReplicator:
         replication_document_model['http_connections'] = 10
         replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['request_compression'] = 'gzip'
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
         replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
@@ -9775,10 +10356,19 @@ class TestPostReplicator:
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {}
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {}
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
@@ -9814,6 +10404,7 @@ class TestPostReplicator:
         replication_document_model['http_connections'] = 10
         replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['request_compression'] = 'gzip'
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
         replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
@@ -9912,10 +10503,19 @@ class TestPostReplicator:
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {}
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {}
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
@@ -9951,6 +10551,7 @@ class TestPostReplicator:
         replication_document_model['http_connections'] = 10
         replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['request_compression'] = 'gzip'
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
         replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
@@ -10131,7 +10732,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "request_compression": "none", "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}, "ibm": {"iam": {"api_key": "api_key"}}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}, "ibm": {"iam": {"api_key": "api_key"}}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -10204,7 +10805,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "request_compression": "none", "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}, "ibm": {"iam": {"api_key": "api_key"}}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}, "ibm": {"iam": {"api_key": "api_key"}}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -10242,7 +10843,7 @@ class TestGetReplicationDocument:
         """
         # Set up mock
         url = preprocess_url('/_replicator/testString')
-        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
+        mock_response = '{"_attachments": {"mapKey": {"content_type": "content_type", "data": "VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=", "digest": "digest", "encoded_length": 0, "encoding": "encoding", "follows": false, "length": 0, "revpos": 1, "stub": true}}, "_conflicts": ["conflicts"], "_deleted": true, "_deleted_conflicts": ["deleted_conflicts"], "_id": "_id", "_local_seq": "_local_seq", "_rev": "_rev", "_revisions": {"ids": ["ids"], "start": 1}, "_revs_info": [{"rev": "rev", "status": "available"}], "cancel": true, "checkpoint_interval": 30000, "connection_timeout": 30000, "continuous": false, "create_target": false, "create_target_params": {"n": 3, "partitioned": false, "q": 16}, "doc_ids": ["doc_ids"], "filter": "filter", "http_connections": 20, "owner": "owner", "query_params": {"mapKey": "inner"}, "request_compression": "none", "retries_per_request": 5, "selector": {"anyKey": "anyValue"}, "since_seq": "since_seq", "socket_options": "socket_options", "source": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}, "ibm": {"iam": {"api_key": "api_key"}}}, "headers": {"mapKey": "inner"}, "url": "url"}, "source_proxy": "source_proxy", "target": {"auth": {"basic": {"password": "password", "username": "username"}, "iam": {"api_key": "api_key"}, "ibm": {"iam": {"api_key": "api_key"}}}, "headers": {"mapKey": "inner"}, "url": "url"}, "target_proxy": "target_proxy", "use_bulk_get": true, "use_checkpoints": true, "user_ctx": {"db": "db", "name": "name", "roles": ["_reader"]}, "winning_revs_only": false, "worker_batch_size": 500, "worker_processes": 4}'
         responses.add(
             responses.GET,
             url,
@@ -10331,10 +10932,19 @@ class TestPutReplicationDocument:
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {}
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {}
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
@@ -10370,6 +10980,7 @@ class TestPutReplicationDocument:
         replication_document_model['http_connections'] = 10
         replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['request_compression'] = 'gzip'
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
         replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
@@ -10484,10 +11095,19 @@ class TestPutReplicationDocument:
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {}
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {}
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
@@ -10523,6 +11143,7 @@ class TestPutReplicationDocument:
         replication_document_model['http_connections'] = 10
         replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['request_compression'] = 'gzip'
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
         replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
@@ -10623,10 +11244,19 @@ class TestPutReplicationDocument:
         replication_database_auth_iam_model = {}
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {}
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {}
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {}
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {}
@@ -10662,6 +11292,7 @@ class TestPutReplicationDocument:
         replication_document_model['http_connections'] = 10
         replication_document_model['owner'] = 'testString'
         replication_document_model['query_params'] = {'key1': 'testString'}
+        replication_document_model['request_compression'] = 'gzip'
         replication_document_model['retries_per_request'] = 3
         replication_document_model['selector'] = {'_id': {'$regex': 'docid'}}
         replication_document_model['since_seq'] = '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU'
@@ -13297,434 +13928,6 @@ class TestGetDocumentShardsInfo:
 # End of Service: DatabaseDetails
 ##############################################################################
 
-##############################################################################
-# Start of Service: Monitoring
-##############################################################################
-# region
-
-
-class TestNewInstance:
-    """
-    Test Class for new_instance
-    """
-
-    def test_new_instance(self):
-        """
-        new_instance()
-        """
-        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
-
-        service = CloudantV1.new_instance(
-            service_name='TEST_SERVICE',
-        )
-
-        assert service is not None
-        assert isinstance(service, CloudantV1)
-
-    def test_new_instance_without_authenticator(self):
-        """
-        new_instance_without_authenticator()
-        """
-        with pytest.raises(ValueError, match='authenticator must be provided'):
-            service = CloudantV1.new_instance(
-                service_name='TEST_SERVICE_NOT_FOUND',
-            )
-
-
-class TestHeadUpInformation:
-    """
-    Test Class for head_up_information
-    """
-
-    @responses.activate
-    def test_head_up_information_all_params(self):
-        """
-        head_up_information()
-        """
-        # Set up mock
-        url = preprocess_url('/_up')
-        responses.add(
-            responses.HEAD,
-            url,
-            status=200,
-        )
-
-        # Invoke method
-        response = _service.head_up_information()
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_head_up_information_all_params_with_retries(self):
-        # Enable retries and run test_head_up_information_all_params.
-        _service.enable_retries()
-        self.test_head_up_information_all_params()
-
-        # Disable retries and run test_head_up_information_all_params.
-        _service.disable_retries()
-        self.test_head_up_information_all_params()
-
-
-class TestGetActiveTasks:
-    """
-    Test Class for get_active_tasks
-    """
-
-    @responses.activate
-    def test_get_active_tasks_all_params(self):
-        """
-        get_active_tasks()
-        """
-        # Set up mock
-        url = preprocess_url('/_active_tasks')
-        mock_response = '[{"bulk_get_attempts": 0, "bulk_get_docs": 0, "changes_done": 0, "changes_pending": 0, "checkpoint_interval": 30000, "checkpointed_source_seq": "checkpointed_source_seq", "continuous": false, "database": "database", "design_document": "design_document", "doc_id": "doc_id", "doc_write_failures": 0, "docs_read": 0, "docs_written": 0, "index": "index", "indexer_pid": "indexer_pid", "missing_revisions_found": 0, "node": "node", "phase": "docid_sort", "pid": "pid", "process_status": "exiting", "progress": 0, "replication_id": "replication_id", "retry": false, "revisions_checked": 0, "source": "source", "source_seq": "source_seq", "started_on": 0, "target": "target", "through_seq": "through_seq", "total_changes": 0, "type": "database_compaction", "updated_on": 0, "user": "user", "view": 0}]'
-        responses.add(
-            responses.GET,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Invoke method
-        response = _service.get_active_tasks()
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_get_active_tasks_all_params_with_retries(self):
-        # Enable retries and run test_get_active_tasks_all_params.
-        _service.enable_retries()
-        self.test_get_active_tasks_all_params()
-
-        # Disable retries and run test_get_active_tasks_all_params.
-        _service.disable_retries()
-        self.test_get_active_tasks_all_params()
-
-
-class TestGetActivityTrackerEvents:
-    """
-    Test Class for get_activity_tracker_events
-    """
-
-    @responses.activate
-    def test_get_activity_tracker_events_all_params(self):
-        """
-        get_activity_tracker_events()
-        """
-        # Set up mock
-        url = preprocess_url('/_api/v2/user/activity_tracker/events')
-        mock_response = '{"types": ["management"]}'
-        responses.add(
-            responses.GET,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Invoke method
-        response = _service.get_activity_tracker_events()
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_get_activity_tracker_events_all_params_with_retries(self):
-        # Enable retries and run test_get_activity_tracker_events_all_params.
-        _service.enable_retries()
-        self.test_get_activity_tracker_events_all_params()
-
-        # Disable retries and run test_get_activity_tracker_events_all_params.
-        _service.disable_retries()
-        self.test_get_activity_tracker_events_all_params()
-
-
-class TestPostActivityTrackerEvents:
-    """
-    Test Class for post_activity_tracker_events
-    """
-
-    @responses.activate
-    def test_post_activity_tracker_events_all_params(self):
-        """
-        post_activity_tracker_events()
-        """
-        # Set up mock
-        url = preprocess_url('/_api/v2/user/activity_tracker/events')
-        mock_response = '{"ok": true}'
-        responses.add(
-            responses.POST,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Set up parameter values
-        types = ['management', 'data']
-
-        # Invoke method
-        response = _service.post_activity_tracker_events(
-            types,
-            headers={},
-        )
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-        # Decompress gzip compressed request body.
-        raw_body = responses.calls[0].request.body
-        responses.calls[0].request.body = gzip.decompress(raw_body.read() if isinstance(raw_body, io.IOBase) else raw_body)
-
-        # Validate body params
-        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
-        assert req_body['types'] == ['management', 'data']
-
-    def test_post_activity_tracker_events_all_params_with_retries(self):
-        # Enable retries and run test_post_activity_tracker_events_all_params.
-        _service.enable_retries()
-        self.test_post_activity_tracker_events_all_params()
-
-        # Disable retries and run test_post_activity_tracker_events_all_params.
-        _service.disable_retries()
-        self.test_post_activity_tracker_events_all_params()
-
-    @responses.activate
-    def test_post_activity_tracker_events_value_error(self):
-        """
-        test_post_activity_tracker_events_value_error()
-        """
-        # Set up mock
-        url = preprocess_url('/_api/v2/user/activity_tracker/events')
-        mock_response = '{"ok": true}'
-        responses.add(
-            responses.POST,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Set up parameter values
-        types = ['management', 'data']
-
-        # Pass in all but one required param and check for a ValueError
-        req_param_dict = {
-            "types": types,
-        }
-        for param in req_param_dict.keys():
-            req_copy = {key: val if key is not param else None for (key, val) in req_param_dict.items()}
-            with pytest.raises(ValueError):
-                _service.post_activity_tracker_events(**req_copy)
-
-    def test_post_activity_tracker_events_value_error_with_retries(self):
-        # Enable retries and run test_post_activity_tracker_events_value_error.
-        _service.enable_retries()
-        self.test_post_activity_tracker_events_value_error()
-
-        # Disable retries and run test_post_activity_tracker_events_value_error.
-        _service.disable_retries()
-        self.test_post_activity_tracker_events_value_error()
-
-
-class TestGetCapacityDatabasesInformation:
-    """
-    Test Class for get_capacity_databases_information
-    """
-
-    @responses.activate
-    def test_get_capacity_databases_information_all_params(self):
-        """
-        get_capacity_databases_information()
-        """
-        # Set up mock
-        url = preprocess_url('/_api/v2/user/capacity/databases')
-        mock_response = '{"current": {"databases": {"total": 0}}}'
-        responses.add(
-            responses.GET,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Invoke method
-        response = _service.get_capacity_databases_information()
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_get_capacity_databases_information_all_params_with_retries(self):
-        # Enable retries and run test_get_capacity_databases_information_all_params.
-        _service.enable_retries()
-        self.test_get_capacity_databases_information_all_params()
-
-        # Disable retries and run test_get_capacity_databases_information_all_params.
-        _service.disable_retries()
-        self.test_get_capacity_databases_information_all_params()
-
-
-class TestGetCurrentDatabasesInformation:
-    """
-    Test Class for get_current_databases_information
-    """
-
-    @responses.activate
-    def test_get_current_databases_information_all_params(self):
-        """
-        get_current_databases_information()
-        """
-        # Set up mock
-        url = preprocess_url('/_api/v2/user/current/databases')
-        mock_response = '{"databases": {"total": 0}}'
-        responses.add(
-            responses.GET,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Invoke method
-        response = _service.get_current_databases_information()
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_get_current_databases_information_all_params_with_retries(self):
-        # Enable retries and run test_get_current_databases_information_all_params.
-        _service.enable_retries()
-        self.test_get_current_databases_information_all_params()
-
-        # Disable retries and run test_get_current_databases_information_all_params.
-        _service.disable_retries()
-        self.test_get_current_databases_information_all_params()
-
-
-class TestGetCurrentThroughputInformation:
-    """
-    Test Class for get_current_throughput_information
-    """
-
-    @responses.activate
-    def test_get_current_throughput_information_all_params(self):
-        """
-        get_current_throughput_information()
-        """
-        # Set up mock
-        url = preprocess_url('/_api/v2/user/current/throughput')
-        mock_response = '{"throughput": {"query": 0, "read": 0, "write": 0}}'
-        responses.add(
-            responses.GET,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Invoke method
-        response = _service.get_current_throughput_information()
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_get_current_throughput_information_all_params_with_retries(self):
-        # Enable retries and run test_get_current_throughput_information_all_params.
-        _service.enable_retries()
-        self.test_get_current_throughput_information_all_params()
-
-        # Disable retries and run test_get_current_throughput_information_all_params.
-        _service.disable_retries()
-        self.test_get_current_throughput_information_all_params()
-
-
-class TestGetMembershipInformation:
-    """
-    Test Class for get_membership_information
-    """
-
-    @responses.activate
-    def test_get_membership_information_all_params(self):
-        """
-        get_membership_information()
-        """
-        # Set up mock
-        url = preprocess_url('/_membership')
-        mock_response = '{"all_nodes": ["all_nodes"], "cluster_nodes": ["cluster_nodes"]}'
-        responses.add(
-            responses.GET,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Invoke method
-        response = _service.get_membership_information()
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_get_membership_information_all_params_with_retries(self):
-        # Enable retries and run test_get_membership_information_all_params.
-        _service.enable_retries()
-        self.test_get_membership_information_all_params()
-
-        # Disable retries and run test_get_membership_information_all_params.
-        _service.disable_retries()
-        self.test_get_membership_information_all_params()
-
-
-class TestGetUpInformation:
-    """
-    Test Class for get_up_information
-    """
-
-    @responses.activate
-    def test_get_up_information_all_params(self):
-        """
-        get_up_information()
-        """
-        # Set up mock
-        url = preprocess_url('/_up')
-        mock_response = '{"cluster": "cluster", "seeds": {"anyKey": "anyValue"}, "status": "maintenance_mode"}'
-        responses.add(
-            responses.GET,
-            url,
-            body=mock_response,
-            content_type='application/json',
-            status=200,
-        )
-
-        # Invoke method
-        response = _service.get_up_information()
-
-        # Check for correct operation
-        assert len(responses.calls) == 1
-        assert response.status_code == 200
-
-    def test_get_up_information_all_params_with_retries(self):
-        # Enable retries and run test_get_up_information_all_params.
-        _service.enable_retries()
-        self.test_get_up_information_all_params()
-
-        # Disable retries and run test_get_up_information_all_params.
-        _service.disable_retries()
-        self.test_get_up_information_all_params()
-
-
-# endregion
-##############################################################################
-# End of Service: Monitoring
-##############################################################################
-
 
 ##############################################################################
 # Start of Model Tests
@@ -15453,6 +15656,9 @@ class TestModel_DesignDocumentInformation:
         content_information_sizes_model['file'] = 0
 
         updates_pending_model = {}  # UpdatesPending
+        updates_pending_model['copies'] = 0
+        updates_pending_model['copies_expected'] = 0
+        updates_pending_model['maximum'] = 0
         updates_pending_model['minimum'] = 0
         updates_pending_model['preferred'] = 0
         updates_pending_model['total'] = 0
@@ -15537,6 +15743,9 @@ class TestModel_DesignDocumentViewIndex:
         content_information_sizes_model['file'] = 0
 
         updates_pending_model = {}  # UpdatesPending
+        updates_pending_model['copies'] = 0
+        updates_pending_model['copies_expected'] = 0
+        updates_pending_model['maximum'] = 0
         updates_pending_model['minimum'] = 0
         updates_pending_model['preferred'] = 0
         updates_pending_model['total'] = 0
@@ -16404,6 +16613,94 @@ class TestModel_IndexField:
         assert actual_dict.keys() == expected_dict.keys()
 
 
+class TestModel_IndexInfoResult:
+    """
+    Test Class for IndexInfoResult
+    """
+
+    def test_index_info_result_serialization(self):
+        """
+        Test serialization/deserialization for IndexInfoResult
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        updates_pending_model = {}  # UpdatesPending
+        updates_pending_model['copies'] = 0
+        updates_pending_model['copies_expected'] = 0
+        updates_pending_model['maximum'] = 0
+        updates_pending_model['minimum'] = 0
+        updates_pending_model['preferred'] = 0
+        updates_pending_model['total'] = 0
+
+        search_index_info_model = {}  # SearchIndexInfo
+        search_index_info_model['committed_seq'] = 0
+        search_index_info_model['disk_size'] = 0
+        search_index_info_model['doc_count'] = 0
+        search_index_info_model['doc_del_count'] = 0
+        search_index_info_model['pending_seq'] = 0
+        search_index_info_model['signature'] = 'testString'
+        search_index_info_model['updates_pending'] = updates_pending_model
+
+        search_index_information_model = {}  # SearchIndexInformation
+        search_index_information_model['ok'] = True
+        search_index_information_model['caused_by'] = 'testString'
+        search_index_information_model['error'] = 'testString'
+        search_index_information_model['reason'] = 'testString'
+        search_index_information_model['ref'] = 0
+        search_index_information_model['ddoc'] = 'testString'
+        search_index_information_model['info'] = search_index_info_model
+        search_index_information_model['name'] = 'testString'
+
+        content_information_sizes_model = {}  # ContentInformationSizes
+        content_information_sizes_model['active'] = 0
+        content_information_sizes_model['external'] = 0
+        content_information_sizes_model['file'] = 0
+
+        design_document_view_index_model = {}  # DesignDocumentViewIndex
+        design_document_view_index_model['collator_versions'] = ['testString']
+        design_document_view_index_model['compact_running'] = True
+        design_document_view_index_model['language'] = 'testString'
+        design_document_view_index_model['signature'] = 'testString'
+        design_document_view_index_model['sizes'] = content_information_sizes_model
+        design_document_view_index_model['updater_running'] = True
+        design_document_view_index_model['updates_pending'] = updates_pending_model
+        design_document_view_index_model['waiting_clients'] = 0
+        design_document_view_index_model['waiting_commit'] = True
+
+        view_index_information_model = {}  # ViewIndexInformation
+        view_index_information_model['ok'] = True
+        view_index_information_model['caused_by'] = 'testString'
+        view_index_information_model['error'] = 'testString'
+        view_index_information_model['reason'] = 'testString'
+        view_index_information_model['ref'] = 0
+        view_index_information_model['ddoc'] = 'testString'
+        view_index_information_model['info'] = design_document_view_index_model
+        view_index_information_model['views'] = ['testString']
+
+        # Construct a json representation of a IndexInfoResult model
+        index_info_result_model_json = {}
+        index_info_result_model_json['bookmark'] = 'testString'
+        index_info_result_model_json['search_indexes'] = [search_index_information_model]
+        index_info_result_model_json['total_rows'] = 0
+        index_info_result_model_json['view_indexes'] = [view_index_information_model]
+
+        # Construct a model instance of IndexInfoResult by calling from_dict on the json representation
+        index_info_result_model = IndexInfoResult.from_dict(index_info_result_model_json)
+        assert index_info_result_model != False
+
+        # Construct a model instance of IndexInfoResult by calling from_dict on the json representation
+        index_info_result_model_dict = IndexInfoResult.from_dict(index_info_result_model_json).__dict__
+        index_info_result_model2 = IndexInfoResult(**index_info_result_model_dict)
+
+        # Verify the model instances are equivalent
+        assert index_info_result_model == index_info_result_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        index_info_result_model_json2 = index_info_result_model.to_dict()
+        assert index_info_result_model_json2 == index_info_result_model_json
+
+
 class TestModel_IndexInformation:
     """
     Test Class for IndexInformation
@@ -16920,9 +17217,16 @@ class TestModel_ReplicationDatabase:
         replication_database_auth_iam_model = {}  # ReplicationDatabaseAuthIam
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        replication_database_auth_ibm_iam_model = {}  # ReplicationDatabaseAuthIBMIam
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        replication_database_auth_ibm_model = {}  # ReplicationDatabaseAuthIBM
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         replication_database_auth_model = {}  # ReplicationDatabaseAuth
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         # Construct a json representation of a ReplicationDatabase model
         replication_database_model_json = {}
@@ -16965,10 +17269,17 @@ class TestModel_ReplicationDatabaseAuth:
         replication_database_auth_iam_model = {}  # ReplicationDatabaseAuthIam
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        replication_database_auth_ibm_iam_model = {}  # ReplicationDatabaseAuthIBMIam
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        replication_database_auth_ibm_model = {}  # ReplicationDatabaseAuthIBM
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         # Construct a json representation of a ReplicationDatabaseAuth model
         replication_database_auth_model_json = {}
         replication_database_auth_model_json['basic'] = replication_database_auth_basic_model
         replication_database_auth_model_json['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model_json['ibm'] = replication_database_auth_ibm_model
 
         # Construct a model instance of ReplicationDatabaseAuth by calling from_dict on the json representation
         replication_database_auth_model = ReplicationDatabaseAuth.from_dict(replication_database_auth_model_json)
@@ -17015,6 +17326,71 @@ class TestModel_ReplicationDatabaseAuthBasic:
         # Convert model instance back to dict and verify no loss of data
         replication_database_auth_basic_model_json2 = replication_database_auth_basic_model.to_dict()
         assert replication_database_auth_basic_model_json2 == replication_database_auth_basic_model_json
+
+
+class TestModel_ReplicationDatabaseAuthIBM:
+    """
+    Test Class for ReplicationDatabaseAuthIBM
+    """
+
+    def test_replication_database_auth_ibm_serialization(self):
+        """
+        Test serialization/deserialization for ReplicationDatabaseAuthIBM
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        replication_database_auth_ibm_iam_model = {}  # ReplicationDatabaseAuthIBMIam
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        # Construct a json representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model_json = {}
+        replication_database_auth_ibm_model_json['iam'] = replication_database_auth_ibm_iam_model
+
+        # Construct a model instance of ReplicationDatabaseAuthIBM by calling from_dict on the json representation
+        replication_database_auth_ibm_model = ReplicationDatabaseAuthIBM.from_dict(replication_database_auth_ibm_model_json)
+        assert replication_database_auth_ibm_model != False
+
+        # Construct a model instance of ReplicationDatabaseAuthIBM by calling from_dict on the json representation
+        replication_database_auth_ibm_model_dict = ReplicationDatabaseAuthIBM.from_dict(replication_database_auth_ibm_model_json).__dict__
+        replication_database_auth_ibm_model2 = ReplicationDatabaseAuthIBM(**replication_database_auth_ibm_model_dict)
+
+        # Verify the model instances are equivalent
+        assert replication_database_auth_ibm_model == replication_database_auth_ibm_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        replication_database_auth_ibm_model_json2 = replication_database_auth_ibm_model.to_dict()
+        assert replication_database_auth_ibm_model_json2 == replication_database_auth_ibm_model_json
+
+
+class TestModel_ReplicationDatabaseAuthIBMIam:
+    """
+    Test Class for ReplicationDatabaseAuthIBMIam
+    """
+
+    def test_replication_database_auth_ibm_iam_serialization(self):
+        """
+        Test serialization/deserialization for ReplicationDatabaseAuthIBMIam
+        """
+
+        # Construct a json representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model_json = {}
+        replication_database_auth_ibm_iam_model_json['api_key'] = 'testString'
+
+        # Construct a model instance of ReplicationDatabaseAuthIBMIam by calling from_dict on the json representation
+        replication_database_auth_ibm_iam_model = ReplicationDatabaseAuthIBMIam.from_dict(replication_database_auth_ibm_iam_model_json)
+        assert replication_database_auth_ibm_iam_model != False
+
+        # Construct a model instance of ReplicationDatabaseAuthIBMIam by calling from_dict on the json representation
+        replication_database_auth_ibm_iam_model_dict = ReplicationDatabaseAuthIBMIam.from_dict(replication_database_auth_ibm_iam_model_json).__dict__
+        replication_database_auth_ibm_iam_model2 = ReplicationDatabaseAuthIBMIam(**replication_database_auth_ibm_iam_model_dict)
+
+        # Verify the model instances are equivalent
+        assert replication_database_auth_ibm_iam_model == replication_database_auth_ibm_iam_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        replication_database_auth_ibm_iam_model_json2 = replication_database_auth_ibm_iam_model.to_dict()
+        assert replication_database_auth_ibm_iam_model_json2 == replication_database_auth_ibm_iam_model_json
 
 
 class TestModel_ReplicationDatabaseAuthIam:
@@ -17090,9 +17466,16 @@ class TestModel_ReplicationDocument:
         replication_database_auth_iam_model = {}  # ReplicationDatabaseAuthIam
         replication_database_auth_iam_model['api_key'] = 'testString'
 
+        replication_database_auth_ibm_iam_model = {}  # ReplicationDatabaseAuthIBMIam
+        replication_database_auth_ibm_iam_model['api_key'] = 'testString'
+
+        replication_database_auth_ibm_model = {}  # ReplicationDatabaseAuthIBM
+        replication_database_auth_ibm_model['iam'] = replication_database_auth_ibm_iam_model
+
         replication_database_auth_model = {}  # ReplicationDatabaseAuth
         replication_database_auth_model['basic'] = replication_database_auth_basic_model
         replication_database_auth_model['iam'] = replication_database_auth_iam_model
+        replication_database_auth_model['ibm'] = replication_database_auth_ibm_model
 
         replication_database_model = {}  # ReplicationDatabase
         replication_database_model['auth'] = replication_database_auth_model
@@ -17126,6 +17509,7 @@ class TestModel_ReplicationDocument:
         replication_document_model_json['http_connections'] = 20
         replication_document_model_json['owner'] = 'testString'
         replication_document_model_json['query_params'] = {'key1': 'testString'}
+        replication_document_model_json['request_compression'] = 'none'
         replication_document_model_json['retries_per_request'] = 5
         replication_document_model_json['selector'] = {'anyKey': 'anyValue'}
         replication_document_model_json['since_seq'] = 'testString'
@@ -17688,6 +18072,16 @@ class TestModel_SearchIndexInfo:
         Test serialization/deserialization for SearchIndexInfo
         """
 
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        updates_pending_model = {}  # UpdatesPending
+        updates_pending_model['copies'] = 0
+        updates_pending_model['copies_expected'] = 0
+        updates_pending_model['maximum'] = 0
+        updates_pending_model['minimum'] = 0
+        updates_pending_model['preferred'] = 0
+        updates_pending_model['total'] = 0
+
         # Construct a json representation of a SearchIndexInfo model
         search_index_info_model_json = {}
         search_index_info_model_json['committed_seq'] = 0
@@ -17696,6 +18090,7 @@ class TestModel_SearchIndexInfo:
         search_index_info_model_json['doc_del_count'] = 0
         search_index_info_model_json['pending_seq'] = 0
         search_index_info_model_json['signature'] = 'testString'
+        search_index_info_model_json['updates_pending'] = updates_pending_model
 
         # Construct a model instance of SearchIndexInfo by calling from_dict on the json representation
         search_index_info_model = SearchIndexInfo.from_dict(search_index_info_model_json)
@@ -17713,6 +18108,62 @@ class TestModel_SearchIndexInfo:
         assert search_index_info_model_json2 == search_index_info_model_json
 
 
+class TestModel_SearchIndexInformation:
+    """
+    Test Class for SearchIndexInformation
+    """
+
+    def test_search_index_information_serialization(self):
+        """
+        Test serialization/deserialization for SearchIndexInformation
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        updates_pending_model = {}  # UpdatesPending
+        updates_pending_model['copies'] = 0
+        updates_pending_model['copies_expected'] = 0
+        updates_pending_model['maximum'] = 0
+        updates_pending_model['minimum'] = 0
+        updates_pending_model['preferred'] = 0
+        updates_pending_model['total'] = 0
+
+        search_index_info_model = {}  # SearchIndexInfo
+        search_index_info_model['committed_seq'] = 0
+        search_index_info_model['disk_size'] = 0
+        search_index_info_model['doc_count'] = 0
+        search_index_info_model['doc_del_count'] = 0
+        search_index_info_model['pending_seq'] = 0
+        search_index_info_model['signature'] = 'testString'
+        search_index_info_model['updates_pending'] = updates_pending_model
+
+        # Construct a json representation of a SearchIndexInformation model
+        search_index_information_model_json = {}
+        search_index_information_model_json['ok'] = True
+        search_index_information_model_json['caused_by'] = 'testString'
+        search_index_information_model_json['error'] = 'testString'
+        search_index_information_model_json['reason'] = 'testString'
+        search_index_information_model_json['ref'] = 0
+        search_index_information_model_json['ddoc'] = 'testString'
+        search_index_information_model_json['info'] = search_index_info_model
+        search_index_information_model_json['name'] = 'testString'
+
+        # Construct a model instance of SearchIndexInformation by calling from_dict on the json representation
+        search_index_information_model = SearchIndexInformation.from_dict(search_index_information_model_json)
+        assert search_index_information_model != False
+
+        # Construct a model instance of SearchIndexInformation by calling from_dict on the json representation
+        search_index_information_model_dict = SearchIndexInformation.from_dict(search_index_information_model_json).__dict__
+        search_index_information_model2 = SearchIndexInformation(**search_index_information_model_dict)
+
+        # Verify the model instances are equivalent
+        assert search_index_information_model == search_index_information_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        search_index_information_model_json2 = search_index_information_model.to_dict()
+        assert search_index_information_model_json2 == search_index_information_model_json
+
+
 class TestModel_SearchInfoResult:
     """
     Test Class for SearchInfoResult
@@ -17725,6 +18176,14 @@ class TestModel_SearchInfoResult:
 
         # Construct dict forms of any model objects needed in order to build this model.
 
+        updates_pending_model = {}  # UpdatesPending
+        updates_pending_model['copies'] = 0
+        updates_pending_model['copies_expected'] = 0
+        updates_pending_model['maximum'] = 0
+        updates_pending_model['minimum'] = 0
+        updates_pending_model['preferred'] = 0
+        updates_pending_model['total'] = 0
+
         search_index_info_model = {}  # SearchIndexInfo
         search_index_info_model['committed_seq'] = 0
         search_index_info_model['disk_size'] = 0
@@ -17732,6 +18191,7 @@ class TestModel_SearchInfoResult:
         search_index_info_model['doc_del_count'] = 0
         search_index_info_model['pending_seq'] = 0
         search_index_info_model['signature'] = 'testString'
+        search_index_info_model['updates_pending'] = updates_pending_model
 
         # Construct a json representation of a SearchInfoResult model
         search_info_result_model_json = {}
@@ -18347,6 +18807,9 @@ class TestModel_UpdatesPending:
 
         # Construct a json representation of a UpdatesPending model
         updates_pending_model_json = {}
+        updates_pending_model_json['copies'] = 0
+        updates_pending_model_json['copies_expected'] = 0
+        updates_pending_model_json['maximum'] = 0
         updates_pending_model_json['minimum'] = 0
         updates_pending_model_json['preferred'] = 0
         updates_pending_model_json['total'] = 0
@@ -18427,6 +18890,69 @@ class TestModel_UuidsResult:
         # Convert model instance back to dict and verify no loss of data
         uuids_result_model_json2 = uuids_result_model.to_dict()
         assert uuids_result_model_json2 == uuids_result_model_json
+
+
+class TestModel_ViewIndexInformation:
+    """
+    Test Class for ViewIndexInformation
+    """
+
+    def test_view_index_information_serialization(self):
+        """
+        Test serialization/deserialization for ViewIndexInformation
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        content_information_sizes_model = {}  # ContentInformationSizes
+        content_information_sizes_model['active'] = 0
+        content_information_sizes_model['external'] = 0
+        content_information_sizes_model['file'] = 0
+
+        updates_pending_model = {}  # UpdatesPending
+        updates_pending_model['copies'] = 0
+        updates_pending_model['copies_expected'] = 0
+        updates_pending_model['maximum'] = 0
+        updates_pending_model['minimum'] = 0
+        updates_pending_model['preferred'] = 0
+        updates_pending_model['total'] = 0
+
+        design_document_view_index_model = {}  # DesignDocumentViewIndex
+        design_document_view_index_model['collator_versions'] = ['testString']
+        design_document_view_index_model['compact_running'] = True
+        design_document_view_index_model['language'] = 'testString'
+        design_document_view_index_model['signature'] = 'testString'
+        design_document_view_index_model['sizes'] = content_information_sizes_model
+        design_document_view_index_model['updater_running'] = True
+        design_document_view_index_model['updates_pending'] = updates_pending_model
+        design_document_view_index_model['waiting_clients'] = 0
+        design_document_view_index_model['waiting_commit'] = True
+
+        # Construct a json representation of a ViewIndexInformation model
+        view_index_information_model_json = {}
+        view_index_information_model_json['ok'] = True
+        view_index_information_model_json['caused_by'] = 'testString'
+        view_index_information_model_json['error'] = 'testString'
+        view_index_information_model_json['reason'] = 'testString'
+        view_index_information_model_json['ref'] = 0
+        view_index_information_model_json['ddoc'] = 'testString'
+        view_index_information_model_json['info'] = design_document_view_index_model
+        view_index_information_model_json['views'] = ['testString']
+
+        # Construct a model instance of ViewIndexInformation by calling from_dict on the json representation
+        view_index_information_model = ViewIndexInformation.from_dict(view_index_information_model_json)
+        assert view_index_information_model != False
+
+        # Construct a model instance of ViewIndexInformation by calling from_dict on the json representation
+        view_index_information_model_dict = ViewIndexInformation.from_dict(view_index_information_model_json).__dict__
+        view_index_information_model2 = ViewIndexInformation(**view_index_information_model_dict)
+
+        # Verify the model instances are equivalent
+        assert view_index_information_model == view_index_information_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        view_index_information_model_json2 = view_index_information_model.to_dict()
+        assert view_index_information_model_json2 == view_index_information_model_json
 
 
 class TestModel_ViewQueriesResult:

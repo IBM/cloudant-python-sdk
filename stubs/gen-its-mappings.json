@@ -2500,6 +2500,103 @@
       "uuid": "6026c807-3ad5-3944-a4cc-6a4906aaefd3"
     },
     {
+      "id": "a1b2c3d4-e5f6-3789-abcd-ef0123456789",
+      "request": {
+        "url": "/testString/_index_info",
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{}",
+            "ignoreArrayOrder": false,
+            "ignoreExtraElements": true
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Cache-Control": "must-revalidate",
+          "Content-Type": "application/json",
+          "Date": "Mon, 23 May 2022 20:24:06 GMT",
+          "Server": "CouchDB/3.2.1 (Erlang OTP/20)",
+          "transaction-id": "a1b2c3d4e5f642406f8d93f1e20e401f",
+          "X-Cloudant-Action": "cloudantnosqldb.any-document.read",
+          "X-Couch-Request-ID": "a1b2c3d4e5",
+          "X-Frame-Options": "DENY",
+          "Strict-Transport-Security": "max-age=31536000",
+          "X-Content-Type-Options": "nosniff",
+          "X-Cloudant-Request-Class": "query",
+          "X-Cloudant-Backend": "bm-cc-us-east-05",
+          "Via": "1.1 lb1.bm-cc-us-east-05 (Glum/1.102.0)",
+          "Vary": "Accept-Encoding"
+        },
+        "jsonBody": {
+          "total_rows": 1,
+          "bookmark": null,
+          "view_indexes": [
+            {
+              "ddoc": "_design/testString",
+              "views": [
+                "testString"
+              ],
+              "ok": true,
+              "info": {
+                "updates_pending": {
+                  "minimum": 0,
+                  "preferred": 0,
+                  "total": 0,
+                  "maximum": 0,
+                  "copies": 24,
+                  "copies_expected": 24
+                },
+                "waiting_commit": false,
+                "waiting_clients": 0,
+                "updater_running": false,
+                "update_seq": 14,
+                "sizes": {
+                  "file": 30623,
+                  "external": 1307,
+                  "active": 2725
+                },
+                "signature": "bedc44e56c2ba97902aeaac2b51ad77c",
+                "purge_seq": 0,
+                "language": "javascript",
+                "compact_running": false,
+                "collator_versions": [
+                  "153.128"
+                ]
+              }
+            }
+          ],
+          "search_indexes": [
+            {
+              "ddoc": "_design/testString",
+              "name": "testString",
+              "ok": true,
+              "info": {
+                "updates_pending": {
+                  "minimum": 0,
+                  "preferred": 0,
+                  "total": 0,
+                  "maximum": 0,
+                  "copies": 24,
+                  "copies_expected": 24
+                },
+                "signature": "f4c96067e9edeafd9afdf2876740b4cb",
+                "pending_seq": 14,
+                "doc_del_count": 0,
+                "doc_count": 11,
+                "disk_size": 14966,
+                "committed_seq": 14
+              }
+            }
+          ],
+          "nouveau_indexes": []
+        }
+      },
+      "uuid": "a1b2c3d4-e5f6-3789-abcd-ef0123456789"
+    },
+    {
       "id": "c8bd56cb-8f5b-3521-80a9-75231b5a5069",
       "request": {
         "urlPath": "/testString/_local/testString",

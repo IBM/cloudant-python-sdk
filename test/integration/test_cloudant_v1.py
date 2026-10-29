@@ -860,6 +860,102 @@ class TestCloudantV1:
         assert all_docs_queries_result is not None
 
     @needscredentials
+    def test_head_up_information(self):
+        response = self.cloudant_service.head_up_information()
+
+        assert response.get_status_code() == 200
+
+    @needscredentials
+    def test_get_active_tasks(self):
+        response = self.cloudant_service.get_active_tasks()
+
+        assert response.get_status_code() == 200
+        list_active_task = response.get_result()
+        assert list_active_task is not None
+
+    @needscredentials
+    def test_get_activity_tracker_events(self):
+        response = self.cloudant_service.get_activity_tracker_events()
+
+        assert response.get_status_code() == 200
+        activity_tracker_events = response.get_result()
+        assert activity_tracker_events is not None
+
+    @needscredentials
+    def test_post_activity_tracker_events(self):
+        response = self.cloudant_service.post_activity_tracker_events(
+            types=['management', 'data'],
+        )
+
+        assert response.get_status_code() == 200
+        ok = response.get_result()
+        assert ok is not None
+
+    @needscredentials
+    def test_get_capacity_databases_information(self):
+        response = self.cloudant_service.get_capacity_databases_information()
+
+        assert response.get_status_code() == 200
+        capacity_databases_information = response.get_result()
+        assert capacity_databases_information is not None
+
+    @needscredentials
+    def test_get_current_databases_information(self):
+        response = self.cloudant_service.get_current_databases_information()
+
+        assert response.get_status_code() == 200
+        current_databases_information = response.get_result()
+        assert current_databases_information is not None
+
+    @needscredentials
+    def test_get_current_throughput_information(self):
+        response = self.cloudant_service.get_current_throughput_information()
+
+        assert response.get_status_code() == 200
+        current_throughput_information = response.get_result()
+        assert current_throughput_information is not None
+
+    @needscredentials
+    def test_get_membership_information(self):
+        response = self.cloudant_service.get_membership_information()
+
+        assert response.get_status_code() == 200
+        membership_information = response.get_result()
+        assert membership_information is not None
+
+    @needscredentials
+    def test_get_up_information(self):
+        response = self.cloudant_service.get_up_information()
+
+        assert response.get_status_code() == 200
+        up_information = response.get_result()
+        assert up_information is not None
+
+    @needscredentials
+    def test_post_index_info(self):
+        response = self.cloudant_service.post_index_info(
+            db='testString',
+            att_encoding_info=False,
+            attachments=False,
+            conflicts=False,
+            descending=False,
+            include_docs=False,
+            inclusive_end=True,
+            limit=0,
+            skip=0,
+            update_seq=False,
+            end_key='testString',
+            key='testString',
+            keys=['_design/cookbook'],
+            start_key='testString',
+            type=['search'],
+        )
+
+        assert response.get_status_code() == 200
+        index_info_result = response.get_result()
+        assert index_info_result is not None
+
+    @needscredentials
     def test_post_view(self):
         response = self.cloudant_service.post_view(
             db='testString',
@@ -1517,10 +1613,19 @@ class TestCloudantV1:
         replication_database_auth_iam_model = {
             'api_key': 'testString',
         }
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {
+            'api_key': 'testString',
+        }
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {
+            'iam': replication_database_auth_ibm_iam_model,
+        }
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {
             'basic': replication_database_auth_basic_model,
             'iam': replication_database_auth_iam_model,
+            'ibm': replication_database_auth_ibm_model,
         }
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {
@@ -1556,6 +1661,7 @@ class TestCloudantV1:
             'http_connections': 10,
             'owner': 'testString',
             'query_params': {'key1': 'testString'},
+            'request_compression': 'gzip',
             'retries_per_request': 3,
             'selector': {'_id': {'$regex': 'docid'}},
             'since_seq': '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU',
@@ -1642,10 +1748,19 @@ class TestCloudantV1:
         replication_database_auth_iam_model = {
             'api_key': 'testString',
         }
+        # Construct a dict representation of a ReplicationDatabaseAuthIBMIam model
+        replication_database_auth_ibm_iam_model = {
+            'api_key': 'testString',
+        }
+        # Construct a dict representation of a ReplicationDatabaseAuthIBM model
+        replication_database_auth_ibm_model = {
+            'iam': replication_database_auth_ibm_iam_model,
+        }
         # Construct a dict representation of a ReplicationDatabaseAuth model
         replication_database_auth_model = {
             'basic': replication_database_auth_basic_model,
             'iam': replication_database_auth_iam_model,
+            'ibm': replication_database_auth_ibm_model,
         }
         # Construct a dict representation of a ReplicationDatabase model
         replication_database_model = {
@@ -1681,6 +1796,7 @@ class TestCloudantV1:
             'http_connections': 10,
             'owner': 'testString',
             'query_params': {'key1': 'testString'},
+            'request_compression': 'gzip',
             'retries_per_request': 3,
             'selector': {'_id': {'$regex': 'docid'}},
             'since_seq': '34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU',
@@ -2001,78 +2117,6 @@ class TestCloudantV1:
         assert response.get_status_code() == 200
         document_shard_info = response.get_result()
         assert document_shard_info is not None
-
-    @needscredentials
-    def test_head_up_information(self):
-        response = self.cloudant_service.head_up_information()
-
-        assert response.get_status_code() == 200
-
-    @needscredentials
-    def test_get_active_tasks(self):
-        response = self.cloudant_service.get_active_tasks()
-
-        assert response.get_status_code() == 200
-        list_active_task = response.get_result()
-        assert list_active_task is not None
-
-    @needscredentials
-    def test_get_activity_tracker_events(self):
-        response = self.cloudant_service.get_activity_tracker_events()
-
-        assert response.get_status_code() == 200
-        activity_tracker_events = response.get_result()
-        assert activity_tracker_events is not None
-
-    @needscredentials
-    def test_post_activity_tracker_events(self):
-        response = self.cloudant_service.post_activity_tracker_events(
-            types=['management', 'data'],
-        )
-
-        assert response.get_status_code() == 200
-        ok = response.get_result()
-        assert ok is not None
-
-    @needscredentials
-    def test_get_capacity_databases_information(self):
-        response = self.cloudant_service.get_capacity_databases_information()
-
-        assert response.get_status_code() == 200
-        capacity_databases_information = response.get_result()
-        assert capacity_databases_information is not None
-
-    @needscredentials
-    def test_get_current_databases_information(self):
-        response = self.cloudant_service.get_current_databases_information()
-
-        assert response.get_status_code() == 200
-        current_databases_information = response.get_result()
-        assert current_databases_information is not None
-
-    @needscredentials
-    def test_get_current_throughput_information(self):
-        response = self.cloudant_service.get_current_throughput_information()
-
-        assert response.get_status_code() == 200
-        current_throughput_information = response.get_result()
-        assert current_throughput_information is not None
-
-    @needscredentials
-    def test_get_membership_information(self):
-        response = self.cloudant_service.get_membership_information()
-
-        assert response.get_status_code() == 200
-        membership_information = response.get_result()
-        assert membership_information is not None
-
-    @needscredentials
-    def test_get_up_information(self):
-        response = self.cloudant_service.get_up_information()
-
-        assert response.get_status_code() == 200
-        up_information = response.get_result()
-        assert up_information is not None
 
     @needscredentials
     def test_delete_database(self):
