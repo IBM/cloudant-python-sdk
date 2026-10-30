@@ -97,12 +97,15 @@ pipeline {
     }
 
     stage('Package') {
+      when {
+        buildingTag()
+      }
       steps {
         packageArtifacts()
       }
     }
 
-    stage('Publish[staging]') {
+    stage('Package and Publish[staging]') {
       when {
         not {
           buildingTag()
@@ -113,6 +116,7 @@ pipeline {
       }
       steps {
         bumpVersion(true)
+        packageArtifacts()
         customizePublishingInfo()
         withEnv(["LIB_NAME=${libName}",
           "TYPE=${buildType}",
@@ -387,24 +391,20 @@ void packageArtifacts() {
 }
 
 void publishStaging() {
-  withEnv(["FLIT_INDEX_URL=${env.STAGE_ROOT}pypi/cloudant-sdks-pypi-local", 'FLIT_USERNAME=' + env.ARTIFACTORY_CREDS_USR, 'FLIT_PASSWORD=' + env.ARTIFACTORY_CREDS_PSW]) {
-    publishFlit()
+  withEnv(["TWINE_REPOSITORY_URL=${env.STAGE_ROOT}pypi/cloudant-sdks-pypi-local", 'TWINE_USERNAME=' + env.ARTIFACTORY_CREDS_USR, 'TWINE_PASSWORD=' + env.ARTIFACTORY_CREDS_PSW]) {
+    publishUpload()
   }
 }
 
 void publishPublic() {
-  withCredentials([usernamePassword(credentialsId: 'pypi', passwordVariable: 'FLIT_PASSWORD', usernameVariable: 'FLIT_USERNAME')]) {
-    publishFlit()
-  }
+  // No-op
+  // This happens via OIDC Trusted Publisher
 }
 
-void publishFlit() {
-  dir('dist') {
-    deleteDir()
-  }
+void publishUpload() {
   sh '''
     python3 --version
-    flit publish --no-use-vcs
+    twine upload dist/*
   '''
 }
 
