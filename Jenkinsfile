@@ -97,12 +97,15 @@ pipeline {
     }
 
     stage('Package') {
+      when {
+        buildingTag()
+      }
       steps {
         packageArtifacts()
       }
     }
 
-    stage('Publish[staging]') {
+    stage('Package and Publish[staging]') {
       when {
         not {
           buildingTag()
@@ -113,6 +116,7 @@ pipeline {
       }
       steps {
         bumpVersion(true)
+        packageArtifacts()
         customizePublishingInfo()
         withEnv(["LIB_NAME=${libName}",
           "TYPE=${buildType}",
