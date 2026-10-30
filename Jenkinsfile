@@ -209,9 +209,7 @@ pipeline {
         beforeAgent true
         allOf {
           buildingTag()
-          anyOf {
-            tag pattern: /${env.SVRE_PRE_RELEASE_TAG}/, comparator: "REGEXP"
-          }
+          tag pattern: /${env.SVRE_PRE_RELEASE_TAG}/, comparator: "REGEXP"
         }
       }
       steps {
@@ -219,6 +217,10 @@ pipeline {
         gitsh('github.com') {
           publishDocs()
         }
+        publishGitHubRelease(
+          tag: env.TAG_NAME,
+          assets: getReleaseAssets(env.TAG_NAME.replaceFirst(/^v(?=${env.SVRE_RELEASE})/,''))
+        )
       }
     }
   }
@@ -238,6 +240,7 @@ def artifactUrl
 def moduleId
 def buildType
 def scanCode
+def getReleaseAssets
 
 void defaultInit() {
   // Default to using bump-my-version
@@ -318,6 +321,10 @@ void defaultInit() {
       sh "${scannerHome}/bin/sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.projectKey=cloudant-${libName}-sdk -Dsonar.exclusions=examples/**"
     }
   }
+
+  getReleaseAssets = { tagVersion ->
+    return []
+  }
 }
 
 // Language specific implementations of the methods:
@@ -340,6 +347,21 @@ void applyCustomizations() {
     buildType = 'GENERIC'
     artifactUrl = "${STAGE_ROOT}storage/cloudant-sdks-pypi-local/ibmcloudant/${env.NEW_SDK_VERSION}"
     moduleId = "ibmcloudant:${env.NEW_SDK_VERSION}"
+  }
+
+  getReleaseAssets = { tagVersion ->
+    return [
+      [
+        name: "ibmcloudant-${tagVersion}.tar.gz",
+        path: "dist/ibmcloudant-${tagVersion}.tar.gz",
+        contentType: 'application/gzip'
+      ],
+      [
+        name: "ibmcloudant-${tagVersion}-py3-none-any.whl",
+        path: "dist/ibmcloudant-${tagVersion}-py3-none-any.whl",
+        contentType: 'application/zip'
+      ]
+    ]
   }
 }
 
