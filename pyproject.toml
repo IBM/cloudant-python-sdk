@@ -7,7 +7,7 @@ name = "ibmcloudant"
 version = "0.11.12"
 description = "Python client library for IBM Cloudant"
 dependencies = [
-  "ibm_cloud_sdk_core==3.28.0",
+  "ibm_cloud_sdk_core==3.28.1",
   "requests>=2.32.4,<3.0.0",
 ]
 authors = [
