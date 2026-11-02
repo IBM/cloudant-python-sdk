@@ -1,5 +1,5 @@
 # build/publish dependencies
-flit==4.1.0
+flit==4.2.0
 twine==7.0.0
 # test dependencies
 pytest==9.1.1
