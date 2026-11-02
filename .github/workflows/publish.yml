@@ -1,0 +1,35 @@
+name: publish
+on:
+  release:
+    types: [published]
+permissions: {}
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      SDK_RELEASE_TAG: ${{ github.event.release.tag_name }}
+    steps:
+    - name: Download release assets
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        mkdir -p dist
+        gh release download "${SDK_RELEASE_TAG}" \
+          --repo ${{ github.repository }} \
+          --pattern "ibmcloudant-${SDK_RELEASE_TAG#v}.tar.gz" \
+          --pattern "ibmcloudant-${SDK_RELEASE_TAG#v}-py3-none-any.whl" \
+          --dir dist
+        for asset in dist/*; do
+          gh release verify-asset "${SDK_RELEASE_TAG}" "${asset}" \
+            --repo ${{ github.repository }}
+        done
+    - name: Setup python 3.15
+      uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+      with:
+        python-version: '3.15'
+        cache: 'pip'
+    - name: Publish to PyPI
+      uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 #v1.14.3
