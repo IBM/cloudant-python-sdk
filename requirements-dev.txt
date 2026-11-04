@@ -2,7 +2,7 @@
 flit==4.2.0
 twine==7.0.0
 # test dependencies
-pytest==9.1.1
+pytest==9.2.0
 responses==0.26.3
 python_dotenv==1.2.4
 pylint==4.1.3
