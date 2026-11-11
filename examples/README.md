@@ -365,7 +365,7 @@ _PUT `/_replicator/{doc_id}`_
 [embedmd]:# (snippets/putReplicationDocument/example_request.py)
 ```py
 # section: code
-from ibmcloudant.cloudant_v1 import CloudantV1, ReplicationDocument, ReplicationDatabase, ReplicationDatabaseAuthIam, ReplicationDatabaseAuth
+from ibmcloudant.cloudant_v1 import CloudantV1, ReplicationDocument, ReplicationDatabase, ReplicationDatabaseAuthIBMIam, ReplicationDatabaseAuthIBM, ReplicationDatabaseAuth
 
 service = CloudantV1.new_instance()
 
@@ -373,11 +373,14 @@ source_db = ReplicationDatabase(
   url='https://~replace-with-source-host~.cloudantnosqldb.appdomain.cloud/animaldb'
 )
 
-target_auth_iam = ReplicationDatabaseAuthIam(
+target_auth_ibm_iam = ReplicationDatabaseAuthIBMIam(
   api_key='a1b2c3d4e5f6f1g4h7j3k6l9m2p5q8s1t4v7x0z3' #use your own IAM API key
 )
+target_auth_ibm = ReplicationDatabaseAuthIBM(
+  iam=target_auth_ibm_iam
+)
 target_auth = ReplicationDatabaseAuth(
-  iam=target_auth_iam
+  ibm=target_auth_ibm
 )
 target_db = ReplicationDatabase(
   auth=target_auth,
