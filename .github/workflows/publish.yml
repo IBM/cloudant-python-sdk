@@ -30,6 +30,5 @@ jobs:
       uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
       with:
         python-version: '3.15'
-        cache: 'pip'
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 #v1.14.3
