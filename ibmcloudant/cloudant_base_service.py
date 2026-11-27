@@ -45,10 +45,6 @@ logger = logging.getLogger(__name__)
 # Ensure warnings are emitted even if a parent logger is set to a higher level
 logger.setLevel(logging.WARNING)
 
-class UnsupportedOperationError(ValueError):
-    """Raised when an operation is unavailable for Gen 2 Cloudant plans."""
-    code = 'CLOUDANT_SDK_UNSUPPORTED_OPERATION'
-
 # Define validations
 class ValidationRule(namedtuple('ValidationRule', ['path_segment_index', 'error_parameter_name', 'operation_ids'])):
     __slots__ = ()
@@ -194,7 +190,7 @@ class CloudantBaseService(BaseService):
                     )
                     logger.warning(message)
                     if is_gen1_error_enabled():
-                        raise UnsupportedOperationError(message)
+                        raise TypeError(message)
                     continue
                 if len(request_url_path_segments) > rule.path_segment_index:
                     segment_to_validate = request_url_path_segments[rule.path_segment_index]

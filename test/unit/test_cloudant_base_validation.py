@@ -19,7 +19,7 @@ import os
 import unittest
 from unittest import mock
 from ibm_cloud_sdk_core.authenticators.no_auth_authenticator import NoAuthAuthenticator
-from ibmcloudant.cloudant_base_service import CLOUDANT_SDK_GEN1_ERRORS, UnsupportedOperationError, gen1_only_rule
+from ibmcloudant.cloudant_base_service import CLOUDANT_SDK_GEN1_ERRORS, gen1_only_rule
 from ibmcloudant.cloudant_v1 import *
 
 class TestValidation(unittest.TestCase):
@@ -93,26 +93,19 @@ class TestGen1OnlyOperations(unittest.TestCase):
         self._set_env('true')
         for operation_id in gen1_only_rule.operation_ids:
             with self.subTest(operation_id=operation_id):
-                with self.assertRaisesRegex(UnsupportedOperationError, operation_id + '.+unavailable for Gen 2'):
+                with self.assertRaisesRegex(TypeError, operation_id + '.+unavailable for Gen 2'):
                     self.service.prepare_request('GET', '/', headers=_operation_headers(operation_id))
 
     def test_raises_from_public_operation_when_enabled(self):
         self._set_env('true')
-        with self.assertRaisesRegex(UnsupportedOperationError, 'get_cors_information.+unavailable for Gen 2'):
+        with self.assertRaisesRegex(TypeError, 'get_cors_information.+unavailable for Gen 2'):
             self.service.get_cors_information()
-
-    def test_error_has_code_and_is_a_value_error(self):
-        self._set_env('true')
-        with self.assertRaises(UnsupportedOperationError) as cm:
-            self.service.get_cors_information()
-        self.assertEqual('CLOUDANT_SDK_UNSUPPORTED_OPERATION', cm.exception.code)
-        self.assertIsInstance(cm.exception, ValueError)
 
     def test_enabled_value_is_case_insensitive(self):
         for value in ('TRUE', 'True', 'tRuE'):
             with self.subTest(value=value):
                 self._set_env(value)
-                with self.assertRaises(UnsupportedOperationError):
+                with self.assertRaises(TypeError):
                     self.service.prepare_request('GET', '/', headers=_operation_headers('get_cors_information'))
 
     def test_does_not_raise_when_not_enabled(self):
