@@ -1477,6 +1477,46 @@ print(response)
 # This example will fail if `getUserByName` index doesn't exist. To create the index, see [Create a new index on a database.](#postindex)
 ```
 
+## postIndexInfo
+
+_POST `/{db}/_index_info`_
+
+### [Example request](snippets/postIndexInfo/example_request.py)
+
+[embedmd]:# (snippets/postIndexInfo/example_request.py)
+```py
+# section: code
+from ibmcloudant.cloudant_v1 import CloudantV1
+
+service = CloudantV1.new_instance()
+
+response = service.post_index_info(
+  db='recipes'
+).get_result()
+
+print(response)
+```
+
+### [Example request with type and keys](snippets/postIndexInfo/example_request_with_type_and_keys.py)
+
+[embedmd]:# (snippets/postIndexInfo/example_request_with_type_and_keys.py)
+```py
+# section: code
+from ibmcloudant.cloudant_v1 import CloudantV1
+
+service = CloudantV1.new_instance()
+
+response = service.post_index_info(
+  db='recipes',
+  keys=['_design/cookbook'],
+  type=['search']
+).get_result()
+
+print(response)
+# section: markdown
+# This example requires the `cookbook` design document to exist with a Cloudant Search index. To create the design document, see [Create or modify a design document.](#putdesigndocument)
+```
+
 ## deleteLocalDocument
 
 _DELETE `/{db}/_local/{doc_id}`_
