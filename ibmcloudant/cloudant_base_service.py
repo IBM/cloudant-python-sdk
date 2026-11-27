@@ -23,6 +23,8 @@ from urllib.parse import urlsplit, unquote
 from json import dumps
 from json.decoder import JSONDecodeError
 from io import BytesIO
+import logging
+import os
 
 from ibm_cloud_sdk_core import BaseService
 from ibm_cloud_sdk_core.authenticators import Authenticator
@@ -36,6 +38,16 @@ from .couchdb_session_authenticator import CouchDbSessionAuthenticator
 # Define timeout values
 CONNECT_TIMEOUT=60
 READ_TIMEOUT=150
+gen2_known_issues_url = 'https://github.com/IBM/cloudant-python-sdk/blob/main/KNOWN_ISSUES.md#cloudant-gen-2-compatibility'
+CLOUDANT_SDK_GEN1_ERRORS = 'CLOUDANT_SDK_GEN1_ERRORS'
+
+logger = logging.getLogger(__name__)
+# Ensure warnings are emitted even if a parent logger is set to a higher level
+logger.setLevel(logging.WARNING)
+
+class UnsupportedOperationError(ValueError):
+    """Raised when an operation is unavailable for Gen 2 Cloudant plans."""
+    code = 'CLOUDANT_SDK_UNSUPPORTED_OPERATION'
 
 # Define validations
 class ValidationRule(namedtuple('ValidationRule', ['path_segment_index', 'error_parameter_name', 'operation_ids'])):
@@ -63,9 +75,25 @@ att_name_rule = ValidationRule(path_segment_index=2, error_parameter_name='Attac
     'head_attachment',
     'put_attachment'
 ])
+gen1_only_rule = ValidationRule(path_segment_index=0, error_parameter_name='', operation_ids= [
+    'get_activity_tracker_events',
+    'get_capacity_databases_information',
+    'get_capacity_throughput_information',
+    'get_cors_information',
+    'get_current_databases_information',
+    'get_current_throughput_information',
+    'post_activity_tracker_events',
+    'post_api_keys',
+    'put_capacity_throughput_configuration',
+    'put_cloudant_security_configuration',
+    'put_cors_configuration',
+])
+def is_gen1_error_enabled() -> bool:
+    return os.environ.get(CLOUDANT_SDK_GEN1_ERRORS, '').lower() == 'true'
+
 rules_by_operation = {}
 # Build the rules_by_operation dict of validation rules
-for rule in [doc_id_rule, att_name_rule]:
+for rule in [doc_id_rule, att_name_rule, gen1_only_rule]:
     for operation_id in rule.operation_ids:
         # Use a mapping of operation_id to an ordered set of rules
         # Since Py3.6 dict is ordered so use a key only dict for our set
@@ -159,6 +187,15 @@ class CloudantBaseService(BaseService):
                 request_url_path_segments = []
             # Note the get returns a value-less dict, we are iterating only the keys
             for rule in rules_by_operation.get(operation_id, {}):
+                if rule == gen1_only_rule:
+                    message = (
+                        f'The operation {operation_id} is unavailable for Gen 2 Cloudant plans. '
+                        f'See {gen2_known_issues_url} for more information.'
+                    )
+                    logger.warning(message)
+                    if is_gen1_error_enabled():
+                        raise UnsupportedOperationError(message)
+                    continue
                 if len(request_url_path_segments) > rule.path_segment_index:
                     segment_to_validate = request_url_path_segments[rule.path_segment_index]
                     if segment_to_validate.startswith('_'):
