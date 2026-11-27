@@ -12,6 +12,9 @@ Instances of Cloudant Gen 2 do not provide some configuration and monitoring API
 Migrating an application using this SDK from Cloudant Gen 1 to Cloudant Gen 2 requires either removing calls to these operations
 or replacing them with alternatives.
 
+If you call an operation that is incompatible with Cloudant Gen 2, the SDK logs a warning.
+Optionally, set the `CLOUDANT_SDK_GEN1_ERRORS` environment variable to `true` to also raise an error. You can use this setting to help test your application before you migrate to a Cloudant Gen 2 plan.
+
 This table summarizes the SDK operations that are incompatible with Cloudant Gen 2 instances and the recommended replacement operations.
 
 | Gen 1 operation | Summary | Gen 1 Endpoint | API docs link | Replacement operation for Gen 2 |
